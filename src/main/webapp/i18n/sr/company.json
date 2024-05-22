@@ -1,0 +1,102 @@
+{
+  "riportalApp": {
+    "company": {
+      "home": {
+        "title": "Companies",
+        "createLabel": "Kreiraj novi Company",
+        "createOrEditLabel": "Kreirajte ili izmenite kompaniju",
+        "createTitleLabel": "Kreirajte kompaniju",
+        "editTitleLabel": "Izmenite kompaniju",
+        "notFound": "No Companies found"
+      },
+      "created": "Kreiran je novi Company pod nazivom {{ param }}",
+      "updated": "Company pod nazivom {{ param }} je ažuriran",
+      "deleted": "Company pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Company pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Company"
+      },
+      "view": {
+        "type": "Tip kompanije",
+        "typeRSNIS": "Tip kompanije sa portala RSNIS",
+        "registrationDate": "Datum registracije",
+        "address": "Adresa",
+        "category": "Kategorija",
+        "badges": "Bedževi"
+      },
+      "createdAt": "Kreirano",
+      "modifiedAt": "Izmenjeno",
+      "rsnisId": "Rsnis ID",
+      "aprId": "Apr ID",
+      "name": "Naziv",
+      "about": "Opis",
+      "fields": "Grane",
+      "portalUser": "Portal User",
+      "advertisement": "Advertisement",
+      "collaborationOffer": "Collaboration Offer",
+      "collaborationRequest": "Collaboration Request",
+      "advertisementSupporter": "Advertisement Supporter",
+      "thread": "Thread",
+      "badge": "Badge",
+      "document": "Document",
+      "documents": "Dokumenti",
+      "gallery": "Galerija",
+      "collaborations": "Saradnje",
+      "createdBy": "Kreirao",
+      "modifiedBy": "Izmenio",
+      "logo": "Logo",
+      "saveLogo": "Sačuvaj logo",
+      "upload": {
+        "imgUpload": "Dodajte slike",
+        "documentUpload": "Dodajte dokumente",
+        "logoUpload": "Dodajte logo",
+        "imgInfo": {
+          "imgNumber": "* Broj slika koje možete dodati je: ",
+          "imgSize": "* Dozvoljena maksimalna veličina slike je 2 mb.",
+          "imgLimit": "Dostignut je maksimalan broj slika (15). Molim Vas uklonite pojedine slike, kako biste mogli da dodate nove."
+        },
+        "documentInfo": {
+          "documentNumber": "* Broj dokumenata koje možete dodati je: ",
+          "documentSize": "* Dozvoljena maksimalna veličina dokumenta je 2 mb.",
+          "documentLimit": "Dostignut je maksimalan broj dokumenata (15). Molim Vas uklonite pojedine dokumente, kako biste mogli da dodate nove."
+        },
+        "currentImg": "Sačuvane slike:",
+        "newImg": "Nove slike:",
+        "currentDoc": "Sačuvani dokumenti:",
+        "newDoc": "Novi dokumenti:",
+        "currentLogo": "Sačuvani logo:",
+        "newLogo": "Novi logo:",
+        "deleteImage": {
+          "question": "Da li ste sigurni da želite da obrišete sliku?",
+          "title": "Potvrdite brisanje slike"
+        },
+        "deleteDocument": {
+          "question": "Da li ste sigurni da želite da obrišete dokument?",
+          "title": "Potvrdite brisanje dokumenta"
+        },
+        "deleteLogo": {
+          "question": "Da li ste sigurni da želite da obrišete logo sliku?",
+          "title": "Potvrdite brisanje logo slike"
+        }
+      },
+      "browseText": "Izaberite",
+      "error": {
+        "imgSize": "Broj slika koji ne može biti dodat je {numberOfBigImages}.<br>Prekoračena ograničenja:<br><ul><li>veličina slike (2mb).</li></ul>",
+        "imgNumber": "Broj slika koji ne može biti dodat je {numberOfLimitImages}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj slika (15).</li></ul>",
+        "imgSize&Number": "Broj slika koji ne može biti dodat je {totalNumberOfImages}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj slika (15).</li><li>veličina slike (2mb).</li></ul>",
+        "documentSize": "Broj dokumenata koji ne može biti dodat je {numberOfBigDocuments}.<br>Prekoračena ograničenja:<br><ul><li>veličina dokumenta (2mb).</li></ul>",
+        "documentNumber": "Broj dokumenata koji ne može biti dodat je {numberOfLimitDocuments}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj dokumenata (15).</li></ul>",
+        "documentSize&Number": "Broj dokumenata koji ne može biti dodat je {totalNumberOfDocuments}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj dokumenata (15).</li><li>veličina dokumenta (2mb).</li></ul>"
+      },
+      "modal": {
+        "advertisementModalTitle": "Stupite u kontakt sa kompanijom "
+      },
+      "interactionButtons": {
+        "message": "Pošalji poruku",
+        "advertisements": "Pogledaj oglase"
+      }
+    }
+  }
+}

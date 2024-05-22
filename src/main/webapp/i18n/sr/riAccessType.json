@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "riAccessType": {
+      "home": {
+        "title": "Vrste pristupa istraživačke infrastrukture",
+        "createLabel": "Kreiraj novu Vrstu pristupa istraživačke infrastrukture",
+        "createOrEditLabel": "Kreirajte ili izmenite Vrstu pristupa istraživačke infrastrukture",
+        "notFound": "Nije pronađena nijedna Vrsta pristupa istraživačke infrastrukture"
+      },
+      "created": "Kreirana je nova Vrsta pristupa istraživačke infrastrukture pod nazivom {{ param }}",
+      "updated": "Vrsta pristupa istraživačke infrastrukture pod nazivom {{ param }} je ažurirana",
+      "deleted": "Vrsta pristupa istraživačke infrastrukture pod nazivom {{ param }} je obrisana",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Vrstu pristupa istraživačke infrastrukture pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Vrsta pristupa istraživačke infrastrukture"
+      },
+      "type": "Tip (srpski)",
+      "typeEn": "Tip (engleski)",
+      "typeCyr": "Tip (srpski ćirilica)",
+      "help": {
+        "type": "physical, virtual, remote"
+      }
+    }
+  }
+}

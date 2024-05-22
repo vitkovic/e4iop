@@ -1,0 +1,28 @@
+{
+  "riportalApp": {
+    "portalUserRole": {
+      "home": {
+        "title": "Portal User Roles",
+        "createLabel": "Create a new Portal User Role",
+        "createOrEditLabel": "Create or edit a Portal User Role",
+        "notFound": "No Portal User Roles found"
+      },
+      "created": "A new Portal User Role is created with identifier {{ param }}",
+      "updated": "A Portal User Role is updated with identifier {{ param }}",
+      "deleted": "A Portal User Role is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Portal User Role with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Portal User Role"
+      },
+      "role": "Role",
+      "abbreviation": "Abbreviation",
+      "fullName": "Full Name",
+      "users": "Users",
+      "help": {
+        "abbreviation": "PA, RPU, RPRIPO, RPRI, RPSI"
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "riportalApp": {
+    "serviceAccreditation": {
+      "home": {
+        "title": "Service Accreditations",
+        "createLabel": "Create new Service Accreditation",
+        "createOrEditLabel": "Create or edit Service Accreditation",
+        "notFound": "No Service Accreditations found"
+      },
+      "created": "A new Service Accreditation is created with identifier {{ param }}",
+      "updated": "A Service Accreditation is updated with identifier {{ param }}",
+      "deleted": "A Service Accreditation is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Service Accreditation with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Service Accreditation"
+      },
+      "status": "Status (Serbian Latin)",
+      "statusEn": "Status (English)",
+      "statusCyr": "Status (Serbian Cyrillic)",
+      "meaning": "Meaning (Serbian Latin)",
+      "meaningEn": "Meaning (English)",
+      "meaningCyr": "Meaning (Serbian Cyrillic)",
+      "help": {
+        "status": "accredited, non-accredited"
+      }
+    }
+  }
+}

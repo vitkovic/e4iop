@@ -1,0 +1,19 @@
+{
+  "login": {
+    "title": "Пријава",
+    "form": {
+      "password": "Лозинка",
+      "password.placeholder": "Лозинка",
+      "rememberme": "Запамти ме",
+      "button": "Пријави ме"
+    },
+    "messages": {
+      "error": {
+        "authentication": "<strong> Пријава је неуспешна!</strong> Корисничко име и/или лозинка нису исправни."
+      }
+    },
+    "password": {
+      "forgot": "Да ли сте заборавили лозинку?"
+    }
+  }
+}

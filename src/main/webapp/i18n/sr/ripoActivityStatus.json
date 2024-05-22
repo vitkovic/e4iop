@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "ripoActivityStatus": {
+      "home": {
+        "title": "Aktivni statusi istraživačke organizacije",
+        "createLabel": "Kreiraj novi Aktivni status istraživačke organizacije",
+        "createOrEditLabel": "Kreirajte ili izmenite Aktivni status istraživačke organizacije",
+        "notFound": "Nije pronađen nijedan Aktivni status istraživačke organizacije"
+      },
+      "created": "Kreiran je novi Aktivni status istraživačke organizacije pod nazivom {{ param }}",
+      "updated": "Aktivni status istraživačke organizacije pod nazivom {{ param }} je ažuriran",
+      "deleted": "Aktivni status istraživačke organizacije pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Aktivni status istraživačke organizacije pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Aktivni status istraživačke organizacije"
+      },
+      "status": "Status (srpski)",
+      "statusEn": "Status (engleski)",
+      "statusCyr": "Status (srpski ćirilica)",
+      "help": {
+        "status": "Active, Temporary non-active, Closed"
+      }
+    }
+  }
+}

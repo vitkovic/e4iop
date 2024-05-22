@@ -1,0 +1,37 @@
+{
+  "riportalApp": {
+    "requestRespond": {
+      "home": {
+        "title": "Odgovor na zahtev",
+        "createLabel": "Kreiranje novog odgovora na zahtev",
+        "createOrEditLabel": "Kreiranje i izmena odgovora na zahtev:",
+        "notFound": "Nije pronađen ni jedan odgovor na zahtev"
+      },
+      "created": "Kreiran je novi odgovor na zahtev sa ID oznakom {{ param }}",
+      "updated": "Odgovor na zahtev sa ID oznakom {{ param }} je ažuriran",
+      "deleted": "Odgovor na zahtev sa ID oznakom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete odgovor na zahtev sa ID oznakom {{ id }}?"
+      },
+      "detail": {
+        "title": "Odgovor na zahtev (ponuda)"
+      },
+      "date": "Datum",
+      "startTime": "Termin početka",
+      "endTime": "Termin završetka",
+      "price": "Cena",
+      "message": "Poruka",
+      "requestForService": "Zahtev za uslugom",
+      "respondsToOffer": "Odgovor na ponudu",
+      "requestAnswer": "Odgovor na zahtev",
+      "calendar": "Kalendar",
+      "help": {
+        "date": "Datum i vreme odgovora na zahtev usluge istraživačke infrastrukture",
+        "startTime": "Datum i vreme početka usluge",
+        "endTime": "Datum i vreme završetka usluge",
+        "price": "Cena tražene usluge u RSD",
+        "message": "Kratak opis razloga za odbijanje ili diskusiju"
+      }
+    }
+  }
+}

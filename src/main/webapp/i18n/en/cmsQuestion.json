@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "cmsQuestion": {
+      "home": {
+        "title": "Cms Questions",
+        "createLabel": "Create a new Cms Question",
+        "createOrEditLabel": "Create or edit a Cms Question",
+        "notFound": "No Cms Questions found"
+      },
+      "created": "A new Cms Question is created with identifier {{ param }}",
+      "updated": "A Cms Question is updated with identifier {{ param }}",
+      "deleted": "A Cms Question is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cms Question {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Question"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "question": "Question",
+      "answer": "Answer",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By"
+    }
+  }
+}

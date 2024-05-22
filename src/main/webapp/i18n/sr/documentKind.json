@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "documentKind": {
+      "home": {
+        "title": "Document Kinds",
+        "createLabel": "Kreiraj novi Document Kind",
+        "createOrEditLabel": "Kreirajte ili izmenite Document Kind",
+        "notFound": "No Document Kinds found"
+      },
+      "created": "Kreiran je novi Document Kind pod nazivom {{ param }}",
+      "updated": "Document Kind pod nazivom {{ param }} je ažuriran",
+      "deleted": "Document Kind pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Document Kind pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Document Kind"
+      },
+      "type": "Type",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "document": "Document"
+    }
+  }
+}

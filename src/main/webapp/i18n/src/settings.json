@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "title": "Подешавања за [<strong>{{username}}</strong>]",
+    "form": {
+      "firstname": "Име",
+      "firstname.placeholder": "Ваше име",
+      "lastname": "Презиме",
+      "lastname.placeholder": "Ваше презиме",
+      "language": "Језик",
+      "button": "Сачувај"
+    },
+    "messages": {
+      "error": {
+        "fail": "<strong>Дошло је до грешке!</strong> Измене не могу бити сачуване.",
+        "emailexists": "<strong>Емаил је већ употребљен!</strong> Молимо Вас одаберите други."
+      },
+      "success": "<strong>Измене су сачуване!</strong>",
+      "validate": {
+        "firstname": {
+          "required": "Име је обавезно.",
+          "minlength": "Име мора имати најмање један карактер.",
+          "maxlength": "Ваше име не може бити дуже од 50 карактера."
+        },
+        "lastname": {
+          "required": "Презиме је обавезно.",
+          "minlength": "Презиме мора имати најмање један карактер.",
+          "maxlength": "Презиме не може бити дуже од 50 карактера."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "advertisementStatus": {
+      "home": {
+        "title": "Advertisement Statuses",
+        "createLabel": "Kreiraj novi Advertisement Status",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Status",
+        "notFound": "No Advertisement Statuses found"
+      },
+      "created": "Kreiran je novi Advertisement Status pod nazivom {{ param }}",
+      "updated": "Advertisement Status pod nazivom {{ param }} je ažuriran",
+      "deleted": "Advertisement Status pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Advertisement Status pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Status"
+      },
+      "status": "Status",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "advertisement": "Advertisement"
+    }
+  }
+}

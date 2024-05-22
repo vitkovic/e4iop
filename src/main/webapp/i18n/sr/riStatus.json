@@ -1,0 +1,30 @@
+{
+  "riportalApp": {
+    "riStatus": {
+      "home": {
+        "title": "Statusi istaživačke infrastrukture",
+        "createLabel": "Kreiraj Status istaživačke infrastrukture",
+        "createOrEditLabel": "Kreirajte ili izmenite Status istaživačke infrastrukture",
+        "notFound": "Nije pronađen nijedan Status istaživačke infrastrukture"
+      },
+      "created": "Kreiran je novi Status istaživačke infrastrukture pod nazivom {{ param }}",
+      "updated": "Status istaživačke infrastrukture pod nazivom {{ param }} je ažuriran",
+      "deleted": "Status istaživačke infrastrukture pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Status istaživačke infrastrukture pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Status istaživačke infrastrukture"
+      },
+      "status": "Status (srpski latinica)",
+      "statusEn": "Status (engleski)",
+      "statusCyr": "Status (srpski ćirilica)",
+      "meaning": "Značenje (srpski latinica)",
+      "meaningEn": "Značenje (engleski)",
+      "meaningCyr": "Značenje (srpski ćirilica)",
+      "help": {
+        "status": "available, temporary unavailable, unavailable"
+      }
+    }
+  }
+}

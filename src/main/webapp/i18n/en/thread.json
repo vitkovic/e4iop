@@ -1,0 +1,51 @@
+{
+  "riportalApp": {
+    "thread": {
+      "home": {
+        "title": "Threads",
+        "createLabel": "Create a new Thread",
+        "createOrEditLabel": "Create or edit a Thread",
+        "notFound": "No threads found"
+      },
+      "created": "A new Thread is created with identifier {{ param }}",
+      "updated": "A Thread is updated with identifier {{ param }}",
+      "deleted": "A Thread is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete this thread?"
+      },
+      "detail": {
+        "title": "Thread"
+      },
+      "subject": "Subject",
+      "message": "Message",
+      "advertisement": "Advertisement",
+      "company": "Company",
+      "messages": "Messages",
+      "filter": {
+        "allnquiries": "All inquiries",
+        "receivedInquiries": "Received inquiries",
+        "sendInquiries": "Send inquiries"
+      },
+      "tableHeader": {
+        "receiver": "Company receiver",
+        "sender": "Company sender",
+        "advertisement": "Advertisement"
+      },
+      "acceptedCollaboration": "Collaboration achieved",
+      "threadButtonGroup": {
+        "confirmCollaboration": "Confirm collaboration",
+        "deleteInquiry": "Delete inquiry"
+      },
+      "messageSection": {
+        "date": "Date:",
+        "sender": "Sender:",
+        "placeholder": "Enter new message..."
+      },
+      "modal": {
+        "title": "Do you want to confirm the request for collaboration?",
+        "advertisement": "Advertisement:",
+        "company": "Company seeking collaboration:"
+      }
+    }
+  }
+}

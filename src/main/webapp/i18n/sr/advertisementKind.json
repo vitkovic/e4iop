@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "advertisementKind": {
+      "home": {
+        "title": "Advertisement Kinds",
+        "createLabel": "Kreiraj novi Advertisement Kind",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Kind",
+        "notFound": "No Advertisement Kinds found"
+      },
+      "created": "Kreiran je novi Advertisement Kind pod nazivom {{ param }}",
+      "updated": "Advertisement Kind pod nazivom {{ param }} je ažuriran",
+      "deleted": "Advertisement Kind pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Advertisement Kind pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Kind"
+      },
+      "kind": "Kind",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "advertisement": "Advertisement"
+    }
+  }
+}

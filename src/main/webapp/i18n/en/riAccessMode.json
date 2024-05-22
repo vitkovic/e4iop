@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "riAccessMode": {
+      "home": {
+        "title": "RI Access Modes",
+        "createLabel": "Create new RI Access Mode",
+        "createOrEditLabel": "Create or edit RI Access Mode",
+        "notFound": "No RI Access Modes found"
+      },
+      "created": "A new RI Access Mode is created with identifier {{ param }}",
+      "updated": "A RI Access Mode is updated with identifier {{ param }}",
+      "deleted": "A Ri Access Mode is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RI Access Mode with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "RI Access Mode"
+      },
+      "mode": "Mode (Serbian Latin)",
+      "modeEn": "Mode (English)",
+      "modeCyr": "Mode (Serbian Cyrillic)",
+      "help": {
+        "mode": "research-driven\nmarket-driven\nfree\nconditionally free\nwide"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "documentType": {
+      "home": {
+        "title": "Document Types",
+        "createLabel": "Kreiraj novi Document Type",
+        "createOrEditLabel": "Kreirajte ili izmenite Document Type",
+        "notFound": "No Document Types found"
+      },
+      "created": "Kreiran je novi Document Type pod nazivom {{ param }}",
+      "updated": "Document Type pod nazivom {{ param }} je ažuriran",
+      "deleted": "Document Type pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Document Type pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Document Type"
+      },
+      "type": "Type",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "document": "Document"
+    }
+  }
+}

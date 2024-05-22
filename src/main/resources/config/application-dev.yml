@@ -23,7 +23,7 @@ spring:
   profiles:
     active: dev
     include:
-      - swagger
+      #- swagger
       # Uncomment to activate TLS for the dev profile
       #- tls
   devtools:
@@ -37,9 +37,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/e4i
-    username: e4i
-    password:
+    url: jdbc:postgresql://localhost:5432/riportal
+    username: riportal
+    password: riportal
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -48,7 +48,7 @@ spring:
     show-sql: true
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
+    contexts: dev
   mail:
     host: localhost
     port: 25
@@ -60,7 +60,7 @@ spring:
     cache: false
 
 server:
-  port: 8080
+  port: 80
 
 # ===================================================================
 # JHipster specific properties
@@ -82,7 +82,7 @@ jhipster:
     allow-credentials: true
     max-age: 1800
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://127.0.0.1:8080
+    base-url: http://127.0.0.1:80
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

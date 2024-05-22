@@ -1,0 +1,101 @@
+{
+  "metrics": {
+    "title": "Метрика апликације",
+    "refresh.button": "Освежи",
+    "updating": "Освежавање...",
+    "jvm": {
+      "title": "ЈВМ метрика",
+      "memory": {
+        "title": "Меморије",
+        "total": "Укупна меморија",
+        "heap": "Heap меморија",
+        "nonheap": "Non-Heap меморија"
+      },
+      "threads": {
+        "title": "Нити",
+        "all": "Све",
+        "runnable": "Runnable",
+        "timedwaiting": "Време чекања",
+        "waiting": "Чекање",
+        "blocked": "Блокирано",
+        "dump": {
+          "title": "Нити",
+          "id": "ИД: ",
+          "blockedtime": "Блокирано време",
+          "blockedcount": "Број блокираних",
+          "waitedtime": "Време чекања",
+          "waitedcount": "Број чекања",
+          "lockname": "Закључај име",
+          "stacktrace": "Stacktrace",
+          "show": "Прикажи Stacktrace",
+          "hide": "Сакриј Stacktrace"
+        }
+      },
+      "gc": {
+        "title": "Garbage collections",
+        "marksweepcount": "Mark Sweep count",
+        "marksweeptime": "Mark Sweep time",
+        "scavengecount": "Scavenge count",
+        "scavengetime": "Scavenge time"
+      },
+      "http": {
+        "title": "ХТТП захтев (догађаји по секунди)",
+        "active": "Активни захтеви:",
+        "total": "Укупно захтева:",
+        "table": {
+          "code": "Шифра",
+          "count": "Број",
+          "mean": "Средња Вредност",
+          "average": "Просек"
+        },
+        "code": {
+          "ok": "ОК",
+          "notfound": "Није нађен",
+          "servererror": "Сервер грешка"
+        }
+      }
+    },
+    "servicesstats": {
+      "title": "Статистика сервиса (време у милисекундама)",
+      "table": {
+        "name": "Service name",
+        "count": "Број",
+        "mean": "Mean",
+        "min": "Min",
+        "max": "Maks",
+        "p50": "p50",
+        "p75": "p75",
+        "p95": "p95",
+        "p99": "p99"
+      }
+    },
+    "cache": {
+      "title": "Keš statistika",
+      "cachename": "Cache name",
+      "hits": "Cache Hits",
+      "misses": "Cache Misses",
+      "gets": "Cache Gets",
+      "puts": "Cache Puts",
+      "removals": "Cache Removals",
+      "evictions": "Cache Evictions",
+      "hitPercent": "Cache Hit %",
+      "missPercent": "Cache Miss %",
+      "averageGetTime": "Average get time (µs)",
+      "averagePutTime": "Average put time (µs)",
+      "averageRemoveTime": "Average remove time (µs)"
+    },
+    "datasource": {
+      "usage": "Потрошња",
+      "title": "DataSource statistika (vreme u milisekundama)",
+      "name": "Pool usage",
+      "count": "Broj",
+      "mean": "Mean",
+      "min": "Min",
+      "max": "Max",
+      "p50": "p50",
+      "p75": "p75",
+      "p95": "p95",
+      "p99": "p99"
+    }
+  }
+}

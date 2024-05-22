@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "researcher": {
+      "home": {
+        "title": "Istraživači",
+        "createLabel": "Kreiraj novog Istraživača",
+        "createOrEditLabel": "Kreirajte ili izmenite Istraživača",
+        "notFound": "Nije pronađen nijedan Istraživač"
+      },
+      "created": "Kreiran je novi Istraživač pod nazivom {{ param }}",
+      "updated": "Istraživač pod nazivom {{ param }} je ažuriran",
+      "deleted": "Istraživač pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Istraživača pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Istraživač"
+      },
+      "firstName": "Ime",
+      "lastName": "Prezime",
+      "middleName": "Srednje ime",
+      "birthDate": "Datum rođenja",
+      "portalUser": "Korisnik na portalu",
+      "institutions": "Institucija"
+    }
+  }
+}

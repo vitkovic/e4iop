@@ -1,0 +1,309 @@
+{
+  "global": {
+    "title": "ORI",
+    "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+    "menu": {
+      "home": "Home",
+      "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "entities": {
+        "main": "Entities",
+        "mainb2b": "B2B portal",
+        "portalUser": "Portal User",
+        "portalUserRole": "Portal user role",
+        "portalUserStatus": "Portal user status",
+        "portalUserOrganization": "Portal organizations",
+        "puoLegalStatus": "Puo Legal Status",
+        "riResearchOrganization": "Portal research organization",
+        "ripoActivityStatus": "Ripo Activity Status",
+        "scientificDomain": "Scientific Domain",
+        "scientificSubdomain": "Scientific Subdomain",
+        "researchInfrastructure": "Reasearch infrastructure",
+        "riStatus": "Ri Status",
+        "riCategory": "Ri Category",
+        "riSubcategory": "Ri Subcategory",
+        "riAccessType": "Ri Access Type",
+        "riAccessMode": "Ri Access Mode",
+        "riService": "Research infrastructure services",
+        "serviceType": "Service Type",
+        "serviceSubtype": "Service Subtype",
+        "serviceAccreditation": "Service Accreditation",
+        "serviceAvailability": "Service Availability",
+        "requestForService": "Service request",
+        "requestRespond": "Request Respond",
+        "requestAnswer": "Request Answer",
+        "serviceOfferRespond": "Service Offer Respond",
+        "answerToOffer": "Answer To Offer",
+        "riServiceStatus": "Ri Service Status",
+        "riProcurementProposal": "New infrastructure proposals",
+        "serviceProposal": "New services proposals",
+        "researcher": "Researcher",
+        "researchInstitution": "Research Institution",
+        "riCalendar": "Ri Calendar",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "offerAccepting": "Offer accepting",
+        "serviceRating": "Service rating",
+        "organizationsStatistic": "Statistics for organizations",
+        "infrastructureStatistic": "Statistics for infrastructures",
+        "serviceStatistic": "Statistics for services",
+        "serviceStatisticNio": "Statistics for services towards organizations",
+        "advertisement": "Advertisement",
+        "advertisementDocuments": "Advertisement Documents",
+        "advertisementImages": "Advertisement Images",
+        "advertisementAdditionalFiles": "Advertisement Additional Files",
+        "company": "Company",
+        "companyLocation": "Company Location",
+        "companyType": "Company Type",
+        "message": "Message",
+        "conversation": "Conversation",
+        "task": "Task",
+        "authenticatedPortalUser": "Authenticated Portal User",
+        "connectedUser": "Connected User",
+        "cmsAdvertisement": "CMS Advertisement",
+        "cmsCompany": "CMS Company",
+        "cmsTask": "CMS Task",
+        "cmsMessage": "CMS Message",
+        "cmsConversation": "CMS Conversation",
+        "historyAdvertisement": "History Advertisement",
+        "historyCompany": "History Company",
+        "historyTask": "History Task",
+        "historyMessage": "History Message",
+        "historyConversation": "History Conversation",
+        "historyPortalUser": "History Portal User",
+        "badge": "Badge",
+        "advertisementSupporter": "Advertisement Supporter",
+        "advertisementStatus": "Advertisement Status",
+        "advertisementDuration": "Advertisement Duration",
+        "advertisementType": "Advertisement Type",
+        "advertisementKind": "Advertisement Kind",
+        "advertisementCategory": "Advertisement Category",
+        "advertisementSubcategory": "Advertisement Subcategory",
+        "advertisementSubsubcategory": "Advertisement Subsubcategory",
+        "collaboration": "Collaboration",
+        "collaborationStatus": "Collaboration Status",
+        "collaborationRating": "Collaboration Rating",
+        "thread": "Thread",
+        "meeting": "Meeting",
+        "meetingParticipant": "Meeting Participant",
+        "meetingType": "Meeting Type",
+        "cmsPage": "Cms Page",
+        "cmsPageType": "Cms Page Type",
+        "cmsTestimonials": "Cms Testimonials",
+        "cmsQuestion": "Cms Question",
+        "cmsSlider": "Cms Slider",
+        "cmsCarousel": "Cms Carousel",
+        "cmsAdvertisementCategory": "Cms Advertisement Category",
+        "document": "Document",
+        "documentType": "Document Type",
+        "documentKind": "Document Kind"
+      },
+      "account": {
+        "main": "Account",
+        "settings": "Settings",
+        "password": "Password",
+        "sessions": "Sessions",
+        "login": "Sign in",
+        "logout": "Sign out",
+        "register": "Register"
+      },
+      "admin": {
+        "main": "Administration",
+        "userManagement": "User management",
+        "tracker": "User tracker",
+        "metrics": "Metrics",
+        "health": "Health",
+        "configuration": "Configuration",
+        "logs": "Logs",
+        "audits": "Audits",
+        "apidocs": "API",
+        "database": "Database",
+        "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+      },
+      "pregled": {
+        "main": "Browse Portal",
+        "search": "Search"
+      },
+      "usluge": {
+        "main": "Services"
+      },
+      "infrastructure": {
+        "main": "Infrastructure"
+      },
+      "report": {
+        "main": "Reports",
+        "availableInfrastructure": "Available infrastructure",
+        "availableServices": "Available services",
+        "infrastructureUsing": "Use of infrastructure",
+        "serviceUsing": "Use of Services",
+        "reportForNewInfrastructure": "Report for new infrastructure",
+        "reportForNewService": "Report for new services"
+      },
+      "portalAdministration": {
+        "main": "Portal administration",
+        "responsiblePersons": "Responsible persons",
+        "databaseBackup": "Database Backup",
+        "repoBackup": "Document Repository Backup",
+        "portalUsers": "Portal Users"
+      },
+      "organizationAdministration": {
+        "main": "Organization administration",
+        "responsiblePersons": "Responsible Persons",
+        "databaseBackup": "Database Backup",
+        "repoBackup": "Document Repository Backup"
+      },
+      "language": "Language"
+    },
+    "form": {
+      "username.label": "Username",
+      "username.or.email.label": "Username or email",
+      "username.placeholder": "Your username",
+      "currentpassword.label": "Current password",
+      "currentpassword.placeholder": "Current password",
+      "newpassword.label": "New password",
+      "newpassword.placeholder": "New password",
+      "confirmpassword.label": "New password confirmation",
+      "confirmpassword.placeholder": "Confirm the new password",
+      "email.label": "Email",
+      "email.placeholder": "Your email",
+      "phone.label": "Phone",
+      "position.label": "Position",
+      "organizationNameSr.label": "Organization Name (Serbian)",
+      "organizationNameEn.label": "Organization Name (English)",
+      "organizationShortName.label": "Organization Short Name",
+      "organizationWebAddress.label": "Organization Web Address",
+      "organizationLegalStatus.label": "Organization Legal Status",
+      "organizationPib.label": "PIB",
+      "organizationMaticniBroj.label": "Identification number",
+      "organizationKeywords.label": "Keywords",
+      "organizationAddress.label": "Organization Address",
+      "organizationAddressPostalCode.label": "Postal Code",
+      "organizationAddressCity.label": "City",
+      "organizationAddressCountry.label": "Country",
+      "firstName.label": "Name",
+      "lastName.label": "Last Name",
+      "podaci.o.novom.korisniku": "New user data"
+    },
+    "messages": {
+      "welcome": "Welcome to the Portal of the Open Research Infrastructure of Serbia",
+      "info": {
+        "authenticated": {
+          "prefix": "If you want to ",
+          "link": "sign in",
+          "suffix": ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
+        },
+        "register": {
+          "noaccount": "You don't have an account yet?",
+          "link": "Register a new account"
+        }
+      },
+      "error": {
+        "dontmatch": "The password and its confirmation do not match!",
+        "upisNijeUspeo": "Data entry failed!"
+      },
+      "validate": {
+        "newpassword": {
+          "required": "Your password is required.",
+          "minlength": "Your password is required to be at least 4 characters.",
+          "maxlength": "Your password cannot be longer than 50 characters.",
+          "strength": "Password strength:"
+        },
+        "confirmpassword": {
+          "required": "Your confirmation password is required.",
+          "minlength": "Your confirmation password is required to be at least 4 characters.",
+          "maxlength": "Your confirmation password cannot be longer than 50 characters."
+        },
+        "email": {
+          "required": "Your email is required.",
+          "invalid": "Your email is invalid.",
+          "minlength": "Your email is required to be at least 5 characters.",
+          "maxlength": "Your email cannot be longer than 50 characters."
+        }
+      }
+    },
+    "field": {
+      "id": "ID"
+    },
+    "ribbon": {
+      "dev": "Development"
+    },
+    "item-count": "Showing {{first}} - {{second}} of {{total}} items."
+  },
+  "entity": {
+    "action": {
+      "addblob": "Add blob",
+      "addimage": "Add image",
+      "back": "Back",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "open": "Open",
+      "save": "Save",
+      "send": "Send",
+      "remove": "Remove",
+      "confirm": "Confirm",
+      "saveLogo": "Save logo",
+      "saveImages": "Save images",
+      "view": "View",
+      "search": "Search",
+      "request": "Request",
+      "vote": "Vote",
+      "summaryView": "Summary view",
+      "zbirniPrikaz": "Service request overview",
+      "readLess": "Read Less",
+      "readMore": "Read More",
+      "saveDocuments": "Save documents"
+    },
+    "detail": {
+      "field": "Field",
+      "value": "Value"
+    },
+    "delete": {
+      "title": "Confirm delete operation",
+      "deleteMessage": "Delete message"
+    },
+    "validation": {
+      "required": "This field is required.",
+      "minlength": "This field is required to be at least {{ min }} characters.",
+      "maxlength": "This field cannot be longer than {{ max }} characters.",
+      "min": "This field should be at least {{ min }}.",
+      "max": "This field cannot be more than {{ max }}.",
+      "minbytes": "This field should be at least {{ min }} bytes.",
+      "maxbytes": "This field cannot be more than {{ max }} bytes.",
+      "pattern": "This field should follow pattern for {{ pattern }}.",
+      "number": "This field should be a number.",
+      "datetimelocal": "This field should be a date and time.",
+      "patternLogin": "This field can only contain letters, digits and e-mail addresses."
+    },
+    "form": {
+      "messageTitle": "Message title:",
+      "messageContent": "Message content:",
+      "validation": {
+        "title": "The message title cannot be empty.",
+        "content": "The message content cannot be empty."
+      }
+    }
+  },
+  "error": {
+    "internalServerError": "Internal server error",
+    "server.not.reachable": "Server not reachable",
+    "url.not.found": "Not found",
+    "NotNull": "Field {{ fieldName }} cannot be empty!",
+    "Size": "Field {{ fieldName }} does not meet min/max size requirements!",
+    "userexists": "Login name already used!",
+    "emailexists": "Email is already in use!",
+    "idexists": "A new {{ entityName }} cannot already have an ID",
+    "idnull": "Invalid ID",
+    "upisNijeUspeo": "Data entry failed",
+    "file": {
+      "could.not.extract": "Could not extract file",
+      "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
+    }
+  },
+  "footer": "This is your footer",
+  "home": {
+    "infrastructures": "Infrastructures",
+    "services": "Services",
+    "organizations": "Organizations",
+    "users": "Users",
+    "text": "The Portal of the Open Research Infrastructure of Serbia aims to collect and display in one place data on the available research infrastructure and the services offered through its use"
+  }
+}

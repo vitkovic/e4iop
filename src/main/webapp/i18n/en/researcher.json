@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "researcher": {
+      "home": {
+        "title": "Researchers",
+        "createLabel": "Create new Researcher",
+        "createOrEditLabel": "Create or edit Researcher",
+        "notFound": "No Researchers found"
+      },
+      "created": "A new Researcher is created with identifier {{ param }}",
+      "updated": "A Researcher is updated with identifier {{ param }}",
+      "deleted": "A Researcher is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Researcher with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Researcher"
+      },
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "middleName": "Middle Name",
+      "birthDate": "Birth Date",
+      "portalUser": "Portal User",
+      "institutions": "Institutions"
+    }
+  }
+}

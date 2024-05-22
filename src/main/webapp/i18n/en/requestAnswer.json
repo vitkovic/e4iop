@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "requestAnswer": {
+      "home": {
+        "title": "Request Answers",
+        "createLabel": "Create a new Request Answer",
+        "createOrEditLabel": "Create or edit a Request Answer",
+        "notFound": "No Request Answers found"
+      },
+      "created": "A new Request Answer is created with identifier {{ param }}",
+      "updated": "A Request Answer is updated with identifier {{ param }}",
+      "deleted": "A Request Answer is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Request Answer {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Answer"
+      },
+      "answer": "Request answer (Serbian Latin)",
+      "answerEn": "Request answer (English)",
+      "answerCyr": "Request answer (Serbian Cyrillic)",
+      "help": {
+        "answer": "Request accepted, Request denied, Request should be discussed"
+      }
+    }
+  }
+}

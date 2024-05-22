@@ -1,0 +1,43 @@
+{
+  "riportalApp": {
+    "portalUser": {
+      "home": {
+        "title": "Korisnici portala",
+        "createLabel": "Kreiranje novog korisnika portala",
+        "createOrEditLabel": "Kreiranje i izmena korisnika portala",
+        "notFound": "Nije pronađen ni jedan korisnik portala",
+        "userRoles": "Uloge korisnika",
+        "saId": " sa ID oznakom {{ param }}"
+      },
+      "created": "Kreiran je novi korisnik portala sa ID oznakom {{ param }}",
+      "updated": "Korisnik portala sa ID oznakom {{ param }} je ažuriran",
+      "deleted": "Korisnik portala sa ID oznakom  {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete korisnika portala sa ID oznakom {{ id }}?"
+      },
+      "detail": {
+        "title": "Korisnik portala"
+      },
+      "firstName": "Ime",
+      "familyName": "Prezime",
+      "phone": "Telefon",
+      "position": "Pozicija",
+      "researcher": "Istraživač",
+      "managedOrganization": "Menadžer za organizaciju",
+      "contactOrganization": "Kontakt za organizaciju",
+      "managedInfrastructure": "Menadžer za infrastrukturu",
+      "contactInfrastructure": "Kontakt za infrastrukturu",
+      "requests": "Захтеви",
+      "calendars": "Kalendari",
+      "riProposals": "Ri Proposals",
+      "serviceProposals": "Predlozi za istraživačke infrastrukture",
+      "portalUserRoles": "Uloge na portalu",
+      "userOrganization": "Organizacija korisnika",
+      "researcherChoicePossibility": "Organizacija nije istraživačka. Izbor istraživača nije moguć.",
+      "activateUserRoles": {
+        "title": "Aktivacija korisnika i definisanje uloga",
+        "checkboxTitle": "Slanje aktivacionog mejla"
+      }
+    }
+  }
+}

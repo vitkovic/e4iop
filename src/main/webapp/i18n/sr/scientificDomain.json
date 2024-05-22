@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "scientificDomain": {
+      "home": {
+        "title": "Naučni domeni",
+        "createLabel": "Kreiraj novi Naučni domen",
+        "createOrEditLabel": "Kreirajte ili izmenite Naučni domen",
+        "notFound": "Nije pronađen nijedan Naučni domen"
+      },
+      "created": "Kreiran je novi Naučni domen pod nazivom {{ param }}",
+      "updated": "Naučni domen pod nazivom {{ param }} je ažuriran",
+      "deleted": "Naučni domen pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Naučni domen pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Naučni domen"
+      },
+      "domain": "Domen (srpski latinica)",
+      "domainEn": "Domen (engleski)",
+      "domainCyr": "Domen (srpski ćirilica)",
+      "subdomains": "Poddomeni"
+    }
+  }
+}

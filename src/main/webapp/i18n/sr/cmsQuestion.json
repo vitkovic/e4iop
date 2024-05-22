@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "cmsQuestion": {
+      "home": {
+        "title": "Cms Questions",
+        "createLabel": "Kreiraj novi Cms Question",
+        "createOrEditLabel": "Kreirajte ili izmenite Cms Question",
+        "notFound": "No Cms Questions found"
+      },
+      "created": "Kreiran je novi Cms Question pod nazivom {{ param }}",
+      "updated": "Cms Question pod nazivom {{ param }} je ažuriran",
+      "deleted": "Cms Question pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Cms Question pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Question"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "question": "Question",
+      "answer": "Answer",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By"
+    }
+  }
+}

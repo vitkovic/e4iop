@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "scientificDomain": {
+      "home": {
+        "title": "Scientific Domains",
+        "createLabel": "Create new Scientific Domain",
+        "createOrEditLabel": "Create or edit a Scientific Domain",
+        "notFound": "No Scientific Domains found"
+      },
+      "created": "A new Scientific Domain is created with identifier {{ param }}",
+      "updated": "A Scientific Domain is updated with identifier {{ param }}",
+      "deleted": "A Scientific Domain is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Scientific Domain with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Scientific Domain"
+      },
+      "domain": "Domain (Serbian Latin)",
+      "domainEn": "Domain (English)",
+      "domainCyr": "Domain (Serbian Cyrillic)",
+      "subdomains": "Subdomains"
+    }
+  }
+}

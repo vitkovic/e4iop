@@ -1,0 +1,48 @@
+{
+  "register": {
+    "title": "Registracija",
+    "form": {
+      "button": "Registruj me",
+      "prikaziNovuOrganizaciju": "Unesi novu organizaciju",
+      "prikaziPostojeceOrganizacije": "Izaberi postojeću organizaciju",
+      "podaciNisuUneti": "U cilju praćenja upotrebe portala potrebno je da unesete svoju organizaciju.<p> Organizaciju možete izabrati iz padajuće liste, ako je već ranije uneta, ili možete uneti podatke o novoj organizaciji.",
+      "maticniBrojLength": "U cilju praćenja upotrebe portala potrebno je da unesete svoju organizaciju.<p> Organizaciju možete izabrati iz padajuće liste, ako je već ranije uneta, ili možete uneti podatke o novoj organizaciji. Prilikom unosa matičnog broja vodite računa da taj podatak sadrži osam cifara. ",
+      "maticniBrojObavezanUnos": "U cilju praćenja upotrebe portala potrebno je da unesete svoju organizaciju.<p> Organizaciju možete izabrati iz padajuće liste, ako je već ranije uneta, ili možete uneti podatke o novoj organizaciji. Prilikom unosa organizacije mora se uneti njen matični broj. ",
+      "pibLength": "U cilju praćenja upotrebe portala potrebno je da unesete svoju organizaciju.<p> Organizaciju možete izabrati iz padajuće liste, ako je već ranije uneta, ili možete uneti podatke o novoj organizaciji. Prilikom unosa PIB-a vodite računa da taj podatak sadrži devet cifara. ",
+      "pibObavezanUnos": "U cilju praćenja upotrebe portala potrebno je da unesete svoju organizaciju.<p> Organizaciju možete izabrati iz padajuće liste, ako je već ranije uneta, ili možete uneti podatke o novoj organizaciji. Prilikom unosa organizacije mora se uneti PIB. ",
+      "OcistiOrganizaciju": "Uklonite postojeću organizaciju",
+      "buttonup": "Gore",
+      "buttondown": "Dole"
+    },
+    "organizationfound": "Organizacija sa brojem {{ param }} je pronađena u bazi na internetu.",
+    "organizationfounddb": "Organizacija sa brojem {{ param }} je pronađena u bazi aplikacije.",
+    "researchersfounddb": "{{param}} Istraživača je pronađeno za odabranu instituciju.",
+    "researchersNOTfounddb": "Trenutno, nema povezanih istraživača za odabranu instituciju.",
+    "companyForInstitutionNOTfounddb": "Kompanija registrovana u bazi za odabranu instituciju nije pronađena.<br/>Biće dodata tokom registracije.",
+    "loadingdata": "Podaci se učitavaju.",
+    "organizationNOTfound": "Organizacija sa brojem {{ param }} nije pronađena.",
+    "OrganizationTitle": "Forma za promenu postojeće ili za kreiranje nove organizacije",
+    "chooseInstitution": "Odaberi istraživačku organizaciju",
+    "chooseResearcher": "Odaberi istraživača",
+    "vasaOrganizacija": "Izaberite organizaciju, ako je već uneta",
+    "unosBroj": "Unesite Matični broj organizacije ili PIB",
+    "naslovOrganizacija": "Unesite ili odaberite odgovarajuću organizaciju",
+    "organizacija": "Organizacija",
+    "messages": {
+      "validate": {
+        "login": {
+          "required": "Korisničko ime je obavezno.",
+          "minlength": "Korisničko ime mora imati najmanje jedan karakter.",
+          "maxlength": "Korisničko ime ne može biti duže od 50 karaktera.",
+          "pattern": "Korisničko ime je neispravno."
+        }
+      },
+      "success": "<strong>Registracija je uspešna!</strong> Molimo Vas proverite svoj email kako biste je potvrdili.",
+      "error": {
+        "fail": "<strong>Registracija je neuspešna!</strong> Molimo Vas pokušajte kasnije.",
+        "userexists": "<strong>Korisničko ime već postoji!</strong> Molimo Vas odaberite drugo.",
+        "emailexists": "<strong>Email je već upotrebljen!</strong> Molimo Vas odaberite drugi."
+      }
+    }
+  }
+}

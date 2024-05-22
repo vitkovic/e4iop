@@ -1,0 +1,32 @@
+{
+  "riportalApp": {
+    "serviceOfferRespond": {
+      "home": {
+        "title": "Service Offer Responds",
+        "createLabel": "Create new Service Offer Respond",
+        "createOrEditLabel": "Create or edit Service Offer Respond",
+        "notFound": "No Service Offer Responds found"
+      },
+      "created": "A new Service Offer Respond is created with identifier {{ param }}",
+      "updated": "A Service Offer Respond is updated with identifier {{ param }}",
+      "deleted": "A Service Offer Respond is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Service Offer Respond with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Service Offer Respond",
+        "forRequest": "for request"
+      },
+      "date": "Date",
+      "description": "Description",
+      "offerAnswer": "Offer Answer",
+      "requestAnswer": "Request Answer",
+      "respondsToRequest": "Responds To Request",
+      "notExists": "There is no response to this offer.",
+      "help": {
+        "date": "Date and time of submission of respond to offer for RI service",
+        "description": "Description of reasons for denial or discussion"
+      }
+    }
+  }
+}

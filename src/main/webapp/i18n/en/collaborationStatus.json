@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "collaborationStatus": {
+      "home": {
+        "title": "Collaboration Statuses",
+        "createLabel": "Create a new Collaboration Status",
+        "createOrEditLabel": "Create or edit a Collaboration Status",
+        "notFound": "No Collaboration Statuses found"
+      },
+      "created": "A new Collaboration Status is created with identifier {{ param }}",
+      "updated": "A Collaboration Status is updated with identifier {{ param }}",
+      "deleted": "A Collaboration Status is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Collaboration Status {{ id }}?"
+      },
+      "detail": {
+        "title": "Collaboration Status"
+      },
+      "status": "Status",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "collaboration": "Collaboration"
+    }
+  }
+}

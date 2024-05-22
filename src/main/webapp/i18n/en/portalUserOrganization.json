@@ -1,0 +1,54 @@
+{
+  "riportalApp": {
+    "portalUserOrganization": {
+      "home": {
+        "title": "Portal User Organizations",
+        "createLabel": "Create new Portal User Organization",
+        "createOrEditLabel": "Create or edit Portal User Organization",
+        "notFound": "No Portal User Organizations found"
+      },
+      "created": "A new Portal User Organization is created with identifier {{ param }}",
+      "updated": "A Portal User Organization is updated with identifier {{ param }}",
+      "deleted": "A Portal User Organization is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Portal User Organization with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Portal User Organization"
+      },
+      "legalNameSr": "Legal name (Serbian Latin)",
+      "legalNameEn": "Legal name (English)",
+      "legalNameSrCyr": "Legal name (Serbian Cyrillic)",
+      "legalName": "Legal name",
+      "shortName": "Short name",
+      "webAddress": "Web address",
+      "pib": "PIB",
+      "pibRequired": "PIB is required",
+      "registrationNumberRequired": "Registration number is required",
+      "registrationNumber": "Registration number",
+      "keywords": "Keywords",
+      "address": "Address",
+      "postalCode": "Postal code",
+      "city": "City",
+      "country": "Country",
+      "portalUsers": "Portal users",
+      "requests": "Requests",
+      "legalStatus": "Legal status",
+      "researchOrganization": "Research organization",
+      "help": {
+        "legalNameSr": "Legal name of PUO in Serbian",
+        "legalNameEn": "Legal name of PUO in English",
+        "shortName": "Short name - abbreviation",
+        "pib": "Tax identification number",
+        "registrationNumber": "registration number (matični broj) assigned by Statistical Office of the Republic of Serbia",
+        "keywords": "Keywords related to PUO. Used for search function of the portal",
+        "address": "Streat name and number of the PUO",
+        "country": "Default value Serbia",
+        "errors": {
+          "registrationNumberAlreadyExists": "The organization with entered ID number already exists on the portal.",
+          "pibAlreadyExists": "The organization with entered PIB already exists on the portal."
+        }
+      }
+    }
+  }
+}

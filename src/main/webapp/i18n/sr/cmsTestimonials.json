@@ -1,0 +1,28 @@
+{
+  "riportalApp": {
+    "cmsTestimonials": {
+      "home": {
+        "title": "Cms Testimonials",
+        "createLabel": "Kreiraj novi Cms Testimonials",
+        "createOrEditLabel": "Kreirajte ili izmenite Cms Testimonials",
+        "notFound": "No Cms Testimonials found"
+      },
+      "created": "Kreiran je novi Cms Testimonials pod nazivom {{ param }}",
+      "updated": "Cms Testimonials pod nazivom {{ param }} je ažuriran",
+      "deleted": "Cms Testimonials pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Cms Testimonials pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Testimonials"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "title": "Title",
+      "content": "Content",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "image": "Image"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "riportalApp": {
+    "scientificSubdomain": {
+      "home": {
+        "title": "Scientific Subdomains",
+        "createLabel": "Create new Scientific Subdomain",
+        "createOrEditLabel": "Create or edit Scientific Subdomain",
+        "notFound": "No Scientific Subdomains found"
+      },
+      "created": "A new Scientific Subdomain is created with identifier {{ param }}",
+      "updated": "A Scientific Subdomain is updated with identifier {{ param }}",
+      "deleted": "A Scientific Subdomain is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Scientific Subdomain with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Scientific Subdomain"
+      },
+      "subdomain": "Subdomain (Serbian Latin)",
+      "subdomainEn": "Subdomain (English)",
+      "subdomainCyr": "Subdomain (Serbian Cyrillic)",
+      "domain": "Domain",
+      "organizations": "Organizations",
+      "infrastructures": "Infrastructures",
+      "services": "Services"
+    }
+  }
+}

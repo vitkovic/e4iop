@@ -1,0 +1,30 @@
+{
+  "riportalApp": {
+    "cmsCarousel": {
+      "home": {
+        "title": "Cms Carousels",
+        "createLabel": "Create a new Cms Carousel",
+        "createOrEditLabel": "Create or edit a Cms Carousel",
+        "notFound": "No Cms Carousels found"
+      },
+      "created": "A new Cms Carousel is created with identifier {{ param }}",
+      "updated": "A Cms Carousel is updated with identifier {{ param }}",
+      "deleted": "A Cms Carousel is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cms Carousel {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Carousel"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "title": "Title",
+      "link": "Link",
+      "newTab": "New Tab",
+      "ordinalNumber": "Ordinal Number",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "image": "Image"
+    }
+  }
+}

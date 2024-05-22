@@ -1,0 +1,31 @@
+{
+  "home": {
+    "title": "Welcome, Java Hipster!",
+    "title1": "Portal of open research infrastructure of Serbia",
+    "pregledajte": "Browse and search the research infrastructure of Serbia",
+    "saznajVise": "Find out more...",
+    "footerText": "The portal of the open research infrastructure of Serbia aims to present in one place data on the available research infrastructure located in scientific, research and other organizations, including business organizations.",
+    "oProjektu": "About project",
+    "politikaPrivatnosti": "Privacy policy",
+    "uputstvoZaUpotrebu": "User guide",
+    "kontaktIPodsrka": "Contact and support",
+
+    "subtitle": "This is your homepage",
+    "logged": {
+      "message": "You are logged in as user \"{{username}}\"."
+    },
+    "question": "If you have any question on JHipster:",
+    "link": {
+      "homepage": "JHipster homepage",
+      "stackoverflow": "JHipster on Stack Overflow",
+      "bugtracker": "JHipster bug tracker",
+      "chat": "JHipster public chat room",
+      "follow": "follow @jhipster on Twitter"
+    },
+    "like": "If you like JHipster, don't forget to give us a star on",
+    "github": "GitHub",
+    "infrastructure": "INFRASTRUCTURE",
+    "services": "SERVICES",
+    "organizations": "ORGANIZATIONS"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "riportalApp": {
+    "requestForService": {
+      "home": {
+        "title": "Request For Services",
+        "createLabel": "Create new Request For Service",
+        "createOrEditLabel": "Create or edit Request For Service",
+        "notFound": "No Request For Services found"
+      },
+      "created": "A new Request For Service is created with identifier {{ param }}",
+      "updated": "A Request For Service is updated with identifier {{ param }}",
+      "deleted": "A Request For Service is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Request For Service with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Request For Service"
+      },
+      "date": "Date",
+      "request": "Request",
+      "title": "Title",
+      "description": "Description",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "deadline": "Deadline",
+      "respond": "Respond",
+      "services": "Services",
+      "user": "User",
+      "seeker": "Service seeker",
+      "seekerOrganization": "Organization of service seeker",
+      "organizations": "Organizations",
+      "rating": "Rating",
+      "notExists": "There is still no answer for this request.",
+      "help": {
+        "description": "Short description of the required service including quantity",
+        "startTime": "Preferred service start date and time",
+        "endTime": "Preferred service end date and time",
+        "deadline": "The latest date by which service should be completed"
+      },
+      "offer": "Ponuda"
+    }
+  }
+}

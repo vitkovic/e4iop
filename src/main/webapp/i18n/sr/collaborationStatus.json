@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "collaborationStatus": {
+      "home": {
+        "title": "Collaboration Statuses",
+        "createLabel": "Kreiraj novi Collaboration Status",
+        "createOrEditLabel": "Kreirajte ili izmenite Collaboration Status",
+        "notFound": "No Collaboration Statuses found"
+      },
+      "created": "Kreiran je novi Collaboration Status pod nazivom {{ param }}",
+      "updated": "Collaboration Status pod nazivom {{ param }} je ažuriran",
+      "deleted": "Collaboration Status pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Collaboration Status pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Collaboration Status"
+      },
+      "status": "Status",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "collaboration": "Collaboration"
+    }
+  }
+}

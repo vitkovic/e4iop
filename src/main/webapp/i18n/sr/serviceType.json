@@ -1,0 +1,24 @@
+{
+  "riportalApp": {
+    "serviceType": {
+      "home": {
+        "title": "Tipovi usluge",
+        "createLabel": "Kreiraj novi Tip usluge",
+        "createOrEditLabel": "Kreirajte ili izmenite Tip usluge",
+        "notFound": "Nije pronađen nijedan Tip usluge"
+      },
+      "created": "Kreiran je novi Tip usluge pod nazivom {{ param }}",
+      "updated": "Tip usluge pod nazivom {{ param }} je ažuriran",
+      "deleted": "Tip usluge pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Tip usluge pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Tip usluge"
+      },
+      "type": "Tip (srpski latinica)",
+      "typeEn": "Tip (engleski)",
+      "typeCyr": "Tip (srpski ćirilica)"
+    }
+  }
+}

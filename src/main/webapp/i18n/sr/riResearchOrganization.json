@@ -1,0 +1,42 @@
+{
+  "riportalApp": {
+    "riResearchOrganization": {
+      "home": {
+        "title": "Istraživačke organizacija na portalu",
+        "createLabel": "Kreiranje nove Istraživačke organizacije",
+        "createOrEditLabel": "Kreiranje i izmena Istraživačke organizacije",
+        "notFound": "Nije pronađena nijedna Istraživačka organizacija"
+      },
+      "created": "Kreirana je nova Istraživačka organizacija sa ID oznakom {{ param }}",
+      "updated": "Istraživačka organizacija sa ID oznakom {{ param }} je ažurirana",
+      "deleted": "Istraživačka organizacija sa ID oznakom {{ param }} je obrisana",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Istraživačku organizaciju sa ID oznakom {{ id }}?"
+      },
+      "detail": {
+        "title": "Istraživačka organizacija na portalu"
+      },
+      "name": "Naziv",
+      "descriptionSr": "Opis (srpski latinica)",
+      "decsriptionEn": "Opis (engleski)",
+      "descriptionSrCyr": "Opis (srpski ćirilica)",
+      "logo": "Logo",
+      "puOrganization": "Organizacija na portalu",
+      "researchInstitution": "Istraživačka institucija",
+      "infrastructures": "Infrastruktura",
+      "activityStatus": "Stanje organizacije",
+      "subdomains": "Poddomeni",
+      "manager": "Menadžer",
+      "contactPerson": "Osoba za kontakt",
+      "help": {
+        "name": "Pun pravni naziv istraživačke organizacije",
+        "logo": "Link za logo"
+      },
+      "errors": {
+        "nioMustBeUnique": "Za izabranu NIO već postoji kreirana RIPO.",
+        "puoMustBeUnique": "Za izabranu organizaciju na portalu već postoji kreirana RIPO",
+        "notAuthorized": "Nemate potrebne dozvole za obavljanje ove operacije."
+      }
+    }
+  }
+}

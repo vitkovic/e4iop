@@ -1,0 +1,28 @@
+{
+  "riportalApp": {
+    "requestAnswer": {
+      "home": {
+        "title": "Vrste odgovora na zahtev",
+        "createLabel": "Kreiranje nove Vrste odgovora na zahtev",
+        "createOrEditLabel": "Kreiranje i izmena Vrste odgovora na zahtev",
+        "notFound": "Nije pronađena nijedna Vrsta odgovora na zahtev"
+      },
+      "created": "Kreirana je nova Vrsta odgovora na zahtev pod nazivom {{ param }}",
+      "updated": "Vrsta odgovora na zahtev pod nazivom {{ param }} je ažuriran",
+      "deleted": "Vrsta odgovora na zahtev pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Vrstu odgovora na zahtev pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Vrsta odgovora na zahtev"
+      },
+      "answer": "Vrsta odgovora na zahtev (latinica)",
+      "answerEn": "Vrsta odgovora na zahtev (engleski)",
+      "answerCyr": "Vrsta odgovora na zahtev (ćirilica)",
+
+      "help": {
+        "answer": "Request accepted, Request denied, Request should be discussed"
+      }
+    }
+  }
+}

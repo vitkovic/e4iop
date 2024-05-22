@@ -1,0 +1,71 @@
+{
+  "riportalApp": {
+    "riService": {
+      "home": {
+        "title": "Услуге истраживачке инфраструктуре",
+        "createLabel": "Креирање нове услуге",
+        "createOrEditLabel": "Креирање и измена услуге",
+        "notFound": "Није пронажена ниједна услуга истраживачке инфраструктуре"
+      },
+      "created": "Креирана је нова услуга са ИД ознаком  {{ param }}",
+      "updated": "Услуга са ИД ознаком {{ param }} je ажурирана",
+      "deleted": "Услуга са ИД ознаком {{ param }} je обрисана",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете услугу са ИД ознаком {{ id }}?"
+      },
+      "detail": {
+        "title": "Услуга истраживачке инфраструктуре"
+      },
+      "nameSr": "Назив",
+      "nameEn": "Назив (енглески)",
+      "nameSrCyr": "Назив",
+      "descriptionSr": "Опис",
+      "descriptionEn": "Опис (енглески)",
+      "descriptionSrCyr": "Опис",
+      "keywords": "Кључне речи (српски)",
+      "keywordsEn": "Кључне речи (енглески)",
+      "keywordsNoLanguage": "Кључне речи",
+      "enterScientificDomain": "Изаберите научни домен",
+      "enterKeywords": "Унесите кључне речи",
+      "accreditationOrganizationName": "Назив организације за акредитацију",
+      "termsOfUseSr": "Услови коришћења",
+      "termsOfUseEn": "Услови коришћења (енглески)",
+      "termsOfUseSrCyr": "Услови коришћења",
+      "privacyPolicySr": "Правила приватности",
+      "privacyPolicyEn": "Правила приватности (енглескИ)",
+      "accessPolicySr": "Политика приступа (енглески)",
+      "accessPolicyEn": "Политика приступа (енглески)",
+      "accessPolicySrCyr": "Политика приступа",
+      "pricingPolicySr": "Политика цена",
+      "pricingPolicyEn": "Политика цена (енглески)",
+      "pricingPolicySrCyr": "Политика цена",
+      "requests": "Захтеви",
+      "calendars": "Календари",
+      "availability": "Расположивост",
+      "accredation": "Акредитација",
+      "subtypes": "Подтипови",
+      "subdomains": "Поддомени",
+      "researchInfrastructure": "Истраживачка инфраструктура",
+      "help": {
+        "termsOfUseSr": "Линк до документа Услови коришћења (српски)",
+        "termsOfUseEn": "Линк до документа Услови коришћења (енглески)",
+        "privacyPolicySr": "Линк до документа Правила приватности (српски)",
+        "accessPolicySr": "Линк до документа Правила приступа (српски)",
+        "pricingPolicySr": "Линк до документа Политика цена (српски)"
+      },
+      "name": "Назив",
+      "description": "Опис",
+      "termsOfUse": "Услови коришћења",
+      "privacyPolicy": "Правила приватности",
+      "accessPolicy": "Политика приступа",
+      "pricingPolicy": "Политика цена",
+      "price": "Цена",
+      "currency": "Валута",
+      "type": "Тип",
+      "domain": "Домен",
+      "searchResults": "Резултати претраге",
+      "serviceName": "Услуга (назив)",
+      "serviceDescription": "Услуга (опис)"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "riportalApp": {
+    "requestForService": {
+      "home": {
+        "title": "Zahtev za uslugom",
+        "createLabel": "Kreiranje novog zahteva",
+        "createOrEditLabel": "Kreiranje i izmena zahteva",
+        "notFound": "Nije pronađen ni jedan zahtev"
+      },
+      "created": "Kreiran je novi zahev za uslugom sa ID oznakom {{ param }}",
+      "updated": "Zahtev za uslugom sa id oznakom {{ param }} je ažuriran",
+      "deleted": "Zahtev za uslugom sa id oznakom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete zahtev za uslugom sa ID oznakom {{ id }}?"
+      },
+      "detail": {
+        "title": "Zahtev za uslugom"
+      },
+      "date": "Datum",
+      "request": "Zahtev",
+      "title": "Naziv",
+      "description": "Opis",
+      "startTime": "Vreme početka",
+      "endTime": "Vreme završetka",
+      "deadline": "Krajnji rok",
+      "respond": "Odgovor",
+      "services": "Usluga",
+      "user": "Korisnik",
+      "seeker": "Tražilac usluge",
+      "seekerOrganization": "Organizacija tražioca usluge",
+      "organizations": "Organizacija",
+      "rating": "Ocena",
+      "notExists": "Za ovaj zahtev još uvek ne postoji odgovor.",
+      "help": {
+        "description": "Kratak opis tražene usluge uključujući količinu",
+        "startTime": "Željeni datum i vreme početka usluge",
+        "endTime": "Željeni datum i vreme završetka usluge",
+        "deadline": "Kranji rok za izvršenje usluge"
+      },
+      "offer": "Ponuda"
+    }
+  }
+}

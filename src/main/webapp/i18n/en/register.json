@@ -1,0 +1,48 @@
+{
+  "register": {
+    "title": "Registration",
+    "form": {
+      "button": "Register",
+      "prikaziNovuOrganizaciju": "Enter new organization",
+      "prikaziPostojeceOrganizacije": "Select existing organization",
+      "podaciNisuUneti": "In order to monitor the use of the portal, you need to enter your organization.<p> You can select the organization from the drop-down list, if it has already been entered before, or you can enter information about a new organization.",
+      "maticniBrojLength": "In order to monitor the use of the portal, you need to enter your organization.<p> You can select the organization from the drop-down list, if it has already been entered before, or you can enter information about a new organization. When entering the registration number, make sure that this information contains eight digits. ",
+      "maticniBrojObavezanUnos": "In order to monitor the use of the portal, you need to enter your organization.<p> You can select the organization from the drop-down list, if it has already been entered before, or you can enter information about a new organization. When entering an organization, its registration number must be entered.",
+      "pibLength": "In order to monitor the use of the portal, you need to enter your organization.<p> You can select the organization from the drop-down list, if it has already been entered before, or you can enter information about a new organization. When entering the PIB, make sure that this information contains nine digits.",
+      "pibObavezanUnos": "In order to monitor the use of the portal, you need to enter your organization.<p> You can select the organization from the drop-down list, if it has already been entered before, or you can enter information about a new organization. When entering the organization, the PIB must be entered.",
+      "OcistiOrganizaciju": "Remove existing organization",
+      "buttonup": "Top",
+      "buttondown": "Down"
+    },
+    "organizationfound": "Organization with number {{ param }} is found on internet.",
+    "organizationfounddb": "Organization with number {{ param }} is found in application database.",
+    "loadingdata": "Loading Data...",
+    "organizationNOTfound": "Organization with number: {{ param }} is not found.",
+    "OrganizationTitle": "Form used for updating existing or entering new organization",
+    "chooseInstitution": "Choose Research Institution",
+    "researchersfounddb": "{{param}} Researchers found for Institution.",
+    "researchersNOTfounddb": "Currently, there are no connected Researchers for Institution.",
+    "companyForInstitutionNOTfounddb": "Company for the institution was not Found. <br/> It will be added during registration.",
+    "chooseResearcher": "Choose Researcher",
+    "vasaOrganizacija": "Choose existing organization",
+    "unosBroj": "Enter Registration number or PIB",
+    "naslovOrganizacija": "Enter or choose existing organization",
+    "organizacija": "Organization",
+    "messages": {
+      "validate": {
+        "login": {
+          "required": "Your username is required.",
+          "minlength": "Your username is required to be at least 1 character.",
+          "maxlength": "Your username cannot be longer than 50 characters.",
+          "pattern": "Your username is invalid."
+        }
+      },
+      "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
+      "error": {
+        "fail": "<strong>Registration failed!</strong> Please try again later.",
+        "userexists": "<strong>Login name already registered!</strong> Please choose another one.",
+        "emailexists": "<strong>Email is already in use!</strong> Please choose another one."
+      }
+    }
+  }
+}

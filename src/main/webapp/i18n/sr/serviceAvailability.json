@@ -1,0 +1,30 @@
+{
+  "riportalApp": {
+    "serviceAvailability": {
+      "home": {
+        "title": "Dostupnosti usluge",
+        "createLabel": "Kreiraj novu Dostupnost usluge",
+        "createOrEditLabel": "Kreirajte ili izmenite Dostupnost usluge",
+        "notFound": "Nije pronađena nijedna Dostupnost usluge"
+      },
+      "created": "Kreirana je nova Dostupnost usluge pod nazivom {{ param }}",
+      "updated": "Dostupnost usluge pod nazivom {{ param }} je ažurirana",
+      "deleted": "Dostupnost usluge pod nazivom {{ param }} je obrisana",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Dostupnost usluge pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Dostupnost usluge"
+      },
+      "availability": "Dostupnost (srpski latinica)",
+      "availabilityEn": "Dostupnost (engleski)",
+      "availabilityCyr": "Dostupnost (srpski ćirilica)",
+      "meaning": "Značenje (srpski latinica)",
+      "meaningEn": "Značenje (engleski)",
+      "meaningCyr": "Značenje (srpski ćirilica)",
+      "help": {
+        "availability": "Available, Temporary unavailable, Permanently unavailable"
+      }
+    }
+  }
+}

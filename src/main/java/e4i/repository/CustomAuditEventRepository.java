@@ -1,9 +1,5 @@
 package e4i.repository;
 
-import e4i.config.Constants;
-import e4i.config.audit.AuditEventConverter;
-import e4i.domain.PersistentAuditEvent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;
@@ -12,6 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import e4i.config.Constants;
+import e4i.config.audit.AuditEventConverter;
+import e4i.domain.PersistentAuditEvent;
+import e4i.repository.PersistenceAuditEventRepository;
 import java.time.Instant;
 import java.util.*;
 

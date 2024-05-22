@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "riCategory": {
+      "home": {
+        "title": "RI Categories",
+        "createLabel": "Create new RI Category",
+        "createOrEditLabel": "Create or edit RI Category",
+        "notFound": "No RI CategoRIes found"
+      },
+      "created": "A new RI Category is created with identifier {{ param }}",
+      "updated": "A RI Category is updated with identifier {{ param }}",
+      "deleted": "A RI Category is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RI Category with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "RI Category"
+      },
+      "category": "Category (Serbian Latin)",
+      "categoryEn": "Category (English)",
+      "categoryCyr": "Category (Serbian Cyrillic)",
+      "help": {
+        "category": "Access to physical and e-infrastructure\nAggregators and integrators\nProcessing and analysis\nShaRIng and discovery\nTraining and support"
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "riportalApp": {
+    "portalUser": {
+      "home": {
+        "title": "Portal Users",
+        "createLabel": "Create new Portal User",
+        "createOrEditLabel": "Create or edit Portal User",
+        "notFound": "No Portal Users found",
+        "userRoles": "User roles",
+        "saId": " with identifier {{ param }}"
+      },
+      "created": "A new Portal User is created with identifier {{ param }}",
+      "updated": "A Portal User is updated with identifier {{ param }}",
+      "deleted": "A Portal User is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Portal User with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Portal User"
+      },
+      "firstName": "First Name",
+      "familyName": "Family Name",
+      "phone": "Phone",
+      "position": "Position",
+      "researcher": "Researcher",
+      "managedOrganization": "Managed Organization",
+      "contactOrganization": "Contact Organization",
+      "managedInfrastructure": "Managed Infrastructure",
+      "contactInfrastructure": "Contact Infrastructure",
+      "requests": "Requests",
+      "calendars": "Calendars",
+      "riProposals": "Ri Proposals",
+      "serviceProposals": "Service Proposals",
+      "portalUserRoles": "Portal User Roles",
+      "userOrganization": "User Organization",
+      "researcherChoicePossibility": "The researcher choice is not possible for non-research organization.",
+      "activateUserRoles": {
+        "title": "User activation and role definition",
+        "checkboxTitle": "Sending an activation email"
+      }
+    }
+  }
+}

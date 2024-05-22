@@ -1,0 +1,42 @@
+{
+  "riportalApp": {
+    "riResearchOrganization": {
+      "home": {
+        "title": "RI Research Organizations",
+        "createLabel": "Create new RI Research Organization",
+        "createOrEditLabel": "Create or edit RI Research Organization",
+        "notFound": "No RI Research Organizations found"
+      },
+      "created": "A new RI Research Organization is created with identifier {{ param }}",
+      "updated": "A RI Research Organization is updated with identifier {{ param }}",
+      "deleted": "A RI Research Organization is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RI Research Organization with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "RI Research Organization"
+      },
+      "name": "Name",
+      "descriptionSr": "Description (Serbian Latin)",
+      "decsriptionEn": "Decsription (English)",
+      "descriptionSrCyr": "Description (Serbian Cyrillic)",
+      "logo": "Logo",
+      "puOrganization": "Portal User Organization",
+      "researchInstitution": "Research Institution",
+      "infrastructures": "Infrastructures",
+      "activityStatus": "Activity Status",
+      "subdomains": "Subdomains",
+      "manager": "Manager",
+      "contactPerson": "Contact Person",
+      "help": {
+        "name": "Full legal name of RIPO",
+        "logo": "Link to te logo"
+      },
+      "errors": {
+        "nioMustBeUnique": "For the selected scientific organization there is already existing RIPO.",
+        "puoMustBeUnique": "For the selected portal organization there is already an existing RIPO",
+        "notAuthorized": "You do not have the necessary permissions to perform this operation."
+      }
+    }
+  }
+}

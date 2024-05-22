@@ -1,0 +1,28 @@
+{
+  "riportalApp": {
+    "cmsTestimonials": {
+      "home": {
+        "title": "Cms Testimonials",
+        "createLabel": "Create a new Cms Testimonials",
+        "createOrEditLabel": "Create or edit a Cms Testimonials",
+        "notFound": "No Cms Testimonials found"
+      },
+      "created": "A new Cms Testimonials is created with identifier {{ param }}",
+      "updated": "A Cms Testimonials is updated with identifier {{ param }}",
+      "deleted": "A Cms Testimonials is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cms Testimonials {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Testimonials"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "title": "Title",
+      "content": "Content",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "image": "Image"
+    }
+  }
+}

@@ -1,10 +1,10 @@
 package e4i.service.mapper;
 
+import org.springframework.stereotype.Service;
+
 import e4i.domain.Authority;
 import e4i.domain.User;
 import e4i.service.dto.UserDTO;
-
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;

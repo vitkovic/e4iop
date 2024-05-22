@@ -1,11 +1,11 @@
 package e4i.service.dto;
 
-import e4i.config.Constants;
+import javax.validation.constraints.*;
 
+import e4i.config.Constants;
 import e4i.domain.Authority;
 import e4i.domain.User;
 
-import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -1,0 +1,30 @@
+{
+  "riportalApp": {
+    "cmsCarousel": {
+      "home": {
+        "title": "Cms Carousels",
+        "createLabel": "Kreiraj novi Cms Carousel",
+        "createOrEditLabel": "Kreirajte ili izmenite Cms Carousel",
+        "notFound": "No Cms Carousels found"
+      },
+      "created": "Kreiran je novi Cms Carousel pod nazivom {{ param }}",
+      "updated": "Cms Carousel pod nazivom {{ param }} je ažuriran",
+      "deleted": "Cms Carousel pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Cms Carousel pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Carousel"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "title": "Title",
+      "link": "Link",
+      "newTab": "New Tab",
+      "ordinalNumber": "Ordinal Number",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "image": "Image"
+    }
+  }
+}

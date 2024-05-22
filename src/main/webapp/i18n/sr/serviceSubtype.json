@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "serviceSubtype": {
+      "home": {
+        "title": "Podtipovi usluge",
+        "createLabel": "Kreiraj novi Podtip usluge",
+        "createOrEditLabel": "Kreirajte ili izmenite Podtip usluge",
+        "notFound": "Nije pronađen nijedan Podtip usluge"
+      },
+      "created": "Kreiran je novi Podtip usluge pod nazivom {{ param }}",
+      "updated": "Podtip usluge pod nazivom {{ param }} je ažuriran",
+      "deleted": "Podtip usluge pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Podtip usluge pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Podtip usluge"
+      },
+      "subtypeLat": "Podtip (srpski latinica)",
+      "subtypeEn": "Podtip (engleski)",
+      "subtypeCyr": "Podtip (srpski ćirilica)",
+      "subtype": "Podtip"
+    }
+  }
+}

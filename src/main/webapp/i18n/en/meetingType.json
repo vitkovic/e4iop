@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "meetingType": {
+      "home": {
+        "title": "Meeting Types",
+        "createLabel": "Create a new Meeting Type",
+        "createOrEditLabel": "Create or edit a Meeting Type",
+        "notFound": "No Meeting Types found"
+      },
+      "created": "A new Meeting Type is created with identifier {{ param }}",
+      "updated": "A Meeting Type is updated with identifier {{ param }}",
+      "deleted": "A Meeting Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Meeting Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Meeting Type"
+      },
+      "type": "Type",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "meeting": "Meeting"
+    }
+  }
+}

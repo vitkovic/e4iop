@@ -1,0 +1,23 @@
+{
+  "riportalApp": {
+    "authenticatedPortalUser": {
+      "home": {
+        "title": "Authenticated Portal Users",
+        "createLabel": "Kreiraj novi Authenticated Portal User",
+        "createOrEditLabel": "Kreirajte ili izmenite Authenticated Portal User",
+        "notFound": "No Authenticated Portal Users found"
+      },
+      "created": "Kreiran je novi Authenticated Portal User pod nazivom {{ param }}",
+      "updated": "Authenticated Portal User pod nazivom {{ param }} je ažuriran",
+      "deleted": "Authenticated Portal User pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Authenticated Portal User pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Authenticated Portal User"
+      },
+      "data": "Data",
+      "portalUser": "Portal User"
+    }
+  }
+}

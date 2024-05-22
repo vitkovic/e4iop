@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "riSubcategory": {
+      "home": {
+        "title": "Podkategorije istraživačke infrastrukture",
+        "createLabel": "Kreiraj novu Podkategoriju istraživačke infrastrukture",
+        "createOrEditLabel": "Kreirajte ili izmenite Podkategoriju istraživačke infrastrukture",
+        "notFound": "Nije pronađena nijedna Podkategorija istraživačke infrastrukture"
+      },
+      "created": "Kreirana je nova Podkategorija istraživačke infrastrukture pod nazivom {{ param }}",
+      "updated": "Podkategorija istraživačke infrastrukture pod nazivom {{ param }} je ažurirana",
+      "deleted": "Podkategorija istraživačke infrastrukture pod nazivom {{ param }} je obrisana",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Podkategoriju istraživačke infrastrukture pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Podkategorija istraživačke infrastrukture"
+      },
+      "subcategory": "Podkategorija (srpski latinica)",
+      "subcategoryEn": "Podkategorija (engleski)",
+      "subCategoryCyr": "Podkategorija (srpski ćirilica)",
+      "infrastructures": "infrastrukture"
+    }
+  }
+}

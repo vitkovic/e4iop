@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "ripoActivityStatus": {
+      "home": {
+        "title": "RIPO Activity Statuses",
+        "createLabel": "Create new RIPO Activity Status",
+        "createOrEditLabel": "Create or edit RIPO Activity Status",
+        "notFound": "No RIPO Activity Statuses found"
+      },
+      "created": "A new RIPO Activity Status is created with identifier {{ param }}",
+      "updated": "A RIPO Activity Status is updated with identifier {{ param }}",
+      "deleted": "A RIPO Activity Status is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RIPO Activity Status with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "RIPO Activity Status"
+      },
+      "status": "Status (Serbian Latin)",
+      "statusEn": "Status (English)",
+      "statusCyr": "Status (Serbian Cyrillic)",
+      "help": {
+        "status": "Active, Temporary non-active, Closed"
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
 package e4i.web.rest.vm;
 
+import javax.validation.constraints.Size;
+
 import e4i.service.dto.UserDTO;
 
 /**
@@ -7,8 +9,23 @@ import e4i.service.dto.UserDTO;
  */
 public class ManagedUserVM extends UserDTO {
 
+    public static final int PASSWORD_MIN_LENGTH = 4;
+
+    public static final int PASSWORD_MAX_LENGTH = 100;
+
+    @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
+    private String password;
+
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     // prettier-ignore

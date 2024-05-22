@@ -1,0 +1,28 @@
+{
+  "riportalApp": {
+    "portalUserRole": {
+      "home": {
+        "title": "Uloge korisnika portala",
+        "createLabel": "Kreiraj novu Ulogu korisnika portala",
+        "createOrEditLabel": "Kreirajte ili izmenite Ulogu korisnika portala",
+        "notFound": "Nisu pronađene Uloge korisnika portala"
+      },
+      "created": "Kreirana je nova Uloge korisnika portala pod nazivom {{ param }}",
+      "updated": "Uloge korisnika portala pod nazivom {{ param }} je ažurirana",
+      "deleted": "Uloge korisnika portala pod nazivom {{ param }} je obrisana",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Ulogu korisnika portala pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Uloga korisnika portala"
+      },
+      "role": "Uloga",
+      "abbreviation": "Skraćeni naziv",
+      "fullName": "Pun naziv",
+      "users": "Korisnici",
+      "help": {
+        "abbreviation": "PA, RPU, RPRIPO, RPRI, RPSI"
+      }
+    }
+  }
+}

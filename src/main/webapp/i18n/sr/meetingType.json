@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "meetingType": {
+      "home": {
+        "title": "Meeting Types",
+        "createLabel": "Kreiraj novi Meeting Type",
+        "createOrEditLabel": "Kreirajte ili izmenite Meeting Type",
+        "notFound": "No Meeting Types found"
+      },
+      "created": "Kreiran je novi Meeting Type pod nazivom {{ param }}",
+      "updated": "Meeting Type pod nazivom {{ param }} je ažuriran",
+      "deleted": "Meeting Type pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Meeting Type pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Meeting Type"
+      },
+      "type": "Type",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "meeting": "Meeting"
+    }
+  }
+}

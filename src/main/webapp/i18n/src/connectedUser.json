@@ -1,0 +1,23 @@
+{
+  "riportalApp": {
+    "connectedUser": {
+      "home": {
+        "title": "Connected Users",
+        "createLabel": "Kreiraj novi Connected User",
+        "createOrEditLabel": "Kreirajte ili izmenite Connected User",
+        "notFound": "No Connected Users found"
+      },
+      "created": "Kreiran je novi Connected User pod nazivom {{ param }}",
+      "updated": "Connected User pod nazivom {{ param }} je ažuriran",
+      "deleted": "Connected User pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Connected User pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Connected User"
+      },
+      "data": "Data",
+      "portalUser": "Portal User"
+    }
+  }
+}

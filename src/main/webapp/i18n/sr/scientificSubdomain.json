@@ -1,0 +1,28 @@
+{
+  "riportalApp": {
+    "scientificSubdomain": {
+      "home": {
+        "title": "Naučni poddomeni",
+        "createLabel": "Kreiraj novi Naučni poddomen",
+        "createOrEditLabel": "Kreirajte ili izmenite Naučni poddomen",
+        "notFound": "Nije pronađen nijedan Naučni poddomen"
+      },
+      "created": "Kreiran je novi Naučni poddomen pod nazivom {{ param }}",
+      "updated": "Naučni poddomen pod nazivom {{ param }} je ažuriran",
+      "deleted": "Naučni poddomen pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Naučni poddomen pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Naučni poddomen"
+      },
+      "subdomain": "Poddomen (srpski latinica)",
+      "subdomainEn": "Poddomen (engleski)",
+      "subdomainCyr": "Poddomen (srpski ćirilica)",
+      "domain": "Domen",
+      "organizations": "Organizacija",
+      "infrastructures": "Infrastruktura",
+      "services": "Usluge"
+    }
+  }
+}

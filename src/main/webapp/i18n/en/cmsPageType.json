@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "cmsPageType": {
+      "home": {
+        "title": "Cms Page Types",
+        "createLabel": "Create a new Cms Page Type",
+        "createOrEditLabel": "Create or edit a Cms Page Type",
+        "notFound": "No Cms Page Types found"
+      },
+      "created": "A new Cms Page Type is created with identifier {{ param }}",
+      "updated": "A Cms Page Type is updated with identifier {{ param }}",
+      "deleted": "A Cms Page Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cms Page Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Page Type"
+      },
+      "type": "Type",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "cmsPage": "Cms Page"
+    }
+  }
+}

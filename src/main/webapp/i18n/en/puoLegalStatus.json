@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "puoLegalStatus": {
+      "home": {
+        "title": "Puo Legal Statuses",
+        "createLabel": "Create new PUO Legal Status",
+        "createOrEditLabel": "Create or edit PUO Legal Status",
+        "notFound": "No PUO Legal Statuses found"
+      },
+      "created": "A new PUO Legal Status is created with identifier {{ param }}",
+      "updated": "A PUO Legal Status is updated with identifier {{ param }}",
+      "deleted": "A PUO Legal Status is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete PUO Legal Status with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "PUO Legal Status"
+      },
+      "value": "Name",
+      "description": "Description (Serbian Latin)",
+      "descriptionEn": "Description (English)",
+      "descriptionCyr": "Description (Serbian Cyrillic)"
+    }
+  }
+}

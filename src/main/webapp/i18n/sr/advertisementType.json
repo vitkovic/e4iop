@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "advertisementType": {
+      "home": {
+        "title": "Advertisement Types",
+        "createLabel": "Kreiraj novi Advertisement Type",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Type",
+        "notFound": "No Advertisement Types found"
+      },
+      "created": "Kreiran je novi Advertisement Type pod nazivom {{ param }}",
+      "updated": "Advertisement Type pod nazivom {{ param }} je ažuriran",
+      "deleted": "Advertisement Type pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Advertisement Type pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Type"
+      },
+      "type": "Type",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "advertisement": "Advertisement"
+    }
+  }
+}

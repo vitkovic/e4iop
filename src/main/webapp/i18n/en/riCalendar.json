@@ -1,0 +1,38 @@
+{
+  "riportalApp": {
+    "riCalendar": {
+      "home": {
+        "title": "RI Calendars",
+        "createLabel": "Create new RI Calendar",
+        "createOrEditLabel": "Create or edit RI Calendar",
+        "notFound": "No RI Calendars found"
+      },
+      "created": "A new RI Calendar is created with identifier {{ param }}",
+      "updated": "A RI Calendar is updated with identifier {{ param }}",
+      "deleted": "A RI Calendar is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RI Calendar with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "RI Calendar"
+      },
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "calNote": "Note",
+      "calRating": "Rating",
+      "calComment": "Comment",
+      "requestRespond": "Request Respond",
+      "serviceStatus": "Service Status",
+      "portalUsers": "Portal Users",
+      "researchInfrastructure": "Research Infrastructure",
+      "service": "Service",
+      "help": {
+        "startTime": "Service start date and time",
+        "endTime": "Service end date and time",
+        "calNote": "Short note on service realisation",
+        "calRating": "PU rating of service in range from 1 to 5. Only for delivered services.",
+        "calComment": "PU comment on quality of service. Only for delivered services."
+      }
+    }
+  }
+}

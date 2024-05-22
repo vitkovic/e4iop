@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "serviceSubtype": {
+      "home": {
+        "title": "Service Subtypes",
+        "createLabel": "Create new Service Subtype",
+        "createOrEditLabel": "Create or edit Service Subtype",
+        "notFound": "No Service Subtypes found"
+      },
+      "created": "A new Service Subtype is created with identifier {{ param }}",
+      "updated": "A Service Subtype is updated with identifier {{ param }}",
+      "deleted": "A Service Subtype is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Service Subtype with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Service Subtype"
+      },
+      "subtypeLat": "Subtype (Serbian Latin)",
+      "subtypeEn": "Subtype (English)",
+      "subtypeCyr": "Subtype (Serbian Cyrillic)",
+      "subtype": "Subtype"
+    }
+  }
+}

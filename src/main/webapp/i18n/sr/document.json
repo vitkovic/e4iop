@@ -1,0 +1,33 @@
+{
+  "riportalApp": {
+    "document": {
+      "home": {
+        "title": "Documents",
+        "createLabel": "Kreiraj novi Document",
+        "createOrEditLabel": "Kreirajte ili izmenite Document",
+        "notFound": "No Documents found"
+      },
+      "created": "Kreiran je novi Document pod nazivom {{ param }}",
+      "updated": "Document pod nazivom {{ param }} je ažuriran",
+      "deleted": "Document pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Document pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Document"
+      },
+      "filename": "Filename",
+      "companyLogo": "Company Logo",
+      "badge": "Badge",
+      "cmsSlider": "Cms Slider",
+      "cmsCarouse": "Cms Carouse",
+      "cmsAdvertisementCategory": "Cms Advertisement Category",
+      "cmsTestimonials": "Cms Testimonials",
+      "type": "Type",
+      "kind": "Kind",
+      "company": "Company",
+      "cmsPage": "Cms Page",
+      "advertisement": "Advertisement"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "cmsAdvertisementCategory": {
+      "home": {
+        "title": "Cms Advertisement Categories",
+        "createLabel": "Kreiraj novi Cms Advertisement Category",
+        "createOrEditLabel": "Kreirajte ili izmenite Cms Advertisement Category",
+        "notFound": "No Cms Advertisement Categories found"
+      },
+      "created": "Kreiran je novi Cms Advertisement Category pod nazivom {{ param }}",
+      "updated": "Cms Advertisement Category pod nazivom {{ param }} je ažuriran",
+      "deleted": "Cms Advertisement Category pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Cms Advertisement Category pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Advertisement Category"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "advertisementCategory": "Advertisement Category",
+      "image": "Image"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "riportalApp": {
+    "advertisementSupporter": {
+      "home": {
+        "title": "Advertisement Supporters",
+        "createLabel": "Kreiraj novi Advertisement Supporter",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Supporter",
+        "notFound": "No Advertisement Supporters found"
+      },
+      "created": "Kreiran je novi Advertisement Supporter pod nazivom {{ param }}",
+      "updated": "Advertisement Supporter pod nazivom {{ param }} je ažuriran",
+      "deleted": "Advertisement Supporter pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Advertisement Supporter pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Supporter"
+      },
+      "hasAccepted": "Has Accepted",
+      "advertisement": "Advertisement",
+      "company": "Company"
+    }
+  }
+}

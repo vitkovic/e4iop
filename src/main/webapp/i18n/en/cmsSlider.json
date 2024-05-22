@@ -1,0 +1,30 @@
+{
+  "riportalApp": {
+    "cmsSlider": {
+      "home": {
+        "title": "Cms Sliders",
+        "createLabel": "Create a new Cms Slider",
+        "createOrEditLabel": "Create or edit a Cms Slider",
+        "notFound": "No Cms Sliders found"
+      },
+      "created": "A new Cms Slider is created with identifier {{ param }}",
+      "updated": "A Cms Slider is updated with identifier {{ param }}",
+      "deleted": "A Cms Slider is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cms Slider {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Slider"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "title": "Title",
+      "link": "Link",
+      "newTab": "New Tab",
+      "ordinalNumber": "Ordinal Number",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "image": "Image"
+    }
+  }
+}

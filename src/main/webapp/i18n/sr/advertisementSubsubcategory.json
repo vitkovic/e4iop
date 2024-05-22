@@ -1,0 +1,26 @@
+{
+  "riportalApp": {
+    "advertisementSubsubcategory": {
+      "home": {
+        "title": "Advertisement Subsubcategories",
+        "createLabel": "Kreiraj novi Advertisement Subsubcategory",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Subsubcategory",
+        "notFound": "No Advertisement Subsubcategories found"
+      },
+      "created": "Kreiran je novi Advertisement Subsubcategory pod nazivom {{ param }}",
+      "updated": "Advertisement Subsubcategory pod nazivom {{ param }} je ažuriran",
+      "deleted": "Advertisement Subsubcategory pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Advertisement Subsubcategory pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Subsubcategory"
+      },
+      "name": "Name",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "advertisement": "Advertisement",
+      "advertisementSubcategory": "Advertisement Subcategory"
+    }
+  }
+}

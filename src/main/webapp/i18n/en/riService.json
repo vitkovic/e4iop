@@ -1,0 +1,71 @@
+{
+  "riportalApp": {
+    "riService": {
+      "home": {
+        "title": "Research inrastructure services",
+        "createLabel": "Create new service",
+        "createOrEditLabel": "Create or edit service",
+        "notFound": "No research infrastructure services found"
+      },
+      "created": "A new service is created with ID {{ param }}",
+      "updated": "A service with ID {{ param }} is updated",
+      "deleted": "A service with ID {{ param }} is deleted ",
+      "delete": {
+        "question": "Are you sure you want to delete service with ID {{ id }}?"
+      },
+      "detail": {
+        "title": "Research inrastructure service"
+      },
+      "nameSr": "Name",
+      "nameEn": "Name (English)",
+      "nameSrCyr": "Name (Serbian Cyrillic)",
+      "descriptionSr": "Description",
+      "descriptionEn": "Description (English)",
+      "descriptionSrCyr": "Description (Serbian Cyrillic)",
+      "keywords": "Keywords (Serbian)",
+      "keywordsEn": "Keywords (English)",
+      "keywordsNoLanguage": "Keywords",
+      "enterScientificDomain": "Select scientific domain(s)",
+      "enterKeywords": "Enter keywords",
+      "accreditationOrganizationName": "Accreditation Organization Name",
+      "termsOfUseSr": "Terms Of Use (Serbian)",
+      "termsOfUseEn": "Terms Of Use (English)",
+      "termsOfUseSrCyr": "Terms Of Use (Serbian Cyrillic)",
+      "privacyPolicySr": "Privacy Policy (Serbian)",
+      "privacyPolicyEn": "Privacy Policy (English)",
+      "accessPolicySr": "Access Policy (Serbian)",
+      "accessPolicyEn": "Access Policy (English)",
+      "accessPolicySrCyr": "Access Policy (Serbian Cyrillic)",
+      "pricingPolicySr": "Pricing Policy (Serbian)",
+      "pricingPolicyEn": "Pricing Policy (English)",
+      "pricingPolicySrCyr": "Pricing Policy (Serbian Cyrillic)",
+      "requests": "Requests",
+      "calendars": "Calendars",
+      "availability": "Availability",
+      "accredation": "Accredation",
+      "subtypes": "Subtypes",
+      "subdomains": "Subdomains",
+      "researchInfrastructure": "Research Infrastructure",
+      "help": {
+        "termsOfUseSr": "Link to the Terms of use document (Serbian)",
+        "termsOfUseEn": "Link to the Terms of use document (English)",
+        "privacyPolicySr": "Link to the privacy policy document (Serbian)",
+        "accessPolicySr": "Link to the Access policy document (Serbian)",
+        "pricingPolicySr": "Link to the Pricing policy document (Serbian)"
+      },
+      "name": "Name",
+      "description": "Description",
+      "termsOfUse": "Terms of use",
+      "privacyPolicy": "Privacy policy",
+      "accessPolicy": "Access policy",
+      "pricingPolicy": "Pricing policy",
+      "price": "Price",
+      "currency": "currency",
+      "type": "Type",
+      "domain": "Domain",
+      "searchResults": "Search results",
+      "serviceName": "Service (name)",
+      "serviceDescription": "Service (Description)"
+    }
+  }
+}

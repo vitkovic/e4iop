@@ -1,0 +1,24 @@
+{
+  "riportalApp": {
+    "researchInstitution": {
+      "home": {
+        "title": "Research Institutions",
+        "createLabel": "Create new Research Institution",
+        "createOrEditLabel": "Create or edit Research Institution",
+        "notFound": "No Research Institutions found"
+      },
+      "created": "A new Research Institution is created with identifier {{ param }}",
+      "updated": "A Research Institution is updated with identifier {{ param }}",
+      "deleted": "A Research Institution is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Research Institution with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Research Institution"
+      },
+      "name": "Name",
+      "researchers": "Researchers",
+      "ripo": "Ripo"
+    }
+  }
+}

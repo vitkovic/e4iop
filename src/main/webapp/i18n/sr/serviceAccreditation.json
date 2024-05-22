@@ -1,0 +1,30 @@
+{
+  "riportalApp": {
+    "serviceAccreditation": {
+      "home": {
+        "title": "Akreditacije usluge",
+        "createLabel": "Kreiraj novu Akreditaciju usluge",
+        "createOrEditLabel": "Kreirajte ili izmenite Akreditaciju usluge",
+        "notFound": "Nije pronađena nijedna Akreditacija usluge"
+      },
+      "created": "Kreiran je novi Akreditacija usluge pod nazivom {{ param }}",
+      "updated": "Akreditacija usluge pod nazivom {{ param }} je ažuriran",
+      "deleted": "Akreditacija usluge pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Akreditaciju usluge pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Akreditacija usluge"
+      },
+      "status": "Status (srpski latinica)",
+      "statusEn": "Status (engleski)",
+      "statusCyr": "Status (srpski ćirilica)",
+      "meaning": "Značenje (srpski latinica)",
+      "meaningEn": "Značenje (engleski)",
+      "meaningCyr": "Značenje (srpski ćirilica)",
+      "help": {
+        "status": "accredited, non-accredited"
+      }
+    }
+  }
+}

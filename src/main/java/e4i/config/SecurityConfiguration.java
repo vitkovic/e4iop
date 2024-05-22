@@ -22,6 +22,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import java.util.*;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -40,6 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.security.oauth2.client.provider.oidc.issuer-uri}")
     private String issuerUri;
+    
+   
 
     private final JHipsterProperties jHipsterProperties;
     private final SecurityProblemSupport problemSupport;
@@ -54,6 +57,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring()
             .antMatchers(HttpMethod.OPTIONS, "/**")
+            .antMatchers("/app/**/*.{js,html}")
+            .antMatchers("/i18n/**")
+            .antMatchers("/content/**")
             .antMatchers("/swagger-ui/index.html")
             .antMatchers("/test/**");
     }
@@ -71,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(problemSupport)
         .and()
             .headers()
-            .contentSecurityPolicy("default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:")
+            .contentSecurityPolicy("default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:")
         .and()
             .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
         .and()

@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "advertisementDuration": {
+      "home": {
+        "title": "Advertisement Durations",
+        "createLabel": "Kreiraj novi Advertisement Duration",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Duration",
+        "notFound": "No Advertisement Durations found"
+      },
+      "created": "Kreiran je novi Advertisement Duration pod nazivom {{ param }}",
+      "updated": "Advertisement Duration pod nazivom {{ param }} je ažuriran",
+      "deleted": "Advertisement Duration pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Advertisement Duration pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Duration"
+      },
+      "duration": "Duration",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "advertisement": "Advertisement"
+    }
+  }
+}

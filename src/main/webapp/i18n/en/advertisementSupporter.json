@@ -1,0 +1,24 @@
+{
+  "riportalApp": {
+    "advertisementSupporter": {
+      "home": {
+        "title": "Advertisement Supporters",
+        "createLabel": "Create a new Advertisement Supporter",
+        "createOrEditLabel": "Create or edit a Advertisement Supporter",
+        "notFound": "No Advertisement Supporters found"
+      },
+      "created": "A new Advertisement Supporter is created with identifier {{ param }}",
+      "updated": "A Advertisement Supporter is updated with identifier {{ param }}",
+      "deleted": "A Advertisement Supporter is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Advertisement Supporter {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Supporter"
+      },
+      "hasAccepted": "Has Accepted",
+      "advertisement": "Advertisement",
+      "company": "Company"
+    }
+  }
+}

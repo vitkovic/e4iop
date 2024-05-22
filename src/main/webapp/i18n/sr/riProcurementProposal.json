@@ -1,0 +1,32 @@
+{
+  "riportalApp": {
+    "riProcurementProposal": {
+      "home": {
+        "title": "Predlozi za nabavku nove infrastrukture",
+        "createLabel": "Kreiranje Predloga za nabavku infrastrukture",
+        "createOrEditLabel": "Kreiranje i izmena predloga za nabavku nove infrastrukture",
+        "notFound": "Nije pronađen ni jedan predlog za nabavku nove infrastrukture"
+      },
+      "created": "Krerian je novi predlog sa ID oznakom {{ param }}",
+      "updated": "Predlog za nabavku istraživačke infrastrukture sa ID oznakom {{ param }} je ažuriran",
+      "deleted": "Predlog za nabavku istraživačke infrastrukture sa ID oznakom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Predlog za nabavku istraživačke infrastruture sa ID oznakom {{ id }}?"
+      },
+      "detail": {
+        "title": "Predlog za nabavku istraživačke infrastrukture"
+      },
+      "date": "Datum",
+      "name": "Naziv",
+      "technicalSpecification": "Teahnička specifikacija",
+      "purpose": "Namena",
+      "portalUser": "Korisnik portala",
+      "help": {
+        "date": "Datum kreiranja predloga za novu infrastrukturu",
+        "name": "Naziv predložene istraživačke infrastrukture",
+        "technicalSpecification": "Tehnička specifikacija predložene istraživačke infrastrukture",
+        "purpose": "Namena predložene istraživačke infrastrukture"
+      }
+    }
+  }
+}

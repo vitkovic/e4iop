@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "advertisementDuration": {
+      "home": {
+        "title": "Advertisement Durations",
+        "createLabel": "Create a new Advertisement Duration",
+        "createOrEditLabel": "Create or edit a Advertisement Duration",
+        "notFound": "No Advertisement Durations found"
+      },
+      "created": "A new Advertisement Duration is created with identifier {{ param }}",
+      "updated": "A Advertisement Duration is updated with identifier {{ param }}",
+      "deleted": "A Advertisement Duration is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Advertisement Duration {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Duration"
+      },
+      "duration": "Duration",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "advertisement": "Advertisement"
+    }
+  }
+}

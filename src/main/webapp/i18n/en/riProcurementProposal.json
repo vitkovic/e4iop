@@ -1,0 +1,32 @@
+{
+  "riportalApp": {
+    "riProcurementProposal": {
+      "home": {
+        "title": "RI Procurement Proposals",
+        "createLabel": "Create new RI Procurement Proposal",
+        "createOrEditLabel": "Create or edit RI Procurement Proposal",
+        "notFound": "No RI Procurement Proposals found"
+      },
+      "created": "A new RI Procurement Proposal is created with identifier {{ param }}",
+      "updated": "A RI Procurement Proposal is updated with identifier {{ param }}",
+      "deleted": "A RI Procurement Proposal is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RI Procurement Proposal with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "RI Procurement Proposal"
+      },
+      "date": "Date",
+      "name": "Name",
+      "technicalSpecification": "Technical Specification",
+      "purpose": "Purpose",
+      "portalUser": "Portal User",
+      "help": {
+        "date": "Proposal submission date and time",
+        "name": "Name of the RI to be procured",
+        "technicalSpecification": "Technical specification of the RI to be procured",
+        "purpose": "Purpose of proposed RI"
+      }
+    }
+  }
+}

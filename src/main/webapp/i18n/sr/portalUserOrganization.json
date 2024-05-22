@@ -1,0 +1,54 @@
+{
+  "riportalApp": {
+    "portalUserOrganization": {
+      "home": {
+        "title": "Organizacije na portalu",
+        "createLabel": "Kreiranje nove organizacije",
+        "createOrEditLabel": "Kreiranje i izmena organizacije na portalu",
+        "notFound": "Nije pronađena ni jedna organizacija"
+      },
+      "created": "Kreirana je nova organizacija na portalu sa ID oznakom {{ param }}",
+      "updated": "Organizacija na portalu sa ID oznakom {{ param }} je ažurirana",
+      "deleted": "Organizacija na portalu sa ID oznakom {{ param }} je obrisana",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Organizaciju na portalu sa ID oznakom {{ id }}?"
+      },
+      "detail": {
+        "title": "Organizacija na portalu"
+      },
+      "legalNameSr": "Naziv (srpski)",
+      "legalNameEn": "Naziv (engleski)",
+      "legalNameSrCyr": "Naziv (srpski ćirilica)",
+      "legalName": "Naziv",
+      "shortName": "Skraćeni naziv",
+      "webAddress": "Veb sajt",
+      "pib": "PIB",
+      "pibRequired": "Unos PIB-a je obavezan",
+      "registrationNumberRequired": "Unos Matičnog broja je obavezan",
+      "registrationNumber": "Matični broj",
+      "keywords": "Ključne reči",
+      "address": "Adresa",
+      "postalCode": "Poštanski broj",
+      "city": "Grad",
+      "country": "Država",
+      "portalUsers": "Korisnici portala",
+      "requests": "Zahtevi",
+      "legalStatus": "Pravni status",
+      "researchOrganization": "Istraživačka organizacija",
+      "help": {
+        "legalNameSr": "Pravni naziv organizacije na srpskom",
+        "legalNameEn": "Pravni naziv organizacije na engleskom",
+        "shortName": "Skraćeno ime - skraćenica",
+        "pib": "Poreski identifikacioni broj",
+        "registrationNumber": "Matični broj dodeljen od strane Zavoda za statistiku Republike Srbije",
+        "keywords": "Ključne reči vezane za organizaciju na portalu. Koristi se za funkciju pretraživanja portala",
+        "address": "Ulica i broj organizacije na portalu",
+        "country": "Podrazumevana vrednost Srbija"
+      },
+      "errors": {
+        "registrationNumberAlreadyExists": "Organizacija sa tim matičnim brojem je već uneta.",
+        "pibAlreadyExists": "Organizacija sa tim PIB-om je već uneta."
+      }
+    }
+  }
+}

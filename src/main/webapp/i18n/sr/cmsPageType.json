@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "cmsPageType": {
+      "home": {
+        "title": "Cms Page Types",
+        "createLabel": "Kreiraj novi Cms Page Type",
+        "createOrEditLabel": "Kreirajte ili izmenite Cms Page Type",
+        "notFound": "No Cms Page Types found"
+      },
+      "created": "Kreiran je novi Cms Page Type pod nazivom {{ param }}",
+      "updated": "Cms Page Type pod nazivom {{ param }} je ažuriran",
+      "deleted": "Cms Page Type pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Cms Page Type pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Page Type"
+      },
+      "type": "Type",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "cmsPage": "Cms Page"
+    }
+  }
+}

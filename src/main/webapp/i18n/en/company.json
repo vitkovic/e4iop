@@ -1,0 +1,103 @@
+{
+  "riportalApp": {
+    "company": {
+      "home": {
+        "title": "Companies",
+        "createLabel": "Create a new Company",
+        "createOrEditLabel": "Create or edit a company",
+        "createTitleLabel": "Create a company",
+        "editTitleLabel": "Edit a company",
+        "notFound": "No Companies found"
+      },
+      "created": "A new Company is created with identifier {{ param }}",
+      "updated": "A Company is updated with identifier {{ param }}",
+      "deleted": "A Company is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Company {{ id }}?"
+      },
+      "detail": {
+        "title": "Company"
+      },
+
+      "view": {
+        "type": "Company type",
+        "typeRSNIS": "Company type from RSNIS portal",
+        "registrationDate": "Registration date",
+        "address": "Address",
+        "category": "Category",
+        "badges": "Badges"
+      },
+
+      "createdAt": "Created at",
+      "modifiedAt": "Modified at",
+      "rsnisId": "Rsnis ID",
+      "aprId": "Apr ID",
+      "name": "Name",
+      "about": "About",
+      "fields": "Fields",
+      "portalUser": "Portal User",
+      "advertisement": "Advertisement",
+      "collaborationOffer": "Collaboration Offer",
+      "collaborationRequest": "Collaboration Request",
+      "advertisementSupporter": "Advertisement Supporter",
+      "thread": "Thread",
+      "badge": "Badge",
+      "document": "Document",
+      "documents": "Documents",
+      "gallery": "Gallery",
+      "collaborations": "Collaborations",
+      "createdBy": "Created by",
+      "modifiedBy": "Modified by",
+      "logo": "Logo",
+      "saveLogo": "Save logo",
+      "upload": {
+        "imgUpload": "Upload images",
+        "documentUpload": "Upload documents",
+        "imgInfo": {
+          "imgNumber": "* Number of images you can add is: ",
+          "imgSize": "* Maximum allowed image size is 2 mb.",
+          "imgLimit": "Maximum number of images (15) has been reached. Please remove some images in order to add new ones."
+        },
+        "documentInfo": {
+          "documentNumber": "* Number of documents you can add is: ",
+          "documentSize": "* Maximum allowed document size is 2 mb.",
+          "documentLimit": "Maximum number of documents (15) has been reached. Please remove some documents in order to add new ones."
+        },
+        "currentImg": "Current images:",
+        "newImg": "New images:",
+        "currentDoc": "Current documents:",
+        "newDoc": "New documents:",
+        "currentLogo": "Current logo:",
+        "newLogo": "New logo:",
+        "deleteImage": {
+          "question": "Are you sure you want to delete the image?",
+          "title": "Please confirm the deletion of the image"
+        },
+        "deleteDocument": {
+          "question": "Are you sure you want to delete the document?",
+          "title": "Please confirm the deletion of the document"
+        },
+        "deleteLogo": {
+          "question": "Are you sure you want to delete the logo image?",
+          "title": "Please confirm the deletion of the logo image"
+        }
+      },
+      "browseText": "Browse",
+      "error": {
+        "imgSize": "Number of images that cannot be added is {numberOfBigImages}.<br>Limits exceeded:<br><ul><li>maximum image size (2mb).</li></ul>",
+        "imgNumber": "Number of images that cannot be added is {numberOfLimitImages}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li></ul>",
+        "imgSize&Number": "Number of images that cannot be added is {totalNumberOfImages}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li><li>maximum image size (2mb).</li></ul>",
+        "documentSize": "Number of images that cannot be added is {numberOfBigDocuments}.<br>Limits exceeded:<br><ul><li>maximum document size (2mb).</li></ul>",
+        "documentNumber": "Number of documents that cannot be added is {numberOfLimitDocuments}.<br>Limits exceeded:<br><ul><li>maximum number of documents (15).</li></ul>",
+        "documentSize&Number": "Number of documents that cannot be added is {totalNumberOfDocuments}.<br>Limits exceeded:<br><ul><li>maximum number of documents (15).</li><li>maximum document size (2mb).</li></ul>"
+      },
+      "modal": {
+        "advertisementModalTitle": "Get in touch with the company "
+      },
+      "interactionButtons": {
+        "message": "Send a message",
+        "advertisements": "View advertisements"
+      }
+    }
+  }
+}

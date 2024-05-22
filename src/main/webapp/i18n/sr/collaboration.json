@@ -1,0 +1,29 @@
+{
+  "riportalApp": {
+    "collaboration": {
+      "home": {
+        "title": "Collaborations",
+        "createLabel": "Kreiraj novi Collaboration",
+        "createOrEditLabel": "Kreirajte ili izmenite Collaboration",
+        "notFound": "No Collaborations found"
+      },
+      "created": "Kreiran je novi Collaboration pod nazivom {{ param }}",
+      "updated": "Collaboration pod nazivom {{ param }} je ažuriran",
+      "deleted": "Collaboration pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Collaboration pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Collaboration"
+      },
+      "datetime": "Datetime",
+      "commentOffer": "Comment Offer",
+      "commentRequest": "Comment Request",
+      "companyOffer": "Company Offer",
+      "companyRequest": "Company Request",
+      "advertisement": "Advertisement",
+      "ratingOffer": "Rating Offer",
+      "ratingRequest": "Rating Request"
+    }
+  }
+}

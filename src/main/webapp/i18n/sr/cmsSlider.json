@@ -1,0 +1,30 @@
+{
+  "riportalApp": {
+    "cmsSlider": {
+      "home": {
+        "title": "Cms Sliders",
+        "createLabel": "Kreiraj novi Cms Slider",
+        "createOrEditLabel": "Kreirajte ili izmenite Cms Slider",
+        "notFound": "No Cms Sliders found"
+      },
+      "created": "Kreiran je novi Cms Slider pod nazivom {{ param }}",
+      "updated": "Cms Slider pod nazivom {{ param }} je ažuriran",
+      "deleted": "Cms Slider pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Cms Slider pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Slider"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "title": "Title",
+      "link": "Link",
+      "newTab": "New Tab",
+      "ordinalNumber": "Ordinal Number",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "image": "Image"
+    }
+  }
+}

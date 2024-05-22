@@ -1,0 +1,26 @@
+{
+  "riportalApp": {
+    "portalUserStatus": {
+      "home": {
+        "title": "Statusi korisnika",
+        "createLabel": "Kreiranje novog statusa",
+        "createOrEditLabel": "Kreiranje i izmena statusa",
+        "notFound": "Nije pronađen ni jedan status"
+      },
+      "created": "Kreiran je novi status korisnika sa ID oznakom {{ param }}",
+      "updated": "Status korisnika sa ID oznakom {{ param }} je ažuriran",
+      "deleted": "Status korisnika sa ID oznakom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Status korisnika sa ID oznakom {{ id }}?"
+      },
+      "detail": {
+        "title": "Status korisnika portala"
+      },
+      "status": "Status",
+      "valueSr": "Status (srpski latinica)",
+      "valueSrCyr": "Status (srpski ćirilica)",
+      "valueEn": "Status (engleski)",
+      "users": "Korisnici"
+    }
+  }
+}

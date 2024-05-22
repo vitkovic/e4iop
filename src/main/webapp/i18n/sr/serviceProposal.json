@@ -1,0 +1,32 @@
+{
+  "riportalApp": {
+    "serviceProposal": {
+      "home": {
+        "title": "Predlozi novih usluga",
+        "createLabel": "Kreiranje Predloga nove usluge",
+        "createOrEditLabel": "Kreiranje i izmena Predloga nove usluge",
+        "notFound": "Nije pronađen nijedan Predlog nove usluge"
+      },
+      "created": "Kreiran je novi Predlog usluge sa ID oznakom {{ param }}",
+      "updated": "Predlog nove usluge sa ID oznakom {{ param }} je ažuriran",
+      "deleted": "Predlog nove usluge sa ID oznakom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Predlog nove usluge sa ID oznakom {{ id }}?"
+      },
+      "detail": {
+        "title": "Predlog nove usluge"
+      },
+      "date": "Datum",
+      "name": "Ime",
+      "description": "Opis",
+      "purpose": "Namena",
+      "portalUser": "Korisnik portala",
+      "help": {
+        "date": "Datum postavljanja predloga",
+        "name": "Naziv predložene usluge",
+        "description": "Kratak opis predložene usluge",
+        "purpose": "Namena predložene usluge"
+      }
+    }
+  }
+}

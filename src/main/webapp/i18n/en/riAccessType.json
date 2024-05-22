@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "riAccessType": {
+      "home": {
+        "title": "RI Access Types",
+        "createLabel": "Create new RI Access Type",
+        "createOrEditLabel": "Create or edit RI Access Type",
+        "notFound": "No RI Access Types found"
+      },
+      "created": "A new RI Access Type is created with identifier {{ param }}",
+      "updated": "A RI Access Type is updated with identifier {{ param }}",
+      "deleted": "A RI Access Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RI Access Type with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "RI Access Type"
+      },
+      "type": "Type (Serbian Latin)",
+      "typeEn": "Type (English)",
+      "typeCyr": "Type (Serbian Cyrillic)",
+      "help": {
+        "type": "physical, virtual, remote"
+      }
+    }
+  }
+}

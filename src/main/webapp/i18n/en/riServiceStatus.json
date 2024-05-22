@@ -1,0 +1,31 @@
+{
+  "riportalApp": {
+    "riServiceStatus": {
+      "home": {
+        "title": "RI Service Statuses",
+        "createLabel": "Create new RI Service Status",
+        "createOrEditLabel": "Create or edit RI Service Status",
+        "notFound": "No RI Service Statuses found"
+      },
+      "created": "A new RI Service Status is created with identifier {{ param }}",
+      "updated": "A RI Service Status is updated with identifier {{ param }}",
+      "deleted": "A RI Service Status is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RI Service Status with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "RI Service Status"
+      },
+      "status": "Status (Serbian Latin)",
+      "statusEn": "Status (English)",
+      "statusCyr": "Status (Serbian Cyrillic)",
+      "description": "Description (Serbian Latin)",
+      "descriptionEn": "Description (English)",
+      "descriptionCyr": "Description (Serbian Cyrillic)",
+      "help": {
+        "status": "Performed, In progress, Planed, Cancelled",
+        "description": "Service has been performed\nService execution is in progress\nService is planed\nThe planned service has been cancelled"
+      }
+    }
+  }
+}

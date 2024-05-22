@@ -1,0 +1,29 @@
+{
+  "riportalApp": {
+    "cmsPage": {
+      "home": {
+        "title": "Cms Pages",
+        "createLabel": "Kreiraj novi Cms Page",
+        "createOrEditLabel": "Kreirajte ili izmenite Cms Page",
+        "notFound": "No Cms Pages found"
+      },
+      "created": "Kreiran je novi Cms Page pod nazivom {{ param }}",
+      "updated": "Cms Page pod nazivom {{ param }} je ažuriran",
+      "deleted": "Cms Page pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Cms Page pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Page"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "title": "Title",
+      "content": "Content",
+      "document": "Document",
+      "type": "Type",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By"
+    }
+  }
+}

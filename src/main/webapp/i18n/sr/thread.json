@@ -1,0 +1,51 @@
+{
+  "riportalApp": {
+    "thread": {
+      "home": {
+        "title": "Threads",
+        "createLabel": "Kreiraj novi Thread",
+        "createOrEditLabel": "Kreirajte ili izmenite Thread",
+        "notFound": "Nema pronađenih upita"
+      },
+      "created": "Kreiran je novi Thread pod nazivom {{ param }}",
+      "updated": "Thread pod nazivom {{ param }} je ažuriran",
+      "deleted": "Thread pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete selektovani upit?"
+      },
+      "detail": {
+        "title": "Thread"
+      },
+      "subject": "Subject",
+      "message": "Message",
+      "advertisement": "Advertisement",
+      "company": "Company",
+      "messages": "Poruke",
+      "filter": {
+        "allnquiries": "Svi upiti",
+        "receivedInquiries": "Primljeni upiti",
+        "sendInquiries": "Poslati upiti"
+      },
+      "tableHeader": {
+        "receiver": "Kompanija primalac",
+        "sender": "Kompanija pošiljalac",
+        "advertisement": "Oglas"
+      },
+      "acceptedCollaboration": "Saradnja ostvarena",
+      "threadButtonGroup": {
+        "confirmCollaboration": "Potvrdi saradnju",
+        "deleteInquiry": "Obriši upit"
+      },
+      "messageSection": {
+        "date": "Vreme:",
+        "sender": "Pošiljalac:",
+        "placeholder": "Unesite novu poruku..."
+      },
+      "modal": {
+        "title": "Da li želite da potvrdite zahtev za saradnju?",
+        "advertisement": "Oglas:",
+        "company": "Kompanija tržilac saradnje:"
+      }
+    }
+  }
+}

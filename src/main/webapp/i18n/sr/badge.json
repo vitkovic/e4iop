@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "badge": {
+      "home": {
+        "title": "Badges",
+        "createLabel": "Kreiraj novi Badge",
+        "createOrEditLabel": "Kreirajte ili izmenite Badge",
+        "notFound": "No Badges found"
+      },
+      "created": "Kreiran je novi Badge pod nazivom {{ param }}",
+      "updated": "Badge pod nazivom {{ param }} je ažuriran",
+      "deleted": "Badge pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Badge pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Badge"
+      },
+      "title": "Title",
+      "description": "Description",
+      "image": "Image",
+      "company": "Company"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "collaborationRating": {
+      "home": {
+        "title": "Collaboration Ratings",
+        "createLabel": "Create a new Collaboration Rating",
+        "createOrEditLabel": "Create or edit a Collaboration Rating",
+        "notFound": "No Collaboration Ratings found"
+      },
+      "created": "A new Collaboration Rating is created with identifier {{ param }}",
+      "updated": "A Collaboration Rating is updated with identifier {{ param }}",
+      "deleted": "A Collaboration Rating is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Collaboration Rating {{ id }}?"
+      },
+      "detail": {
+        "title": "Collaboration Rating"
+      },
+      "number": "Number",
+      "description": "Description",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "collaborationOffer": "Collaboration Offer",
+      "collaborationRequest": "Collaboration Request"
+    }
+  }
+}

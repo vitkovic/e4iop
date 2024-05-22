@@ -1,0 +1,26 @@
+{
+  "riportalApp": {
+    "portalUserStatus": {
+      "home": {
+        "title": "User statuses",
+        "createLabel": "Create new User status",
+        "createOrEditLabel": "Create or edit User status",
+        "notFound": "No User status has been found"
+      },
+      "created": "New User status is created with identifier {{ param }}",
+      "updated": "User status with identifier {{ param }} has been updated",
+      "deleted": "User status with identifier {{ param }} has been deleted",
+      "delete": {
+        "question": "Are you sure you want to delete User status with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Portal user status"
+      },
+      "status": "Status",
+      "valueSr": "Status (Serbian Latin)",
+      "valueSrCyr": "Status (Serbian Cyrillic)",
+      "valueEn": "Status (English)",
+      "users": "Users"
+    }
+  }
+}

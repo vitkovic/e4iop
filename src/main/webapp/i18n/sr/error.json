@@ -1,0 +1,14 @@
+{
+  "error": {
+    "title": "Greška!",
+    "http": {
+      "400": "Loš zahtev.",
+      "403": "Nemate dozvolu za pristupanje ovoj stranici.",
+      "404": "Stranica ne postoji.",
+      "405": "Korišćena HTTP metoda nije podržana za ovaj URL.",
+      "500": "Interna greška na serveru."
+    },
+    "concurrencyFailure": "Drugi korisnik je izmenio ove podatke u isto vreme kada i Vi. Vaše promene su odbijene.",
+    "validation": "Validaciona greška na serveru."
+  }
+}

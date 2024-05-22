@@ -1,0 +1,305 @@
+{
+  "global": {
+    "title": "ОИИ",
+    "browsehappy": "Користите <strong>застарели</strong> претраживач. Молимо вас <a href=\"http://browsehappy.com/?locale=en\">надоградите претраживач</a> како бисте побољшали Ваше искуство.",
+    "menu": {
+      "home": "Почетна страница",
+      "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "entities": {
+        "main": "Ентитети",
+        "mainb2b": "B2B portal",
+        "portalUser": "Корисник портала",
+        "portalUserRole": "Улога корисника портала",
+        "portalUserStatus": "Статус корисника портала",
+        "portalUserOrganization": "Организације на порталу",
+        "puoLegalStatus": "Правни статус организације",
+        "riResearchOrganization": "Истраживачка организација на порталу",
+        "ripoActivityStatus": "Активни статус организације",
+        "scientificDomain": "Научни домен",
+        "scientificSubdomain": "Научни поддомен",
+        "researchInfrastructure": "Истраживачка инфраструктура",
+        "riStatus": "Статус истраживачке инфрастуктуре",
+        "riCategory": "Категорија истраживачке инфраструктуре",
+        "riSubcategory": "Подкатегорија истраживачке инфраструктуре",
+        "riAccessType": "Врста приступа истраживачке инфраструктуре",
+        "riAccessMode": "Приступни мод истраживачке инфраструктуре",
+        "riService": "Услуге истраживачке инфраструктуре",
+        "serviceType": "Тип услуге",
+        "serviceSubtype": "Подтип услуге",
+        "serviceAccreditation": "Акредитација услуге",
+        "serviceAvailability": "Доступност услуге",
+        "requestForService": "Захтев за услугом",
+        "requestRespond": "Одговор на захтев",
+        "requestAnswer": "Одговор на захтев",
+        "serviceOfferRespond": "Одговор на понуду за услугу",
+        "answerToOffer": "Одговор на понуду",
+        "riServiceStatus": "Статус услуге",
+        "riProcurementProposal": "Предлози за нову инфраструктуру",
+        "serviceProposal": "Предлози за нове услуге",
+        "researcher": "Истраживачи",
+        "researchInstitution": "Научно истраживачке организације",
+        "riCalendar": "Календар истраживачке инфраструктуре",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "offerAccepting": "Прихватање понуде",
+        "serviceRating": "Оцена услуге",
+        "organizationsStatistic": "Статистика за организације",
+        "infrastructureStatistic": "Статистика инфраструктуре",
+        "serviceStatistic": "Статистика за услуге",
+        "serviceStatisticNio": "Статистика за услуге према организацијама",
+        "advertisement": "Advertisement",
+        "advertisementDocuments": "Advertisement Documents",
+        "advertisementImages": "Advertisement Images",
+        "advertisementAdditionalFiles": "Advertisement Additional Files",
+        "company": "Company",
+        "companyLocation": "Company Location",
+        "companyType": "Company Type",
+        "message": "Message",
+        "conversation": "Conversation",
+        "task": "Task",
+        "authenticatedPortalUser": "Authenticated Portal User",
+        "connectedUser": "Connected User",
+        "cmsAdvertisement": "CMS Advertisement",
+        "cmsCompany": "CMS Company",
+        "cmsTask": "CMS Task",
+        "cmsMessage": "CMS Message",
+        "cmsConversation": "CMS Conversation",
+        "historyAdvertisement": "History Advertisement",
+        "historyCompany": "History Company",
+        "historyTask": "History Task",
+        "historyMessage": "History Message",
+        "historyConversation": "History Conversation",
+        "historyPortalUser": "History Portal User",
+        "badge": "Badge",
+        "advertisementSupporter": "Advertisement Supporter",
+        "advertisementStatus": "Advertisement Status",
+        "advertisementDuration": "Advertisement Duration",
+        "advertisementType": "Advertisement Type",
+        "advertisementKind": "Advertisement Kind",
+        "advertisementCategory": "Advertisement Category",
+        "advertisementSubcategory": "Advertisement Subcategory",
+        "advertisementSubsubcategory": "Advertisement Subsubcategory",
+        "collaboration": "Collaboration",
+        "collaborationStatus": "Collaboration Status",
+        "collaborationRating": "Collaboration Rating",
+        "thread": "Thread",
+        "meeting": "Meeting",
+        "meetingParticipant": "Meeting Participant",
+        "meetingType": "Meeting Type",
+        "cmsPage": "Cms Page",
+        "cmsPageType": "Cms Page Type",
+        "cmsTestimonials": "Cms Testimonials",
+        "cmsQuestion": "Cms Question",
+        "cmsSlider": "Cms Slider",
+        "cmsCarousel": "Cms Carousel",
+        "cmsAdvertisementCategory": "Cms Advertisement Category",
+        "document": "Document",
+        "documentType": "Document Type",
+        "documentKind": "Document Kind"
+      },
+      "account": {
+        "main": "Профил",
+        "settings": "Подешавања",
+        "password": "Лозинка",
+        "sessions": "Сесије",
+        "login": "Пријави ме",
+        "logout": "Одјави ме",
+        "register": "Региструј ме"
+      },
+      "admin": {
+        "main": "Администрација",
+        "userManagement": "Кориснички манаџмент",
+        "tracker": "Праћење корисника",
+        "metrics": "Метрика",
+        "health": "Исправност система",
+        "configuration": "Конфигурација",
+        "logs": "Логови",
+        "audits": "Ревизије",
+        "apidocs": "АПИ",
+        "database": "База података",
+        "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+      },
+      "pregled": {
+        "main": "Преглед",
+        "search": "Претрага"
+      },
+      "usluge": {
+        "main": "Услуге"
+      },
+      "infrastructure": {
+        "main": "Инфраструктура"
+      },
+      "report": {
+        "main": "Извештаји",
+        "availableInfrastructure": "Расположива инфраструктура",
+        "availableServices": "Расположиве услуге",
+        "infrastructureUsing": "Коришћење инфраструктуре",
+        "serviceUsing": "Коришћење услуга",
+        "reportForNewInfrastructure": "Извештај за нову инфраструктуру",
+        "reportForNewService": "Извештај за нове услуге"
+      },
+      "portalAdministration": {
+        "main": "Администрација портала",
+        "responsiblePersons": "Одговорне особе",
+        "databaseBackup": "Копија базе података",
+        "repoBackup": "Копија репозиторијума докумената",
+        "portalUsers": "Корисници портала"
+      },
+      "organizationAdministration": {
+        "main": "Администрација организације",
+        "responsiblePersons": "Одговорне особе",
+        "databaseBackup": "Копија базе података",
+        "repoBackup": "Копија репозиторијума докумената"
+      },
+      "language": "Језик"
+    },
+    "form": {
+      "username.label": "Корисничко име",
+      "username.or.email.label": "Корисничко име или емаил",
+      "username.placeholder": "Ваше корисничко име",
+      "newpassword.label": "Нова лозинка",
+      "newpassword.placeholder": "Ваша нова лозинка",
+      "confirmpassword.label": "Потврдите лозинку",
+      "confirmpassword.placeholder": "Потврдите вашу лозинку",
+      "email.label": "Емаил",
+      "email.placeholder": "Ваш емаил",
+      "phone.label": "Телефон",
+      "position.label": "Позиција",
+      "organizationNameSr.label": "Назив организације (српски)",
+      "organizationNameEn.label": "Назив организације (енглески)",
+      "organizationShortName.label": "Скраћено име организације",
+      "organizationWebAddress.label": "Адреса организације на вебу",
+      "organizationLegalStatus.label": "Правни статус организације",
+      "organizationPib.label": "ПИБ",
+      "organizationMaticniBroj.label": "Матични број",
+      "organizationKeywords.label": "Кључне речи",
+      "organizationAddress.label": "Адреса организације",
+      "organizationAddressPostalCode.label": "Поштански код",
+      "organizationAddressCity.label": "Град",
+      "organizationAddressCountry.label": "Земља",
+      "firstName.label": "Име",
+      "lastName.label": "Презиме",
+      "podaci.o.novom.korisniku": "Подаци о новом кориснику"
+    },
+    "messages": {
+      "welcome": "Добро дошли на Портал Отворене истраживачке инфраструктуре Србије",
+      "info": {
+        "authenticated": {
+          "prefix": "Ако желите да се ",
+          "link": "пријавите",
+          "suffix": ", можете пробати са универзанлним корисничким налозима:<br/>- Администратор (корисничко име=\"admin\" i лозинка=\"admin\") <br/>- Корисник (корисничко име=\"user\" i лозинка=\"user\")."
+        },
+        "register": {
+          "noaccount": "Још увек немате профил?",
+          "link": "Региструјте свој профил"
+        }
+      },
+      "error": {
+        "dontmatch": "Лозинке се не поклапају!",
+        "upisNijeUspeo": "Упис није успео!"
+      },
+      "validate": {
+        "newpassword": {
+          "required": "Лозинка је обавезна.",
+          "minlength": "Корисничко име мора имати најмање 4 карактера.",
+          "maxlength": "Лозинка не може бити дуже од 50 карактера.",
+          "strength": "Јачина лозинке:"
+        },
+        "confirmpassword": {
+          "required": "Потврда лозинке је обавезна.",
+          "minlength": "Потврда лозинке мора имати најмање 4 карактера.",
+          "maxlength": "Потврда лозинке не може бити дужа од 50 карактера."
+        },
+        "email": {
+          "required": "Ваш емаил је обавезан.",
+          "invalid": "Ваш емаил ис неисправан.",
+          "minlength": "Ваш емаил мора имати најмање 5 карактера.",
+          "maxlength": "Ваш емаил не може бити дужи од 50 карактера."
+        }
+      }
+    },
+    "field": {
+      "id": "ИД"
+    },
+    "ribbon": {
+      "dev": "Развојно окружење"
+    },
+    "item-count": "Приказују се {{first}} - {{second}} од {{total}} ставки."
+  },
+  "entity": {
+    "action": {
+      "addblob": "Додај блоб",
+      "addimage": "Додај слику",
+      "back": "Назад",
+      "cancel": "Откажи",
+      "delete": "Обриши",
+      "edit": "Измени",
+      "open": "Отвори",
+      "save": "Пошаљи",
+      "send": "Пошаљи",
+      "remove": "Уклони",
+      "confirm": "Потврди",
+      "saveLogo": "Упамти лого",
+      "saveImages": "Упамти слике",
+      "view": "Преглед",
+      "search": "Потражи",
+      "request": "Захтев",
+      "vote": "Гласај",
+      "zbirniPrikaz": "Збирни приказ",
+      "readLess": "Прочитај мање",
+      "readMore": "Прочитај више",
+      "saveDocuments": "Упамти документа"
+    },
+    "detail": {
+      "field": "Поље",
+      "value": "Вредност"
+    },
+    "delete": {
+      "title": "Потврди брисање",
+      "deleteMessage": "Обриши поруку"
+    },
+    "validation": {
+      "required": "Поље је обавезно.",
+      "minlength": "Поље мора бити веће од {{ min }} карактера.",
+      "maxlength": "Поље не може бити дуже од {{ max }} карактера.",
+      "min": "Поље мора бити веће од {{ min }}.",
+      "max": "Поље не сме бити веће од {{ max }}.",
+      "minbytes": "Поље мора бити веће од {{ min }} бајтова.",
+      "maxbytes": "Поље не може бити веће од {{ max }} бајтова.",
+      "pattern": "Поље мора да следи образац {{ pattern }}.",
+      "number": "Поље мора бити број.",
+      "datetimelocal": "Поље мора бити датум и време."
+    },
+    "form": {
+      "messageTitle": "Наслов поруке:",
+      "messageContent": "Садржај поруке:",
+      "validation": {
+        "title": "Наслов поруке не може бити празан.",
+        "content": "Садржај поруке не може бити празан."
+      }
+    }
+  },
+  "error": {
+    "internalServerError": "Интерна грешка на серверу",
+    "server.not.reachable": "Сервер није доступан",
+    "url.not.found": "Страница није пронађена",
+    "NotNull": "Поље {{ fieldName }} не може бити празно!",
+    "Size": "Поље {{ fieldName }} не задовољава минимална и максимална ограничења!",
+    "userexists": "Корисиничко име већ постоји!",
+    "emailexists": "Емаил је већ употребљен!",
+    "idexists": "Нови  {{ entityName }} не може садржати ИД",
+    "idnull": "Инвалид ИД",
+    "upisNijeUspeo": "Упис није успео",
+    "file": {
+      "could.not.extract": "Није могуће отворити датотеку",
+      "not.image": "Очекивани формат датотеке је слика, а у ствари је \"{{ fileType }}\""
+    }
+  },
+  "footer": "Ово је ваше подножје",
+  "home": {
+    "infrastructures": "Инфрастуктуре",
+    "services": "Услуге",
+    "organizations": "Организације",
+    "users": "Корисници",
+    "text": "Портал Отворене истраживачке инфраструктуре Србије има за циљ да на једном месту прикупи и прикаже податке о доступној истраживачкој инфраструктури и услугама које се нуде њеним коришћењем"
+  }
+}

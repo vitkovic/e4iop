@@ -1,0 +1,24 @@
+{
+  "riportalApp": {
+    "researchInstitution": {
+      "home": {
+        "title": "Naučno istraživačke organizacije",
+        "createLabel": "Kreiraj novu Naučno istraživačku organizaciju",
+        "createOrEditLabel": "Kreirajte ili izmenite Naučno istraživačku organizaciju",
+        "notFound": "Nije pronađena nijedna Naučno istraživačka organizacija"
+      },
+      "created": "Kreirana je nova Naučno istraživačka organizacija pod nazivom {{ param }}",
+      "updated": "Naučno istraživačka organizacija pod nazivom {{ param }} je ažurirana",
+      "deleted": "Naučno istraživačka organizacija pod nazivom {{ param }} je obrisana",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Naučno istraživačku organizaciju pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Naučno istraživačka organizacija"
+      },
+      "name": "Naziv",
+      "researchers": "Istraživači",
+      "ripo": "Istraživačka organizacija"
+    }
+  }
+}

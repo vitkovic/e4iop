@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "riAccessMode": {
+      "home": {
+        "title": "Pristupni modovi istraživačke infrastrukture",
+        "createLabel": "Kreiraj novi Pristupni mod istraživačke infrastrukture",
+        "createOrEditLabel": "Kreirajte ili izmenite Pristupni mod istraživačke infrastrukture",
+        "notFound": "Nije pronađen nijedan Pristupni mod istraživačke infrastrukture"
+      },
+      "created": "Kreiran je novi Pristupni mod istraživačke infrastrukture pod nazivom {{ param }}",
+      "updated": "Pristupni mod istraživačke infrastrukture pod nazivom {{ param }} je ažuriran",
+      "deleted": "Pristupni mod istraživačke infrastrukture pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Pristupni mod istraživačke infrastrukture pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Pristupni mod istraživačke infrastrukture"
+      },
+      "mode": "Mod (srpski)",
+      "modeEn": "Mod (engleski)",
+      "modeCyr": "Mod (srpski ćirilica)",
+      "help": {
+        "mode": "research-driven\nmarket-driven\nfree\nconditionally free\nwide"
+      }
+    }
+  }
+}

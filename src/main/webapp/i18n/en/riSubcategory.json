@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "riSubcategory": {
+      "home": {
+        "title": "RI Subcategories",
+        "createLabel": "Create new RI Subcategory",
+        "createOrEditLabel": "Create or edit RI Subcategory",
+        "notFound": "No RI Subcategories found"
+      },
+      "created": "A new RI Subcategory is created with identifier {{ param }}",
+      "updated": "A RI Subcategory is updated with identifier {{ param }}",
+      "deleted": "A RI Subcategory is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RI Subcategory with identifier{{ id }}?"
+      },
+      "detail": {
+        "title": "RI Subcategory"
+      },
+      "subcategory": "Subcategory (Serbian Latin)",
+      "subcategoryEn": "Subcategory (English)",
+      "subCategoryCyr": "Sub Category (Serbian Cyrillic)",
+      "infrastructures": "Infrastructures"
+    }
+  }
+}

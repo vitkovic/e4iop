@@ -1,0 +1,26 @@
+{
+  "riportalApp": {
+    "advertisementSubsubcategory": {
+      "home": {
+        "title": "Advertisement Subsubcategories",
+        "createLabel": "Create a new Advertisement Subsubcategory",
+        "createOrEditLabel": "Create or edit a Advertisement Subsubcategory",
+        "notFound": "No Advertisement Subsubcategories found"
+      },
+      "created": "A new Advertisement Subsubcategory is created with identifier {{ param }}",
+      "updated": "A Advertisement Subsubcategory is updated with identifier {{ param }}",
+      "deleted": "A Advertisement Subsubcategory is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Advertisement Subsubcategory {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Subsubcategory"
+      },
+      "name": "Name",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "advertisement": "Advertisement",
+      "advertisementSubcategory": "Advertisement Subcategory"
+    }
+  }
+}

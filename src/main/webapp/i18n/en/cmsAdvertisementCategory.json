@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "cmsAdvertisementCategory": {
+      "home": {
+        "title": "Cms Advertisement Categories",
+        "createLabel": "Create a new Cms Advertisement Category",
+        "createOrEditLabel": "Create or edit a Cms Advertisement Category",
+        "notFound": "No Cms Advertisement Categories found"
+      },
+      "created": "A new Cms Advertisement Category is created with identifier {{ param }}",
+      "updated": "A Cms Advertisement Category is updated with identifier {{ param }}",
+      "deleted": "A Cms Advertisement Category is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cms Advertisement Category {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Advertisement Category"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "advertisementCategory": "Advertisement Category",
+      "image": "Image"
+    }
+  }
+}

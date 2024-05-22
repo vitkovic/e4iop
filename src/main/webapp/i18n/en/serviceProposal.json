@@ -1,0 +1,32 @@
+{
+  "riportalApp": {
+    "serviceProposal": {
+      "home": {
+        "title": "Service Proposals",
+        "createLabel": "Create new Service Proposal",
+        "createOrEditLabel": "Create or edit Service Proposal",
+        "notFound": "No Service Proposals found"
+      },
+      "created": "A new Service Proposal is created with identifier {{ param }}",
+      "updated": "A Service Proposal is updated with identifier {{ param }}",
+      "deleted": "A Service Proposal is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Service Proposal with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Service Proposal"
+      },
+      "date": "Date",
+      "name": "Name",
+      "description": "Description",
+      "purpose": "Purpose",
+      "portalUser": "Portal User",
+      "help": {
+        "date": "Proposal submission date and time",
+        "name": "Name of new service",
+        "description": "Short description of new service",
+        "purpose": "Purpose of proposed new service"
+      }
+    }
+  }
+}

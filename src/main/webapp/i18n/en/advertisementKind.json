@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "advertisementKind": {
+      "home": {
+        "title": "Advertisement Kinds",
+        "createLabel": "Create a new Advertisement Kind",
+        "createOrEditLabel": "Create or edit a Advertisement Kind",
+        "notFound": "No Advertisement Kinds found"
+      },
+      "created": "A new Advertisement Kind is created with identifier {{ param }}",
+      "updated": "A Advertisement Kind is updated with identifier {{ param }}",
+      "deleted": "A Advertisement Kind is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Advertisement Kind {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Kind"
+      },
+      "kind": "Kind",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "advertisement": "Advertisement"
+    }
+  }
+}

@@ -1,7 +1,5 @@
 package e4i.web.rest;
 
-import e4i.service.AuditEventService;
-
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.springframework.boot.actuate.audit.AuditEvent;
@@ -12,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import e4i.service.AuditEventService;
 
 import java.time.Instant;
 import java.time.LocalDate;

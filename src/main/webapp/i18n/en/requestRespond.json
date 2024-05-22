@@ -1,0 +1,37 @@
+{
+  "riportalApp": {
+    "requestRespond": {
+      "home": {
+        "title": "Request Responds",
+        "createLabel": "Create new Request Respond",
+        "createOrEditLabel": "Create or edit Request Respond",
+        "notFound": "No Request Responds found"
+      },
+      "created": "A new Request Respond is created with identifier {{ param }}",
+      "updated": "A Request Respond is updated with identifier {{ param }}",
+      "deleted": "A Request Respond is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Request Respond with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Request Respond"
+      },
+      "date": "Date",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "price": "Price",
+      "message": "Message",
+      "requestForService": "Request For Service",
+      "respondsToOffer": "Responds To Offer",
+      "requestAnswer": "Request Answer",
+      "calendar": "Calendar",
+      "help": {
+        "date": "Date and time of submission of respond to request for RI service",
+        "startTime": "service start date and time",
+        "endTime": "service end date and time",
+        "price": "The price of requested service in RSD",
+        "message": "Short description of reasons for denial or discussion"
+      }
+    }
+  }
+}

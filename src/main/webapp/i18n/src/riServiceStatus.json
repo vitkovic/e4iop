@@ -1,0 +1,31 @@
+{
+  "riportalApp": {
+    "riServiceStatus": {
+      "home": {
+        "title": "Статуси услуга",
+        "createLabel": "Креирај нови Статус услуга",
+        "createOrEditLabel": "Креирајте или измените Статус услуга",
+        "notFound": "Није пронађен ниједан Статус услуга"
+      },
+      "created": "Креиран је нови Статус услуга под називом {{ param }}",
+      "updated": "Статус услуга под називом {{ param }} je ажуриран",
+      "deleted": "Статус услуга под називом {{ param }} je обрисан",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете Статус услуга под називом {{ id }}?"
+      },
+      "detail": {
+        "title": "Статус услуга"
+      },
+      "status": "Статус (српски латиница)",
+      "statusEn": "Статус (енглески)",
+      "statusCyr": "Статус (српски ћирилица)",
+      "description": "Опис (српски латиница)",
+      "descriptionEn": "Опис (енглески)",
+      "descriptionCyr": "Опис (српски ћирилица)",
+      "help": {
+        "status": "Performed, In progress, Planed, Cancelled",
+        "description": "Service has been performed\nService execution is in progress\nService is planed\nThe planned service has been cancelled"
+      }
+    }
+  }
+}

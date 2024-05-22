@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "answerToOffer": {
+      "home": {
+        "title": "Vrste odgovora na ponudu",
+        "createLabel": "Kreiraj novu Vrstu Odgovora na ponudu",
+        "createOrEditLabel": "Kreiranje i izmena Vrste odgovora na ponudu",
+        "notFound": "Nije pronađena nijedna Vrsta odgovora na ponudu"
+      },
+      "created": "Kreirana je nova Vrsta odgovora na ponudu pod nazivom {{ param }}",
+      "updated": "Vrsta odgovora na ponudu pod nazivom {{ param }} je ažurirana",
+      "deleted": "Vrsta odgovora na ponudu pod nazivom {{ param }} je obrisana",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Vrstu odgovora na ponudu pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Vrsta odgovora na ponudu"
+      },
+      "answer": "Vrsta odgovora na ponudu (latinica)",
+      "answerEn": "Vrsta odgovora na ponudu (engleski)",
+      "answerCyr": "Vrsta odgovora na ponudu (ćirilica)",
+      "help": {
+        "answer": "Ponuda prihvaćena, ponuda odbijena, o ponudi treba razgovarati"
+      }
+    }
+  }
+}

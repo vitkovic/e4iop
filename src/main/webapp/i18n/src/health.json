@@ -1,0 +1,29 @@
+{
+  "health": {
+    "title": "Исправност система",
+    "refresh.button": "Освежи",
+    "stacktrace": "Стацктраце",
+    "details": {
+      "details": "Детаљи",
+      "properties": "Функције",
+      "name": "Име",
+      "value": "Вредност",
+      "error": "Грешка"
+    },
+    "indicator": {
+      "diskSpace": "Величина диска",
+      "mail": "Е-пошта",
+      "ping": "Апликација",
+      "db": "SQL база података"
+    },
+    "table": {
+      "service": "Име услуге",
+      "status": "Статус"
+    },
+    "status": {
+      "UNKNOWN": "НЕПОЗНАТ",
+      "UP": "АКТИВАН",
+      "DOWN": "NEAKTIVAN"
+    }
+  }
+}

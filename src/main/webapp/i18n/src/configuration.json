@@ -1,0 +1,10 @@
+{
+  "configuration": {
+    "title": "Конфигурација",
+    "filter": "Филтер (по префиксу)",
+    "table": {
+      "prefix": "Префикс",
+      "properties": "Особине"
+    }
+  }
+}

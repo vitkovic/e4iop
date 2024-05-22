@@ -1,0 +1,29 @@
+{
+  "riportalApp": {
+    "cmsPage": {
+      "home": {
+        "title": "Cms Pages",
+        "createLabel": "Create a new Cms Page",
+        "createOrEditLabel": "Create or edit a Cms Page",
+        "notFound": "No Cms Pages found"
+      },
+      "created": "A new Cms Page is created with identifier {{ param }}",
+      "updated": "A Cms Page is updated with identifier {{ param }}",
+      "deleted": "A Cms Page is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Cms Page {{ id }}?"
+      },
+      "detail": {
+        "title": "Cms Page"
+      },
+      "createdAt": "Created At",
+      "modifiedAt": "Modified At",
+      "title": "Title",
+      "content": "Content",
+      "document": "Document",
+      "type": "Type",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By"
+    }
+  }
+}

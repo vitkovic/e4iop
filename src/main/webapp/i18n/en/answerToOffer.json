@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "answerToOffer": {
+      "home": {
+        "title": "Answer To Offers",
+        "createLabel": "Create new Answer To Offer",
+        "createOrEditLabel": "Create or edit Answer To Offer",
+        "notFound": "No Answer To Offers found"
+      },
+      "created": "A new Answer To Offer is created with identifier {{ param }}",
+      "updated": "A Answer To Offer is updated with identifier {{ param }}",
+      "deleted": "A Answer To Offer is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Answer To Offer with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Answer To Offer"
+      },
+      "answer": "Type of answer to offer (Serbian Latin)",
+      "answerEn": "Type of answer to offer (English)",
+      "answerCyr": "Type of answer to offer (Serbian Cyrillic)",
+      "help": {
+        "answer": "Offer accepted, Offer denied, Offer should be discussed"
+      }
+    }
+  }
+}

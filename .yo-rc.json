@@ -1,15 +1,14 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "e4i",
-      "nativeLanguage": "en"
+      "packageName": "e4i"
     },
     "jhipsterVersion": "6.10.3",
     "applicationType": "monolith",
     "baseName": "e4i",
     "packageName": "e4i",
     "packageFolder": "e4i",
-    "serverPort": "8080",
+    "serverPort": "80",
     "authenticationType": "oauth2",
     "cacheProvider": "ehcache",
     "enableHibernateCache": true,
@@ -24,17 +23,30 @@
     "enableSwaggerCodegen": false,
     "embeddableLaunchScript": false,
     "useSass": true,
+    "skipClient": false,
     "clientPackageManager": "npm",
-    "skipClient": true,
-    "creationTimestamp": 1716192738970,
+    "clientFramework": "vue",
+    "clientTheme": "flatly",
+    "clientThemeVariant": "primary",
+    "creationTimestamp": 1715682199301,
     "testFrameworks": [],
     "jhiPrefix": "jhi",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
-    "otherModules": [],
+    "otherModules": [
+      {
+        "name": "generator-jhipster-vuejs",
+        "version": "1.9.2"
+      }
+    ],
     "enableTranslation": true,
-    "nativeLanguage": "en",
-    "languages": ["en", "sr"],
-    "blueprints": []
+    "nativeLanguage": "sr",
+    "languages": ["sr", "en"],
+    "blueprints": [
+      {
+        "name": "generator-jhipster-vuejs",
+        "version": "1.9.2"
+      }
+    ]
   }
 }

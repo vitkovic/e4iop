@@ -1,8 +1,7 @@
 package e4i.service;
 
 import io.github.jhipster.config.JHipsterProperties;
-import e4i.config.audit.AuditEventConverter;
-import e4i.repository.PersistenceAuditEventRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;
@@ -11,6 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import e4i.config.audit.AuditEventConverter;
+import e4i.repository.PersistenceAuditEventRepository;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

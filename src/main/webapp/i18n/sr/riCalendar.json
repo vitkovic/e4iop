@@ -1,0 +1,38 @@
+{
+  "riportalApp": {
+    "riCalendar": {
+      "home": {
+        "title": "Kalendari istraživačke infrastrukture",
+        "createLabel": "Kreiraj novi Kalendar istraživačke infrastrukture",
+        "createOrEditLabel": "Kreirajte ili izmenite Kalendar istraživačke infrastrukture",
+        "notFound": "Nije pronađen nijedan Kalendar istraživačke infrastrukture"
+      },
+      "created": "Kreiran je novi Kalendar istraživačke infrastrukture pod nazivom {{ param }}",
+      "updated": "Kalendar istraživačke infrastrukture pod nazivom {{ param }} je ažuriran",
+      "deleted": "Kalendar istraživačke infrastrukture pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Kalendar istraživačke infrastrukture pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Kalendar istraživačke infrastrukture"
+      },
+      "startTime": "Vreme početka",
+      "endTime": "Vreme završetka",
+      "calNote": "Beleška",
+      "calRating": "Ocena",
+      "calComment": "Komentar",
+      "requestRespond": "Odgovor na zahtev",
+      "serviceStatus": "Status usluge",
+      "portalUsers": "Korisnici portala",
+      "researchInfrastructure": "Istraživačka infrastruktura",
+      "service": "Usluga",
+      "help": {
+        "startTime": "Datum početka usluge",
+        "endTime": "Datum završetka usluge",
+        "calNote": "Kraći komentar na realizaciju usluge",
+        "calRating": "Ocena korisnika portala za uslugu u rasponu od 1 do 5. Samo za realizovane usluge.",
+        "calComment": "Komentar korisnika portala na kvalitet usluge. Samo za realizovane usluge."
+      }
+    }
+  }
+}

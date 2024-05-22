@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "collaborationRating": {
+      "home": {
+        "title": "Collaboration Ratings",
+        "createLabel": "Kreiraj novi Collaboration Rating",
+        "createOrEditLabel": "Kreirajte ili izmenite Collaboration Rating",
+        "notFound": "No Collaboration Ratings found"
+      },
+      "created": "Kreiran je novi Collaboration Rating pod nazivom {{ param }}",
+      "updated": "Collaboration Rating pod nazivom {{ param }} je ažuriran",
+      "deleted": "Collaboration Rating pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Collaboration Rating pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Collaboration Rating"
+      },
+      "number": "Number",
+      "description": "Description",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "collaborationOffer": "Collaboration Offer",
+      "collaborationRequest": "Collaboration Request"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "riportalApp": {
+    "serviceType": {
+      "home": {
+        "title": "Service Types",
+        "createLabel": "Create new Service Type",
+        "createOrEditLabel": "Create or edit Service Type",
+        "notFound": "No Service Types found"
+      },
+      "created": "A new Service Type is created with identifier {{ param }}",
+      "updated": "A Service Type is updated with identifier {{ param }}",
+      "deleted": "A Service Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Service Type with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "Service Type"
+      },
+      "type": "Type (Serbian Latin)",
+      "typeEn": "Type (English)",
+      "typeCyr": "Type (Serbian Cyrillic)"
+    }
+  }
+}

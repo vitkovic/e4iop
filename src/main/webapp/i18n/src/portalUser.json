@@ -1,0 +1,43 @@
+{
+  "riportalApp": {
+    "portalUser": {
+      "home": {
+        "title": "Корисници портала",
+        "createLabel": "Креирање новог корисника портала",
+        "createOrEditLabel": "Креирање и измена корисника портала",
+        "notFound": "Није пронађен ниједан корисник портала",
+        "userRoles": "Улоге корисника",
+        "saId": " са ИД ознаком {{ param }}"
+      },
+      "created": "Креиран је нови корисник портала са ИД ознаком {{ param }}",
+      "updated": "Корисник портала са ИД ознаком {{ param }} је ажуриран",
+      "deleted": "Корисник портала са ИД ознаком {{ param }} је обрисан",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете корисника портала са ИД ознаком {{ id }}?"
+      },
+      "detail": {
+        "title": "Корисник портала"
+      },
+      "firstName": "Име",
+      "familyName": "Презиме",
+      "phone": "Телефон",
+      "position": "Позиција",
+      "researcher": "Истраживач",
+      "managedOrganization": "Менаџер за организацију",
+      "contactOrganization": "Контакт за организацију",
+      "managedInfrastructure": "Менаџер за инфраструктуру",
+      "contactInfrastructure": "Контакт за инфраструктуру",
+      "requests": "Захтеви",
+      "calendars": "Календари",
+      "riProposals": "Предлози за истраживачке инфраструктуре",
+      "serviceProposals": "Предлози за услуге",
+      "portalUserRoles": "Улоге на порталу",
+      "userOrganization": "Организација корисника",
+      "researcherChoicePossibility": "Организација није истраживачка. Избор истраживача није могућ.",
+      "activateUserRoles": {
+        "title": "Активација корисника и дефинисање улога",
+        "checkboxTitle": "Слање активационог мејла"
+      }
+    }
+  }
+}
