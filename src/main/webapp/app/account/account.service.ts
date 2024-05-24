@@ -28,8 +28,9 @@ export default class AccountService {
         .then(response => {
           this.store.commit('authenticate');
           const account = response.data;
+          console.log(account);
           if (account) {
-            this.store.commit('authenticated', account);
+			this.store.commit('authenticated', account);
             if (this.store.getters.currentLanguage !== account.langKey) {
               this.store.commit('currentLanguage', account.langKey);
             }

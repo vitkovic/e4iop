@@ -120,6 +120,7 @@ spring:
         provider:
           oidc:
             issuer-uri: https://dev-08470445.okta.com
+            redirect-uri: http://localhost/login/oauth2/code/oidc
         registration:
           oidc:
             client-id: 0oah1vp5ccXFUGVcs5d7

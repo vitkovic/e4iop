@@ -1,6 +1,7 @@
 package e4i.service;
 
 import e4i.config.Constants;
+import org.springframework.security.core.Authentication;
 import e4i.domain.Authority;
 import e4i.domain.User;
 import e4i.repository.AuthorityRepository;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,7 @@ import e4i.repository.UserRepository;
 import e4i.security.AuthoritiesConstants;										  
 import e4i.web.rest.vm.ManagedUserVM;										   
 import java.time.temporal.ChronoUnit;									 
+import e4i.web.rest.vm.ManagedUserVM;
 
 import javax.persistence.EntityNotFoundException;										 
 						 
@@ -41,8 +44,14 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
-   
-		
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
+	
+import org.springframework.security.crypto.password.PasswordEncoder;	
 /**
  * Service class for managing users.
  */
@@ -64,13 +73,13 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+    private boolean fromid = true;
     
-    
-    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PortalUserRepository portalUserRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
-        this.portalUserRepository = null;
+        this.portalUserRepository = portalUserRepository;
      //   this.passwordEncoder = null;
     }
 
@@ -341,12 +350,22 @@ public class UserService {
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findOneByEmailIgnoreCase(email);
     }
-
+ 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities() {
-        return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+    	Optional<String> userlogin =  SecurityUtils.getCurrentUserLogin();
+    	if (userlogin != null) {
+    		
+    		System.out.println("########################################################################################### is user servisa provera logina" + userlogin.toString()); // vraca empty
+    		List<String> auths = this.getAuthorities();
+    		//SecurityUtils.attributes.forEach((key, value) -> System.out.println(key + ":" + value));
+    		return getUserWithAuthoritiesByLogin(userlogin.get());
+    	}
+    	Optional<User> optUser = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+    	System.out.println("########################################################################################### is user servisa " + optUser); // vraca empty
+    	return optUser;
     }
-    
+   
     @Transactional(readOnly = true)
     public User getLoggedInUser() {
     	Optional<User> userOptional = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
@@ -377,18 +396,7 @@ public class UserService {
             });
     }									   
 										  
-											 
-	   
-								   
-										  
-																										   
-	 
-
-					
-						  
-			   
-		   
-
+	
     @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
@@ -396,49 +404,12 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
-        return userRepository.findOneWithAuthoritiesByLogin(login);
+    	Optional<User> userres= userRepository.findOneWithAuthoritiesByLogin(login);
+    	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + userres);
+    	return userRepository.findOneWithAuthoritiesByLogin(login);
     }
 					  
-			
-						 
-			 
-					  
-
-				 
-						
-					  
-				  
-	 
-				
-	 
-					   
-					 
-				 
 	
-	
-					
-		   
-			
-   
-	 
-  
-
-	
-				   
-			  
-   
-			 
-			
-	
-	  
-					  
-			
-				
-						
-				 
-					   
-	
-
     /**
      * Gets a list of all the authorities.
      * @return a list of all the authorities.
@@ -497,6 +468,7 @@ public class UserService {
     @Transactional
     public UserDTO getUserFromAuthentication(AbstractAuthenticationToken authToken) {
         Map<String, Object> attributes;
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$$$$$$$$ u token openid auth");
         if (authToken instanceof OAuth2AuthenticationToken) {
             attributes = ((OAuth2AuthenticationToken) authToken).getPrincipal().getAttributes();
         } else if (authToken instanceof JwtAuthenticationToken) {

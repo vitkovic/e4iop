@@ -141,7 +141,7 @@ public class PortalUserService {
     	Optional<User> currentUser = userService.getUserWithAuthorities();
         User user = currentUser.get();         
         PortalUser pu = portalUserRepository.findByUserId(user.getId());
-        if(pu != null && pu.getPortalUserRoles() != null) {
+        if(pu != null && pu.getPortalUserRoles() != null) { 
         	List<String> out = new ArrayList<String>();
         	for(PortalUserRole pur : pu.getPortalUserRoles()) {
         		out.add(pur.getAbbreviation());
