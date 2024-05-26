@@ -25,7 +25,8 @@ public final class SecurityUtils {
 	
 	public static Map<String, Object> attributes = null;
 	
-	
+	public static Collection<? extends GrantedAuthority> mapAuthenticatinAuthorithies = null;
+	  
     private SecurityUtils() {
     }
 
@@ -57,7 +58,17 @@ public final class SecurityUtils {
             return (String) ((JwtAuthenticationToken)authentication).getToken().getClaims().get("preferred_username");
         } else if (authentication.getPrincipal() instanceof DefaultOidcUser) {
         	System.out.println("3");
-            Map<String, Object> attributes = ((DefaultOidcUser) authentication.getPrincipal()).getAttributes();
+            Map<String, Object> mapAttributes = ((DefaultOidcUser) authentication.getPrincipal()).getAttributes();
+            
+            mapAuthenticatinAuthorithies =  ((DefaultOidcUser) authentication.getPrincipal()).getAuthorities();
+            
+            mapAuthenticatinAuthorithies.forEach((temp) -> {
+                System.out.println(temp);
+            }); 
+            mapAttributes.forEach((key, value) -> System.out.println(key + ":" + value)); 
+            
+            attributes = mapAttributes;
+            
             if (attributes.containsKey("preferred_username")) {
                 return (String) attributes.get("preferred_username");
             }

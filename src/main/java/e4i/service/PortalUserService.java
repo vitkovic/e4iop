@@ -141,9 +141,23 @@ public class PortalUserService {
     	Optional<User> currentUser = userService.getUserWithAuthorities();
         User user = currentUser.get();         
         PortalUser pu = portalUserRepository.findByUserId(user.getId());
+        
+        
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + pu);
+        
+        
         if(pu != null && pu.getPortalUserRoles() != null) { 
+        	
+        	
+        	System.out.println("************************************************************************ " + pu);
+        	
+        	
         	List<String> out = new ArrayList<String>();
         	for(PortalUserRole pur : pu.getPortalUserRoles()) {
+        		
+        		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  " + pu);
+        		
+        		
         		out.add(pur.getAbbreviation());
         	}
         	return out;        	

@@ -1,5 +1,8 @@
 <template>
 
+
+
+
 			    <b-navbar toggleable="sm" type="light">
 			        <b-navbar-brand class="logo" b-link to="/" style="margin-bottom:-10px;" >
 			            

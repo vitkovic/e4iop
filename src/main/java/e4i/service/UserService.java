@@ -359,6 +359,9 @@ public class UserService {
     		System.out.println("########################################################################################### is user servisa provera logina" + userlogin.toString()); // vraca empty
     		List<String> auths = this.getAuthorities();
     		//SecurityUtils.attributes.forEach((key, value) -> System.out.println(key + ":" + value));
+    		auths.forEach((temp) -> {
+                System.out.println(temp);
+            }); 
     		return getUserWithAuthoritiesByLogin(userlogin.get());
     	}
     	Optional<User> optUser = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
