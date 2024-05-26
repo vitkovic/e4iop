@@ -410,6 +410,7 @@ public class UserService {
          newUser.setActivationKey(RandomUtil.generateActivationKey());
          Set<Authority> authorities = new HashSet<>();
          authorityRepository.findById(AuthoritiesConstants.ADMIN).ifPresent(authorities::add);
+         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
          newUser.setAuthorities(authorities);
          userRepository.save(newUser);
          this.clearUserCaches(newUser);

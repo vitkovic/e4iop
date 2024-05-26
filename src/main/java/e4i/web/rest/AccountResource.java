@@ -167,7 +167,7 @@ public class AccountResource {
            
     		
     	}
-    	return userid
+    	return userService.getUserWithAuthorities()
             .map(UserDTO::new)
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
     }
