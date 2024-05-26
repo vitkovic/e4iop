@@ -151,7 +151,23 @@ public class AccountResource {
     @GetMapping("/account")
     public UserDTO getAccount() {
     //	System.out.println("????????????????????????????????????????????????????????????????? @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+userService.getUserWithAuthorities());
-        return userService.getUserWithAuthorities()
+    	UserDTO useropt = null;
+    	Optional<User> userid = null;
+    	try {
+    	
+    		useropt = userService.getUserWithAuthorities().map(UserDTO::new).orElseThrow(() -> new AccountResourceException("User could not be found"));;
+ 
+    		return useropt;
+    		
+    	} catch (AccountResourceException ex) 
+    	{
+    		userid =  userService.getUserWithAuthorities();
+    		    		
+    		User user = userService.createTempUser(userid);
+           
+    		
+    	}
+    	return userid
             .map(UserDTO::new)
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
     }

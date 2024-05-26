@@ -120,6 +120,9 @@ public class UserService {
             });
     }
 
+    
+    
+    
     public User registerUser(UserDTO userDTO, String password) {
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
@@ -382,7 +385,42 @@ public class UserService {
     	
     	return user;
     }
+    
+    
+    public User createTempUser(Optional<User> userop) {
+    	
+         	
+    	return this.registerUserFromOpenId(userop);
+    }
 
+    
+    public User registerUserFromOpenId(Optional<User> userop) {
+    	
+    	
+    	 User newUser = new User();
+         //String encryptedPassword = passwordEncoder.encode(password);
+    	 newUser.setFirstName((String)SecurityUtils.attributes.get("name"));
+    	 newUser.setLastName((String)SecurityUtils.attributes.get("family_name"));
+    	 newUser.setPassword("$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG");
+    	 newUser.setId((String)SecurityUtils.attributes.get("sub"));
+    	 newUser.setEmail((String)SecurityUtils.attributes.get("preferred_username"));
+    	 newUser.setLogin((String)SecurityUtils.attributes.get("preferred_username"));
+         newUser.setActivated(true);
+         // new user gets registration key
+         newUser.setActivationKey(RandomUtil.generateActivationKey());
+         Set<Authority> authorities = new HashSet<>();
+         authorityRepository.findById(AuthoritiesConstants.ADMIN).ifPresent(authorities::add);
+         newUser.setAuthorities(authorities);
+         userRepository.save(newUser);
+         this.clearUserCaches(newUser);
+         log.debug("Created Information for User: {}", newUser);
+         return newUser;
+    	
+    	
+    }
+    
+    
+    
     /**
      * Not activated users should be automatically deleted after 3 days.
      * <p>
