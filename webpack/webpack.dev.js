@@ -30,13 +30,13 @@ module.exports = merge(baseWebpackConfig, {
   },
   devServer: {
     contentBase: './target/classes/static/',
-    port: 9060,
+    port: 9070,
     proxy: [
       {
         context: ['/api', '/services', '/management', '/swagger-resources', '/v2/api-docs', '/h2-console', '/oauth2', '/login', '/auth'],
         target: 'http://127.0.0.1:80',
         secure: false,
-        headers: { host: 'localhost:9000' },
+        headers: { host: 'localhost:9001' },
       },
     ],
     watchOptions: {
@@ -54,9 +54,9 @@ module.exports = merge(baseWebpackConfig, {
     new BrowserSyncPlugin(
       {
         host: 'localhost',
-        port: 9000,
+        port: 9001,
         proxy: {
-          target: 'http://localhost:9060',
+          target: 'http://localhost:9070',
         },
         socket: {
           clients: {
