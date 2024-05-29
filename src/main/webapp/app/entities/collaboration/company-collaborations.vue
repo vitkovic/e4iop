@@ -72,8 +72,16 @@
                             <router-link :to="{name: 'AdvertisementView', params: {advertisementId: collaboration.advertisement.id}}">{{collaboration.advertisement.title}}</router-link>
                         </div>
                     </td>
-                    <td>{{collaboration.advertisement.type.type}}</td>
-                    <td>{{collaboration.advertisement.kind.kind}}</td>
+                    <td>
+                        <div v-if="collaboration.advertisement.type">
+                            {{collaboration.advertisement.type.type}}
+                        </div>
+                    </td>
+                    <td>
+                        <div v-if="collaboration.advertisement.kind">
+                            {{collaboration.advertisement.kind.kind}}
+                        </div>
+                    </td>
                     <td>{{collaboration.advertisement.budget}}</td>
                     <td>{{collaboration.advertisement.duration.duration}}</td>
                     <td>
@@ -106,19 +114,19 @@
                                    v-b-modal.ratingEntity>
                                 <span class="d-none d-md-inline" v-text="'Oceni'">Oceni</span>
                             </b-button>
-                            <b-button v-if="company.id === collaboration.advertisement.company.id" v-on:click="prepareRenewAd(collaboration)"
+                            <b-button v-if="company.id === collaboration.advertisement.company.id" v-on:click="prepareCopyAd(collaboration)"
                                    variant="primary"
                                    class="btn btn-sm mr-1"
-                                   v-b-modal.renewAdEntity>
+                                   v-b-modal.copyAdModal>
                                 <span class="d-none d-md-inline" v-text="'Pokreni ponovo'">Pokreni ponovo</span>
                             </b-button>
-                            <b-button v-if="ratingExists(collaboration) && company.id === collaboration.advertisement.company.id" v-on:click="prepareRemove(collaboration)"
+                            <!-- <b-button v-if="ratingExists(collaboration) && company.id === collaboration.advertisement.company.id" v-on:click="prepareRemove(collaboration)"
                                    variant="danger"
                                    class="btn btn-sm"
                                    v-b-modal.removeEntity>
                                 <font-awesome-icon icon="times"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
-                            </b-button>
+                            </b-button> -->
                         </div>
                     </td>
                 </tr>
@@ -178,6 +186,17 @@
             <div slot="modal-footer">
                 <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
                 <button type="button" class="btn btn-primary" id="jhi-confirm-delete-collaboration" v-text="$t('entity.action.delete')" v-on:click="removeCollaboration()">Delete</button>
+            </div>
+        </b-modal>
+
+        <b-modal ref="copyAdModal" id="copyAdModal" >
+            <span slot="modal-title"><span id="riportalApp.collaboration.delete.question" v-text="'Potvrdite obnovu oglasa'">Potvrdite obnovu oglasa</span></span>
+            <div class="modal-body">
+                <p v-if="advertisement" id="jhi-delete-collaboration-heading" v-text="'Da li želite da obnovite oglas ' + advertisement.title + '?'">Da li želite da obnovite oglas?</p>
+            </div>
+            <div slot="modal-footer">
+                <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeCopyAd()">Cancel</button>
+                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-collaboration" v-text="'Potvrdi'" v-on:click="confirmCopyAd()">Delete</button>
             </div>
         </b-modal>
         <div v-show="collaborations && collaborations.length > 0">

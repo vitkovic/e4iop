@@ -262,6 +262,26 @@ public class MailService {
     }
     
     @Transactional
+    public NotificationMailDTO createNotificationMailDTOForCollaborationCancel(Message message, Collaboration collaboration) {
+    	Company company = collaboration.getCompanyRequest();
+    	
+        List<PortalUser> companyPortalUsers = portalUserRepository.findAllByCompanyAndDoNotify(company, true); 
+        List<String> emails = companyPortalUsers.stream()
+                .map(portalUser -> portalUser.getUser().getEmail())
+                .collect(Collectors.toList());
+	
+        String mailSubject = "B2B portal - Obaveštenje o odbijenoom zahtevu za saradnjom";
+        String mailContent = this.prepareContentForCollaborationCancelNotification(message, collaboration);
+
+        NotificationMailDTO mailDTO = new NotificationMailDTO();
+        mailDTO.setEmails(emails);
+        mailDTO.setSubject(mailSubject);
+        mailDTO.setContent(mailContent);
+        
+        return mailDTO;
+    }
+    
+    @Transactional
     public NotificationMailDTO createNotificationMailDTOForCollaborationRatingCompanyOffer(Collaboration collaboration) {
     	Company company = collaboration.getCompanyOffer();
     	
@@ -378,7 +398,32 @@ public class MailService {
         String companyMessagesLink = homeURL + "/b2b/company/" + collaboration.getCompanyRequest().getId() + "/collaborations";
         
         String content = "<div>"
-        		+ "<p>Prihvačen je zahtev za saradnjom na B2B portalu za kompaniju " + collaboration.getCompanyRequest().getName() + ".</p>"
+        		+ "<p>Prihvaćen je zahtev za saradnju na B2B portalu za kompaniju " + collaboration.getCompanyRequest().getName() + ".</p>"
+        		+ "<br>"
+        		+ "<p><b>Vreme: </b><span>" + dateTimeFormatter.format(zonedDateTime) + "</span></p>"
+        		+ "<p><b>Oglašivač: </b><span>" + collaboration.getCompanyOffer().getName() + "</span></p>"
+        		+ advertisementString
+        		+ "<hr>"
+        		+ "<p>Sve ostvarene saradnje možete pogledati sa "
+        		+ "<a href='" + companyMessagesLink + "'>profila Vaše kompanije<a>.</p>"
+        		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
+             
+    	return content;
+    }
+    
+    public String prepareContentForCollaborationCancelNotification(Message message, Collaboration collaboration) {
+    	
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        ZonedDateTime zonedDateTime = message.getDatetime().atZone(ZoneId.systemDefault());
+        
+        String advertisementString = "";
+        advertisementString = "<p><b>Oglas: </b><span>" + collaboration.getAdvertisement().getTitle() + "</span></p>";
+        
+        String homeURL = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+        String companyMessagesLink = homeURL + "/b2b/company/" + collaboration.getCompanyRequest().getId() + "/collaborations";
+        
+        String content = "<div>"
+        		+ "<p>Odbijen je zahtev za saradnju na B2B portalu za kompaniju " + collaboration.getCompanyRequest().getName() + ".</p>"
         		+ "<br>"
         		+ "<p><b>Vreme: </b><span>" + dateTimeFormatter.format(zonedDateTime) + "</span></p>"
         		+ "<p><b>Oglašivač: </b><span>" + collaboration.getCompanyOffer().getName() + "</span></p>"

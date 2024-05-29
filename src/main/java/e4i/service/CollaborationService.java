@@ -2,6 +2,7 @@ package e4i.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import e4i.domain.Advertisement;
 import e4i.domain.Collaboration;
 import e4i.domain.CollaborationRating;
+import e4i.domain.CollaborationStatus;
 import e4i.domain.PortalUser;
 import e4i.repository.CollaborationRepository;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -27,6 +30,9 @@ public class CollaborationService {
     private final Logger log = LoggerFactory.getLogger(CollaborationService.class);
 
     private final CollaborationRepository collaborationRepository;
+    
+    @Autowired
+    CollaborationStatusService collaborationStatusService;
     
     public CollaborationService(CollaborationRepository collaborationRepository) {
         this.collaborationRepository = collaborationRepository;
@@ -86,8 +92,13 @@ public class CollaborationService {
         collaboration.setCompanyOffer(advertisement.getCompany());
         collaboration.setCompanyRequest(portalUser.getCompany());
         collaboration.setDatetime(Instant.now());
-        collaboration.setIsAccepted(false);
         
+        // "isAccepted" is not used anymore, instead, use "status"
+//        collaboration.setIsAccepted(false);
+        
+        CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.PENDING); 
+        collaboration.setStatus(collaborationStatus);
+
         Collaboration result = this.save(collaboration);
         
         return result; 
@@ -103,7 +114,31 @@ public class CollaborationService {
         }
     	
     	Collaboration collaboration = collaborationOptional.get();
-    	collaboration.setIsAccepted(true);
+
+    	// "isAccepted" is not used anymore, instead, use "status"
+//    	collaboration.setIsAccepted(true);
+
+        CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
+        collaboration.setStatus(collaborationStatus);
+    	collaboration.setDatetime(Instant.now());
+    	
+    	Collaboration result = collaborationRepository.save(collaboration);
+    	
+    	return result;
+    }
+    
+    @Transactional
+    public Collaboration cancelCollaboration(Long id) {
+    	Optional<Collaboration> collaborationOptional = collaborationRepository.findById(id);
+        
+    	if (collaborationOptional.isEmpty()) {
+    		String errorMessage = String.format("Collaboration with id={} could not be found", id);
+        	throw new EntityNotFoundException(errorMessage);
+        }
+    	
+    	Collaboration collaboration = collaborationOptional.get();
+        CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.REJECTED); 
+        collaboration.setStatus(collaborationStatus);
     	collaboration.setDatetime(Instant.now());
     	
     	Collaboration result = collaborationRepository.save(collaboration);
@@ -145,6 +180,43 @@ public class CollaborationService {
     	Collaboration result = collaborationRepository.save(collaboration);
     	
     	return result;
+    }
+    
+    @Transactional
+    public Long countPendingCollaborationsForAdvertisement(Long advertisementId) { 	
+    	return collaborationRepository.countByAdvertisementIdAndStatusStatus(advertisementId, CollaborationStatus.PENDING);
+    }
+    
+    @Transactional
+    public List<Collaboration> findAllPendingCollaborationsForAdvertisement(Long advertisementId) { 	
+    	return collaborationRepository.findAllByAdvertisementIdAndStatusStatus(advertisementId, CollaborationStatus.PENDING);
+    }
+    
+    
+    @Transactional
+    public Page<Collaboration> findAllAcceptedCollaborationsForCompany(Long companyId, Pageable pageable) {
+    	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
+    	
+    	System.out.println("HELLOOOOO");
+    	System.out.println(companyId);
+    	System.out.println(collaborationStatus);
+    	System.out.println(pageable);
+    	
+    	return collaborationRepository.findAllByCompanyAndStatus(companyId, collaborationStatus.getId(), pageable);
+    }
+    
+    @Transactional
+    public Page<Collaboration> findAllAcceptedCollaborationsForCompanyOffer(Long companyId, Pageable pageable) {
+    	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
+    	
+    	return collaborationRepository.findAllByCompanyOfferAndStatus(companyId, collaborationStatus.getId(), pageable);
+    }
+    
+    @Transactional
+    public Page<Collaboration> findAllAcceptedCollaborationsForCompanyRequest(Long companyId, Pageable pageable) {
+    	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
+    	
+    	return collaborationRepository.findAllByCompanyRequestAndStatus(companyId, collaborationStatus.getId(), pageable);
     }
     
 }

@@ -11,6 +11,7 @@
       {{ alertMessage }}
     </b-alert>
     <div v-if="company" class="d-flex mb-3">
+      <p>PROBA NOVA</p>
       <img
         v-if="company.logo"
         :src="companyService().retrieveImage(company.logo.filename)"
@@ -28,19 +29,188 @@
     <div class="ml-3 mb-3" style="display: flex; align-items: center;">
       <h3
         v-if="threadsDTO"
-        v-text="threadsDTO.some(t => t.unreadExists) ? $t('riportalApp.thread.messages') + ' (' + threadsDTO.filter(t => t.unreadExists).length + ')' : $t('riportalApp.thread.messages')"
+        v-text="
+          threadsDTO.some(t => t.unreadExists)
+            ? $t('riportalApp.thread.messages') + ' (' + threadsDTO.filter(t => t.unreadExists).length + ')'
+            : $t('riportalApp.thread.messages')
+        "
         class="mr-3"
       >
         Poruke
       </h3>
       <h3 v-else v-text="'Poruke'"></h3>
       <div>
-        <b-button :variant="filterAllButtonVariant" v-text="$t('riportalApp.thread.filter.allnquiries')" v-on:click="showAllThreads()">Svi upiti</b-button>
-        <b-button :variant="filterReceiverButtonVariant" v-text="$t('riportalApp.thread.filter.receivedInquiries')" v-on:click="showReceiverThreads()">Primljeni upiti</b-button>
-        <b-button :variant="filterSenderButtonVariant" v-text="$t('riportalApp.thread.filter.sendInquiries')" v-on:click="showSenderThreads()">Poslati upiti</b-button>
+        <b-button :variant="filterAllButtonVariant" v-text="$t('riportalApp.thread.filter.allnquiries')" v-on:click="showAllThreads()"
+          >Svi upiti</b-button
+        >
+        <b-button
+          :variant="filterReceiverButtonVariant"
+          v-text="$t('riportalApp.thread.filter.receivedInquiries')"
+          v-on:click="showReceiverThreads()"
+          >Primljeni upiti</b-button
+        >
+        <b-button
+          :variant="filterSenderButtonVariant"
+          v-text="$t('riportalApp.thread.filter.sendInquiries')"
+          v-on:click="showSenderThreads()"
+          >Poslati upiti</b-button
+        >
       </div>
     </div>
-    <div class="table-responsive" v-if="threadsDTO && threadsDTO.length > 0" style="font-size: 0.9rem;">
+    <!-- <div class="table-responsive" v-if="threadsDTO && threadsDTO.length > 0" style="font-size: 0.9rem;"> -->
+    <!-- <thead>
+                <tr>
+                    <th v-on:click="changeOrder('subject')"><span v-text="$t('b2BportalApp.thread.subject')">Subject</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subject'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('companyReceiver.id')"><span v-text="'Company Receiver'">Company Receiver</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companyReceiver.id'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('companySender.id')"><span v-text="'Company Sender'">Company Sender</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companySender.id'"></jhi-sort-indicator></th>
+                    <th></th>
+                </tr>
+                </thead> -->
+    <!-- <b-row class="table-header mt-4 bg-red ml-2 mb-2 mr-2 pt-2 font-weight-bold border-top">
+        <b-col sm="5"></b-col>
+        <b-col></b-col>
+        <b-col><span v-text="$t('riportalApp.thread.tableHeader.receiver')">Company Receiver</span></b-col>
+        <b-col><span v-text="$t('riportalApp.thread.tableHeader.sender')">Company Sender</span></b-col>
+        <b-col><span v-text="$t('riportalApp.thread.tableHeader.advertisement')">Аdvertisement</span></b-col>
+        <b-col></b-col>
+      </b-row> -->
+
+    <!-- <b-col v-on:click="changeOrder('subject')"><span v-text="$t('b2BportalApp.thread.subject')">Subject</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subject'"></jhi-sort-indicator></b-col>
+                    <b-col v-on:click="changeOrder('datetime')"><span v-text="'Datetime'">Datetime</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'datetime'"></jhi-sort-indicator></b-col> -->
+    <!-- ovde je -->
+
+    <!-- <b-row :class="{'gray-light': index%2 == 0, 'gray-dark': index%2 != 0 }"> -->
+    <!-- <div class="accordion w-100" v-for="(thread, index) in threadsDTO" :key="thread.id">
+        <b-card no-body class="mb-1 p-0">
+          <b-card-header header-tag="header" class="p-0 accordion-item w-100" role="tab">
+            <b-row
+              :class="{ unreadMessages: thread.unreadExists }"
+              class="bg-light border-top border-bottom h-100 align-items-center w-100"
+              v-on:click="
+                () => {
+                  showMessages(thread);
+                  toggleThreadCollapse('collapse-' + thread.id);
+                }
+              "
+              v-b-toggle="'collapse-' + thread.id"
+            >
+              <b-col class="p-0 h-100" sm="5">
+                <b-button
+                  v-if="thread.collaboration && thread.collaboration.isAccepted"
+                  variant="outline-primary"
+                  pill
+                  disabled
+                  class="btn btn-sm m-1"
+                >
+                  <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.acceptedCollaboration')">Saradnja ostvarena</span>
+                </b-button>
+                <b>{{ thread.subject }}</b>
+                <span>{{ ' (' + thread.messageCount + ')' }}</span>
+                <span>{{ buildThreadDisplayString(thread) }}</span>
+              </b-col>
+              <b-col class="h-100">
+                <span>{{ thread.lastMessageDatetime ? $d(Date.parse(thread.lastMessageDatetime.toString()), { dateStyle: 'short' }) : '' }}</span>
+              </b-col>
+              <b-col class="h-100">
+                <div v-if="thread.companyReceiver">
+                  <router-link :to="{ name: 'CompanyView', params: { companyId: thread.companyReceiver.id } }">{{
+                    thread.companyReceiver.name
+                  }}</router-link>
+                </div>
+              </b-col>
+              <b-col class="h-100">
+                <div v-if="thread.companySender">
+                  <router-link :to="{ name: 'CompanyView', params: { companyId: thread.companySender.id } }">{{
+                    thread.companySender.name
+                  }}</router-link>
+                </div>
+              </b-col>
+              <b-col class="p-0 h-100">
+                <div v-if="thread.advertisement">
+                  <router-link :to="{ name: 'AdvertisementView', params: { advertisementId: thread.advertisement.id } }">{{
+                    thread.advertisement.title
+                  }}</router-link>
+                </div>
+              </b-col>
+              <b-col class="text-right h-100">
+                <div class="btn-group h-100">
+                  <div class="btn-group  h-100">
+
+                  <b-button
+                    v-if="thread.collaboration && !thread.collaboration.isAccepted && thread.collaboration.companyOffer.id === company.id"
+                    v-on:click.stop="prepareConfirmCollaboration(thread.collaboration)"
+                    variant="success"
+                    class="btn btn-sm m-1 my-button"
+                    v-b-modal.confirmCollaboration
+                  >
+                    <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.confirmCollaboration')"
+                      >Potvrdi saradnju</span
+                    >
+                  </b-button>
+                  <b-button
+                    v-if="thread.collaboration && !thread.collaboration.isAccepted && thread.collaboration.companyOffer.id === company.id"
+                    variant="warning"
+                    class="btn btn-sm m-1"
+                    
+                  >
+                    <span class="d-none d-md-inline"
+                      >Otkaži saradnju</span
+                    >
+                  </b-button>
+                  </div>
+
+                  <b-button v-on:click.stop="prepareRemove(thread)" variant="danger" class="btn btn-sm" v-b-modal.removeEntity>
+                    <font-awesome-icon icon="times"></font-awesome-icon>
+                    <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.deleteInquiry')">Obriši upit</span>
+                  </b-button>
+                </div>
+              </b-col>
+            </b-row>
+          </b-card-header>
+
+          <b-collapse :id="'collapse-' + thread.id" accordion="my-accordion" role="tabpanel">
+            <b-card v-for="message in messages" :key="message.id">
+              <div class="row" style="display: flex; flex-direction: row;">
+                <div class="col">
+                  <p>
+                    <b>{{ $t('riportalApp.thread.messageSection.date') }} </b> <span></span
+                    >{{ message.datetime ? $d(Date.parse(message.datetime.toString()), 'short') : '' }}
+                  </p>
+                  <p>
+                    <b>{{ $t('riportalApp.thread.messageSection.sender') }} </b>
+                    <span>{{ message.portalUserSender.company.name }}</span>
+                    <span>{{ ' - ' + message.portalUserSender.user.firstName + ' ' + message.portalUserSender.user.lastName }}</span>
+                  </p>
+                  <p style="white-space: pre-line;">{{ message.content }}</p>
+                </div>
+                <div class="col col-lg-2 text-right">
+                  <b-button v-on:click="deleteMessage(message, thread)" variant="danger" class="btn btn-sm m-1">
+                    <font-awesome-icon icon="times"></font-awesome-icon>
+                    <span class="d-none d-md-inline" v-text="$t('entity.delete.deleteMessage')">Obriši poruku</span>
+                  </b-button>
+                </div>
+              </div>
+            </b-card>
+            <b-textarea
+              v-model="newMessageText"
+              class="mt-2 ml-2 mr-2 w-50"
+              :placeholder="placeholderText"
+              style="border-style: solid; border-color: darkgray;"
+            >
+            </b-textarea>
+            <button type="button" class="btn btn-success m-2" v-text="$t('entity.action.send')" v-on:click="sendMessage(thread)">
+              Pošalji
+            </button>
+          </b-collapse>
+        </b-card>
+      </div> -->
+    <!-- </div> -->
+
+    <!-- <p>Primalac: {{ message.portalUserReceiver.firstname + ' ' + message.portalUserReceiver.lastname }}</p> -->
+
+    <!-- nova tabela? -->
+
+    <div class="table-responsive" v-if="threadsDTO && threadsDTO.length > 0" style="font-size: 0.875rem;">
       <!-- <thead>
                 <tr>
                     <th v-on:click="changeOrder('subject')"><span v-text="$t('b2BportalApp.thread.subject')">Subject</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subject'"></jhi-sort-indicator></th>
@@ -49,125 +219,256 @@
                     <th></th>
                 </tr>
                 </thead> -->
-      <b-row class="table-header mt-4 bg-red ml-2 mb-2 mr-2 pt-2 font-weight-bold border-top">
-        <b-col sm="5"></b-col>
-        <b-col></b-col>
+      <b-row class="table-header mt-4 mb-1 font-weight-bold border-top align-items-center spacing-subject">
+        <b-col sm="4"></b-col>
         <!-- <b-col v-on:click="changeOrder('subject')"><span v-text="$t('b2BportalApp.thread.subject')">Subject</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subject'"></jhi-sort-indicator></b-col>
                     <b-col v-on:click="changeOrder('datetime')"><span v-text="'Datetime'">Datetime</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'datetime'"></jhi-sort-indicator></b-col> -->
         <b-col><span v-text="$t('riportalApp.thread.tableHeader.receiver')">Company Receiver</span></b-col>
         <b-col><span v-text="$t('riportalApp.thread.tableHeader.sender')">Company Sender</span></b-col>
         <b-col><span v-text="$t('riportalApp.thread.tableHeader.advertisement')">Аdvertisement</span></b-col>
-        <b-col></b-col>
+        <b-col sm="2"></b-col>
       </b-row>
-      <div class="accordion" v-for="(thread, index) in threadsDTO" :key="thread.id">
-        <!-- <b-row :class="{'gray-light': index%2 == 0, 'gray-dark': index%2 != 0 }"> -->
-        <b-row
-          :class="{ unreadMessages: thread.unreadExists }"
-          class="bg-light ml-2 mr-2 border-top border-bottom"
-          v-on:click="() => { showMessages(thread); toggleThreadCollapse('collapse-' + thread.id); }"
-          v-b-toggle="'collapse-' + thread.id"
-        >
-          <b-col class="pt-2" sm="5">
-            <b-button
-              v-if="thread.collaboration && thread.collaboration.isAccepted"
-              variant="outline-primary"
-              pill
-              disabled
-              class="btn btn-sm m-1"
-            >
-              <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.acceptedCollaboration')">Saradnja ostvarena</span>
-            </b-button>
-            <b>{{ thread.subject }}</b>
-            <span>{{ ' (' + thread.messageCount + ')' }}</span>
-            <span>{{ buildThreadDisplayString(thread) }}</span>
-          </b-col>
-          <b-col class="pt-2">
-            <span>{{ thread.lastMessageDatetime ? $d(Date.parse(thread.lastMessageDatetime.toString()), 'short') : '' }}</span>
-          </b-col>
-          <b-col class="pt-2">
-            <div v-if="thread.companyReceiver">
-              <router-link :to="{ name: 'CompanyView', params: { companyId: thread.companyReceiver.id } }">{{
-                thread.companyReceiver.name
-              }}</router-link>
-            </div>
-          </b-col>
-          <b-col class="pt-2">
-            <div v-if="thread.companySender">
-              <router-link :to="{ name: 'CompanyView', params: { companyId: thread.companySender.id } }">{{
-                thread.companySender.name
-              }}</router-link>
-            </div>
-          </b-col>
-          <b-col class="pt-2">
-            <div v-if="thread.advertisement">
-              <router-link :to="{ name: 'AdvertisementView', params: { advertisementId: thread.advertisement.id } }">{{
-                thread.advertisement.title
-              }}</router-link>
-            </div>
-          </b-col>
-          <b-col class="text-right">
-            <div class="btn-group">
-              <b-button
-                v-if="thread.collaboration && !thread.collaboration.isAccepted && thread.collaboration.companyOffer.id === company.id"
-                v-on:click.stop="prepareConfirmCollaboration(thread.collaboration)"
-                variant="success"
-                class="btn btn-sm m-1"
-                v-b-modal.confirmCollaboration
-              >
-                <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.confirmCollaboration')">Potvrdi saradnju</span>
-              </b-button>
 
-              <b-button v-on:click.stop="prepareRemove(thread)" variant="danger" class="btn btn-sm m-1" v-b-modal.removeEntity>
-                <font-awesome-icon icon="times"></font-awesome-icon>
-                <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.deleteInquiry')">Obriši upit</span>
-              </b-button>
-            </div>
-          </b-col>
-        </b-row>
-        <b-collapse :id="'collapse-' + thread.id" accordion="my-accordion">
-          <b-card v-for="message in messages" :key="message.id">
-            <div class="row" style="display: flex; flex-direction: row;">
-              <div class="col">
-                <p><b>{{$t('riportalApp.thread.messageSection.date')}} </b> <span></span>{{ message.datetime ? $d(Date.parse(message.datetime.toString()), 'short') : '' }}</p>
-                <p>
-                  <b>{{$t('riportalApp.thread.messageSection.sender')}} </b>
-                  <span>{{ message.portalUserSender.company.name }}</span>
-                  <span>{{ ' - ' + message.portalUserSender.user.firstName + ' ' + message.portalUserSender.user.lastName }}</span>
-                </p>
-                <!-- <p>Primalac: {{ message.portalUserReceiver.firstname + ' ' + message.portalUserReceiver.lastname }}</p> -->
-                <p style="white-space: pre-line;">{{ message.content }}</p>
-              </div>
-              <div class="col col-lg-2 text-right">
-                <b-button v-on:click="deleteMessage(message, thread)" variant="danger" class="btn btn-sm m-1">
-                  <font-awesome-icon icon="times"></font-awesome-icon>
-                  <span class="d-none d-md-inline" v-text="$t('entity.delete.deleteMessage')">Obriši poruku</span>
-                </b-button>
-              </div>
-            </div>
+      <!-- ovde je -->
+
+      <b-row class="table-body ml-2 mr-2 align-items-center">
+        <div class="accordion w-100" v-for="(thread, index) in threadsDTO" :key="thread.id">
+          <b-card no-body class="mb-1 bg-light" :class="{ unreadMessages: thread.unreadExists }">
+            <b-card-header header-tag="header" class="p-0" role="tab">
+              <b-row
+                class="align-items-center accordion-item p-1"
+                v-on:click="
+                  () => {
+                    showMessages(thread);
+                    toggleThreadCollapse('collapse-' + thread.id);
+                  }
+                "
+                v-b-toggle="'collapse-' + thread.id"
+              >
+                <b-col class="d-flex h-100 justify-content-between align-items-center" sm="4">
+                  <div class="firstcol-p1 d-flex align-items-center">
+                    <div v-if="thread.collaboration && thread.collaboration.status && (thread.collaboration.status.status === collaborationStatusOptions.ACCEPTED)" 
+                      v-b-tooltip.hover="{ variant: 'info', customClass: 'custom-tooltip' }"
+                      :title="$t('riportalApp.thread.iconHover.confirmCollaboration')">
+                      <b-button variant='info' disabled class="btn btn-sm mr-1 circle-indicator">
+                        <font-awesome-icon icon='check'></font-awesome-icon>
+                      </b-button>
+                    </div>
+
+                    <div v-if="thread.collaboration && thread.collaboration.status && (thread.collaboration.status.status === collaborationStatusOptions.REJECTED)" 
+                      v-b-tooltip.hover="{ variant: 'info', customClass: 'custom-tooltip' }"
+                      :title="$t('riportalApp.thread.iconHover.cancelCollaboration')">
+                      <b-button variant='info' disabled class="btn btn-sm mr-1 circle-indicator">
+                        <font-awesome-icon icon='minus'></font-awesome-icon>
+                      </b-button>
+                    </div>
+                    
+                    <!-- <div
+                      v-if="thread.collaboration && (thread.collaboration.isAccepted || isCanceled)"
+                      v-b-tooltip.hover="{ variant: thread.collaboration.isAccepted ? 'success' : 'danger', customClass: 'custom-tooltip' }"
+                      :title="
+                        thread.collaboration.isAccepted
+                          ? $t('riportalApp.thread.iconHover.confirmCollaboration')
+                          : $t('riportalApp.thread.iconHover.cancelCollaboration')
+                      "
+                    >
+                      <b-button :variant="thread.collaboration.isAccepted ? 'success' : 'danger'" disabled class="btn btn-sm mr-1">
+                        <font-awesome-icon :icon="thread.collaboration.isAccepted ? 'check' : 'times'"></font-awesome-icon>
+                      </b-button>
+                    </div> -->
+
+                    <div class="d-flex align-items-center">
+                      <span class="spacing-subject">
+                        <b>{{ thread.subject }}</b
+                        >{{ ' (' + thread.messageCount + ')' }}{{ buildThreadDisplayString(thread) }}
+                      </span>
+                      <!-- <b>{{ thread.subject }}</b>
+                <span>{{ ' (' + thread.messageCount + ')' }}</span>
+                <span>{{ buildThreadDisplayString(thread) }}</span> -->
+                    </div>
+                  </div>
+                  <div class="firstcol-p2 d-flex align-items-center spacing">
+                    <span class="text-right">
+                      {{ thread.lastMessageDatetime ? $d(Date.parse(thread.lastMessageDatetime.toString()), { dateStyle: 'short' }) : '' }}
+                    </span>
+                  </div>
+                </b-col>
+                <b-col class="d-flex align-items-center h-100">
+                  <div v-if="thread.companyReceiver" class="spacing-subject h-100 d-flex align-items-center">
+                    <router-link :to="{ name: 'CompanyView', params: { companyId: thread.companyReceiver.id } }">{{
+                      buildThreadColumnString(thread.companyReceiver.name)
+                    }}</router-link>
+                  </div>
+                </b-col>
+                <b-col class="h-100">
+                  <div v-if="thread.companySender" class="spacing-subject h-100 d-flex align-items-center">
+                    <router-link :to="{ name: 'CompanyView', params: { companyId: thread.companySender.id } }">{{
+                      buildThreadColumnString(thread.companySender.name)
+                    }}</router-link>
+                  </div>
+                </b-col>
+                <b-col class="h-100">
+                  <div v-if="thread.advertisement" class="spacing-subject h-100 d-flex align-items-center">
+                    <router-link :to="{ name: 'AdvertisementView', params: { advertisementId: thread.advertisement.id } }">{{
+                      buildThreadColumnString(thread.advertisement.title)
+                    }}</router-link>
+                  </div>
+                </b-col>
+                <b-col class="text-right h-100 pl-0" sm="2">
+                  <div class="btn-group h-100">
+                    <b-button
+                      v-if="thread.collaboration 
+                      && thread.collaboration.status 
+                      && (thread.collaboration.status.status === collaborationStatusOptions.PENDING)
+                      && thread.collaboration.companyOffer.id === company.id
+                      "
+                      v-on:click.stop="prepareConfirmCollaboration(thread.collaboration)"
+                      variant="success"
+                      class="btn btn-sm spacing-subject-btn mr-1 pl-1 pr-1"
+                      v-b-modal.confirmCollaboration
+                    >
+                      <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.confirmCollaboration')"
+                        >Potvrdi saradnju</span
+                      >
+                    </b-button>
+                    <b-button
+                      v-if="thread.collaboration 
+                        && thread.collaboration.status 
+                        && (thread.collaboration.status.status === collaborationStatusOptions.PENDING)
+                        && thread.collaboration.companyOffer.id === company.id
+                        "
+                      v-on:click.stop="prepareCancelCollaboration(thread.collaboration)"
+                      variant="warning"
+                      class="btn btn-sm spacing-subject-btn mr-1 pl-1 pr-1"
+                      v-b-modal.cancelCollaboration
+                    >
+                      <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.cancelCollaboration')"
+                        >Otkaži saradnju</span
+                      >
+                    </b-button>
+
+                    <b-button
+                      v-on:click.stop="prepareRemove(thread)"
+                      variant="danger"
+                      class="btn btn-sm spacing-subject-btn"
+                      v-b-modal.removeEntity
+                    >
+                      <font-awesome-icon icon="trash"></font-awesome-icon>
+                    </b-button>
+                  </div>
+                </b-col>
+              </b-row>
+            </b-card-header>
+
+            <b-collapse :id="'collapse-' + thread.id" accordion="my-accordion" role="tabpanel">
+              <b-card v-for="message in messages" :key="message.id">
+                <div class="row" style="display: flex; flex-direction: row;">
+                  <div class="col">
+                    <p>
+                      <b>{{ $t('riportalApp.thread.messageSection.date') }} </b> <span></span
+                      >{{ message.datetime ? $d(Date.parse(message.datetime.toString()), 'short') : '' }}
+                    </p>
+                    <p>
+                      <b>{{ $t('riportalApp.thread.messageSection.sender') }} </b>
+                      <span>{{ message.portalUserSender.company.name }}</span>
+                      <span>{{ ' - ' + message.portalUserSender.user.firstName + ' ' + message.portalUserSender.user.lastName }}</span>
+                    </p>
+                    <!-- <p>Primalac: {{ message.portalUserReceiver.firstname + ' ' + message.portalUserReceiver.lastname }}</p> -->
+                    <p style="white-space: pre-line;">{{ message.content }}</p>
+                  </div>
+                  <div class="col col-lg-2 text-right">
+                    <b-button v-on:click="deleteMessage(message, thread)" variant="danger" class="btn btn-sm m-1">
+                      <font-awesome-icon icon="times"></font-awesome-icon>
+                      <span class="d-none d-md-inline" v-text="$t('entity.delete.deleteMessage')">Obriši poruku</span>
+                    </b-button>
+                  </div>
+                </div>
+              </b-card>
+              <b-textarea
+                v-model="newMessageText"
+                class="mt-2 ml-2 mr-2 w-50"
+                :placeholder="placeholderText"
+                style="border-style: solid; border-color: darkgray;"
+              >
+              </b-textarea>
+              <button type="button" class="btn btn-success m-2" v-text="$t('entity.action.send')" v-on:click="sendMessage(thread)">
+                Pošalji
+              </button>
+            </b-collapse>
           </b-card>
-          <b-textarea
-            v-model="newMessageText"
-            class="mt-2 ml-2 mr-2 w-50"
-            :placeholder="placeholderText"
-            style="border-style: solid; border-color: darkgray;"
-          >
-          </b-textarea>
-          <button type="button" class="btn btn-success m-2" v-text="$t('entity.action.send')" v-on:click="sendMessage(thread)">Pošalji</button>
-        </b-collapse>
-      </div>
+        </div>
+      </b-row>
     </div>
+
+    <!-- kraj -->
+
     <b-modal v-if="collaboration" ref="confirmCollaboration" id="confirmCollaboration">
       <span slot="modal-title"
-        ><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.modal.title')">Da li želite da potvrdite zahtev za saradnju?</span></span
+        ><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.modalConfirm.title')"
+          >Da li želite da potvrdite zahtev za saradnju?</span
+        ></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-advertisement-heading"><b>{{$t('riportalApp.thread.modal.advertisement')}} </b>{{ collaboration.advertisement.title }}</p>
-        <p id="jhi-delete-advertisement-heading"><b>{{$t('riportalApp.thread.modal.company')}} </b>{{ collaboration.companyRequest.name }}</p>
-        <br />
+        <p id="jhi-delete-advertisement-heading">
+          <b>{{ $t('riportalApp.thread.modalConfirm.advertisement') }} </b>{{ collaboration.advertisement.title }}
+        </p>
+        <p id="jhi-delete-advertisement-heading">
+          <b>{{ $t('riportalApp.thread.modalConfirm.company') }} </b>{{ collaboration.companyRequest.name }}
+        </p>
+        <hr v-if="pendingCollaborationsCount > 1"/>
+        <b-form-group
+          v-if="pendingCollaborationsCount > 1"
+          :label="$t('riportalApp.thread.modalConfirm.bodyTitle', { title: collaboration.advertisement.title })"
+          v-slot="{ ariaDescribedby }"
+        >
+          <b-form-radio v-model="selectedCollRadioBtn" :aria-describedby="ariaDescribedby" name="collaboration-radios" value="da">{{
+            $t('entity.action.yes')
+          }}</b-form-radio>
+          <b-form-radio v-model="selectedCollRadioBtn" :aria-describedby="ariaDescribedby" name="collaboration-radios" value="ne">{{
+            $t('entity.action.no')
+          }}</b-form-radio>
+        </b-form-group>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeConfirmCollaboration()">Otkaži</button>
-        <button type="button" class="btn btn-success" id="jhi-confirm-delete-advertisement" v-text="$t('entity.action.confirm')" v-on:click="confirmCollaboration()" v-b-modal.confirmCollaborationSecond>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeConfirmCollaboration()">
+          Otkaži
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          id="jhi-confirm-delete-advertisement"
+          v-text="$t('entity.action.confirm')"
+          v-on:click="confirmCollaboration()"
+        >
+          Potvrdi
+        </button>
+      </div>
+    </b-modal>
+    <b-modal v-if="collaboration" ref="cancelCollaboration" id="cancelCollaboration">
+      <span slot="modal-title"
+        ><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.modalCancel.title')"
+          >Da li želite da odbijete zahtev za saradnju?</span
+        ></span
+      >
+      <div class="modal-body">
+        <p id="jhi-delete-advertisement-heading">
+          <b>{{ $t('riportalApp.thread.modalCancel.advertisement') }} </b>{{ collaboration.advertisement.title }}
+        </p>
+        <p id="jhi-delete-advertisement-heading">
+          <b>{{ $t('riportalApp.thread.modalCancel.company') }} </b>{{ collaboration.companyRequest.name }}
+        </p>
+      </div>
+      <div slot="modal-footer">
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCancelCollaboration()">
+          Otkaži
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          id="jhi-confirm-delete-advertisement"
+          v-text="$t('entity.action.confirm')"
+          v-on:click="cancelCollaboration()"
+        >
           Potvrdi
         </button>
       </div>
@@ -177,11 +478,7 @@
         ><span id="b2BportalApp.thread.delete.question" v-text="$t('entity.delete.title')">Confirm delete operation</span></span
       >
       <div class="modal-body">
-        <p
-          v-if="removeThreadDTO"
-          id="jhi-delete-thread-heading"
-          v-text="$t('riportalApp.thread.delete.question')"
-        >
+        <p v-if="removeThreadDTO" id="jhi-delete-thread-heading" v-text="$t('riportalApp.thread.delete.question')">
           Are you sure you want to delete this Thread?
         </p>
       </div>
@@ -198,21 +495,7 @@
         </button>
       </div>
     </b-modal>
-    <b-modal v-if="collaboration" ref="confirmCollaborationSecond" id="confirmCollaborationSecond">
-      <!-- <span slot="modal-title"
-        ><span id="riportalApp.advertisement.delete.question">Da li želite da potvrdite zahtev za saradnju?</span></span
-      > -->
-      <div class="modal-body">
-        <p>Postoji više zahteva za saradnju na oglasu {{ collaboration.advertisement.title }}, želite li da odbijete ostale zahteve?</p>
-        <br />
-      </div>
-      <div slot="modal-footer">
-        <button type="button" class="btn btn-danger" v-on:click="closeConfirmCollaborationSecond()">Ne</button>
-        <button type="button" class="btn btn-success" id="jhi-confirm-delete-advertisement" v-on:click="confirmCollaborationSecond()">
-          Da
-        </button>
-      </div>
-    </b-modal>
+
     <div v-show="threadsDTO && threadsDTO.length > 0">
       <div class="row justify-content-center">
         <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
@@ -229,6 +512,40 @@
   /* background-color: #eff5f1 !important; */
   box-shadow: inset 0 0 0 2px #98a7ab;
 }
+
+.accordion-item {
+  height: 40px;
+}
+
+.spacing {
+  letter-spacing: -0.05rem;
+  font-size: 0.7rem;
+}
+
+.spacing-subject {
+  letter-spacing: -0.02rem;
+  line-height: 1;
+  font-size: 0.8rem;
+}
+
+.spacing-subject-btn {
+  letter-spacing: -0.05rem;
+  line-height: 0.8;
+}
+
+.custom-tooltip {
+  opacity: 1 !important;
+}
+
+.circle-indicator {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0; /* Remove any padding if necessary */
+    }
 </style>
 
 <script lang="ts" src="./company-threads.component.ts"></script>

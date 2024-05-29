@@ -6,10 +6,12 @@ import Vue2Filters from 'vue2-filters';
 import { ICollaboration } from '@/shared/model/collaboration.model';
 import { ICollaborationRating } from '@/shared/model/collaboration-rating.model';
 import { ICompany } from '@/shared/model/company.model';
+import { IAdvertisement } from '@/shared/model/advertisement.model';
 
 import CollaborationService from './collaboration.service';
 import CollaborationRatingService from '@/entities/collabooration-rating.service';
 import CompanyService from '@/entities/company.service';
+import AdvertisementService from '@/entities/advertisement.service';
 
 enum CollaborationsFilter {
   ALL = 'all',
@@ -24,6 +26,7 @@ export default class Collaboration extends mixins(AlertMixin) {
   @Inject('collaborationService') private collaborationService: () => CollaborationService;
   @Inject('collaborationRatingService') private collaborationRatingService: () => CollaborationRatingService;
   @Inject('companyService') private companyService: () => CompanyService;
+  @Inject('advertisementService') private advertisementService: () => AdvertisementService;
 
   private removeId: number = null;
   public itemsPerPage = 20;
@@ -38,6 +41,7 @@ export default class Collaboration extends mixins(AlertMixin) {
   public collaborationRatings: ICollaborationRating[] = [];
   public selectedRating: ICollaborationRating | null = null;
   public company: ICompany = null;
+  public advertisement: IAdvertisement = null;
   public collaborationToRate: ICollaboration | null = null;
   public ratingComment = '';
 
@@ -233,6 +237,37 @@ export default class Collaboration extends mixins(AlertMixin) {
     this.selectedRating = null;
     this.ratingComment = '';
     (<any>this.$refs.ratingEntity).hide();
+  }
+
+  public prepareCopyAd(instance: ICollaboration): void {
+    this.advertisement = instance.advertisement;
+
+    if (<any>this.$refs.copyAdModal) {
+      (<any>this.$refs.copyAdModal).show();
+    }
+  }
+
+  public closeCopyAd(): void {
+    if (<any>this.$refs.copyAdModal) {
+      (<any>this.$refs.copyAdModal).hide();
+    }
+  }
+
+  public confirmCopyAd(): void {
+    this.closeCopyAd();
+
+    if (!this.advertisement) {
+      return;
+    }
+
+    this.advertisementService()
+      .createCopy(this.advertisement.id)
+      .then(res => {
+        const notificatonMessage = 'Oglas "' + this.advertisement.title + '" je obnovljen';
+        this.$notify({
+          text: notificatonMessage,
+        });
+      });
   }
 
   public showAllCollaborations(): void {

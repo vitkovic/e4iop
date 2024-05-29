@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import e4i.domain.Advertisement;
+import e4i.domain.AdvertisementStatus;
 import e4i.domain.Collaboration;
 import e4i.domain.CollaborationRating;
 import e4i.domain.Message;
@@ -166,8 +168,8 @@ public class CollaborationResource {
     		Pageable pageable,
     		@RequestParam Long companyId) {
         log.debug("REST request to get a page of Collaborations for company");
-        
-        Page<Collaboration> page = collaborationRepository.findAllByCompanyAndIsAccepted(companyId, true, pageable);
+
+        Page<Collaboration> page = collaborationService.findAllAcceptedCollaborationsForCompany(companyId, pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -179,7 +181,7 @@ public class CollaborationResource {
     		@RequestParam Long companyId) {
         log.debug("REST request to get a page of Collaborations for company offer");
         
-        Page<Collaboration> page = collaborationRepository.findAllByCompanyOfferAndIsAccepted(companyId, true, pageable);
+        Page<Collaboration> page = collaborationService.findAllAcceptedCollaborationsForCompanyOffer(companyId, pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -190,8 +192,8 @@ public class CollaborationResource {
     		Pageable pageable,
     		@RequestParam Long companyId) {
         log.debug("REST request to get a page of Collaborations for company request");
-        
-        Page<Collaboration> page = collaborationRepository.findAllByCompanyRequestAndIsAccepted(companyId, true, pageable);
+
+        Page<Collaboration> page = collaborationService.findAllAcceptedCollaborationsForCompanyRequest(companyId, pageable);
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -226,8 +228,6 @@ public class CollaborationResource {
     @PutMapping("/collaborations/confirm/{collaborationId}")
     public ResponseEntity<Collaboration> confirmCollaborationForAdvertisement(@PathVariable Long collaborationId) {
         log.debug("REST request to confirm Collaboration: {}", collaborationId);
-
-        final String ADVERTISEMENT_STATUS = "Неактиван";
         
         try {
         	// confirm collaboration
@@ -235,7 +235,7 @@ public class CollaborationResource {
 
         	// make ad inactive
         	Advertisement advertisement = advertisementService.findOneByCollaboration(collaboration);
-        	advertisement = advertisementService.changeStatus(advertisement, ADVERTISEMENT_STATUS);
+        	advertisement = advertisementService.changeStatus(advertisement, AdvertisementStatus.INACTIVE);
         	
         	// send message in thread
         	PortalUser portalUser = portalUserService.findCurrentPortalUser();
@@ -252,6 +252,81 @@ public class CollaborationResource {
         	return ResponseEntity.created(new URI("/api/collaborations/advertisement/" + collaborationId))
                     .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, collaboration.getId().toString()))
                     .body(collaboration);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	return ResponseEntity.noContent().build();
+        }    
+    }
+    
+    @PutMapping("/collaborations/cancel/{collaborationId}")
+    public ResponseEntity<Collaboration> cancelCollaborationForAdvertisement(@PathVariable Long collaborationId) {
+        log.debug("REST request to confirm Collaboration: {}", collaborationId);
+        
+        try {
+        	// cancel collaboration
+        	Collaboration collaboration = collaborationService.cancelCollaboration(collaborationId);
+       	
+        	// send message in thread
+        	PortalUser portalUser = portalUserService.findCurrentPortalUser();
+            Thread thread = threadService.getThreadForCollaboration(collaboration);
+        	Message message = messageService.createCancelMessageInThreadCollaboration(thread, collaboration, portalUser);
+
+        	// send email notification
+        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationCancel(message, collaboration);
+        	
+        	if (!mailDTO.getEmails().isEmpty()) {
+        		mailService.sendNotificationMail(mailDTO);
+        	}
+
+        	return ResponseEntity.created(new URI("/api/collaborations/advertisement/" + collaborationId))
+                    .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, collaboration.getId().toString()))
+                    .body(collaboration);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	return ResponseEntity.noContent().build();
+        }    
+    }
+    
+    @GetMapping("/collaborations/count-pending-for-advertisement/{advertisementId}")
+    public ResponseEntity<Long> countPendingCollaborationsForAdvertisement(@PathVariable Long advertisementId) {
+        log.debug("REST request to count pending Collaborations for Advertisement: {}", advertisementId);
+                
+        try {
+        	Long count = collaborationService.countPendingCollaborationsForAdvertisement(advertisementId);
+            return new ResponseEntity<>(count, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @PutMapping("/collaborations/cancel-pending-for-advertisement/{advertisementId}")
+    public ResponseEntity<List<Collaboration>> cancelPendingCollaborationsForAdvertisement(@PathVariable Long advertisementId) {
+        log.debug("REST request to cancel pending Collaborations for Advertisement: {}", advertisementId);
+        
+        try {
+        	List<Collaboration> collaborations = collaborationService.findAllPendingCollaborationsForAdvertisement(advertisementId);
+
+        	
+            for (Collaboration collaboration : collaborations) {
+            	// cancel collaboration
+            	collaborationService.cancelCollaboration(collaboration.getId());
+            	
+            	// send message in thread
+            	PortalUser portalUser = portalUserService.findCurrentPortalUser();
+                Thread thread = threadService.getThreadForCollaboration(collaboration);
+            	Message message = messageService.createCancelMessageInThreadCollaboration(thread, collaboration, portalUser);
+
+            	// send email notification
+            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationCancel(message, collaboration);
+            	
+            	if (!mailDTO.getEmails().isEmpty()) {
+            		mailService.sendNotificationMail(mailDTO);
+            	}
+            }
+        	
+        	return ResponseEntity.created(new URI("/api/collaborations/cancel-pending-for-advertisement/" + advertisementId))
+//                    .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, advertisementId.toString())
+                    .body(collaborations);
         } catch (Exception e) {
         	e.printStackTrace();
         	return ResponseEntity.noContent().build();

@@ -150,6 +150,26 @@ public class MessageService {
     }
     
     @Transactional
+    public Message createCancelMessageInThreadCollaboration(Thread thread, Collaboration collaboration, PortalUser portalUser) {
+    	
+    	String content = "Kompanija '" + thread.getCompanyReceiver().getName() + "' "
+    			+ "je u odbila zahtev za saradnju za oglas '" + collaboration.getAdvertisement().getTitle() + "'. ";
+    	
+    	Message message = new Message();
+        message.setThread(thread);
+        message.setPortalUserSender(portalUser);
+        message.setContent(content);
+        message.setDatetime(Instant.now());
+        message.setIsRead(false);
+        message.setIsDeletedSender(false);
+        message.setIsDeletedReceiver(false);
+    	
+    	Message result = this.save(message);
+    	
+    	return result;
+    }
+    
+    @Transactional
     public PortalUser findPortalUserSenderByMessage(Message message) {
     	Optional<PortalUser> portalUserOptional = messageRepository.findPortalUserSenderByMessageId(message.getId());
     	if (portalUserOptional.isEmpty()) {

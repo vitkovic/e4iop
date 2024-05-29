@@ -22,6 +22,12 @@ enum ThreadsFilter {
   RECEIVER = 'receiver',
 }
 
+enum CollaborationStatusOptions {
+  ACCEPTED = 'прихваћена',
+  REJECTED = 'одбијена',
+  PENDING = 'на чекању',
+}
+
 interface IThreadDTO {
   id: number;
   subject: string;
@@ -60,6 +66,7 @@ export default class Thread extends mixins(AlertMixin) {
   public threads: IThread[] = [];
   public threadsDTO: IThreadDTO[] = [];
   public collaboration: ICollaboration | null = null;
+  public pendingCollaborationsCount = 0;
   public company: ICompany = null;
   public messages: IMessage[] = [];
   public newMessage: IMessage = new Message();
@@ -67,11 +74,15 @@ export default class Thread extends mixins(AlertMixin) {
   public isFetching = false;
 
   public activeThreadFilter = ThreadsFilter.ALL;
+  public collaborationStatusOptions = CollaborationStatusOptions;
   public filterAllButtonVariant = 'secondary';
   public filterSenderButtonVariant = 'outline-secondary';
   public filterReceiverButtonVariant = 'outline-secondary';
 
   public openThreadId: string | null = null;
+  public selectedCollRadioBtn: string = 'ne';
+
+  public isCanceled: boolean = false;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -286,7 +297,7 @@ export default class Thread extends mixins(AlertMixin) {
   }
 
   public buildThreadDisplayString(thread: IThreadDTO): String {
-    const CHAR_LIMIT = 70;
+    const CHAR_LIMIT = 60;
     const subjectLength = thread.subject.length;
     let displayString = '';
 
@@ -381,8 +392,24 @@ export default class Thread extends mixins(AlertMixin) {
   public prepareConfirmCollaboration(instance: ICollaboration): void {
     this.collaboration = instance;
 
+    if (this.collaboration.advertisement) {
+      this.collaborationService()
+        .getPendingCollaborationsCountForAdvertisement(this.collaboration.advertisement.id)
+        .then(res => {
+          this.pendingCollaborationsCount = res.data;
+        });
+    }
+
     if (<any>this.$refs.confirmCollaboration) {
       (<any>this.$refs.confirmCollaboration).show();
+    }
+  }
+
+  public prepareCancelCollaboration(instance: ICollaboration): void {
+    this.collaboration = instance;
+
+    if (<any>this.$refs.cancelCollaboration) {
+      (<any>this.$refs.cancelCollaboration).show();
     }
   }
 
@@ -390,12 +417,35 @@ export default class Thread extends mixins(AlertMixin) {
     (<any>this.$refs.confirmCollaboration).hide();
   }
 
-  public closeConfirmCollaborationSecond(): void {
-    this.collaboration = null;
-    (<any>this.$refs.confirmCollaboration).hide();
+  public closeCancelCollaboration(): void {
+    (<any>this.$refs.cancelCollaboration).hide();
+  }
+
+  public cancelCollaboration(): void {
+    const ADVERTISEMENT_TITLE = this.collaboration.advertisement.title;
+
+    if (!this.collaboration) {
+      this.closeCancelCollaboration();
+      return;
+    }
+
+    this.collaborationService()
+      .cancelCollaboration(this.collaboration.id)
+      .then(res => {
+        this.isCanceled = true;
+        const message = this.$t('riportalApp.thread.notifications.cancelCollaboration', { ADVERTISEMENT_TITLE });
+        this.$notify({
+          text: message,
+        });
+
+        this.retrieveThreads();
+      });
+
+    this.closeCancelCollaboration();
   }
 
   public confirmCollaboration(): void {
+    const ADVERTISEMENT_ID = this.collaboration.advertisement.id;
     const ADVERTISEMENT_TITLE = this.collaboration.advertisement.title;
 
     if (!this.collaboration) {
@@ -406,45 +456,29 @@ export default class Thread extends mixins(AlertMixin) {
     this.collaborationService()
       .confirmCollaboration(this.collaboration.id)
       .then(res => {
-        // const message = 'Potvrdili ste zahtev za saradnju za oglas "' + ADVERTISEMENT_TITLE + '".';
-        // this.$notify({
-        //   text: message,
-        // });
-        this.retrieveThreads();
+        const message1 = this.$t('riportalApp.thread.notifications.confirmCollaboration1', { ADVERTISEMENT_TITLE });
+        const message2 = this.$t('riportalApp.thread.notifications.confirmCollaboration2', { ADVERTISEMENT_TITLE });
+
+        if (this.selectedCollRadioBtn === 'ne') {
+          this.retrieveThreads();
+          this.$notify({
+            text: message1,
+          });
+        } else {
+          this.selectedCollRadioBtn = 'ne';
+
+          this.collaborationService()
+            .cancelPendingCollaborationsForAdvertisement(ADVERTISEMENT_ID)
+            .then(res => {
+              this.retrieveThreads();
+              this.$notify({
+                text: message2,
+              });
+            });
+        }
       });
 
     this.closeConfirmCollaboration();
-  }
-
-  public confirmCollaborationSecond(): void {
-    const ADVERTISEMENT_TITLE = this.collaboration.advertisement.title;
-
-    if (!this.collaboration) {
-      this.closeConfirmCollaborationSecond();
-      return;
-    }
-
-    const message =
-      'Potvrdili ste zahtev za saradnju za oglas "' +
-      ADVERTISEMENT_TITLE +
-      '".<br>Ostali zahtevi za saradnju na oglasu "' +
-      ADVERTISEMENT_TITLE +
-      '" su odbijeni.';
-    this.$notify({
-      text: message,
-    });
-
-    // this.collaborationService()
-    // .confirmCollaboration(this.collaboration.id)
-    // .then(res => {
-    //   // const message = 'Potvrdili ste zahtev za saradnju za oglas "' + ADVERTISEMENT_TITLE + '".';
-    //   // this.$notify({
-    //   //   text: message,
-    //   // });
-    //   this.retrieveThreads();
-    //   });
-
-    this.closeConfirmCollaborationSecond();
   }
 
   public toggleThreadCollapse(threadId) {
@@ -459,5 +493,16 @@ export default class Thread extends mixins(AlertMixin) {
 
   get placeholderText(): string {
     return this.$t('riportalApp.thread.messageSection.placeholder') as string;
+  }
+
+  public buildThreadColumnString(name: string): String {
+    const CHAR_LIMIT = 40;
+    let displayString = '';
+
+    if (name.length <= CHAR_LIMIT) {
+      return name;
+    } else {
+      return (displayString = name.slice(0, CHAR_LIMIT - 3) + '...');
+    }
   }
 }

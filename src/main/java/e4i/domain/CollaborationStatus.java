@@ -23,6 +23,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class CollaborationStatus implements Serializable{
 	
     private static final long serialVersionUID = 1L;
+    
+    public static final String ACCEPTED = "прихваћена";
+    public static final String REJECTED = "одбијена";
+    public static final String PENDING = "на чекању";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")

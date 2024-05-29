@@ -12,6 +12,8 @@ import e4i.repository.CollaborationStatusRepository;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 /**
  * Service Implementation for managing {@link CollaborationStatus}.
  */
@@ -76,5 +78,20 @@ public class CollaborationStatusService {
     public Optional<CollaborationStatus> findOneByStatus(String status) {
         log.debug("Request to get CollaborationStatus by status: {}", status);
         return collaborationStatusRepository.findByStatus(status);
+    }
+    
+    @Transactional(readOnly = true)
+    public CollaborationStatus getOneByStatus(String status) {
+        log.debug("Request to get CollaborationStatus by status: {}", status);
+        Optional<CollaborationStatus> collaborationStatusOptional = collaborationStatusRepository.findByStatus(status);
+        
+        if (collaborationStatusOptional.isEmpty()) {
+    		String errorMessage = String.format("CollaborationStatus with stats={} could not be found", status);
+        	throw new EntityNotFoundException(errorMessage);
+        }
+       
+        CollaborationStatus collaborationStatus = collaborationStatusOptional.get();
+        
+        return collaborationStatus;
     }
 }
