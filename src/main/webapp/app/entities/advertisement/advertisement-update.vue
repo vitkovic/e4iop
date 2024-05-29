@@ -36,6 +36,42 @@
                 >
               </select>
             </div>
+            <div v-if="!advertisementTitleHasID" class="form-group">
+                <label
+                  class="form-control-label"
+                  v-text="$t('riportalApp.advertisement.activationDatetime')"
+                  for="advertisement-activationDatetime"
+                  >Activation Datetime</label
+                >
+                <div class="d-flex">
+                  <input
+                    id="advertisement-activationDatetime"
+                    type="datetime-local"
+                    class="form-control"
+                    name="activationDatetime"
+                    :class="{ valid: !$v.advertisement.activationDatetime.$invalid, invalid: $v.advertisement.activationDatetime.$invalid }"
+                    :value="convertDateTimeFromServer($v.advertisement.activationDatetime.$model)"
+                    @change="updateInstantField('activationDatetime', $event)"
+                    readonly
+                  />
+                </div>
+                <div v-if="$v.advertisement.activationDatetime.$anyDirty && $v.advertisement.activationDatetime.$invalid">
+                  <small
+                    class="form-text text-danger"
+                    v-if="!$v.advertisement.activationDatetime.required"
+                    v-text="$t('entity.validation.required')"
+                  >
+                    This field is required.
+                  </small>
+                  <small
+                    class="form-text text-danger"
+                    v-if="!$v.advertisement.activationDatetime.ZonedDateTimelocal"
+                    v-text="$t('entity.validation.ZonedDateTimelocal')"
+                  >
+                    This field should be a date and time.
+                  </small>
+                </div>
+              </div>
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.title')" for="advertisement-title">Title</label>
               <input
@@ -157,8 +193,13 @@
               />
             </div>
             <div class="form-group">
-              <label class="form-control-label" v-text="$t('riportalApp.advertisement.conditions')" for="advertisement-conditions"
-                >Conditions</label
+              <label class="form-control-label" for="advertisement-conditions"
+                >{{ $t('riportalApp.advertisement.conditions') }} 
+                <span
+                  class="text-info"
+                  v-b-tooltip.hover.v-info
+                  :title="$t('riportalApp.advertisement.conditionsInfo')"
+                ><font-awesome-icon icon='question-circle'></font-awesome-icon></span></label
               >
               <textarea
                 type="text"
@@ -244,7 +285,7 @@
                             <option v-bind:value="advertisement.modifiedBy && portalUserOption.id === advertisement.modifiedBy.id ? advertisement.modifiedBy : portalUserOption" v-for="portalUserOption in portalUsers" :key="portalUserOption.id">{{portalUserOption.id}}</option>
                         </select> -->
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label
                   class="form-control-label"
                   v-text="$t('riportalApp.advertisement.activationDatetime')"
@@ -279,7 +320,7 @@
                     This field should be a date and time.
                   </small>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group">
                 <label class="form-control-label" v-text="$t('riportalApp.advertisement.status')" for="advertisement-status">Status</label>
                 <select class="form-control" id="advertisement-status" name="status" v-model="advertisement.status" disabled="true">
@@ -463,6 +504,7 @@
           <button type="submit" id="save-entity" :disabled="$v.advertisement.$invalid || isSaving" class="btn btn-primary">
             <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
           </button>
+          <b-spinner v-if="isLoading" small label="Loading..." type="border" class="d-inline-block ml-2"></b-spinner>
         </div>
       </form>
       <b-modal ref="deleteImageModal" id="deleteImageModal">
