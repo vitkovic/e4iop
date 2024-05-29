@@ -166,15 +166,23 @@ public class CollaborationResource {
     @GetMapping("/collaborations/company")
     public ResponseEntity<List<Collaboration>> getAllCollaborationsForCompany(
     		Pageable pageable,
-    		@RequestParam Long companyId) {
+    		@RequestParam Long companyId,
+    		@RequestParam List<Long> statusIds,
+    		@RequestParam List<Boolean>collaborationSideFlags) {
         log.debug("REST request to get a page of Collaborations for company");
 
-        Page<Collaboration> page = collaborationService.findAllAcceptedCollaborationsForCompany(companyId, pageable);
-
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        try {
+        	Page<Collaboration> page = collaborationService.findAllFilteredByCompanyAndStatus(companyId, statusIds, collaborationSideFlags, pageable);
+        	
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+            return ResponseEntity.ok().headers(headers).body(page.getContent());
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	return ResponseEntity.noContent().build();
+		}
     }
     
+    @Deprecated
     @GetMapping("/collaborations/company-offer")
     public ResponseEntity<List<Collaboration>> getAllCollaborationsForCompanyOffer(
     		Pageable pageable,
@@ -187,6 +195,7 @@ public class CollaborationResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
     
+    @Deprecated
     @GetMapping("/collaborations/company-request")
     public ResponseEntity<List<Collaboration>> getAllCollaborationsForCompanyRequest(
     		Pageable pageable,

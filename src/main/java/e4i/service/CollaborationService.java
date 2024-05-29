@@ -192,19 +192,26 @@ public class CollaborationService {
     	return collaborationRepository.findAllByAdvertisementIdAndStatusStatus(advertisementId, CollaborationStatus.PENDING);
     }
     
+    @Transactional
+    public Page<Collaboration> findAllFilteredByCompanyAndStatus(Long companyId, List<Long> statusIds, List<Boolean> collaborationSideFlags,  Pageable pageable) {    	
+    	if (collaborationSideFlags.size() != 2) {
+    		String errorMessage = String.format("List 'collaborationSideflags' must be of length 2, but is {}", collaborationSideFlags.size());
+        	throw new IllegalArgumentException(errorMessage);
+    	}
+    	
+    	return collaborationRepository.findAllFilteredByCompanyAndStatus(companyId, statusIds, collaborationSideFlags.get(0), collaborationSideFlags.get(1), pageable);
+    }
+
     
+    @Deprecated
     @Transactional
     public Page<Collaboration> findAllAcceptedCollaborationsForCompany(Long companyId, Pageable pageable) {
     	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
     	
-    	System.out.println("HELLOOOOO");
-    	System.out.println(companyId);
-    	System.out.println(collaborationStatus);
-    	System.out.println(pageable);
-    	
     	return collaborationRepository.findAllByCompanyAndStatus(companyId, collaborationStatus.getId(), pageable);
     }
-    
+
+    @Deprecated
     @Transactional
     public Page<Collaboration> findAllAcceptedCollaborationsForCompanyOffer(Long companyId, Pageable pageable) {
     	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
@@ -212,6 +219,7 @@ public class CollaborationService {
     	return collaborationRepository.findAllByCompanyOfferAndStatus(companyId, collaborationStatus.getId(), pageable);
     }
     
+    @Deprecated
     @Transactional
     public Page<Collaboration> findAllAcceptedCollaborationsForCompanyRequest(Long companyId, Pageable pageable) {
     	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 

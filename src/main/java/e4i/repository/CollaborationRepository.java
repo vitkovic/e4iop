@@ -19,6 +19,17 @@ import e4i.domain.Thread;
 @Repository
 public interface CollaborationRepository extends JpaRepository<Collaboration, Long> {
 	
+	
+	@Query("SELECT collaboration FROM Collaboration collaboration " +
+	       "WHERE ((:companyOfferFlag = true AND collaboration.companyOffer.id = :companyId) " +
+	       "OR (:companyRequestFlag = true AND collaboration.companyRequest.id = :companyId)) " +
+	       "AND collaboration.status.id IN :statusIds")
+	Page<Collaboration> findAllFilteredByCompanyAndStatus(@Param("companyId") Long companyId,
+														  @Param("statusIds") List<Long> statusIds,
+					                                      @Param("companyOfferFlag") boolean offerFlag,
+					                                      @Param("companyRequestFlag") boolean requestFlag,
+					                                      Pageable pageable);
+
 	@Query("SELECT collaboration FROM Collaboration collaboration " +
 	        "WHERE ((collaboration.companyOffer.id = :companyId " +
 	        "OR (collaboration.companyRequest.id = :companyId)) " + 

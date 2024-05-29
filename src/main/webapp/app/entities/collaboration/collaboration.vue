@@ -48,27 +48,27 @@
                     <td>{{collaboration.commentRequest}}</td>
                     <td>
                         <div v-if="collaboration.companyOffer">
-                            <router-link :to="{name: 'CompanyView', params: {companyId: collaboration.companyOffer.id}}">{{collaboration.companyOffer.id}}</router-link>
+                            <router-link :to="{name: 'CompanyView', params: {companyId: collaboration.companyOffer.id}}">{{collaboration.companyOffer.name}}</router-link>
                         </div>
                     </td>
                     <td>
                         <div v-if="collaboration.companyRequest">
-                            <router-link :to="{name: 'CompanyView', params: {companyId: collaboration.companyRequest.id}}">{{collaboration.companyRequest.id}}</router-link>
+                            <router-link :to="{name: 'CompanyView', params: {companyId: collaboration.companyRequest.id}}">{{collaboration.companyRequest.name}}</router-link>
                         </div>
                     </td>
                     <td>
                         <div v-if="collaboration.advertisement">
-                            <router-link :to="{name: 'AdvertisementView', params: {advertisementId: collaboration.advertisement.id}}">{{collaboration.advertisement.id}}</router-link>
+                            <router-link :to="{name: 'AdvertisementView', params: {advertisementId: collaboration.advertisement.id}}">{{collaboration.advertisement.title}}</router-link>
                         </div>
                     </td>
                     <td>
                         <div v-if="collaboration.ratingOffer">
-                            <router-link :to="{name: 'CollaborationRatingView', params: {collaborationRatingId: collaboration.ratingOffer.id}}">{{collaboration.ratingOffer.id}}</router-link>
+                            <router-link :to="{name: 'CollaborationRatingView', params: {collaborationRatingId: collaboration.ratingOffer.id}}">{{collaboration.ratingOffer.number}}</router-link>
                         </div>
                     </td>
                     <td>
                         <div v-if="collaboration.ratingRequest">
-                            <router-link :to="{name: 'CollaborationRatingView', params: {collaborationRatingId: collaboration.ratingRequest.id}}">{{collaboration.ratingRequest.id}}</router-link>
+                            <router-link :to="{name: 'CollaborationRatingView', params: {collaborationRatingId: collaboration.ratingRequest.id}}">{{collaboration.ratingRequest.number}}</router-link>
                         </div>
                     </td>
                     <td>

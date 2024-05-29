@@ -23,17 +23,33 @@
         </div>
         <div class="ml-3 mb-3" style="display: flex; align-items: center;">
             <h3 v-text="'Saradnje'" class="mr-3">Saradnje</h3>
-            <div>
-                <b-button :variant="filterAllButtonVariant" v-text="'Sve saradnje'" v-on:click="showAllCollaborations()">Cancel</b-button>
-                <b-button :variant="filterOfferButtonVariant" v-text="'Oglašivač'" v-on:click="showOfferCollaborations()">Cancel</b-button>
-                <b-button :variant="filterRequestButtonVariant" v-text="'Tražilac'" v-on:click="showRequestCollaborations()">Cancel</b-button>
-            </div>
+        </div>
+
+        <div class="d-flex">
+            <b-form-group class="mr-5" label="Strana" v-slot="{ ariaDescribedby }">
+                <b-form-checkbox  v-model="companyOfferFlag">Oglašivač</b-form-checkbox>
+                <b-form-checkbox  v-model="companyRequestFlag">Tražilac</b-form-checkbox>
+            </b-form-group>
+
+            <b-form-group label="Status" v-slot="{ ariaDescribedby }">
+            <b-form-checkbox-group
+                id="checkbox-group-2"
+                v-model="selectedStatusIds"
+                :aria-describedby="ariaDescribedby"
+                name="flavour-2"
+                stacked
+            >
+                <b-form-checkbox v-for="option in collaborationsStatusOptions" :key="option.id" :value="option.id">{{ option.status }}</b-form-checkbox>
+            </b-form-checkbox-group>
+            </b-form-group>
+
         </div>
         <div class="table-responsive" v-if="collaborations && collaborations.length > 0">
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th v-on:click="changeOrder('datetime')"><span v-text="$t('riportalApp.collaboration.datetime')">Datetime</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'datetime'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('status.id')"><span v-text="'Status'">Status</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'status.status'"></jhi-sort-indicator></th>
                     <!-- <th v-on:click="changeOrder('commentOffer')"><span v-text="$t('riportalApp.collaboration.commentOffer')">Comment Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'commentOffer'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('commentRequest')"><span v-text="$t('riportalApp.collaboration.commentRequest')">Comment Request</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'commentRequest'"></jhi-sort-indicator></th> -->
                     <th v-on:click="changeOrder('companyOffer.id')"><span v-text="$t('riportalApp.collaboration.companyOffer')">Company Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companyOffer.id'"></jhi-sort-indicator></th>
@@ -54,7 +70,12 @@
                     <!-- <td>
                         <router-link :to="{name: 'CollaborationView', params: {collaborationId: collaboration.id}}">{{collaboration.id}}</router-link>
                     </td> -->
-                    <td>{{collaboration.datetime ? $d(Date.parse(collaboration.datetime), 'short') : ''}}</td>
+                    <td>{{collaboration.datetime ? $d(Date.parse(collaboration.datetime), { dateStyle: 'short' }) : ''}}</td>
+                    <td>
+                        <div v-if="collaboration.status">
+                            {{collaboration.status.status}}
+                        </div>
+                    </td>
                     <!-- <td>{{collaboration.commentOffer}}</td>
                     <td>{{collaboration.commentRequest}}</td> -->
                     <td>
@@ -118,7 +139,7 @@
                                    variant="primary"
                                    class="btn btn-sm mr-1"
                                    v-b-modal.copyAdModal>
-                                <span class="d-none d-md-inline" v-text="'Pokreni ponovo'">Pokreni ponovo</span>
+                                <span class="d-none d-md-inline" v-text="'Obnovi oglas'">Obnovi oglas</span>
                             </b-button>
                             <!-- <b-button v-if="ratingExists(collaboration) && company.id === collaboration.advertisement.company.id" v-on:click="prepareRemove(collaboration)"
                                    variant="danger"

@@ -3,6 +3,7 @@ import axios from 'axios';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
 import { ICollaboration } from '@/shared/model/collaboration.model';
+import { deprecate } from 'util';
 
 const baseApiUrl = 'api/collaborations';
 const baseApiCreateCollaborationForAdvertisement = 'api/collaborations/request';
@@ -79,10 +80,19 @@ export default class CollaborationService {
     });
   }
 
-  public retrieveByCompany(companyId: number, paginationQuery?: any): Promise<any> {
+  public retrieveByCompany(companyId: number, statusIds: number[], collaborationSideFlags: boolean[], paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
-        .get(apiGetCollaborationsByCompany + `?companyId=${companyId}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .get(
+          apiGetCollaborationsByCompany +
+            `?companyId=${companyId}` +
+            `&` +
+            `statusIds=${statusIds}` +
+            `&` +
+            `collaborationSideFlags=${collaborationSideFlags}` +
+            `&` +
+            `${buildPaginationQueryOpts(paginationQuery)}`
+        )
         .then(res => {
           resolve(res);
         })
@@ -92,6 +102,10 @@ export default class CollaborationService {
     });
   }
 
+  /**
+   * @deprecated
+   * All collaboration filtering is now going through {@link retrieveByCompany} method.
+   */
   public retrieveByCompanyOffer(companyId: number, paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
@@ -105,6 +119,10 @@ export default class CollaborationService {
     });
   }
 
+  /**
+   * @deprecated
+   * All collaboration filtering is now going through {@link retrieveByCompany} method.
+   */
   public retrieveByCompanyRequest(companyId: number, paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

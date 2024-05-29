@@ -180,6 +180,9 @@ export default class AdvertisementUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
+
+    console.log(this.advertisement);
+
     if (this.advertisement.id) {
       this.advertisement.expirationDatetime = new Date(this.advertisement.activationDatetime);
       const expirationMonth = this.advertisement.expirationDatetime.getMonth();
