@@ -11,6 +11,8 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
+import com.nimbusds.oauth2.sdk.util.CollectionUtils;
+
 import io.github.jhipster.config.JHipsterDefaults.Security.Authentication.Jwt;
 
 import java.util.*;
@@ -88,6 +90,10 @@ public final class SecurityUtils {
      */
     public static boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        
+       System.out.println("((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( " + getAuthorities(authentication).noneMatch(AuthoritiesConstants.ANONYMOUS::equals));
+        
         return authentication != null &&
             getAuthorities(authentication).noneMatch(AuthoritiesConstants.ANONYMOUS::equals);
     }
@@ -110,11 +116,24 @@ public final class SecurityUtils {
         Collection<? extends GrantedAuthority> authorities = authentication instanceof JwtAuthenticationToken ?
             extractAuthorityFromClaims(((JwtAuthenticationToken) authentication).getToken().getClaims())
             : authentication.getAuthorities();
+        
+        if (CollectionUtils.isEmpty(authentication.getAuthorities())) {
+        	authorities = mapAuthenticatinAuthorithies;
+        }
+        
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" + authentication);
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" + authorities);
+        
+        
         return authorities.stream()
             .map(GrantedAuthority::getAuthority);
     }
 
     public static List<GrantedAuthority> extractAuthorityFromClaims(Map<String, Object> claims) {
+    	
+    	
+    	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" + claims);
+    	
         return mapRolesToGrantedAuthorities(getRolesFromClaims(claims));
     }
 

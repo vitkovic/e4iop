@@ -80,10 +80,14 @@ public class PortalUserService {
     @Transactional(readOnly = true)
     public Page<PortalUser> findAll(Pageable pageable) {
         log.debug("Request to get all PortalUsers");
-        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){                
+        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){     
+        	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Pronadjen je user");
         	Page<PortalUser> out = portalUserRepository.findAll(pageable);
         	return out;
         }else {
+        	
+        	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Nix user");
+        	
         	Optional<User> currentUser = userService.getUserWithAuthorities();
             User user = currentUser.get();             
             PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
