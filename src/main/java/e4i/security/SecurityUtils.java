@@ -117,13 +117,15 @@ public final class SecurityUtils {
             extractAuthorityFromClaims(((JwtAuthenticationToken) authentication).getToken().getClaims())
             : authentication.getAuthorities();
         
+        mapAuthenticatinAuthorithies =  ((DefaultOidcUser) authentication.getPrincipal()).getAuthorities();
+        
         if (CollectionUtils.isEmpty(authentication.getAuthorities())) {
         	authorities = mapAuthenticatinAuthorithies;
         }
         
         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" + authentication);
         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" + authorities);
-        
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" + mapAuthenticatinAuthorithies);
         
         return authorities.stream()
             .map(GrantedAuthority::getAuthority);

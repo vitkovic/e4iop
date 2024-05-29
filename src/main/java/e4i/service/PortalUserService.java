@@ -92,7 +92,7 @@ public class PortalUserService {
             User user = currentUser.get();             
             PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
             List<String> userRoles = pUser.pronadjiPortalUserRolesAbbreviations();
-            
+            System.out.println("((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((( " + userRoles);
             if(userRoles.contains("RPRIPO")) {
             	Page<PortalUser> out = portalUserRepository.findByUserOrganizationId(pUser.getUserOrganization().getId(), pageable);
             	return out;
