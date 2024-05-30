@@ -2,28 +2,45 @@
   "riportalApp": {
     "collaboration": {
       "home": {
-        "title": "Collaborations",
-        "createLabel": "Kreiraj novi Collaboration",
-        "createOrEditLabel": "Kreirajte ili izmenite Collaboration",
-        "notFound": "No Collaborations found"
+        "title": "Saradnje",
+        "createLabel": "Kreiraj novu Saradnju",
+        "createOrEditLabel": "Kreirajte ili izmenite Saradnju",
+        "notFound": "Nije pronađena nijedna Saradnja"
       },
-      "created": "Kreiran je novi Collaboration pod nazivom {{ param }}",
-      "updated": "Collaboration pod nazivom {{ param }} je ažuriran",
-      "deleted": "Collaboration pod nazivom {{ param }} je obrisan",
+      "created": "Kreirana je nova Saradnja pod nazivom {{ param }}",
+      "updated": "Saradnja pod nazivom {{ param }} je ažurirana",
+      "deleted": "Saradnja pod nazivom {{ param }} je obrisana",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Collaboration pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete Saradnju pod nazivom {{ id }}?"
       },
       "detail": {
-        "title": "Collaboration"
+        "title": "Saradnja"
       },
-      "datetime": "Datetime",
-      "commentOffer": "Comment Offer",
-      "commentRequest": "Comment Request",
-      "companyOffer": "Company Offer",
-      "companyRequest": "Company Request",
-      "advertisement": "Advertisement",
-      "ratingOffer": "Rating Offer",
-      "ratingRequest": "Rating Request"
+      "datetime": "Datum",
+      "status": "Status",
+      "commentOffer": "Komentar oglašivača",
+      "commentRequest": "Komentar tražioca",
+      "companyOffer": "Oglašivač",
+      "companyRequest": "Tražilac",
+      "advertisement": "Oglas",
+      "ratingOffer": "Ocena oglašivača",
+      "ratingRequest": "Ocena tražioca",
+      "advertisementType": "Tip",
+      "advertisementKind": "Vrsta",
+      "advertisementBudget": "Budžet",
+      "advertisementDuration": "Trajanje",
+      "filters": {
+        "role": "Uloga kompanije",
+        "status": "Status saradnje",
+        "companyOffer": "oglašivač",
+        "companyRequest": "tražilac"
+      },
+      "actions": {
+        "rate": "Oceni",
+        "renewAd": "Obnovi oglas",
+        "confirmCollaboration": "Potvrdi saradnju",
+        "cancelCollaboration": "Odbij saradnju"
+      }
     }
   }
 }

@@ -1,0 +1,46 @@
+{
+  "riportalApp": {
+    "collaboration": {
+      "home": {
+        "title": "Сарадње",
+        "createLabel": "Креирај нову Сарадњу",
+        "createOrEditLabel": "Креирајте или измените Сарадњу",
+        "notFound": "Није пронађена ниједна Сарадња"
+      },
+      "created": "Креирана је нова Сарадња под називом {{ param }}",
+      "updated": "Сарадња под називом {{ param }} је ажурирана",
+      "deleted": "Сарадња под називом {{ param }} је обрисана",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете Сарадњу под називом {{ ид }}?"
+      },
+      "detail": {
+        "title": "Сарадња"
+      },
+      "datetime": "Датум",
+      "status": "Статус",
+      "commentOffer": "Коментар оглашивача",
+      "commentRequest": "Коментар тражиоца",
+      "companyOffer": "Оглашивач",
+      "companyRequest": "Тражилац",
+      "advertisement": "Оглас",
+      "ratingOffer": "Оцена оглашивача",
+      "ratingRequest": "Оцена тражиоца",
+      "advertisementType": "Тип",
+      "advertisementKind": "Врста",
+      "advertisementBudget": "Буџет",
+      "advertisementDuration": "Трајање",
+      "filters": {
+        "role": "Улога компаније",
+        "status": "Статус сарадње",
+        "companyOffer": "оглашивач",
+        "companyRequest": "тражилац"
+      },
+      "actions": {
+        "rate": "Оцени",
+        "renewAd": "Обнови оглас",
+        "confirmCollaboration": "Потврди сарадњу",
+        "cancelCollaboration": "Одбиј сарадњу"
+      }
+    }
+  }
+}

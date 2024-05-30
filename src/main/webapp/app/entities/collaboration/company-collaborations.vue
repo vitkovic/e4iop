@@ -21,17 +21,19 @@
         <div class="alert alert-warning" v-if="!isFetching && collaborations && collaborations.length === 0">
             <span v-text="$t('riportalApp.collaboration.home.notFound')">No collaborations found</span>
         </div>
-        <div class="ml-3 mb-3" style="display: flex; align-items: center;">
-            <h3 v-text="'Saradnje'" class="mr-3">Saradnje</h3>
-        </div>
 
-        <div class="d-flex">
-            <b-form-group class="mr-5" label="Strana" v-slot="{ ariaDescribedby }">
-                <b-form-checkbox  v-model="companyOfferFlag">Oglašivač</b-form-checkbox>
-                <b-form-checkbox  v-model="companyRequestFlag">Tražilac</b-form-checkbox>
+        <div class="ml-3 mb-3" style="display: flex;">
+            <h3 v-text="$t('riportalApp.collaboration.home.title')" class="mr-5">Saradnje</h3>
+            <b-form-group class="pr-5 border-left pl-5" label-size="lg" :label="$t('riportalApp.collaboration.filters.role')" v-slot="{ ariaDescribedby }">
+                <b-form-checkbox v-model="companyOfferFlag">
+                    <span v-text="$t('riportalApp.collaboration.filters.companyOffer')">Oglašivač</span>
+                </b-form-checkbox>
+                <b-form-checkbox  v-model="companyRequestFlag">
+                    <span v-text="$t('riportalApp.collaboration.filters.companyRequest')">Tražilac</span>
+                </b-form-checkbox>
             </b-form-group>
 
-            <b-form-group label="Status" v-slot="{ ariaDescribedby }">
+            <b-form-group class="border-left pl-5" label-size="lg" :label="$t('riportalApp.collaboration.filters.status')" v-slot="{ ariaDescribedby }">
             <b-form-checkbox-group
                 id="checkbox-group-2"
                 v-model="selectedStatusIds"
@@ -42,8 +44,8 @@
                 <b-form-checkbox v-for="option in collaborationsStatusChoices" :key="option.id" :value="option.id">{{ option.status }}</b-form-checkbox>
             </b-form-checkbox-group>
             </b-form-group>
-
         </div>
+        
         <div class="table-responsive" v-if="collaborations && collaborations.length > 0">
             <table class="table table-striped">
                 <thead>
@@ -55,10 +57,10 @@
                     <th v-on:click="changeOrder('companyOffer.id')"><span v-text="$t('riportalApp.collaboration.companyOffer')">Company Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companyOffer.id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('companyRequest.id')"><span v-text="$t('riportalApp.collaboration.companyRequest')">Company Request</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companyRequest.id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('advertisement.name')"><span v-text="$t('riportalApp.collaboration.advertisement')">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.name'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('advertisement.type.type')"><span v-text="'Type'">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.type.type'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('advertisement.kind.kind')"><span v-text="'Kind'">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.kind.kind'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('advertisement.budget')"><span v-text="'Budget'">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.budget'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('advertisement.duration.duration')"><span v-text="'Duration'">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.duration.duration'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('advertisement.type.type')"><span v-text="$t('riportalApp.collaboration.advertisementType')">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.type.type'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('advertisement.kind.kind')"><span v-text="$t('riportalApp.collaboration.advertisementKind')">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.kind.kind'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('advertisement.budget')"><span v-text="$t('riportalApp.collaboration.advertisementBudget')">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.budget'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('advertisement.duration.duration')"><span v-text="$t('riportalApp.collaboration.advertisementDuration')">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.duration.duration'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('ratingOffer.id')"><span v-text="$t('riportalApp.collaboration.ratingOffer')">Rating Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ratingOffer.number'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('ratingRequest.id')"><span v-text="$t('riportalApp.collaboration.ratingRequest')">Rating Request</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ratingRequest.number'"></jhi-sort-indicator></th>
                     <th></th>
@@ -140,7 +142,7 @@
                                 class="btn btn-sm spacing-subject-btn mr-1 pl-1 pr-1"
                                 v-b-modal.confirmCollaboration
                                 >
-                                <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.confirmCollaboration')"
+                                <span class="d-none d-md-inline" v-text="$t('riportalApp.collaboration.actions.confirmCollaboration')"
                                     >Potvrdi saradnju</span
                                 >
                                 </b-button>
@@ -155,7 +157,7 @@
                                 class="btn btn-sm spacing-subject-btn mr-1 pl-1 pr-1"
                                 v-b-modal.cancelCollaboration
                                 >
-                                <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.cancelCollaboration')"
+                                <span class="d-none d-md-inline" v-text="$t('riportalApp.collaboration.actions.cancelCollaboration')"
                                     >Otkaži saradnju</span
                                 >
                                 </b-button>
@@ -165,13 +167,13 @@
                                    variant="primary"
                                    class="btn btn-sm mr-1"
                                    v-b-modal.ratingEntity>
-                                <span class="d-none d-md-inline" v-text="'Oceni'">Oceni</span>
+                                <span class="d-none d-md-inline" v-text="$t('riportalApp.collaboration.actions.rate')">Oceni</span>
                             </b-button>
                             <b-button v-if="(company.id === collaboration.companyOffer.id) && (collaboration.advertisement.status.status === advertisementStatusOptions.INACTIVE)" v-on:click="prepareCopyAd(collaboration)"
                                    variant="primary"
                                    class="btn btn-sm mr-1"
                                    v-b-modal.copyAdModal>
-                                <span class="d-none d-md-inline" v-text="'Obnovi oglas'">Obnovi oglas</span>
+                                <span class="d-none d-md-inline" v-text="$t('riportalApp.collaboration.actions.renewAd')">Obnovi oglas</span>
                             </b-button>
                             <!-- <b-button v-if="ratingExists(collaboration) && company.id === collaboration.advertisement.company.id" v-on:click="prepareRemove(collaboration)"
                                    variant="danger"

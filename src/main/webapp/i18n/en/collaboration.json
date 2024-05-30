@@ -16,14 +16,31 @@
       "detail": {
         "title": "Collaboration"
       },
-      "datetime": "Datetime",
-      "commentOffer": "Comment Offer",
-      "commentRequest": "Comment Request",
-      "companyOffer": "Company Offer",
-      "companyRequest": "Company Request",
+      "datetime": "Date",
+      "status": "Status",
+      "commentOffer": "Advertiser's comment",
+      "commentRequest": "Requester's comment",
+      "companyOffer": "Advertiser",
+      "companyRequest": "Requester",
       "advertisement": "Advertisement",
-      "ratingOffer": "Rating Offer",
-      "ratingRequest": "Rating Request"
+      "ratingOffer": "Advertiser's rating",
+      "ratingRequest": "Requester's rating",
+      "advertisementType": "Type",
+      "advertisementKind": "Kind",
+      "advertisementBudget": "Budget",
+      "advertisementDuration": "Duration",
+      "filters": {
+        "role": "Company role",
+        "status": "Collaboration status",
+        "companyOffer": "advertiser",
+        "companyRequest": "requester"
+      },
+      "actions": {
+        "rate": "Rate",
+        "renewAd": "Renew advertisement",
+        "confirmCollaboration": "Confirm collaboration",
+        "cancelCollaboration": "Cancel collaboration"
+      }
     }
   }
 }
