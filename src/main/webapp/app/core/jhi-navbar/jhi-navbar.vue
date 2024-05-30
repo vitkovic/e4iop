@@ -1,8 +1,4 @@
 <template>
-
-
-
-
 			    <b-navbar toggleable="sm" type="light">
 			        <b-navbar-brand class="logo" b-link to="/" style="margin-bottom:-10px;" >
 			            
@@ -22,12 +18,14 @@
 			           
 			        <b-collapse is-nav id="header-tabs">
 			            <b-navbar-nav class="md-auto">
-			                <b-nav-item to="/" exact>
+							<b-nav-item to="/b2b" exact style="white-space: nowrap;" class="navbar-menu-item">
+								<img src="/content/images/b2b1.png" alt="" style="height: 50px">
+							</b-nav-item>
+			                <!-- <b-nav-item to="/" exact>
 			                    <span>
 			                        <font-awesome-icon icon="home" />
-			                        <!--<span v-text="$t('global.menu.home')">Home</span>-->
 			                    </span>
-			                </b-nav-item>
+			                </b-nav-item> -->
 			                <b-nav-item-dropdown
 			                    right
 			                    id="entity-menu"                    
@@ -492,11 +490,11 @@
 			                        {{value.name}}
 			                    </b-dropdown-item>
 			                </b-nav-item-dropdown>
-							<b-nav-item to="/b2b" exact style="white-space: nowrap;" class="navbar-menu-item">
+							<!-- <b-nav-item to="/b2b" exact style="white-space: nowrap;" class="navbar-menu-item">
 								<span>
 									<span class="headerItemi">B2B</span>
 								</span>
-							</b-nav-item>
+							</b-nav-item> -->
 			                <b-nav-item-dropdown
 			                    right
 			                    href="javascript:void(0);"

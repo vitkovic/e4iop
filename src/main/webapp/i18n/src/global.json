@@ -4,6 +4,8 @@
     "browsehappy": "Користите <strong>застарели</strong> претраживач. Молимо вас <a href=\"http://browsehappy.com/?locale=en\">надоградите претраживач</a> како бисте побољшали Ваше искуство.",
     "menu": {
       "home": "Почетна страница",
+      "about": "О нама",
+      "faq": "Најчешћа питања",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Ентитети",
@@ -149,6 +151,11 @@
         "responsiblePersons": "Одговорне особе",
         "databaseBackup": "Копија базе података",
         "repoBackup": "Копија репозиторијума докумената"
+      },
+      "advertisements": {
+        "main": "Огласи",
+        "createAd": "Огласи потребу",
+        "findAd": "Пронађи потребу"
       },
       "language": "Језик"
     },

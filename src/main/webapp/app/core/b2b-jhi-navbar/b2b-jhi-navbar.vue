@@ -9,34 +9,30 @@
 			</div>
 
 			<div class="navItems">
-
-
-				<b-nav-item to="/" exact style="white-space: nowrap;" class="navbar-menu-item highlight-option">
-					<span>
-						<span class="headerItemi">ОИИ</span>
-					</span>
+				<b-nav-item to="/" exact style="white-space: nowrap;" class="navbar-menu-item">
+					<img src="/content/images/OII_sm_sm.png" alt="" style="height: 50px">
 				</b-nav-item>
 							
 				<b-nav-item-dropdown id="languagesnavBarDropdown" right active-class="active" class="pointer">
 					<span slot="button-content" class="navbar-dropdown-menu">
-						<span class="headerItemi" v-text="'Огласи'">CMS</span>
+						<span class="headerItemi" v-text="$t('global.menu.advertisements.main')">Oglasi</span>
 					</span>
 					<b-dropdown-item to="/b2b/advertisement/new" active-class="active">
-						<span v-text="'Огласи потребу'">Огласи потребу</span>
+						<span v-text="$t('global.menu.advertisements.createAd')">Огласи потребу</span>
 					</b-dropdown-item>
 					<b-dropdown-item to="/b2b/advertisement-browse" active-class="active">
-						<span v-text="'Пронађи потребу'">Пронађи потребу</span>
+						<span v-text="$t('global.menu.advertisements.findAd')">Пронађи потребу</span>
 					</b-dropdown-item>
 				</b-nav-item-dropdown>
 				<b-nav-item to="/b2b/about" exact style="white-space: nowrap;" class="navbar-menu-item">
 					<span>
-						<span class="headerItemi">О нама</span>
+						<span class="headerItemi" v-text="$t('global.menu.faq')">Најчешћа питања</span>
 					</span>
 				</b-nav-item>
 
 				<b-nav-item to="/b2b/questions" exact style="white-space: nowrap;" class="navbar-menu-item">
 					<span>
-						<span class="headerItemi">Најчешћа питања</span>
+						<span class="headerItemi" v-text="$t('global.menu.faq')">Најчешћа питања</span>
 					</span>
 				</b-nav-item>
 
