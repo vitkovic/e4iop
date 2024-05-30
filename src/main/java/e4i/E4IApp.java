@@ -1,7 +1,7 @@
 package e4i;
 
 import e4i.config.ApplicationProperties;
-
+import e4i.service.FilesStorageService;
 import io.github.jhipster.config.DefaultProfileUtil;
 import io.github.jhipster.config.JHipsterConstants;
 
@@ -15,6 +15,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -31,6 +33,9 @@ public class E4IApp {
     public E4IApp(Environment env) {
         this.env = env;
     }
+    
+    @Resource
+    FilesStorageService storageService;
 
     /**
      * Initializes e4i.
@@ -50,6 +55,8 @@ public class E4IApp {
             log.error("You have misconfigured your application! It should not " +
                 "run with both the 'dev' and 'cloud' profiles at the same time.");
         }
+        // create upload folder
+        storageService.init();
     }
 
     /**
