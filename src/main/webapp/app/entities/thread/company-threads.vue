@@ -11,7 +11,6 @@
       {{ alertMessage }}
     </b-alert>
     <div v-if="company" class="d-flex mb-3">
-      <p>PROBA NOVA</p>
       <img
         v-if="company.logo"
         :src="companyService().retrieveImage(company.logo.filename)"
@@ -247,35 +246,6 @@
               >
                 <b-col class="d-flex h-100 justify-content-between align-items-center" sm="4">
                   <div class="firstcol-p1 d-flex align-items-center">
-                    <div v-if="thread.collaboration && thread.collaboration.status && (thread.collaboration.status.status === collaborationStatusOptions.ACCEPTED)" 
-                      v-b-tooltip.hover="{ variant: 'info', customClass: 'custom-tooltip' }"
-                      :title="$t('riportalApp.thread.iconHover.confirmCollaboration')">
-                      <b-button variant='info' disabled class="btn btn-sm mr-1 circle-indicator">
-                        <font-awesome-icon icon='check'></font-awesome-icon>
-                      </b-button>
-                    </div>
-
-                    <div v-if="thread.collaboration && thread.collaboration.status && (thread.collaboration.status.status === collaborationStatusOptions.REJECTED)" 
-                      v-b-tooltip.hover="{ variant: 'info', customClass: 'custom-tooltip' }"
-                      :title="$t('riportalApp.thread.iconHover.cancelCollaboration')">
-                      <b-button variant='info' disabled class="btn btn-sm mr-1 circle-indicator">
-                        <font-awesome-icon icon='minus'></font-awesome-icon>
-                      </b-button>
-                    </div>
-                    
-                    <!-- <div
-                      v-if="thread.collaboration && (thread.collaboration.isAccepted || isCanceled)"
-                      v-b-tooltip.hover="{ variant: thread.collaboration.isAccepted ? 'success' : 'danger', customClass: 'custom-tooltip' }"
-                      :title="
-                        thread.collaboration.isAccepted
-                          ? $t('riportalApp.thread.iconHover.confirmCollaboration')
-                          : $t('riportalApp.thread.iconHover.cancelCollaboration')
-                      "
-                    >
-                      <b-button :variant="thread.collaboration.isAccepted ? 'success' : 'danger'" disabled class="btn btn-sm mr-1">
-                        <font-awesome-icon :icon="thread.collaboration.isAccepted ? 'check' : 'times'"></font-awesome-icon>
-                      </b-button>
-                    </div> -->
 
                     <div class="d-flex align-items-center">
                       <span class="spacing-subject">
@@ -316,37 +286,6 @@
                 </b-col>
                 <b-col class="text-right h-100 pl-0" sm="2">
                   <div class="btn-group h-100">
-                    <b-button
-                      v-if="thread.collaboration 
-                      && thread.collaboration.status 
-                      && (thread.collaboration.status.status === collaborationStatusOptions.PENDING)
-                      && thread.collaboration.companyOffer.id === company.id
-                      "
-                      v-on:click.stop="prepareConfirmCollaboration(thread.collaboration)"
-                      variant="success"
-                      class="btn btn-sm spacing-subject-btn mr-1 pl-1 pr-1"
-                      v-b-modal.confirmCollaboration
-                    >
-                      <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.confirmCollaboration')"
-                        >Potvrdi saradnju</span
-                      >
-                    </b-button>
-                    <b-button
-                      v-if="thread.collaboration 
-                        && thread.collaboration.status 
-                        && (thread.collaboration.status.status === collaborationStatusOptions.PENDING)
-                        && thread.collaboration.companyOffer.id === company.id
-                        "
-                      v-on:click.stop="prepareCancelCollaboration(thread.collaboration)"
-                      variant="warning"
-                      class="btn btn-sm spacing-subject-btn mr-1 pl-1 pr-1"
-                      v-b-modal.cancelCollaboration
-                    >
-                      <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.cancelCollaboration')"
-                        >Otkaži saradnju</span
-                      >
-                    </b-button>
-
                     <b-button
                       v-on:click.stop="prepareRemove(thread)"
                       variant="danger"
@@ -401,78 +340,6 @@
     </div>
 
     <!-- kraj -->
-
-    <b-modal v-if="collaboration" ref="confirmCollaboration" id="confirmCollaboration">
-      <span slot="modal-title"
-        ><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.modalConfirm.title')"
-          >Da li želite da potvrdite zahtev za saradnju?</span
-        ></span
-      >
-      <div class="modal-body">
-        <p id="jhi-delete-advertisement-heading">
-          <b>{{ $t('riportalApp.thread.modalConfirm.advertisement') }} </b>{{ collaboration.advertisement.title }}
-        </p>
-        <p id="jhi-delete-advertisement-heading">
-          <b>{{ $t('riportalApp.thread.modalConfirm.company') }} </b>{{ collaboration.companyRequest.name }}
-        </p>
-        <hr v-if="pendingCollaborationsCount > 1"/>
-        <b-form-group
-          v-if="pendingCollaborationsCount > 1"
-          :label="$t('riportalApp.thread.modalConfirm.bodyTitle', { title: collaboration.advertisement.title })"
-          v-slot="{ ariaDescribedby }"
-        >
-          <b-form-radio v-model="selectedCollRadioBtn" :aria-describedby="ariaDescribedby" name="collaboration-radios" value="da">{{
-            $t('entity.action.yes')
-          }}</b-form-radio>
-          <b-form-radio v-model="selectedCollRadioBtn" :aria-describedby="ariaDescribedby" name="collaboration-radios" value="ne">{{
-            $t('entity.action.no')
-          }}</b-form-radio>
-        </b-form-group>
-      </div>
-      <div slot="modal-footer">
-        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeConfirmCollaboration()">
-          Otkaži
-        </button>
-        <button
-          type="button"
-          class="btn btn-success"
-          id="jhi-confirm-delete-advertisement"
-          v-text="$t('entity.action.confirm')"
-          v-on:click="confirmCollaboration()"
-        >
-          Potvrdi
-        </button>
-      </div>
-    </b-modal>
-    <b-modal v-if="collaboration" ref="cancelCollaboration" id="cancelCollaboration">
-      <span slot="modal-title"
-        ><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.modalCancel.title')"
-          >Da li želite da odbijete zahtev za saradnju?</span
-        ></span
-      >
-      <div class="modal-body">
-        <p id="jhi-delete-advertisement-heading">
-          <b>{{ $t('riportalApp.thread.modalCancel.advertisement') }} </b>{{ collaboration.advertisement.title }}
-        </p>
-        <p id="jhi-delete-advertisement-heading">
-          <b>{{ $t('riportalApp.thread.modalCancel.company') }} </b>{{ collaboration.companyRequest.name }}
-        </p>
-      </div>
-      <div slot="modal-footer">
-        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCancelCollaboration()">
-          Otkaži
-        </button>
-        <button
-          type="button"
-          class="btn btn-success"
-          id="jhi-confirm-delete-advertisement"
-          v-text="$t('entity.action.confirm')"
-          v-on:click="cancelCollaboration()"
-        >
-          Potvrdi
-        </button>
-      </div>
-    </b-modal>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
         ><span id="b2BportalApp.thread.delete.question" v-text="$t('entity.delete.title')">Confirm delete operation</span></span

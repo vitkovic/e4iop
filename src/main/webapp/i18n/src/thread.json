@@ -1,0 +1,67 @@
+{
+  "riportalApp": {
+    "thread": {
+      "home": {
+        "title": "Threads",
+        "createLabel": "Kreiraj novi Thread",
+        "createOrEditLabel": "Kreirajte ili izmenite Thread",
+        "notFound": "Нема пронађених упита"
+      },
+      "created": "Kreiran je novi Thread pod nazivom {{ param }}",
+      "updated": "Thread pod nazivom {{ param }} je ažuriran",
+      "deleted": "Thread pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете селектовани упит?"
+      },
+      "detail": {
+        "title": "Thread"
+      },
+      "subject": "Subject",
+      "message": "Message",
+      "advertisement": "Advertisement",
+      "company": "Company",
+      "messages": "Поруке",
+      "filter": {
+        "allnquiries": "Сви упити",
+        "receivedInquiries": "Примљени упити",
+        "sendInquiries": "Послати упити"
+      },
+      "tableHeader": {
+        "receiver": "Компанија прималац",
+        "sender": "Компанија пошиљалац",
+        "advertisement": "Оглас"
+      },
+      "acceptedCollaboration": "Сарадња остварена",
+      "threadButtonGroup": {
+        "confirmCollaboration": "Потврди сарадњу",
+        "cancelCollaboration": "Одбиј сарадњу",
+        "deleteInquiry": "Обриши упит"
+      },
+      "messageSection": {
+        "date": "Време:",
+        "sender": "Пошиљалац:",
+        "placeholder": "Унесите нову поруку..."
+      },
+      "modalConfirm": {
+        "title": "Да ли желите да потврдите захтев за сарадњу?",
+        "advertisement": "Оглас:",
+        "company": "Компанија тражилац сарадње:",
+        "bodyTitle": "Постоји више захтева за сарадњу на огласу {{ title }}, желите ли да одбијете остале захтеве?"
+      },
+      "modalCancel": {
+        "title": "Да ли желите да одбијете захтев за сарадњу?",
+        "advertisement": "Оглас:",
+        "company": "Компанија тражилац сарадње:"
+      },
+      "iconHover": {
+        "confirmCollaboration": "Сарадња прихваћена.",
+        "cancelCollaboration": "Сарадња одбијена."
+      },
+      "notifications": {
+        "confirmCollaboration1": "Потврдили сте захтев за сарадњу за оглас <b>{ADVERTISEMENT_TITLE}</b>.",
+        "confirmCollaboration2": "Потврдили сте захтев за сарадњу за оглас <b>{ADVERTISEMENT_TITLE}</b>.<br><br>Остали захтеви за сарадњу на огласу <b>{ADVERTISEMENT_TITLE}</b> су одбијени.",
+        "cancelCollaboration": "Сарадња за оглас <b>{ADVERTISEMENT_TITLE}</b> је одбијена."
+      }
+    }
+  }
+}

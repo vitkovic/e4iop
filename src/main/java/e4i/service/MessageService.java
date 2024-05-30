@@ -106,6 +106,7 @@ public class MessageService {
         return result;
     }
         
+    @Deprecated
     @Transactional
     public Message createFirstMessageInThreadCollaboration(Thread thread, Collaboration collaboration, PortalUser portalUser) {
     	
@@ -129,6 +130,7 @@ public class MessageService {
     	return result;
     }
     
+    @Deprecated
     @Transactional
     public Message createConfirmMessageInThreadCollaboration(Thread thread, Collaboration collaboration, PortalUser portalUser) {
     	
@@ -149,6 +151,7 @@ public class MessageService {
     	return result;
     }
     
+    @Deprecated
     @Transactional
     public Message createCancelMessageInThreadCollaboration(Thread thread, Collaboration collaboration, PortalUser portalUser) {
     	

@@ -88,6 +88,7 @@ public class ThreadService {
         threadRepository.deleteById(id);
     }
     
+    @Deprecated
     @Transactional
     public Thread createThreadForCollaboration(Collaboration collaboration) {
     	String subject = "Poziv za saradnju za oglas '" + collaboration.getAdvertisement().getTitle() + "'.";
@@ -103,6 +104,7 @@ public class ThreadService {
     	return result;
     }
     
+    @Deprecated
     @Transactional
     public Thread getThreadForCollaboration(Collaboration collaboration) {
     	Set<Thread> threads = threadRepository.findAllByCollaborations(collaboration);

@@ -8,11 +8,14 @@ import { deprecate } from 'util';
 const baseApiUrl = 'api/collaborations';
 const baseApiCreateCollaborationForAdvertisement = 'api/collaborations/request';
 const baseApiConfirmCollaboration = 'api/collaborations/confirm';
+const apiCancelCollaboration = 'api/collaborations/cancel';
 const apiGetCollaborationsByCompany = 'api/collaborations/company';
 const apiGetCollaborationsByCompanyOffer = 'api/collaborations/company-offer';
 const apiGetCollaborationsByCompanyRequest = 'api/collaborations/company-request';
 const apiRateCollaborationForCompanyOffer = 'api/collaborations/rate-offer';
 const apiRateCollaborationForCompanyRequest = 'api/collaborations/rate-request';
+const apiGetPendingCollaborationsCountForAdvertisement = 'api/collaborations/count-pending-for-advertisement';
+const apiCancelPendingCollaborationsForAdvertisement = 'api/collaborations/cancel-pending-for-advertisement';
 
 export default class CollaborationService {
   public find(id: number): Promise<ICollaboration> {
@@ -162,6 +165,19 @@ export default class CollaborationService {
     });
   }
 
+  public cancelCollaboration(collaborationId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .put(`${apiCancelCollaboration}/${collaborationId}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
   public rateCollaborationForCompanyOffer(formData: FormData): Promise<ICollaboration> {
     return new Promise<ICollaboration>((resolve, reject) => {
       axios
@@ -189,6 +205,32 @@ export default class CollaborationService {
         })
         .then(res => {
           resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getPendingCollaborationsCountForAdvertisement(advertisementId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${apiGetPendingCollaborationsCountForAdvertisement}/${advertisementId}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public cancelPendingCollaborationsForAdvertisement(advertisementId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .put(`${apiCancelPendingCollaborationsForAdvertisement}/${advertisementId}`)
+        .then(res => {
+          resolve(res);
         })
         .catch(err => {
           reject(err);

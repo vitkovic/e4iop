@@ -34,6 +34,7 @@
       "acceptedCollaboration": "Saradnja ostvarena",
       "threadButtonGroup": {
         "confirmCollaboration": "Potvrdi saradnju",
+        "cancelCollaboration": "Odbij saradnju",
         "deleteInquiry": "Obriši upit"
       },
       "messageSection": {
@@ -41,10 +42,25 @@
         "sender": "Pošiljalac:",
         "placeholder": "Unesite novu poruku..."
       },
-      "modal": {
+      "modalConfirm": {
         "title": "Da li želite da potvrdite zahtev za saradnju?",
         "advertisement": "Oglas:",
-        "company": "Kompanija tržilac saradnje:"
+        "company": "Kompanija tražilac saradnje:",
+        "bodyTitle": "Postoji više zahteva za saradnju na oglasu {{ title }}, želite li da odbijete ostale zahteve?"
+      },
+      "modalCancel": {
+        "title": "Da li želite da odbijete zahtev za saradnju?",
+        "advertisement": "Oglas:",
+        "company": "Kompanija tražilac saradnje:"
+      },
+      "iconHover": {
+        "confirmCollaboration": "Saradnja prihvaćena.",
+        "cancelCollaboration": "Saradnja odbijena."
+      },
+      "notifications": {
+        "confirmCollaboration1": "Potvrdili ste zahtev za saradnju za oglas <b>{ADVERTISEMENT_TITLE}</b>.",
+        "confirmCollaboration2": "Potvrdili ste zahtev za saradnju za oglas <b>{ADVERTISEMENT_TITLE}</b>.<br><br>Ostali zahtevi za saradnju na oglasu <b>{ADVERTISEMENT_TITLE}</b> su odbijeni.",
+        "cancelCollaboration": "Saradnja za oglas <b>{ADVERTISEMENT_TITLE}</b> je odbijena."
       }
     }
   }

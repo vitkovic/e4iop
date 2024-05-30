@@ -222,7 +222,7 @@ public class MailService {
     }
     
     @Transactional
-    public NotificationMailDTO createNotificationMailDTOForCollaborationRequest(Message message, Collaboration collaboration) {
+    public NotificationMailDTO createNotificationMailDTOForCollaborationRequest(Collaboration collaboration) {
     	Company company = collaboration.getCompanyOffer();
     	
         List<PortalUser> companyPortalUsers = portalUserRepository.findAllByCompanyAndDoNotify(company, true);
@@ -231,7 +231,7 @@ public class MailService {
                 .collect(Collectors.toList());
 	
         String mailSubject = "B2B portal - Obaveštenje o novom zahtevu za saradnjom";
-        String mailContent = this.prepareContentForCollaborationRequestNotification(message, collaboration);
+        String mailContent = this.prepareContentForCollaborationRequestNotification(collaboration);
 
         NotificationMailDTO mailDTO = new NotificationMailDTO();
         mailDTO.setEmails(emails);
@@ -242,7 +242,7 @@ public class MailService {
     }
     
     @Transactional
-    public NotificationMailDTO createNotificationMailDTOForCollaborationConfirm(Message message, Collaboration collaboration) {
+    public NotificationMailDTO createNotificationMailDTOForCollaborationConfirm(Collaboration collaboration) {
     	Company company = collaboration.getCompanyRequest();
     	
         List<PortalUser> companyPortalUsers = portalUserRepository.findAllByCompanyAndDoNotify(company, true); 
@@ -251,7 +251,7 @@ public class MailService {
                 .collect(Collectors.toList());
 	
         String mailSubject = "B2B portal - Obaveštenje o prihvaćenom zahtevu za saradnjom";
-        String mailContent = this.prepareContentForCollaborationConfirmNotification(message, collaboration);
+        String mailContent = this.prepareContentForCollaborationConfirmNotification(collaboration);
 
         NotificationMailDTO mailDTO = new NotificationMailDTO();
         mailDTO.setEmails(emails);
@@ -262,7 +262,7 @@ public class MailService {
     }
     
     @Transactional
-    public NotificationMailDTO createNotificationMailDTOForCollaborationCancel(Message message, Collaboration collaboration) {
+    public NotificationMailDTO createNotificationMailDTOForCollaborationCancel(Collaboration collaboration) {
     	Company company = collaboration.getCompanyRequest();
     	
         List<PortalUser> companyPortalUsers = portalUserRepository.findAllByCompanyAndDoNotify(company, true); 
@@ -271,7 +271,7 @@ public class MailService {
                 .collect(Collectors.toList());
 	
         String mailSubject = "B2B portal - Obaveštenje o odbijenoom zahtevu za saradnjom";
-        String mailContent = this.prepareContentForCollaborationCancelNotification(message, collaboration);
+        String mailContent = this.prepareContentForCollaborationCancelNotification(collaboration);
 
         NotificationMailDTO mailDTO = new NotificationMailDTO();
         mailDTO.setEmails(emails);
@@ -361,10 +361,10 @@ public class MailService {
     	return content;
     }
     
-    public String prepareContentForCollaborationRequestNotification(Message message, Collaboration collaboration) {
+    public String prepareContentForCollaborationRequestNotification(Collaboration collaboration) {
     	
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        ZonedDateTime zonedDateTime = message.getDatetime().atZone(ZoneId.systemDefault());
+        ZonedDateTime zonedDateTime = collaboration.getDatetime().atZone(ZoneId.systemDefault());
         
         String advertisementString = "";
         advertisementString = "<p><b>Oglas: </b><span>" + collaboration.getAdvertisement().getTitle() + "</span></p>";
@@ -386,10 +386,10 @@ public class MailService {
     	return content;
     }
     
-    public String prepareContentForCollaborationConfirmNotification(Message message, Collaboration collaboration) {
+    public String prepareContentForCollaborationConfirmNotification(Collaboration collaboration) {
     	
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        ZonedDateTime zonedDateTime = message.getDatetime().atZone(ZoneId.systemDefault());
+        ZonedDateTime zonedDateTime = collaboration.getDatetime().atZone(ZoneId.systemDefault());
         
         String advertisementString = "";
         advertisementString = "<p><b>Oglas: </b><span>" + collaboration.getAdvertisement().getTitle() + "</span></p>";
@@ -411,10 +411,10 @@ public class MailService {
     	return content;
     }
     
-    public String prepareContentForCollaborationCancelNotification(Message message, Collaboration collaboration) {
+    public String prepareContentForCollaborationCancelNotification(Collaboration collaboration) {
     	
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        ZonedDateTime zonedDateTime = message.getDatetime().atZone(ZoneId.systemDefault());
+        ZonedDateTime zonedDateTime = collaboration.getDatetime().atZone(ZoneId.systemDefault());
         
         String advertisementString = "";
         advertisementString = "<p><b>Oglas: </b><span>" + collaboration.getAdvertisement().getTitle() + "</span></p>";

@@ -15,6 +15,18 @@ import CollaborationRatingService from '@/entities/collabooration-rating.service
 import CompanyService from '@/entities/company.service';
 import AdvertisementService from '@/entities/advertisement.service';
 
+enum CollaborationStatusOptions {
+  ACCEPTED = 'прихваћена',
+  REJECTED = 'одбијена',
+  PENDING = 'на чекању',
+}
+
+enum AdvertisementStatusOptions {
+  ACTIVE = 'Активан',
+  INACTIVE = 'Неактиван',
+  ARCHIVED = 'Архивиран',
+}
+
 @Component({
   mixins: [Vue2Filters.mixin],
 })
@@ -35,15 +47,21 @@ export default class Collaboration extends mixins(AlertMixin) {
   public totalItems = 0;
 
   public collaborations: ICollaboration[] = [];
+  public collaborationToChangeStatus: ICollaboration | null = null;
+  public collaborationToRate: ICollaboration | null = null;
   public collaborationRatings: ICollaborationRating[] = [];
   public selectedRating: ICollaborationRating | null = null;
   public company: ICompany = null;
   public advertisement: IAdvertisement = null;
-  public collaborationToRate: ICollaboration | null = null;
   public ratingComment = '';
+  public pendingCollaborationsCount = 0;
+  public selectedCollRadioBtn: string = 'ne';
+  public isCanceled: boolean = false;
 
   public isFetching = false;
-  public collaborationsStatusOptions: ICollaborationStatus[] | null = null;
+  public collaborationsStatusChoices: ICollaborationStatus[] | null = null;
+  public collaborationStatusOptions = CollaborationStatusOptions;
+  public advertisementStatusOptions = AdvertisementStatusOptions;
   public selectedStatusIds: number[] = [];
   public collaborationSideFlags: boolean[] = [];
   public companyOfferFlag = false;
@@ -68,7 +86,7 @@ export default class Collaboration extends mixins(AlertMixin) {
       .retrieve()
       .then(res => {
         // this.selectedStatusIds = res.data?.map(option => option.id)
-        this.collaborationsStatusOptions = res.data.reverse();
+        this.collaborationsStatusChoices = res.data.reverse();
       });
 
     this.$store.watch(
@@ -117,7 +135,7 @@ export default class Collaboration extends mixins(AlertMixin) {
     // Check if default selected status options should be set
     let selectedStatusIds: number[] = [];
     if (this.selectedStatusIds.length === 0) {
-      let statusOptions = this.collaborationsStatusOptions?.map(option => Number(option.id));
+      let statusOptions = this.collaborationsStatusChoices?.map(option => Number(option.id));
 
       if (statusOptions != undefined) {
         selectedStatusIds = statusOptions;
@@ -255,6 +273,10 @@ export default class Collaboration extends mixins(AlertMixin) {
   public prepareCopyAd(instance: ICollaboration): void {
     this.advertisement = instance.advertisement;
 
+    console.log(this.company.id);
+    console.log(this.advertisement.company.id);
+    console.log(this.advertisement.title);
+
     if (<any>this.$refs.copyAdModal) {
       (<any>this.$refs.copyAdModal).show();
     }
@@ -288,5 +310,97 @@ export default class Collaboration extends mixins(AlertMixin) {
       (collaboration.companyOffer.id === this.company.id && collaboration.ratingOffer) ||
       (collaboration.companyRequest.id === this.company.id && collaboration.ratingRequest)
     );
+  }
+
+  public prepareConfirmCollaboration(instance: ICollaboration): void {
+    this.collaborationToChangeStatus = instance;
+
+    if (this.collaborationToChangeStatus.advertisement) {
+      this.collaborationService()
+        .getPendingCollaborationsCountForAdvertisement(this.collaborationToChangeStatus.advertisement.id)
+        .then(res => {
+          this.pendingCollaborationsCount = res.data;
+        });
+    }
+
+    if (<any>this.$refs.confirmCollaboration) {
+      (<any>this.$refs.confirmCollaboration).show();
+    }
+  }
+
+  public prepareCancelCollaboration(instance: ICollaboration): void {
+    this.collaborationToChangeStatus = instance;
+
+    if (<any>this.$refs.cancelCollaboration) {
+      (<any>this.$refs.cancelCollaboration).show();
+    }
+  }
+
+  public closeConfirmCollaboration(): void {
+    (<any>this.$refs.confirmCollaboration).hide();
+  }
+
+  public closeCancelCollaboration(): void {
+    (<any>this.$refs.cancelCollaboration).hide();
+  }
+
+  public cancelCollaboration(): void {
+    const ADVERTISEMENT_TITLE = this.collaborationToChangeStatus.advertisement.title;
+
+    if (!this.collaborationToChangeStatus) {
+      this.closeCancelCollaboration();
+      return;
+    }
+
+    this.collaborationService()
+      .cancelCollaboration(this.collaborationToChangeStatus.id)
+      .then(res => {
+        this.isCanceled = true;
+        const message = this.$t('riportalApp.thread.notifications.cancelCollaboration', { ADVERTISEMENT_TITLE });
+        this.$notify({
+          text: message,
+        });
+
+        this.retrieveAllCollaborations();
+      });
+
+    this.closeCancelCollaboration();
+  }
+
+  public confirmCollaboration(): void {
+    const ADVERTISEMENT_ID = this.collaborationToChangeStatus.advertisement.id;
+    const ADVERTISEMENT_TITLE = this.collaborationToChangeStatus.advertisement.title;
+
+    if (!this.collaborationToChangeStatus) {
+      this.closeConfirmCollaboration();
+      return;
+    }
+
+    this.collaborationService()
+      .confirmCollaboration(this.collaborationToChangeStatus.id)
+      .then(res => {
+        const message1 = this.$t('riportalApp.thread.notifications.confirmCollaboration1', { ADVERTISEMENT_TITLE });
+        const message2 = this.$t('riportalApp.thread.notifications.confirmCollaboration2', { ADVERTISEMENT_TITLE });
+
+        if (this.selectedCollRadioBtn === 'ne') {
+          this.retrieveAllCollaborations();
+          this.$notify({
+            text: message1,
+          });
+        } else {
+          this.selectedCollRadioBtn = 'ne';
+
+          this.collaborationService()
+            .cancelPendingCollaborationsForAdvertisement(ADVERTISEMENT_ID)
+            .then(res => {
+              this.retrieveAllCollaborations();
+              this.$notify({
+                text: message2,
+              });
+            });
+        }
+      });
+
+    this.closeConfirmCollaboration();
   }
 }

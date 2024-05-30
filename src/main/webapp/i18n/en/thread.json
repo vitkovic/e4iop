@@ -34,6 +34,7 @@
       "acceptedCollaboration": "Collaboration achieved",
       "threadButtonGroup": {
         "confirmCollaboration": "Confirm collaboration",
+        "cancelCollaboration": "Cancel collaboration",
         "deleteInquiry": "Delete inquiry"
       },
       "messageSection": {
@@ -41,10 +42,25 @@
         "sender": "Sender:",
         "placeholder": "Enter new message..."
       },
-      "modal": {
+      "modalConfirm": {
         "title": "Do you want to confirm the request for collaboration?",
         "advertisement": "Advertisement:",
+        "company": "Company seeking collaboration:",
+        "bodyTitle": "There are multiple requests for collaboration on the advertisement {{ title }}, do you want to decline the other requests?"
+      },
+      "modalCancel": {
+        "title": "Do you want to cancel the request for collaboration?",
+        "advertisement": "Advertisement:",
         "company": "Company seeking collaboration:"
+      },
+      "iconHover": {
+        "confirmCollaboration": "Collaboration confirmed.",
+        "cancelCollaboration": "Collaboration canceled."
+      },
+      "notifications": {
+        "confirmCollaboration1": "You have confirmed the collaboration request for the ad <b>{ADVERTISEMENT_TITLE}</b>.",
+        "confirmCollaboration2": "You have confirmed the collaboration request for the ad <b>{ADVERTISEMENT_TITLE}</b>.<br><br>Other requests for collaboration on the ad <b>{ADVERTISEMENT_TITLE}</b> su odbijeni.",
+        "cancelCollaboration": "Collaboration ad <b>{ADVERTISEMENT_TITLE}</b> has been declined"
       }
     }
   }

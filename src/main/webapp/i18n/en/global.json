@@ -239,6 +239,8 @@
       "save": "Save",
       "send": "Send",
       "remove": "Remove",
+      "yes": "Yes",
+      "no": "No",
       "confirm": "Confirm",
       "saveLogo": "Save logo",
       "saveImages": "Save images",

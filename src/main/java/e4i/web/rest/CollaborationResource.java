@@ -17,9 +17,7 @@ import e4i.domain.Advertisement;
 import e4i.domain.AdvertisementStatus;
 import e4i.domain.Collaboration;
 import e4i.domain.CollaborationRating;
-import e4i.domain.Message;
 import e4i.domain.PortalUser;
-import e4i.domain.Thread;
 import e4i.repository.CollaborationRepository;
 import e4i.service.AdvertisementService;
 import e4i.service.CollaborationRatingService;
@@ -215,11 +213,8 @@ public class CollaborationResource {
         try {
         	PortalUser portalUser = portalUserService.findCurrentPortalUser();
             Advertisement advertisement = advertisementService.findOneByIdFromOptional(advertisementId);
-        	Collaboration collaboration = collaborationService.createCollaborationForAdvertisementAndPortalUserCompany(advertisement, portalUser);
-        	Thread thread = threadService.createThreadForCollaboration(collaboration);
-        	Message message = messageService.createFirstMessageInThreadCollaboration(thread, collaboration, portalUser);
-        	
-        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationRequest(message, collaboration);
+        	Collaboration collaboration = collaborationService.createCollaborationForAdvertisementAndPortalUserCompany(advertisement, portalUser);        	
+        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationRequest(collaboration);
         	
         	if (!mailDTO.getEmails().isEmpty()) {
         		mailService.sendNotificationMail(mailDTO);
@@ -246,13 +241,8 @@ public class CollaborationResource {
         	Advertisement advertisement = advertisementService.findOneByCollaboration(collaboration);
         	advertisement = advertisementService.changeStatus(advertisement, AdvertisementStatus.INACTIVE);
         	
-        	// send message in thread
-        	PortalUser portalUser = portalUserService.findCurrentPortalUser();
-            Thread thread = threadService.getThreadForCollaboration(collaboration);
-        	Message message = messageService.createConfirmMessageInThreadCollaboration(thread, collaboration, portalUser);
-
         	// send email notification
-        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationConfirm(message, collaboration);
+        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationConfirm(collaboration);
         	
         	if (!mailDTO.getEmails().isEmpty()) {
         		mailService.sendNotificationMail(mailDTO);
@@ -275,13 +265,8 @@ public class CollaborationResource {
         	// cancel collaboration
         	Collaboration collaboration = collaborationService.cancelCollaboration(collaborationId);
        	
-        	// send message in thread
-        	PortalUser portalUser = portalUserService.findCurrentPortalUser();
-            Thread thread = threadService.getThreadForCollaboration(collaboration);
-        	Message message = messageService.createCancelMessageInThreadCollaboration(thread, collaboration, portalUser);
-
         	// send email notification
-        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationCancel(message, collaboration);
+        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationCancel(collaboration);
         	
         	if (!mailDTO.getEmails().isEmpty()) {
         		mailService.sendNotificationMail(mailDTO);
@@ -315,18 +300,12 @@ public class CollaborationResource {
         try {
         	List<Collaboration> collaborations = collaborationService.findAllPendingCollaborationsForAdvertisement(advertisementId);
 
-        	
             for (Collaboration collaboration : collaborations) {
             	// cancel collaboration
             	collaborationService.cancelCollaboration(collaboration.getId());
             	
-            	// send message in thread
-            	PortalUser portalUser = portalUserService.findCurrentPortalUser();
-                Thread thread = threadService.getThreadForCollaboration(collaboration);
-            	Message message = messageService.createCancelMessageInThreadCollaboration(thread, collaboration, portalUser);
-
             	// send email notification
-            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationCancel(message, collaboration);
+            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForCollaborationCancel(collaboration);
             	
             	if (!mailDTO.getEmails().isEmpty()) {
             		mailService.sendNotificationMail(mailDTO);

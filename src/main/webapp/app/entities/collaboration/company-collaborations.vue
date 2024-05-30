@@ -39,7 +39,7 @@
                 name="flavour-2"
                 stacked
             >
-                <b-form-checkbox v-for="option in collaborationsStatusOptions" :key="option.id" :value="option.id">{{ option.status }}</b-form-checkbox>
+                <b-form-checkbox v-for="option in collaborationsStatusChoices" :key="option.id" :value="option.id">{{ option.status }}</b-form-checkbox>
             </b-form-checkbox-group>
             </b-form-group>
 
@@ -129,13 +129,45 @@
                     </td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <b-button v-if="!ratingExists(collaboration)"  v-on:click="prepareRating(collaboration)"
+                            <b-button
+                                v-if="collaboration 
+                                && collaboration.status 
+                                && (collaboration.status.status === collaborationStatusOptions.PENDING)
+                                && collaboration.companyOffer.id === company.id
+                                "
+                                v-on:click.stop="prepareConfirmCollaboration(collaboration)"
+                                variant="success"
+                                class="btn btn-sm spacing-subject-btn mr-1 pl-1 pr-1"
+                                v-b-modal.confirmCollaboration
+                                >
+                                <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.confirmCollaboration')"
+                                    >Potvrdi saradnju</span
+                                >
+                                </b-button>
+                                <b-button
+                                v-if="collaboration 
+                                    && collaboration.status 
+                                    && (collaboration.status.status === collaborationStatusOptions.PENDING)
+                                    && collaboration.companyOffer.id === company.id
+                                    "
+                                v-on:click.stop="prepareCancelCollaboration(collaboration)"
+                                variant="danger"
+                                class="btn btn-sm spacing-subject-btn mr-1 pl-1 pr-1"
+                                v-b-modal.cancelCollaboration
+                                >
+                                <span class="d-none d-md-inline" v-text="$t('riportalApp.thread.threadButtonGroup.cancelCollaboration')"
+                                    >Otkaži saradnju</span
+                                >
+                                </b-button>
+
+
+                            <b-button v-if="(collaboration.status.status === collaborationStatusOptions.ACCEPTED) && !ratingExists(collaboration)"  v-on:click="prepareRating(collaboration)"
                                    variant="primary"
                                    class="btn btn-sm mr-1"
                                    v-b-modal.ratingEntity>
                                 <span class="d-none d-md-inline" v-text="'Oceni'">Oceni</span>
                             </b-button>
-                            <b-button v-if="company.id === collaboration.advertisement.company.id" v-on:click="prepareCopyAd(collaboration)"
+                            <b-button v-if="(company.id === collaboration.companyOffer.id) && (collaboration.advertisement.status.status === advertisementStatusOptions.INACTIVE)" v-on:click="prepareCopyAd(collaboration)"
                                    variant="primary"
                                    class="btn btn-sm mr-1"
                                    v-b-modal.copyAdModal>
@@ -154,6 +186,80 @@
                 </tbody>
             </table>
         </div>
+
+        <b-modal v-if="collaborationToChangeStatus" ref="confirmCollaboration" id="confirmCollaboration">
+            <span slot="modal-title"
+                ><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.modalConfirm.title')"
+                >Da li želite da potvrdite zahtev za saradnju?</span
+                ></span
+            >
+            <div class="modal-body">
+                <p id="jhi-delete-advertisement-heading">
+                <b>{{ $t('riportalApp.thread.modalConfirm.advertisement') }} </b>{{ collaborationToChangeStatus.advertisement.title }}
+                </p>
+                <p id="jhi-delete-advertisement-heading">
+                <b>{{ $t('riportalApp.thread.modalConfirm.company') }} </b>{{ collaborationToChangeStatus.companyRequest.name }}
+                </p>
+                <hr v-if="pendingCollaborationsCount > 1"/>
+                <b-form-group
+                v-if="pendingCollaborationsCount > 1"
+                :label="$t('riportalApp.thread.modalConfirm.bodyTitle', { title: collaborationToChangeStatus.advertisement.title })"
+                v-slot="{ ariaDescribedby }"
+                >
+                <b-form-radio v-model="selectedCollRadioBtn" :aria-describedby="ariaDescribedby" name="collaboration-radios" value="da">{{
+                    $t('entity.action.yes')
+                }}</b-form-radio>
+                <b-form-radio v-model="selectedCollRadioBtn" :aria-describedby="ariaDescribedby" name="collaboration-radios" value="ne">{{
+                    $t('entity.action.no')
+                }}</b-form-radio>
+                </b-form-group>
+            </div>
+            <div slot="modal-footer">
+                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeConfirmCollaboration()">
+                Otkaži
+                </button>
+                <button
+                type="button"
+                class="btn btn-success"
+                id="jhi-confirm-delete-advertisement"
+                v-text="$t('entity.action.confirm')"
+                v-on:click="confirmCollaboration()"
+                >
+                Potvrdi
+                </button>
+            </div>
+        </b-modal>
+    
+        <b-modal v-if="collaborationToChangeStatus" ref="cancelCollaboration" id="cancelCollaboration">
+            <span slot="modal-title"
+                ><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.modalCancel.title')"
+                >Da li želite da odbijete zahtev za saradnju?</span
+                ></span
+            >
+            <div class="modal-body">
+                <p id="jhi-delete-advertisement-heading">
+                <b>{{ $t('riportalApp.thread.modalCancel.advertisement') }} </b>{{ collaborationToChangeStatus.advertisement.title }}
+                </p>
+                <p id="jhi-delete-advertisement-heading">
+                <b>{{ $t('riportalApp.thread.modalCancel.company') }} </b>{{ collaborationToChangeStatus.companyRequest.name }}
+                </p>
+            </div>
+            <div slot="modal-footer">
+                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCancelCollaboration()">
+                Otkaži
+                </button>
+                <button
+                type="button"
+                class="btn btn-success"
+                id="jhi-confirm-delete-advertisement"
+                v-text="$t('entity.action.confirm')"
+                v-on:click="cancelCollaboration()"
+                >
+                Potvrdi
+                </button>
+            </div>
+        </b-modal>
+
         <b-modal v-if="collaborationToRate" ref="ratingEntity" id="ratingEntity" >
             <span slot="modal-title"><span v-text="'Ocenite saradnju'">Ocenite saradnju</span></span>
             <div class="modal-body">       
