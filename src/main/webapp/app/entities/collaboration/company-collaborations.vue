@@ -81,18 +81,18 @@
                     <!-- <td>{{collaboration.commentOffer}}</td>
                     <td>{{collaboration.commentRequest}}</td> -->
                     <td>
-                        <div v-if="collaboration.companyOffer">
-                            <router-link :to="{name: 'CompanyView', params: {companyId: collaboration.companyOffer.id}}">{{collaboration.companyOffer.name}}</router-link>
+                        <div v-if="collaboration.companyOffer">{{collaboration.companyOffer.name}}
+                            <!-- <router-link :to="{name: 'CompanyView', params: {companyId: collaboration.companyOffer.id}}">{{collaboration.companyOffer.name}}</router-link> -->
                         </div>
                     </td>
                     <td>
-                        <div v-if="collaboration.companyRequest">
-                            <router-link :to="{name: 'CompanyView', params: {companyId: collaboration.companyRequest.id}}">{{collaboration.companyRequest.name}}</router-link>
+                        <div v-if="collaboration.companyRequest">{{collaboration.companyRequest.name}}
+                            <!-- <router-link :to="{name: 'CompanyView', params: {companyId: collaboration.companyRequest.id}}">{{collaboration.companyRequest.name}}</router-link> -->
                         </div>
                     </td>
                     <td>
-                        <div v-if="collaboration.advertisement">
-                            <router-link :to="{name: 'AdvertisementView', params: {advertisementId: collaboration.advertisement.id}}">{{collaboration.advertisement.title}}</router-link>
+                        <div v-if="collaboration.advertisement">{{collaboration.advertisement.title}}
+                            <!-- <router-link :to="{name: 'AdvertisementView', params: {advertisementId: collaboration.advertisement.id}}">{{collaboration.advertisement.title}}</router-link> -->
                         </div>
                     </td>
                     <td>
@@ -217,9 +217,6 @@
                 </b-form-group>
             </div>
             <div slot="modal-footer">
-                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeConfirmCollaboration()">
-                Otkaži
-                </button>
                 <button
                 type="button"
                 class="btn btn-success"
@@ -228,6 +225,9 @@
                 v-on:click="confirmCollaboration()"
                 >
                 Potvrdi
+                </button>
+                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeConfirmCollaboration()">
+                Otkaži
                 </button>
             </div>
         </b-modal>
@@ -247,9 +247,6 @@
                 </p>
             </div>
             <div slot="modal-footer">
-                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCancelCollaboration()">
-                Otkaži
-                </button>
                 <button
                 type="button"
                 class="btn btn-success"
@@ -258,6 +255,9 @@
                 v-on:click="cancelCollaboration()"
                 >
                 Potvrdi
+                </button>
+                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCancelCollaboration()">
+                Otkaži
                 </button>
             </div>
         </b-modal>
@@ -302,8 +302,8 @@
                 </b-form-textarea>
             </div>
             <div slot="modal-footer">
-                <button type="button" class="btn btn-secondary" v-text="'Oceni'" v-on:click="rateCollaboration()">Oceni</button>
-                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-collaboration" v-text="'Otkaži'" v-on:click="closeRatingDialog()">Otkaži</button>
+                <button type="button" class="btn btn-success" v-text="'Oceni'" v-on:click="rateCollaboration()">Oceni</button>
+                <button type="button" class="btn btn-danger" id="jhi-confirm-delete-collaboration" v-text="'Otkaži'" v-on:click="closeRatingDialog()">Otkaži</button>
             </div>
         </b-modal>
 
@@ -313,8 +313,8 @@
                 <p id="jhi-delete-collaboration-heading" v-text="$t('riportalApp.collaboration.delete.question', {'id': removeId})">Are you sure you want to delete this Collaboration?</p>
             </div>
             <div slot="modal-footer">
-                <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
-                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-collaboration" v-text="$t('entity.action.delete')" v-on:click="removeCollaboration()">Delete</button>
+                <button type="button" class="btn btn-success" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
+                <button type="button" class="btn btn-danger" id="jhi-confirm-delete-collaboration" v-text="$t('entity.action.delete')" v-on:click="removeCollaboration()">Delete</button>
             </div>
         </b-modal>
 
@@ -324,8 +324,8 @@
                 <p v-if="advertisement" id="jhi-delete-collaboration-heading" v-text="'Da li želite da obnovite oglas ' + advertisement.title + '?'">Da li želite da obnovite oglas?</p>
             </div>
             <div slot="modal-footer">
-                <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeCopyAd()">Cancel</button>
-                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-collaboration" v-text="'Potvrdi'" v-on:click="confirmCopyAd()">Delete</button>
+                <button type="button" class="btn btn-success" id="jhi-confirm-delete-collaboration" v-text="'Potvrdi'" v-on:click="confirmCopyAd()">Delete</button>
+                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCopyAd()">Cancel</button>
             </div>
         </b-modal>
         <div v-show="collaborations && collaborations.length > 0">
