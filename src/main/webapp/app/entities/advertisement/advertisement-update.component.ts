@@ -66,6 +66,18 @@ const validations: any = {
     description: {
       required,
     },
+    type: {
+      required,
+    },
+    kind: {
+      required,
+    },
+    subsubcategory: {
+      required,
+    },
+    duration: {
+      required,
+    },
     budget: {},
     conditions: {},
   },

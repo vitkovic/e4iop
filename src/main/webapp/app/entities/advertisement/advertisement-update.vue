@@ -81,6 +81,7 @@
                 id="advertisement-title"
                 :class="{ valid: !$v.advertisement.title.$invalid, invalid: $v.advertisement.title.$invalid }"
                 v-model="$v.advertisement.title.$model"
+                @blur="$v.advertisement.title.$touch()"
                 required
               />
               <div v-if="$v.advertisement.title.$anyDirty && $v.advertisement.title.$invalid">
@@ -100,6 +101,7 @@
                 id="advertisement-description"
                 :class="{ valid: !$v.advertisement.description.$invalid, invalid: $v.advertisement.description.$invalid }"
                 v-model="$v.advertisement.description.$model"
+                @blur="$v.advertisement.description.$touch()"
                 required
               />
               <div v-if="$v.advertisement.description.$anyDirty && $v.advertisement.description.$invalid">
@@ -114,7 +116,15 @@
             </div>
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.type')" for="advertisement-type">Type</label>
-              <select class="form-control" id="advertisement-type" name="type" v-model="advertisement.type">
+              <select 
+                class="form-control" 
+                id="advertisement-type" 
+                name="type" 
+                v-model="advertisement.type"
+                :class="{ valid: !$v.advertisement.type.$invalid, invalid: $v.advertisement.type.$invalid }"
+                @blur="$v.advertisement.type.$touch()"
+                required
+                >
                 <option v-bind:value="null"></option>
                 <option
                   v-bind:value="
@@ -127,10 +137,27 @@
                   >{{ advertisementTypeOption.type }}</option
                 >
               </select>
+              <div v-if="$v.advertisement.type.$anyDirty && $v.advertisement.type.$invalid">
+                <small
+                  class="form-text text-danger"
+                  v-if="!$v.advertisement.type.required"
+                  v-text="$t('entity.validation.required')"
+                >
+                  This field is required.
+                </small>
+              </div>
             </div>
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.kind')" for="advertisement-kind">Kind</label>
-              <select class="form-control" id="advertisement-kind" name="kind" v-model="advertisement.kind">
+              <select 
+              class="form-control" 
+              id="advertisement-kind" 
+              name="kind" 
+              v-model="advertisement.kind"
+                :class="{ valid: !$v.advertisement.kind.$invalid, invalid: $v.advertisement.kind.$invalid }"
+                @blur="$v.advertisement.kind.$touch()"
+              required
+              >
                 <option v-bind:value="null"></option>
                 <option
                   v-bind:value="
@@ -143,12 +170,29 @@
                   >{{ advertisementKindOption.kind }}</option
                 >
               </select>
+              <div v-if="$v.advertisement.kind.$anyDirty && $v.advertisement.kind.$invalid">
+                <small
+                  class="form-text text-danger"
+                  v-if="!$v.advertisement.kind.required"
+                  v-text="$t('entity.validation.required')"
+                >
+                  This field is required.
+                </small>
+              </div>
             </div>
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.subsubcategory')" for="advertisement-subsubcategory"
                 >Subsubcategory</label
               >
-              <select class="form-control" id="advertisement-subsubcategory" name="subsubcategory" v-model="advertisement.subsubcategory">
+              <select 
+              class="form-control" 
+              id="advertisement-subsubcategory" 
+              name="subsubcategory" 
+              v-model="advertisement.subsubcategory"
+                :class="{ valid: !$v.advertisement.subsubcategory.$invalid, invalid: $v.advertisement.subsubcategory.$invalid }"
+                @blur="$v.advertisement.subsubcategory.$touch()"
+              required
+              >
                 <option v-bind:value="null"></option>
                 <option
                   v-bind:value="
@@ -161,13 +205,30 @@
                   >{{ advertisementSubsubcategoryOption.name }}</option
                 >
               </select>
+              <div v-if="$v.advertisement.subsubcategory.$anyDirty && $v.advertisement.subsubcategory.$invalid">
+                <small
+                  class="form-text text-danger"
+                  v-if="!$v.advertisement.subsubcategory.required"
+                  v-text="$t('entity.validation.required')"
+                >
+                  This field is required.
+                </small>
+              </div>
             </div>
 
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.duration')" for="advertisement-duration"
                 >Duration</label
               >
-              <select class="form-control" id="advertisement-duration" name="duration" v-model="advertisement.duration">
+              <select 
+              class="form-control" 
+              id="advertisement-duration" 
+              name="duration" 
+              v-model="advertisement.duration"
+                :class="{ valid: !$v.advertisement.duration.$invalid, invalid: $v.advertisement.duration.$invalid }"
+                @blur="$v.advertisement.duration.$touch()"
+              required
+              >
                 <option v-bind:value="null"></option>
                 <option
                   v-bind:value="
@@ -180,6 +241,15 @@
                   >{{ advertisementDurationOption.duration }}</option
                 >
               </select>
+              <div v-if="$v.advertisement.duration.$anyDirty && $v.advertisement.duration.$invalid">
+                <small
+                  class="form-text text-danger"
+                  v-if="!$v.advertisement.duration.required"
+                  v-text="$t('entity.validation.required')"
+                >
+                  This field is required.
+                </small>
+              </div>
             </div>
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.budget')" for="advertisement-budget">Budget</label>
