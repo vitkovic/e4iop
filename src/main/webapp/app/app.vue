@@ -11,7 +11,7 @@
     <div class="container-fluid">
 		
       <div class="card jh-card mt-5">
-        <router-view></router-view>
+        <router-view :key="$route.path"></router-view>
       </div>
       <b-modal id="login-page" hide-footer lazy>
         <span slot="modal-title" id="login-title" v-text="$t('login.title')">Sign in</span>
