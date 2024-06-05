@@ -26,11 +26,14 @@
                 <tr>
                     <th><span v-text="$t('global.field.id')">ID</span></th>
                     <th><span v-text="$t('riportalApp.meeting.datetime')">Datetime</span></th>
+                    <th><span v-text="'Datetime Start'">Datetime Start</span></th>
+                    <th><span v-text="'Datetime End'">Datetime End</span></th>
                     <th><span v-text="$t('riportalApp.meeting.isAcepted')">Is Acepted</span></th>
                     <th><span v-text="$t('riportalApp.meeting.title')">Title</span></th>
                     <th><span v-text="$t('riportalApp.meeting.description')">Description</span></th>
                     <th><span v-text="$t('riportalApp.meeting.comment')">Comment</span></th>
                     <th><span v-text="$t('riportalApp.meeting.notes')">Notes</span></th>
+                    <th><span v-text="'Company'">Company</span></th>
                     <th><span v-text="$t('riportalApp.meeting.portalUserOrganizer')">Portal User Organizer</span></th>
                     <th><span v-text="$t('riportalApp.meeting.advertisement')">Advertisement</span></th>
                     <th><span v-text="$t('riportalApp.meeting.type')">Type</span></th>
@@ -44,11 +47,18 @@
                         <router-link :to="{name: 'MeetingView', params: {meetingId: meeting.id}}">{{meeting.id}}</router-link>
                     </td>
                     <td>{{meeting.datetime ? $d(Date.parse(meeting.datetime), 'short') : ''}}</td>
+                    <td>{{meeting.datetimeStart ? $d(Date.parse(meeting.datetimeStart), 'short') : ''}}</td>
+                    <td>{{meeting.datetimeEnd ? $d(Date.parse(meeting.datetimeEnd), 'short') : ''}}</td>
                     <td>{{meeting.isAcepted}}</td>
                     <td>{{meeting.title}}</td>
                     <td>{{meeting.description}}</td>
                     <td>{{meeting.comment}}</td>
                     <td>{{meeting.notes}}</td>
+                    <td>
+                        <div v-if="meeting.company">
+                            <router-link :to="{name: 'CompanyView', params: {companyId: meeting.company.id}}">{{meeting.company.name}}</router-link>
+                        </div>
+                    </td>
                     <td>
                         <div v-if="meeting.portalUserOrganizer">
                             <router-link :to="{name: 'PortalUserView', params: {portalUserId: meeting.portalUserOrganizer.id}}">{{meeting.portalUserOrganizer.id}}</router-link>

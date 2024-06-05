@@ -119,4 +119,18 @@ public class CompanyService {
         	throw new EntityNotFoundException(errorMessage);
     	}
     }
+    
+    @Transactional
+    public Company getOneById(Long id) {
+        log.debug("Request to get Company : {}", id);
+        
+        Optional<Company> companyOptional = companyRepository.findOneWithEagerRelationships(id);
+        
+        if (companyOptional.isPresent()) {
+        	return companyOptional.get();
+    	} else {
+    		String errorMessage = String.format("Company with id={} could not be found.", id);
+        	throw new EntityNotFoundException(errorMessage);
+    	}
+    }
 }

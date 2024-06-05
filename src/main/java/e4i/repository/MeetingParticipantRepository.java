@@ -1,8 +1,11 @@
 package e4i.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import e4i.domain.Meeting;
 import e4i.domain.MeetingParticipant;
 
 /**
@@ -11,4 +14,10 @@ import e4i.domain.MeetingParticipant;
 @SuppressWarnings("unused")
 @Repository
 public interface MeetingParticipantRepository extends JpaRepository<MeetingParticipant, Long> {
+	
+	List<MeetingParticipant> findAllByCompanyIdAndHasRemoved(Long companyId, Boolean hasRemoved);
+	
+	List<MeetingParticipant> findAllByMeetingId(Long meetingId);
+	
+	MeetingParticipant findOneByMeetingIdAndIsOrganizer(Long meetingId, Boolean isOrganizer);
 }

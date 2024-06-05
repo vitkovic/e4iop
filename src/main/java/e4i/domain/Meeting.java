@@ -30,6 +30,12 @@ public class Meeting implements Serializable {
     @NotNull
     @Column(name = "datetime", nullable = false)
     private Instant datetime;
+    
+    @Column(name = "datetime_start", nullable = false)
+    private Instant datetimeStart;
+    
+    @Column(name = "datetime_end", nullable = false)
+    private Instant datetimeEnd;
 
     @Column(name = "is_acepted")
     private Boolean isAcepted;
@@ -51,6 +57,11 @@ public class Meeting implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<MeetingParticipant> meetingParticipants = new HashSet<>();
 
+    @NotNull
+    @ManyToOne
+    @JsonIgnoreProperties(value = "meetings", allowSetters = true)
+    private Company company;
+    
     @ManyToOne
     @JsonIgnoreProperties(value = "meetingOrganizers", allowSetters = true)
     private PortalUser portalUserOrganizer;
@@ -85,7 +96,33 @@ public class Meeting implements Serializable {
         this.datetime = datetime;
     }
 
-    public Boolean isIsAcepted() {
+    public Instant getDatetimeStart() {
+		return datetimeStart;
+	}
+    
+    public Meeting datetimeStart(Instant datetime) {
+        this.datetimeStart = datetime;
+        return this;
+    }
+
+	public void setDatetimeStart(Instant datetimeStart) {
+		this.datetimeStart = datetimeStart;
+	}
+
+	public Instant getDatetimeEnd() {
+		return datetimeEnd;
+	}
+	
+    public Meeting datetimeEnd(Instant datetime) {
+        this.datetimeEnd = datetime;
+        return this;
+    }
+
+	public void setDatetimeEnd(Instant datetimeEnd) {
+		this.datetimeEnd = datetimeEnd;
+	}
+
+	public Boolean isIsAcepted() {
         return isAcepted;
     }
 
@@ -165,7 +202,7 @@ public class Meeting implements Serializable {
         return this;
     }
 
-    public Meeting removeMeetingParticipant(MeetingParticipant meetingParticipant) {
+	public Meeting removeMeetingParticipant(MeetingParticipant meetingParticipant) {
         this.meetingParticipants.remove(meetingParticipant);
         meetingParticipant.setMeeting(null);
         return this;
@@ -174,6 +211,19 @@ public class Meeting implements Serializable {
     public void setMeetingParticipants(Set<MeetingParticipant> meetingParticipants) {
         this.meetingParticipants = meetingParticipants;
     }
+    
+    public Company getCompany() {
+		return company;
+	}
+
+    public Meeting company(Company company) {
+        this.company = company;
+        return this;
+    }
+    
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 
     public PortalUser getPortalUserOrganizer() {
         return portalUserOrganizer;
@@ -237,6 +287,8 @@ public class Meeting implements Serializable {
         return "Meeting{" +
             "id=" + getId() +
             ", datetime='" + getDatetime() + "'" +
+            ", datetimeStart='" + getDatetimeStart() + "'" +
+            ", datetimeEnd='" + getDatetimeEnd() + "'" +
             ", isAcepted='" + isIsAcepted() + "'" +
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +

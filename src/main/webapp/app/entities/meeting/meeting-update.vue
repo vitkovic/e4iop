@@ -25,6 +25,20 @@
                                 This field should be a date and time.
                             </small>
                         </div>
+
+                        <label class="form-control-label" v-text="'Datetime Start'" for="meeting-datetimeStart">Datetime Start</label>
+                        <div class="d-flex">
+                            <input id="meeting-datetimeStart" type="datetime-local" class="form-control" name="datetimeStart" 
+                            :value="convertDateTimeFromServer($v.meeting.datetimeStart.$model)"
+                            @change="updateInstantField('datetimeStart', $event)"/>
+                        </div>
+                        <label class="form-control-label" v-text="'Datetime End'" for="meeting-datetimeEnd">Datetime</label>
+                        <div class="d-flex">
+                            <input id="meeting-datetimeEnd" type="datetime-local" class="form-control" name="datetimeEnd"
+                            :value="convertDateTimeFromServer($v.meeting.datetimeEnd.$model)"
+                            @change="updateInstantField('datetimeEnd', $event)"/>
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.meeting.isAcepted')" for="meeting-isAcepted">Is Acepted</label>
@@ -55,6 +69,13 @@
                         <label class="form-control-label" v-text="$t('riportalApp.meeting.notes')" for="meeting-notes">Notes</label>
                         <input type="text" class="form-control" name="notes" id="meeting-notes"
                             :class="{'valid': !$v.meeting.notes.$invalid, 'invalid': $v.meeting.notes.$invalid }" v-model="$v.meeting.notes.$model" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="'Company'" for="meeting-company">Company</label>
+                        <select class="form-control" id="meeting-company" name="company" :class="{'valid': !$v.meeting.company.$invalid, 'invalid': $v.meeting.company.$invalid }" v-model="meeting.company" required>
+                            <option v-bind:value="null"></option>
+                            <option v-bind:value="meeting.company && company.id === meeting.company.id ? meeting.company : company" v-for="company in companies" :key="company.id">{{company.name}}</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.meeting.portalUserOrganizer')" for="meeting-portalUserOrganizer">Portal User Organizer</label>

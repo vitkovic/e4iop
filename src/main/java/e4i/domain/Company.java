@@ -78,6 +78,14 @@ public class Company implements Serializable {
     @OneToMany(mappedBy = "companyReceiver")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Thread> threadsReceivers = new HashSet<>();
+    
+    @OneToMany(mappedBy = "company")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Meeting> meetings = new HashSet<>();
+    
+    @OneToMany(mappedBy = "company")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<MeetingParticipant> meetingParticipants = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -206,7 +214,7 @@ public class Company implements Serializable {
     public void setFields(String fields) {
         this.fields = fields;
     }
-
+    
     public Set<PortalUser> getPortalUsers() {
         return portalUsers;
     }
@@ -380,6 +388,57 @@ public class Company implements Serializable {
 
     public void setThreadsReceivers(Set<Thread> threads) {
         this.threadsSenders = threads;
+    }
+    
+    public Set<Meeting> getMeetings() {
+        return meetings;
+    }
+
+    public Company meetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
+        return this;
+    }
+
+    public Company addMeeting(Meeting meeting) {
+        this.meetings.add(meeting);
+        meeting.setCompany(this);
+        return this;
+    }
+
+    public Company removeMeeting(Meeting meeting) {
+        this.meetings.remove(meeting);
+        meeting.setCompany(null);
+        return this;
+    }
+
+    public void setMeetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
+    }
+    
+    
+    public Set<MeetingParticipant> getMeetingParticipants() {
+        return meetingParticipants;
+    }
+
+    public Company meetingParticipants(Set<MeetingParticipant> meetingParticipants) {
+        this.meetingParticipants = meetingParticipants;
+        return this;
+    }
+
+    public Company addMeetingParticipant(MeetingParticipant meetingParticipant) {
+        this.meetingParticipants.add(meetingParticipant);
+        meetingParticipant.setCompany(this);
+        return this;
+    }
+
+    public Company removeMeetingParticipant(MeetingParticipant meetingParticipant) {
+        this.meetingParticipants.remove(meetingParticipant);
+        meetingParticipant.setPortalUser(null);
+        return this;
+    }
+
+    public void setMeetingParticipants(Set<MeetingParticipant> meetingParticipants) {
+        this.meetingParticipants = meetingParticipants;
     }
 
     public Set<Badge> getBadges() {

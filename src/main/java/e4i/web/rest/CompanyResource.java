@@ -206,8 +206,7 @@ public class CompanyResource {
     
     @PostMapping("/companies/upload-logo")                   
     @Transactional
-    public ResponseEntity<Document> uploadCompanyLogo(@RequestParam Long id, @RequestParam("files") MultipartFile[] file) {      
-    	String message = "";      
+    public ResponseEntity<Document> uploadCompanyLogo(@RequestParam Long id, @RequestParam("files") MultipartFile[] file) {         
     	try {
     		Optional<Company> companyOptional = companyRepository.findById(id);
     		Company company = companyOptional.get();
@@ -360,5 +359,18 @@ public class CompanyResource {
         // Ovo vraca i slike i dokumenta. Izdvojiti samo slike.
         Set<Document> documents = company.getDocuments();
         return ResponseEntity.ok().body(documents);
+    }
+       
+    @GetMapping("/companies/autocomplete/{name}/{excludedIds}")
+    public List<Company> getAllAutocompleteByNameWithoutExlcuded(@PathVariable String name, @PathVariable List<Long> excludedIds) {
+        log.debug("REST request to get list of Companies by autocomplete withouth excluded ones");
+      
+        if (name.isBlank()) {
+            List<Company> companies = companyRepository.findAllNotInIds(excludedIds);
+            return companies;
+        } else {
+            List<Company> companies = companyRepository.findAllByNameContainingIgnoreCaseAndNotInIds(name, excludedIds);
+            return companies;
+        }
     }
 }

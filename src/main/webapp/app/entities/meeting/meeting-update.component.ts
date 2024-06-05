@@ -9,6 +9,9 @@ import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 import MeetingParticipantService from '../meeting-participant/meeting-participant.service';
 import { IMeetingParticipant } from '@/shared/model/meeting-participant.model';
 
+import CompanyService from '../company/company.service';
+import { ICompany } from '@/shared/model/company.model';
+
 import PortalUserService from '../portal-user/portal-user.service';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 
@@ -27,6 +30,8 @@ const validations: any = {
     datetime: {
       required,
     },
+    datetimeStart: {},
+    datetimeEnd: {},
     isAcepted: {},
     title: {
       required,
@@ -34,6 +39,9 @@ const validations: any = {
     description: {},
     comment: {},
     notes: {},
+    company: {
+      required,
+    },
   },
 };
 
@@ -49,8 +57,10 @@ export default class MeetingUpdate extends Vue {
 
   public meetingParticipants: IMeetingParticipant[] = [];
 
+  @Inject('companyService') private companyService: () => CompanyService;
   @Inject('portalUserService') private portalUserService: () => PortalUserService;
 
+  public companies: ICompany[] = [];
   public portalUsers: IPortalUser[] = [];
 
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
@@ -133,6 +143,8 @@ export default class MeetingUpdate extends Vue {
       .find(meetingId)
       .then(res => {
         res.datetime = new Date(res.datetime);
+        res.datetimeStart = new Date(res.datetimeStart);
+        res.datetimeEnd = new Date(res.datetimeEnd);
         this.meeting = res;
       });
   }
@@ -146,6 +158,11 @@ export default class MeetingUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.meetingParticipants = res.data;
+      });
+    this.companyService()
+      .retrieve()
+      .then(res => {
+        this.companies = res.data;
       });
     this.portalUserService()
       .retrieve()

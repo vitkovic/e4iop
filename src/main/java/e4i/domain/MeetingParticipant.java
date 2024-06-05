@@ -26,10 +26,20 @@ public class MeetingParticipant implements Serializable {
     @Column(name = "has_accepted")
     private Boolean hasAccepted;
 
+    @Column(name = "has_removed")
+    private Boolean hasRemoved;
+
+    @Column(name = "is_organizer")
+    private Boolean isOrganizer;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "meetingParticipants", allowSetters = true)
     private Meeting meeting;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = "meetingParticipants", allowSetters = true)
+    private Company company;
+    
     @ManyToOne
     @JsonIgnoreProperties(value = "meetingParticipants", allowSetters = true)
     private PortalUser portalUser;
@@ -55,7 +65,33 @@ public class MeetingParticipant implements Serializable {
     public void setHasAccepted(Boolean hasAccepted) {
         this.hasAccepted = hasAccepted;
     }
+    
+    public Boolean isHasRemoved() {
+        return hasRemoved;
+    }
 
+    public MeetingParticipant hasRemoved(Boolean hasRemoved) {
+        this.hasRemoved = hasRemoved;
+        return this;
+    }
+
+    public void setHasRemoved(Boolean hasRemoved) {
+        this.hasRemoved = hasRemoved;
+    }
+    
+    public Boolean isIsOrganizer() {
+        return isOrganizer;
+    }
+
+    public MeetingParticipant isOrganizer(Boolean isOrganizer) {
+        this.isOrganizer = isOrganizer;
+        return this;
+    }
+
+    public void setIsOrganizer(Boolean isOrganizer) {
+        this.isOrganizer = isOrganizer;
+    }
+    
     public Meeting getMeeting() {
         return meeting;
     }
@@ -68,7 +104,20 @@ public class MeetingParticipant implements Serializable {
     public void setMeeting(Meeting meeting) {
         this.meeting = meeting;
     }
+    
+    public Company getCompany() {
+        return company;
+    }
 
+    public MeetingParticipant company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+    
     public PortalUser getPortalUser() {
         return portalUser;
     }

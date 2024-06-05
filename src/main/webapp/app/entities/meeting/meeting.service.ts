@@ -3,6 +3,8 @@ import axios from 'axios';
 import { IMeeting } from '@/shared/model/meeting.model';
 
 const baseApiUrl = 'api/meetings';
+const apiFindAllForCompany = 'api/meetings/company';
+const apiCreateMeetingWithParticipants = 'api/meetings/new';
 
 export default class MeetingService {
   public find(id: number): Promise<IMeeting> {
@@ -63,6 +65,32 @@ export default class MeetingService {
         .put(`${baseApiUrl}`, entity)
         .then(res => {
           resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public createMeetingWithParticipants(meeting: IMeeting, organizerId: number, participantIds: number[]): Promise<IMeeting> {
+    return new Promise<IMeeting>((resolve, reject) => {
+      axios
+        .post(`${apiCreateMeetingWithParticipants}/${organizerId}/${participantIds}`, meeting)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public findAllForCompany(companyId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${apiFindAllForCompany}/${companyId}`)
+        .then(res => {
+          resolve(res);
         })
         .catch(err => {
           reject(err);

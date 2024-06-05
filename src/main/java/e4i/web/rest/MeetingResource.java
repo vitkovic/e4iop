@@ -4,17 +4,22 @@ import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import e4i.domain.Company;
 import e4i.domain.Meeting;
+import e4i.service.CompanyService;
+import e4i.service.MeetingParticipantService;
 import e4i.service.MeetingService;
 import e4i.web.rest.errors.BadRequestAlertException;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +38,12 @@ public class MeetingResource {
     private String applicationName;
 
     private final MeetingService meetingService;
+    
+    @Autowired
+    MeetingParticipantService meetingParticipantService;
+    
+    @Autowired
+    CompanyService companyService;
 
     public MeetingResource(MeetingService meetingService) {
         this.meetingService = meetingService;
@@ -113,5 +124,43 @@ public class MeetingResource {
         log.debug("REST request to delete Meeting : {}", id);
         meetingService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    
+    @PostMapping("/meetings/new/{organizerId}/{participantIds}")
+    public ResponseEntity<Meeting> createMeetingWithParticipants(
+    		@RequestBody Meeting meeting,
+    		@PathVariable Long organizerId,
+    		@PathVariable List<Long> participantIds
+    		) throws URISyntaxException {
+        log.debug("REST request to create new Meeting organized by company : {}", organizerId);
+        if (meeting.getId() != null) {
+            throw new BadRequestAlertException("A new meeting cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        
+        try {
+        	meeting.setMeetingParticipants(new HashSet<>());
+            Meeting newMeeting = meetingService.save(meeting);
+            
+            Company companyOrganizer = companyService.getOneById(organizerId);
+            meetingParticipantService.addMeetingOrganizer(newMeeting, companyOrganizer);
+            
+            for (Long id : participantIds) {
+            	Company companyParticipant = companyService.getOneById(id);
+            	meetingParticipantService.addMeetingParticipant(newMeeting, companyParticipant);
+            }
+            
+            return ResponseEntity.created(new URI("/api/meetings/new/" + newMeeting.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, newMeeting.getId().toString()))
+                .body(newMeeting);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.noContent().build();
+		}
+    }
+    
+    @GetMapping("/meetings/company/{companyId}")
+    public List<Meeting> getAllMeetingsForCompany(@PathVariable Long companyId) {
+        log.debug("REST request to get all Meetings for Company {}", companyId);
+        return meetingService.findAllForCompany(companyId);
     }
 }

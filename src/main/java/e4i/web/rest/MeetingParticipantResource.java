@@ -113,4 +113,22 @@ public class MeetingParticipantResource {
         meetingParticipantService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    @GetMapping("/meeting-participants/company-all/{companyId}")
+    public List<MeetingParticipant> findAllNotRemovedForCompany(@PathVariable Long companyId) {
+        log.debug("REST request to get all not removed MeetingParticipants for Company {}", companyId);   
+        return meetingParticipantService.findAllByCompanyAndHasRemoved(companyId, false);
+    }
+    
+    @GetMapping("/meeting-participants/meeting-all/{meetingId}")
+    public List<MeetingParticipant> findAllForMeeting(@PathVariable Long meetingId) {
+        log.debug("REST request to get all MeetingParticipants for Meeting {}", meetingId);   
+        return meetingParticipantService.findAllByMeetingId(meetingId);
+    }
+    
+    @GetMapping("/meeting-participants/meeting-organizer/{meetingId}")
+    public MeetingParticipant findCompanyOrganizerForMeeting(@PathVariable Long meetingId) {
+        log.debug("REST request to get organizer company MeetingParticipant for Meeting {}", meetingId);   
+        return meetingParticipantService.findOneByMeetingAndIsOrganizer(meetingId, true);
+    }
 }

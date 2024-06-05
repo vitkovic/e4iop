@@ -1,5 +1,7 @@
 package e4i.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +13,6 @@ import e4i.domain.Meeting;
 @SuppressWarnings("unused")
 @Repository
 public interface MeetingRepository extends JpaRepository<Meeting, Long> {
+	
+	List<Meeting> findAllByCompanyId(Long companyId);
 }

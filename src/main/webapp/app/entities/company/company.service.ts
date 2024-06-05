@@ -13,6 +13,7 @@ const apiUploadDocuments = 'api/companies/upload-documents';
 const deleteLogoApi = 'api/companies/delete-logo';
 const deleteImageApi = 'api/companies/delete-image';
 const deleteDocumentApi = 'api/companies/delete-document';
+const apiGetAllAutocompleteByName = 'api/companies/autocomplete';
 
 export default class CompanyService {
   public find(id: number): Promise<ICompany> {
@@ -195,6 +196,32 @@ export default class CompanyService {
     return new Promise<any>((resolve, reject) => {
       axios
         .delete(`${deleteDocumentApi}/${companyId}/${documentId}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getAllAutocompleteByName(name: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(apiGetAllAutocompleteByName + `/${name}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getAllAutocompleteByNameWithoutExlcuded(name: string, excludedIds: number[]): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(apiGetAllAutocompleteByName + `/${name}/${excludedIds}`)
         .then(res => {
           resolve(res);
         })

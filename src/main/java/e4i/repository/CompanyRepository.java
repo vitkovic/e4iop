@@ -26,4 +26,12 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     @Query("select company from Company company left join fetch company.badges left join fetch company.documents where company.id =:id")
     Optional<Company> findOneWithEagerRelationships(@Param("id") Long id);
+    
+    List<Company> findByNameContainingIgnoreCase(String name);
+    
+    @Query("SELECT c FROM Company c WHERE c.id NOT IN :excludedIds")
+    List<Company> findAllNotInIds(@Param("excludedIds") List<Long> excludedIds);
+    
+    @Query("SELECT c FROM Company c WHERE UPPER(c.name) LIKE UPPER(concat('%', :name, '%')) AND c.id NOT IN :excludedIds")
+    List<Company> findAllByNameContainingIgnoreCaseAndNotInIds(@Param("name") String name, @Param("excludedIds") List<Long> excludedIds);
 }

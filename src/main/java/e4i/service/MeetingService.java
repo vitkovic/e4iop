@@ -71,4 +71,10 @@ public class MeetingService {
         log.debug("Request to delete Meeting : {}", id);
         meetingRepository.deleteById(id);
     }
+    
+    @Transactional(readOnly = true)
+    public List<Meeting> findAllForCompany(Long companyId) {
+        log.debug("Request to get all Meetings for Company {}", companyId);
+        return meetingRepository.findAllByCompanyId(companyId);
+    }
 }

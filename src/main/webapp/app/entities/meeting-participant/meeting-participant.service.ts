@@ -3,6 +3,9 @@ import axios from 'axios';
 import { IMeetingParticipant } from '@/shared/model/meeting-participant.model';
 
 const baseApiUrl = 'api/meeting-participants';
+const apiFindAllNotRemovedForCompany = 'api/meeting-participants/company-all';
+const apiFindAllForMeeting = 'api/meeting-participants/meeting-all';
+const apiFindCompanyOrganizerForMeeting = 'api/meeting-participants/meeting-organizer';
 
 export default class MeetingParticipantService {
   public find(id: number): Promise<IMeetingParticipant> {
@@ -61,6 +64,45 @@ export default class MeetingParticipantService {
     return new Promise<IMeetingParticipant>((resolve, reject) => {
       axios
         .put(`${baseApiUrl}`, entity)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public findAllNotRemovedForCompany(companyId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${apiFindAllNotRemovedForCompany}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public findAllForMeeting(meetingId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${apiFindAllForMeeting}/${meetingId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public findCompanyOrganizerForMeeting(meetingId: number): Promise<IMeetingParticipant> {
+    return new Promise<IMeetingParticipant>((resolve, reject) => {
+      axios
+        .get(`${apiFindCompanyOrganizerForMeeting}/${meetingId}`)
         .then(res => {
           resolve(res.data);
         })
