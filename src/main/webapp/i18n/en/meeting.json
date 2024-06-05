@@ -17,9 +17,12 @@
         "title": "Meeting"
       },
       "datetime": "Datetime",
+      "datetimeStart": "Datetime Start",
+      "datetimeEnd": "Datetime End",
       "isAcepted": "Is Acepted",
       "title": "Title",
       "description": "Description",
+      "location": "Location",
       "comment": "Comment",
       "notes": "Notes",
       "meetingParticipant": "Meeting Participant",

@@ -46,6 +46,9 @@ public class Meeting implements Serializable {
 
     @Column(name = "description")
     private String description;
+    
+    @Column(name = "location")
+    private String location;
 
     @Column(name = "comment")
     private String comment;
@@ -159,6 +162,19 @@ public class Meeting implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getLocation() {
+        return location;
+    }
+
+    public Meeting location(String location) {
+        this.location = location;
+        return this;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getComment() {

@@ -32,6 +32,7 @@ interface MeetingEvent {
   endTime: string;
   title: string;
   description: string;
+  location: string;
   advertisement: IAdvertisement;
 }
 
@@ -44,6 +45,7 @@ const DEFAULT_MEETING_EVENT: MeetingEvent = {
   endTime: '09:00:00',
   title: '',
   description: '',
+  location: '',
   advertisement: null,
 };
 
@@ -252,6 +254,7 @@ export default class AdvertisementDetails extends Vue {
       id: null,
       title: this.meetingEvent.title,
       description: this.meetingEvent.description,
+      location: this.meetingEvent.location,
       datetime: new Date(),
       datetimeStart: this.combineDateAndTime(this.meetingEvent.startDate, this.meetingEvent.startTime),
       datetimeEnd: this.combineDateAndTime(this.meetingEvent.endDate, this.meetingEvent.endTime),

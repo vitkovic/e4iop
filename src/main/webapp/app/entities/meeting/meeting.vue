@@ -26,11 +26,12 @@
                 <tr>
                     <th><span v-text="$t('global.field.id')">ID</span></th>
                     <th><span v-text="$t('riportalApp.meeting.datetime')">Datetime</span></th>
-                    <th><span v-text="'Datetime Start'">Datetime Start</span></th>
-                    <th><span v-text="'Datetime End'">Datetime End</span></th>
+                    <th><span v-text="$t('riportalApp.meeting.datetimeStart')">Datetime Start</span></th>
+                    <th><span v-text="$t('riportalApp.meeting.datetimeEnd')">Datetime End</span></th>
                     <th><span v-text="$t('riportalApp.meeting.isAcepted')">Is Acepted</span></th>
                     <th><span v-text="$t('riportalApp.meeting.title')">Title</span></th>
                     <th><span v-text="$t('riportalApp.meeting.description')">Description</span></th>
+                    <th><span v-text="$t('riportalApp.meeting.location')">Location</span></th>
                     <th><span v-text="$t('riportalApp.meeting.comment')">Comment</span></th>
                     <th><span v-text="$t('riportalApp.meeting.notes')">Notes</span></th>
                     <th><span v-text="'Company'">Company</span></th>
@@ -52,6 +53,7 @@
                     <td>{{meeting.isAcepted}}</td>
                     <td>{{meeting.title}}</td>
                     <td>{{meeting.description}}</td>
+                    <td>{{meeting.location}}</td>
                     <td>{{meeting.comment}}</td>
                     <td>{{meeting.notes}}</td>
                     <td>

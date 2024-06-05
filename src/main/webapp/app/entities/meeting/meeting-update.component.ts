@@ -37,6 +37,7 @@ const validations: any = {
       required,
     },
     description: {},
+    location: {},
     comment: {},
     notes: {},
     company: {

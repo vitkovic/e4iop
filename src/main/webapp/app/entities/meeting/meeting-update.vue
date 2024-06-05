@@ -61,6 +61,11 @@
                             :class="{'valid': !$v.meeting.description.$invalid, 'invalid': $v.meeting.description.$invalid }" v-model="$v.meeting.description.$model" />
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.meeting.location')" for="meeting-location">Location</label>
+                        <input type="text" class="form-control" name="location" id="meeting-location"
+                            :class="{'valid': !$v.meeting.location.$invalid, 'invalid': $v.meeting.location.$invalid }" v-model="$v.meeting.location.$model" />
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.meeting.comment')" for="meeting-comment">Comment</label>
                         <input type="text" class="form-control" name="comment" id="meeting-comment"
                             :class="{'valid': !$v.meeting.comment.$invalid, 'invalid': $v.meeting.comment.$invalid }" v-model="$v.meeting.comment.$model" />

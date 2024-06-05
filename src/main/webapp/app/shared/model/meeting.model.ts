@@ -12,6 +12,7 @@ export interface IMeeting {
   isAcepted?: boolean;
   title?: string;
   description?: string;
+  location?: string;
   comment?: string;
   notes?: string;
   meetingParticipants?: IMeetingParticipant[];
@@ -30,6 +31,7 @@ export class Meeting implements IMeeting {
     public isAcepted?: boolean,
     public title?: string,
     public description?: string,
+    public location?: string,
     public comment?: string,
     public notes?: string,
     public meetingParticipants?: IMeetingParticipant[],

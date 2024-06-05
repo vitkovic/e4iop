@@ -11,6 +11,18 @@
                         <span v-if="meeting.datetime">{{$d(Date.parse(meeting.datetime), 'long') }}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('riportalApp.meeting.datetimeStart')">Datetime</span>
+                    </dt>
+                    <dd>
+                        <span v-if="meeting.datetime">{{$d(Date.parse(meeting.datetimeStart), 'long') }}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.meeting.datetimeEnd')">Datetime</span>
+                    </dt>
+                    <dd>
+                        <span v-if="meeting.datetime">{{$d(Date.parse(meeting.datetimeEnd), 'long') }}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('riportalApp.meeting.isAcepted')">Is Acepted</span>
                     </dt>
                     <dd>
@@ -27,6 +39,12 @@
                     </dt>
                     <dd>
                         <span>{{meeting.description}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.meeting.location')">Location</span>
+                    </dt>
+                    <dd>
+                        <span>{{meeting.location}}</span>
                     </dd>
                     <dt>
                         <span v-text="$t('riportalApp.meeting.comment')">Comment</span>
