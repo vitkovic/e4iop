@@ -154,6 +154,8 @@ public class MeetingParticipant implements Serializable {
         return "MeetingParticipant{" +
             "id=" + getId() +
             ", hasAccepted='" + isHasAccepted() + "'" +
+            ", hasRemoved='" + isHasRemoved() + "'" +
+            ", isOrganizer='" + isIsOrganizer() + "'" +
             "}";
     }
 }

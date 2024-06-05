@@ -369,6 +369,9 @@ export default class AdvertisementDetails extends Vue {
   public toggleSearchList(event, toggleControl: string) {
     if (event.type === 'focusout') {
       this[toggleControl] = false;
+    } else if (event.type === 'focusin') {
+      this[toggleControl] = true;
+      this.getCompaniesBySearchText();
     } else {
       this[toggleControl] = !this[toggleControl];
     }

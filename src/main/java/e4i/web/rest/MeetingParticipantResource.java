@@ -131,4 +131,22 @@ public class MeetingParticipantResource {
         log.debug("REST request to get organizer company MeetingParticipant for Meeting {}", meetingId);   
         return meetingParticipantService.findOneByMeetingAndIsOrganizer(meetingId, true);
     }
+    
+    @PutMapping("/meeting-participants/accept/meeting-company/{meetingId}/{companyId}")
+    public MeetingParticipant acceptMeetingForCompany(@PathVariable Long meetingId, @PathVariable Long companyId) {
+        log.debug("REST request to accept Meeting {} for Company {}", meetingId, companyId);
+        
+        MeetingParticipant meetingParticipant = meetingParticipantService.acceptMeetingForCompany(meetingId, companyId);
+        
+        return meetingParticipant;
+    }
+    
+    @PutMapping("/meeting-participants/remove/meeting-company/{meetingId}/{companyId}")
+    public MeetingParticipant removeMeetingForCompany(@PathVariable Long meetingId, @PathVariable Long companyId) {
+        log.debug("REST request to remove Meeting {} for Company {}", meetingId, companyId);
+        
+        MeetingParticipant meetingParticipant = meetingParticipantService.removeMeetingForCompany(meetingId, companyId);
+        
+        return meetingParticipant;
+    }
 }

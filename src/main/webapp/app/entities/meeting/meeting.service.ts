@@ -72,10 +72,10 @@ export default class MeetingService {
     });
   }
 
-  public createMeetingWithParticipants(meeting: IMeeting, organizerId: number, participantIds: number[]): Promise<IMeeting> {
+  public createMeetingWithParticipants(meeting: IMeeting, organizerId: number, participantIds: number[] = []): Promise<IMeeting> {
     return new Promise<IMeeting>((resolve, reject) => {
       axios
-        .post(`${apiCreateMeetingWithParticipants}/${organizerId}/${participantIds}`, meeting)
+        .post(`${apiCreateMeetingWithParticipants}/?organizerId=${organizerId}&participantIds=${participantIds}`, meeting)
         .then(res => {
           resolve(res);
         })

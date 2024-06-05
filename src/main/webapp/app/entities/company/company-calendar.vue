@@ -1,0 +1,401 @@
+<template>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div v-if="company">
+                <br>
+                <div class="d-flex mb-3">
+                    <img v-if="company.logo" :src="companyService().retrieveImage(company.logo.filename)"
+                        alt="company logo" 
+                        style="height: 100px; margin-right: 1rem">
+                    <h2 class="jh-entity-heading"
+                        style="align-self: center; text-wrap: nowrap;"> 
+                        {{company.name}}
+                    </h2>
+                </div>
+                <br>
+                <div class="fc fc-media-screen fc-direction-ltr fc-theme-standard" style=" position: relative; height: 60vh; overflow-y: auto;">
+				    <FullCalendar ref="fullCalendar" :options="calendarOptions" />
+                </div>
+
+            </div>
+        </div>
+        
+        <b-modal ref="createMeetingModal" id="createMeetingModal">
+            <span slot="modal-title"><span id="riportalApp.researchInfrastructure.calendar" v-text="'Novi sastanak'"></span></span>
+            <div class="modal-body">
+                <label name="inquiry-subject" v-text="'Datum'">Datum:</label>
+                <b-form-datepicker v-model="meetingEvent.date"></b-form-datepicker>
+                <label name="inquiry-subject" v-text="'Vreme početka'">Vreme početka:</label>
+                <b-form-timepicker minutes-step="15" v-model="meetingEvent.startTime"></b-form-timepicker>
+                <label name="inquiry-subject" v-text="'Vreme završetka'">Vreme završetka:</label>
+                <b-form-timepicker minutes-step="15" v-model="meetingEvent.endTime"></b-form-timepicker>
+                <label name="inquiry-subject" v-text="'Naslov'">Naslov:</label>
+                <b-input v-model="meetingEvent.title"></b-input>
+                <label name="inquiry-subject" v-text="'Opis'">Opis:</label>
+                <b-form-textarea v-model="meetingEvent.description"></b-form-textarea>
+            </div>
+            <div slot="modal-footer">
+                <button type="button" class="btn btn-success" v-text="'Zakaži sastanak'" v-on:click="createMeeting()">Zakaži sastanak</button>
+                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCreateMeetingModal()">Cancel</button>
+            </div>
+        </b-modal>
+
+        <b-modal v-if="selectedEvent" ref="acceptMeetingModal" id="acceptMeetingModal">
+            <div class="modal-body">
+                <p>
+                   <span v-text="'Da li želite da prihvatite poziv za sastanak - '">Da li želite da prihvatite poziv za sastanak?</span>
+                   <span><b>{{ selectedEvent.title }}</b></span>
+                   <span v-text="'?'"></span>
+                </p>
+                
+            </div>
+            <div slot="modal-footer">
+                <button type="button" class="btn btn-success" v-text="'Potvrdi'" v-on:click="acceptMeeting()">Cancel</button>
+                <button
+                type="button"
+                class="btn btn-danger"
+                v-text="'Otkaži'"
+                v-on:click="closeAcceptMeetingModal()"
+                >
+
+                </button>
+            </div>
+        </b-modal>
+
+        <b-modal v-if="selectedEvent" ref="viewMeetingModal" id="viewMeetingModal">
+            <span slot="modal-title">{{ selectedEvent.title }}</span>
+            <div class="modal-body">
+                <div v-if="selectedEvent.startDate === selectedEvent.endDate">
+                    <p>
+                        <span>{{ selectedEvent.startDate }}</span>
+                        <span>{{ selectedEvent.startTime }} - {{ selectedEvent.endTime }}</span>
+                    </p>
+                </div>
+                <div v-else>
+                    <p>
+                        <span>{{ selectedEvent.startDate }}</span>
+                        <span>{{ selectedEvent.startTime }}</span>
+                    </p>
+                    <p>
+                        <span>{{ selectedEvent.endDate }}</span>
+                        <span>{{ selectedEvent.endTime }}</span>
+                    </p>
+                </div>
+                <p v-if="selectedEvent.advertisement">
+                    <b>Oglas: </b>
+                    <span>{{ selectedEvent.advertisement.title }}</span>
+                </p>
+                <p>
+                    <b>Lokacija: </b>
+                    <span>{{ selectedEvent.location }}</span>
+                </p>
+                <p>
+                    <b>Opis: </b>
+                    <span>{{ selectedEvent.description }}</span>
+                </p>
+                <hr>
+
+                <div v-if="selectedEvent.organizer">
+                    <label for="" v-text="'Organizator'"></label>
+                    <div v-if="selectedEvent.organizer" class="d-flex align-items-center">
+                        <div v-if="selectedEvent.organizer.company.logo" class="company-logo-container position-relative">
+                        <img
+                            :src="companyService().retrieveImage(selectedEvent.organizer.company.logo.filename)"
+                            alt="company logo"
+                            style="width: 100%; max-height: 100%;"
+                            class="company-logo"
+                        />
+                        </div>
+                        <div v-else class="placeholder-logo">{{ getCompanyInitials(selectedEvent.organizer.company) }}</div>
+                        <span>{{ selectedEvent.organizer.company.name }}</span>
+                    </div>
+                    <hr>
+                </div>
+
+                <div v-if="selectedEvent.advertiser">
+                    <label for="" v-text="'Oglašivač'"></label>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <div v-if="selectedEvent.advertiser.company.logo" class="company-logo-container position-relative">
+                                <img
+                                    :src="companyService().retrieveImage(selectedEvent.advertiser.company.logo.filename)"
+                                    alt="company logo"
+                                    style="width: 100%; max-height: 100%;"
+                                    class="company-logo"
+                                />
+                            </div>
+                            <div v-else class="placeholder-logo">{{ getCompanyInitials(selectedEvent.advertiser.company) }}</div>
+                            <span>{{ selectedEvent.advertiser.company.name }}</span>
+                        </div>
+                        <div>
+                            <span v-if="selectedEvent.advertiser.hasAccepted">Poziv prihvaćen</span>
+                            <span v-else>Bez odgovora</span>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+                <div v-if="selectedEvent.otherParticipants">
+                    <label v-text="'Ostali učesnici'"></label>
+                    <div v-for="participant in selectedEvent.otherParticipants" class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-flex align-items-center">
+                            <div v-if="participant.company.logo" class="company-logo-container position-relative">
+                                <img
+                                    :src="companyService().retrieveImage(participant.company.logo.filename)"
+                                    alt="company logo"
+                                    style="width: 100%; max-height: 100%;"
+                                    class="company-logo"
+                                />
+                            </div>
+                            <div v-else class="placeholder-logo">{{ getCompanyInitials(participant.company) }}</div>
+                            <span>{{ participant.company.name }}</span>
+                        </div>
+                        <div>
+                            <span v-if="participant.hasAccepted">Poziv prihvaćen</span>
+                            <span v-else>Bez odgovora</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div slot="modal-footer">
+                <button type="button" class="btn btn-primary" v-text="'Preuzmi ICS'" v-on:click="exportMeetingToICS()">Preuzmi ICS</button>
+                <button v-if="!isMeetingAcceptedForCurrentCompany(selectedEvent)" type="button" class="btn btn-primary" v-text="'Prihvati poziv'" v-on:click="prepareAceeptMeetingModal()">Prihvati poziv</button>
+                <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-secondary" v-text="'Izmeni'" v-on:click="editMeeting()">Izmeni</button>
+                <button type="button" class="btn btn-danger" v-text="'Ukloni'" v-on:click="prepareRemoveMeetingModal(selectedEvent.id)">Obriši</button>
+                <!-- <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeViewMeetingModal()">Cancel</button> -->
+            </div>
+        </b-modal>
+
+        <b-modal ref="createMeetingModal" id="createMeetingModal" size="lg">
+          <span slot="modal-title"><span id="riportalApp.researchInfrastructure.calendar" v-text="'Novi sastanak'"></span></span>
+          <div class="d-flex">
+            <div class="modal-body" style="border-right: 1px solid #ccc; width: 45%; padding-right: 5%;">
+              <div class="mb-3">
+                <b-input v-model="meetingEvent.title" placeholder="Unesite naslov..."></b-input>
+              </div>
+
+              <div class="d-flex">
+                <b-form-datepicker
+                  style="width: 70%;"
+                  v-model="meetingEvent.startDate"
+                  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                  placeholder="Izaberite datum početka..."
+                  @input="updateMeetingEndDate()"
+                ></b-form-datepicker>
+                <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="meetingEvent.startTime"></b-form-timepicker>
+              </div>
+
+              <div class="d-flex mb-3">
+                <b-form-datepicker
+                  style="width: 70%;"
+                  v-model="meetingEvent.endDate"
+                  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                  :min="meetingEvent.startDate"
+                ></b-form-datepicker>
+                <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="meetingEvent.endTime"></b-form-timepicker>
+              </div>
+
+              <b-input v-model="meetingEvent.location" class="mb-3" placeholder="Unesite lokaciju..."></b-input>
+
+              <b-form-textarea v-model="meetingEvent.description" class="mb-3" placeholder="Unesite opis..."></b-form-textarea>
+            </div>
+
+            <div class="modal-body" style="width: 45%; padding-left: 5%;">
+              <label for="" v-text="'Organizator'">Organizator</label>
+              <div v-if="company" class="d-flex align-items-center">
+                <div v-if="company.logo" class="company-logo-container position-relative">
+                  <img
+                    :src="companyService().retrieveImage(company.logo.filename)"
+                    alt="company logo"
+                    style="width: 100%; max-height: 100%;"
+                    class="company-logo"
+                  />
+                </div>
+                <div v-else class="placeholder-logo">{{ getCompanyInitials(company) }}</div>
+                <span>{{ company.name }}</span>
+              </div>
+              <hr />
+
+              <label for="" v-text="'Dodajte druge učesnike'">Dodajte druge učesnike</label>
+              <input
+                type="text"
+                ref="company-name"
+                class="form-control mb-3"
+                name="company-name"
+                id="company-name"
+                placeholder="Potražite kompaniju..."
+                @keyup="getCompaniesBySearchText()"
+                @focusout="toggleSearchList($event, 'showCompaniesSearch')"
+                @focusin="toggleSearchList($event, 'showCompaniesSearch')"
+                v-model="companySearchText"
+                autocomplete="off"
+              />
+              <div
+                class="form-control"
+                style="text-align: left; height: 150px; overflow-y: scroll; position: absolute; z-index: 9999;"
+                v-if="companiesSearch.length && showCompaniesSearch"
+              >
+                <ul class="list-group" @click.stop>
+                  <div v-for="company in companiesSearch" :key="company.id">
+                    <a class="list-group-item" @mousedown="addToCompaniesMeetingParticipants(company)">
+                      <span>{{ company.name }}</span>
+                    </a>
+                  </div>
+                </ul>
+              </div>
+
+              <div
+                v-for="company in companiesMeetingParticipants"
+                :key="company.id"
+                class="d-flex align-items-center justify-content-between mb-3"
+              >
+                <div class="d-flex align-items-center">
+                  <div v-if="company.logo" class="company-logo-container position-relative">
+                    <img
+                      :src="companyService().retrieveImage(company.logo.filename)"
+                      alt="company logo"
+                      style="width: 100%; max-height: 100%;"
+                      class="company-logo"
+                    />
+                  </div>
+                  <div v-else class="placeholder-logo">{{ getCompanyInitials(company) }}</div>
+                  <span>{{ company.name }}</span>
+                </div>
+                <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close">x</b-button>
+              </div>
+            </div>
+          </div>
+          <div slot="modal-footer">
+            <button type="button" class="btn btn-success" v-text="'Zakaži sastanak'" v-on:click="createMeeting()">Zakaži sastanak</button>
+            <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCreateMeetingModal()">
+              Cancel
+            </button>
+          </div>
+        </b-modal>
+
+        <b-modal v-if="meetingToRemove" ref="removeMeetingModal" id="removeMeetingModal">
+            <div class="modal-body">
+                <p id="jhi-delete-thread-heading" v-text="'Da li želite da uklonite sastanak iz kalendara?'">
+                    Da li želite da uklonite sastanak iz kalendara?<span>{{ meetingToRemove.title }}</span>
+                </p>
+            </div>
+            <div slot="modal-footer">
+                <button type="button" class="btn btn-success" v-text="'Potvrdi'" v-on:click="removeMeeting()">Potvrdi</button>
+                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeRemoveMeetingModal()">Canel</button>
+            </div>
+        </b-modal>
+
+    </div>
+
+
+</template>
+
+<style>
+
+.jh-entity-details > dd  {
+    justify-self: left;
+    margin-left: 5rem !important;
+}
+
+.badge-section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.badge-section > h3 {
+    margin-bottom: 1rem;
+}
+
+.badge-description {
+    display: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: rgb(128,128,128);
+    color: white;
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    z-index: 10;
+    width: 300%;
+}
+
+.badge-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.badge-wrapper:hover .badge-description {
+    display: block;
+}
+
+
+.startech-link,
+.startech-link:link,
+.startech-link:visited,
+.startech-link:hover,
+.startech-link:active {
+  color: blue;
+  text-decoration: none;
+}
+
+.img-thumbnail {
+  width: 100%; /* Ensure images fill their container */
+  height: 200px; /* Maintain aspect ratio */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  padding: 0;
+  transition: all 0.4s;
+  box-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.075);
+  object-fit: cover; /* Ensure images fill the entire card */
+}
+
+.img-thumbnail:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.06);
+}
+
+h1,
+h2 {
+  color: #004b90;
+}
+
+.fc { /* the calendar root */
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+
+.company-logo-container {
+  margin-right: 1rem;
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem; /* Space between the image and the name */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image covers the whole circle */
+  border: 2px solid #ccc;
+  align-content: center;
+}
+
+.company-logo {
+  border-radius: 50%; /* Make the image circular */
+}
+
+.placeholder-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+  border-radius: 50%;
+  color: black;
+  text-align: center; /* Center text inside the div */
+}
+</style>
+
+
+<script lang="ts" src="./company-calendar.component.ts">
+</script>

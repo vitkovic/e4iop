@@ -263,7 +263,7 @@
 					<b-dropdown-item v-if="authenticated && portalUser && portalUser.company" :to="{name: 'CompanyThreads', params: {companyId: portalUser.company.id}}" tag="b-dropdown-item"  active-class="active">	
 						<span v-text="'Poruke'">Poruke</span>
 					</b-dropdown-item>
-					<b-dropdown-item to="#" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+					<b-dropdown-item v-if="authenticated && portalUser && portalUser.company" :to="{name: 'CompanyCalendar', params: {companyId: portalUser.company.id}}" tag="b-dropdown-item"  active-class="active">	
 						<span v-text="'Kalendar'">Kalendar</span>
 					</b-dropdown-item>
 

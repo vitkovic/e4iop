@@ -15,6 +15,8 @@ import e4i.repository.MeetingRepository;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 /**
  * Service Implementation for managing {@link MeetingParticipant}.
  */
@@ -130,5 +132,41 @@ public class MeetingParticipantService {
     public MeetingParticipant findOneByMeetingAndIsOrganizer(Long meetingId, Boolean isOrganizer) {
         log.debug("Request to get company organizer MeetingParticipants for Meeting {}", meetingId);
         return meetingParticipantRepository.findOneByMeetingIdAndIsOrganizer(meetingId, isOrganizer);
+    }
+    
+    @Transactional
+    public MeetingParticipant acceptMeetingForCompany(Long meetingId, Long companyId) {
+        log.debug("Request to accept Meeting {} for Company {}", meetingId, companyId);
+        
+        Optional<MeetingParticipant> meetingParticipantOptional = meetingParticipantRepository.findOneByMeetingIdAndCompanyId(meetingId, companyId);
+        
+        if (meetingParticipantOptional.isPresent()) {
+        	MeetingParticipant meetingParticipant = meetingParticipantOptional.get();
+        	meetingParticipant.setHasAccepted(true);
+        	MeetingParticipant result = meetingParticipantRepository.save(meetingParticipant);  	
+        	
+        	return result;
+    	} else {
+    		String errorMessage = String.format("MeetinParticipant for Meeting {} and Company {} could not be found.", meetingId, companyId);
+        	throw new EntityNotFoundException(errorMessage);
+    	}
+    }
+    
+    @Transactional
+    public MeetingParticipant removeMeetingForCompany(Long meetingId, Long companyId) {
+        log.debug("Request to remove Meeting {} for Company {}", meetingId, companyId);
+        
+        Optional<MeetingParticipant> meetingParticipantOptional = meetingParticipantRepository.findOneByMeetingIdAndCompanyId(meetingId, companyId);
+        
+        if (meetingParticipantOptional.isPresent()) {
+        	MeetingParticipant meetingParticipant = meetingParticipantOptional.get();
+        	meetingParticipant.setHasRemoved(true);
+        	MeetingParticipant result = meetingParticipantRepository.save(meetingParticipant);  	
+        	
+        	return result;
+    	} else {
+    		String errorMessage = String.format("MeetinParticipant for Meeting {} and Company {} could not be found.", meetingId, companyId);
+        	throw new EntityNotFoundException(errorMessage);
+    	}
     }
 }

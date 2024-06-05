@@ -227,6 +227,8 @@ const CompanyUpdate = () => import('@/entities/company/company-update.vue');
 // prettier-ignore
 const CompanyDetails = () => import('@/entities/company/company-details.vue');
 // prettier-ignore
+const CompanyCalendar = () => import('@/entities/company/company-calendar.vue');
+// prettier-ignore
 const Message = () => import('@/entities/message/message.vue');
 // prettier-ignore
 const MessageUpdate = () => import('@/entities/message/message-update.vue');
@@ -1308,6 +1310,12 @@ export default [
     path: '/b2b/company/:companyId/view',
     name: 'CompanyView',
     component: CompanyDetails,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/b2b/company/:companyId/calendar',
+    name: 'CompanyCalendar',
+    component: CompanyCalendar,
     meta: { authorities: [Authority.USER] },
   },
   {

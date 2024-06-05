@@ -126,11 +126,11 @@ public class MeetingResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
     
-    @PostMapping("/meetings/new/{organizerId}/{participantIds}")
+    @PostMapping("/meetings/new")
     public ResponseEntity<Meeting> createMeetingWithParticipants(
     		@RequestBody Meeting meeting,
-    		@PathVariable Long organizerId,
-    		@PathVariable List<Long> participantIds
+    		@RequestParam Long organizerId,
+    		@RequestParam List<Long> participantIds
     		) throws URISyntaxException {
         log.debug("REST request to create new Meeting organized by company : {}", organizerId);
         if (meeting.getId() != null) {

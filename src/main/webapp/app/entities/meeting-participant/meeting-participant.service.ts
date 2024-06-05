@@ -6,6 +6,8 @@ const baseApiUrl = 'api/meeting-participants';
 const apiFindAllNotRemovedForCompany = 'api/meeting-participants/company-all';
 const apiFindAllForMeeting = 'api/meeting-participants/meeting-all';
 const apiFindCompanyOrganizerForMeeting = 'api/meeting-participants/meeting-organizer';
+const apiAcceptMeetingForCompany = 'api/meeting-participants/accept/meeting-company';
+const apiRemoveMeetingForCompany = 'api/meeting-participants/remove/meeting-company';
 
 export default class MeetingParticipantService {
   public find(id: number): Promise<IMeetingParticipant> {
@@ -103,6 +105,32 @@ export default class MeetingParticipantService {
     return new Promise<IMeetingParticipant>((resolve, reject) => {
       axios
         .get(`${apiFindCompanyOrganizerForMeeting}/${meetingId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public acceptMeetingForCompany(meetingId: number, companyId: number): Promise<IMeetingParticipant> {
+    return new Promise<IMeetingParticipant>((resolve, reject) => {
+      axios
+        .put(`${apiAcceptMeetingForCompany}/${meetingId}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public removeMeetingForCompany(meetingId: number, companyId: number): Promise<IMeetingParticipant> {
+    return new Promise<IMeetingParticipant>((resolve, reject) => {
+      axios
+        .put(`${apiRemoveMeetingForCompany}/${meetingId}/${companyId}`)
         .then(res => {
           resolve(res.data);
         })
