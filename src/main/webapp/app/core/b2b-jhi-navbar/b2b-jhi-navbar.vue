@@ -26,7 +26,7 @@
 				</b-nav-item-dropdown>
 				<b-nav-item to="/b2b/about" exact style="white-space: nowrap;" class="navbar-menu-item">
 					<span>
-						<span class="headerItemi" v-text="$t('global.menu.faq')">Најчешћа питања</span>
+						<span class="headerItemi" v-text="$t('global.menu.about')">О нама</span>
 					</span>
 				</b-nav-item>
 
