@@ -116,6 +116,23 @@ public class MeetingParticipantService {
         return meetingParticipantRepository.save(meetingParticipant);
     }
     
+    @Transactional
+    public void deleteMeetingParticipant(Meeting meeting, Company company) {
+    	log.debug("Request to delete MeetingParticipant for Meeting {} and Company {}.", meeting.getId(), company.getId());
+    	
+    	Optional<MeetingParticipant> meetingParticipantOptional = meetingParticipantRepository.findOneByMeetingIdAndCompanyId(meeting.getId(), company.getId());
+    
+        if (meetingParticipantOptional.isEmpty()) {
+    		String errorMessage = String.format("MeetinParticipant for Meeting {} and Company {} could not be found.", meeting.getId(), company.getId());
+        	throw new EntityNotFoundException(errorMessage);
+    	}
+        
+    	MeetingParticipant meetingParticipant = meetingParticipantOptional.get();
+    	meeting.removeMeetingParticipant(meetingParticipant);
+    	meetingRepository.save(meeting);
+    	meetingParticipantRepository.deleteById(meetingParticipant.getId());
+    }
+    
     @Transactional(readOnly = true)
     public List<MeetingParticipant> findAllByCompanyAndHasRemoved(Long companyId, Boolean hasRemoved) {
         log.debug("Request to get all not removed MeetingParticipants for Company {}", companyId);

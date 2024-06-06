@@ -19,13 +19,15 @@ import momentPlugin from '@fullcalendar/moment';
 interface MeetingEvent {
   id: number;
   date: string;
+  startStr: string;
+  endStr: string;
+  startDate: string;
+  endDate: string;
   startTime: string;
   endTime: string;
   title: string;
   description: string;
   location: string;
-  startDate: string;
-  endDate: string;
   organizer: IMeetingParticipant | null;
   advertiser: IMeetingParticipant | null;
   allParticipants: IMeetingParticipant[];
@@ -36,13 +38,15 @@ interface MeetingEvent {
 const DEFAULT_MEETING_EVENT: MeetingEvent = {
   id: 0,
   date: '',
+  startStr: '',
+  endStr: '',
+  startDate: '',
+  endDate: '',
   startTime: '08:00:00',
   endTime: '09:00:00',
   title: '',
   description: '',
   location: '',
-  startDate: '',
-  endDate: '',
   organizer: null,
   advertiser: null,
   allParticipants: [],
@@ -255,6 +259,8 @@ export default class CompanyCalendar extends Vue {
   handleEventClick(clickInfo) {
     this.selectedEvent = { ...DEFAULT_MEETING_EVENT };
     this.selectedEvent.id = clickInfo.event.id;
+    this.selectedEvent.startStr = this.formatDateStringFromDate(clickInfo.event.start);
+    this.selectedEvent.endStr = this.formatDateStringFromDate(clickInfo.event.end);
     this.selectedEvent.startDate = clickInfo.event.start.toLocaleDateString();
     this.selectedEvent.endDate = clickInfo.event.end.toLocaleDateString();
     this.selectedEvent.startTime = clickInfo.event.start.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
@@ -343,6 +349,78 @@ export default class CompanyCalendar extends Vue {
       });
 
     this.closeCreateMeetingModal();
+  }
+
+  public prepareEditMeetingModal(): void {
+    this.companiesMeetingParticipants = [];
+
+    if (this.selectedEvent.organizer) {
+      this.companiesMeetingParticipants.push(this.selectedEvent.organizer.company);
+    }
+
+    if (this.selectedEvent.advertiser) {
+      this.companiesMeetingParticipants.push(this.selectedEvent.advertiser.company);
+    }
+
+    for (let participant of this.selectedEvent.otherParticipants) {
+      this.companiesMeetingParticipants.push(participant.company);
+    }
+
+    this.closeViewMeetingModal();
+    (<any>this.$refs.editMeetingModal).show();
+  }
+
+  public editMeeting(): void {
+    let editedMeeting: IMeeting = {
+      id: this.selectedEvent.id,
+      title: this.selectedEvent.title,
+      description: this.selectedEvent.description,
+      location: this.selectedEvent.location,
+      datetime: null,
+      datetimeStart: this.combineDateAndTime(this.selectedEvent.startStr, this.selectedEvent.startTime + ':00'),
+      datetimeEnd: this.combineDateAndTime(this.selectedEvent.endStr, this.selectedEvent.endTime + ':00'),
+      advertisement: this.selectedEvent.advertisement,
+      isAcepted: false,
+      comment: null,
+      notes: null,
+      meetingParticipants: null,
+      company: this.company,
+      portalUserOrganizer: null,
+      type: null,
+    };
+
+    const meetingId = this.selectedEvent.id;
+
+    const allCompanyParticipants = this.selectedEvent.allParticipants.map(participant => participant.company);
+
+    const participantsToAdd = this.differenceByProperty(this.companiesMeetingParticipants, allCompanyParticipants, 'id').map(
+      company => company.id
+    );
+
+    const participantsToRemove = this.differenceByProperty(allCompanyParticipants, this.companiesMeetingParticipants, 'id').map(
+      company => company.id
+    );
+
+    this.meetingService()
+      .editMeetingWithParticipants(editedMeeting, meetingId, participantsToAdd, participantsToRemove)
+      .then(res => {
+        this.isCalendarPopulated = false;
+        this.populateCalendar();
+
+        const message = 'Sastanak je izmenjen.';
+        this.$notify({
+          text: message,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    this.closeEditMeetingModal();
+  }
+
+  public closeEditMeetingModal(): void {
+    (<any>this.$refs.editMeetingModal).hide();
   }
 
   public prepareAceeptMeetingModal(): void {
@@ -528,9 +606,25 @@ export default class CompanyCalendar extends Vue {
     return `${year}-${month}-${day}`;
   }
 
-  public updateMeetingEndDate() {
+  public updateBFormCalendarEndDate() {
+    // For new meeting option
     if (this.meetingEvent.endDate < this.meetingEvent.startDate) {
       this.meetingEvent.endDate = this.meetingEvent.startDate;
     }
+
+    // For edit meeting option
+    if (this.selectedEvent.endStr < this.selectedEvent.startStr) {
+      this.selectedEvent.endStr = this.selectedEvent.startStr;
+    }
+  }
+
+  /**
+   * For two arrays, A and B, find set like difference, A\B.
+   * Used in edit meeting option to determine which participants to add and which to remove,
+   * in contrast to the ones previously included.
+   */
+  public differenceByProperty<T, K extends keyof T>(array1: T[], array2: T[], property: K): T[] {
+    const valuesInArray2 = array2.map(item => item[property]);
+    return array1.filter(element => !valuesInArray2.includes(element[property]));
   }
 }

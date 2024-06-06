@@ -19,27 +19,7 @@
 
             </div>
         </div>
-        
-        <b-modal ref="createMeetingModal" id="createMeetingModal">
-            <span slot="modal-title"><span id="riportalApp.researchInfrastructure.calendar" v-text="'Novi sastanak'"></span></span>
-            <div class="modal-body">
-                <label name="inquiry-subject" v-text="'Datum'">Datum:</label>
-                <b-form-datepicker v-model="meetingEvent.date"></b-form-datepicker>
-                <label name="inquiry-subject" v-text="'Vreme početka'">Vreme početka:</label>
-                <b-form-timepicker minutes-step="15" v-model="meetingEvent.startTime"></b-form-timepicker>
-                <label name="inquiry-subject" v-text="'Vreme završetka'">Vreme završetka:</label>
-                <b-form-timepicker minutes-step="15" v-model="meetingEvent.endTime"></b-form-timepicker>
-                <label name="inquiry-subject" v-text="'Naslov'">Naslov:</label>
-                <b-input v-model="meetingEvent.title"></b-input>
-                <label name="inquiry-subject" v-text="'Opis'">Opis:</label>
-                <b-form-textarea v-model="meetingEvent.description"></b-form-textarea>
-            </div>
-            <div slot="modal-footer">
-                <button type="button" class="btn btn-success" v-text="'Zakaži sastanak'" v-on:click="createMeeting()">Zakaži sastanak</button>
-                <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCreateMeetingModal()">Cancel</button>
-            </div>
-        </b-modal>
-
+    
         <b-modal v-if="selectedEvent" ref="acceptMeetingModal" id="acceptMeetingModal">
             <div class="modal-body">
                 <p>
@@ -135,7 +115,7 @@
                     <hr>
                 </div>
 
-                <div v-if="selectedEvent.otherParticipants">
+                <div v-if="selectedEvent.otherParticipants.length > 0">
                     <label v-text="'Ostali učesnici'"></label>
                     <div v-for="participant in selectedEvent.otherParticipants" class="d-flex align-items-center justify-content-between mb-3">
                         <div class="d-flex align-items-center">
@@ -162,7 +142,7 @@
             <div slot="modal-footer">
                 <button type="button" class="btn btn-primary" v-text="'Preuzmi ICS'" v-on:click="exportMeetingToICS()">Preuzmi ICS</button>
                 <button v-if="!isMeetingAcceptedForCurrentCompany(selectedEvent)" type="button" class="btn btn-primary" v-text="'Prihvati poziv'" v-on:click="prepareAceeptMeetingModal()">Prihvati poziv</button>
-                <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-secondary" v-text="'Izmeni'" v-on:click="editMeeting()">Izmeni</button>
+                <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-secondary" v-text="'Izmeni'" v-on:click="prepareEditMeetingModal()">Izmeni</button>
                 <button type="button" class="btn btn-danger" v-text="'Ukloni'" v-on:click="prepareRemoveMeetingModal(selectedEvent.id)">Obriši</button>
                 <!-- <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeViewMeetingModal()">Cancel</button> -->
             </div>
@@ -182,7 +162,7 @@
                   v-model="meetingEvent.startDate"
                   :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                   placeholder="Izaberite datum početka..."
-                  @input="updateMeetingEndDate()"
+                  @input="updateBFormCalendarEndDate()"
                 ></b-form-datepicker>
                 <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="meetingEvent.startTime"></b-form-timepicker>
               </div>
@@ -270,6 +250,109 @@
           <div slot="modal-footer">
             <button type="button" class="btn btn-success" v-text="'Zakaži sastanak'" v-on:click="createMeeting()">Zakaži sastanak</button>
             <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCreateMeetingModal()">
+              Cancel
+            </button>
+          </div>
+        </b-modal>
+
+        <b-modal v-if="selectedEvent" ref="editMeetingModal" id="editMeetingModal" size="lg">
+          <div slot="modal-title" v-if="selectedEvent.advertisement">
+            <span  v-text="'Izmeni sastanak za oglas - '"></span>
+            <span>{{ selectedEvent.advertisement.title }}</span>
+          </div>
+          <div slot="modal-title" v-else>
+            <span id="riportalApp.researchInfrastructure.calendar" v-text="'Izmeni sastanak'"></span>
+          </div>
+
+          <div class="d-flex">
+            <div class="modal-body" style="border-right: 1px solid #ccc; width: 45%; padding-right: 5%;">
+              <div class="mb-3">
+                <b-input v-model="selectedEvent.title" placeholder="Unesite naslov..."></b-input>
+              </div>
+
+              <div class="d-flex">
+                <b-form-datepicker
+                  style="width: 70%;"
+                  v-model="selectedEvent.startStr"
+                  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                  placeholder="Izaberite datum početka..."
+                  @input="updateBFormCalendarEndDate()"
+                ></b-form-datepicker>
+                <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="selectedEvent.startTime"></b-form-timepicker>
+              </div>
+
+              <div class="d-flex mb-3">
+                <b-form-datepicker
+                  style="width: 70%;"
+                  v-model="selectedEvent.endStr"
+                  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                  :min="selectedEvent.startStr"
+                ></b-form-datepicker>
+                <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="selectedEvent.endTime"></b-form-timepicker>
+              </div>
+
+              <b-input v-model="selectedEvent.location" class="mb-3" placeholder="Unesite lokaciju..."></b-input>
+
+              <b-form-textarea v-model="selectedEvent.description" class="mb-3" placeholder="Unesite opis..."></b-form-textarea>
+            </div>
+
+            <div class="modal-body" style="width: 45%; padding-left: 5%;">
+              <label for="" v-text="'Dodajte druge učesnike'">Dodajte druge učesnike</label>
+              <input
+                type="text"
+                ref="company-name"
+                class="form-control mb-3"
+                name="company-name"
+                id="company-name"
+                placeholder="Potražite kompaniju..."
+                @keyup="getCompaniesBySearchText()"
+                @focusout="toggleSearchList($event, 'showCompaniesSearch')"
+                @focusin="toggleSearchList($event, 'showCompaniesSearch')"
+                v-model="companySearchText"
+                autocomplete="off"
+              />
+              <div
+                class="form-control"
+                style="text-align: left; height: 150px; overflow-y: scroll; position: absolute; z-index: 9999;"
+                v-if="companiesSearch.length && showCompaniesSearch"
+              >
+                <ul class="list-group" @click.stop>
+                  <div v-for="company in companiesSearch" :key="company.id">
+                    <a class="list-group-item" @mousedown="addToCompaniesMeetingParticipants(company)">
+                      <span>{{ company.name }}</span>
+                    </a>
+                  </div>
+                </ul>
+              </div>
+
+              <div
+                v-for="company in companiesMeetingParticipants"
+                :key="company.id"
+                class="d-flex align-items-center justify-content-between mb-3"
+              >
+                <div class="d-flex align-items-center">
+                  <div v-if="company.logo" class="company-logo-container position-relative">
+                    <img
+                      :src="companyService().retrieveImage(company.logo.filename)"
+                      alt="company logo"
+                      style="width: 100%; max-height: 100%;"
+                      class="company-logo"
+                    />
+                  </div>
+                  <div v-else class="placeholder-logo">{{ getCompanyInitials(company) }}</div>
+                  <span>{{ company.name }}</span>
+                </div>
+                <div>
+                  <span v-if="selectedEvent.organizer && company.id == selectedEvent.organizer.company.id" v-text="'Organizator'"></span>
+                  <span v-else-if="selectedEvent.advertiser && company.id == selectedEvent.advertiser.company.id" v-text="'Oglašivač'"></span>
+                  <b-button v-else @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close">x</b-button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div slot="modal-footer">
+            <button type="button" class="btn btn-success" v-text="'Sačuvaj'" v-on:click="editMeeting()">Sačuvaj</button>
+            <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeEditMeetingModal()">
               Cancel
             </button>
           </div>

@@ -5,6 +5,7 @@ import { IMeeting } from '@/shared/model/meeting.model';
 const baseApiUrl = 'api/meetings';
 const apiFindAllForCompany = 'api/meetings/company';
 const apiCreateMeetingWithParticipants = 'api/meetings/new';
+const apiEditMeetingWithParticipants = 'api/meetings/edit';
 
 export default class MeetingService {
   public find(id: number): Promise<IMeeting> {
@@ -76,6 +77,30 @@ export default class MeetingService {
     return new Promise<IMeeting>((resolve, reject) => {
       axios
         .post(`${apiCreateMeetingWithParticipants}/?organizerId=${organizerId}&participantIds=${participantIds}`, meeting)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public editMeetingWithParticipants(
+    meeting: IMeeting,
+    meetingId: number,
+    participantIdsToAdd: number[] = [],
+    participantIdsToRemove: number[] = []
+  ): Promise<IMeeting> {
+    return new Promise<IMeeting>((resolve, reject) => {
+      axios
+        .put(
+          `${apiEditMeetingWithParticipants}` +
+            `/?meetingId=${meetingId}` +
+            `&participantIdsToAdd=${participantIdsToAdd}` +
+            `&participantIdsToRemove=${participantIdsToRemove}`,
+          meeting
+        )
         .then(res => {
           resolve(res);
         })

@@ -9,8 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import e4i.domain.Meeting;
 import e4i.repository.MeetingRepository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 /**
  * Service Implementation for managing {@link Meeting}.
@@ -77,4 +80,26 @@ public class MeetingService {
         log.debug("Request to get all Meetings for Company {}", companyId);
         return meetingRepository.findAllByCompanyId(companyId);
     }
+
+	public Meeting editMeetingWithParticipants(Long meetingId, Meeting meetingWithUpdates) {
+    	Optional<Meeting> meetingOptional = meetingRepository.findById(meetingId);
+        if (meetingOptional.isEmpty()) {
+            throw new EntityNotFoundException("Meeting not found with id: " + meetingId);
+        }
+        
+        Meeting meeting = meetingOptional.get();
+        meeting.setTitle(meetingWithUpdates.getTitle());
+        meeting.setDescription(meetingWithUpdates.getDescription());
+        meeting.setLocation(meetingWithUpdates.getLocation());
+        meeting.setDatetimeStart(meetingWithUpdates.getDatetimeStart());
+        meeting.setDatetimeEnd(meetingWithUpdates.getDatetimeEnd());
+        
+        if (meeting.getMeetingParticipants().isEmpty()) {
+        	meeting.setMeetingParticipants(new HashSet<>());            	
+        }
+                   
+        Meeting editedMeeting = meetingRepository.save(meeting);
+        
+		return editedMeeting;
+	}
 }

@@ -158,6 +158,40 @@ public class MeetingResource {
 		}
     }
     
+    @PutMapping("/meetings/edit")
+    public ResponseEntity<Meeting> editMeetingWithParticipants(
+    		@RequestBody Meeting meetingWithUpdates,
+    		@RequestParam Long meetingId,
+    		@RequestParam List<Long> participantIdsToAdd,
+    		@RequestParam List<Long> participantIdsToRemove
+    		) throws URISyntaxException {
+        log.debug("REST request to edit Meeting: {}", meetingId);
+        if (meetingId == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        
+        try {
+            Meeting editedMeeting = meetingService.editMeetingWithParticipants(meetingId, meetingWithUpdates);
+            
+            for (Long id : participantIdsToAdd) {
+            	Company companyParticipant = companyService.getOneById(id);
+            	meetingParticipantService.addMeetingParticipant(editedMeeting, companyParticipant);
+            }
+            
+            for (Long id : participantIdsToRemove) {
+            	Company companyParticipant = companyService.getOneById(id);
+            	meetingParticipantService.deleteMeetingParticipant(editedMeeting, companyParticipant);
+            }
+            
+            return ResponseEntity.created(new URI("/api/meetings/edit/" + editedMeeting.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, editedMeeting.getId().toString()))
+                .body(editedMeeting);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.noContent().build();
+		}
+    }
+    
     @GetMapping("/meetings/company/{companyId}")
     public List<Meeting> getAllMeetingsForCompany(@PathVariable Long companyId) {
         log.debug("REST request to get all Meetings for Company {}", companyId);
