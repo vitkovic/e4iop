@@ -226,10 +226,10 @@
                     company.id === collaboration.companyOffer.id &&
                     collaboration.advertisement.status.status === advertisementStatusOptions.INACTIVE
                   "
-                  v-on:click="prepareCopyAd(collaboration)"
+                  v-on:click="prepareActivate(collaboration.advertisement)"
                   variant="primary"
                   class="btn btn-sm mr-1"
-                  v-b-modal.copyAdModal
+                  v-b-modal.activateEntity
                 >
                   <span class="d-none d-md-inline" v-text="$t('riportalApp.collaboration.actions.renewAd')">Obnovi oglas</span>
                 </b-button>
@@ -400,6 +400,22 @@
         <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCopyAd()">Cancel</button>
       </div>
     </b-modal>
+
+    <b-modal v-if="advertisementToSwitchStatus" ref="activateEntity" id="activateEntity" >
+        <span slot="modal-title"><span id="riportalApp.advertisement.delete.question">Potvrdite aktiviranje oglasa</span></span>
+        <div class="modal-body">
+            <p id="jhi-delete-advertisement-heading">
+              <span v-text="'Da li ste sigurni da zelite da obnovite oglas '"></span>
+              <span>{{ advertisementToSwitchStatus.title }}</span>
+              <span>?</span>
+            </p>
+        </div>
+        <div slot="modal-footer">
+            <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeActivateDialog()">Cancel</button>
+            <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-on:click="activateAdvertisement()">Aktiviraj</button>
+        </div>
+    </b-modal>
+
     <div v-show="collaborations && collaborations.length > 0">
       <div class="row justify-content-center">
         <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>

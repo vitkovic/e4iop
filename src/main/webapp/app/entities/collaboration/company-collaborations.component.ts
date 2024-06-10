@@ -8,12 +8,14 @@ import { ICollaborationStatus } from '@/shared/model/collaboration-status.model'
 import { ICollaborationRating } from '@/shared/model/collaboration-rating.model';
 import { ICompany } from '@/shared/model/company.model';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
+import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model';
 
 import CollaborationService from './collaboration.service';
 import CollaborationStatusService from '@/entities/collabooration-status.service';
 import CollaborationRatingService from '@/entities/collabooration-rating.service';
 import CompanyService from '@/entities/company.service';
 import AdvertisementService from '@/entities/advertisement.service';
+import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
 
 enum CollaborationStatusOptions {
   ACCEPTED = 'прихваћена',
@@ -36,6 +38,7 @@ export default class Collaboration extends mixins(AlertMixin) {
   @Inject('collaborationRatingService') private collaborationRatingService: () => CollaborationRatingService;
   @Inject('companyService') private companyService: () => CompanyService;
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
+  @Inject('advertisementStatusService') private advertisementStatusService: () => AdvertisementStatusService;
 
   private removeId: number = null;
   public itemsPerPage = 20;
@@ -53,6 +56,9 @@ export default class Collaboration extends mixins(AlertMixin) {
   public selectedRating: ICollaborationRating | null = null;
   public company: ICompany = null;
   public advertisement: IAdvertisement = null;
+  public advertisementToSwitchStatus: IAdvertisement = null;
+  public advertisementStatuses: IAdvertisementStatus[] = [];
+  private newAdvertisementStatus: IAdvertisementStatus = null;
   public ratingComment = '';
   public pendingCollaborationsCount = 0;
   public selectedCollRadioBtn: string = 'ne';
@@ -82,6 +88,12 @@ export default class Collaboration extends mixins(AlertMixin) {
   }
 
   public mounted(): void {
+    this.advertisementStatusService()
+      .retrieve()
+      .then(res => {
+        this.advertisementStatuses = res.data;
+      });
+
     this.collaborationStatusService()
       .retrieve()
       .then(res => {
@@ -303,6 +315,36 @@ export default class Collaboration extends mixins(AlertMixin) {
           text: notificatonMessage,
         });
       });
+  }
+
+  public prepareActivate(instance: IAdvertisement): void {
+    this.advertisementToSwitchStatus = instance;
+    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Активан')[0];
+
+    if (<any>this.$refs.activateEntity) {
+      (<any>this.$refs.activateEntity).show();
+    }
+  }
+
+  public closeActivateDialog(): void {
+    (<any>this.$refs.activateEntity).hide();
+  }
+
+  public activateAdvertisement(): void {
+    this.advertisementService()
+      .updateStatus(this.advertisementToSwitchStatus.id, this.newAdvertisementStatus.id)
+      .then(() => {
+        const message1 = 'Oglas ' + this.advertisementToSwitchStatus.title + ' je aktiviran!';
+        const message2 = ' Unesite željene izmene.';
+        this.$notify({
+          text: message1 + message2,
+        });
+        // this.alertService().showAlert(message, 'danger');
+        // this.getAlertFromStore();
+        this.$router.push({ name: 'AdvertisementEdit', params: { advertisementId: this.advertisementToSwitchStatus.id } });
+      });
+
+    this.closeActivateDialog();
   }
 
   public ratingExists(collaboration: ICollaboration): boolean {
