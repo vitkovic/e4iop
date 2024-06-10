@@ -25,6 +25,9 @@ public class Thread implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
+    
+    @Column(name = "is_from_administration")
+    private Boolean isFromAdministration;
 
     @NotNull
     @Column(name = "subject", nullable = false)
@@ -48,6 +51,13 @@ public class Thread implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "collaboration_id", referencedColumnName = "id"))
     private Set<Collaboration> collaborations = new HashSet<>();
     
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(name = "thread_meeting",
+               joinColumns = @JoinColumn(name = "thread_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "meeting_id", referencedColumnName = "id"))
+    private Set<Meeting> meetings = new HashSet<>();
+    
     @ManyToOne
     @JsonIgnoreProperties(value = "threadsSenders", allowSetters = true)
     private Company companySender;
@@ -63,6 +73,19 @@ public class Thread implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public Boolean isIsFromAdministration() {
+        return isFromAdministration;
+    }
+
+    public Thread isFromAdministration(Boolean isFromAdministration) {
+        this.isFromAdministration = isFromAdministration;
+        return this;
+    }
+
+    public void setIsFromAdministration(Boolean isFromAdministration) {
+        this.isFromAdministration = isFromAdministration;
     }
 
     public String getSubject() {
@@ -152,7 +175,32 @@ public class Thread implements Serializable {
     public void setCollaborations(Set<Collaboration> collaborations) {
         this.collaborations = collaborations;
     }
+     
+    public Set<Meeting> getMeetings() {
+        return meetings;
+    }
 
+    public Thread meetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
+        return this;
+    }
+
+    public Thread addMeeting(Meeting meeting) {
+        this.meetings.add(meeting);
+        meeting.getThreads().add(this);
+        return this;
+    }
+
+    public Thread removeMeeting(Meeting meeting) {
+        this.meetings.remove(meeting);
+        meeting.getThreads().remove(this);
+        return this;
+    }
+
+    public void setMeetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
+    }
+    
     public Company getCompanySender() {
         return companySender;
     }
@@ -202,6 +250,7 @@ public class Thread implements Serializable {
         return "Thread{" +
             "id=" + getId() +
             ", subject='" + getSubject() + "'" +
+            ", isFromAdministration='" + isIsFromAdministration() + "'" +
             "}";
     }
 }

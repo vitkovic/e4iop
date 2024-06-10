@@ -20,6 +20,7 @@ const validations: any = {
     subject: {
       required,
     },
+    isFromAdministration: {},
   },
 };
 

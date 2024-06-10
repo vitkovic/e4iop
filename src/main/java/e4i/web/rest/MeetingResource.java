@@ -11,9 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 import e4i.domain.Company;
 import e4i.domain.Meeting;
+import e4i.domain.Message;
+import e4i.domain.Thread;
 import e4i.service.CompanyService;
+import e4i.service.MailService;
 import e4i.service.MeetingParticipantService;
 import e4i.service.MeetingService;
+import e4i.service.MessageService;
+import e4i.service.ThreadService;
+import e4i.web.rest.dto.NotificationMailDTO;
 import e4i.web.rest.errors.BadRequestAlertException;
 
 import javax.validation.Valid;
@@ -44,9 +50,18 @@ public class MeetingResource {
     
     @Autowired
     CompanyService companyService;
+    
+    @Autowired
+    ThreadService threadService;
+    
+    @Autowired
+    MessageService messageService;
+    
+    private final MailService mailService;
 
-    public MeetingResource(MeetingService meetingService) {
+    public MeetingResource(MeetingService meetingService, MailService mailService) {
         this.meetingService = meetingService;
+        this.mailService = mailService;
     }
 
     /**
@@ -144,11 +159,21 @@ public class MeetingResource {
             Company companyOrganizer = companyService.getOneById(organizerId);
             meetingParticipantService.addMeetingOrganizer(newMeeting, companyOrganizer);
             
-            for (Long id : participantIds) {
-            	Company companyParticipant = companyService.getOneById(id);
+            for (Long companyId : participantIds) {
+            	Company companyParticipant = companyService.getOneById(companyId);
             	meetingParticipantService.addMeetingParticipant(newMeeting, companyParticipant);
-            }
+
+                // send messages to participant companies
+            	Thread thread = threadService.createThreadForMeeting(newMeeting, companyParticipant);
+            	Message message = messageService.createFirstMessageInThreadMeeting(thread, newMeeting, companyOrganizer);
             
+                // send email notifications participant companies
+            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingInvitation(newMeeting, companyOrganizer, companyParticipant);
+            	if (!mailDTO.getEmails().isEmpty()) {
+            		mailService.sendNotificationMail(mailDTO);
+            	}           
+            }
+                        
             return ResponseEntity.created(new URI("/api/meetings/new/" + newMeeting.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, newMeeting.getId().toString()))
                 .body(newMeeting);

@@ -26,6 +26,12 @@
                             <router-link :to="{name: 'CompanyView', params: {companyId: thread.company.id}}">{{thread.company.name}}</router-link>
                         </div>
                     </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.thread.isFromAdministration')">Is From Administration</span>
+                    </dt>
+                    <dd>
+                        <span>{{thread.isFromAdministration}}</span>
+                    </dd>
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

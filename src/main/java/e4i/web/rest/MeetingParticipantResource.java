@@ -5,6 +5,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -133,12 +134,23 @@ public class MeetingParticipantResource {
     }
     
     @PutMapping("/meeting-participants/accept/meeting-company/{meetingId}/{companyId}")
-    public MeetingParticipant acceptMeetingForCompany(@PathVariable Long meetingId, @PathVariable Long companyId) {
+    public ResponseEntity<?> acceptMeetingForCompany(@PathVariable Long meetingId, @PathVariable Long companyId) {
         log.debug("REST request to accept Meeting {} for Company {}", meetingId, companyId);
         
-        MeetingParticipant meetingParticipant = meetingParticipantService.acceptMeetingForCompany(meetingId, companyId);
+        Optional<Boolean> hasAcceptedOptional = meetingParticipantService.checkMeetingAccpetance(meetingId, companyId);
         
-        return meetingParticipant;
+        if (hasAcceptedOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No MeetingParticipant found for the given meetingId and companyId");
+        }
+        
+        Boolean hasAccepted = hasAcceptedOptional.get();
+        
+        if (hasAccepted) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Meeting has already been accepted by the company");
+        }
+        
+        MeetingParticipant meetingParticipant = meetingParticipantService.acceptMeetingForCompany(meetingId, companyId);
+        return ResponseEntity.ok(meetingParticipant);
     }
     
     @PutMapping("/meeting-participants/remove/meeting-company/{meetingId}/{companyId}")

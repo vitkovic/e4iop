@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import e4i.domain.Collaboration;
 import e4i.domain.Company;
+import e4i.domain.Meeting;
 import e4i.domain.Thread;
 import e4i.repository.ThreadRepository;
 
@@ -144,5 +145,17 @@ public class ThreadService {
     	
     	return company;
     }
-    
+
+    @Transactional
+	public Thread createThreadForMeeting(Meeting meeting, Company company) {
+    	Thread thread = new Thread();
+    	thread.setSubject("Poziv na sastanak");
+    	thread.setCompanyReceiver(company);
+    	thread.setIsFromAdministration(true);
+    	thread.addMeeting(meeting);
+    	
+    	Thread result = this.save(thread);
+    	
+		return result;
+	}    
 }

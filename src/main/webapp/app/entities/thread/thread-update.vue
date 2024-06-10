@@ -39,6 +39,11 @@
                             <option v-bind:value="thread.companyReceiver && companyOption.id === thread.companyReceiver.id ? thread.companyReceiver : companyOption" v-for="companyOption in companies" :key="companyOption.id">{{companyOption.name}}</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.thread.isFromAdministration')" for="thread-isFromAdministration">Is Read</label>
+                        <input type="checkbox" class="form-check" name="isFromAdministration" id="message-isFromAdministration"
+                            :class="{'valid': !$v.thread.isFromAdministration.$invalid, 'invalid': $v.thread.isFromAdministration.$invalid }" v-model="$v.thread.isFromAdministration.$model" />
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

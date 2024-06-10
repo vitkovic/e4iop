@@ -1,6 +1,8 @@
 package e4i.service;
 
 import e4i.domain.Collaboration;
+import e4i.domain.Company;
+import e4i.domain.Meeting;
 import e4i.domain.Message;
 import e4i.domain.PortalUser;
 import e4i.domain.Thread;
@@ -197,4 +199,30 @@ public class MessageService {
     	
     	return thread;
     }
+    
+    @Transactional
+	public Message createFirstMessageInThreadMeeting(Thread thread, Meeting meeting, Company companyOrganizer) {
+//    	String companyText = "Kompanija: " + companyOrganizer.getName() + "\n";    	
+//    	String titleText = "Sastanak: " + meeting.getTitle() + "\n";
+//    	String advertisementText = (meeting.getAdvertisement() != null) ? 
+//    		    "Oglas: " + meeting.getAdvertisement().getTitle() + "\n" : "\n";
+    	String infoText = "\nImate poziv za novi sastanak na B2B portalu.\n"
+    			+ "\nPoziv na sastanak možete potvrditi klikom na opciju 'Prihvati poziv' u ovoj poruci ili sa stranice 'Kalendar'."
+    			+ "\n Ostale detalje sastanka možete pogledati sa stranice 'Kalendar'.";
+    	
+    	String content = infoText;
+    	
+    	Message message = new Message();
+        message.setThread(thread);
+//        message.setPortalUserSender(portalUser);
+        message.setContent(content);
+        message.setDatetime(Instant.now());
+        message.setIsRead(false);
+        message.setIsDeletedSender(true);
+        message.setIsDeletedReceiver(false);
+    	
+    	Message result = this.save(message);
+    	
+    	return result;
+	}
 }

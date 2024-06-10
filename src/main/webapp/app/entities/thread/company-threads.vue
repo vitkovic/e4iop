@@ -271,7 +271,11 @@
                   </div>
                 </b-col>
                 <b-col class="h-100">
-                  <div v-if="thread.companySender" class="spacing-subject h-100 d-flex align-items-center">
+
+                  <div v-if="thread.isFromAdministration" class="spacing-subject h-100 d-flex align-items-center">
+                    <span v-text="'ADMINISTRACIJA'" class="text-body">ADMINISTRACIJA</span>
+                  </div>
+                  <div v-else-if="thread.companySender" class="spacing-subject h-100 d-flex align-items-center">
                     <router-link :to="{ name: 'CompanyView', params: { companyId: thread.companySender.id } }" class="text-body">{{
                       buildThreadColumnString(thread.companySender.name)
                     }}</router-link>
@@ -301,38 +305,83 @@
 
             <b-collapse :id="'collapse-' + thread.id" accordion="my-accordion" role="tabpanel">
               <b-card v-for="message in messages" :key="message.id">
-                <div class="row" style="display: flex; flex-direction: row;">
+
+                <div v-if="thread.isFromAdministration" class="row" style="display: flex; flex-direction: row;">
+                  <div class="col">
+                    <p>
+                      <b>{{ $t('riportalApp.thread.messageSection.date') }} </b> 
+                      <span></span>{{ message.datetime ? $d(Date.parse(message.datetime.toString()), 'short') : '' }}
+                    </p>
+                    <div v-if="thread.meeting">
+                      <div>
+                        <b>{{ 'Sastanak:' }} </b> 
+                        <span></span>{{ thread.meeting.title }}
+                      </div>
+                      <div>
+                        <b>{{ 'Organizator:' }} </b> 
+                        <span></span>{{ thread.meeting.company ? thread.meeting.company.name : '' }}
+                      </div>
+                      <div v-if="thread.meeting.advertisement">
+                        <b>{{ 'Oglas:' }} </b> 
+                        <span></span>{{ thread.meeting.advertisement.title }}
+                      </div>
+                      <div v-if="thread.meeting.datetimeStart">
+                        <b>{{ 'Vreme pocetka:' }} </b> 
+                        <span></span>{{ $d(Date.parse(thread.meeting.datetimeStart.toString()), 'short') }}
+                      </div>
+                      <div v-if="thread.meeting.datetimeEnd">
+                        <b>{{ 'Vreme zavrsetka:' }} </b> 
+                        <span></span>{{ $d(Date.parse(thread.meeting.datetimeEnd.toString()), 'short') }}
+                      </div>
+                    </div>
+                    <p style="white-space: pre-line;">{{ message.content }}</p>
+                    
+                    <button type="button" class="btn btn-success m-2" v-text="'Prihvati poziv'" v-on:click="prepareAcceptMeetingModal(thread.meeting)">Pošalji
+                    </button>
+                  </div>
+                  <div class="col col-lg-2 text-right">
+                      <b-button v-on:click="deleteMessage(message, thread)" variant="danger" class="btn btn-sm m-1">
+                        <font-awesome-icon icon="times"></font-awesome-icon>
+                        <span class="d-none d-md-inline" v-text="$t('entity.delete.deleteMessage')">Obriši poruku</span>
+                      </b-button>
+                    </div>
+                </div>
+
+                <div v-else class="row" style="display: flex; flex-direction: row;">
                   <div class="col">
                     <p>
                       <b>{{ $t('riportalApp.thread.messageSection.date') }} </b> <span></span
                       >{{ message.datetime ? $d(Date.parse(message.datetime.toString()), 'short') : '' }}
                     </p>
-                    <p>
+                    <p v-if="message.portalUserSender && message.portalUserSender.company">
                       <b>{{ $t('riportalApp.thread.messageSection.sender') }} </b>
                       <span>{{ message.portalUserSender.company.name }}</span>
                       <span>{{ ' - ' + message.portalUserSender.user.firstName + ' ' + message.portalUserSender.user.lastName }}</span>
                     </p>
                     <!-- <p>Primalac: {{ message.portalUserReceiver.firstname + ' ' + message.portalUserReceiver.lastname }}</p> -->
                     <p style="white-space: pre-line;">{{ message.content }}</p>
+                    </div>
+                    <div class="col col-lg-2 text-right">
+                      <b-button v-on:click="deleteMessage(message, thread)" variant="danger" class="btn btn-sm m-1">
+                        <font-awesome-icon icon="times"></font-awesome-icon>
+                        <span class="d-none d-md-inline" v-text="$t('entity.delete.deleteMessage')">Obriši poruku</span>
+                      </b-button>
+                    </div>
                   </div>
-                  <div class="col col-lg-2 text-right">
-                    <b-button v-on:click="deleteMessage(message, thread)" variant="danger" class="btn btn-sm m-1">
-                      <font-awesome-icon icon="times"></font-awesome-icon>
-                      <span class="d-none d-md-inline" v-text="$t('entity.delete.deleteMessage')">Obriši poruku</span>
-                    </b-button>
-                  </div>
-                </div>
               </b-card>
-              <b-textarea
+
+              <div v-if="!thread.isFromAdministration">
+                <b-textarea
                 v-model="newMessageText"
                 class="mt-2 ml-2 mr-2 w-50"
                 :placeholder="placeholderText"
                 style="border-style: solid; border-color: darkgray;"
-              >
-              </b-textarea>
-              <button type="button" class="btn btn-success m-2" v-text="$t('entity.action.send')" v-on:click="sendMessage(thread)">
-                Pošalji
-              </button>
+                >
+                </b-textarea>
+                <button type="button" class="btn btn-success m-2" v-text="$t('entity.action.send')" v-on:click="sendMessage(thread)">
+                  Pošalji
+                </button>
+              </div>
             </b-collapse>
           </b-card>
         </div>
@@ -371,6 +420,28 @@
         <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
       </div>
     </div>
+
+    <b-modal v-if="meetingToAccept" ref="acceptMeetingModal" id="acceptMeetingModal">
+      <div class="modal-body">
+          <p>
+              <span v-text="'Da li želite da prihvatite poziv za sastanak - '">Da li želite da prihvatite poziv za sastanak?</span>
+              <span><b>{{ meetingToAccept.title }}</b></span>
+              <span v-text="'?'"></span>
+          </p>
+          
+      </div>
+      <div slot="modal-footer">
+          <button type="button" class="btn btn-success" v-text="'Potvrdi'" v-on:click="acceptMeeting()">Cancel</button>
+          <button
+          type="button"
+          class="btn btn-danger"
+          v-text="'Otkaži'"
+          v-on:click="closeAcceptMeetingModal()"
+          >
+
+          </button>
+      </div>
+  </b-modal>
   </div>
 </template>
 

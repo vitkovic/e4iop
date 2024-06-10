@@ -6,6 +6,7 @@ import { IMessage } from '@/shared/model/message.model';
 
 const baseApiUrl = 'api/messages';
 const apiGetAllByThreadId = 'api/messages/thread';
+const apiGetAllByThreadAndCompany = 'api/messages/thread-company';
 const apiPostByThreadId = 'api/messages/thread';
 const apiGetCountByThreadId = 'api/messages/thread/count';
 
@@ -96,6 +97,19 @@ export default class MessageService {
     return new Promise<Array<IMessage>>((resolve, reject) => {
       axios
         .get(`${apiGetAllByThreadId}/${threadId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getAllByThreadAndCompany(threadId: number, companyId: number): Promise<Array<IMessage>> {
+    return new Promise<Array<IMessage>>((resolve, reject) => {
+      axios
+        .get(`${apiGetAllByThreadAndCompany}/${threadId}/${companyId}`)
         .then(res => {
           resolve(res.data);
         })

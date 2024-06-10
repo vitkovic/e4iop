@@ -3,6 +3,7 @@ package e4i.service;
 import e4i.domain.Advertisement;
 import e4i.domain.Collaboration;
 import e4i.domain.Company;
+import e4i.domain.Meeting;
 import e4i.domain.Message;
 import e4i.domain.PortalUser;
 import e4i.domain.Thread;
@@ -321,7 +322,29 @@ public class MailService {
         return mailDTO;
     }
     
-    public String prepareContentForNewMessageNotification(Message message, Thread thread, Company company, PortalUser portalUser) {
+    @Transactional
+	public NotificationMailDTO createNotificationMailDTOForMeetingInvitation(
+			Meeting meeting, 
+			Company companyOrganizer,
+			Company companyParticipant
+			) {
+        List<PortalUser> companyPortalUsers = portalUserRepository.findAllByCompanyAndDoNotify(companyParticipant, true); 
+        List<String> emails = companyPortalUsers.stream()
+                .map(portalUser -> portalUser.getUser().getEmail())
+                .collect(Collectors.toList());
+	
+        String mailSubject = "B2B portal - Obaveštenje o novom pozivi za sastanak";
+        String mailContent = this.prepareNotificationContentForMeetingInvitation(meeting, companyOrganizer, companyParticipant);
+
+        NotificationMailDTO mailDTO = new NotificationMailDTO();
+        mailDTO.setEmails(emails);
+        mailDTO.setSubject(mailSubject);
+        mailDTO.setContent(mailContent);
+        
+        return mailDTO;
+	}
+    
+	public String prepareContentForNewMessageNotification(Message message, Thread thread, Company company, PortalUser portalUser) {
     	
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         ZonedDateTime zonedDateTime = message.getDatetime().atZone(ZoneId.systemDefault());
@@ -494,4 +517,37 @@ public class MailService {
         		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
     	return content;
     }
+
+    private String prepareNotificationContentForMeetingInvitation(Meeting meeting, Company companyOrganizer, Company companyParticipant) {
+        
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        ZonedDateTime zonedDateTimeStart = meeting.getDatetimeStart().atZone(ZoneId.systemDefault());
+        ZonedDateTime zonedDateTimeEnd = meeting.getDatetimeEnd().atZone(ZoneId.systemDefault());
+    	
+    	String homeURL = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+        String companyCalendarLink = homeURL + "/b2b/company/" + companyParticipant.getId() + "/calendar";
+        
+    	String advertisementText = (meeting.getAdvertisement() != null) ? 
+    			"<p><b>Oglas: </b><span>" + meeting.getAdvertisement().getTitle() : "";
+        
+        String meetingText = 
+        		"<p><b>Sastanak: </b><span>" + meeting.getTitle()
+        		+ "<p><b>Organizator: </b><span>" + companyOrganizer.getName()
+        		+ advertisementText
+        		+ "<p><b>Vreme pocetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
+        		+ "<p><b>Vreme zavrsetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd);
+        
+        String content = "<div>"
+        		+ "<p>Kompanija sa B2B portala Vam je uputila poziv za sastanak."
+        		+ "<br>"
+        		+ "<br>"
+        		+ meetingText
+        		+ "<hr>"
+        		+ "<br>"
+        		+ "<p>Poziv na sastanak možete potvrditi iz kalendara na "
+        		+ "<a href='" + companyCalendarLink + "'> B2B profilu Vaše kompanije<a>.</p>"
+        		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
+        
+    	return content;
+	}
 }

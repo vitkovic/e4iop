@@ -5,31 +5,40 @@ import java.time.Instant;
 import e4i.domain.Advertisement;
 import e4i.domain.Collaboration;
 import e4i.domain.Company;
+import e4i.domain.Meeting;
 import e4i.domain.Thread;
 
 public class ThreadDTO {
 
 	private Long id;
 	private String subject;
+	private Boolean isFromAdministration;
 	private Company companySender;
 	private Company companyReceiver;
 	private Advertisement advertisement;
 	private Collaboration collaboration;
+	private Meeting meeting;
 	private Long messageCount;
 	private Instant lastMessageDatetime;
 	private String lastMessageContent;
 	private Boolean unreadExists;
 	
 	
-	public ThreadDTO(Long id, String subject, Company companySender, Company companyReceiver, Advertisement advertisement, Collaboration collaboration,
-			Long messageCount, Instant lastMessageDatetime, String lastMessageContent, Boolean unreadExists) {
+	public ThreadDTO(
+			Long id, String subject, Boolean isFromAdministration, 
+			Company companySender, Company companyReceiver, Advertisement advertisement, 
+			Collaboration collaboration, Meeting meeting, Long messageCount, 
+			Instant lastMessageDatetime, String lastMessageContent, Boolean unreadExists
+			) {
 		super();
 		this.id = id;
 		this.subject = subject;
+		this.isFromAdministration = isFromAdministration;
 		this.companySender = companySender;
 		this.companyReceiver = companyReceiver;
 		this.advertisement = advertisement;
 		this.collaboration = collaboration;
+		this.meeting = meeting;
 		this.messageCount = messageCount;
 		this.lastMessageDatetime = lastMessageDatetime;
 		this.lastMessageContent = lastMessageContent;
@@ -46,9 +55,9 @@ public class ThreadDTO {
 		threadDTO.setCompanySender(thread.getCompanySender());
 		threadDTO.setCompanyReceiver(thread.getCompanyReceiver());
 		threadDTO.setSubject(thread.getSubject());
+		threadDTO.setIsFromAdministration(thread.isIsFromAdministration());
 		
 		return threadDTO;
-		
 	}
 
 
@@ -70,12 +79,20 @@ public class ThreadDTO {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+	
+	public Boolean getIsFromAdministration() {
+		return isFromAdministration;
+	}
+
+
+	public void setIsFromAdministration(Boolean isFromAdministration) {
+		this.isFromAdministration = isFromAdministration;
+	}
 
 
 	public Company getCompanySender() {
 		return companySender;
 	}
-
 
 	public void setCompanySender(Company companySender) {
 		this.companySender = companySender;
@@ -108,6 +125,14 @@ public class ThreadDTO {
 
 	public void setCollaboration(Collaboration collaboration) {
 		this.collaboration = collaboration;
+	}
+	
+	public Meeting getMeeting() {
+		return meeting;
+	}
+
+	public void setMeeting(Meeting meeting) {
+		this.meeting = meeting;
 	}
 
 	public Long getMessageCount() {

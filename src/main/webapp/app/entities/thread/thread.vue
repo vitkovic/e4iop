@@ -28,6 +28,7 @@
                     <th v-on:click="changeOrder('subject')"><span v-text="$t('riportalApp.thread.subject')">Subject</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subject'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('companySender.id')"><span v-text="'Company Sender'">Company Sender</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companySender.id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('companyReceiver.id')"><span v-text="'Company Receiver'">Company Receiver</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companyReceiver.id'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('isFromAdministration')"><span v-text="'Is From Administration'">Is From Administration</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'isFromAdministration'"></jhi-sort-indicator></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -48,6 +49,7 @@
                             <router-link :to="{name: 'CompanyView', params: {companyId: thread.companyReceiver.id}}">{{thread.companyReceiver.name}}</router-link>
                         </div>
                     </td>
+                    <td>{{thread.isFromAdministration}}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'ThreadView', params: {threadId: thread.id}}" tag="button" class="btn btn-info btn-sm details">

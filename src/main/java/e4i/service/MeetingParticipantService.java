@@ -186,4 +186,9 @@ public class MeetingParticipantService {
         	throw new EntityNotFoundException(errorMessage);
     	}
     }
+
+    @Transactional
+	public Optional<Boolean> checkMeetingAccpetance(Long meetingId, Long companyId) {
+		return meetingParticipantRepository.findHasAcceptedByMeetingIdAndCompanyId(meetingId, companyId);
+	}
 }

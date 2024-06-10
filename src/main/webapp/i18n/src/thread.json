@@ -17,6 +17,7 @@
         "title": "Thread"
       },
       "subject": "Subject",
+      "isFromAdministration": "Od administracije",
       "message": "Message",
       "advertisement": "Advertisement",
       "company": "Company",

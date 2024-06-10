@@ -154,6 +154,7 @@ public class MessageResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
     
+    @Deprecated
     @GetMapping("/messages/thread/{threadId}")
     @Transactional
     public ResponseEntity<List<Message>> getAllMessagesByThread(@PathVariable Long threadId) {
@@ -165,9 +166,9 @@ public class MessageResource {
         Thread thread = threadRepository.getOne(threadId);
         
         List<Message> messages = new ArrayList<>();
-        if (thread.getCompanyReceiver().getId() == currentPortalUser.getCompany().getId()) {
+        if (thread.getCompanyReceiver() != null &&  thread.getCompanyReceiver().getId() == currentPortalUser.getCompany().getId()) {
         	messages = messageRepository.findAllByThreadIdAndIsDeletedReceiverOrderByDatetimeAsc(threadId, false);
-        } else if (thread.getCompanySender().getId() == currentPortalUser.getCompany().getId()) {
+        } else if (thread.getCompanySender() != null && thread.getCompanySender().getId() == currentPortalUser.getCompany().getId()) {
         	messages = messageRepository.findAllByThreadIdAndIsDeletedSenderOrderByDatetimeAsc(threadId, false);	
         }
         
@@ -181,6 +182,32 @@ public class MessageResource {
 //        List<Message> messages = messageRepository.findAllByThreadIdOrderByDatetimeDesc(threadId);
         
 //        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().body(messages);
+    }
+    
+    @GetMapping("/messages/thread-company/{threadId}/{companyId}")
+    @Transactional
+    public ResponseEntity<List<Message>> getAllByThreadAndCompany(
+    		@PathVariable Long threadId,
+    		@PathVariable Long companyId
+    		) {
+        log.debug("REST request to get all Messages for Thread {} and Company {}", threadId, companyId);
+        Thread thread = threadRepository.getOne(threadId);
+
+        List<Message> messages = new ArrayList<>();
+        if ((thread.getCompanyReceiver() != null) && (thread.getCompanyReceiver().getId().equals(companyId))) {
+        	messages = messageRepository.findAllByThreadIdAndIsDeletedReceiverOrderByDatetimeAsc(threadId, false);
+        
+            for (Message message : messages) {
+            	if (!message.isIsRead()) {
+            		message.setIsRead(true);
+            		messageRepository.save(message);
+            	}
+            }
+        	
+        } else if ((thread.getCompanySender() != null) && (thread.getCompanySender().getId().equals(companyId))) {
+        	messages = messageRepository.findAllByThreadIdAndIsDeletedSenderOrderByDatetimeAsc(threadId, false);	
+        }
         return ResponseEntity.ok().body(messages);
     }
     

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import e4i.domain.Meeting;
@@ -23,4 +24,8 @@ public interface MeetingParticipantRepository extends JpaRepository<MeetingParti
 	MeetingParticipant findOneByMeetingIdAndIsOrganizer(Long meetingId, Boolean isOrganizer);
 	
 	Optional<MeetingParticipant> findOneByMeetingIdAndCompanyId(Long meetingId, Long companyId);
+	
+	@Query("SELECT mp.hasAccepted FROM MeetingParticipant mp WHERE mp.meeting.id = :meetingId AND mp.company.id = :companyId")
+	Optional<Boolean> findHasAcceptedByMeetingIdAndCompanyId(@Param("meetingId") Long meetingId, @Param("companyId") Long companyId);
+
 }

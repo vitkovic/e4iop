@@ -17,6 +17,7 @@
         "title": "Thread"
       },
       "subject": "Subject",
+      "isFromAdministration": "Is From Administration",
       "message": "Message",
       "advertisement": "Advertisement",
       "company": "Company",

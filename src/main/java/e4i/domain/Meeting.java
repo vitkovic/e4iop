@@ -1,6 +1,8 @@
 package e4i.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -76,6 +78,11 @@ public class Meeting implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "meetings", allowSetters = true)
     private MeetingType type;
+    
+    @ManyToMany(mappedBy = "meetings")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnore
+    private Set<Thread> threads = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -279,6 +286,32 @@ public class Meeting implements Serializable {
     public void setType(MeetingType meetingType) {
         this.type = meetingType;
     }
+      
+    public Set<Thread> getThreads() {
+        return threads;
+    }
+
+    public Meeting threads(Set<Thread> threads) {
+        this.threads = threads;
+        return this;
+    }
+
+    public Meeting addThread(Thread thread) {
+        this.threads.add(thread);
+        thread.getMeetings().add(this);
+        return this;
+    }
+
+    public Meeting removeThread(Thread thread) {
+        this.threads.remove(thread);
+        thread.getMeetings().remove(this);
+        return this;
+    }
+
+    public void setThreads(Set<Thread> threads) {
+        this.threads = threads;
+    }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

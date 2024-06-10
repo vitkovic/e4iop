@@ -3,11 +3,13 @@ package e4i.web.rest;
 import e4i.domain.Advertisement;
 import e4i.domain.Collaboration;
 import e4i.domain.Company;
+import e4i.domain.Meeting;
 import e4i.domain.Message;
 import e4i.domain.Thread;
 import e4i.repository.AdvertisementRepository;
 import e4i.repository.CollaborationRepository;
 import e4i.repository.CompanyRepository;
+import e4i.repository.MeetingRepository;
 import e4i.repository.MessageRepository;
 import e4i.repository.ThreadRepository;
 import e4i.service.ThreadService;
@@ -67,6 +69,9 @@ public class ThreadResource {
     
     @Autowired
     CollaborationRepository collaborationRepository;
+    
+    @Autowired
+    MeetingRepository meetingRepository;
     
     public ThreadResource(ThreadService threadService) {
         this.threadService = threadService;
@@ -286,15 +291,16 @@ public class ThreadResource {
 		threadDTO.setCompanySender(thread.getCompanySender());
 		threadDTO.setCompanyReceiver(thread.getCompanyReceiver());
 		threadDTO.setSubject(thread.getSubject());
+		threadDTO.setIsFromAdministration(thread.isIsFromAdministration());
 		
 		Optional<Message> latestMessageOptional = Optional.empty();
 		Optional<Message> unreadMessageOptional = Optional.empty();
-		if (thread.getCompanySender().getId() == company.getId()) {
+		if (threadDTO.getCompanySender() !=null && threadDTO.getCompanySender().getId() == company.getId()) {
 			threadDTO.setMessageCount(messageRepository.countByThreadIdAndIsDeletedSender(id, false));
 			latestMessageOptional = messageRepository.findFirstByThreadIdAndIsDeletedSenderOrderByDatetimeDesc(id, false);
 	        unreadMessageOptional = messageRepository
 	        		.findFirstByThreadIdAndPortalUserSenderCompanyIdNotAndIsReadAndIsDeletedSender(id, company.getId(), false, false);
-		} else if (thread.getCompanyReceiver().getId() == company.getId()) {
+		} else if (threadDTO.getCompanyReceiver() !=null && threadDTO.getCompanyReceiver().getId() == company.getId()) {
 			threadDTO.setMessageCount(messageRepository.countByThreadIdAndIsDeletedReceiver(id, false));
 			latestMessageOptional = messageRepository.findFirstByThreadIdAndIsDeletedReceiverOrderByDatetimeDesc(id, false);
 	        unreadMessageOptional = messageRepository
@@ -319,6 +325,13 @@ public class ThreadResource {
         	Collaboration collaboration = collaborationOptional.get();
         	threadDTO.setCollaboration(collaboration);
         	threadDTO.setAdvertisement(collaboration.getAdvertisement());
+        }
+        
+        Optional<Meeting> meetingOptional = meetingRepository.findOneByThreads(thread);
+        if (meetingOptional.isPresent()) {
+        	Meeting meeting = meetingOptional.get();
+        	threadDTO.setMeeting(meeting);
+        	threadDTO.setAdvertisement(meeting.getAdvertisement());
         }
 		
 		return threadDTO;
