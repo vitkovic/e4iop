@@ -43,6 +43,10 @@ public class MeetingParticipant implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "meetingParticipants", allowSetters = true)
     private PortalUser portalUser;
+    
+    @ManyToOne
+    @JsonIgnoreProperties(value = "meetingParticipants", allowSetters = true)
+    private MeetingParticipantStatus status;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -130,6 +134,21 @@ public class MeetingParticipant implements Serializable {
     public void setPortalUser(PortalUser portalUser) {
         this.portalUser = portalUser;
     }
+    
+    
+    public MeetingParticipantStatus getStatus() {
+        return status;
+    }
+
+    public MeetingParticipant status(MeetingParticipantStatus meetingParticipantStatus) {
+        this.status = meetingParticipantStatus;
+        return this;
+    }
+
+    public void setStatus(MeetingParticipantStatus meetingParticipantStatus) {
+        this.status = meetingParticipantStatus;
+    }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

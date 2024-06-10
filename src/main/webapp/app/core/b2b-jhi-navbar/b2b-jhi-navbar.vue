@@ -145,6 +145,10 @@
 						<font-awesome-icon icon="asterisk" />
 						<span v-text="$t('global.menu.entities.meetingParticipant')">MeetingParticipant</span>
 					</b-dropdown-item>
+					<b-dropdown-item to="/b2b/meeting-participant-status">
+						<font-awesome-icon icon="asterisk" />
+						<span v-text="$t('global.menu.entities.meetingParticipantStatus')">MeetingParticipantStatus</span>
+					</b-dropdown-item>
 					<b-dropdown-item to="/b2b/meeting-type">
 						<font-awesome-icon icon="asterisk" />
 						<span v-text="$t('global.menu.entities.meetingType')">MeetingType</span>

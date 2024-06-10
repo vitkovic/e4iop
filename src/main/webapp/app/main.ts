@@ -90,6 +90,7 @@ import CollaborationRatingService from '@/entities/collaboration-rating/collabor
 import ThreadService from '@/entities/thread/thread.service';
 import MeetingService from '@/entities/meeting/meeting.service';
 import MeetingParticipantService from '@/entities/meeting-participant/meeting-participant.service';
+import MeetingParticipantStatusService from '@/entities/meeting-participant-status/meeting-participant-status.service';
 import MeetingTypeService from '@/entities/meeting-type/meeting-type.service';
 import CmsPageService from '@/entities/cms-page/cms-page.service';
 import CmsPageTypeService from '@/entities/cms-page-type/cms-page-type.service';
@@ -252,6 +253,7 @@ new Vue({
     threadService: () => new ThreadService(),
     meetingService: () => new MeetingService(),
     meetingParticipantService: () => new MeetingParticipantService(),
+    meetingParticipantStatusService: () => new MeetingParticipantStatusService(),
     meetingTypeService: () => new MeetingTypeService(),
     cmsPageService: () => new CmsPageService(),
     cmsPageTypeService: () => new CmsPageTypeService(),

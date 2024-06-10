@@ -86,6 +86,7 @@
         "thread": "Thread",
         "meeting": "Meeting",
         "meetingParticipant": "Meeting Participant",
+        "meetingParticipantStatus": "Meeting Participant Status",
         "meetingType": "Meeting Type",
         "cmsPage": "Cms Page",
         "cmsPageType": "Cms Page Type",

@@ -328,6 +328,12 @@ const MeetingParticipantUpdate = () => import('@/entities/meeting-participant/me
 // prettier-ignore
 const MeetingParticipantDetails = () => import('@/entities/meeting-participant/meeting-participant-details.vue');
 // prettier-ignore
+const MeetingParticipantStatus  = () => import('@/entities/meeting-participant-status/meeting-participant-status.vue');
+// prettier-ignore
+const MeetingParticipantStatusDetails  = () => import('@/entities/meeting-participant-status/meeting-participant-status-details.vue');
+// prettier-ignore
+const MeetingParticipantStatusUpdate  = () => import('@/entities/meeting-participant-status/meeting-participant-status-update.vue');
+// prettier-ignore
 const MeetingType = () => import('@/entities/meeting-type/meeting-type.vue');
 // prettier-ignore
 const MeetingTypeUpdate = () => import('@/entities/meeting-type/meeting-type-update.vue');
@@ -1712,6 +1718,30 @@ export default [
     path: '/b2b/meeting-participant/:meetingParticipantId/view',
     name: 'MeetingParticipantView',
     component: MeetingParticipantDetails,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/b2b/meeting-participant-status',
+    name: 'MeetingParticipantStatus',
+    component: MeetingParticipantStatus,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/b2b/meeting-participant-status/new',
+    name: 'MeetingParticipantStatusCreate',
+    component: MeetingParticipantStatusUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/b2b/meeting-participant-status/:meetingParticipantStatusId/edit',
+    name: 'MeetingParticipantStatusEdit',
+    component: MeetingParticipantStatusUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/b2b/meeting-participant-status/:meetingParticipantStatusId/view',
+    name: 'MeetingParticipantStatusView',
+    component: MeetingParticipantStatusDetails,
     meta: { authorities: [Authority.USER] },
   },
   {

@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "meetingParticipantStatus": {
+      "home": {
+        "title": "Statusi učesnika sastanka",
+        "createLabel": "Kreiraj novi status učesnika sastanka",
+        "createOrEditLabel": "Kreiraj ili izmeni status učesnika sastanka",
+        "notFound": "Nije pronađen nijedan status učesnika sastanka"
+      },
+      "created": "Novi status učesnika sastanka je kreiran sa identifikatorom {{ param }}",
+      "updated": "Status učesnika sastanka je ažuriran sa identifikatorom {{ param }}",
+      "deleted": "Status učesnika sastanka je obrisan sa identifikatorom {{ param }}",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete status učesnika sastanka {{ id }}?"
+      },
+      "detail": {
+        "title": "Status učesnika sastanka"
+      },
+      "statusSr": "Status SR",
+      "statusSrc": "Status SRC",
+      "statusEn": "Status En",
+      "isVisible": "Vidljivo",
+      "isDeleted": "Obrisano",
+      "meeting": "Sastanak"
+    }
+  }
+}

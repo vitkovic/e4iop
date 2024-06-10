@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "meetingParticipantStatus": {
+      "home": {
+        "title": "Meeting Participant Statuses",
+        "createLabel": "Create a new Meeting Participant Status",
+        "createOrEditLabel": "Create or edit a Meeting Participant Status",
+        "notFound": "No Meeting Participant Statuses found"
+      },
+      "created": "A new Meeting Participant Status is created with identifier {{ param }}",
+      "updated": "A Meeting Participant Status is updated with identifier {{ param }}",
+      "deleted": "A Meeting Participant Status is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Meeting Participant Status {{ id }}?"
+      },
+      "detail": {
+        "title": "Meeting Participant Status"
+      },
+      "statusSr": "Status SR",
+      "statusSrc": "Status SRC",
+      "statusEn": "Status EN",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "meeting": "Meeting"
+    }
+  }
+}
