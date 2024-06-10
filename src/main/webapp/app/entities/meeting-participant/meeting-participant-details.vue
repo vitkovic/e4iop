@@ -26,6 +26,14 @@
                             <router-link :to="{name: 'PortalUserView', params: {portalUserId: meetingParticipant.portalUser.id}}">{{meetingParticipant.portalUser.id}}</router-link>
                         </div>
                     </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.meetingParticipant.status')">Status</span>
+                    </dt>
+                    <dd>
+                        <div v-if="meetingParticipant.status">
+                            <span>{{ meetingParticipant.status.statusSr }}</span>
+                        </div>
+                    </dd>
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

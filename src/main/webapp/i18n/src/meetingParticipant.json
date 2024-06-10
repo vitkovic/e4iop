@@ -1,0 +1,25 @@
+{
+  "riportalApp": {
+    "meetingParticipant": {
+      "home": {
+        "title": "Meeting Participants",
+        "createLabel": "Креирај нови Meeting Participant",
+        "createOrEditLabel": "Креирајте или измените Meeting Participant",
+        "notFound": "Није пронађен ниједан Meeting Participant"
+      },
+      "created": "Креиран је нови Meeting Participant под називом {{ param }}",
+      "updated": "Meeting Participant под називом {{ param }} је ажуриран",
+      "deleted": "Meeting Participant под називом {{ param }} је обрисан",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете Meeting Participant под називом {{ id }}?"
+      },
+      "detail": {
+        "title": "Meeting Participant"
+      },
+      "hasAccepted": "Прихваћено",
+      "meeting": "Састанак",
+      "portalUser": "Корисник портала",
+      "status": "Статус"
+    }
+  }
+}

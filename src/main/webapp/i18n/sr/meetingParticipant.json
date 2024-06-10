@@ -16,9 +16,10 @@
       "detail": {
         "title": "Meeting Participant"
       },
-      "hasAccepted": "Has Accepted",
-      "meeting": "Meeting",
-      "portalUser": "Portal User"
+      "hasAccepted": "Prihvaćeno",
+      "meeting": "Sastanak",
+      "portalUser": "Korisnik portala",
+      "status": "Status"
     }
   }
 }

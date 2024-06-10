@@ -12,6 +12,9 @@ import AlertService from '@/shared/alert/alert.service';
 import { IMeetingParticipant, MeetingParticipant } from '@/shared/model/meeting-participant.model';
 import MeetingParticipantService from './meeting-participant.service';
 
+import MeetingParticipantStatusService from '../meeting-participant-status/meeting-participant-status.service';
+import { IMeetingParticipantStatus } from '@/shared/model/meeting-participant-status.model';
+
 const validations: any = {
   meetingParticipant: {
     hasAccepted: {},
@@ -32,9 +35,12 @@ export default class MeetingParticipantUpdate extends Vue {
 
   @Inject('portalUserService') private portalUserService: () => PortalUserService;
 
+  @Inject('meetingParticipantStatusService') private meetingParticipantStatusService: () => MeetingParticipantStatusService;
+
   public portalUsers: IPortalUser[] = [];
   public isSaving = false;
   public currentLanguage = '';
+  public meetingParticipantStatuses: IMeetingParticipantStatus[] = [];
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -100,6 +106,11 @@ export default class MeetingParticipantUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.portalUsers = res.data;
+      });
+    this.meetingParticipantStatusService()
+      .retrieve()
+      .then(res => {
+        this.meetingParticipantStatuses = res.data;
       });
   }
 }

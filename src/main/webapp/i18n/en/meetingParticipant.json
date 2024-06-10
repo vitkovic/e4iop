@@ -18,7 +18,8 @@
       },
       "hasAccepted": "Has Accepted",
       "meeting": "Meeting",
-      "portalUser": "Portal User"
+      "portalUser": "Portal User",
+      "status": "Status"
     }
   }
 }

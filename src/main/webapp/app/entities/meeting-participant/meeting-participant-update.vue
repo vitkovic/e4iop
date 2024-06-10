@@ -28,6 +28,22 @@
                             <option v-bind:value="meetingParticipant.portalUser && portalUserOption.id === meetingParticipant.portalUser.id ? meetingParticipant.portalUser : portalUserOption" v-for="portalUserOption in portalUsers" :key="portalUserOption.id">{{portalUserOption.id}}</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="'Status'" for="meeting-participant-status">Status</label>
+                        <select class="form-control" id="meeting-participant-status" name="status" v-model="meetingParticipant.status">
+                        <option v-bind:value="null"></option>
+                        <option
+                            v-bind:value="
+                            meetingParticipant.status && meetingParticipantStatusOption.id === meetingParticipant.status.id
+                                ? meetingParticipant.status
+                                : meetingParticipantStatusOption
+                            "
+                            v-for="meetingParticipantStatusOption in meetingParticipantStatuses"
+                            :key="meetingParticipantStatusOption.id"
+                            >{{ meetingParticipantStatusOption.statusSr }}</option
+                        >
+                        </select>
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

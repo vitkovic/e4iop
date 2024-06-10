@@ -28,6 +28,7 @@
                     <th><span v-text="$t('riportalApp.meetingParticipant.hasAccepted')">Has Accepted</span></th>
                     <th><span v-text="$t('riportalApp.meetingParticipant.meeting')">Meeting</span></th>
                     <th><span v-text="$t('riportalApp.meetingParticipant.portalUser')">Portal User</span></th>
+                    <th><span v-text="$t('riportalApp.meetingParticipant.status')">Status</span></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -46,6 +47,11 @@
                     <td>
                         <div v-if="meetingParticipant.portalUser">
                             <router-link :to="{name: 'PortalUserView', params: {portalUserId: meetingParticipant.portalUser.id}}">{{meetingParticipant.portalUser.id}}</router-link>
+                        </div>
+                    </td>
+                    <td>
+                        <div v-if="meetingParticipant.status">
+                            <span>{{meetingParticipant.status.statusSr}}</span>
                         </div>
                     </td>
                     <td class="text-right">
