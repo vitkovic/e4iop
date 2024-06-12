@@ -304,6 +304,8 @@
             </b-card-header>
 
             <b-collapse :id="'collapse-' + thread.id" accordion="my-accordion" role="tabpanel">
+
+              
               <b-card v-for="message in messages" :key="message.id">
 
                 <div v-if="thread.isFromAdministration" class="row" style="display: flex; flex-direction: row;">
@@ -312,6 +314,7 @@
                       <b>{{ $t('riportalApp.thread.messageSection.date') }} </b> 
                       <span></span>{{ message.datetime ? $d(Date.parse(message.datetime.toString()), 'short') : '' }}
                     </p>
+
                     <div v-if="thread.meeting">
                       <div>
                         <b>{{ 'Sastanak:' }} </b> 
@@ -333,11 +336,34 @@
                         <b>{{ 'Vreme zavrsetka:' }} </b> 
                         <span></span>{{ $d(Date.parse(thread.meeting.datetimeEnd.toString()), 'short') }}
                       </div>
+                      <p style="white-space: pre-line;">{{ message.content }}</p>
+
+                      <div v-if="meetingParticipant != null && !meetingParticipant.isOrganizer">
+                        <div v-if="meetingParticipant.status.statusEn === meetingParticipantStatusOptions.NO_RESPONSE">
+                            <button type="button" class="btn btn-secondary" v-on:click="prepareAcceptMeetingModal(thread.meeting)">
+                            <span><font-awesome-icon icon="check" style="color: green;"/></span>
+                            <span v-text="'Prihvati poziv'"></span>
+                          </button>
+                          <button type="button" class="btn btn-secondary" v-on:click="prepareRejectMeetingModal(thread.meeting)">
+                            <span><font-awesome-icon icon="times" style="color: red;"/></span>
+                            <span v-text="'Odbij poziv'" ></span>
+                          </button>
+                          </div>
+                          <div v-else-if="meetingParticipant.status.statusEn === meetingParticipantStatusOptions.INVITATION_ACCEPTED">
+                            <span><font-awesome-icon icon="check" style="color: green;"/></span>
+                            <span v-text="'Vec ste prihvatili poziv na ovaj sastanak'"></span>
+                          </div>
+                          <div v-else-if="meetingParticipant.status.statusEn === meetingParticipantStatusOptions.INVITATION_REJECTED">
+                            <span><font-awesome-icon icon="times" style="color: red;"/></span>
+                            <span v-text="'Vec ste odbili poziv na ovaj sastanak'"></span>
+                          </div>
+                      </div>
+                      <!-- <div v-else>
+                        <span>Nothing</span>
+                      </div> -->
                     </div>
-                    <p style="white-space: pre-line;">{{ message.content }}</p>
-                    
-                    <button type="button" class="btn btn-success m-2" v-text="'Prihvati poziv'" v-on:click="prepareAcceptMeetingModal(thread.meeting)">Pošalji
-                    </button>
+                    <div v-else></div>
+
                   </div>
                   <div class="col col-lg-2 text-right">
                       <b-button v-on:click="deleteMessage(message, thread)" variant="danger" class="btn btn-sm m-1">
@@ -368,6 +394,7 @@
                       </b-button>
                     </div>
                   </div>
+
               </b-card>
 
               <div v-if="!thread.isFromAdministration">
@@ -382,6 +409,7 @@
                   Pošalji
                 </button>
               </div>
+
             </b-collapse>
           </b-card>
         </div>
@@ -421,11 +449,11 @@
       </div>
     </div>
 
-    <b-modal v-if="meetingToAccept" ref="acceptMeetingModal" id="acceptMeetingModal">
+    <b-modal v-if="meeting" ref="acceptMeetingModal" id="acceptMeetingModal">
       <div class="modal-body">
           <p>
               <span v-text="'Da li želite da prihvatite poziv za sastanak - '">Da li želite da prihvatite poziv za sastanak?</span>
-              <span><b>{{ meetingToAccept.title }}</b></span>
+              <span><b>{{ meeting.title }}</b></span>
               <span v-text="'?'"></span>
           </p>
           
@@ -437,6 +465,28 @@
           class="btn btn-danger"
           v-text="'Otkaži'"
           v-on:click="closeAcceptMeetingModal()"
+          >
+
+          </button>
+      </div>
+  </b-modal>
+
+  <b-modal v-if="meeting" ref="rejectMeetingModal" id="rejectMeetingModal">
+      <div class="modal-body">
+          <p>
+              <span v-text="'Da li želite da odbijete poziv za sastanak - '">Da li želite da odbijete poziv za sastanak?</span>
+              <span><b>{{ meeting.title }}</b></span>
+              <span v-text="'?'"></span>
+          </p>
+          
+      </div>
+      <div slot="modal-footer">
+          <button type="button" class="btn btn-success" v-text="'Potvrdi'" v-on:click="rejectMeeting()">Cancel</button>
+          <button
+          type="button"
+          class="btn btn-danger"
+          v-text="'Otkaži'"
+          v-on:click="closeRejectMeetingModal()"
           >
 
           </button>

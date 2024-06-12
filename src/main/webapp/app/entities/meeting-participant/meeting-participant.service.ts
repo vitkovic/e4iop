@@ -6,7 +6,10 @@ const baseApiUrl = 'api/meeting-participants';
 const apiFindAllNotRemovedForCompany = 'api/meeting-participants/company-all';
 const apiFindAllForMeeting = 'api/meeting-participants/meeting-all';
 const apiFindCompanyOrganizerForMeeting = 'api/meeting-participants/meeting-organizer';
+const apiFindOneForMeetingAndCompany = 'api/meeting-participants//meeting-company';
 const apiAcceptMeetingForCompany = 'api/meeting-participants/accept/meeting-company';
+const apiRejectMeetingForCompany = 'api/meeting-participants/reject/meeting-company';
+const apiCheckNoResponseForMeetingAndCompany = 'api/meeting-participants/check-no-response/meeting-company';
 const apiRemoveMeetingForCompany = 'api/meeting-participants/remove/meeting-company';
 
 export default class MeetingParticipantService {
@@ -114,10 +117,49 @@ export default class MeetingParticipantService {
     });
   }
 
+  public checkNoResponseForMeetingAndCompany(meetingId: number, companyId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${apiCheckNoResponseForMeetingAndCompany}/${meetingId}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public findOneForMeetingAndCompany(meetingId: number, companyId: number): Promise<IMeetingParticipant> {
+    return new Promise<IMeetingParticipant>((resolve, reject) => {
+      axios
+        .get(`${apiFindOneForMeetingAndCompany}/${meetingId}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
   public acceptMeetingForCompany(meetingId: number, companyId: number): Promise<IMeetingParticipant> {
     return new Promise<IMeetingParticipant>((resolve, reject) => {
       axios
         .put(`${apiAcceptMeetingForCompany}/${meetingId}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public rejectMeetingForCompany(meetingId: number, companyId: number): Promise<IMeetingParticipant> {
+    return new Promise<IMeetingParticipant>((resolve, reject) => {
+      axios
+        .put(`${apiRejectMeetingForCompany}/${meetingId}/${companyId}`)
         .then(res => {
           resolve(res.data);
         })

@@ -14,6 +14,7 @@ import e4i.domain.Meeting;
 import e4i.domain.Thread;
 import e4i.repository.ThreadRepository;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -147,7 +148,7 @@ public class ThreadService {
     }
 
     @Transactional
-	public Thread createThreadForMeeting(Meeting meeting, Company company) {
+	public Thread createThreadForNewMeeting(Meeting meeting, Company company) {
     	Thread thread = new Thread();
     	thread.setSubject("Poziv na sastanak");
     	thread.setCompanyReceiver(company);
@@ -157,5 +158,21 @@ public class ThreadService {
     	Thread result = this.save(thread);
     	
 		return result;
-	}    
+	}
+    
+    @Transactional
+	public Thread createThreadForMeetingAcceptance(Meeting meeting, Company company) {
+    	Thread thread = new Thread();
+    	thread.setSubject("Prihvaćen je poziv za sastanak");
+    	thread.setCompanyReceiver(company);
+    	thread.setIsFromAdministration(true);
+    	
+    	// Zasto ovde mora ovako, a gore moze samo thread.addMeeting(meeting)???????????????
+    	thread.setMeetings(new HashSet<>());    	
+    	thread.getMeetings().add(meeting);
+    	
+    	Thread result = this.save(thread);
+    	
+		return result;
+	}   
 }

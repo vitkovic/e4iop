@@ -154,6 +154,7 @@ public class MeetingResource {
         
         try {
         	meeting.setMeetingParticipants(new HashSet<>());
+        	meeting.setThreads(new HashSet<>());
             Meeting newMeeting = meetingService.save(meeting);
             
             Company companyOrganizer = companyService.getOneById(organizerId);
@@ -164,7 +165,7 @@ public class MeetingResource {
             	meetingParticipantService.addMeetingParticipant(newMeeting, companyParticipant);
 
                 // send messages to participant companies
-            	Thread thread = threadService.createThreadForMeeting(newMeeting, companyParticipant);
+            	Thread thread = threadService.createThreadForNewMeeting(newMeeting, companyParticipant);
             	Message message = messageService.createFirstMessageInThreadMeeting(thread, newMeeting, companyOrganizer);
             
                 // send email notifications participant companies

@@ -207,8 +207,29 @@ public class MessageService {
 //    	String advertisementText = (meeting.getAdvertisement() != null) ? 
 //    		    "Oglas: " + meeting.getAdvertisement().getTitle() + "\n" : "\n";
     	String infoText = "\nImate poziv za novi sastanak na B2B portalu.\n"
-    			+ "\nPoziv na sastanak možete potvrditi klikom na opciju 'Prihvati poziv' u ovoj poruci ili sa stranice 'Kalendar'."
+    			+ "\nPoziv na sastanak možete potvrditi ili otkazati klikom na odgovorajuće opcije u ovoj poruci ili sa stranice 'Kalendar'."
     			+ "\n Ostale detalje sastanka možete pogledati sa stranice 'Kalendar'.";
+    	
+    	String content = infoText;
+    	
+    	Message message = new Message();
+        message.setThread(thread);
+//        message.setPortalUserSender(portalUser);
+        message.setContent(content);
+        message.setDatetime(Instant.now());
+        message.setIsRead(false);
+        message.setIsDeletedSender(true);
+        message.setIsDeletedReceiver(false);
+    	
+    	Message result = this.save(message);
+    	
+    	return result;
+	}
+
+    @Transactional
+	public Message createFirstMessageInThreadAcceptanceMeeting(Thread thread, Meeting meeting, Company company) {
+    	String infoText = "\nKompanija " + company.getName() + " je prihvatila poziv za sastanak na B2B portalu.\n"
+    			+ "\nDetalje svih zakazanih sastanaka možete pogledati sa stranice 'Kalendar'.";
     	
     	String content = infoText;
     	

@@ -4,13 +4,24 @@ import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import e4i.domain.Company;
+import e4i.domain.Meeting;
 import e4i.domain.MeetingParticipant;
+import e4i.domain.Message;
+import e4i.domain.Thread;
+import e4i.service.CompanyService;
+import e4i.service.MailService;
 import e4i.service.MeetingParticipantService;
+import e4i.service.MeetingService;
+import e4i.service.MessageService;
+import e4i.service.ThreadService;
+import e4i.web.rest.dto.NotificationMailDTO;
 import e4i.web.rest.errors.BadRequestAlertException;
 
 import java.net.URI;
@@ -34,8 +45,23 @@ public class MeetingParticipantResource {
 
     private final MeetingParticipantService meetingParticipantService;
 
-    public MeetingParticipantResource(MeetingParticipantService meetingParticipantService) {
+    @Autowired
+    MeetingService meetingService;
+    
+    @Autowired
+    CompanyService companyService;
+    
+    @Autowired
+    ThreadService threadService;
+    
+    @Autowired
+    MessageService messageService;
+    
+    private final MailService mailService;
+    
+    public MeetingParticipantResource(MeetingParticipantService meetingParticipantService, MailService mailService) {
         this.meetingParticipantService = meetingParticipantService;
+        this.mailService = mailService;
     }
 
     /**
@@ -127,6 +153,15 @@ public class MeetingParticipantResource {
         return meetingParticipantService.findAllByMeetingId(meetingId);
     }
     
+    @GetMapping("/meeting-participants/meeting-company/{meetingId}/{companyId}")
+    public MeetingParticipant findOneForMeetingAndCompany(
+    		@PathVariable Long meetingId,
+    		@PathVariable Long companyId
+    		) {
+        log.debug("REST request to find MeetingParticipants for Meeting {} and Company {}", meetingId, companyId);   
+        return meetingParticipantService.findOneByMeetingAndCompany(meetingId, companyId);
+    }
+    
     @GetMapping("/meeting-participants/meeting-organizer/{meetingId}")
     public MeetingParticipant findCompanyOrganizerForMeeting(@PathVariable Long meetingId) {
         log.debug("REST request to get organizer company MeetingParticipant for Meeting {}", meetingId);   
@@ -137,20 +172,94 @@ public class MeetingParticipantResource {
     public ResponseEntity<?> acceptMeetingForCompany(@PathVariable Long meetingId, @PathVariable Long companyId) {
         log.debug("REST request to accept Meeting {} for Company {}", meetingId, companyId);
         
-        Optional<Boolean> hasAcceptedOptional = meetingParticipantService.checkMeetingAccpetance(meetingId, companyId);
+        Optional<Boolean> isAcceptedOptional = meetingParticipantService.checkMeetingAccpetance(meetingId, companyId);
         
-        if (hasAcceptedOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No MeetingParticipant found for the given meetingId and companyId");
+        if (isAcceptedOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No MeetingParticipant found for the given meetingId, companyId, and acceptance string");
         }
         
-        Boolean hasAccepted = hasAcceptedOptional.get();
+        Boolean isAccepted = isAcceptedOptional.get();
         
-        if (hasAccepted) {
+        if (isAccepted) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Meeting has already been accepted by the company");
         }
         
-        MeetingParticipant meetingParticipant = meetingParticipantService.acceptMeetingForCompany(meetingId, companyId);
-        return ResponseEntity.ok(meetingParticipant);
+        try {
+            MeetingParticipant meetingParticipant = meetingParticipantService.acceptMeetingForCompany(meetingId, companyId);
+            
+            Meeting meeting = meetingService.getOne(meetingId);
+            Company companyOrganizer = meetingParticipantService.findCompanyByMeetingAndIsOrganizer(meetingId, true);
+            Company companyParticipant = companyService.getOneById(companyId);
+
+            // send message to organiser company
+        	Thread thread = threadService.createThreadForMeetingAcceptance(meeting, companyOrganizer);
+        	Message message = messageService.createFirstMessageInThreadAcceptanceMeeting(thread, meeting, companyParticipant);
+        
+            // send email notifications organiser company
+        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingAcceptance(meeting, companyOrganizer, companyParticipant);
+        	if (!mailDTO.getEmails().isEmpty()) {
+        		mailService.sendNotificationMail(mailDTO);
+        	}
+        	
+            return ResponseEntity.ok(meetingParticipant);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Server error!");
+		}
+    }
+    
+    @PutMapping("/meeting-participants/reject/meeting-company/{meetingId}/{companyId}")
+    public ResponseEntity<?> rejectMeetingForCompany(@PathVariable Long meetingId, @PathVariable Long companyId) {
+        log.debug("REST request to reject Meeting {} for Company {}", meetingId, companyId);
+        
+        Optional<Boolean> isRejectedOptional = meetingParticipantService.checkMeetingRejection(meetingId, companyId);
+        
+        if (isRejectedOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No MeetingParticipant found for the given meetingId, companyId, and rejection string");
+        }
+        
+        Boolean isRejected = isRejectedOptional.get();
+        
+        if (isRejected) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Meeting has already been rejected by the company");
+        }
+        
+        try {
+            MeetingParticipant meetingParticipant = meetingParticipantService.rejectMeetingForCompany(meetingId, companyId);
+            
+            Meeting meeting = meetingService.getOne(meetingId);
+            Company companyOrganizer = meetingParticipantService.findCompanyByMeetingAndIsOrganizer(meetingId, true);
+            Company companyParticipant = companyService.getOneById(companyId);
+
+            // send messages to organiser company
+//        	Thread thread = threadService.createThreadForMeetingAcceptance(meeting, companyOrganizer);
+//        	Message message = messageService.createFirstMessageInThreadAcceptanceMeeting(thread, meeting, companyParticipant);
+        
+            // send email notifications participant companies
+//        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingAcceptance(meeting, companyOrganizer, companyParticipant);
+//        	if (!mailDTO.getEmails().isEmpty()) {
+//        		mailService.sendNotificationMail(mailDTO);
+//        	}
+            return ResponseEntity.ok(meetingParticipant);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Server error!");
+		}
+    }
+    
+    @GetMapping("/meeting-participants/check-no-response/meeting-company/{meetingId}/{companyId}")
+    public ResponseEntity<?> checkNoResponseForMeetingAndCompany(@PathVariable Long meetingId, @PathVariable Long companyId) {
+        log.debug("REST request to check response for Meeting {} for Company {}", meetingId, companyId);
+        
+        Optional<Boolean> noResponseOptional = meetingParticipantService.checkMeetingNoResponse(meetingId, companyId);
+        
+        if (noResponseOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No MeetingParticipant found for the given meetingId, companyId, and no response string");
+        }
+        
+        Boolean noResponse = noResponseOptional.get();
+
+        return ResponseEntity.ok(noResponse);
     }
     
     @PutMapping("/meeting-participants/remove/meeting-company/{meetingId}/{companyId}")

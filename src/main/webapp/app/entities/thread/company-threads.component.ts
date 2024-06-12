@@ -10,6 +10,7 @@ import { IAdvertisement } from '@/shared/model/advertisement.model';
 import { ICollaboration } from '@/shared/model/collaboration.model';
 import { IMeeting } from '@/shared/model/meeting.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
+import { IMeetingParticipant } from '@/shared/model/meeting-participant.model';
 
 import ThreadService from './thread.service';
 import CompanyService from '@/entities/company.service';
@@ -22,6 +23,12 @@ enum ThreadsFilter {
   ALL = 'all',
   SENDER = 'sender',
   RECEIVER = 'receiver',
+}
+
+enum MeetingParticipantStatusOptions {
+  INVITATION_ACCEPTED = 'Invitation accepted',
+  INVITATION_REJECTED = 'Invitation rejected',
+  NO_RESPONSE = 'No response',
 }
 
 interface IThreadDTO {
@@ -68,10 +75,12 @@ export default class Thread extends mixins(AlertMixin) {
   public companyId: number | null = null;
   public messages: IMessage[] = [];
   public newMessage: IMessage = new Message();
-  public meetingToAccept: IMeeting | null = null;
+  public meeting: IMeeting | null = null;
+  public meetingParticipant: IMeetingParticipant | null = null;
 
   public isFetching = false;
 
+  public meetingParticipantStatusOptions = MeetingParticipantStatusOptions;
   public activeThreadFilter = ThreadsFilter.ALL;
   public filterAllButtonVariant = 'secondary';
   public filterSenderButtonVariant = 'outline-secondary';
@@ -122,6 +131,7 @@ export default class Thread extends mixins(AlertMixin) {
             this.totalItems = Number(res.headers['x-total-count']);
             this.queryCount = this.totalItems;
             this.isFetching = false;
+            console.log(this.threadsDTO);
           },
           err => {
             this.isFetching = false;
@@ -283,11 +293,22 @@ export default class Thread extends mixins(AlertMixin) {
   }
 
   public showMessages(thread: IThreadDTO) {
+    console.log(thread.id);
+
+    // this.meetingParticipant = null;
+    if (thread?.meeting) {
+      this.meetingParticipantService()
+        .findOneForMeetingAndCompany(thread.meeting.id, this.companyId)
+        .then(res => {
+          this.meetingParticipant = res;
+        });
+    }
+
     if (thread?.id) {
       this.messageService()
         .getAllByThreadAndCompany(thread.id, this.companyId)
         .then(res => {
-          this.retrieveThreads();
+          // this.retrieveThreads();
           this.messages = res;
         });
     }
@@ -412,7 +433,7 @@ export default class Thread extends mixins(AlertMixin) {
   }
 
   public prepareAcceptMeetingModal(meeting: IMeeting): void {
-    this.meetingToAccept = meeting;
+    this.meeting = meeting;
 
     if (<any>this.$refs.acceptMeetingModal) {
       (<any>this.$refs.acceptMeetingModal).show();
@@ -421,9 +442,9 @@ export default class Thread extends mixins(AlertMixin) {
 
   public acceptMeeting(): void {
     this.meetingParticipantService()
-      .acceptMeetingForCompany(this.meetingToAccept.id, this.companyId)
+      .acceptMeetingForCompany(this.meeting.id, this.companyId)
       .then(res => {
-        const message = 'Potvrdili ste poziv za sastanak - ' + this.meetingToAccept.title;
+        const message = 'Potvrdili ste poziv za sastanak - ' + this.meeting.title;
         this.$notify({
           text: message,
         });
@@ -459,5 +480,55 @@ export default class Thread extends mixins(AlertMixin) {
 
   public closeAcceptMeetingModal(): void {
     (<any>this.$refs.acceptMeetingModal).hide();
+  }
+
+  public prepareRejectMeetingModal(meeting: IMeeting): void {
+    this.meeting = meeting;
+
+    if (<any>this.$refs.rejectMeetingModal) {
+      (<any>this.$refs.rejectMeetingModal).show();
+    }
+  }
+
+  public rejectMeeting(): void {
+    this.meetingParticipantService()
+      .rejectMeetingForCompany(this.meeting.id, this.companyId)
+      .then(res => {
+        const message = 'Odbili ste poziv za sastanak - ' + this.meeting.title;
+        this.$notify({
+          text: message,
+        });
+      })
+      .catch(error => {
+        if (error.response) {
+          const status = error.response.status;
+          // const message = error.response.data;
+
+          if (status === 404) {
+            const message = 'Sistemska greska, nemate poziv za izabrani sastanak';
+            this.$notify({
+              text: message,
+            });
+          } else if (status === 400) {
+            const message = 'Već ste odbili poziv za ovaj sastanak';
+            this.$notify({
+              text: message,
+            });
+          } else {
+            const message = error.response.data;
+            this.$notify({
+              text: message,
+            });
+          }
+        } else {
+          console.error('Greska!', error.message);
+        }
+      });
+
+    this.closeRejectMeetingModal();
+  }
+
+  public closeRejectMeetingModal(): void {
+    (<any>this.$refs.rejectMeetingModal).hide();
   }
 }

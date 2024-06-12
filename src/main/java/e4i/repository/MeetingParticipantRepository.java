@@ -28,4 +28,13 @@ public interface MeetingParticipantRepository extends JpaRepository<MeetingParti
 	@Query("SELECT mp.hasAccepted FROM MeetingParticipant mp WHERE mp.meeting.id = :meetingId AND mp.company.id = :companyId")
 	Optional<Boolean> findHasAcceptedByMeetingIdAndCompanyId(@Param("meetingId") Long meetingId, @Param("companyId") Long companyId);
 
+	@Query("SELECT CASE WHEN COUNT(mp) > 0 THEN true ELSE false END " +
+		       "FROM MeetingParticipant mp " +
+		       "JOIN mp.status mps " +
+		       "WHERE mp.meeting.id = :meetingId " +
+		       "AND mp.company.id = :companyId " +
+		       "AND (mps.statusSr = :status OR mps.statusSrc = :status OR mps.statusEn = :status)")
+	Optional<Boolean> checkIfStatusByMeetingIdAndCompanyId(@Param("meetingId") Long meetingId, @Param("companyId") Long companyId, @Param("status") String status);
+
+	
 }

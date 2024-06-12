@@ -16,6 +16,12 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import momentPlugin from '@fullcalendar/moment';
 
+enum MeetingParticipantStatusOptions {
+  INVITATION_ACCEPTED = 'Invitation accepted',
+  INVITATION_REJECTED = 'Invitation rejected',
+  NO_RESPONSE = 'No response',
+}
+
 interface MeetingEvent {
   id: number;
   date: string;
@@ -423,7 +429,7 @@ export default class CompanyCalendar extends Vue {
     (<any>this.$refs.editMeetingModal).hide();
   }
 
-  public prepareAceeptMeetingModal(): void {
+  public prepareAcceptMeetingModal(): void {
     if (<any>this.$refs.acceptMeetingModal) {
       (<any>this.$refs.acceptMeetingModal).show();
     }
@@ -448,6 +454,33 @@ export default class CompanyCalendar extends Vue {
 
   public closeAcceptMeetingModal(): void {
     (<any>this.$refs.acceptMeetingModal).hide();
+  }
+
+  public prepareRejectMeetingModal(): void {
+    if (<any>this.$refs.rejectMeetingModal) {
+      (<any>this.$refs.rejectMeetingModal).show();
+    }
+  }
+
+  public rejectMeeting(): void {
+    this.meetingParticipantService()
+      .rejectMeetingForCompany(this.selectedEvent.id, this.companyId)
+      .then(res => {
+        this.isCalendarPopulated = false;
+        this.populateCalendar();
+
+        const message = 'Odbili ste poziv za sastanak - ' + this.selectedEvent.title;
+        this.$notify({
+          text: message,
+        });
+      });
+
+    this.closeRejectMeetingModal();
+    this.closeViewMeetingModal();
+  }
+
+  public closeRejectMeetingModal(): void {
+    (<any>this.$refs.rejectMeetingModal).hide();
   }
 
   public prepareRemoveMeetingModal(): void {
@@ -515,19 +548,27 @@ export default class CompanyCalendar extends Vue {
       .toUpperCase();
   }
 
-  public isMeetingAcceptedForCurrentCompany(selectedEvent: MeetingEvent): boolean {
+  public isThereMeetingResponseForCurrentCompany(selectedEvent: MeetingEvent): boolean {
     if (selectedEvent?.organizer?.company?.id == this.companyId) {
       return true;
     }
 
     if (selectedEvent?.advertiser?.company?.id == this.companyId) {
-      return selectedEvent.advertiser.hasAccepted;
+      if (selectedEvent?.advertiser?.status) {
+        return selectedEvent.advertiser.status.statusEn != MeetingParticipantStatusOptions.NO_RESPONSE;
+      } else {
+        return false;
+      }
     }
 
     if (selectedEvent?.otherParticipants) {
-      return selectedEvent.otherParticipants.some(participant => participant?.company?.id == this.companyId && participant.hasAccepted);
+      const participant = this.selectedEvent.otherParticipants.find(participant => participant?.company?.id == this.companyId);
+      if (participant?.status) {
+        return participant.status.statusEn != MeetingParticipantStatusOptions.NO_RESPONSE;
+      } else {
+        return false;
+      }
     }
-
     return false;
   }
 

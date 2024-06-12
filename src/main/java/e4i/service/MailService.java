@@ -333,8 +333,30 @@ public class MailService {
                 .map(portalUser -> portalUser.getUser().getEmail())
                 .collect(Collectors.toList());
 	
-        String mailSubject = "B2B portal - Obaveštenje o novom pozivi za sastanak";
+        String mailSubject = "B2B portal - Obaveštenje o novom pozivu za sastanak";
         String mailContent = this.prepareNotificationContentForMeetingInvitation(meeting, companyOrganizer, companyParticipant);
+
+        NotificationMailDTO mailDTO = new NotificationMailDTO();
+        mailDTO.setEmails(emails);
+        mailDTO.setSubject(mailSubject);
+        mailDTO.setContent(mailContent);
+        
+        return mailDTO;
+	}
+    
+
+	public NotificationMailDTO createNotificationMailDTOForMeetingAcceptance(
+			Meeting meeting, 
+			Company companyOrganizer,
+			Company companyParticipant
+			) {
+        List<PortalUser> companyPortalUsers = portalUserRepository.findAllByCompanyAndDoNotify(companyOrganizer, true); 
+        List<String> emails = companyPortalUsers.stream()
+                .map(portalUser -> portalUser.getUser().getEmail())
+                .collect(Collectors.toList());
+	
+        String mailSubject = "B2B portal - Obaveštenje o prihvatanju poziva za sastanak";
+        String mailContent = this.prepareNotificationContentForMeetingAcceptance(meeting, companyOrganizer, companyParticipant);
 
         NotificationMailDTO mailDTO = new NotificationMailDTO();
         mailDTO.setEmails(emails);
@@ -518,8 +540,11 @@ public class MailService {
     	return content;
     }
 
-    private String prepareNotificationContentForMeetingInvitation(Meeting meeting, Company companyOrganizer, Company companyParticipant) {
-        
+    private String prepareNotificationContentForMeetingInvitation(
+    		Meeting meeting, 
+    		Company companyOrganizer, 
+    		Company companyParticipant
+    		) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         ZonedDateTime zonedDateTimeStart = meeting.getDatetimeStart().atZone(ZoneId.systemDefault());
         ZonedDateTime zonedDateTimeEnd = meeting.getDatetimeEnd().atZone(ZoneId.systemDefault());
@@ -550,4 +575,41 @@ public class MailService {
         
     	return content;
 	}
+    
+	private String prepareNotificationContentForMeetingAcceptance(
+			Meeting meeting, 
+			Company companyOrganizer,
+			Company companyParticipant
+			) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        ZonedDateTime zonedDateTimeStart = meeting.getDatetimeStart().atZone(ZoneId.systemDefault());
+        ZonedDateTime zonedDateTimeEnd = meeting.getDatetimeEnd().atZone(ZoneId.systemDefault());
+    	
+    	String homeURL = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+        String companyCalendarLink = homeURL + "/b2b/company/" + companyOrganizer.getId() + "/calendar";
+        
+    	String advertisementText = (meeting.getAdvertisement() != null) ? 
+    			"<p><b>Oglas: </b><span>" + meeting.getAdvertisement().getTitle() : "";
+        
+        String meetingText = 
+        		"<p><b>Sastanak: </b><span>" + meeting.getTitle()
+        		+ "<p><b>Organizator: </b><span>" + companyOrganizer.getName()
+        		+ advertisementText
+        		+ "<p><b>Vreme pocetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
+        		+ "<p><b>Vreme zavrsetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd);
+        
+        String content = "<div>"
+        		+ "<p>Kompanija " + companyParticipant.getName() + " je prihvatila poziv za sastanak."
+        		+ "<br>"
+        		+ "<br>"
+        		+ meetingText
+        		+ "<hr>"
+        		+ "<br>"
+        		+ "<p>Detalje svih zakazanih sastanaka možete pogledati u kalendaru na "
+        		+ "<a href='" + companyCalendarLink + "'> B2B profilu Vaše kompanije<a>.</p>"
+        		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
+        
+    	return content;
+	}
+
 }

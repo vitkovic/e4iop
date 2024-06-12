@@ -42,6 +42,28 @@
             </div>
         </b-modal>
 
+        <b-modal v-if="selectedEvent" ref="rejectMeetingModal" id="rejectMeetingModal">
+            <div class="modal-body">
+                <p>
+                   <span v-text="'Da li želite da odbijete poziv za sastanak - '">Da li želite da odbijete poziv za sastanak?</span>
+                   <span><b>{{ selectedEvent.title }}</b></span>
+                   <span v-text="'?'"></span>
+                </p>
+                
+            </div>
+            <div slot="modal-footer">
+                <button type="button" class="btn btn-success" v-text="'Potvrdi'" v-on:click="rejectMeeting()">Cancel</button>
+                <button
+                type="button"
+                class="btn btn-danger"
+                v-text="'Otkaži'"
+                v-on:click="closeRejectMeetingModal()"
+                >
+
+                </button>
+            </div>
+        </b-modal>
+
         <b-modal v-if="selectedEvent" ref="viewMeetingModal" id="viewMeetingModal">
             <span slot="modal-title">{{ selectedEvent.title }}</span>
             <div class="modal-body">
@@ -108,8 +130,7 @@
                             <span>{{ selectedEvent.advertiser.company.name }}</span>
                         </div>
                         <div>
-                            <span v-if="selectedEvent.advertiser.hasAccepted">Poziv prihvaćen</span>
-                            <span v-else>Bez odgovora</span>
+                            <span>{{ selectedEvent.advertiser.status.statusSr }}</span>
                         </div>
                     </div>
                     <hr>
@@ -131,8 +152,7 @@
                             <span>{{ participant.company.name }}</span>
                         </div>
                         <div>
-                            <span v-if="participant.hasAccepted">Poziv prihvaćen</span>
-                            <span v-else>Bez odgovora</span>
+                            <span>{{ participant.status.statusSr }}</span>
                         </div>
                     </div>
                 </div>
@@ -140,10 +160,17 @@
             </div>
 
             <div slot="modal-footer">
+                <button v-if="!isThereMeetingResponseForCurrentCompany(selectedEvent)" type="button" class="btn btn-secondary" v-on:click="prepareAcceptMeetingModal()">
+                  <span><font-awesome-icon icon="check" style="color: green;"/></span>
+                  <span v-text="'Prihvati poziv'"></span>
+                </button>
+                <button v-if="!isThereMeetingResponseForCurrentCompany(selectedEvent)" type="button" class="btn btn-secondary" v-on:click="prepareRejectMeetingModal()">
+                  <span><font-awesome-icon icon="times" style="color: red;"/></span>
+                  <span v-text="'Odbij poziv'" ></span>
+                </button>
                 <button type="button" class="btn btn-primary" v-text="'Preuzmi ICS'" v-on:click="exportMeetingToICS()">Preuzmi ICS</button>
-                <button v-if="!isMeetingAcceptedForCurrentCompany(selectedEvent)" type="button" class="btn btn-primary" v-text="'Prihvati poziv'" v-on:click="prepareAceeptMeetingModal()">Prihvati poziv</button>
-                <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-secondary" v-text="'Izmeni'" v-on:click="prepareEditMeetingModal()">Izmeni</button>
-                <button type="button" class="btn btn-danger" v-text="'Ukloni'" v-on:click="prepareRemoveMeetingModal(selectedEvent.id)">Obriši</button>
+                <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-primary" v-text="'Izmeni'" v-on:click="prepareEditMeetingModal()">Izmeni</button>
+                <!-- <button type="button" class="btn btn-danger" v-text="'Ukloni'" v-on:click="prepareRemoveMeetingModal(selectedEvent.id)">Obriši</button> -->
                 <!-- <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeViewMeetingModal()">Cancel</button> -->
             </div>
         </b-modal>

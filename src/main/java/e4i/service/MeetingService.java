@@ -102,4 +102,13 @@ public class MeetingService {
         
 		return editedMeeting;
 	}
+
+	public Meeting getOne(Long meetingId) {
+    	Optional<Meeting> meetingOptional = meetingRepository.findById(meetingId);
+        if (meetingOptional.isEmpty()) {
+            throw new EntityNotFoundException("Meeting not found with id: " + meetingId);
+        }
+        
+        return meetingOptional.get();
+	}
 }
