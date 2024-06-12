@@ -156,10 +156,28 @@ export default class MeetingParticipantService {
     });
   }
 
-  public rejectMeetingForCompany(meetingId: number, companyId: number): Promise<IMeetingParticipant> {
+  // public rejectMeetingForCompany(meetingId: number, companyId: number, comment: string): Promise<IMeetingParticipant> {
+  //   return new Promise<IMeetingParticipant>((resolve, reject) => {
+  //     axios
+  //       // .put(`${apiRejectMeetingForCompany}/${meetingId}/${companyId}/${comment}`)
+  //       .put(`${apiRejectMeetingForCompany}/?meetingId=${meetingId}&companyId=${companyId}`, comment)
+  //       .then(res => {
+  //         resolve(res.data);
+  //       })
+  //       .catch(err => {
+  //         reject(err);
+  //       });
+  //   });
+  // }
+
+  public rejectMeetingForCompany(formData: FormData): Promise<IMeetingParticipant> {
     return new Promise<IMeetingParticipant>((resolve, reject) => {
       axios
-        .put(`${apiRejectMeetingForCompany}/${meetingId}/${companyId}`)
+        .put(apiRejectMeetingForCompany, formData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
         .then(res => {
           resolve(res.data);
         })

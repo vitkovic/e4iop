@@ -208,8 +208,12 @@ public class MeetingParticipantResource {
 		}
     }
     
-    @PutMapping("/meeting-participants/reject/meeting-company/{meetingId}/{companyId}")
-    public ResponseEntity<?> rejectMeetingForCompany(@PathVariable Long meetingId, @PathVariable Long companyId) {
+    @PutMapping("/meeting-participants/reject/meeting-company")
+    public ResponseEntity<?> rejectMeetingForCompany(
+    		@RequestParam Long meetingId, 
+    		@RequestParam Long companyId,
+    		@RequestParam String comment
+    		) {
         log.debug("REST request to reject Meeting {} for Company {}", meetingId, companyId);
         
         Optional<Boolean> isRejectedOptional = meetingParticipantService.checkMeetingRejection(meetingId, companyId);
@@ -232,14 +236,15 @@ public class MeetingParticipantResource {
             Company companyParticipant = companyService.getOneById(companyId);
 
             // send messages to organiser company
-//        	Thread thread = threadService.createThreadForMeetingAcceptance(meeting, companyOrganizer);
-//        	Message message = messageService.createFirstMessageInThreadAcceptanceMeeting(thread, meeting, companyParticipant);
+        	Thread thread = threadService.createThreadForMeetingRejection(meeting, companyOrganizer);
+        	Message message = messageService.createFirstMessageInThreadRejectionMeeting(thread, meeting, companyParticipant, comment);
         
             // send email notifications participant companies
-//        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingAcceptance(meeting, companyOrganizer, companyParticipant);
-//        	if (!mailDTO.getEmails().isEmpty()) {
-//        		mailService.sendNotificationMail(mailDTO);
-//        	}
+        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingRejection(meeting, companyOrganizer, companyParticipant, comment);
+        	if (!mailDTO.getEmails().isEmpty()) {
+        		mailService.sendNotificationMail(mailDTO);
+        	}
+        	
             return ResponseEntity.ok(meetingParticipant);
 		} catch (Exception e) {
 			e.printStackTrace();

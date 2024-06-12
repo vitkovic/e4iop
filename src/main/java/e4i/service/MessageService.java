@@ -246,4 +246,30 @@ public class MessageService {
     	
     	return result;
 	}
+    
+    @Transactional
+	public Message createFirstMessageInThreadRejectionMeeting(
+			Thread thread, 
+			Meeting meeting,
+			Company company, 
+			String comment
+			) {
+    	String infoText = "\nKompanija " + company.getName() + " je odbila poziv za sastanak na B2B portalu.\n"
+    			+ "\nDetalje svih zakazanih sastanaka možete pogledati sa stranice 'Kalendar'.";
+    	
+    	String content = infoText + "\n\n" + comment;
+    	
+    	Message message = new Message();
+        message.setThread(thread);
+//        message.setPortalUserSender(portalUser);
+        message.setContent(content);
+        message.setDatetime(Instant.now());
+        message.setIsRead(false);
+        message.setIsDeletedSender(true);
+        message.setIsDeletedReceiver(false);
+    	
+    	Message result = this.save(message);
+    	
+    	return result;
+	}
 }

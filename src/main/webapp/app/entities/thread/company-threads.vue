@@ -478,6 +478,32 @@
               <span><b>{{ meeting.title }}</b></span>
               <span v-text="'?'"></span>
           </p>
+
+          <label for="" v-text="'Razlog otkazivanja'"></label>
+                <b-form-textarea v-model="rejectMeetingComment.comment" class="mb-3" id="" cols="30" rows="5"></b-form-textarea>
+
+                <label for="" v-text="'Predložite novi termin'"></label>
+                <div class="d-flex">
+                <b-form-datepicker
+                  style="width: 70%;"
+                  v-model="rejectMeetingComment.startDate"
+                  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                  placeholder="Izaberite datum početka..."
+                  @input="updateBFormCalendarEndDate(rejectMeetingComment, 'startDate', 'endDate')"
+                ></b-form-datepicker>
+                <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="rejectMeetingComment.startTime"></b-form-timepicker>
+              </div>
+
+              <div class="d-flex mb-3">
+                <b-form-datepicker
+                  style="width: 70%;"
+                  v-model="rejectMeetingComment.endDate"
+                  :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                  placeholder="Izaberite datum završetka..."
+                  :min="rejectMeetingComment.startDate"
+                ></b-form-datepicker>
+                <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="rejectMeetingComment.endTime"></b-form-timepicker>
+              </div>
           
       </div>
       <div slot="modal-footer">

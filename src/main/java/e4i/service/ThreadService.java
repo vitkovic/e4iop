@@ -167,7 +167,23 @@ public class ThreadService {
     	thread.setCompanyReceiver(company);
     	thread.setIsFromAdministration(true);
     	
-    	// Zasto ovde mora ovako, a gore moze samo thread.addMeeting(meeting)???????????????
+    	// Zasto ovde mora ovako, dok u createThreadForNewMeeting() moze samo thread.addMeeting(meeting)???????????????
+    	thread.setMeetings(new HashSet<>());    	
+    	thread.getMeetings().add(meeting);
+    	
+    	Thread result = this.save(thread);
+    	
+		return result;
+	}
+
+    @Transactional
+	public Thread createThreadForMeetingRejection(Meeting meeting, Company company) {
+    	Thread thread = new Thread();
+    	thread.setSubject("Odbijen je poziv za sastanak");
+    	thread.setCompanyReceiver(company);
+    	thread.setIsFromAdministration(true);
+    	
+    	// Zasto ovde mora ovako, dok u createThreadForNewMeeting() moze samo thread.addMeeting(meeting)???????????????
     	thread.setMeetings(new HashSet<>());    	
     	thread.getMeetings().add(meeting);
     	

@@ -344,7 +344,7 @@ public class MailService {
         return mailDTO;
 	}
     
-
+    @Transactional
 	public NotificationMailDTO createNotificationMailDTOForMeetingAcceptance(
 			Meeting meeting, 
 			Company companyOrganizer,
@@ -365,7 +365,30 @@ public class MailService {
         
         return mailDTO;
 	}
-    
+	
+    @Transactional
+	public NotificationMailDTO createNotificationMailDTOForMeetingRejection(
+			Meeting meeting, 
+			Company companyOrganizer,
+			Company companyParticipant, 
+			String comment
+			) {
+        List<PortalUser> companyPortalUsers = portalUserRepository.findAllByCompanyAndDoNotify(companyOrganizer, true); 
+        List<String> emails = companyPortalUsers.stream()
+                .map(portalUser -> portalUser.getUser().getEmail())
+                .collect(Collectors.toList());
+	
+        String mailSubject = "B2B portal - Obaveštenje o odbijanju poziva za sastanak";
+        String mailContent = this.prepareNotificationContentForMeetingRejection(meeting, companyOrganizer, companyParticipant, comment);
+
+        NotificationMailDTO mailDTO = new NotificationMailDTO();
+        mailDTO.setEmails(emails);
+        mailDTO.setSubject(mailSubject);
+        mailDTO.setContent(mailContent);
+        
+        return mailDTO;
+	}
+
 	public String prepareContentForNewMessageNotification(Message message, Thread thread, Company company, PortalUser portalUser) {
     	
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
@@ -603,6 +626,46 @@ public class MailService {
         		+ "<br>"
         		+ "<br>"
         		+ meetingText
+        		+ "<hr>"
+        		+ "<br>"
+        		+ "<p>Detalje svih zakazanih sastanaka možete pogledati u kalendaru na "
+        		+ "<a href='" + companyCalendarLink + "'> B2B profilu Vaše kompanije<a>.</p>"
+        		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
+        
+    	return content;
+	}
+	
+    
+	private String prepareNotificationContentForMeetingRejection(
+			Meeting meeting, 
+			Company companyOrganizer,
+			Company companyParticipant, 
+			String comment
+			) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        ZonedDateTime zonedDateTimeStart = meeting.getDatetimeStart().atZone(ZoneId.systemDefault());
+        ZonedDateTime zonedDateTimeEnd = meeting.getDatetimeEnd().atZone(ZoneId.systemDefault());
+    	
+    	String homeURL = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+        String companyCalendarLink = homeURL + "/b2b/company/" + companyOrganizer.getId() + "/calendar";
+        
+    	String advertisementText = (meeting.getAdvertisement() != null) ? 
+    			"<p><b>Oglas: </b><span>" + meeting.getAdvertisement().getTitle() : "";
+        
+        String meetingText = 
+        		"<p><b>Sastanak: </b><span>" + meeting.getTitle()
+        		+ "<p><b>Organizator: </b><span>" + companyOrganizer.getName()
+        		+ advertisementText
+        		+ "<p><b>Vreme pocetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
+        		+ "<p><b>Vreme zavrsetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd);
+        
+        String content = "<div>"
+        		+ "<p>Kompanija " + companyParticipant.getName() + " je odbila poziv za sastanak."
+        		+ "<br>"
+        		+ "<br>"
+        		+ meetingText
+        		+ "<hr>"
+        		+ "<p style=\"white-space: pre-line;\">" + comment.replace("\n", "<br>").replaceAll("^_+|_+$", "") + "</p>"
         		+ "<hr>"
         		+ "<br>"
         		+ "<p>Detalje svih zakazanih sastanaka možete pogledati u kalendaru na "

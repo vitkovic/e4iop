@@ -22,6 +22,14 @@ enum MeetingParticipantStatusOptions {
   NO_RESPONSE = 'No response',
 }
 
+interface RejectMeetingComment {
+  comment: string;
+  startDate: string;
+  endDate: string;
+  startTime: string;
+  endTime: string;
+}
+
 interface MeetingEvent {
   id: number;
   date: string;
@@ -40,6 +48,14 @@ interface MeetingEvent {
   otherParticipants: IMeetingParticipant[];
   advertisement: IAdvertisement;
 }
+
+const DEFAULT_REJECT_MEETING_COMMENT = {
+  comment: '',
+  startDate: '',
+  endDate: '',
+  startTime: '08:00:00',
+  endTime: '09:00:00',
+};
 
 const DEFAULT_MEETING_EVENT: MeetingEvent = {
   id: 0,
@@ -78,6 +94,7 @@ export default class CompanyCalendar extends Vue {
   public meetingEvent = { ...DEFAULT_MEETING_EVENT };
   public meetingToRemove = { ...DEFAULT_MEETING_EVENT };
   public selectedEvent = { ...DEFAULT_MEETING_EVENT };
+  public rejectMeetingComment = { ...DEFAULT_REJECT_MEETING_COMMENT };
   public fullcalendarapi;
   public calevents = [];
   eventGuid = 0;
@@ -457,14 +474,25 @@ export default class CompanyCalendar extends Vue {
   }
 
   public prepareRejectMeetingModal(): void {
+    this.rejectMeetingComment = { ...DEFAULT_REJECT_MEETING_COMMENT };
+    this.rejectMeetingComment.startDate = this.formatDateStringFromDate(new Date());
+    this.rejectMeetingComment.endDate = this.formatDateStringFromDate(new Date());
+
     if (<any>this.$refs.rejectMeetingModal) {
       (<any>this.$refs.rejectMeetingModal).show();
     }
   }
 
   public rejectMeeting(): void {
+    const rejectMeetingString = this.formatRejectMeetingComment();
+
+    let formData = new FormData();
+    formData.append('meetingId', '' + this.selectedEvent.id);
+    formData.append('companyId', '' + this.companyId);
+    formData.append('comment', '' + rejectMeetingString);
+
     this.meetingParticipantService()
-      .rejectMeetingForCompany(this.selectedEvent.id, this.companyId)
+      .rejectMeetingForCompany(formData)
       .then(res => {
         this.isCalendarPopulated = false;
         this.populateCalendar();
@@ -631,6 +659,17 @@ export default class CompanyCalendar extends Vue {
   }
 
   /**
+   * Format date string to date string 'MM.dd.YYYY'.
+   */
+  public formatDateStringToDateString(dateString: string): string {
+    const date = new Date(dateString);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  }
+
+  /**
    * Get date for previous day in format 'yyyy-MM-dd'.
    * Needed for setting v-model of b-form-datepicker for end date
    * in the case of dayGridMonth view, because endStr parameter of fullCalendar event
@@ -647,15 +686,9 @@ export default class CompanyCalendar extends Vue {
     return `${year}-${month}-${day}`;
   }
 
-  public updateBFormCalendarEndDate() {
-    // For new meeting option
-    if (this.meetingEvent.endDate < this.meetingEvent.startDate) {
-      this.meetingEvent.endDate = this.meetingEvent.startDate;
-    }
-
-    // For edit meeting option
-    if (this.selectedEvent.endStr < this.selectedEvent.startStr) {
-      this.selectedEvent.endStr = this.selectedEvent.startStr;
+  public updateBFormCalendarEndDate<T>(obj: T, startDateKey: keyof T, endDateKey: keyof T) {
+    if (obj[endDateKey] < obj[startDateKey]) {
+      obj[endDateKey] = obj[startDateKey];
     }
   }
 
@@ -667,5 +700,27 @@ export default class CompanyCalendar extends Vue {
   public differenceByProperty<T, K extends keyof T>(array1: T[], array2: T[], property: K): T[] {
     const valuesInArray2 = array2.map(item => item[property]);
     return array1.filter(element => !valuesInArray2.includes(element[property]));
+  }
+
+  public formatRejectMeetingComment(): string {
+    const { comment, endDate, endTime, startDate, startTime } = this.rejectMeetingComment;
+    const formattedStartDate = this.formatDateStringToDateString(startDate);
+    const formattedEndDate = this.formatDateStringToDateString(endDate);
+    let proposedTime: string;
+
+    if (startDate === endDate) {
+      proposedTime = `${formattedStartDate} ${startTime.substring(0, 5)} - ${endTime.substring(0, 5)}`;
+    } else {
+      proposedTime = `${formattedStartDate} ${startTime.substring(0, 5)}\n${formattedEndDate} ${endTime.substring(0, 5)}`;
+    }
+
+    return (
+      `____________________\n\n` +
+      `RAZLOG OTKAZIVANJA\n` +
+      `${comment}\n\n` +
+      `NOVO PREDLOŽENO VREME\n` +
+      `${proposedTime}\n\n` +
+      `____________________`
+    );
   }
 }

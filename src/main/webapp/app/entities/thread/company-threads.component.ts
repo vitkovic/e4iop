@@ -46,6 +46,22 @@ interface IThreadDTO {
   unreadExists: boolean;
 }
 
+interface RejectMeetingComment {
+  comment: string;
+  startDate: string;
+  endDate: string;
+  startTime: string;
+  endTime: string;
+}
+
+const DEFAULT_REJECT_MEETING_COMMENT = {
+  comment: '',
+  startDate: '',
+  endDate: '',
+  startTime: '08:00:00',
+  endTime: '09:00:00',
+};
+
 @Component({
   mixins: [Vue2Filters.mixin],
 })
@@ -67,6 +83,7 @@ export default class Thread extends mixins(AlertMixin) {
   public reverse = false;
   public totalItems = 0;
   public newMessageText = '';
+  public rejectMeetingComment = { ...DEFAULT_REJECT_MEETING_COMMENT };
 
   private portalUser: IPortalUser = null;
   public threads: IThread[] = [];
@@ -484,6 +501,9 @@ export default class Thread extends mixins(AlertMixin) {
 
   public prepareRejectMeetingModal(meeting: IMeeting): void {
     this.meeting = meeting;
+    this.rejectMeetingComment = { ...DEFAULT_REJECT_MEETING_COMMENT };
+    this.rejectMeetingComment.startDate = this.formatDateStringFromDate(new Date());
+    this.rejectMeetingComment.endDate = this.formatDateStringFromDate(new Date());
 
     if (<any>this.$refs.rejectMeetingModal) {
       (<any>this.$refs.rejectMeetingModal).show();
@@ -491,8 +511,15 @@ export default class Thread extends mixins(AlertMixin) {
   }
 
   public rejectMeeting(): void {
+    const rejectMeetingString = this.formatRejectMeetingComment();
+
+    let formData = new FormData();
+    formData.append('meetingId', '' + this.meeting.id);
+    formData.append('companyId', '' + this.companyId);
+    formData.append('comment', '' + rejectMeetingString);
+
     this.meetingParticipantService()
-      .rejectMeetingForCompany(this.meeting.id, this.companyId)
+      .rejectMeetingForCompany(formData)
       .then(res => {
         const message = 'Odbili ste poziv za sastanak - ' + this.meeting.title;
         this.$notify({
@@ -530,5 +557,56 @@ export default class Thread extends mixins(AlertMixin) {
 
   public closeRejectMeetingModal(): void {
     (<any>this.$refs.rejectMeetingModal).hide();
+  }
+
+  public formatRejectMeetingComment(): string {
+    const { comment, endDate, endTime, startDate, startTime } = this.rejectMeetingComment;
+    const formattedStartDate = this.formatDateStringToDateString(startDate);
+    const formattedEndDate = this.formatDateStringToDateString(endDate);
+    let proposedTime: string;
+
+    if (startDate === endDate) {
+      proposedTime = `${formattedStartDate} ${startTime.substring(0, 5)} - ${endTime.substring(0, 5)}`;
+    } else {
+      proposedTime = `${formattedStartDate} ${startTime.substring(0, 5)}\n${formattedEndDate} ${endTime.substring(0, 5)}`;
+    }
+
+    return (
+      `____________________\n\n` +
+      `RAZLOG OTKAZIVANJA\n` +
+      `${comment}\n\n` +
+      `NOVO PREDLOŽENO VREME\n` +
+      `${proposedTime}\n\n` +
+      `____________________`
+    );
+  }
+
+  /**
+   * Format Date object to date string 'yyyy-MM-dd'.
+   * Needed for initializing v-model of b-form-datepicker.
+   */
+  public formatDateStringFromDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  /**
+   * Format date string to date string 'MM.dd.YYYY'.
+   */
+  public formatDateStringToDateString(dateString: string): string {
+    const date = new Date(dateString);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  }
+
+  public updateBFormCalendarEndDate<T>(obj: T, startDateKey: keyof T, endDateKey: keyof T) {
+    if (obj[endDateKey] < obj[startDateKey]) {
+      obj[endDateKey] = obj[startDateKey];
+    }
   }
 }
