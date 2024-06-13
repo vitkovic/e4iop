@@ -255,18 +255,48 @@ public class MeetingParticipantService {
     }
 
     @Transactional
-	public Optional<Boolean> checkMeetingAccpetance(Long meetingId, Long companyId) {
-    	return meetingParticipantRepository.checkIfStatusByMeetingIdAndCompanyId(meetingId, companyId, MeetingParticipantStatus.ACCEPTED);
+	public Optional<Boolean> checkMeetingAccpetance(Long meetingId, Long companyId) {   	
+    	Optional<MeetingParticipant> meetingParticipantOptional = meetingParticipantRepository.findOneByMeetingIdAndCompanyId(meetingId, companyId);
+    	
+    	if (meetingParticipantOptional.isEmpty()) {
+    		return Optional.empty();
+    	} 
+    	
+    	MeetingParticipant meetingParticipant = meetingParticipantOptional.get();
+    	Boolean hasAccepted = meetingParticipant.getStatus().getStatusEn().equals(MeetingParticipantStatus.ACCEPTED);
+    	
+    	return Optional.of(hasAccepted);
+//    	return meetingParticipantRepository.checkIfStatusByMeetingIdAndCompanyId(meetingId, companyId, MeetingParticipantStatus.ACCEPTED);
 	}
     
     @Transactional
 	public Optional<Boolean> checkMeetingRejection(Long meetingId, Long companyId) {
-    	return meetingParticipantRepository.checkIfStatusByMeetingIdAndCompanyId(meetingId, companyId, MeetingParticipantStatus.REJECTED);
+    	Optional<MeetingParticipant> meetingParticipantOptional = meetingParticipantRepository.findOneByMeetingIdAndCompanyId(meetingId, companyId);
+    	
+    	if (meetingParticipantOptional.isEmpty()) {
+    		return Optional.empty();
+    	} 
+    	
+    	MeetingParticipant meetingParticipant = meetingParticipantOptional.get();
+    	Boolean hasRejected = meetingParticipant.getStatus().getStatusEn().equals(MeetingParticipantStatus.REJECTED);
+    	
+    	return Optional.of(hasRejected);
+//    	return meetingParticipantRepository.checkIfStatusByMeetingIdAndCompanyId(meetingId, companyId, MeetingParticipantStatus.REJECTED);
 	}
     
     @Transactional
 	public Optional<Boolean> checkMeetingNoResponse(Long meetingId, Long companyId) {
-		return meetingParticipantRepository.checkIfStatusByMeetingIdAndCompanyId(meetingId, companyId, MeetingParticipantStatus.NO_RESPONSE);
+    	Optional<MeetingParticipant> meetingParticipantOptional = meetingParticipantRepository.findOneByMeetingIdAndCompanyId(meetingId, companyId);
+    	
+    	if (meetingParticipantOptional.isEmpty()) {
+    		return Optional.empty();
+    	} 
+    	
+    	MeetingParticipant meetingParticipant = meetingParticipantOptional.get();
+    	Boolean hasNoResponse = meetingParticipant.getStatus().getStatusEn().equals(MeetingParticipantStatus.NO_RESPONSE);
+    	
+    	return Optional.of(hasNoResponse);
+//		return meetingParticipantRepository.checkIfStatusByMeetingIdAndCompanyId(meetingId, companyId, MeetingParticipantStatus.NO_RESPONSE);
 	}
 
 	@Transactional

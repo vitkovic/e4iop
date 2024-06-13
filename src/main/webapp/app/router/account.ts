@@ -6,6 +6,7 @@ const ResetPasswordInit = () => import('@/account/reset-password/init/reset-pass
 const ResetPasswordFinish = () => import('@/account/reset-password/finish/reset-password-finish.vue');
 const ChangePassword = () => import('@/account/change-password/change-password.vue');
 const Settings = () => import('@/account/settings/settings.vue');
+const MeetingAccept = () => import('@/account/meeting-accept/meeting-accept.vue');
 
 export default [
   {
@@ -38,6 +39,13 @@ export default [
     path: '/account/settings',
     name: 'Settings',
     component: Settings,
+    meta: { authorities: [Authority.USER] },
+  },
+
+  {
+    path: '/b2b/meeting-accept',
+    name: 'MeetingAccept',
+    component: MeetingAccept,
     meta: { authorities: [Authority.USER] },
   },
 ];

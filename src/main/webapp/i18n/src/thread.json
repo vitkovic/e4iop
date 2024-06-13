@@ -28,8 +28,8 @@
         "sendInquiries": "Послати упити"
       },
       "tableHeader": {
-        "receiver": "Компанија прималац",
-        "sender": "Компанија пошиљалац",
+        "receiver": "Прималац",
+        "sender": "Пошиљалац",
         "advertisement": "Оглас"
       },
       "acceptedCollaboration": "Сарадња остварена",

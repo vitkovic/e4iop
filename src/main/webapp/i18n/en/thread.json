@@ -28,8 +28,8 @@
         "sendInquiries": "Send inquiries"
       },
       "tableHeader": {
-        "receiver": "Company receiver",
-        "sender": "Company sender",
+        "receiver": "Receiver",
+        "sender": "Sender",
         "advertisement": "Advertisement"
       },
       "acceptedCollaboration": "Collaboration achieved",

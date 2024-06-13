@@ -28,8 +28,8 @@
         "sendInquiries": "Poslati upiti"
       },
       "tableHeader": {
-        "receiver": "Kompanija primalac",
-        "sender": "Kompanija pošiljalac",
+        "receiver": "Primalac",
+        "sender": "Pošiljalac",
         "advertisement": "Oglas"
       },
       "acceptedCollaboration": "Saradnja ostvarena",

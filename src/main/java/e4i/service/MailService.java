@@ -573,6 +573,9 @@ public class MailService {
         ZonedDateTime zonedDateTimeEnd = meeting.getDatetimeEnd().atZone(ZoneId.systemDefault());
     	
     	String homeURL = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+    	
+    	String activationLink = String
+    			.format(homeURL + "/b2b/meeting-accept?meetingId=%d&companyId=%d", meeting.getId(), companyParticipant.getId());
         String companyCalendarLink = homeURL + "/b2b/company/" + companyParticipant.getId() + "/calendar";
         
     	String advertisementText = (meeting.getAdvertisement() != null) ? 
@@ -592,7 +595,10 @@ public class MailService {
         		+ meetingText
         		+ "<hr>"
         		+ "<br>"
-        		+ "<p>Poziv na sastanak možete potvrditi iz kalendara na "
+        		+ "<p>Poziv na sastanak možete potvrditi klikom na "
+        		+ "<a href='" + activationLink + "'>ovaj link<a>.</p>"
+        		+ "<br>"
+        		+ "<p>Ukoliko link nije aktivan, poziv na sastanak možete potvrditi i iz kalendara na "
         		+ "<a href='" + companyCalendarLink + "'> B2B profilu Vaše kompanije<a>.</p>"
         		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
         
