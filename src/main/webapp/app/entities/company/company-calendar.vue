@@ -45,7 +45,7 @@
         <b-modal v-if="selectedEvent" ref="rejectMeetingModal" id="rejectMeetingModal">
             <div class="modal-body">
                 <p>
-                   <span v-text="'Da li želite da odbijete poziv za sastanak - '">Da li želite da odbijete poziv za sastanak?</span>
+                   <span v-text="'Da li želite da otkažete poziv za sastanak - '">Da li želite da otkažete poziv za sastanak?</span>
                    <span><b>{{ selectedEvent.title }}</b></span>
                    <span v-text="'?'"></span>
                 </p>
@@ -187,11 +187,11 @@
             <div slot="modal-footer">
                 <button v-if="!isThereMeetingResponseForCurrentCompany(selectedEvent)" type="button" class="btn btn-secondary" v-on:click="prepareAcceptMeetingModal()">
                   <span><font-awesome-icon icon="check" style="color: green;"/></span>
-                  <span v-text="'Prihvati poziv'"></span>
+                  <span v-text="'Prihvati sastanak'"></span>
                 </button>
                 <button v-if="!isThereMeetingResponseForCurrentCompany(selectedEvent)" type="button" class="btn btn-secondary" v-on:click="prepareRejectMeetingModal()">
                   <span><font-awesome-icon icon="times" style="color: red;"/></span>
-                  <span v-text="'Odbij poziv'" ></span>
+                  <span v-text="'Otkaži sastanak'" ></span>
                 </button>
                 <button type="button" class="btn btn-primary" v-text="'Preuzmi ICS'" v-on:click="exportMeetingToICS()">Preuzmi ICS</button>
                 <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-primary" v-text="'Izmeni'" v-on:click="prepareEditMeetingModal()">Izmeni</button>

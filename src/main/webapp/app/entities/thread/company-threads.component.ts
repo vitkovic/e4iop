@@ -88,6 +88,7 @@ export default class Thread extends mixins(AlertMixin) {
   private portalUser: IPortalUser = null;
   public threads: IThread[] = [];
   public threadsDTO: IThreadDTO[] = [];
+  public activeThreadDTO: IThreadDTO | null = null;
   public company: ICompany = null;
   public companyId: number | null = null;
   public messages: IMessage[] = [];
@@ -309,8 +310,10 @@ export default class Thread extends mixins(AlertMixin) {
     }
   }
 
-  public showMessages(thread: IThreadDTO) {
-    console.log(thread.id);
+  public showMessages(thread: IThreadDTO | null) {
+    if (thread == null) {
+      return;
+    }
 
     // this.meetingParticipant = null;
     if (thread?.meeting) {
@@ -449,8 +452,9 @@ export default class Thread extends mixins(AlertMixin) {
     }
   }
 
-  public prepareAcceptMeetingModal(meeting: IMeeting): void {
-    this.meeting = meeting;
+  public prepareAcceptMeetingModal(threadDTO: IThreadDTO): void {
+    this.activeThreadDTO = threadDTO;
+    this.meeting = threadDTO.meeting;
 
     if (<any>this.$refs.acceptMeetingModal) {
       (<any>this.$refs.acceptMeetingModal).show();
@@ -461,7 +465,8 @@ export default class Thread extends mixins(AlertMixin) {
     this.meetingParticipantService()
       .acceptMeetingForCompany(this.meeting.id, this.companyId)
       .then(res => {
-        const message = 'Potvrdili ste poziv za sastanak - ' + this.meeting.title;
+        this.showMessages(this.activeThreadDTO);
+        const message = 'Prihvatili ste poziv za sastanak - ' + this.meeting.title;
         this.$notify({
           text: message,
         });
@@ -499,8 +504,9 @@ export default class Thread extends mixins(AlertMixin) {
     (<any>this.$refs.acceptMeetingModal).hide();
   }
 
-  public prepareRejectMeetingModal(meeting: IMeeting): void {
-    this.meeting = meeting;
+  public prepareRejectMeetingModal(threadDTO: IThreadDTO): void {
+    this.activeThreadDTO = threadDTO;
+    this.meeting = threadDTO.meeting;
     this.rejectMeetingComment = { ...DEFAULT_REJECT_MEETING_COMMENT };
     this.rejectMeetingComment.startDate = this.formatDateStringFromDate(new Date());
     this.rejectMeetingComment.endDate = this.formatDateStringFromDate(new Date());
@@ -521,7 +527,8 @@ export default class Thread extends mixins(AlertMixin) {
     this.meetingParticipantService()
       .rejectMeetingForCompany(formData)
       .then(res => {
-        const message = 'Odbili ste poziv za sastanak - ' + this.meeting.title;
+        this.showMessages(this.activeThreadDTO);
+        const message = 'Otkazali ste poziv za sastanak - ' + this.meeting.title;
         this.$notify({
           text: message,
         });

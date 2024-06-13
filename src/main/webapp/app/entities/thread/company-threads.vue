@@ -340,22 +340,22 @@
 
                       <div v-if="meetingParticipant != null && !meetingParticipant.isOrganizer">
                         <div v-if="meetingParticipant.status.statusEn === meetingParticipantStatusOptions.NO_RESPONSE">
-                            <button type="button" class="btn btn-secondary" v-on:click="prepareAcceptMeetingModal(thread.meeting)">
+                            <button type="button" class="btn btn-secondary" v-on:click="prepareAcceptMeetingModal(thread)">
                             <span><font-awesome-icon icon="check" style="color: green;"/></span>
-                            <span v-text="'Prihvati poziv'"></span>
+                            <span v-text="'Prihvati sastanak'"></span>
                           </button>
-                          <button type="button" class="btn btn-secondary" v-on:click="prepareRejectMeetingModal(thread.meeting)">
+                          <button type="button" class="btn btn-secondary" v-on:click="prepareRejectMeetingModal(thread)">
                             <span><font-awesome-icon icon="times" style="color: red;"/></span>
-                            <span v-text="'Odbij poziv'" ></span>
+                            <span v-text="'Otkaži sastanak'" ></span>
                           </button>
                           </div>
                           <div v-else-if="meetingParticipant.status.statusEn === meetingParticipantStatusOptions.INVITATION_ACCEPTED">
                             <span><font-awesome-icon icon="check" style="color: green;"/></span>
-                            <span v-text="'Vec ste prihvatili poziv na ovaj sastanak'"></span>
+                            <span v-text="'Poziv za ovaj sastanak je prihvaćen'"></span>
                           </div>
                           <div v-else-if="meetingParticipant.status.statusEn === meetingParticipantStatusOptions.INVITATION_REJECTED">
                             <span><font-awesome-icon icon="times" style="color: red;"/></span>
-                            <span v-text="'Vec ste odbili poziv na ovaj sastanak'"></span>
+                            <span v-text="'Poziv za ovaj sastanak je otkazan'"></span>
                           </div>
                       </div>
                       <!-- <div v-else>
@@ -474,7 +474,7 @@
   <b-modal v-if="meeting" ref="rejectMeetingModal" id="rejectMeetingModal">
       <div class="modal-body">
           <p>
-              <span v-text="'Da li želite da odbijete poziv za sastanak - '">Da li želite da odbijete poziv za sastanak?</span>
+              <span v-text="'Da li želite da otkažete poziv za sastanak - '">Da li želite da otkažete poziv za sastanak?</span>
               <span><b>{{ meeting.title }}</b></span>
               <span v-text="'?'"></span>
           </p>

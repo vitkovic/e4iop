@@ -459,7 +459,7 @@ export default class CompanyCalendar extends Vue {
         this.isCalendarPopulated = false;
         this.populateCalendar();
 
-        const message = 'Potvrdili ste poziv za sastanak - ' + this.selectedEvent.title;
+        const message = 'Prihvatili ste poziv za sastanak - ' + this.selectedEvent.title;
         this.$notify({
           text: message,
         });
@@ -497,7 +497,7 @@ export default class CompanyCalendar extends Vue {
         this.isCalendarPopulated = false;
         this.populateCalendar();
 
-        const message = 'Odbili ste poziv za sastanak - ' + this.selectedEvent.title;
+        const message = 'Otkazali ste poziv za sastanak - ' + this.selectedEvent.title;
         this.$notify({
           text: message,
         });
