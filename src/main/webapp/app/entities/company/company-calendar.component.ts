@@ -112,6 +112,13 @@ export default class CompanyCalendar extends Vue {
       interactionPlugin, // needed for dateClick
       momentPlugin,
     ],
+    // Show event time in HH:mm format, without AM/PM
+    eventTimeFormat: {
+      hour: '2-digit',
+      minute: '2-digit',
+      // second: '2-digit',
+      meridiem: false,
+    },
     // Formating views in moment string is necessery in order for Serbian Latin to show correctly
     views: {
       dayGrid: {
@@ -146,6 +153,7 @@ export default class CompanyCalendar extends Vue {
     selectMirror: true,
     dayMaxEvents: true,
     weekends: true,
+    eventDisplay: 'block',
     select: this.handleDateSelect,
     eventClick: this.handleEventClick,
     // eventsSet: this.handleEvents,
@@ -212,44 +220,40 @@ export default class CompanyCalendar extends Vue {
       .findAllNotRemovedForCompany(this.companyId)
       .then(res => {
         this.companyMeetingParticipants = res;
-        this.companyMeetings = this.companyMeetingParticipants.map(participant => participant.meeting);
+        // this.companyMeetings = this.companyMeetingParticipants.map(participant => participant.meeting);
 
-        this.companyMeetings.forEach(meeting => {
+        this.companyMeetingParticipants.forEach(participant => {
+          let color = '';
+          let textColor = '';
+          if (participant.status.statusEn == MeetingParticipantStatusOptions.INVITATION_ACCEPTED) {
+            color = 'rgb(73, 217, 67)'; // greenish
+            textColor = 'white';
+          } else if (participant.status.statusEn == MeetingParticipantStatusOptions.INVITATION_REJECTED) {
+            color = 'rgb(229, 55, 55)'; // redish
+            textColor = 'white';
+          } else if (participant.status.statusEn == MeetingParticipantStatusOptions.NO_RESPONSE) {
+            color = 'rgb(239, 239, 44)'; // yellowish
+            textColor = 'black';
+          }
+
           let event = this.fullcalendarapi.addEvent({
             // date: '',
-            id: meeting.id,
-            start: meeting.datetimeStart,
-            end: meeting.datetimeEnd,
+            id: participant.meeting.id,
+            start: participant.meeting.datetimeStart,
+            end: participant.meeting.datetimeEnd,
             // startTime: '08:00:00',
             // endTime: '09:00:00',
-            title: meeting.title,
-            description: meeting.description,
-            location: meeting.location,
-            advertisement: meeting.advertisement,
+            title: participant.meeting.title,
+            description: participant.meeting.description,
+            location: participant.meeting.location,
+            advertisement: participant.meeting.advertisement,
+            backgroundColor: color,
+            borderColor: color,
+            textColor: textColor,
           });
           // this.calevents.push(event);
         });
       });
-
-    // this.meetingService()
-    // .findAllForCompany(this.companyId)
-    // .then(res => {
-    //   this.meetings = res.data;
-    //   this.meetings.forEach(meeting => {
-    //     let event = this.fullcalendarapi.addEvent({
-    //       // date: '',
-    //       id: meeting.id,
-    //       start: meeting.datetimeStart,
-    //       end: meeting.datetimeEnd,
-    //       // startTime: '08:00:00',
-    //       // endTime: '09:00:00',
-    //       title: meeting.title,
-    //       description: meeting.description,
-    //     });
-    //     // this.calevents.push(event);
-
-    //   });
-    // })
 
     this.isCalendarPopulated = true;
   }
