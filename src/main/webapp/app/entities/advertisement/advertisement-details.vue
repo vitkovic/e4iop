@@ -135,7 +135,7 @@
                     <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.back')"> Back</span>
                 </button> -->
         <b-button
-          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner())"
+          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner)"
           v-on:click="prepareAdInquiry(advertisement)"
           variant="info"
           class="btn btn-primary"
@@ -144,14 +144,14 @@
           <span class="d-none d-md-inline" v-text="$t('riportalApp.advertisement.interactionButtons.question')">Pošalji upit</span>
         </b-button>
         <b-button
-          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner())"
+          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner)"
           v-on:click="prepareCreateMeetingModal(advertisement)"
           class="btn btn-primary"
         >
           <span v-text="$t('riportalApp.advertisement.interactionButtons.appointment')"> Zakaži sastanak</span>
         </b-button>
         <b-button
-          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner())"
+          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner)"
           v-on:click="prepareAdCollaboration(advertisement)"
           class="btn btn-primary"
           v-b-modal.adCollaboration
@@ -160,7 +160,7 @@
         </b-button>
 
         <router-link
-          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || isCompanyOwner())"
+          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || isCompanyOwner)"
           :to="{ name: 'AdvertisementEdit', params: { advertisementId: advertisement.id } }"
           tag="button"
           class="btn btn-primary"

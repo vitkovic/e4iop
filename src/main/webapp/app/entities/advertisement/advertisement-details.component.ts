@@ -90,6 +90,10 @@ export default class AdvertisementDetails extends Vue {
     });
   }
 
+  created() {
+    this.checkCompanyOwnership();
+  }
+
   public retrieveAdvertisement(advertisementId) {
     this.advertisementService()
       .find(advertisementId)
@@ -122,8 +126,13 @@ export default class AdvertisementDetails extends Vue {
     return expirationDate;
   }
 
-  public isCompanyOwner(): boolean {
+  get isCompanyOwner(): boolean {
+    return this.isCompanyOwnerValue;
+  }
+
+  public checkCompanyOwnership(): boolean {
     const user = this.$store.getters.account;
+
     if (user) {
       this.portalUserService()
         .findByUserId(user.id)
@@ -132,6 +141,9 @@ export default class AdvertisementDetails extends Vue {
           if (this.portalUser.company?.id === this.advertisement.company.id) {
             this.isCompanyOwnerValue = true;
           }
+        })
+        .catch(() => {
+          this.isCompanyOwnerValue = true;
         });
     }
     return this.isCompanyOwnerValue;
