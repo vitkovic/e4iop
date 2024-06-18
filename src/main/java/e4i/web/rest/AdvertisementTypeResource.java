@@ -114,4 +114,11 @@ public class AdvertisementTypeResource {
         advertisementTypeService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    @GetMapping("/advertisement-types/type/{type}")
+    public ResponseEntity<AdvertisementType> getAdvertisementTypeByType(@PathVariable String type) {
+        log.debug("REST request to get AdvertisementType : {}", type);
+        Optional<AdvertisementType> advertisementType = advertisementTypeService.findOneByType(type);
+        return ResponseUtil.wrapOrNotFound(advertisementType);
+    }
 }

@@ -17,11 +17,17 @@
 					<span slot="button-content" class="navbar-dropdown-menu">
 						<span class="headerItemi" v-text="$t('global.menu.advertisements.main')">Oglasi</span>
 					</span>
-					<b-dropdown-item to="/b2b/advertisement/new" active-class="active">
-						<span v-text="$t('global.menu.advertisements.createAd')">Огласи потребу</span>
+					<b-dropdown-item :to="{ name: 'AdvertisementCreate', query: { type: 'offer' } }">
+						<span v-text="$t('global.menu.advertisements.advertiseOffer')">Oglasi ponudu</span>
 					</b-dropdown-item>
-					<b-dropdown-item to="/b2b/advertisement-browse" active-class="active">
-						<span v-text="$t('global.menu.advertisements.findAd')">Пронађи потребу</span>
+					<b-dropdown-item :to="{ name: 'AdvertisementCreate', query: { type: 'demand' } }">
+						<span v-text="$t('global.menu.advertisements.advertiseDemand')">Oglasi potražnju</span>
+					</b-dropdown-item>
+					<b-dropdown-item :to="{ name: 'AdvertisementBrowse' }">
+						<span v-text="$t('global.menu.advertisements.findAllOffers')">Pogledaj sve ponude</span>
+					</b-dropdown-item>
+					<b-dropdown-item :to="{ name: 'AdvertisementBrowse' }">
+						<span v-text="$t('global.menu.advertisements.findAllDemands')">Pogledaj sve potražnje</span>
 					</b-dropdown-item>
 				</b-nav-item-dropdown>
 				<b-nav-item to="/b2b/about" exact style="white-space: nowrap;" class="navbar-menu-item">

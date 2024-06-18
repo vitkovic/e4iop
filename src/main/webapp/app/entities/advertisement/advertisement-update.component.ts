@@ -93,6 +93,11 @@ interface DocumentBlob extends Blob {
   type: 'application/pdf';
 }
 
+enum AdvertisementTypeOptions {
+  OFFER = 'Понуда',
+  DEMAND = 'Потражња',
+}
+
 @Component({
   validations,
 })
@@ -167,16 +172,17 @@ export default class AdvertisementUpdate extends Vue {
   public showImageLimitError: { number: number; state: boolean } = { number: 0, state: false };
   public advertisementTitleHasID: boolean = false;
   public isLoading: boolean = false;
+  public advertisementTypeOptions = AdvertisementTypeOptions;
+  public componentInitialized = false;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      if (to.params.advertisementId) {
-        vm.advertisementTitleHasID = false;
-        vm.retrieveAdvertisement(to.params.advertisementId);
-      } else {
-        vm.advertisementTitleHasID = true;
+      if (vm.componentInitialized) {
+        return;
       }
-      vm.initRelationships();
+
+      vm.componentInitialized = true;
+      vm.initializeComponent();
     });
   }
 
@@ -189,6 +195,41 @@ export default class AdvertisementUpdate extends Vue {
       }
     );
     this.advertisement.documents = [];
+  }
+
+  mounted(): void {
+    if (this.componentInitialized) {
+      return;
+    }
+
+    this.componentInitialized = true;
+    this.initializeComponent();
+  }
+
+  public initializeComponent(): void {
+    if (this.$route.params.advertisementId) {
+      this.advertisementTitleHasID = false;
+      this.retrieveAdvertisement(this.$route.params.advertisementId);
+    } else {
+      if (this.$route.query.type) {
+        if (this.$route.query.type == 'offer') {
+          this.advertisementTypeService()
+            .getAdvertisementTypeByType(this.advertisementTypeOptions.OFFER)
+            .then(res => {
+              this.advertisement.type = res;
+            });
+        } else if (this.$route.query.type == 'demand') {
+          this.advertisementTypeService()
+            .getAdvertisementTypeByType(this.advertisementTypeOptions.DEMAND)
+            .then(res => {
+              this.advertisement.type = res;
+            });
+        }
+      }
+
+      this.advertisementTitleHasID = true;
+    }
+    this.initRelationships();
   }
 
   public async save(): Promise<void> {

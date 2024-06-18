@@ -155,8 +155,10 @@
       },
       "advertisements": {
         "main": "Advertisements",
-        "createAd": "Advertise the need",
-        "findAd": "Find the need"
+        "advertiseOffer": "Advertise offer",
+        "advertiseDemand": "Advertise demand",
+        "findAllOffers": "Browse all offers",
+        "findAllDemands": "Browse all demands"
       },
       "language": "Language"
     },

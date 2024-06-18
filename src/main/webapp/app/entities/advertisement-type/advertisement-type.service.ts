@@ -3,6 +3,7 @@ import axios from 'axios';
 import { IAdvertisementType } from '@/shared/model/advertisement-type.model';
 
 const baseApiUrl = 'api/advertisement-types';
+const apiGetAdvertisementTypeByType = 'api/advertisement-types/type';
 
 export default class AdvertisementTypeService {
   public find(id: number): Promise<IAdvertisementType> {
@@ -61,6 +62,19 @@ export default class AdvertisementTypeService {
     return new Promise<IAdvertisementType>((resolve, reject) => {
       axios
         .put(`${baseApiUrl}`, entity)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getAdvertisementTypeByType(type: string): Promise<IAdvertisementType> {
+    return new Promise<IAdvertisementType>((resolve, reject) => {
+      axios
+        .get(`${apiGetAdvertisementTypeByType}/${type}`)
         .then(res => {
           resolve(res.data);
         })

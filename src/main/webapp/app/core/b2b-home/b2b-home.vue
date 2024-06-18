@@ -2,14 +2,22 @@
 	<div class="home">
 		<div class="div1">
 			<div class="divZaA">
-				<a href="" class="kvadrat kvOne"><span class="velikiTekst">Желиш да</span> <span class="maliTekst">огласиш
-						понуду?</span></a>
-				<a href="" class="kvadrat kvTwo"><span class="velikiTekst">Желиш да</span> <span class="maliTekst">огласиш
-						потребу?</span></a>
-				<a href="" class="kvadrat kvThree"><span class="velikiTekst">Погледај све</span> <span
-						class="maliTekst">понуде</span></a>
-				<a href="" class="kvadrat kvFour"><span class="velikiTekst">Пoгледај све</span> <span
-						class="maliTekst">потребе</span></a>
+				<b-link :to="{ name: 'AdvertisementCreate', query: { type: 'offer' } }" class="kvadrat kvOne">
+					<span class="velikiTekst" v-text="$t('home.b2b.square.createOfferSmall')">Желиш да</span>
+					<span class="maliTekst" v-text="$t('home.b2b.square.createOfferLarge')">огласиш понуду?</span>
+				</b-link>
+				<b-link :to="{ name: 'AdvertisementCreate', query: { type: 'demand' } }" class="kvadrat kvTwo">
+					<span class="velikiTekst" v-text="$t('home.b2b.square.createDemandSmall')">Желиш да</span>
+					<span class="maliTekst" v-text="$t('home.b2b.square.createDemandLarge')">огласиш потребу?</span>
+				</b-link>
+				<b-link :to="{ name: 'AdvertisementBrowse' }" class="kvadrat kvThree">
+					<span class="velikiTekst" v-text="$t('home.b2b.square.findAllOffersSmall')">Погледај све</span> 
+					<span class="maliTekst" v-text="$t('home.b2b.square.findAllOffersLarge')">понуде</span>
+				</b-link>
+				<b-link :to="{ name: 'AdvertisementBrowse' }" class="kvadrat kvFour">
+					<span class="velikiTekst" v-text="$t('home.b2b.square.findAllDemandsSmall')">Пoгледај све</span> 
+					<span class="maliTekst" v-text="$t('home.b2b.square.findAllDemandsLarge')">потребе</span>
+				</b-link>
 			</div>
 		</div>
 

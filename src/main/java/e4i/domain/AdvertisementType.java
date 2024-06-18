@@ -19,6 +19,9 @@ import java.util.Set;
 public class AdvertisementType implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    public static final String OFFER = "Понуда";
+    public static final String DEMAND = "Потражња";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")

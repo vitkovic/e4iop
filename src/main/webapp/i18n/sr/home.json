@@ -26,6 +26,19 @@
     "github": "GitHub-u",
     "infrastructure": "INFRASTRUKTURA",
     "services": "USLUGE",
-    "organizations": "ORGANIZACIJE"
+    "organizations": "ORGANIZACIJE",
+
+    "b2b": {
+      "square": {
+        "createOfferSmall": "oglasi",
+        "createOfferLarge": "ponudu",
+        "createDemandSmall": "oglasi",
+        "createDemandLarge": "potražnju",
+        "findAllOffersSmall": "pogledaj sve",
+        "findAllOffersLarge": "ponude",
+        "findAllDemandsSmall": "pogledaj sve",
+        "findAllDemandsLarge": "potražnje"
+      }
+    }
   }
 }

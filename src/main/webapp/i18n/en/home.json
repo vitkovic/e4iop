@@ -26,6 +26,19 @@
     "github": "GitHub",
     "infrastructure": "INFRASTRUCTURE",
     "services": "SERVICES",
-    "organizations": "ORGANIZATIONS"
+    "organizations": "ORGANIZATIONS",
+
+    "b2b": {
+      "square": {
+        "createOfferSmall": "advertise",
+        "createOfferLarge": "offer",
+        "createDemandSmall": "advertise",
+        "createDemandLarge": "demand",
+        "findAllOffersSmall": "browse all",
+        "findAllOffersLarge": "offers",
+        "findAllDemandsSmall": "browse all",
+        "findAllDemandsLarge": "demands"
+      }
+    }
   }
 }

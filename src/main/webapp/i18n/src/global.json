@@ -155,8 +155,10 @@
       },
       "advertisements": {
         "main": "Огласи",
-        "createAd": "Огласи потребу",
-        "findAd": "Пронађи потребу"
+        "advertiseOffer": "Огласи понуду",
+        "advertiseDemand": "Огласи потражњу",
+        "findAllOffers": "Погледај све понуде",
+        "findAllDemands": "Погледај све потражње"
       },
       "language": "Језик"
     },

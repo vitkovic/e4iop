@@ -71,4 +71,9 @@ public class AdvertisementTypeService {
         log.debug("Request to delete AdvertisementType : {}", id);
         advertisementTypeRepository.deleteById(id);
     }
+
+	public Optional<AdvertisementType> findOneByType(String type) {
+		log.debug("Request to get AdvertisementType : {}", type);
+        return advertisementTypeRepository.findByType(type);
+	}
 }

@@ -230,7 +230,7 @@ public class MeetingParticipantService {
         MeetingParticipantStatus rejectedStatus = rejectedStatusOptional.get();
         
     	meetingParticipant.setStatus(rejectedStatus);
-    	meetingParticipant.setHasRemoved(true);
+//    	meetingParticipant.setHasRemoved(true);
     	MeetingParticipant result = meetingParticipantRepository.save(meetingParticipant);  	
     	
     	return result;

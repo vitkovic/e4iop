@@ -585,8 +585,8 @@ public class MailService {
         		"<p><b>Sastanak: </b><span>" + meeting.getTitle()
         		+ "<p><b>Organizator: </b><span>" + companyOrganizer.getName()
         		+ advertisementText
-        		+ "<p><b>Vreme pocetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
-        		+ "<p><b>Vreme zavrsetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd);
+        		+ "<p><b>Vreme početka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
+        		+ "<p><b>Vreme završetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd);
         
         String content = "<div>"
         		+ "<p>Kompanija sa B2B portala Vam je uputila poziv za sastanak."
@@ -624,8 +624,8 @@ public class MailService {
         		"<p><b>Sastanak: </b><span>" + meeting.getTitle()
         		+ "<p><b>Organizator: </b><span>" + companyOrganizer.getName()
         		+ advertisementText
-        		+ "<p><b>Vreme pocetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
-        		+ "<p><b>Vreme zavrsetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd);
+        		+ "<p><b>Vreme početka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
+        		+ "<p><b>Vreme završetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd);
         
         String content = "<div>"
         		+ "<p>Kompanija " + companyParticipant.getName() + " je prihvatila poziv za sastanak."
@@ -662,8 +662,8 @@ public class MailService {
         		"<p><b>Sastanak: </b><span>" + meeting.getTitle()
         		+ "<p><b>Organizator: </b><span>" + companyOrganizer.getName()
         		+ advertisementText
-        		+ "<p><b>Vreme pocetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
-        		+ "<p><b>Vreme zavrsetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd);
+        		+ "<p><b>Vreme početka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
+        		+ "<p><b>Vreme završetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd);
         
         String content = "<div>"
         		+ "<p>Kompanija " + companyParticipant.getName() + " je odbila poziv za sastanak."

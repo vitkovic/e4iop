@@ -15,6 +15,40 @@
                                v-model="advertisement.id" readonly />
                     </div> -->
           <div class="col-8">
+            <div class="form-group">
+              <label class="form-control-label" v-text="$t('riportalApp.advertisement.type')" for="advertisement-type">Type</label>
+              <select 
+                class="form-control" 
+                id="advertisement-type" 
+                name="type" 
+                v-model="advertisement.type"
+                :class="{ valid: !$v.advertisement.type.$invalid, invalid: $v.advertisement.type.$invalid }"
+                @blur="$v.advertisement.type.$touch()"
+                required
+                >
+                <option v-bind:value="null"></option>
+                <option
+                  v-bind:value="
+                    advertisement.type && advertisementTypeOption.id === advertisement.type.id
+                      ? advertisement.type
+                      : advertisementTypeOption
+                  "
+                  v-for="advertisementTypeOption in advertisementTypes"
+                  :key="advertisementTypeOption.id"
+                  >{{ advertisementTypeOption.type }}</option
+                >
+              </select>
+              <div v-if="$v.advertisement.type.$anyDirty && $v.advertisement.type.$invalid">
+                <small
+                  class="form-text text-danger"
+                  v-if="!$v.advertisement.type.required"
+                  v-text="$t('entity.validation.required')"
+                >
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
             <div class="form-group" v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.company')" for="advertisement-company">Company</label>
               <select
@@ -108,39 +142,6 @@
                 <small
                   class="form-text text-danger"
                   v-if="!$v.advertisement.description.required"
-                  v-text="$t('entity.validation.required')"
-                >
-                  This field is required.
-                </small>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-control-label" v-text="$t('riportalApp.advertisement.type')" for="advertisement-type">Type</label>
-              <select 
-                class="form-control" 
-                id="advertisement-type" 
-                name="type" 
-                v-model="advertisement.type"
-                :class="{ valid: !$v.advertisement.type.$invalid, invalid: $v.advertisement.type.$invalid }"
-                @blur="$v.advertisement.type.$touch()"
-                required
-                >
-                <option v-bind:value="null"></option>
-                <option
-                  v-bind:value="
-                    advertisement.type && advertisementTypeOption.id === advertisement.type.id
-                      ? advertisement.type
-                      : advertisementTypeOption
-                  "
-                  v-for="advertisementTypeOption in advertisementTypes"
-                  :key="advertisementTypeOption.id"
-                  >{{ advertisementTypeOption.type }}</option
-                >
-              </select>
-              <div v-if="$v.advertisement.type.$anyDirty && $v.advertisement.type.$invalid">
-                <small
-                  class="form-text text-danger"
-                  v-if="!$v.advertisement.type.required"
                   v-text="$t('entity.validation.required')"
                 >
                   This field is required.
