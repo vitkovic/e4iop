@@ -262,11 +262,21 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 	}
   }
   @Override
-  public void deleteDocument(Document document) {
+  public void deleteB2BDocument(Document document) {
     try {
     	String filename = document.getFilename();
     	Path file = documentRoot.resolve(filename);
     	Files.deleteIfExists(this.documentRoot.resolve(filename));     
+    } catch (Exception e) {
+    	e.printStackTrace();
+    }
+  }
+  
+  @Override
+  public void deleteResearchInfrastrucureDocument(String filename) {
+    try {
+    	Path file = root.resolve(filename);
+    	Files.deleteIfExists(this.root.resolve(filename));     
     } catch (Exception e) {
     	e.printStackTrace();
     }

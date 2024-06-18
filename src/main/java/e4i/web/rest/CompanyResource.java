@@ -354,7 +354,7 @@ public class CompanyResource {
      	  document.getCompanies().remove(company);
 
         documentRepository.delete(document);
-        storageService.deleteDocument(document);
+        storageService.deleteB2BDocument(document);
         
         // Ovo vraca i slike i dokumenta. Izdvojiti samo slike.
         Set<Document> documents = company.getDocuments();

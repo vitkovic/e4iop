@@ -31,5 +31,6 @@ public interface FilesStorageService {
   public String saveImage(String prefix, MultipartFile file);
   public String saveDocument(String prefix, MultipartFile file);
   public String saveCompanyLogo(Long id, MultipartFile file);
-  public void deleteDocument(Document document);
+  public void deleteB2BDocument(Document document);
+  public void deleteResearchInfrastrucureDocument(String filename);
 }

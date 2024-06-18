@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -200,5 +201,16 @@ public class FilesController {
             .ok()
             .contentType(MediaType.APPLICATION_PDF)
             .body(file);
+  }
+  
+  @DeleteMapping("/delete/document/{filename:.+}")
+  @ResponseBody
+  public ResponseEntity<String> deleteDocument(@PathVariable String filename) {
+	  Resource file = storageService.load(filename);
+	  storageService.deleteResearchInfrastrucureDocument(filename);
+	  
+	  return ResponseEntity
+            .ok()
+            .body(filename);
   }
 }

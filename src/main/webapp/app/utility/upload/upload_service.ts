@@ -1,7 +1,10 @@
+import { resolve } from 'path';
 import http from '../axioshttp';
 import axios from 'axios';
 
 class UploadFilesService {
+  public apiDeleteDocument = 'api/delete/document';
+
   upload(file, onUploadProgress) {
     let formData = new FormData();
 
@@ -39,6 +42,15 @@ class UploadFilesService {
         document.body.removeChild(linko);
         URL.revokeObjectURL(href);
       })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  deleteDocument(filename: string) {
+    axios
+      .delete(this.apiDeleteDocument + `/${filename}`, { responseType: 'blob' })
+      .then(response => {})
       .catch(e => {
         console.log(e);
       });

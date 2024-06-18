@@ -621,6 +621,14 @@ export default class ResearchInfrastructureUpdate extends Vue {
       });
   }
 
+  public deleteDocument(property: string, filename: string, linked: string) {
+    this.researchInfrastructure[property] = null;
+    this[linked] = null;
+    this.save();
+
+    UploadFilesService.deleteDocument(filename);
+  }
+
   public loadImage(filename): string {
     return 'api/research-infrastructures/image/' + filename;
   }
@@ -708,6 +716,7 @@ export default class ResearchInfrastructureUpdate extends Vue {
             type: 'info',
             duration: 5000,
           });
+          // this.previousState();
           //const message = this.$t('riportalApp.researchInfrastructure.updated', { param: param.id });
           //this.alertService().showAlert(message, 'info');
         });
@@ -722,6 +731,7 @@ export default class ResearchInfrastructureUpdate extends Vue {
             type: 'info',
             duration: 5000,
           });
+          // this.previousState();
           //const message = this.$t('riportalApp.researchInfrastructure.created', { param: param.id });
           //this.alertService().showAlert(message, 'success');
         })

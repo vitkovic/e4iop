@@ -379,7 +379,7 @@ public class AdvertisementResource {
 	   	  document.getAdvertisements().remove(advertisement);
 
 	      documentRepository.delete(document);
-	      storageService.deleteDocument(document);
+	      storageService.deleteB2BDocument(document);
 	      
 	      // Ovo vraca i slike i dokumenta. Izdvojiti samo dokumenta.
 	      Set<Document> documents = advertisement.getDocuments();

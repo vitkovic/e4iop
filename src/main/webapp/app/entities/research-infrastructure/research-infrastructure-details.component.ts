@@ -52,13 +52,13 @@ export default class ResearchInfrastructureDetails extends Vue {
   public getDescriptionByLanguage(researchInfrastructure: IResearchInfrastructure): string {
     switch (this.currentLanguage) {
       case 'sr':
-        return researchInfrastructure.descriptionSr;
+        return researchInfrastructure.descriptionSr ? researchInfrastructure.descriptionSr : '';
       case 'en':
-        return researchInfrastructure.descriptionEn;
+        return researchInfrastructure.descriptionEn ? researchInfrastructure.descriptionEn : '';
       case 'src':
-        return researchInfrastructure.descriptionSrCyr;
+        return researchInfrastructure.descriptionSrCyr ? researchInfrastructure.descriptionSrCyr : '';
       default:
-        return researchInfrastructure.descriptionSr;
+        return researchInfrastructure.descriptionSr ? researchInfrastructure.descriptionSr : '';
     }
   }
 

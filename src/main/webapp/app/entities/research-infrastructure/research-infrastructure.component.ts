@@ -157,13 +157,13 @@ export default class ResearchInfrastructure extends mixins(AlertMixin) {
   getDescriptionByLanguage(researchInfrastructure: IResearchInfrastructure): string {
     switch (this.currentLanguage) {
       case 'sr':
-        return researchInfrastructure.descriptionSr;
+        return researchInfrastructure.descriptionSr ? researchInfrastructure.descriptionSr : '';
       case 'en':
-        return researchInfrastructure.descriptionEn;
+        return researchInfrastructure.descriptionEn ? researchInfrastructure.descriptionEn : '';
       case 'src':
-        return researchInfrastructure.descriptionSrCyr;
+        return researchInfrastructure.descriptionSrCyr ? researchInfrastructure.descriptionSrCyr : '';
       default:
-        return researchInfrastructure.descriptionSr;
+        return researchInfrastructure.descriptionSr ? researchInfrastructure.descriptionSr : '';
     }
   }
 
@@ -171,7 +171,11 @@ export default class ResearchInfrastructure extends mixins(AlertMixin) {
     const infrastructure = this.researchInfrastructures[index];
     const description = this.getDescriptionByLanguage(infrastructure);
 
-    return description.length <= 90 || infrastructure.showFullDescription ? description : description.slice(0, 90) + '...';
+    if (description) {
+      return description.length <= 90 || infrastructure.showFullDescription ? description : description.slice(0, 90) + '...';
+    } else {
+      return '';
+    }
   }
 
   // Method to toggle the showFullDescription flag

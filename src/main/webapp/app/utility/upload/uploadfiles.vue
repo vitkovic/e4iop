@@ -16,8 +16,8 @@
 	<div>
 		 <button class="btn btn-primary" id="slFile" ref='slFile' type="button" @click="choseUpload()">{{ txtslfile }}</button>
   			<input class="btn btn-primary" type="file" id="file_0" ref="file_0" @change="selectFile(0)" style="display:none">
-  			<div class="alert alert-light" style="color:#0d6efd;" id="divMessage0" ref="divMessage0" role="alert">{{ message }} </div>
-  			
+  			<div class="alert alert-light" :class="{'no-error-color': !isUploadError, 'error-color': isUploadError}" id="divMessage0" ref="divMessage0" role="alert">{{ message }} </div>
+
   			<button class="btn btn-primary" type="button" :disabled="true" ref='upplbutt_0' @click="upload(0)">{{ txtupload }}</button>
   			<div class="alert alert-light" id="divMessage1" ref="divMessage1" role="alert">{{ messageupload }} </div>
   	</div>
@@ -46,6 +46,7 @@ export default {
       progress: 0,
       message: this.$t('riportalApp.researchInfrastructure.upload.allowedtypes') + " / " + this.$t('riportalApp.researchInfrastructure.upload.namecontent'),
       messageupload: this.$t('riportalApp.researchInfrastructure.upload.notyetuploaded'),
+      isUploadError: false,
       fileInfos: [],
       filetype:"",
       filenameout:"",
@@ -65,7 +66,8 @@ export default {
 		this.$refs['file_0'].click();
 	},  
   	selectFile(i) {
-	  this.progress = 0;
+      this.isUploadError = false;
+      this.progress = 0;
       this.uploadFiles = new Array();
       this.selectedFiles = new Array();
       const refName = 'file_' + i;
@@ -77,10 +79,12 @@ export default {
       {
         this.message =  this.$t('riportalApp.researchInfrastructure.upload.namecontent') + this.upfile.name;
         this.$refs['upplbutt_'+i].disabled = true;
+        this.isUploadError = true;
         return;
       } 
       if (Allowedfiletypes.includes(this.upfile.type) != true) {
         this.message = this.$t('riportalApp.researchInfrastructure.upload.badtypeupload') + this.upfile.name;
+        this.isUploadError = true;
       } else {
         this.selectedFiles = this.$refs[refName].files[0];
         this.$refs['upplbutt_'+i].disabled = false;
@@ -136,3 +140,15 @@ export default {
   	
   };
 </script>
+
+<style>
+
+.no-error-color {
+  color: #0d6efd;
+}
+
+.error-color {
+  color: red;
+}
+
+</style>
