@@ -59,6 +59,7 @@
       "purchaseValueEuro": "Набавна цена (еур)",
       "purchaseValueDin": "Набавна цена (дин.)",
       "financeSource": "Извор финансирања",
+      "financeSourceOther": "Други извор финансирања",
       "projectName": "Назив пројекта",
 
       "services": "Услуге",

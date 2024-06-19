@@ -59,6 +59,7 @@
       "purchaseValueEuro": "Purchase price (eur)",
       "purchaseValueDin": "Purchase price (din.)",
       "financeSource": "Finance source",
+      "financeSourceOther": "Other finance source",
       "projectName": "Project name",
 
       "services": "Services",

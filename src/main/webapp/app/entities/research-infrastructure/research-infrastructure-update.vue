@@ -285,29 +285,25 @@
                                 </option>
                             </select>
                         </div>
-                    </b-col>   
 
-                    <!-- <b-col sm="3">
-                        <div class="form-group">
-                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.financeSource')" for="research-infrastructure-financeSource"></label>
-                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('financeSource')" @mouseout="hideTooltip('financeSource')"  class="question-icon-class"></font-awesome-icon>
-                             <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'financeSource'" v-html="$t('riportalApp.help.financeSource_desc')"></div>  
-                            <input type="text" class="form-control" name="financeSource" id="research-infrastructure-financeSource"
-                                 v-model="$v.researchInfrastructure.financeSource.$model" />                        
-                        </div>                        
-                    </b-col>                         -->
-                </b-form-row>
-                <b-form-row>                    
-                    <b-col sm="3">
-                        <div class="form-group">
+                        <div v-if="researchInfrastructure.financeSource && researchInfrastructure.financeSource.sourceEn == riFinanceSourceOptions.OTHER" class="form-group">
+                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.financeSourceOther')" for="research-infrastructure-financeSourceOther"></label>
+                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('financeSourceOther')" @mouseout="hideTooltip('financeSourceOther')"  class="question-icon-class"></font-awesome-icon>
+                             <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'financeSourceOther'" v-html="$t('riportalApp.help.financeSourceOther_desc')"></div>  
+                            <input type="text" class="form-control" name="financeSourceOther" id="research-infrastructure-financeSource"
+                                 v-model="$v.researchInfrastructure.financeSourceOther.$model" />                        
+                        </div>
+
+                        <div v-if="researchInfrastructure.financeSource && researchInfrastructure.financeSource.sourceEn != riFinanceSourceOptions.SELF_FINANCING" class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.projectName')" for="research-infrastructure-projectName"></label>
                              <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('projectName')" @mouseout="hideTooltip('projectName')"  class="question-icon-class"></font-awesome-icon>
                              <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'projectName'" v-html="$t('riportalApp.help.projectName_desc')"></div> 
                             <input type="text" class="form-control" name="projectName" id="research-infrastructure-projectName"
                                  v-model="$v.researchInfrastructure.projectName.$model" />                          
-                        </div>                        
-                    </b-col>                        
+                        </div>   
+                    </b-col>                   
                 </b-form-row>
+
                 <!--
                 <b-form-row class="mb-4">
                     <b-col sm="3">

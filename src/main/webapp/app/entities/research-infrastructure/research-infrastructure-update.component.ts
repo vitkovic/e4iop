@@ -18,7 +18,7 @@ import RiAccessTypeService from '../ri-access-type/ri-access-type.service';
 import { IRiAccessType } from '@/shared/model/ri-access-type.model';
 
 import RiFinanceSourceService from '../ri-finance-source/ri-finance-source.service';
-import { IRiFinanceSource } from '@/shared/model/ri-finance-source.model';
+import { IRiFinanceSource, RiFinanceSourceOptions } from '@/shared/model/ri-finance-source.model';
 
 import RiCategoryService from '../ri-category/ri-category.service';
 import { IRiCategory } from '@/shared/model/ri-category.model';
@@ -91,7 +91,7 @@ const validations: any = {
       }),
     },
     projectName: {},
-    financeSourceLegacyColumn: {},
+    financeSourceOther: {},
     acquisitionYear: {},
     purchaseValueEuro: {},
     purchaseValueDin: {},
@@ -190,6 +190,7 @@ export default class ResearchInfrastructureUpdate extends Vue {
   public customEvents = [];
   private currentTooltip: string | null = null;
   eventGuid = 0;
+  public riFinanceSourceOptions = RiFinanceSourceOptions;
 
   public calendarOptions = {
     locales: allLocales,

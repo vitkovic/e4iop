@@ -53,7 +53,7 @@ export interface IResearchInfrastructure {
   acquisitionYear?: number;
   purchaseValueEuro?: number;
   purchaseValueDin?: number;
-  financeSourceLegacyColumn?: string;
+  financeSourceOther?: string;
   projectName?: string;
   showFullDescription?: boolean;
 }
@@ -101,7 +101,7 @@ export class ResearchInfrastructure implements IResearchInfrastructure {
     public acquisitionYear?: number,
     public purchaseValueEuro?: number,
     public purchaseValueDin?: number,
-    public financeSourceLegacyColumn?: string,
+    public financeSourceOther?: string,
     public projectName?: string
   ) {}
 }

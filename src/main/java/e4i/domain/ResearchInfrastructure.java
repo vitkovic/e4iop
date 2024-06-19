@@ -257,8 +257,8 @@ public class ResearchInfrastructure implements Serializable {
     @Column(name = "purchase_value_din")// nabavna vrednost u din
     private Double purchaseValueDin;
     
-    @Column(name = "finance_source_legacy_column")// izvor finansiranja
-    private String financeSourceLegacyColumn;
+    @Column(name = "finance_source_other")// izvor finansiranja
+    private String financeSourceOther;
     
     @Column(name = "project_name")// projekat iz kojeg je oprema kupljena
     private String projectName;
@@ -919,15 +919,15 @@ public class ResearchInfrastructure implements Serializable {
 
 
 
-	public String getFinanceSourceLegacyColumn() {
-		return financeSourceLegacyColumn;
+	public String getFinanceSourceOther() {
+		return financeSourceOther;
 	}
 
 
 
 
-	public void setFinanceSourceLegacyColumn(String financeSourceLegacyColumn) {
-		this.financeSourceLegacyColumn = financeSourceLegacyColumn;
+	public void setFinanceSourceOther(String financeSourceOther) {
+		this.financeSourceOther = financeSourceOther;
 	}
 
 
