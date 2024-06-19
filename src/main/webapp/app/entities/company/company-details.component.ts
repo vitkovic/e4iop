@@ -9,6 +9,8 @@ import InquiryService from './inquiry.service';
 import CompanyService from './company.service';
 import PortalUserService from '../../entities/portal-user/portal-user.service';
 
+import RatingBadge from './company-badge.vue';
+
 interface InquiryDTO {
   advertisement: IAdvertisement;
   datetime: Date;
@@ -21,7 +23,11 @@ interface InquiryDTO {
 
 // import VueViewer from 'v-viewer';
 
-@Component
+@Component({
+  components: {
+    RatingBadge,
+  },
+})
 export default class CompanyDetails extends Vue {
   @Inject('companyService') private companyService: () => CompanyService;
   @Inject('accountService') private accountService: () => AccountService;
@@ -44,6 +50,35 @@ export default class CompanyDetails extends Vue {
     value: '',
     isValid: true,
   };
+
+  public firstImgWidth: number = 0;
+  public imagesLoaded: number = 0;
+  public companies = [
+    {
+      name: 'QCDS Consulting',
+      description: 'Analiza faktora zastoja masina',
+      rating: 4,
+      role: 'Oglasivac',
+      details:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    },
+    {
+      name: 'B.2.B Company',
+      description: 'Ispitivanje kostrukcija',
+      rating: 2,
+      role: 'Trazilac',
+      details:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    },
+    {
+      name: 'Mehanika D.O.O.',
+      description: 'Ispitivanje trzista',
+      rating: 3,
+      role: 'Oglasivac',
+      details:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    },
+  ];
 
   private viewerOptions: any = {
     movable: false,
@@ -71,11 +106,121 @@ export default class CompanyDetails extends Vue {
     });
   }
 
+  created() {
+    if (this.$route.params.companyId) {
+      this.retrieveCompany(this.$route.params.companyId);
+    }
+  }
+
+  // ----------------------
+
+  mounted() {
+    this.updateImgWidth();
+    window.addEventListener('resize', this.updateImgWidth);
+  }
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.updateImgWidth);
+  }
+
+  onImageLoad() {
+    this.imagesLoaded++;
+    const totalImages = this.imageNumber(); // Total number of images
+    if (this.imagesLoaded === totalImages) {
+      this.updateImgWidth();
+    }
+  }
+
+  public imageNumber() {
+    let number = 0;
+    for (let company of this.company.documents) {
+      if (company.type.type === 'image') {
+        number++;
+      }
+    }
+    return number;
+  }
+
+  updateImgWidth() {
+    const carousel = this.$refs.carousel as HTMLElement;
+    const totalImages = carousel.querySelectorAll('img').length;
+    const firstImg = carousel.querySelectorAll('img')[0] as HTMLElement;
+
+    if (firstImg) {
+      this.firstImgWidth = firstImg.clientWidth;
+      this.updateImageWidths(totalImages);
+      // console.log(this.firstImgWidth);
+    }
+  }
+
+  updateImageWidths(totalImages: number) {
+    const carousel = this.$refs.carousel as HTMLElement;
+    const imgs = carousel.querySelectorAll('img');
+
+    const width = window.innerWidth;
+    let divisionFactor: number;
+
+    if (width <= 576) {
+      divisionFactor = 1;
+    } else if (width <= 768) {
+      divisionFactor = 2;
+    } else if (width <= 1200) {
+      divisionFactor = 3;
+    } else {
+      divisionFactor = Math.min(totalImages, 5);
+    }
+
+    imgs.forEach((img: HTMLElement) => {
+      img.style.width = `calc(100% / ${divisionFactor})`;
+    });
+  }
+
+  scrollPrev() {
+    const carousel = this.$refs.carousel as HTMLElement;
+    carousel.scrollLeft += -this.firstImgWidth;
+  }
+
+  scrollNext() {
+    const carousel = this.$refs.carousel as HTMLElement;
+    carousel.scrollLeft += this.firstImgWidth;
+  }
+
+  // ----------------------------
+
+  // mounted() {
+  //   this.updateRowWidth();
+  // }
+
+  // updateRowWidth() {
+  //   this.rowWidth = (this.$refs.imageRow as HTMLElement).scrollWidth;
+  // }
+
+  // slideLeft() {
+  //   if (this.slideAmount > 0) {
+  //     this.slideAmount--;
+  //     this.rowOffset = -this.slideAmount * this.rowWidth;
+  //   }
+  // }
+
+  // slideRight() {
+  //   if (this.slideAmount < this.images.length - 5) {
+  //     this.slideAmount++;
+  //     this.rowOffset = -this.slideAmount * this.rowWidth;
+  //   }
+  // }
+
+  // get imagesToShow() {
+  //   return this.images.slice(this.slideAmount, this.slideAmount + 5);
+  // }
+
+  // ---------------------------------
+
   public retrieveCompany(companyId) {
     this.companyService()
       .find(companyId)
       .then(res => {
         this.company = res;
+        console.log('Current company:', this.company);
       });
   }
 
