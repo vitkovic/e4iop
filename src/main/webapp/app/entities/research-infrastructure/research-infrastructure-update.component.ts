@@ -61,7 +61,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 //axios.defaults.baseURL = 'http://localhost:8080/'; // for dev only i autocomplete
 const validations: any = {
   researchInfrastructure: {
-    nameSr: {},
+    nameSr: { required },
     nameEn: {},
     departmentName: {},
     riLogo: {},

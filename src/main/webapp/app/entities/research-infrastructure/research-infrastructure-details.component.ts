@@ -2,6 +2,7 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { IResearchInfrastructure } from '@/shared/model/research-infrastructure.model';
 import ResearchInfrastructureService from './research-infrastructure.service';
+import { RiFinanceSourceOptions } from '@/shared/model/ri-finance-source.model';
 
 import UploadFilesService from '@/utility/upload/upload_service';
 
@@ -10,6 +11,7 @@ export default class ResearchInfrastructureDetails extends Vue {
   @Inject('researchInfrastructureService') private researchInfrastructureService: () => ResearchInfrastructureService;
   public researchInfrastructure: IResearchInfrastructure = {};
   public currentLanguage = '';
+  public riFinanceSourceOptions = RiFinanceSourceOptions;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {

@@ -12,7 +12,7 @@
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.nameSr')" for="research-infrastructure-nameSr">Name Sr</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('nameSr')" @mouseout="hideTooltip('nameSr')"  class="question-icon-class"></font-awesome-icon>
                             <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'nameSr'" v-html="$t('riportalApp.help.nameSr_desc')"></div>
-                            <input type="text" ref="nameSr" class="form-control" name="nameSr" id="research-infrastructure-nameSr" :class="{'valid': !$v.researchInfrastructure.nameSr.$invalid, 'invalid': $v.researchInfrastructure.nameSr.$invalid }" v-model="$v.researchInfrastructure.nameSr.$model" />
+                            <input type="text" ref="nameSr" class="form-control" name="nameSr" id="research-infrastructure-nameSr" :class="{'valid': !$v.researchInfrastructure.nameSr.$invalid, 'invalid': $v.researchInfrastructure.nameSr.$invalid }" v-model="$v.researchInfrastructure.nameSr.$model" required/>
 
                             <!-- <input type="text" ref="nameSr" class="form-control" name="nameSr" id="research-infrastructure-nameSr" @keyup="getData()" autocomplete="off"
                                 :class="{'valid': !$v.researchInfrastructure.nameSr.$invalid, 'invalid': $v.researchInfrastructure.nameSr.$invalid }" v-model="$v.researchInfrastructure.nameSr.$model" />
@@ -46,37 +46,7 @@
         						</ul>
       						</div> -->
                         </div>
-                    </b-col>
-                    <b-col sm="3">                        
-                        <div class="form-group">
-                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.accessType')" for="research-infrastructure-accessType">Access Type</label>
-                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('accessType')" @mouseout="hideTooltip('accessType')"  class="question-icon-class"></font-awesome-icon>
-                            <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'accessType'" v-html="$t('riportalApp.help.accessType_desc')"></div>
-                            <select class="form-control" id="research-infrastructure-accessType" name="accessType" v-model="researchInfrastructure.accessType">
-                                <option v-bind:value="null"></option>
-                                <option v-bind:value="researchInfrastructure.accessType && riAccessTypeOption.id === researchInfrastructure.accessType.id ? researchInfrastructure.accessType : riAccessTypeOption" v-for="riAccessTypeOption in riAccessTypes" :key="riAccessTypeOption.id">
-                                    <span v-if="currentLanguage == 'sr'">{{riAccessTypeOption.type}}</span>
-                                    <span v-if="currentLanguage == 'en'">{{riAccessTypeOption.typeEn}}</span>
-                                    <span v-if="currentLanguage == 'src'">{{riAccessTypeOption.typeCyr}}</span>
-                                </option>
-                            </select>
-                        </div>
-                    </b-col>
-                    <b-col sm="3">                        
-                        <div class="form-group">
-                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.category')" for="research-infrastructure-category">Category</label>
-                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('category')" @mouseout="hideTooltip('category')"  class="question-icon-class"></font-awesome-icon>
-                            <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'category'" v-html="$t('riportalApp.help.category_desc')"></div>
-                            <select class="form-control" id="research-infrastructure-category" name="category" v-model="researchInfrastructure.category">
-                                <option v-bind:value="null"></option>
-                                <option v-bind:value="researchInfrastructure.category && riCategoryOption.id === researchInfrastructure.category.id ? researchInfrastructure.category : riCategoryOption" v-for="riCategoryOption in riCategories" :key="riCategoryOption.id">
-                                    <span v-if="currentLanguage == 'sr'">{{riCategoryOption.category}}</span>
-                                    <span v-if="currentLanguage == 'en'">{{riCategoryOption.categoryEn}}</span>
-                                    <span v-if="currentLanguage == 'src'">{{riCategoryOption.categoryCyr}}</span>
-                                </option>
-                            </select>
-                        </div>
-                    </b-col>                        
+                    </b-col>                      
                 </b-form-row>
                 <b-form-row>                    
                     <b-col sm="3">
@@ -106,18 +76,36 @@
                                 :class="{'valid': !$v.researchInfrastructure.keywordsEn.$invalid, 'invalid': $v.researchInfrastructure.keywordsEn.$invalid }" v-model="$v.researchInfrastructure.keywordsEn.$model" />                       
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col sm="3">                        
                         <div class="form-group">
-                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.departmentName')" for="research-infrastructure-departmentName">Department Name</label>
-                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('departmentName')" @mouseout="hideTooltip('departmentName')"  class="question-icon-class"></font-awesome-icon>
-                            <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'departmentName'" v-html="$t('riportalApp.help.departmentName_desc')"></div>
-                            <input type="text" class="form-control" name="departmentName" id="research-infrastructure-departmentName"
-                                :class="{'valid': !$v.researchInfrastructure.departmentName.$invalid, 'invalid': $v.researchInfrastructure.departmentName.$invalid }" v-model="$v.researchInfrastructure.departmentName.$model" />
+                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.accessType')" for="research-infrastructure-accessType">Access Type</label>
+                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('accessType')" @mouseout="hideTooltip('accessType')"  class="question-icon-class"></font-awesome-icon>
+                            <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'accessType'" v-html="$t('riportalApp.help.accessType_desc')"></div>
+                            <select class="form-control" id="research-infrastructure-accessType" name="accessType" v-model="researchInfrastructure.accessType">
+                                <option v-bind:value="null"></option>
+                                <option v-bind:value="researchInfrastructure.accessType && riAccessTypeOption.id === researchInfrastructure.accessType.id ? researchInfrastructure.accessType : riAccessTypeOption" v-for="riAccessTypeOption in riAccessTypes" :key="riAccessTypeOption.id">
+                                    <span v-if="currentLanguage == 'sr'">{{riAccessTypeOption.type}}</span>
+                                    <span v-if="currentLanguage == 'en'">{{riAccessTypeOption.typeEn}}</span>
+                                    <span v-if="currentLanguage == 'src'">{{riAccessTypeOption.typeCyr}}</span>
+                                </option>
+                            </select>
                         </div>
                     </b-col>
                     <b-col sm="3">
-                        
-                    </b-col>
+                        <div class="form-group">
+                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.accessMode')" for="research-infrastructure-accessMode">Access Mode</label>
+                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('accessMode')" @mouseout="hideTooltip('accessMode')"  class="question-icon-class"></font-awesome-icon>
+                            <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'accessMode'" v-html="$t('riportalApp.help.accessMode_desc')"></div>
+                            <select class="form-control" id="research-infrastructure-accessMode" name="accessMode" v-model="researchInfrastructure.accessMode">
+                                <option v-bind:value="null"></option>
+                                <option v-bind:value="researchInfrastructure.accessMode && riAccessModeOption.id === researchInfrastructure.accessMode.id ? researchInfrastructure.accessMode : riAccessModeOption" v-for="riAccessModeOption in riAccessModes" :key="riAccessModeOption.id">
+                                    <span v-if="currentLanguage == 'sr'">{{riAccessModeOption.mode}}</span>
+                                    <span v-if="currentLanguage == 'src'">{{riAccessModeOption.modeCyr}}</span>
+                                    <span v-if="currentLanguage == 'en'">{{riAccessModeOption.modeEn}}</span>                                    
+                                </option>
+                            </select>
+                        </div>
+                    </b-col>  
                 </b-form-row>
                   <b-form-row>
                     <b-col sm="3">
@@ -146,19 +134,30 @@
                     </b-col>
                     <b-col sm="3">
                         <div class="form-group">
-                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.accessMode')" for="research-infrastructure-accessMode">Access Mode</label>
-                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('accessMode')" @mouseout="hideTooltip('accessMode')"  class="question-icon-class"></font-awesome-icon>
-                            <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'accessMode'" v-html="$t('riportalApp.help.accessMode_desc')"></div>
-                            <select class="form-control" id="research-infrastructure-accessMode" name="accessMode" v-model="researchInfrastructure.accessMode">
+                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.departmentName')" for="research-infrastructure-departmentName">Department Name</label>
+                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('departmentName')" @mouseout="hideTooltip('departmentName')"  class="question-icon-class"></font-awesome-icon>
+                            <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'departmentName'" v-html="$t('riportalApp.help.departmentName_desc')"></div>
+                            <input type="text" class="form-control" name="departmentName" id="research-infrastructure-departmentName"
+                                :class="{'valid': !$v.researchInfrastructure.departmentName.$invalid, 'invalid': $v.researchInfrastructure.departmentName.$invalid }" v-model="$v.researchInfrastructure.departmentName.$model" />
+                        </div>
+                    </b-col>
+
+                    <b-col sm="3">                        
+                        <div class="form-group">
+                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.category')" for="research-infrastructure-category">Category</label>
+                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('category')" @mouseout="hideTooltip('category')"  class="question-icon-class"></font-awesome-icon>
+                            <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'category'" v-html="$t('riportalApp.help.category_desc')"></div>
+                            <select class="form-control" id="research-infrastructure-category" name="category" v-model="researchInfrastructure.category">
                                 <option v-bind:value="null"></option>
-                                <option v-bind:value="researchInfrastructure.accessMode && riAccessModeOption.id === researchInfrastructure.accessMode.id ? researchInfrastructure.accessMode : riAccessModeOption" v-for="riAccessModeOption in riAccessModes" :key="riAccessModeOption.id">
-                                    <span v-if="currentLanguage == 'sr'">{{riAccessModeOption.mode}}</span>
-                                    <span v-if="currentLanguage == 'src'">{{riAccessModeOption.modeCyr}}</span>
-                                    <span v-if="currentLanguage == 'en'">{{riAccessModeOption.modeEn}}</span>                                    
+                                <option v-bind:value="researchInfrastructure.category && riCategoryOption.id === researchInfrastructure.category.id ? researchInfrastructure.category : riCategoryOption" v-for="riCategoryOption in riCategories" :key="riCategoryOption.id">
+                                    <span v-if="currentLanguage == 'sr'">{{riCategoryOption.category}}</span>
+                                    <span v-if="currentLanguage == 'en'">{{riCategoryOption.categoryEn}}</span>
+                                    <span v-if="currentLanguage == 'src'">{{riCategoryOption.categoryCyr}}</span>
                                 </option>
                             </select>
                         </div>
-                    </b-col>                        
+                    </b-col>  
+                      
                 </b-form-row>
                 <b-form-row>
                     <b-col sm="3">
@@ -348,7 +347,7 @@
                 
  <div class="border border-primary" style="padding:35px;margin:20px;">
 	 <h3 v-text="$t('riportalApp.researchInfrastructure.titleadditional')">Osnovni podaci</h3>
-	 <h5 v-text="$t('riportalApp.researchInfrastructure.titleadditionalcomment')">Osnovni podaci</h5>
+	 <h5 v-if="!researchInfrastructure.id" style="color: red;" v-text="$t('riportalApp.researchInfrastructure.titleadditionalcomment')">Osnovni podaci</h5>
 					<br>
                 <b-form-row>
 					   <b-col sm="3">
@@ -591,17 +590,13 @@
 
 .tooltip-hover {
   position: absolute;
-  top: 40%;
+  /* top: 40%; */
   left: 30%;
   display: none;
   z-index: 100000;
 }
 .form-group:hover .tooltip-hover {
   display: block;
-}
-
-.invalid-color {
-    color: red;
 }
 
 </style>

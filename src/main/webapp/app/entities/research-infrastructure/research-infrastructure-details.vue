@@ -63,7 +63,7 @@
                         <span class="span-display" v-text="$t('riportalApp.researchInfrastructure.riWebsite')">Ri Website</span>
                     </b-col>
                     <b-col sm="4" class="border-table">
-                        <span>{{researchInfrastructure.riWebsite}}</span>
+                        <b-link v-if="researchInfrastructure.riWebsite" :to="`//${researchInfrastructure.riWebsite}`" target="_blank">{{researchInfrastructure.riWebsite}}</b-link>
                     </b-col>
                 </b-form-row>
                 <b-form-row class="mt-1 row-background">
@@ -155,11 +155,26 @@
                             <br>
                         </span>
                     </b-col>                   
-                    <b-col sm="2" class="border-table">
+                    <!-- <b-col sm="2" class="border-table">
                             <span class="span-display" v-text="$t('riportalApp.researchInfrastructure.riLogo')">Ri Logo</span>
+                    </b-col> -->
+                    <!-- <b-col sm="4" class="border-table">
+                            <img v-if="researchInfrastructure.riLogo" :src="loadImage(researchInfrastructure.riLogo)" width="50"/>
+                    </b-col> -->
+                    <b-col sm="2" class="border-table">
+                        <span class="span-display" v-text="$t('riportalApp.researchInfrastructure.termsOfUse')">Terms of Use</span>
                     </b-col>
                     <b-col sm="4" class="border-table">
-                            <img v-if="researchInfrastructure.riLogo" :src="loadImage(researchInfrastructure.riLogo)" width="50"/>
+                         <span class="link-style" v-if="researchInfrastructure.id != null && researchInfrastructure.termsOfUseSr != null && (currentLanguage === 'sr' || currentLanguage === 'src')">
+                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.termsOfUseSr)">
+                                {{researchInfrastructure.termsOfUseSr}}
+                            </b-button>
+                        </span>
+                        <span class="link-style" v-if="researchInfrastructure.id != null && researchInfrastructure.termsOfUseEn != null && currentLanguage === 'en'">
+                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.termsOfUseEn)">
+                                {{researchInfrastructure.termsOfUseEn}}
+                            </b-button>
+                        </span>
                     </b-col>
                 </b-form-row>               
                 <b-form-row class="mt-1 row-background">
@@ -200,7 +215,9 @@
                         <div v-if="researchInfrastructure.financeSource">                            
                             <span v-if="currentLanguage == 'sr'">{{researchInfrastructure.financeSource.sourceSr}}</span>
                             <span v-if="currentLanguage == 'en'">{{researchInfrastructure.financeSource.sourceEn}}</span>
-                            <span v-if="currentLanguage == 'src'">{{researchInfrastructure.financeSource.sourceSrc}}</span>                            
+                            <span v-if="currentLanguage == 'src'">{{researchInfrastructure.financeSource.sourceSrc}}</span>
+                            <span v-if="researchInfrastructure.financeSource.sourceEn == riFinanceSourceOptions.OTHER && researchInfrastructure.financeSourceOther">
+                            {{ " - " + researchInfrastructure.financeSourceOther }}</span>                            
                         </div>
                     </b-col>
                 </b-form-row>

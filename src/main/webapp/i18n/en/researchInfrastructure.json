@@ -36,6 +36,7 @@
       "userManualLinkSr": "Upload user manual (Serbian)",
       "userManualLinkEn": "Upload user manual (English)",
       "userManualLinkSrCyr": "Upload user manual (Serbian Cyrillic)",
+      "termsOfUse": "Terms of Use",
       "termsOfUseSr": "Terms of Use (Serbian )",
       "termsOfUseEn": "Terms of Use (English)",
       "termsOfUseSrCyr": "Terms Of Use (Serbian Cyrillic)",
@@ -104,7 +105,7 @@
       "description": "Description",
       "titlebasic": "Basic data",
       "titleadditional": "Additional files",
-      "titleadditionalcomment": "They can be saved after entering basic data!",
+      "titleadditionalcomment": "Additional files can be uploaded after entering basic data!",
       "upload": {
         "allowedtypes": "Allowed File types - [pdf]",
         "namecontent": "Filename can only contain English letters and numbers! ",
