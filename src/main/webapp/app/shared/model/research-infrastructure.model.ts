@@ -3,6 +3,7 @@ import { IRiCalendar } from '@/shared/model/ri-calendar.model';
 import { IRiStatus } from '@/shared/model/ri-status.model';
 import { IRiAccessMode } from '@/shared/model/ri-access-mode.model';
 import { IRiAccessType } from '@/shared/model/ri-access-type.model';
+import { IRiFinanceSource } from '@/shared/model/ri-finance-source.model';
 import { IRiCategory } from '@/shared/model/ri-category.model';
 import { IScientificSubdomain } from '@/shared/model/scientific-subdomain.model';
 import { IRiSubcategory } from '@/shared/model/ri-subcategory.model';
@@ -38,6 +39,7 @@ export interface IResearchInfrastructure {
   status?: IRiStatus;
   accessMode?: IRiAccessMode;
   accessType?: IRiAccessType;
+  financeSource?: IRiFinanceSource;
   category?: IRiCategory;
   subdomains?: IScientificSubdomain[];
   subcategories?: IRiSubcategory[];
@@ -51,7 +53,7 @@ export interface IResearchInfrastructure {
   acquisitionYear?: number;
   purchaseValueEuro?: number;
   purchaseValueDin?: number;
-  financeSource?: string;
+  financeSourceLegacyColumn?: string;
   projectName?: string;
   showFullDescription?: boolean;
 }
@@ -85,6 +87,7 @@ export class ResearchInfrastructure implements IResearchInfrastructure {
     public status?: IRiStatus,
     public accessMode?: IRiAccessMode,
     public accessType?: IRiAccessType,
+    public financeSource?: IRiFinanceSource,
     public category?: IRiCategory,
     public subdomains?: IScientificSubdomain[],
     public subcategories?: IRiSubcategory[],
@@ -98,7 +101,7 @@ export class ResearchInfrastructure implements IResearchInfrastructure {
     public acquisitionYear?: number,
     public purchaseValueEuro?: number,
     public purchaseValueDin?: number,
-    public financeSource?: string,
+    public financeSourceLegacyColumn?: string,
     public projectName?: string
   ) {}
 }

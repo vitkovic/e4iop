@@ -25,6 +25,7 @@
         "riSubcategory": "Ri Subcategory",
         "riAccessType": "Ri Access Type",
         "riAccessMode": "Ri Access Mode",
+        "riFinanceSource": "Ri Finance Source",
         "riService": "Research infrastructure services",
         "serviceType": "Service Type",
         "serviceSubtype": "Service Subtype",

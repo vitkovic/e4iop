@@ -54,6 +54,7 @@ import RiCategoryService from '@/entities/ri-category/ri-category.service';
 import RiSubcategoryService from '@/entities/ri-subcategory/ri-subcategory.service';
 import RiAccessTypeService from '@/entities/ri-access-type/ri-access-type.service';
 import RiAccessModeService from '@/entities/ri-access-mode/ri-access-mode.service';
+import RiFinanceSourceService from '@/entities/ri-finance-source/ri-finance-source.service';
 import RiServiceService from '@/entities/ri-service/ri-service.service';
 import ServiceTypeService from '@/entities/service-type/service-type.service';
 import ServiceSubtypeService from '@/entities/service-subtype/service-subtype.service';
@@ -214,6 +215,7 @@ new Vue({
     riSubcategoryService: () => new RiSubcategoryService(),
     riAccessTypeService: () => new RiAccessTypeService(),
     riAccessModeService: () => new RiAccessModeService(),
+    riFinanceSourceService: () => new RiFinanceSourceService(),
     riServiceService: () => new RiServiceService(),
     serviceTypeService: () => new ServiceTypeService(),
     serviceSubtypeService: () => new ServiceSubtypeService(),

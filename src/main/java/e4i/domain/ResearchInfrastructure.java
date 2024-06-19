@@ -257,8 +257,8 @@ public class ResearchInfrastructure implements Serializable {
     @Column(name = "purchase_value_din")// nabavna vrednost u din
     private Double purchaseValueDin;
     
-    @Column(name = "finance_source")// izvor finansiranja
-    private String financeSource;
+    @Column(name = "finance_source_legacy_column")// izvor finansiranja
+    private String financeSourceLegacyColumn;
     
     @Column(name = "project_name")// projekat iz kojeg je oprema kupljena
     private String projectName;
@@ -290,6 +290,10 @@ public class ResearchInfrastructure implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "researchInfrastructures", allowSetters = true)
     private RiCategory category;
+    
+    @ManyToOne
+    @JsonIgnoreProperties(value = "researchInfrastructures", allowSetters = true)
+    private RiFinanceSource financeSource;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -767,7 +771,20 @@ public class ResearchInfrastructure implements Serializable {
     public void setCategory(RiCategory riCategory) {
         this.category = riCategory;
     }
+    
+    public RiFinanceSource getFinanceSource() {
+        return financeSource;
+    }
 
+    public ResearchInfrastructure financeSource(RiFinanceSource riFinanceSource) {
+        this.financeSource = riFinanceSource;
+        return this;
+    }
+
+    public void setFinanceSource(RiFinanceSource riFinanceSource) {
+        this.financeSource = riFinanceSource;
+    }
+    
     public Set<ScientificSubdomain> getSubdomains() {
         return subdomains;
     }
@@ -902,15 +919,15 @@ public class ResearchInfrastructure implements Serializable {
 
 
 
-	public String getFinanceSource() {
-		return financeSource;
+	public String getFinanceSourceLegacyColumn() {
+		return financeSourceLegacyColumn;
 	}
 
 
 
 
-	public void setFinanceSource(String financeSource) {
-		this.financeSource = financeSource;
+	public void setFinanceSourceLegacyColumn(String financeSourceLegacyColumn) {
+		this.financeSourceLegacyColumn = financeSourceLegacyColumn;
 	}
 
 

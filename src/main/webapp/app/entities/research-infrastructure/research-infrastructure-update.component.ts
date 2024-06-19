@@ -17,6 +17,9 @@ import { IRiAccessMode } from '@/shared/model/ri-access-mode.model';
 import RiAccessTypeService from '../ri-access-type/ri-access-type.service';
 import { IRiAccessType } from '@/shared/model/ri-access-type.model';
 
+import RiFinanceSourceService from '../ri-finance-source/ri-finance-source.service';
+import { IRiFinanceSource } from '@/shared/model/ri-finance-source.model';
+
 import RiCategoryService from '../ri-category/ri-category.service';
 import { IRiCategory } from '@/shared/model/ri-category.model';
 
@@ -88,7 +91,7 @@ const validations: any = {
       }),
     },
     projectName: {},
-    financeSource: {},
+    financeSourceLegacyColumn: {},
     acquisitionYear: {},
     purchaseValueEuro: {},
     purchaseValueDin: {},
@@ -130,6 +133,10 @@ export default class ResearchInfrastructureUpdate extends Vue {
   @Inject('riAccessTypeService') private riAccessTypeService: () => RiAccessTypeService;
 
   public riAccessTypes: IRiAccessType[] = [];
+
+  @Inject('riFinanceSourceService') private riFinanceSourceService: () => RiFinanceSourceService;
+
+  public riFinanceSources: IRiFinanceSource[] = [];
 
   @Inject('riCategoryService') private riCategoryService: () => RiCategoryService;
 
@@ -803,6 +810,11 @@ export default class ResearchInfrastructureUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.riAccessTypes = res.data;
+      });
+    this.riFinanceSourceService()
+      .retrieve()
+      .then(res => {
+        this.riFinanceSources = res.data;
       });
     this.riCategoryService()
       .retrieve()

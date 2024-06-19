@@ -1,0 +1,29 @@
+{
+  "riportalApp": {
+    "riFinanceSource": {
+      "home": {
+        "title": "RI Finance Sources",
+        "createLabel": "Create new RI Finance Source",
+        "createOrEditLabel": "Create or edit RI Finance Source",
+        "notFound": "No RI Finance Sources found"
+      },
+      "created": "A new RI Finance Source is created with identifier {{ param }}",
+      "updated": "A RI Finance Source is updated with identifier {{ param }}",
+      "deleted": "A RI Finance Source is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete RI Finance Source with identifier {{ id }}?"
+      },
+      "detail": {
+        "title": "RI Finance Source"
+      },
+      "sourceSr": "Source (Serbian Latin)",
+      "sourceSrc": "Source (Serbian Cyrillic)",
+      "sourceEn": "Source (English)",
+      "help": {
+        "sourceSr": "description in Serbian Latin",
+        "sourceSrc": "description in Serbian Cyrillic",
+        "sourceEn": "description in English"
+      }
+    }
+  }
+}

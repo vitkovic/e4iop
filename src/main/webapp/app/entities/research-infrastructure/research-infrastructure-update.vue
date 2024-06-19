@@ -270,7 +270,24 @@
                                 :class="{'valid': !$v.researchInfrastructure.purchaseValueDin.$invalid, 'invalid': $v.researchInfrastructure.purchaseValueDin.$invalid }" v-model="$v.researchInfrastructure.purchaseValueDin.$model" />                      
                         </div>
                     </b-col>
+
                     <b-col sm="3">
+                        <div class="form-group">
+                            <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.financeSource')" for="research-infrastructure-financeSource">Access Mode</label>
+                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('financeSource')" @mouseout="hideTooltip('financeSource')"  class="question-icon-class"></font-awesome-icon>
+                            <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'financeSource'" v-html="$t('riportalApp.help.financeSource_desc')"></div>
+                            <select class="form-control" id="research-infrastructure-financeSource" name="financeSource" v-model="researchInfrastructure.financeSource">
+                                <option v-bind:value="null"></option>
+                                <option v-bind:value="researchInfrastructure.financeSource && financeSourceOption.id === researchInfrastructure.financeSource.id ? researchInfrastructure.financeSource : financeSourceOption" v-for="financeSourceOption in riFinanceSources" :key="financeSourceOption.id">
+                                    <span v-if="currentLanguage == 'sr'">{{financeSourceOption.sourceSr}}</span>
+                                    <span v-if="currentLanguage == 'src'">{{financeSourceOption.sourceSrc}}</span>
+                                    <span v-if="currentLanguage == 'en'">{{financeSourceOption.sourceEn}}</span>                                    
+                                </option>
+                            </select>
+                        </div>
+                    </b-col>   
+
+                    <!-- <b-col sm="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.financeSource')" for="research-infrastructure-financeSource"></label>
                              <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('financeSource')" @mouseout="hideTooltip('financeSource')"  class="question-icon-class"></font-awesome-icon>
@@ -278,7 +295,7 @@
                             <input type="text" class="form-control" name="financeSource" id="research-infrastructure-financeSource"
                                  v-model="$v.researchInfrastructure.financeSource.$model" />                        
                         </div>                        
-                    </b-col>                        
+                    </b-col>                         -->
                 </b-form-row>
                 <b-form-row>                    
                     <b-col sm="3">

@@ -25,6 +25,7 @@
         "riSubcategory": "Podkategorija istraživačke infrastrukture",
         "riAccessType": "Vrsta pristupa istraživačke infrastrukture",
         "riAccessMode": "Pristupni mod istraživačke infrastrukture",
+        "riFinanceSource": "Izvor finansiranja istraživačke infrastrukture",
         "riService": "Usluge istraživačke infrastrukture",
         "serviceType": "Tip usluge",
         "serviceSubtype": "Podtip usluge",

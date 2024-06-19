@@ -159,7 +159,7 @@
                             <span class="span-display" v-text="$t('riportalApp.researchInfrastructure.riLogo')">Ri Logo</span>
                     </b-col>
                     <b-col sm="4" class="border-table">
-                            <img :src="loadImage(researchInfrastructure.riLogo)" width="50"/>
+                            <img v-if="researchInfrastructure.riLogo" :src="loadImage(researchInfrastructure.riLogo)" width="50"/>
                     </b-col>
                 </b-form-row>               
                 <b-form-row class="mt-1 row-background">
@@ -194,8 +194,13 @@
                         <span class="span-display" v-text="$t('riportalApp.researchInfrastructure.financeSource')" ></span>
                     </b-col>
                     <b-col sm="4" class="border-table">
-                        <div v-if="researchInfrastructure.financeSource">
+                        <!-- <div v-if="researchInfrastructure.financeSource">
                             {{researchInfrastructure.financeSource}} 
+                        </div> -->
+                        <div v-if="researchInfrastructure.financeSource">                            
+                            <span v-if="currentLanguage == 'sr'">{{researchInfrastructure.financeSource.sourceSr}}</span>
+                            <span v-if="currentLanguage == 'en'">{{researchInfrastructure.financeSource.sourceEn}}</span>
+                            <span v-if="currentLanguage == 'src'">{{researchInfrastructure.financeSource.sourceSrc}}</span>                            
                         </div>
                     </b-col>
                 </b-form-row>

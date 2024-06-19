@@ -1,0 +1,29 @@
+{
+  "riportalApp": {
+    "riFinanceSource": {
+      "home": {
+        "title": "Izvori finansiranja istraživačke infrastrukture",
+        "createLabel": "Kreiraj novi Izvor finansiranja istraživačke infrastrukture",
+        "createOrEditLabel": "Kreirajte ili izmenite Izvor finansiranja istraživačke infrastrukture",
+        "notFound": "Nije pronađen nijedan Izvor finansiranja istraživačke infrastrukture"
+      },
+      "created": "Kreiran je novi Izvor finansiranja istraživačke infrastrukture pod nazivom {{ param }}",
+      "updated": "Izvor finansiranja istraživačke infrastrukture pod nazivom {{ param }} je ažuriran",
+      "deleted": "Izvor finansiranja istraživačke infrastrukture pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Izvor finansiranja istraživačke infrastrukture pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Izvor finansiranja istraživačke infrastrukture"
+      },
+      "sourceSr": "Izvor (srpski)",
+      "sourceSrc": "Izvor (srpski ćirilica)",
+      "sourceEn": "Izvor (engleski)",
+      "help": {
+        "sourceSr": "opis na srpskom latinicom",
+        "sourceSrc": "opis na srpskom ćirilicom",
+        "sourceEn": "opis na engleskom"
+      }
+    }
+  }
+}

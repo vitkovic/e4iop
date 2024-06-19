@@ -185,7 +185,11 @@
 			                        <font-awesome-icon icon="asterisk" />
 			                        <span v-text="$t('global.menu.entities.riAccessMode')">RiAccessMode</span>
 			                    </b-dropdown-item>
-			                    
+								<b-dropdown-item to="/ri-finance-source"
+			                    v-if="authenticated && (hasAnyRole(['PA']) || hasAnyAuthority('ROLE_ADMIN'))">
+			                        <font-awesome-icon icon="asterisk" />
+			                        <span v-text="$t('global.menu.entities.riFinanceSource')">RiFinanceSource</span>
+			                    </b-dropdown-item>
 			                    <b-dropdown-item to="/service-type"
 			                    v-if="authenticated && (hasAnyRole(['PA']) || hasAnyAuthority('ROLE_ADMIN'))">
 			                        <font-awesome-icon icon="asterisk" />

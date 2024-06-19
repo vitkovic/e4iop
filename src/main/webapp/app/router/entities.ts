@@ -100,6 +100,12 @@ const RiAccessModeUpdate = () => import('@/entities/ri-access-mode/ri-access-mod
 // prettier-ignore
 const RiAccessModeDetails = () => import('@/entities/ri-access-mode/ri-access-mode-details.vue');
 // prettier-ignore
+const RiFinanceSource = () => import('@/entities/ri-finance-source/ri-finance-source.vue');
+// prettier-ignore
+const RiFinanceSourceUpdate = () => import('@/entities/ri-finance-source/ri-finance-source-update.vue');
+// prettier-ignore
+const RiFinanceSourceDetails = () => import('@/entities/ri-finance-source/ri-finance-source-details.vue');
+// prettier-ignore
 const RiServicePregled = () => import('@/entities/ri-service/ri-service-pregled.vue');
 const RiServicePregledDetails = () => import('@/entities/ri-service/ri-service-pregled-details.vue');
 const RiService = () => import('@/entities/ri-service/ri-service.vue');
@@ -793,6 +799,30 @@ export default [
     path: '/ri-access-mode/:riAccessModeId/view',
     name: 'RiAccessModeView',
     component: RiAccessModeDetails,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/ri-finance-source',
+    name: 'RiFinanceSource',
+    component: RiFinanceSource,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/ri-finance-source/new',
+    name: 'RiFinanceSourceCreate',
+    component: RiFinanceSourceUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/ri-finance-source/:riFinanceSourceId/edit',
+    name: 'RiFinanceSourceEdit',
+    component: RiFinanceSourceUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/ri-finance-source/:riFinanceSourceId/view',
+    name: 'RiFinanceSourceView',
+    component: RiFinanceSourceDetails,
     meta: { authorities: [Authority.USER] },
   },
   {
