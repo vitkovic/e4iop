@@ -35,9 +35,10 @@
       "name": "Name",
       "about": "About",
       "fields": "Fields",
-      "kind": "Kind",
-      "data": "Data",
-      "activities": "List of activities",
+      "kind": "Kind:",
+      "data": "Data:",
+      "activities": "List of activities:",
+      "registrationDateList": "Registration date:",
       "portalUser": "Portal User",
       "advertisement": "Advertisement",
       "collaborationOffer": "Collaboration Offer",
@@ -101,6 +102,12 @@
       "interactionButtons": {
         "message": "Send a message",
         "advertisements": "View advertisements"
+      },
+      "badges": {
+        "collaborations": "Number of successful collaborations.",
+        "rating": "Company rating.",
+        "registered": "Registered on the portal RSNIS.",
+        "specialConditions": "Company met special conditions - based on intellectual property."
       }
     }
   }

@@ -30,9 +30,10 @@
       "modifiedAt": "Izmenjeno",
       "rsnisId": "Rsnis ID",
       "aprId": "Apr ID",
-      "kind": "Vrsta",
-      "data": "Podaci",
-      "activities": "Spisak delatnosti",
+      "kind": "Vrsta:",
+      "data": "Podaci:",
+      "activities": "Spisak delatnosti:",
+      "registrationDateList": "Datum registracije:",
       "name": "Naziv",
       "about": "Opis",
       "fields": "Grane",
@@ -100,6 +101,12 @@
       "interactionButtons": {
         "message": "Pošalji poruku",
         "advertisements": "Pogledaj oglase"
+      },
+      "badges": {
+        "collaborations": "Broj uspešnih saradnji.",
+        "rating": "Ocena kompanije.",
+        "registered": "Registrovan na portalu RSNIS.",
+        "specialConditions": "Kompanija ispunila posebne uslove - na osnovu intelektualne svojine."
       }
     }
   }

@@ -49,6 +49,7 @@ import { faLightbulb } from '@fortawesome/free-solid-svg-icons/faLightbulb';
 import { faToggleOn } from '@fortawesome/free-solid-svg-icons/faToggleOn';
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons/faCaretLeft';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons/faCaretRight';
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons/faShareAlt';
 
 import VueCookie from 'vue-cookie';
 import Vuelidate from 'vuelidate';
@@ -178,7 +179,8 @@ export function initFortAwesome(vue) {
     faLightbulb,
     faToggleOn,
     faCaretLeft,
-    faCaretRight
+    faCaretRight,
+    faShareAlt
   );
 }
 

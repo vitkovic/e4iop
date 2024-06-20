@@ -31,9 +31,10 @@
       "modifiedAt": "Измењено",
       "rsnisId": "Рснис ИД",
       "aprId": "Апр ИД",
-      "kind": "Врста",
-      "data": "Подаци",
-      "activities": "Списак делатности",
+      "kind": "Врста:",
+      "data": "Подаци:",
+      "registrationDateList": "Датум регистрације:",
+      "activities": "Списак делатности:",
       "name": "Назив",
       "about": "Опис",
       "fields": "Гране",
@@ -101,6 +102,12 @@
       "interactionButtons": {
         "message": "Пошаљи поруку",
         "advertisements": "Погледај огласе"
+      },
+      "badges": {
+        "collaborations": "Број успешних сарадњи.",
+        "rating": "Оцена компаније.",
+        "registered": "Регистрован на порталу RSNIS.",
+        "specialConditions": "Компанија испунила посебне услове - на основу интелектуалне својине."
       },
 
       "title": "Title",

@@ -13,10 +13,31 @@
               </h2>
             </div>
             <div class="d-flex mb-3">
-              <rating-badge class="mr-3" :rating="4" icon="handshake"></rating-badge>
-              <rating-badge class="mr-3" :rating="4" icon="star"></rating-badge>
-              <rating-badge class="mr-3" icon="lightbulb"></rating-badge>
-              <rating-badge icon="toggle-on"></rating-badge>
+              <rating-badge
+                class="mr-3"
+                :rating="4"
+                icon="handshake"
+                v-b-tooltip.hover.v-info
+                :title="$t('riportalApp.company.badges.collaborations')"
+              ></rating-badge>
+              <rating-badge
+                class="mr-3"
+                :rating="4"
+                icon="star"
+                v-b-tooltip.hover.v-info
+                :title="$t('riportalApp.company.badges.rating')"
+              ></rating-badge>
+              <rating-badge
+                class="mr-3"
+                icon="lightbulb"
+                v-b-tooltip.hover.v-info
+                :title="$t('riportalApp.company.badges.registered')"
+              ></rating-badge>
+              <rating-badge
+                icon="toggle-on"
+                v-b-tooltip.hover.v-info
+                :title="$t('riportalApp.company.badges.specialConditions')"
+              ></rating-badge>
             </div>
 
             <div>
@@ -25,7 +46,7 @@
                   <span v-text="$t('riportalApp.company.kind')">Vrsta:</span>
                 </dt>
                 <dd>
-                  <span>Vrtsa kompanije</span>
+                  <span>Vrsta kompanije</span>
                 </dd>
               </dl>
               <dl class="d-flex flex-wrap mb-1">
@@ -38,7 +59,7 @@
               </dl>
               <dl class="d-flex flex-wrap mb-1">
                 <dt class="mr-4">
-                  <span v-text="$t('riportalApp.company.view.registrationDate')">Datum registracije:</span>
+                  <span v-text="$t('riportalApp.company.registrationDateList')">Datum registracije:</span>
                 </dt>
                 <dd>
                   <span>{{ company.createdAt }}</span>
@@ -82,8 +103,8 @@
                 <span v-text="$t('riportalApp.company.interactionButtons.message')">Pošalji poruku</span>
               </b-button>
             </div>
-            <div class="d-none d-md-flex justify-content-end">
-              <div class="d-flex justify-content-between w-100">
+            <div class="d-flex justify-content-end">
+              <div class="d-none d-md-flex justify-content-between w-100">
                 <a href="#">
                   <img class="iconClass mb-1 icon-contact" src="/content/images/linkedin.svg" alt="Linkedin icon" />
                 </a>
@@ -97,6 +118,23 @@
                   <font-awesome-icon icon="copy" class="icon-contact fa-lg"></font-awesome-icon>
                 </b-link>
               </div>
+              <b-dropdown id="dropdown-right" right variant="none" class="d-block d-md-none custom-dropdown">
+                <template #button-content>
+                  <font-awesome-icon icon="share-alt" class="fa-lg mr-2 icon-contact"></font-awesome-icon>
+                </template>
+                <b-dropdown-item>
+                  <img class="iconClass mb-1 mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" /><span>Linkedin</span>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <img class="iconClass mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" /><span>Facebook</span>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <font-awesome-icon icon="envelope" class="icon-dropdown fa-lg mr-2"></font-awesome-icon><span>Email</span>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <font-awesome-icon icon="copy" class="icon-dropdown fa-lg mr-2"></font-awesome-icon><span>Copy company</span>
+                </b-dropdown-item>
+              </b-dropdown>
             </div>
           </div>
         </b-row>
@@ -118,7 +156,7 @@
           </div>
         </section> -->
 
-        <section class="section-gallery">
+        <section class="section-gallery mb-4">
           <div class="prev-box mr-2">
             <b-button variant="none" class="prevButton" @click="scrollPrev">
               <font-awesome-icon icon="caret-left" class="fa-lg levaIkonica"></font-awesome-icon>
@@ -292,12 +330,7 @@
                 <b-card v-for="(compani, index) in companies" :key="index" class="card-box">
                   <div class="d-flex align-items-center">
                     <div class="image-box-test mr-2">
-                      <img
-                        v-if="company.logo"
-                        :src="companyService().retrieveImage(company.logo.filename)"
-                        alt="company logo"
-                        class="img-logo-test"
-                      />
+                      <img v-if="company.logo" :src="compani.logo" alt="company logo" class="img-logo-test" />
                     </div>
                     <h3 class="company-title" style="align-self: center;">
                       {{ compani.name }}
@@ -508,12 +541,16 @@ h2 {
   margin-top: 1px;
 }
 
+.dropdown-item {
+  color: #23384b;
+}
+
 .icon-contact {
   color: #23384b;
 }
 
-.icon-fill{
-  fill: red;
+.icon-dropdown{
+  padding-left: 1px;
 }
 
 @media (max-width: 980px) {
@@ -612,6 +649,14 @@ h2 {
   width: 5px;
   height: 5px;
   background-color: blue;
+}
+
+.custom-dropdown-icon{
+  fill: #23384b;
+}
+
+.custom-dropdown .dropdown-toggle::after {
+  display: none;
 }
 
 @media screen and (max-width: 1200px) {

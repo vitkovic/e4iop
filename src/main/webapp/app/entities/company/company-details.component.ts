@@ -61,6 +61,8 @@ export default class CompanyDetails extends Vue {
       role: 'Oglasivac',
       details:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      logo:
+        'https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740',
     },
     {
       name: 'B.2.B Company',
@@ -69,6 +71,8 @@ export default class CompanyDetails extends Vue {
       role: 'Trazilac',
       details:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      logo:
+        'https://img.freepik.com/free-vector/creative-flat-design-glass-logo-template_23-2149003613.jpg?t=st=1718883175~exp=1718886775~hmac=fddbc3d489a77a55d0886a8c93d6193299c11a9c037eef8a9daf149e7fe961c9&w=740',
     },
     {
       name: 'Mehanika D.O.O.',
