@@ -3,10 +3,12 @@
     "title": "OII",
     "browsehappy": "Koristite <strong>zastareli</strong> pretraživač. Molimo vas <a href=\"http://browsehappy.com/?locale=en\">nadogradite pretraživač</a> kako biste poboljšali Vaše iskustvo.",
     "menu": {
+      "logo": "Zalet inovacija",
       "home": "Početna stranica",
       "about": "O nama",
       "faq": "Najčešća pitanja",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "searchAd": "Pretražite oglase",
       "entities": {
         "main": "Entiteti",
         "mainb2b": "B2B portal",
@@ -107,7 +109,14 @@
         "sessions": "Sesije",
         "login": "Prijavi me",
         "logout": "Odjavi me",
-        "register": "Registruj me"
+        "register": "Registruj me",
+        "accountData": "Moji podaci",
+        "rsnisData": "RSNIS podaci",
+        "additionalusers": "Unos dodatnih korisnika",
+        "advertisements": "Oglasi",
+        "collaborations": "Saradnje",
+        "messages": "Poruke",
+        "calendar": "Kalendar"
       },
       "admin": {
         "main": "Administracija",
@@ -255,6 +264,7 @@
       "saveImages": "Upamti slike",
       "view": "Pregled",
       "search": "Potraži",
+      "searchBar": "Pretraži",
       "request": "Zahtev",
       "vote": "Glasaj",
       "zbirniPrikaz": "Zbirni prikaz",

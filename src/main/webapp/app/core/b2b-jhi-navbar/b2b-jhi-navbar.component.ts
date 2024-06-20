@@ -26,25 +26,27 @@ export default class B2BJhiNavbar extends Vue {
   public companyId: number;
   public companyLink = '';
 
+  public isActive: boolean = false;
+
   created() {
     this.translationService().refreshTranslation(this.currentLanguage);
   }
 
-  // moj kod
-
   mounted() {
-    window.addEventListener('scroll', this.handleScroll);
+    // Call the function to check screen size and update isActive
+    this.checkScreenSize();
+    // Add event listener to track window resize
+    window.addEventListener('resize', this.checkScreenSize);
   }
 
   beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
+    // Remove event listener when component is destroyed
+    window.removeEventListener('resize', this.checkScreenSize);
   }
 
-  private handleScroll() {
-    this.isPrviNavVisible = window.scrollY < window.innerHeight * 0.3;
+  public checkScreenSize() {
+    this.isActive = window.innerWidth < 786;
   }
-
-  // zavrsetak
 
   public subIsActive(input) {
     const paths = Array.isArray(input) ? input : [input];

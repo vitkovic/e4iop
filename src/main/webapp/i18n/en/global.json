@@ -3,10 +3,12 @@
     "title": "ORI",
     "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
     "menu": {
+      "logo": "Innovation burst",
       "home": "Home",
       "about": "About",
       "faq": "FAQ",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "searchAd": "Search advertisements",
       "entities": {
         "main": "Entities",
         "mainb2b": "B2B portal",
@@ -107,7 +109,14 @@
         "sessions": "Sessions",
         "login": "Sign in",
         "logout": "Sign out",
-        "register": "Register"
+        "register": "Register",
+        "accountData": "Account data",
+        "rsnisData": "RSNIS data",
+        "additionalusers": "Entry of additional users",
+        "advertisements": "Advertisements",
+        "collaborations": "Collaborations",
+        "messages": "Messages",
+        "calendar": "Calendar"
       },
       "admin": {
         "main": "Administration",
@@ -257,6 +266,7 @@
       "saveImages": "Save images",
       "view": "View",
       "search": "Search",
+      "searchBar": "Search",
       "request": "Request",
       "vote": "Vote",
       "summaryView": "Summary view",

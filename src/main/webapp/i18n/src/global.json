@@ -3,10 +3,12 @@
     "title": "ОИИ",
     "browsehappy": "Користите <strong>застарели</strong> претраживач. Молимо вас <a href=\"http://browsehappy.com/?locale=en\">надоградите претраживач</a> како бисте побољшали Ваше искуство.",
     "menu": {
+      "logo": "Залет иновација",
       "home": "Почетна страница",
       "about": "О нама",
       "faq": "Најчешћа питања",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "searchAd": "Преттражите огласе",
       "entities": {
         "main": "Ентитети",
         "mainb2b": "B2B portal",
@@ -107,7 +109,14 @@
         "sessions": "Сесије",
         "login": "Пријави ме",
         "logout": "Одјави ме",
-        "register": "Региструј ме"
+        "register": "Региструј ме",
+        "accountData": "Моји подаци",
+        "rsnisData": "РСНИС подаци",
+        "additionalusers": "Унос додатних корисника",
+        "advertisements": "Огласи",
+        "collaborations": "Сарадње",
+        "messages": "Поруке",
+        "calendar": "Календар"
       },
       "admin": {
         "main": "Администрација",
@@ -255,6 +264,7 @@
       "saveImages": "Упамти слике",
       "view": "Преглед",
       "search": "Потражи",
+      "searchBar": "Претражи",
       "request": "Захтев",
       "vote": "Гласај",
       "zbirniPrikaz": "Збирни приказ",
