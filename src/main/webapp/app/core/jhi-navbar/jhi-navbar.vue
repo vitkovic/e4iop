@@ -1,9 +1,7 @@
 <template>
 			    <b-navbar toggleable="sm" type="light">
 			        <b-navbar-brand class="logo" b-link to="/" style="margin-bottom:-10px;" >
-			            
 			           <b-img :src="'/content/images/OII_sm_sm_2.png'"></b-img>
-			            
 			        </b-navbar-brand>      
 			        <b-navbar-toggle 
 			        right 
@@ -16,16 +14,8 @@
 			            <font-awesome-icon icon="bars" />
 			        </b-navbar-toggle>
 			           
-			        <b-collapse is-nav id="header-tabs">
-			            <b-navbar-nav class="md-auto">
-							<b-nav-item to="/b2b" exact style="white-space: nowrap;" class="navbar-menu-item">
-								<img src="/content/images/b2b1.png" alt="" style="height: 50px">
-							</b-nav-item>
-			                <!-- <b-nav-item to="/" exact>
-			                    <span>
-			                        <font-awesome-icon icon="home" />
-			                    </span>
-			                </b-nav-item> -->
+			        <b-collapse class="justify-content-end" is-nav id="header-tabs">
+			            <b-navbar-nav class="md-auto align-items-center">
 			                <b-nav-item-dropdown
 			                    right
 			                    id="entity-menu"                    
@@ -42,11 +32,8 @@
 			                     <b-dropdown-item to="/portal-user-organization-pregled">
 			                        <span v-text="$t('global.menu.entities.portalUserOrganization')">PortalUserOrganization</span>
 			                    </b-dropdown-item>
-			                </b-nav-item-dropdown>
-			<!--
-			    v-if="authenticated && (hasAnyRole(['PA', 'RPU']) || hasAnyAuthority('ROLE_ADMIN'))"
-			-->
-			
+			                </b-nav-item-dropdown>	
+
 			                <b-nav-item-dropdown
 			                    right
 			                    id="entity-menu"                    
@@ -74,6 +61,7 @@
 			                        <span v-text="$t('global.menu.entities.serviceProposal')">ServiceProposal</span>
 			                    </b-dropdown-item>
 			                </b-nav-item-dropdown>
+
 			                <b-nav-item-dropdown
 			                    right
 			                    id="entity-menu"
@@ -91,6 +79,7 @@
 			                        <span v-text="$t('global.menu.entities.riService')">RiService</span>
 			                    </b-dropdown-item>
 			                </b-nav-item-dropdown>
+
 			                <b-nav-item-dropdown
 			                    right
 			                    id="entity-menu"
@@ -112,6 +101,7 @@
 			                        <span v-text="$t('global.menu.entities.serviceStatisticNio')"></span>
 			                    </b-dropdown-item>                                       
 			                </b-nav-item-dropdown>
+
 			                <b-nav-item-dropdown
 			                    right
 			                    id="entity-menu"
@@ -228,6 +218,7 @@
 			                        <span v-text="$t('global.menu.entities.riCalendar')">RiCalendar</span>
 			                    </b-dropdown-item>
 			                </b-nav-item-dropdown>
+							
 			                <b-nav-item-dropdown
 			                    right
 			                    id="entity-menu"
@@ -263,17 +254,6 @@
 			                        <span v-text="$t('global.menu.entities.researchInstitution')">ResearchInstitution</span>
 			                    </b-dropdown-item>
 			                </b-nav-item-dropdown>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			<!--
 			                <b-nav-item-dropdown
 			                    right
@@ -287,8 +267,6 @@
 			                        <font-awesome-icon icon="asterisk" />
 			                        <span v-text="$t('global.menu.entities.portalUser')">PortalUser</span>
 			                    </b-dropdown-item>
-			                    
-			                    
 			                    <b-dropdown-item to="/request-respond">
 			                        <font-awesome-icon icon="asterisk" />
 			                        <span v-text="$t('global.menu.entities.requestRespond')">RequestRespond</span>
@@ -305,15 +283,10 @@
 			                        <font-awesome-icon icon="asterisk" />
 			                        <span v-text="$t('global.menu.entities.answerToOffer')">AnswerToOffer</span>
 			                    </b-dropdown-item>
-			                    
-			
 			                </b-nav-item-dropdown>
 			-->
-
-
-
-			<b-nav-item-dropdown right id="entity-menu_2" v-if="hasAnyAuthority('ROLE_ADMIN') && 
-				authenticated" active-class="active" class="pointer">
+			
+				<b-nav-item-dropdown right id="entity-menu_2" v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated" active-class="active" class="pointer">
 					<span slot="button-content" class="navbar-dropdown-menu">
 						<font-awesome-icon icon="th-list" />
 						<span v-text="$t('global.menu.entities.mainb2b')">B2B portal</span>
@@ -432,117 +405,106 @@
 						<span v-text="$t('global.menu.entities.documentKind')">DocumentKind</span>
 					</b-dropdown-item>
 					<!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+				
+				</b-nav-item-dropdown>
+			                
+				<b-nav-item-dropdown
+				right
+				id="admin-menu"
+				v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated"
+				:class="{'router-link-active': subIsActive('/admin')}"
+				active-class="active"
+				class="pointer">
+					<span slot="button-content" class="navbar-dropdown-menu">                        
+						<span v-text="$t('global.menu.admin.main')">Administration</span>
+					</span>
+					<b-dropdown-item to="/admin/user-management" active-class="active">
+						<font-awesome-icon icon="user" />
+						<span v-text="$t('global.menu.admin.userManagement')">User management</span>
+					</b-dropdown-item>
+					<b-dropdown-item  to="/admin/jhi-metrics" active-class="active">
+						<font-awesome-icon icon="tachometer-alt" />
+						<span v-text="$t('global.menu.admin.metrics')">Metrics</span>
+					</b-dropdown-item>
+					<b-dropdown-item to="/admin/jhi-health" active-class="active">
+						<font-awesome-icon icon="heart" />
+						<span v-text="$t('global.menu.admin.health')">Health</span>
+					</b-dropdown-item>
+					<b-dropdown-item  to="/admin/jhi-configuration" active-class="active">
+						<font-awesome-icon icon="list" />
+						<span v-text="$t('global.menu.admin.configuration')">Configuration</span>
+					</b-dropdown-item>
+					<b-dropdown-item  to="/admin/audits" active-class="active">
+						<font-awesome-icon icon="bell" />
+						<span v-text="$t('global.menu.admin.audits')">Audits</span>
+					</b-dropdown-item>
+					<b-dropdown-item  to="/admin/logs" active-class="active">
+						<font-awesome-icon icon="tasks" />
+						<span v-text="$t('global.menu.admin.logs')">Logs</span>
+					</b-dropdown-item>
+					<b-dropdown-item v-if="swaggerEnabled"  to="/admin/docs" active-class="active">
+						<font-awesome-icon icon="book" />
+						<span v-text="$t('global.menu.admin.apidocs')">API</span>
+					</b-dropdown-item>	
+				</b-nav-item-dropdown>
+			    
+				<b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
+					<span slot="button-content">
+						<font-awesome-icon icon="flag" />
+						<span v-text="$t('global.menu.language')">Language</span>
+					</span>
+					<b-dropdown-item v-for="(value, key) in languages" :key="`lang-${key}`" v-on:click="changeLanguage(key);"
+						:class="{ active: isActiveLanguage(key)}">
+						{{value.name}}
+					</b-dropdown-item>
 				</b-nav-item-dropdown>
 
+				<b-nav-item-dropdown
+					right
+					href="javascript:void(0);"
+					id="account-menu"
+					:class="{'router-link-active': subIsActive('/account')}"
+					active-class="active"
+					class="pointer">
+					<span slot="button-content" class="navbar-dropdown-menu">
+						<font-awesome-icon 
+						icon="user"
+						:style="{color: authenticated ? '#00356B' : 'rgba(0,0,0,0.5)'}"
+						/>
+							<span v-if="authenticated" class="initialsSpan">{{ getUserInitials() }}</span>
+						<span v-text="$t('global.menu.account.main')">
+							Account
+						</span>
+				
+					</span>
+					<b-dropdown-item to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+						<font-awesome-icon icon="wrench" />
+						<span v-text="$t('global.menu.account.settings')">Settings</span>
+					</b-dropdown-item>
+					<b-dropdown-item to="/account/password" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+						<font-awesome-icon icon="lock" />
+						<span v-text="$t('global.menu.account.password')">Password</span>
+					</b-dropdown-item>
+					<b-dropdown-item v-if="authenticated"  v-on:click="logout()" id="logout" active-class="active">
+						<font-awesome-icon icon="sign-out-alt" />
+						<span v-text="$t('global.menu.account.logout')">Sign out</span>
+					</b-dropdown-item>
+					<b-dropdown-item v-if="!authenticated"  v-on:click="openLogin()" id="login" active-class="active">
+						<font-awesome-icon icon="sign-in-alt" />
+						<span v-text="$t('global.menu.account.login')">Sign in</span>
+					</b-dropdown-item>
+					<b-dropdown-item to="/register" tag="b-dropdown-item" id="register" v-if="!authenticated" active-class="active">
+						<font-awesome-icon icon="user-plus" />
+						<span v-text="$t('global.menu.account.register')">Register</span>
+					</b-dropdown-item>
+				</b-nav-item-dropdown>
 
-
-
-
-
-
-
-
-
-
-
-			                <b-nav-item-dropdown
-			                    right
-			                    id="admin-menu"
-			                    v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated"
-			                    :class="{'router-link-active': subIsActive('/admin')}"
-			                    active-class="active"
-			                    class="pointer">
-			                    <span slot="button-content" class="navbar-dropdown-menu">                        
-			                        <span v-text="$t('global.menu.admin.main')">Administration</span>
-			                    </span>
-			                    <b-dropdown-item to="/admin/user-management" active-class="active">
-			                        <font-awesome-icon icon="user" />
-			                        <span v-text="$t('global.menu.admin.userManagement')">User management</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item  to="/admin/jhi-metrics" active-class="active">
-			                        <font-awesome-icon icon="tachometer-alt" />
-			                        <span v-text="$t('global.menu.admin.metrics')">Metrics</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item to="/admin/jhi-health" active-class="active">
-			                        <font-awesome-icon icon="heart" />
-			                        <span v-text="$t('global.menu.admin.health')">Health</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item  to="/admin/jhi-configuration" active-class="active">
-			                        <font-awesome-icon icon="list" />
-			                        <span v-text="$t('global.menu.admin.configuration')">Configuration</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item  to="/admin/audits" active-class="active">
-			                        <font-awesome-icon icon="bell" />
-			                        <span v-text="$t('global.menu.admin.audits')">Audits</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item  to="/admin/logs" active-class="active">
-			                        <font-awesome-icon icon="tasks" />
-			                        <span v-text="$t('global.menu.admin.logs')">Logs</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item v-if="swaggerEnabled"  to="/admin/docs" active-class="active">
-			                        <font-awesome-icon icon="book" />
-			                        <span v-text="$t('global.menu.admin.apidocs')">API</span>
-			                    </b-dropdown-item>
-			                </b-nav-item-dropdown>
-			                <b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
-			                    <span slot="button-content">
-			                        <font-awesome-icon icon="flag" />
-			                        <span v-text="$t('global.menu.language')">Language</span>
-			                    </span>
-			                    <b-dropdown-item v-for="(value, key) in languages" :key="`lang-${key}`" v-on:click="changeLanguage(key);"
-			                        :class="{ active: isActiveLanguage(key)}">
-			                        {{value.name}}
-			                    </b-dropdown-item>
-			                </b-nav-item-dropdown>
-							<!-- <b-nav-item to="/b2b" exact style="white-space: nowrap;" class="navbar-menu-item">
-								<span>
-									<span class="headerItemi">B2B</span>
-								</span>
-							</b-nav-item> -->
-			                <b-nav-item-dropdown
-			                    right
-			                    href="javascript:void(0);"
-			                    id="account-menu"
-			                    :class="{'router-link-active': subIsActive('/account')}"
-			                    active-class="active"
-			                    class="pointer">
-			                    <span slot="button-content" class="navbar-dropdown-menu">
-			                        <font-awesome-icon 
-			                        icon="user"
-			                        :style="{color: authenticated ? '#00356B' : 'rgba(0,0,0,0.5)'}"
-			                        />
-			                           <span v-if="authenticated" class="initialsSpan">{{ getUserInitials() }}</span>
-			                        <span v-text="$t('global.menu.account.main')">
-			                            Account
-			                        </span>
-			               
-			                    </span>
-			                    <b-dropdown-item to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
-			                        <font-awesome-icon icon="wrench" />
-			                        <span v-text="$t('global.menu.account.settings')">Settings</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item to="/account/password" tag="b-dropdown-item" v-if="authenticated" active-class="active">
-			                        <font-awesome-icon icon="lock" />
-			                        <span v-text="$t('global.menu.account.password')">Password</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item v-if="authenticated"  v-on:click="logout()" id="logout" active-class="active">
-			                        <font-awesome-icon icon="sign-out-alt" />
-			                        <span v-text="$t('global.menu.account.logout')">Sign out</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item v-if="!authenticated"  v-on:click="openLogin()" id="login" active-class="active">
-			                        <font-awesome-icon icon="sign-in-alt" />
-			                        <span v-text="$t('global.menu.account.login')">Sign in</span>
-			                    </b-dropdown-item>
-			                    <b-dropdown-item to="/register" tag="b-dropdown-item" id="register" v-if="!authenticated" active-class="active">
-			                        <font-awesome-icon icon="user-plus" />
-			                        <span v-text="$t('global.menu.account.register')">Register</span>
-			                    </b-dropdown-item>
-			                </b-nav-item-dropdown>
-			            </b-navbar-nav>
-			        </b-collapse>
-			    </b-navbar>
-	
-	
+				<b-nav-item to="/b2b" exact style="white-space: nowrap;" class="navbar-menu-item">
+					<img src="/content/images/b2b1.png" alt="" style="height: 30px">
+				</b-nav-item>
+			</b-navbar-nav>
+		</b-collapse>
+	</b-navbar>
 </template>
 
 <script lang="ts" src="./jhi-navbar.component.ts">
