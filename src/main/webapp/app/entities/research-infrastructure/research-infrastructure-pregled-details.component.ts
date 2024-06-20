@@ -5,6 +5,7 @@ import ResearchInfrastructureService from './research-infrastructure.service';
 
 import RiCalendarService from '../ri-calendar/ri-calendar.service';
 import { IRiCalendar, RiCalendar } from '@/shared/model/ri-calendar.model';
+import { RiFinanceSourceOptions } from '@/shared/model/ri-finance-source.model';
 
 import UploadFilesService from '@/utility/upload/upload_service';
 
@@ -30,6 +31,7 @@ export default class ResearchInfrastructurePregledDetails extends Vue {
   public fullcalendarapi;
   public calevents = [];
   public calevent;
+  public riFinanceSourceOptions = RiFinanceSourceOptions;
 
   public calendarOptions = {
     locales: allLocales,

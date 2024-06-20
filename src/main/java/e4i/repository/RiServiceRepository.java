@@ -54,6 +54,11 @@ public interface RiServiceRepository extends JpaRepository<RiService, Long> {
     		@Param("keywords") String keywords,@Param("subdomainsNotExist") Integer subdomainsExist,
     		@Param("subdomains") List<Long> subdomains);
     
+    @Query(nativeQuery = true)
+    List<RiServiceDTOSearch> searchBySerbianAndEnglishKeywords(@Param("keywordsNotExist") Integer keywordsExist, 
+    		@Param("keywords") String keywords,@Param("subdomainsNotExist") Integer subdomainsExist,
+    		@Param("subdomains") List<Long> subdomains);
+    
     /**
      * Pronalazi sve usluge koje je trazio zadati korisnik
      * @param id

@@ -266,7 +266,26 @@ public class ResearchInfrastructureService {
     	}    	
     	
     	return researchInfrastructureRepository.searchByEnglishKeywords(keywordsNotExist, keywords, subdomainsNotExist, subdomains);
-    }    
+    }
+    
+    public List<ResearchInfrastructureDTOSearch> searchBySerbianAndEnglishKeywords(SearchDTO search){
+    	String keywords = "";
+    	int keywordsNotExist = 1;
+    	int subdomainsNotExist = 1;
+    	List<Long> subdomains = new ArrayList<Long>();
+    	subdomains.add(1L);
+    	if(!"".equals(search.getSearchTerms().trim())) {    		
+    		keywords = search.getSearchTerms().trim().replaceAll("\\s+", " & ");
+    		keywordsNotExist = 0;    		
+    	}
+    	if(search.getSelSubdomains() != null && !search.getSelSubdomains().isEmpty()) {
+    		subdomainsNotExist = 0;
+    		subdomains.clear();
+    		subdomains.addAll(search.getSelSubdomains());
+    	}    	
+    	
+    	return researchInfrastructureRepository.searchBySerbianAndEnglishKeywords(keywordsNotExist, keywords, subdomainsNotExist, subdomains);
+    } 
 
     
     /** 

@@ -20,7 +20,7 @@
                 <b-col sm="3">                        
                     <label class="form-control-label" v-text="$t('riportalApp.riService.enterKeywords')" for="ri-service-keywords">Keywords</label>
                     <input type="text" class="form-control" name="search" id="search"
-                        v-model="search.searchTerms" v-on:keyup.enter="searchRI()" />
+                        v-model="search.searchTerms" v-on:keyup.enter="searchRiService()" />
                 </b-col>               
                 <b-col sm="4">
                     <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.enterScientificDomain')" for="ri-service-keywords">Keywords</label>

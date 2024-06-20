@@ -271,6 +271,25 @@ public class RiServiceService {
     	return riServiceRepository.searchByEnglishKeywords(keywordsNotExist, keywords, subdomainsNotExist, subdomains);    	
     }
     
+    public List<RiServiceDTOSearch> searchBySerbianAndEnglishKeywords(SearchDTO search){
+    	String keywords = "";
+    	int keywordsNotExist = 1;
+    	int subdomainsNotExist = 1;
+    	List<Long> subdomains = new ArrayList<Long>();
+    	subdomains.add(1L);
+    	if(!"".equals(search.getSearchTerms().trim())) {    		
+    		keywords = search.getSearchTerms().trim().replaceAll("\\s+", " & ");
+    		keywordsNotExist = 0;    		
+    	}
+    	if(search.getSelSubdomains() != null && !search.getSelSubdomains().isEmpty()) {
+    		subdomainsNotExist = 0;
+    		subdomains.clear();
+    		subdomains.addAll(search.getSelSubdomains());
+    	}    	
+    	
+    	return riServiceRepository.searchBySerbianAndEnglishKeywords(keywordsNotExist, keywords, subdomainsNotExist, subdomains);
+    }
+    
     /** 
      * Dodaje cirilicni ili latinicni opis i druge osobine
      * @param ri

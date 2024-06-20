@@ -156,11 +156,12 @@ public class RiServiceResource {
     @PostMapping("/ri-services-pregled/search")
     public List<RiServiceDTOSearch> getAllRiServicesPregledSerbianSearch(@RequestBody SearchDTO search) {
         log.debug("REST request to search RiServices");
-        if(search.getCurrentLanguage().equals("en"))
-        	return riServiceService.searchByEnglishKeywords(search);
-        else
-        	return riServiceService.searchBySerbianKeywords(search);
+//        if(search.getCurrentLanguage().equals("en"))
+//        	return riServiceService.searchByEnglishKeywords(search);
+//        else
+//        	return riServiceService.searchBySerbianKeywords(search);
         
+        return riServiceService.searchBySerbianAndEnglishKeywords(search);
     }
     
     @PostMapping("/ri-services-homepage/search")

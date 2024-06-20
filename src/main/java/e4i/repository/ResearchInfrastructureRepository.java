@@ -55,6 +55,11 @@ public interface ResearchInfrastructureRepository extends JpaRepository<Research
     		@Param("keywords") String keywords,@Param("subdomainsNotExist") Integer subdomainsExist,
     		@Param("subdomains") List<Long> subdomains);
     
+    @Query(nativeQuery = true)
+    List<ResearchInfrastructureDTOSearch> searchBySerbianAndEnglishKeywords(@Param("keywordsNotExist") Integer keywordsExist, 
+    		@Param("keywords") String keywords,@Param("subdomainsNotExist") Integer subdomainsExist,
+    		@Param("subdomains") List<Long> subdomains);
+    
     @Query("select ri.id from ResearchInfrastructure ri where ri.owner.id = :ownerId ")
     List<Long> findIdsByOwnerId(@Param("ownerId") Long ownerId);
     

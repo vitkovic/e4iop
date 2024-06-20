@@ -156,6 +156,24 @@ import java.util.Set;
 			+ " or rin.english_search @@ to_tsquery('english', :keywords )))"
 			+ " and (1 = :subdomainsNotExist or (ris.subdomains_id in ( :subdomains )))", resultSetMapping="clp"),
 	
+	@NamedNativeQuery(name="RiService.searchBySerbianAndEnglishKeywords", 
+	  query="SELECT distinct(r.id) as id, r.name_sr as nameSr, r.name_en as nameEn, r.name_sr_cyr as nameSrCyr, "
+	  		+ "	r.description_sr as descriptionSr, r.description_en as descriptionEn, r.description_sr_cyr as descriptionSrCyr, "
+	  		+ "	r.keywords as keywords, r.keywords_en as keywordsEn, r.keywords_cyr as keywordsCyr, "
+	  		+ "	rin.id as infrastructureId, rin.name_sr as infrastructureNameSr, rin.name_en as infrastructureNameEn, "
+	  		+ "	rin.name_sr_cyr as infrastructureNameSrCyr, "
+	  		+ " sa.id as availabilityId, sa.availability as availability, sa.availability_en as availabilityEn, "
+	  		+ " sa.availability_cyr as availabilityCyr, "
+	  		+ " ss.id as subtypeId, ss.subtype as subtype, ss.subtype_en as subtypeEn, ss.subtype_cyr as subtypeCyr "
+	  		+ "	FROM ri_service r "
+	  		+ "	left join research_infrastructure rin on rin.id = r.research_infrastructure_id "
+	  		+ " left join service_availability sa on sa.id = r.availability_id "
+	  		+ " left join service_subtype ss on ss.id = r.subtypes_id "
+			+ " left join ri_service_subdomains ris on ris.ri_service_id = r.id "
+			+ "	WHERE (1 = :keywordsNotExist or (r.serbian_search @@ to_tsquery('serbian', :keywords ) or r.english_search @@ to_tsquery('english', :keywords ) "
+			+ " or rin.serbian_search @@ to_tsquery('serbian', :keywords )))"
+			+ " and (1 = :subdomainsNotExist or (ris.subdomains_id in ( :subdomains )))", resultSetMapping="clp"),
+	
 	@NamedNativeQuery(name="RiService.getStatisticData", 
 	  query="select ri.id, ri.name_sr as nameSr, ri.name_en as nameEn, ri.name_sr_cyr as nameSrCyr, "
 	  		+ " ri.description_sr as descriptionSr, ri.description_en as descriptionEn, "

@@ -176,13 +176,14 @@ public class ResearchInfrastructureResource {
     @PostMapping("/research-infrastructures-pregled/search")
     public List<ResearchInfrastructureDTOSearch> getAllRIPregledSearch(@RequestBody SearchDTO search) {
     	log.debug("REST request to search Research Infrastructures");
-        if(search.getCurrentLanguage().equals("en"))
-        	return researchInfrastructureService.searchByEnglishKeywords(search);
-        else {
-        	List<ResearchInfrastructureDTOSearch> out = researchInfrastructureService.searchBySerbianKeywords(search);
-        	return out;
-        }
-        
+//        if(search.getCurrentLanguage().equals("en"))
+//        	return researchInfrastructureService.searchByEnglishKeywords(search);
+//        else {
+//        	List<ResearchInfrastructureDTOSearch> out = researchInfrastructureService.searchBySerbianKeywords(search);
+//        	return out;
+//        }
+    
+    	return researchInfrastructureService.searchBySerbianAndEnglishKeywords(search);
     }
 
     /**

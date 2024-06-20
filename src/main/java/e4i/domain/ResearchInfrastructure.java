@@ -53,8 +53,8 @@ import java.util.Set;
 			          @ColumnResult(name="accessTypeEn", type=String.class),
 			          @ColumnResult(name="ownerId", type=Long.class),
 			          @ColumnResult(name="ownerName", type=String.class),
-			          @ColumnResult(name="managerId", type=Long.class),
-			          @ColumnResult(name="userId", type=Long.class),
+			          @ColumnResult(name="managerId", type=String.class),
+			          @ColumnResult(name="userId", type=String.class),
 			          @ColumnResult(name="managerFirstName", type=String.class),
 			          @ColumnResult(name="managerLastName", type=String.class),
 			          }
@@ -104,7 +104,28 @@ import java.util.Set;
 					+ " left join portal_user portalUser on portalUser.id = r.manager_id"
 					+ " left join jhi_user jhiUser on jhiUser.id = portalUser.user_id"
 			  		+ "	WHERE (1 = :keywordsNotExist or (r.serbian_search @@ to_tsquery('serbian', :keywords )))"
-			  		+ " and (1 = :subdomainsNotExist or (ris.subdomains_id in ( :subdomains )))", resultSetMapping="ri_query")
+			  		+ " and (1 = :subdomainsNotExist or (ris.subdomains_id in ( :subdomains )))", resultSetMapping="ri_query"),
+	
+	@NamedNativeQuery(name="ResearchInfrastructure.searchBySerbianAndEnglishKeywords", 
+	query="SELECT distinct(r.id) as id, r.description_sr as descriptionSr, r.description_en as descriptionEn, r.description_sr_cyr as descriptionSrCyr, "
+	  		+ " r.name_sr as nameSr, r.name_en as nameEn, r.name_sr_cyr as nameSrCyr, r.ri_website as riWebsite, "
+	  		+ "	r.keywords as keywords, r.keywords_en as keywordsEn, r.keywords_cyr as keywordsCyr, "
+			+ " riStatus.id as statusId, riStatus.status as status, riStatus.status_cyr as statusCyr, riStatus.status_en as statusEn,"
+	  		+ " riAccessMode.id as accessModeId, riAccessMode.mode as accessMode, riAccessMode.mode_cyr as accessModeCyr, riAccessMode.mode_en as accessModeEn, "
+			+ " riAccessType.id as accessTypeId, riAccessType.type as accessType, riAccessType.type_cyr as accessTypeCyr, riAccessType.type_en as accessTypeEn, "
+	  		+ " riResearchOrganization.id as ownerId, riResearchOrganization.name as ownerName, "
+	  		+ " portalUser.id as managerId, "
+	  		+ " jhiUser.id as userId, jhiUser.first_name as managerFirstName, jhiUser.last_name as managerLastName"	  		
+	  		+ "	FROM research_infrastructure r "
+	  		+ " left join research_infrastructure_subdomains ris on ris.research_infrastructure_id = r.id "
+	  		+ " left join ri_status riStatus on riStatus.id = r.status_id "
+			+ " left join ri_access_mode riAccessMode on riAccessMode.id = r.access_mode_id "
+			+ " left join ri_access_type riAccessType on riAccessType.id = r.access_type_id "
+			+ " left join ri_research_organization riResearchOrganization on riResearchOrganization.id = r.owner_id"
+			+ " left join portal_user portalUser on portalUser.id = r.manager_id"
+			+ " left join jhi_user jhiUser on jhiUser.id = portalUser.user_id"
+	  		+ "	WHERE (1 = :keywordsNotExist or (r.serbian_search @@ to_tsquery('serbian', :keywords ) or r.english_search @@ to_tsquery('english', :keywords ) ))"
+	  		+ " and (1 = :subdomainsNotExist or (ris.subdomains_id in ( :subdomains )))", resultSetMapping="ri_query")
 	})
 
 public class ResearchInfrastructure implements Serializable {
