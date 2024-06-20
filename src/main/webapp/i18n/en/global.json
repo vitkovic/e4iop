@@ -321,7 +321,12 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "This is your footer",
+  "footer": {
+    "contact": "Contact us",
+    "terms": "Terms of use",
+    "privacy": "Privacy policy",
+    "cookie": "Cookie policy"
+  },
   "home": {
     "infrastructures": "Infrastructures",
     "services": "Services",

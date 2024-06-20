@@ -10,11 +10,11 @@
 		</div>
 		<div class="footFootera">
 			<div class="rightContent">
-				<a href="../contact">Контактирајте нас</a>
-				<a href="#">Најчешћа питања</a>
-				<a href="#">Услови коришћења</a>
-				<a href="#">Политика колачића</a>
-				<a href="#">Политика приватности</a>
+				<a v-text="$t('footer.contact')" href="../contact">Контактирајте нас</a>
+				<router-link to="/b2b/questions">{{ $t('global.menu.faq') }}</router-link >
+				<a v-text="$t('footer.terms')" href="#">Услови коришћења</a>
+				<a v-text="$t('footer.cookie')" href="#">Политика колачића</a>
+				<a v-text="$t('footer.privacy')" href="#">Политика приватности</a>
 			</div>
 		</div>
 	</div>

@@ -39,6 +39,17 @@
         "findAllDemandsSmall": "погледај све",
         "findAllDemandsLarge": "потражње"
       }
+    },
+    "advertisements": {
+      "offers": {
+        "title": "Актуелне понуде",
+        "button": "Погледај понуду"
+      },
+      "demands": {
+        "title": "Актуелне потражње",
+        "button": "Погледај потражњу"
+      },
+      "advertisements": "огласа"
     }
   }
 }

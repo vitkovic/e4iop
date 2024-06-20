@@ -39,6 +39,18 @@
         "findAllDemandsSmall": "browse all",
         "findAllDemandsLarge": "demands"
       }
+    },
+
+    "advertisements": {
+      "offers": {
+        "title": "Current offers",
+        "button": "View offer"
+      },
+      "demands": {
+        "title": "Current demands",
+        "button": "View demand"
+      },
+      "advertisements": "advertisements"
     }
   }
 }

@@ -21,66 +21,66 @@
 			</div>
 		</div>
 
-		<p class="pTag">Актуелне понуде</p>
+		<p v-text="$t('home.advertisements.offers.title')" class="pTag">Актуелне понуде</p>
 
 		<div class="divZaPonudeiPotraznje">
 			<div class="divOne">
-				<h6>4 огласа</h6>
+				<h6>4 {{ $t('home.advertisements.advertisements') }}</h6>
 
 				<img src="/content/images/cat1.jpg" alt="" class="background-imazh">
-				<button>Погледај понуду</button>
+				<button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
 			</div>
 			<div class="divTwo">
-				<h6>9 огласа</h6>
+				<h6>9 {{ $t('home.advertisements.advertisements') }}</h6>
 				<img src="/content/images/cat2.jpg" class="background-imazh" alt="">
-				<button>Погледај понуду</button>
+				<button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
 			</div>
 			<div class="divThree">
-				<h6>3 огласа</h6>
+				<h6>3 {{ $t('home.advertisements.advertisements') }}</h6>
 				<img src="/content/images/cat3.jpg" class="background-imazh" alt="">
-				<button>Погледај понуду</button>
+				<button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
 			</div>
 			<div class="divFour">
-				<h6>11 огласа</h6>
+				<h6>11 {{ $t('home.advertisements.advertisements') }}</h6>
 				<img src="/content/images/cat4.jpg" class="background-imazh" alt="">
-				<button>Погледај понуду</button>
+				<button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
 			</div>
 			<div class="divFive">
-				<h6>24 огласа</h6>
+				<h6>24 {{ $t('home.advertisements.advertisements') }}</h6>
 				<img src="/content/images/cat4.jpg" class="background-imazh" alt="">
-				<button>Погледај понуду</button>
+				<button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
 			</div>
 		</div>
 
 
-		<p class="pTag1">Актуелне потражње</p>
+		<p class="pTag1" v-text="$t('home.advertisements.demands.title')">Актуелне потражње</p>
 
 		<div class="divZaPonudeiPotraznje">
 			<div class="divOne">
-				<h6>4 огласа</h6>
+				<h6>4 {{ $t('home.advertisements.advertisements') }}</h6>
 
 				<img src="/content/images/cat1.jpg" alt="" class="background-imazh">
-				<button>Погледај потражњу</button>
+				<button v-text="$t('home.advertisements.demands.button')">Погледај потражњу</button>
 			</div>
 			<div class="divTwo">
-				<h6>9 огласа</h6>
+				<h6>9 {{ $t('home.advertisements.advertisements') }}</h6>
 				<img src="/content/images/cat2.jpg" class="background-imazh" alt="">
-				<button>Погледај потражњу</button>
+				<button v-text="$t('home.advertisements.demands.button')">Погледај потражњу</button>
 			</div>
 			<div class="divThree">
-				<h6>3 огласа</h6>
+				<h6>3 {{ $t('home.advertisements.advertisements') }}</h6>
 				<img src="/content/images/cat3.jpg" class="background-imazh" alt="">
-				<button>Погледај потражњу</button>
+				<button v-text="$t('home.advertisements.demands.button')">Погледај потражњу</button>
 			</div>
 			<div class="divFour">
-				<h6>11 огласа</h6>
+				<h6>11 {{ $t('home.advertisements.advertisements') }}</h6>
 				<img src="/content/images/cat4.jpg" class="background-imazh" alt="">
-				<button>Погледај потражњу</button>
+				<button v-text="$t('home.advertisements.demands.button')">Погледај потражњу</button>
 			</div>
 			<div class="divFive">
-				<h6>24 огласа</h6>
+				<h6>24 {{ $t('home.advertisements.advertisements') }}</h6>
 				<img src="/content/images/cat4.jpg" class="background-imazh" alt="">
-				<button>Погледај потражњу</button>
+				<button v-text="$t('home.advertisements.demands.button')">Погледај потражњу</button>
 			</div>
 		</div>
 	</div>
@@ -100,9 +100,7 @@
 	align-items: center;
 	width: 100%;
 	height: 30em;
-	margin-top: 5em;
-	/* padding-top: -9rem; */
-	padding-bottom: 5rem;
+	margin-top: 2em;
 }
 
 .divZaA {
@@ -348,21 +346,8 @@
 	justify-content: center;
 	flex-wrap: wrap;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-	padding: 0 1em;
 }
 
-.divZaPonudeiPotraznje div {
-	height: 250px;
-	background-color: white;
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-	margin-right: 1em;
-	margin-top: 1em;
-	margin-top: 1em;
-	border-radius: 10px;
-
-	position: relative;
-
-}
 
 .divZaPonudeiPotraznje h6 {
 	text-align: center;
@@ -377,6 +362,7 @@
 	opacity: 0.9;
 	margin-left: 0.5em;
 	margin-right: 0.5em;
+	max-width: 100%;
 }
 
 .divTwo div {
@@ -400,20 +386,32 @@
 /*novo*/
 .divZaPonudeiPotraznje div {
 	text-align: center;
-	margin: 10px;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 15em;
+	height: 250px;
+	background-color: white;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	margin-right: 1em;
+	margin-top: 1em;
+	margin-top: 1em;
+	border-radius: 10px;
+	position: relative;
+	
+
+   
+
+
 }
 
 .divZaPonudeiPotraznje div img {
-	max-width: 90%;
+	max-width: 100%;
 	height: auto;
 	display: block;
-	margin: 0 auto;
+	
 	border-radius: 10px;
+	
 }
 
 .divZaPonudeiPotraznje div button {
@@ -430,6 +428,9 @@
 .divOne div {
 	margin-left: 22px;
 }
+
+
+
 
 .divOne button:hover {
 	padding: 6px;
@@ -467,34 +468,77 @@
 	transition: 0.1s;
 }
 
+
+
 @media screen and (max-width: 768px) {
 	.divZaPonudeiPotraznje {
 		margin-left: 2em;
 		margin-right: 2em;
 		margin-top: 1em;
-		padding: 0;
+		padding-top: 1.5em;
+		padding-bottom: 1.5em;
+		
 	}
-	.divZaPonudeiPotraznje div{
-		width: 10em;
-	}
+
+
 	.pTag {
 		margin-left: 1.7em;
 		margin-right: 1.7em;
 	}
+
 	.pTag1 {
 		margin-left: 1.7em;
 		margin-right: 1.7em;
 	}
+
 	.divZaA a {
-    font-size: 0.8em; 
-    max-width: calc(50% - 2em);
-  }
-  .kvOne {
-	  margin-left: 2em;
-  }
-  .kvThree {
-	  margin-left: 2em;
-  }
-	
+		font-size: 0.8em;
+		max-width: calc(50% - 2em);
+	}
+
+	.kvOne {
+		margin-left: 2em;
+	}
+
+	.kvThree {
+		margin-left: 2em;
+	}
+
+	.div1 {
+		margin-top: 5em;
+	}
+	.background-imazh {
+		margin-left: 1.5em;
+		margin-right: 1.5em;
+	}
 }
+
+@media screen and (max-width: 310px) {
+	.divZaPonudeiPotraznje div {
+		width: 35%;
+	}
+	.divZaPonudeiPotraznje div img {
+        margin-left: 2em; 
+        margin-right: 2em;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .divZaPonudeiPotraznje div {
+        width: 40%;
+    }
+    .divZaPonudeiPotraznje div img {
+        height: 7em !important;
+    }
+ 
+}
+
+@media screen and (min-width: 451px) and (max-width: 890px) {
+	.background-imazh {
+		margin-left: 1.5em;
+		margin-right: 1.5em;
+	}
+}
+
+
 </style>

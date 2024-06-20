@@ -317,7 +317,12 @@
       "not.image": "Očekivani format datoteke je slika, a u stvari je \"{{ fileType }}\""
     }
   },
-  "footer": "Ovo je vaše podnožje",
+  "footer": {
+    "contact": "Kontaktirajte nas",
+    "terms": "Uslovi korišćenja",
+    "privacy": "Politika privatnosti",
+    "cookie": "Politika kolačića"
+  },
   "home": {
     "infrastructures": "Infrastukture",
     "services": "Usluge",
