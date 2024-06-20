@@ -81,6 +81,8 @@ export default class CompanyDetails extends Vue {
       role: 'Oglasivac',
       details:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      logo:
+        'https://img.freepik.com/free-vector/universal-logo-geometric-abstract-shape-design-template_126523-489.jpg?t=st=1718918200~exp=1718921800~hmac=e23663886f900edf8e9b5ab4e25b0349399e147655975ce458e746d318aad20d&w=900',
     },
   ];
 
@@ -108,12 +110,6 @@ export default class CompanyDetails extends Vue {
         vm.retrieveCompany(to.params.companyId);
       }
     });
-  }
-
-  created() {
-    if (this.$route.params.companyId) {
-      this.retrieveCompany(this.$route.params.companyId);
-    }
   }
 
   // ----------------------
@@ -151,9 +147,9 @@ export default class CompanyDetails extends Vue {
     const firstImg = carousel.querySelectorAll('img')[0] as HTMLElement;
 
     if (firstImg) {
-      this.firstImgWidth = firstImg.clientWidth;
       this.updateImageWidths(totalImages);
-      // console.log(this.firstImgWidth);
+      this.firstImgWidth = firstImg.clientWidth;
+      console.log(this.firstImgWidth);
     }
   }
 
@@ -189,42 +185,11 @@ export default class CompanyDetails extends Vue {
     carousel.scrollLeft += this.firstImgWidth;
   }
 
-  // ----------------------------
-
-  // mounted() {
-  //   this.updateRowWidth();
-  // }
-
-  // updateRowWidth() {
-  //   this.rowWidth = (this.$refs.imageRow as HTMLElement).scrollWidth;
-  // }
-
-  // slideLeft() {
-  //   if (this.slideAmount > 0) {
-  //     this.slideAmount--;
-  //     this.rowOffset = -this.slideAmount * this.rowWidth;
-  //   }
-  // }
-
-  // slideRight() {
-  //   if (this.slideAmount < this.images.length - 5) {
-  //     this.slideAmount++;
-  //     this.rowOffset = -this.slideAmount * this.rowWidth;
-  //   }
-  // }
-
-  // get imagesToShow() {
-  //   return this.images.slice(this.slideAmount, this.slideAmount + 5);
-  // }
-
-  // ---------------------------------
-
   public retrieveCompany(companyId) {
     this.companyService()
       .find(companyId)
       .then(res => {
         this.company = res;
-        console.log('Current company:', this.company);
       });
   }
 

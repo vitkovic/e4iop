@@ -106,10 +106,10 @@
             <div class="d-flex justify-content-end">
               <div class="d-none d-md-flex justify-content-between w-100">
                 <a href="#">
-                  <img class="iconClass mb-1 icon-contact" src="/content/images/linkedin.svg" alt="Linkedin icon" />
+                  <img class="iconClass mb-1 icon-contact mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" />
                 </a>
                 <a href="#">
-                  <img class="iconClass mb-1 icon-fill" src="/content/images/facebook-square.svg" alt="Facebook icon" />
+                  <img class="iconClass mb-1 icon-fill mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" />
                 </a>
                 <b-link>
                   <font-awesome-icon icon="envelope" class="icon-contact fa-lg mr-2"></font-awesome-icon>
@@ -321,7 +321,8 @@
           <h3 v-text="$t('riportalApp.company.collaborationTestimonials')" class="mb-4">Saradnje</h3>
           <b-row class="align-items-center justify-content-center">
             <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
-              <b-button variant="none" class="prevButtonColl" @click="scrollPrevColl">
+              <!-- @click="scrollPrevColl" -->
+              <b-button variant="none" class="prevButtonColl" >
                 <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
               </b-button>
             </div>
@@ -357,7 +358,8 @@
               </div>
             </div>
             <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
-              <b-button variant="none" class="nextButtonColl" @click="scrollNextColl">
+              <!-- @click="scrollNextColl" -->
+              <b-button variant="none" class="nextButtonColl" >
                 <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
               </b-button>
             </div>

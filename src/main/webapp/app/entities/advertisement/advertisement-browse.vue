@@ -41,7 +41,7 @@
                         </div>
                     </td>
                     <td>
-                        <router-link :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}">{{advertisement.title}}</router-link>
+                        <router-link :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}" class="font-weight-normal text-body">{{advertisement.title}}</router-link>
                     </td>
                     <td>{{advertisement.description}}</td>
                     <td>
@@ -57,7 +57,7 @@
                     </td>
                     <td>
                         <div v-if="advertisement.company">
-                            <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}">{{advertisement.company.name}}</router-link>
+                            <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}" class="font-weight-normal text-body">{{advertisement.company.name}}</router-link>
                         </div>
                     </td>
                 </tr>
