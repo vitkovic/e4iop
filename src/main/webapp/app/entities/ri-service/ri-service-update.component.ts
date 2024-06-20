@@ -12,7 +12,7 @@ import ServiceAvailabilityService from '../service-availability/service-availabi
 import { IServiceAvailability } from '@/shared/model/service-availability.model';
 
 import ServiceAccreditationService from '../service-accreditation/service-accreditation.service';
-import { IServiceAccreditation } from '@/shared/model/service-accreditation.model';
+import { IServiceAccreditation, ServiceAccreditationOptions } from '@/shared/model/service-accreditation.model';
 
 import ServiceSubtypeService from '../service-subtype/service-subtype.service';
 import { IServiceSubtype } from '@/shared/model/service-subtype.model';
@@ -44,7 +44,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 const validations: any = {
   riService: {
-    nameSr: {},
+    nameSr: { required },
     nameEn: {},
     descriptionSr: {},
     descriptionEn: {},
@@ -69,12 +69,24 @@ const validations: any = {
       required,
     },
     price: {},
-    currency: {},
-    owner: {
-      required: requiredIf(function () {
-        return this.hasAnyRole(['PA']) || this.hasAnyAuthority('ROLE_ADMIN');
+    currency: {
+      requiredIfPrice: requiredIf(riService => {
+        if (riService.price == undefined) {
+          return false;
+        }
+
+        if (riService.price === '') {
+          return false;
+        }
+
+        return true;
       }),
     },
+    // owner: {
+    //   required: requiredIf(function () {
+    //     return this.hasAnyRole(['PA']) || this.hasAnyAuthority('ROLE_ADMIN');
+    //   }),
+    // },
   },
 };
 
@@ -139,6 +151,7 @@ export default class RiServiceUpdate extends Vue {
   private linked7 = null;
   private riportalEntityShortName = 're';
   private currentTooltip: string | null = null;
+  public serviceAccreditationOptions = ServiceAccreditationOptions;
 
   formLink(link): void {
     UploadFilesService.getFile(link);
@@ -220,6 +233,7 @@ export default class RiServiceUpdate extends Vue {
   public save(): void {
     this.isSaving = true;
     this.populateCyrOrLatValues();
+    this.clearCurrencyField();
     if (this.riService.id) {
       this.riServiceService()
         .update(this.riService)
@@ -332,5 +346,26 @@ export default class RiServiceUpdate extends Vue {
 
   public hideTooltip(input: string): void {
     this.currentTooltip = null;
+  }
+
+  public deleteDocument(property: string, filename: string, linked: string) {
+    this.riService[property] = null;
+    this[linked] = null;
+    this.save();
+
+    UploadFilesService.deleteDocument(filename);
+  }
+
+  public validateNumeric(event: Event): void {
+    let input = event.target as HTMLInputElement;
+    input.value = input.value.replace(/\D/g, '');
+
+    this.riService.price = input.value;
+  }
+
+  public clearCurrencyField(): void {
+    if (this.riService == undefined || this.riService?.price === '') {
+      this.riService.currency = null;
+    }
   }
 }

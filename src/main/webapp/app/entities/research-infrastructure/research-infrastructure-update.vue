@@ -503,7 +503,7 @@
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
                     </button>
-                    <button type="submit" ref='form_submit' id="save-entity"  class="btn btn-primary">
+                    <button type="submit" ref='form_submit' id="save-entity" :disabled="$v.researchInfrastructure.$invalid || isSaving" class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
                     <b-button v-on:click="openCalendar()"

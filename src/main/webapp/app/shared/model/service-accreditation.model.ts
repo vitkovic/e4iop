@@ -1,3 +1,8 @@
+export enum ServiceAccreditationOptions {
+  ACCREDITED = 'Accredited',
+  NON_ACCREDITED = 'Non-accredited',
+}
+
 export interface IServiceAccreditation {
   id?: number;
   status?: string;

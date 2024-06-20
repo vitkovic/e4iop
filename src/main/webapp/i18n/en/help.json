@@ -33,7 +33,7 @@
       "keywordsEn_desc": "Enter terms in the English language by which other users of the portal will be able to find the service of your research infrastructure during the search.",
       "price_desc": "Enter the service amount. In the case of more complex pricing methods, this field can be left empty, and the price of the service can be given in more detail in the <b>\"Pricing Policy\"</b> document.",
       "currency_desc": "Choose one of the offered options.",
-      "accreditationOrganizationName_desc": "Enter the name of the accreditation body that issued the permission to use the service. In case the service is not accredited, this field can be left blank.",
+      "accreditationOrganizationName_desc": "Enter the name of the accreditation body that issued the permission to use the service.",
       "researchInfrastructure_desc": "Select one of the previously created research infrastructures for which you are responsible.",
       "subtypes_desc": "Choose one of the offered options.",
       "availability_desc": "Select one of the following options:<br> &#x2022; <b>Available</b> - The infrastructure is available for use.<br> &#x2022; <b>Temporarily unavailable</b> – The infrastructure is temporarily unavailable for use, for example, in case of equipment servicing, inventory, restructuring, etc.<br> &#x2022; <b>Permanently unavailable</b> – The infrastructure is permanently unavailable for use, for example, in the case of outdated or permanently damaged equipment, unavailability of personnel, etc",

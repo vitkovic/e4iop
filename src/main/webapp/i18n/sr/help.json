@@ -33,7 +33,7 @@
       "keywordsEn_desc": "Unesite pojmove na engleskom jeziku po kojima će prilikom pretrage drugi korisnici portala moći da pronađu uslugu Vaše istraživačke infrastrukture.",
       "price_desc": "Unesite iznos usluge. U slučaju složenijih načina određivanja cene, ovo polje se može ostaviti prazno, a cena usluge se može detaljnije dati u dokumentu <b>“Politika cena“</b>.",
       "currency_desc": "Izaberite jednu od ponuđenih opcija.",
-      "accreditationOrganizationName_desc": "Unesite naziv akreditacionog tela koje je izdalo dozvolu za korišćenje usluge. U slučaju da usluga nije akreditovana, ovo polje se može ostaviti prazno.",
+      "accreditationOrganizationName_desc": "Unesite naziv akreditacionog tela koje je izdalo dozvolu za korišćenje usluge.",
       "researchInfrastructure_desc": "Izaberite jednu od prethodno kreiranih istraživačkih infrastruktura za koje ste odgovorna osoba.",
       "subtypes_desc": "Izaberite jednu od ponuđenih opcija.",
       "availability_desc": "Izaberite jednu od ponuđenih opcija:<br> &#x2022; <b>Dostupna</b> – Infrastruktura je dostupna za korišćenje.<br> &#x2022; <b>Privremeno nedostupna</b> – Infrastruktura privremeno nije dostupna za korišćenje, na primer, u slučaju servisiranja opreme, popisa, restrukturiranja i slično.<br> &#x2022; <b>Trajno nedostupna</b> – Infrastruktura je trajno nedostupna za korišćenje, na primer, u slučaju zastarele ili trajno oštećene opreme, nedostupnosti kadra i slično.",
