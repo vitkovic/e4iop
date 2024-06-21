@@ -661,23 +661,6 @@ h2 {
   display: none;
 }
 
-@media screen and (max-width: 1200px) {
-  /* .carousel img {
-    width: calc(100% / 3);
-  } */
-}
-
-@media screen and (max-width: 768px) {
-  /* .carousel img {
-    width: calc(100% / 2);
-  } */
-}
-
-@media screen and (max-width: 576px) {
-  /* .carousel img {
-    width: 100%;
-  } */
-}
 
 @media (max-width: 991.98px) {
   .carousel-collaboration {

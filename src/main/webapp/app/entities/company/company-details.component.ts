@@ -106,15 +106,20 @@ export default class CompanyDetails extends Vue {
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      if (to.params.companyId) {
-        vm.retrieveCompany(to.params.companyId);
-      }
+      // if (to.params.companyId) {
+      //   vm.retrieveCompany(to.params.companyId);
+      // }
     });
   }
 
   // ----------------------
 
   mounted() {
+    let companyId = this.$route.params.companyId;
+    if (companyId) {
+      this.retrieveCompany(companyId);
+    }
+
     this.updateImgWidth();
     window.addEventListener('resize', this.updateImgWidth);
   }
