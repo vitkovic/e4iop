@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,7 @@ import e4i.domain.Company;
 import e4i.domain.Meeting;
 import e4i.domain.Message;
 import e4i.domain.Thread;
+import e4i.service.CalendarService;
 import e4i.service.CompanyService;
 import e4i.service.MailService;
 import e4i.service.MeetingParticipantService;
@@ -56,6 +60,9 @@ public class MeetingResource {
     
     @Autowired
     MessageService messageService;
+    
+    @Autowired
+    CalendarService calendarService;
     
     private final MailService mailService;
 
@@ -222,5 +229,23 @@ public class MeetingResource {
     public List<Meeting> getAllMeetingsForCompany(@PathVariable Long companyId) {
         log.debug("REST request to get all Meetings for Company {}", companyId);
         return meetingService.findAllForCompany(companyId);
+    }
+    
+    @PostMapping("/meetings/create-ics/{meetingId}")
+    public ResponseEntity<Resource> createICSForMeeting(@PathVariable Long meetingId) {
+        log.debug("REST request to create ICS for Meeting {}", meetingId);
+        
+        try {
+            Meeting meeting = meetingService.getOne(meetingId);
+            Resource out = calendarService.createICS(meeting);
+   		 	String icsReport = "b2b_sastanak.ics";
+            
+            return ResponseEntity.ok()
+			        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + icsReport)
+			        .contentType(MediaType.parseMediaType("text/calendar")).body(out);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.noContent().build();
+		} 
     }
 }

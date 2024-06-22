@@ -193,7 +193,7 @@
                   <span><font-awesome-icon icon="times" style="color: red;"/></span>
                   <span v-text="'Otkaži sastanak'" ></span>
                 </button>
-                <button type="button" class="btn btn-primary" v-text="'Preuzmi ICS'" v-on:click="exportMeetingToICS()">Preuzmi ICS</button>
+                <button type="button" class="btn btn-primary" v-text="'Preuzmi ICS'" v-on:click="createICS(selectedEvent)">Preuzmi ICS</button>
                 <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-primary" v-text="'Izmeni'" v-on:click="prepareEditMeetingModal()">Izmeni</button>
                 <!-- <button type="button" class="btn btn-danger" v-text="'Ukloni'" v-on:click="prepareRemoveMeetingModal(selectedEvent.id)">Obriši</button> -->
                 <!-- <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeViewMeetingModal()">Cancel</button> -->

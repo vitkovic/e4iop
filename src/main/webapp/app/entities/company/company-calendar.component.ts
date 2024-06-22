@@ -727,4 +727,17 @@ export default class CompanyCalendar extends Vue {
       `____________________`
     );
   }
+
+  public createICS(selectedEvent: MeetingEvent): void {
+    this.meetingService()
+      .createICS(selectedEvent.id)
+      .then(res => {
+        const fileURL = window.URL.createObjectURL(new Blob([res]));
+        let fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'b2b_sastanak.ics');
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      });
+  }
 }
