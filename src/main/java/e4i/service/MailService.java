@@ -333,7 +333,7 @@ public class MailService {
                 .map(portalUser -> portalUser.getUser().getEmail())
                 .collect(Collectors.toList());
 	
-        String mailSubject = "B2B portal - Obaveštenje o novom pozivu za sastanak";
+        String mailSubject = "B2B portal - Obaveštenje o pozivu za sastanak";
         String mailContent = this.prepareNotificationContentForMeetingInvitation(meeting, companyOrganizer, companyParticipant);
 
         NotificationMailDTO mailDTO = new NotificationMailDTO();
@@ -388,6 +388,23 @@ public class MailService {
         
         return mailDTO;
 	}
+    
+	public NotificationMailDTO createNotificationMailDTOForMeetingInvitationNonB2B(
+			Meeting meeting,
+			Company companyOrganizer, 
+			List<String> emails) {
+        String mailSubject = "B2B portal - Obaveštenje o pozivu za sastanak";
+        String mailContent = this.prepareNotificationContentForMeetingInvitationNonB2B(meeting, companyOrganizer);
+
+        NotificationMailDTO mailDTO = new NotificationMailDTO();
+        mailDTO.setEmails(emails);
+        mailDTO.setSubject(mailSubject);
+        mailDTO.setContent(mailContent);
+        
+        return mailDTO;
+	}
+
+
 
 	public String prepareContentForNewMessageNotification(Message message, Thread thread, Company company, PortalUser portalUser) {
     	
@@ -680,5 +697,50 @@ public class MailService {
         
     	return content;
 	}
+	
+	private String prepareNotificationContentForMeetingInvitationNonB2B(Meeting meeting, Company companyOrganizer) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        ZonedDateTime zonedDateTimeStart = meeting.getDatetimeStart().atZone(ZoneId.systemDefault());
+        ZonedDateTime zonedDateTimeEnd = meeting.getDatetimeEnd().atZone(ZoneId.systemDefault());
+    	
+    	String homeURL = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+    	
 
+//        String companyCalendarLink = homeURL + "/b2b/company/" + companyParticipant.getId() + "/calendar";
+        
+    	String advertisementText = "";
+    	if (meeting.getAdvertisement() != null) {
+        	String advertisementLink = homeURL + "/b2b/advertisement/" + meeting.getAdvertisement().getId() + "/view";
+        	advertisementText = "<p>Sastanak je vezan za oglas <b>" + meeting.getAdvertisement().getTitle() + "</b>." 
+        			+ "<br>Oglas možete pogledati na " 
+        			+ "<a href='" + advertisementLink + "'>ovom linku<a></p>";
+    	}
+    	
+    	
+    	String locationText = (meeting.getLocation() != null && !meeting.getLocation().isBlank()) ? 
+    			"<p><b>Lokacija: </b><span>".concat( meeting.getLocation() + "</p>") : "";
+    	
+    	String descriptionText = (meeting.getDescription() != null && !meeting.getDescription().isBlank()) ? 
+    			"<p><b>Opis: </b><span>".concat(meeting.getDescription() + "</p>") : "";
+        
+        String meetingText = 
+        		"<p><b>Sastanak: </b><span>" + meeting.getTitle()
+        		+ "<p><b>Organizator: </b><span>" + companyOrganizer.getName()
+        		+ "<p><b>Vreme početka: </b><span>" + dateTimeFormatter.format(zonedDateTimeStart)
+        		+ "<p><b>Vreme završetka: </b><span>" + dateTimeFormatter.format(zonedDateTimeEnd)
+        		+ locationText
+        		+ descriptionText;
+        
+        String content = "<div>"
+        		+ "<p>Kompanija sa <a href='" + homeURL +"/b2b" + "'>B2B portala<a> Vam je uputila poziv za sastanak.</p>"
+        		+ "<br>"
+        		+ meetingText
+        		+ "<hr>"
+        		+ "<br>"
+        		+ advertisementText
+        		+ "<br>"
+        		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
+        
+    	return content;
+	}
 }

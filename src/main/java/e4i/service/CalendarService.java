@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import e4i.domain.Meeting;
 import e4i.domain.MeetingParticipant;
+import e4i.domain.MeetingParticipantNonB2B;
 import e4i.domain.MeetingParticipantStatus;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
@@ -40,6 +41,9 @@ public class CalendarService {
     
     @Autowired
     MeetingParticipantService meetingParticipantService;
+    
+    @Autowired
+    MeetingParticipantNonB2BService meetingParticipantNonB2BService;
     
 	public ByteArrayResource createICS(Meeting meeting) {
         log.debug("Request to export ICS for meeting : {}", meeting.getTitle());
@@ -74,6 +78,8 @@ public class CalendarService {
     	vEvent.add(eventDescription);
     		
     	List<MeetingParticipant> meetingParticipants = meetingParticipantService.findAllByMeetingId(meeting.getId());
+    	List<MeetingParticipantNonB2B> meetingParticipantsNonB2B = meetingParticipantNonB2BService.findAllByMeetingId(meeting.getId());
+    	
     	for (MeetingParticipant participant : meetingParticipants) {
     		if (participant.isIsOrganizer()) {
     			// Koji mail staviti?
@@ -103,17 +109,25 @@ public class CalendarService {
     		}
     	}
     	
+    	for (MeetingParticipantNonB2B participant : meetingParticipantsNonB2B) {
+    		Attendee attendee = new Attendee(URI.create("mailto:" + participant.getEmail()));
+    		attendee.add(new Cn(participant.getEmail()));
+    		attendee.add(Role.OPT_PARTICIPANT);
+    		attendee.add(PartStat.NEEDS_ACTION);
+    		
+    		vEvent.add(attendee);
+    	}
+    	
     	calendar.add(vEvent);
 
         try {
         	ByteArrayOutputStream baos = new ByteArrayOutputStream();
             CalendarOutputter outputter = new CalendarOutputter();
             outputter.output(calendar, baos);
-            System.out.println("KRAJ");
             
             return new ByteArrayResource(baos.toByteArray());
         } catch (IOException e) {
-        	throw new RuntimeException("Error generating ICS content", e);
+        	throw new RuntimeException("Greška prilikom generisanja ics fajla", e);
         }    
 	}
 }

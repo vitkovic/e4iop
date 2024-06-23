@@ -10,15 +10,18 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import e4i.domain.Company;
 import e4i.domain.Meeting;
+import e4i.domain.MeetingParticipantNonB2B;
 import e4i.domain.Message;
 import e4i.domain.Thread;
 import e4i.service.CalendarService;
 import e4i.service.CompanyService;
 import e4i.service.MailService;
+import e4i.service.MeetingParticipantNonB2BService;
 import e4i.service.MeetingParticipantService;
 import e4i.service.MeetingService;
 import e4i.service.MessageService;
@@ -51,6 +54,9 @@ public class MeetingResource {
     
     @Autowired
     MeetingParticipantService meetingParticipantService;
+    
+    @Autowired
+    MeetingParticipantNonB2BService meetingParticipantNonB2BService;
     
     @Autowired
     CompanyService companyService;
@@ -152,7 +158,8 @@ public class MeetingResource {
     public ResponseEntity<Meeting> createMeetingWithParticipants(
     		@RequestBody Meeting meeting,
     		@RequestParam Long organizerId,
-    		@RequestParam List<Long> participantIds
+    		@RequestParam List<Long> participantIds,
+    		@RequestParam List<String> nonB2BparticipantIds
     		) throws URISyntaxException {
         log.debug("REST request to create new Meeting organized by company : {}", organizerId);
         if (meeting.getId() != null) {
@@ -181,6 +188,14 @@ public class MeetingResource {
             		mailService.sendNotificationMail(mailDTO);
             	}           
             }
+            
+            for (String email : nonB2BparticipantIds) {
+            	meetingParticipantNonB2BService.addMeetingParticipant(newMeeting, email);
+            }
+            NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingInvitationNonB2B(newMeeting, companyOrganizer, nonB2BparticipantIds);
+        	if (!mailDTO.getEmails().isEmpty()) {
+        		mailService.sendNotificationMail(mailDTO);
+        	}  
                         
             return ResponseEntity.created(new URI("/api/meetings/new/" + newMeeting.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, newMeeting.getId().toString()))
@@ -192,11 +207,14 @@ public class MeetingResource {
     }
     
     @PutMapping("/meetings/edit")
+    @Transactional
     public ResponseEntity<Meeting> editMeetingWithParticipants(
     		@RequestBody Meeting meetingWithUpdates,
     		@RequestParam Long meetingId,
     		@RequestParam List<Long> participantIdsToAdd,
-    		@RequestParam List<Long> participantIdsToRemove
+    		@RequestParam List<Long> participantIdsToRemove,
+    		@RequestParam List<String> nonB2BparticipantIdsToAdd,
+    		@RequestParam List<String> nonB2BparticipantIdsToRemove
     		) throws URISyntaxException {
         log.debug("REST request to edit Meeting: {}", meetingId);
         if (meetingId == null) {
@@ -214,6 +232,14 @@ public class MeetingResource {
             for (Long id : participantIdsToRemove) {
             	Company companyParticipant = companyService.getOneById(id);
             	meetingParticipantService.deleteMeetingParticipant(editedMeeting, companyParticipant);
+            }
+            
+            for (String email : nonB2BparticipantIdsToAdd) {
+            	meetingParticipantNonB2BService.addMeetingParticipant(editedMeeting, email);
+            }
+            
+            for (String email : nonB2BparticipantIdsToRemove) {
+            	meetingParticipantNonB2BService.deleteMeetingParticipant(editedMeeting, email);
             }
             
             return ResponseEntity.created(new URI("/api/meetings/edit/" + editedMeeting.getId()))

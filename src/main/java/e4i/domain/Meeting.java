@@ -61,6 +61,10 @@ public class Meeting implements Serializable {
     @OneToMany(mappedBy = "meeting")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<MeetingParticipant> meetingParticipants = new HashSet<>();
+    
+    @OneToMany(mappedBy = "meeting")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<MeetingParticipantNonB2B> meetingParticipantsNonB2B = new HashSet<>();
 
     @NotNull
     @ManyToOne
@@ -234,6 +238,31 @@ public class Meeting implements Serializable {
     public void setMeetingParticipants(Set<MeetingParticipant> meetingParticipants) {
         this.meetingParticipants = meetingParticipants;
     }
+      
+    public Set<MeetingParticipantNonB2B> getMeetingParticipantsNonB2B() {
+        return meetingParticipantsNonB2B;
+    }
+
+    public Meeting meetingParticipantsNonB2B(Set<MeetingParticipantNonB2B> meetingParticipantsNonB2B) {
+        this.meetingParticipantsNonB2B = meetingParticipantsNonB2B;
+        return this;
+    }
+
+    public Meeting addMeetingParticipantNonB2B(MeetingParticipantNonB2B meetingParticipantsNonB2B) {
+        this.meetingParticipantsNonB2B.add(meetingParticipantsNonB2B);
+        meetingParticipantsNonB2B.setMeeting(this);
+        return this;
+    }
+
+	public Meeting removeMeetingParticipantNonB2B(MeetingParticipantNonB2B meetingParticipantsNonB2B) {
+        this.meetingParticipantsNonB2B.remove(meetingParticipantsNonB2B);
+        meetingParticipantsNonB2B.setMeeting(null);
+        return this;
+    }
+
+    public void setMeetingParticipantsNonB2B(Set<MeetingParticipantNonB2B> meetingParticipantsNonB2B) {
+        this.meetingParticipantsNonB2B = meetingParticipantsNonB2B;
+    }
     
     public Company getCompany() {
 		return company;
@@ -341,6 +370,7 @@ public class Meeting implements Serializable {
             ", isAcepted='" + isIsAcepted() + "'" +
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
+            ", location='" + getLocation() + "'" +
             ", comment='" + getComment() + "'" +
             ", notes='" + getNotes() + "'" +
             "}";

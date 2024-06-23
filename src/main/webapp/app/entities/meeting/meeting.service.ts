@@ -74,10 +74,18 @@ export default class MeetingService {
     });
   }
 
-  public createMeetingWithParticipants(meeting: IMeeting, organizerId: number, participantIds: number[] = []): Promise<IMeeting> {
+  public createMeetingWithParticipants(
+    meeting: IMeeting,
+    organizerId: number,
+    participantIds: number[] = [],
+    nonB2BparticipantIds: string[] = []
+  ): Promise<IMeeting> {
     return new Promise<IMeeting>((resolve, reject) => {
       axios
-        .post(`${apiCreateMeetingWithParticipants}/?organizerId=${organizerId}&participantIds=${participantIds}`, meeting)
+        .post(
+          `${apiCreateMeetingWithParticipants}/?organizerId=${organizerId}&participantIds=${participantIds}&nonB2BparticipantIds=${nonB2BparticipantIds}`,
+          meeting
+        )
         .then(res => {
           resolve(res);
         })
@@ -91,7 +99,9 @@ export default class MeetingService {
     meeting: IMeeting,
     meetingId: number,
     participantIdsToAdd: number[] = [],
-    participantIdsToRemove: number[] = []
+    participantIdsToRemove: number[] = [],
+    nonB2BparticipantIdsToAdd: string[] = [],
+    nonB2BparticipantIdsToRemove: string[] = []
   ): Promise<IMeeting> {
     return new Promise<IMeeting>((resolve, reject) => {
       axios
@@ -99,7 +109,9 @@ export default class MeetingService {
           `${apiEditMeetingWithParticipants}` +
             `/?meetingId=${meetingId}` +
             `&participantIdsToAdd=${participantIdsToAdd}` +
-            `&participantIdsToRemove=${participantIdsToRemove}`,
+            `&participantIdsToRemove=${participantIdsToRemove}` +
+            `&nonB2BparticipantIdsToAdd=${nonB2BparticipantIdsToAdd}` +
+            `&nonB2BparticipantIdsToRemove=${nonB2BparticipantIdsToRemove}`,
           meeting
         )
         .then(res => {

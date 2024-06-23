@@ -1,4 +1,5 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
+import { required, email } from 'vuelidate/lib/validators';
 
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
@@ -49,7 +50,13 @@ const DEFAULT_MEETING_EVENT: MeetingEvent = {
   advertisement: null,
 };
 
-@Component
+const validations: any = {
+  nonB2BMeetingParticipantEmail: { required, email },
+};
+
+@Component({
+  validations,
+})
 export default class AdvertisementDetails extends Vue {
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
   @Inject('accountService') private accountService: () => AccountService;
@@ -69,6 +76,9 @@ export default class AdvertisementDetails extends Vue {
   public meetingEvent = { ...DEFAULT_MEETING_EVENT };
   public companiesSearch: ICompany[] = [];
   public companiesMeetingParticipants: ICompany[] = [];
+  public nonB2BParticipantsEmails: string[] = [];
+  public nonB2BMeetingParticipantEmail: string | null = null;
+  public isEmailValid = true;
 
   public companySearchText = '';
   public showCompaniesSearch = false;
@@ -237,6 +247,8 @@ export default class AdvertisementDetails extends Vue {
     this.companiesSearch = [];
     this.companySearchText = '';
     this.companiesMeetingParticipants = [];
+    this.nonB2BParticipantsEmails = [];
+    this.nonB2BMeetingParticipantEmail = null;
 
     this.meetingEvent = { ...DEFAULT_MEETING_EVENT };
     this.meetingEvent.startDate = this.formatDateStringFromDate(new Date());
@@ -285,7 +297,7 @@ export default class AdvertisementDetails extends Vue {
     participantIds.push(this.advertisement.company.id);
 
     this.meetingService()
-      .createMeetingWithParticipants(newMeeting, organizerId, participantIds)
+      .createMeetingWithParticipants(newMeeting, organizerId, participantIds, this.nonB2BParticipantsEmails)
       .then(res => {
         const message = 'Sastanak je zakazan.';
         this.$notify({
@@ -395,5 +407,29 @@ export default class AdvertisementDetails extends Vue {
       .map(word => word[0])
       .join('')
       .toUpperCase();
+  }
+
+  public addNonB2BMeetingParticipant(): void {
+    this.$v.nonB2BMeetingParticipantEmail.$touch();
+    if (this.$v.nonB2BMeetingParticipantEmail.$invalid) {
+      this.isEmailValid = false;
+      return;
+    }
+
+    if (this.nonB2BMeetingParticipantEmail) {
+      if (!this.nonB2BParticipantsEmails.includes(this.nonB2BMeetingParticipantEmail)) {
+        this.nonB2BParticipantsEmails.push(this.nonB2BMeetingParticipantEmail);
+      }
+    }
+
+    this.isEmailValid = true;
+    this.nonB2BMeetingParticipantEmail = null;
+  }
+
+  public removeNonB2BMeetingParticipant(email: string): void {
+    const index = this.nonB2BParticipantsEmails.indexOf(email);
+    if (index !== -1) {
+      this.nonB2BParticipantsEmails.splice(index, 1);
+    }
   }
 }

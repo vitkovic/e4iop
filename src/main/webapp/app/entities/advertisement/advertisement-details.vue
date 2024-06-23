@@ -362,6 +362,41 @@
                 </div>
                 <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close">x</b-button>
               </div>
+
+              <hr />
+              <label for="" v-text="'Pozovite učesnike koji nisu na B2B portalu'">Pozovite učesnike koji nisu na B2B portalu</label>
+              <b-input-group>
+                <b-form-input
+                  type="email"
+                  ref="email-address"
+                  class="form-control mb-3"
+                  name="email-address"
+                  id="email-address"
+                  placeholder="Unesite email adresu..."
+                  v-model="nonB2BMeetingParticipantEmail"
+                  @keyup.enter="addNonB2BMeetingParticipant()"
+                ></b-form-input>
+                <div>
+                  <b-button 
+                    @click="addNonB2BMeetingParticipant()" 
+                    variant="primary" 
+                    v-text="'Dodaj'"
+                    :disabled="!$v.nonB2BMeetingParticipantEmail.email || !$v.nonB2BMeetingParticipantEmail.required"
+                    >Dodaj
+                  </b-button>
+                </div>
+              </b-input-group>
+              <small class="form-text text-danger" v-if="!isEmailValid" v-text="'Email adresa nije ispravna'">Email adresa nije ispravna.              
+              </small>
+              <div
+                v-for="email in nonB2BParticipantsEmails"
+                :key="email"
+                class="d-flex align-items-center justify-content-between mb-3"
+              >
+                <span>{{ email }}</span>
+                <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close">x</b-button>
+              </div>
+
             </div>
           </div>
           <div slot="modal-footer">

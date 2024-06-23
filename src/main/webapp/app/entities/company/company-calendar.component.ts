@@ -1,13 +1,16 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
+import { required, email } from 'vuelidate/lib/validators';
 
 import { ICompany } from '@/shared/model/company.model';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 import { IMeeting } from '@/shared/model/meeting.model';
 import { IMeetingParticipant } from '@/shared/model/meeting-participant.model';
+import { IMeetingParticipantNonB2B } from '@/shared/model/meeting-participant-non-b2b.model';
 
 import CompanyService from './company.service';
 import MeetingService from '@/entities/meeting/meeting.service';
 import MeetingParticipantService from '@/entities/meeting-participant/meeting-participant.service';
+import MeetingParticipantNonB2BService from '@/entities/meeting-participant-non-b2b/meeting-participant-non-b2b.service';
 
 import FullCalendar from '@fullcalendar/vue';
 import allLocales from '@fullcalendar/core/locales-all';
@@ -46,6 +49,7 @@ interface MeetingEvent {
   advertiser: IMeetingParticipant | null;
   allParticipants: IMeetingParticipant[];
   otherParticipants: IMeetingParticipant[];
+  allNonB2BMeetingParticipants: IMeetingParticipantNonB2B[];
   advertisement: IAdvertisement;
 }
 
@@ -73,14 +77,22 @@ const DEFAULT_MEETING_EVENT: MeetingEvent = {
   advertiser: null,
   allParticipants: [],
   otherParticipants: [],
+  allNonB2BMeetingParticipants: [],
   advertisement: null,
 };
 
-@Component
+const validations: any = {
+  nonB2BMeetingParticipantEmail: { required, email },
+};
+
+@Component({
+  validations,
+})
 export default class CompanyCalendar extends Vue {
   @Inject('companyService') private companyService: () => CompanyService;
   @Inject('meetingService') private meetingService: () => MeetingService;
   @Inject('meetingParticipantService') private meetingParticipantService: () => MeetingParticipantService;
+  @Inject('meetingParticipantNonB2BService') private meetingParticipantNonB2BService: () => MeetingParticipantNonB2BService;
 
   public company: ICompany | null = null;
   public companyId: number | null = null;
@@ -88,6 +100,8 @@ export default class CompanyCalendar extends Vue {
   public companyMeetings: IMeeting[] = [];
   public companiesSearch: ICompany[] = [];
   public companiesMeetingParticipants: ICompany[] = [];
+  public nonB2BMeetingParticipants: IMeetingParticipantNonB2B[] = [];
+  public nonB2BParticipantsEmails: string[] = [];
 
   // public meetings: IMeeting[] = [];
   public newMeeting: IMeeting | null = null;
@@ -101,6 +115,8 @@ export default class CompanyCalendar extends Vue {
   public isCalendarPopulated = false;
   public companySearchText = '';
   public showCompaniesSearch = false;
+  public nonB2BMeetingParticipantEmail: string | null = null;
+  public isEmailValid = true;
 
   public calendarOptions = {
     locales: allLocales,
@@ -269,6 +285,8 @@ export default class CompanyCalendar extends Vue {
     this.companiesSearch = [];
     this.companySearchText = '';
     this.companiesMeetingParticipants = [];
+    this.nonB2BParticipantsEmails = [];
+    this.nonB2BMeetingParticipantEmail = null;
 
     this.meetingEvent = { ...DEFAULT_MEETING_EVENT };
     this.meetingEvent.startDate = selectInfo.startStr;
@@ -327,6 +345,13 @@ export default class CompanyCalendar extends Vue {
 
         (<any>this.$refs.viewMeetingModal).show();
       });
+
+    this.meetingParticipantNonB2BService()
+      .findAllForMeeting(meetingId)
+      .then(res => {
+        console.log(res);
+        this.selectedEvent.allNonB2BMeetingParticipants = res;
+      });
   }
 
   public closeCreateMeetingModal(): void {
@@ -361,8 +386,9 @@ export default class CompanyCalendar extends Vue {
     // participantIds.push(this.advertisement.company.id);
 
     this.meetingService()
-      .createMeetingWithParticipants(newMeeting, organizerId, participantIds)
+      .createMeetingWithParticipants(newMeeting, organizerId, participantIds, this.nonB2BParticipantsEmails)
       .then(res => {
+        console.log('OVDE SAM!!!!');
         this.isCalendarPopulated = false;
         this.populateCalendar();
 
@@ -380,6 +406,11 @@ export default class CompanyCalendar extends Vue {
 
   public prepareEditMeetingModal(): void {
     this.companiesMeetingParticipants = [];
+
+    this.nonB2BMeetingParticipants = this.selectedEvent.allNonB2BMeetingParticipants;
+    this.nonB2BParticipantsEmails = this.nonB2BMeetingParticipants.map(participant => participant.email);
+
+    console.log(this.nonB2BMeetingParticipants);
 
     if (this.selectedEvent.organizer) {
       this.companiesMeetingParticipants.push(this.selectedEvent.organizer.company);
@@ -428,8 +459,27 @@ export default class CompanyCalendar extends Vue {
       company => company.id
     );
 
+    const emails = this.nonB2BMeetingParticipants.map(participant => participant.email);
+
+    const nonB2BparticipantsToAdd = this.nonB2BParticipantsEmails.filter(email => !emails.includes(email));
+
+    console.log('HELLLOOO');
+    console.log(nonB2BparticipantsToAdd);
+
+    const nonB2BparticipantsToRemove = emails.filter(email => !this.nonB2BParticipantsEmails.includes(email));
+
+    console.log('HELLLOOO');
+    console.log(nonB2BparticipantsToRemove);
+
     this.meetingService()
-      .editMeetingWithParticipants(editedMeeting, meetingId, participantsToAdd, participantsToRemove)
+      .editMeetingWithParticipants(
+        editedMeeting,
+        meetingId,
+        participantsToAdd,
+        participantsToRemove,
+        nonB2BparticipantsToAdd,
+        nonB2BparticipantsToRemove
+      )
       .then(res => {
         this.isCalendarPopulated = false;
         this.populateCalendar();
@@ -739,5 +789,29 @@ export default class CompanyCalendar extends Vue {
         document.body.appendChild(fileLink);
         fileLink.click();
       });
+  }
+
+  public addNonB2BMeetingParticipant(): void {
+    this.$v.nonB2BMeetingParticipantEmail.$touch();
+    if (this.$v.nonB2BMeetingParticipantEmail.$invalid) {
+      this.isEmailValid = false;
+      return;
+    }
+
+    if (this.nonB2BMeetingParticipantEmail) {
+      if (!this.nonB2BParticipantsEmails.includes(this.nonB2BMeetingParticipantEmail)) {
+        this.nonB2BParticipantsEmails.push(this.nonB2BMeetingParticipantEmail);
+      }
+    }
+
+    this.isEmailValid = true;
+    this.nonB2BMeetingParticipantEmail = null;
+  }
+
+  public removeNonB2BMeetingParticipant(email: string): void {
+    const index = this.nonB2BParticipantsEmails.indexOf(email);
+    if (index !== -1) {
+      this.nonB2BParticipantsEmails.splice(index, 1);
+    }
   }
 }
