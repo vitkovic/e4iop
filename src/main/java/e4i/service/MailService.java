@@ -13,6 +13,7 @@ import e4i.repository.CompanyRepository;
 import e4i.repository.MessageRepository;
 import e4i.repository.PortalUserRepository;
 import e4i.repository.ThreadRepository;
+import e4i.web.rest.dto.AttachmentDTO;
 import e4i.web.rest.dto.NotificationMailDTO;
 import io.github.jhipster.config.JHipsterProperties;
 
@@ -20,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -33,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -161,15 +164,27 @@ public class MailService {
     @Async
     public void sendNotificationMail(NotificationMailDTO mailDTO) {
         log.debug("Sending message notification to PortalUsers from company");
-          
+        
+        Boolean hasAttachments = false;
+        if (mailDTO.getAttachments() != null) {
+        	hasAttachments = true;
+        }
+        
         for (String email : mailDTO.getEmails()) {
-            try {
+            try {     		
                 MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-                MimeMessageHelper emailMessage = new MimeMessageHelper(mimeMessage, false, StandardCharsets.UTF_8.name());
+                MimeMessageHelper emailMessage = new MimeMessageHelper(mimeMessage, hasAttachments, StandardCharsets.UTF_8.name());
                 emailMessage.setTo(email);
                 emailMessage.setFrom(jHipsterProperties.getMail().getFrom());
                 emailMessage.setSubject(mailDTO.getSubject());
                 emailMessage.setText(mailDTO.getContent(), true);
+               
+                if (hasAttachments) {
+                    for (AttachmentDTO attachment : mailDTO.getAttachments()) {
+                        emailMessage.addAttachment(attachment.getFileName(), attachment.getFile());
+                    }
+                }
+                
                 javaMailSender.send(mimeMessage);
                 log.debug("Sent email to User '{}'", email);
             }  catch (MailException | MessagingException e) {
@@ -392,14 +407,21 @@ public class MailService {
 	public NotificationMailDTO createNotificationMailDTOForMeetingInvitationNonB2B(
 			Meeting meeting,
 			Company companyOrganizer, 
-			List<String> emails) {
+			List<String> emails,
+			ByteArrayResource attachment) {
         String mailSubject = "B2B portal - Obaveštenje o pozivu za sastanak";
         String mailContent = this.prepareNotificationContentForMeetingInvitationNonB2B(meeting, companyOrganizer);
 
+        AttachmentDTO attachmentDTO = new AttachmentDTO();
+        attachmentDTO.setFile(attachment);
+        attachmentDTO.setFileName("b2b_sastanak.ics");
+        
         NotificationMailDTO mailDTO = new NotificationMailDTO();
         mailDTO.setEmails(emails);
         mailDTO.setSubject(mailSubject);
         mailDTO.setContent(mailContent);
+        mailDTO.setAttachments(new ArrayList<>());
+        mailDTO.addAttachment(attachmentDTO);
         
         return mailDTO;
 	}

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -183,7 +184,8 @@ public class MeetingResource {
             	Message message = messageService.createFirstMessageInThreadMeeting(thread, newMeeting, companyOrganizer);
             
                 // send email notifications participant companies
-            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingInvitation(newMeeting, companyOrganizer, companyParticipant);
+            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingInvitation(
+            			newMeeting, companyOrganizer, companyParticipant);
             	if (!mailDTO.getEmails().isEmpty()) {
             		mailService.sendNotificationMail(mailDTO);
             	}           
@@ -192,11 +194,14 @@ public class MeetingResource {
             for (String email : nonB2BparticipantIds) {
             	meetingParticipantNonB2BService.addMeetingParticipant(newMeeting, email);
             }
-            NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingInvitationNonB2B(newMeeting, companyOrganizer, nonB2BparticipantIds);
-        	if (!mailDTO.getEmails().isEmpty()) {
-        		mailService.sendNotificationMail(mailDTO);
-        	}  
-                        
+            
+            if (!nonB2BparticipantIds.isEmpty()) {
+            	ByteArrayResource attachment = calendarService.createICS(meeting);
+            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingInvitationNonB2B(
+            			newMeeting, companyOrganizer, nonB2BparticipantIds, attachment);
+            	mailService.sendNotificationMail(mailDTO);
+            }
+        		                        
             return ResponseEntity.created(new URI("/api/meetings/new/" + newMeeting.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, newMeeting.getId().toString()))
                 .body(newMeeting);
