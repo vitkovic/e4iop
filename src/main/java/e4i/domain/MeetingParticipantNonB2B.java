@@ -26,7 +26,7 @@ public class MeetingParticipantNonB2B implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = "meetingParticipantsNonB2B", allowSetters = true)
+    @JsonIgnoreProperties(value = {"meetingParticipants", "meetingParticipantsNonB2B"}, allowSetters = true)
     private Meeting meeting;
 
     @Email

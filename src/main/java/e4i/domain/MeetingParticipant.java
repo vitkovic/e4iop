@@ -33,7 +33,7 @@ public class MeetingParticipant implements Serializable {
     private Boolean isOrganizer;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = "meetingParticipants", allowSetters = true)
+    @JsonIgnoreProperties(value = {"meetingParticipants", "meetingParticipantsNonB2B"}, allowSetters = true)
     private Meeting meeting;
 
     @ManyToOne
