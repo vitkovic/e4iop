@@ -14,7 +14,7 @@
 			            <font-awesome-icon icon="bars" />
 			        </b-navbar-toggle>
 			           
-			        <b-collapse class="justify-content-end" is-nav id="header-tabs">
+			        <b-collapse class="justify-content-start" is-nav id="header-tabs">
 			            <b-navbar-nav class="md-auto align-items-center">
 			                <b-nav-item-dropdown
 			                    right
