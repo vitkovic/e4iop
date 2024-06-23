@@ -6,6 +6,7 @@ import { IAdvertisement } from '@/shared/model/advertisement.model';
 import { IMeeting } from '@/shared/model/meeting.model';
 import { IMeetingParticipant } from '@/shared/model/meeting-participant.model';
 import { IMeetingParticipantNonB2B } from '@/shared/model/meeting-participant-non-b2b.model';
+import { ICalendarEventDTO } from '@/shared/model/dto/calendar-event-dto.model';
 
 import CompanyService from './company.service';
 import MeetingService from '@/entities/meeting/meeting.service';
@@ -97,6 +98,7 @@ export default class CompanyCalendar extends Vue {
   public company: ICompany | null = null;
   public companyId: number | null = null;
   public companyMeetingParticipants: IMeetingParticipant[] = [];
+  public calendarEvents: ICalendarEventDTO[] = [];
   public companyMeetings: IMeeting[] = [];
   public companiesSearch: ICompany[] = [];
   public companiesMeetingParticipants: ICompany[] = [];
@@ -235,39 +237,25 @@ export default class CompanyCalendar extends Vue {
     this.meetingParticipantService()
       .findAllNotRemovedForCompany(this.companyId)
       .then(res => {
-        this.companyMeetingParticipants = res;
-        // this.companyMeetings = this.companyMeetingParticipants.map(participant => participant.meeting);
+        this.calendarEvents = res;
 
-        this.companyMeetingParticipants.forEach(participant => {
-          let color = '';
-          let textColor = '';
-          if (participant.status.statusEn == MeetingParticipantStatusOptions.INVITATION_ACCEPTED) {
-            color = 'rgb(73, 217, 67)'; // greenish
-            textColor = 'white';
-          } else if (participant.status.statusEn == MeetingParticipantStatusOptions.INVITATION_REJECTED) {
-            color = 'rgb(229, 55, 55)'; // redish
-            textColor = 'white';
-          } else if (participant.status.statusEn == MeetingParticipantStatusOptions.NO_RESPONSE) {
-            color = 'rgb(239, 239, 44)'; // yellowish
-            textColor = 'black';
-          }
-
-          let event = this.fullcalendarapi.addEvent({
+        this.calendarEvents.forEach(event => {
+          let newEvent = this.fullcalendarapi.addEvent({
             // date: '',
-            id: participant.meeting.id,
-            start: participant.meeting.datetimeStart,
-            end: participant.meeting.datetimeEnd,
+            id: event.meeting.id,
+            start: event.meeting.datetimeStart,
+            end: event.meeting.datetimeEnd,
             // startTime: '08:00:00',
             // endTime: '09:00:00',
-            title: participant.meeting.title,
-            description: participant.meeting.description,
-            location: participant.meeting.location,
-            advertisement: participant.meeting.advertisement,
-            backgroundColor: color,
-            borderColor: color,
-            textColor: textColor,
+            title: event.meeting.title,
+            description: event.meeting.description,
+            location: event.meeting.location,
+            advertisement: event.meeting.advertisement,
+            backgroundColor: event.color,
+            borderColor: event.color,
+            textColor: event.textColor,
           });
-          // this.calevents.push(event);
+          // this.calevents.push(newEvent);
         });
       });
 
@@ -388,7 +376,6 @@ export default class CompanyCalendar extends Vue {
     this.meetingService()
       .createMeetingWithParticipants(newMeeting, organizerId, participantIds, this.nonB2BParticipantsEmails)
       .then(res => {
-        console.log('OVDE SAM!!!!');
         this.isCalendarPopulated = false;
         this.populateCalendar();
 
@@ -409,8 +396,6 @@ export default class CompanyCalendar extends Vue {
 
     this.nonB2BMeetingParticipants = this.selectedEvent.allNonB2BMeetingParticipants;
     this.nonB2BParticipantsEmails = this.nonB2BMeetingParticipants.map(participant => participant.email);
-
-    console.log(this.nonB2BMeetingParticipants);
 
     if (this.selectedEvent.organizer) {
       this.companiesMeetingParticipants.push(this.selectedEvent.organizer.company);
@@ -463,13 +448,7 @@ export default class CompanyCalendar extends Vue {
 
     const nonB2BparticipantsToAdd = this.nonB2BParticipantsEmails.filter(email => !emails.includes(email));
 
-    console.log('HELLLOOO');
-    console.log(nonB2BparticipantsToAdd);
-
     const nonB2BparticipantsToRemove = emails.filter(email => !this.nonB2BParticipantsEmails.includes(email));
-
-    console.log('HELLLOOO');
-    console.log(nonB2BparticipantsToRemove);
 
     this.meetingService()
       .editMeetingWithParticipants(

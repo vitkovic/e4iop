@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import e4i.domain.Company;
@@ -15,18 +16,22 @@ import e4i.domain.Meeting;
 import e4i.domain.MeetingParticipant;
 import e4i.domain.Message;
 import e4i.domain.Thread;
+import e4i.service.CalendarService;
 import e4i.service.CompanyService;
 import e4i.service.MailService;
 import e4i.service.MeetingParticipantService;
 import e4i.service.MeetingService;
 import e4i.service.MessageService;
 import e4i.service.ThreadService;
+import e4i.web.rest.dto.CalendarEventDTO;
 import e4i.web.rest.dto.NotificationMailDTO;
 import e4i.web.rest.errors.BadRequestAlertException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -59,9 +64,15 @@ public class MeetingParticipantResource {
     
     private final MailService mailService;
     
-    public MeetingParticipantResource(MeetingParticipantService meetingParticipantService, MailService mailService) {
+    private final CalendarService calendarService;
+    
+    public MeetingParticipantResource(
+    		MeetingParticipantService meetingParticipantService, 
+    		MailService mailService, 
+    		CalendarService calendarService) {
         this.meetingParticipantService = meetingParticipantService;
         this.mailService = mailService;
+        this.calendarService = calendarService;
     }
 
     /**
@@ -142,9 +153,26 @@ public class MeetingParticipantResource {
     }
     
     @GetMapping("/meeting-participants/company-all/{companyId}")
-    public List<MeetingParticipant> findAllNotRemovedForCompany(@PathVariable Long companyId) {
+    @Transactional
+    public List<CalendarEventDTO> findAllNotRemovedForCompany(@PathVariable Long companyId) {
         log.debug("REST request to get all not removed MeetingParticipants for Company {}", companyId);   
-        return meetingParticipantService.findAllByCompanyAndHasRemoved(companyId, false);
+        
+        List<MeetingParticipant> meetingParticipants = meetingParticipantService.findAllByCompanyAndHasRemoved(companyId, false);
+        
+        List<CalendarEventDTO> calendarEvents = new ArrayList<>();
+        for (MeetingParticipant mp : meetingParticipants) {
+        	CalendarEventDTO event = new CalendarEventDTO();
+        	event.setMeetingParticipant(mp);
+        	event.setMeeting(mp.getMeeting());
+        	
+        	Map<String, String> colorMap = calendarService.getCalendarEventColor(mp.getMeeting().getId());
+        	event.setColor(colorMap.get("color"));
+        	event.setTextColor(colorMap.get("textColor"));
+        	
+        	calendarEvents.add(event);
+        }
+        
+        return calendarEvents;
     }
     
     @GetMapping("/meeting-participants/meeting-all/{meetingId}")

@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import e4i.domain.Meeting;
 import e4i.domain.MeetingParticipant;
 import e4i.domain.MeetingParticipantNonB2B;
 import e4i.domain.MeetingParticipantStatus;
+import e4i.repository.MeetingParticipantRepository;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.component.VEvent;
@@ -44,6 +47,27 @@ public class CalendarService {
     
     @Autowired
     MeetingParticipantNonB2BService meetingParticipantNonB2BService;
+    
+    @Autowired
+    MeetingParticipantRepository meetingParticipantRepository;
+    
+    @Transactional
+	public Map<String, String> getCalendarEventColor(Long meetingId) {
+        log.debug("Request to get determine color for calendar event for Meeting {}", meetingId);
+        Boolean exists = meetingParticipantRepository.existsAcceptedParticipantOrNoNonOrganizers(meetingId, MeetingParticipantStatus.ACCEPTED);
+        
+        Map<String, String> colorMap = new HashMap<>();
+        if (exists) {
+            colorMap.put("color", "rgb(73, 217, 67)"); // greenish
+            colorMap.put("textColor", "white");
+        } else {
+            colorMap.put("color", "rgb(239, 239, 44)"); // yellowish
+            colorMap.put("textColor", "black");
+        }
+
+        return colorMap;
+    }
+    
     
 	public ByteArrayResource createICS(Meeting meeting) {
         log.debug("Request to export ICS for meeting : {}", meeting.getTitle());

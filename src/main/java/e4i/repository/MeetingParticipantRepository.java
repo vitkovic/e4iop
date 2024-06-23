@@ -36,5 +36,15 @@ public interface MeetingParticipantRepository extends JpaRepository<MeetingParti
 		       "AND (mps.statusSr = :status OR mps.statusSrc = :status OR mps.statusEn = :status)")
 	Optional<Boolean> checkIfStatusByMeetingIdAndCompanyId(@Param("meetingId") Long meetingId, @Param("companyId") Long companyId, @Param("status") String status);
 
+	@Query("SELECT CASE " +
+	           "WHEN (COUNT(mp) > 0) THEN true " +
+	           "ELSE (SELECT COUNT(mp2) = 0 FROM MeetingParticipant mp2 WHERE mp2.meeting.id = :meetingId AND mp2.isOrganizer = false) " +
+	           "END " +
+	           "FROM MeetingParticipant mp " +
+	           "WHERE mp.meeting.id = :meetingId " +
+	           "AND mp.isOrganizer = false " +
+	           "AND mp.status.statusEn = :status")
+	boolean existsAcceptedParticipantOrNoNonOrganizers(@Param("meetingId") Long meetingId, @Param("status") String status);
+	
 	
 }
