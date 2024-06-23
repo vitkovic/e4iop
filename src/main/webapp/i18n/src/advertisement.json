@@ -44,6 +44,7 @@
       "kind": "Врста",
       "subsubcategory": "Подкатегорија",
       "thread": "Thread",
+      "of": "од",
       "upload": {
         "imgUpload": "Додајте слике",
         "documentUpload": "Додајте документе",
@@ -89,6 +90,9 @@
         "collaborationModalTitle": "Потврдите покретање сарадње",
         "advertisementTitle": "Оглас: ",
         "companyTitle": "Компанија: "
+      },
+      "breadcrumb": {
+        "home": "почетна"
       },
 
       "content": "Content",

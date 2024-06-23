@@ -92,6 +92,9 @@ export default class AdvertisementDetails extends Vue {
     isValid: true,
   };
 
+  public firstImgWidth: number = 0;
+  public imagesLoaded: number = 0;
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.advertisementId) {
@@ -101,8 +104,87 @@ export default class AdvertisementDetails extends Vue {
   }
 
   created() {
+    console.log('Component is being created');
     this.checkCompanyOwnership();
   }
+
+  mounted() {
+    console.log('Component is being mounted');
+
+    this.updateImgWidth();
+    window.addEventListener('resize', this.updateImgWidth);
+  }
+
+  // GALLERY LOGIC
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.updateImgWidth);
+  }
+
+  onImageLoad() {
+    this.imagesLoaded++;
+    const totalImages = this.imageNumber(); // Total number of images
+    if (this.imagesLoaded === totalImages) {
+      this.updateImgWidth();
+    }
+  }
+
+  public imageNumber() {
+    let number = 0;
+    for (let advertisement of this.advertisement.documents) {
+      if (advertisement.type.type === 'image') {
+        number++;
+      }
+    }
+    return number;
+  }
+
+  updateImgWidth() {
+    console.log('Update image width called');
+    const carousel = this.$refs.carousel as HTMLElement;
+    const totalImages = carousel.querySelectorAll('img').length;
+    const firstImg = carousel.querySelectorAll('img')[0] as HTMLElement;
+
+    if (firstImg) {
+      this.updateImageWidths(totalImages);
+      this.firstImgWidth = firstImg.clientWidth;
+      console.log('First image width:', this.firstImgWidth);
+    }
+  }
+
+  updateImageWidths(totalImages: number) {
+    const carousel = this.$refs.carousel as HTMLElement;
+    const imgs = carousel.querySelectorAll('img');
+
+    const width = window.innerWidth;
+    let divisionFactor: number;
+
+    if (width <= 576) {
+      divisionFactor = 1;
+    } else if (width <= 768) {
+      divisionFactor = 2;
+    } else if (width <= 1200) {
+      divisionFactor = 3;
+    } else {
+      divisionFactor = Math.min(totalImages, 5);
+    }
+
+    imgs.forEach((img: HTMLElement) => {
+      img.style.width = `calc(100% / ${divisionFactor})`;
+    });
+  }
+
+  scrollPrev() {
+    const carousel = this.$refs.carousel as HTMLElement;
+    carousel.scrollLeft += -this.firstImgWidth;
+  }
+
+  scrollNext() {
+    const carousel = this.$refs.carousel as HTMLElement;
+    carousel.scrollLeft += this.firstImgWidth;
+  }
+
+  // GALLERY LOGIC END
 
   public retrieveAdvertisement(advertisementId) {
     this.advertisementService()

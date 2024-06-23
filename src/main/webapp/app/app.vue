@@ -10,7 +10,7 @@
     
     <div class="container-fluid">
 		
-      <div class="card jh-card mt-5">
+      <div class="card jh-card marg">
         <router-view :key="$route.fullPath"></router-view>
       </div>
       <b-modal id="login-page" hide-footer lazy>
@@ -40,5 +40,15 @@
 
 .container-fluid{
 	padding-top: 9.3rem;
+}
+
+.marg {
+  margin-top: 48px;
+}
+
+@media screen and (max-width: 788px) {
+  .marg {
+    margin-top: 88px;
+  }
 }
 </style>

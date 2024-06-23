@@ -1,9 +1,9 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col-8">
+  <div class="row justify-content-center container-box">
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8">
       <div v-if="advertisement">
-        <b-breadcrumb v-if="advertisement.subsubcategory">
-          <b-breadcrumb-item href="/"> <font-awesome-icon icon="home" /> почетна </b-breadcrumb-item>
+        <b-breadcrumb v-if="advertisement.subsubcategory" class="breadcrumb-box p-2">
+          <b-breadcrumb-item href="/b2b"> <font-awesome-icon icon="home" /> {{ $t('riportalApp.advertisement.breadcrumb.home') }} </b-breadcrumb-item>
           <b-breadcrumb-item href="#">{{
             advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name
           }}</b-breadcrumb-item>
@@ -11,33 +11,333 @@
           <b-breadcrumb-item href="#">{{ advertisement.subsubcategory.name }}</b-breadcrumb-item>
           <b-breadcrumb-item active>{{ advertisement.title }}</b-breadcrumb-item>
         </b-breadcrumb>
-        <p></p>
-        <br />
-        <h2 class="jh-entity-heading"><span v-text="''">Advertisement</span> {{ advertisement.title }}</h2>
-        <br />
 
-        <dl class="row jh-entity-details" style="justify-items: left; margin: 0;">
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.type')">Type</span>
-          </dt>
-          <dd>
-            <div v-if="advertisement.type">
-              {{ advertisement.type.type }}
+        <b-row class="mb-4">
+          <div class="col-xs-12 col-md-6 col-lg-7 d-flex flex-column">
+            <h2 class="jh-entity-heading mb-1 mb-md-5">{{ advertisement.title }}</h2>
+            <div class="company-info-responsive mb-5">
+              <!-- <div class="d-flex d-md-none">
+                <div class="img-box mr-2"> -->
+              <!-- v-if="company.logo"  -->
+              <!-- <img
+                    src="https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740"
+                    alt="company logo"
+                    class="img-logo"
+                  />
+                </div>
+                <div class="d-flex flex-wrap align-items-center mr-3">
+                  <h4 class="company-title mb-0">
+                    {{ advertisement.company.name }}
+                  </h4>
+                </div>
+                <div class="company-avg-star d-flex align-items-center">
+                    <font-awesome-icon icon="star" class="fa-xs mr-1"></font-awesome-icon>
+                    <div>
+                      <span>3.6</span>
+                    </div>
+                  </div>
+              </div> -->
             </div>
-          </dd>
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.kind')">Kind</span>
-          </dt>
-          <dd>
-            <div v-if="advertisement.kind">
-              {{ advertisement.kind.kind }}
+            <div>
+              <dl class="d-flex flex-wrap mb-1">
+                <dt class="mr-4">
+                  <span>{{ $t('riportalApp.advertisement.type') }}:</span>
+                </dt>
+                <dd>
+                  <div v-if="advertisement.type">
+                    {{ advertisement.type.type }}
+                  </div>
+                </dd>
+              </dl>
+              <dl class="d-flex flex-wrap mb-1">
+                <dt class="mr-4">
+                  <span>{{ $t('riportalApp.advertisement.kind') }}:</span>
+                </dt>
+                <dd>
+                  <div v-if="advertisement.kind">
+                    {{ advertisement.kind.kind }}
+                  </div>
+                </dd>
+              </dl>
             </div>
-          </dd>
-        </dl>
-        <br />
+          </div>
+          <div class="d-none d-md-block col-md-6 col-lg-5">
+            <section class="company-info">
+              <b-card>
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <div class="d-flex">
+                    <div class="img-box mr-2">
+                      <!-- v-if="company.logo"  -->
+                      <img
+                        src="https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740"
+                        alt="company logo"
+                        class="img-logo"
+                      />
+                    </div>
+                    <div class="d-flex flex-wrap align-items-center">
+                      <h4 class="company-title mb-0">
+                        {{ advertisement.company.name }}
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="company-avg-star d-flex align-items-center">
+                    <font-awesome-icon icon="star" class="fa-xs mr-1"></font-awesome-icon>
+                    <div>
+                      <span class="">3.6</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <div>
+                    <b-form-rating
+                      id="rating-inline"
+                      inline
+                      value="4"
+                      class="p-0 mr-1"
+                      variant="primary"
+                      size="sm"
+                      stars="4"
+                      readonly
+                    ></b-form-rating>
+                    <label for="rating-inline">72% (18 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                  </div>
+                  <div>
+                    <b-form-rating
+                      id="rating-inline"
+                      inline
+                      value="3"
+                      class="p-0 mr-1"
+                      variant="primary"
+                      size="sm"
+                      stars="4"
+                      readonly
+                    ></b-form-rating>
+                    <label for="rating-inline">16% (4 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                  </div>
+                  <div>
+                    <b-form-rating
+                      id="rating-inline"
+                      inline
+                      value="2"
+                      class="p-0 mr-1"
+                      variant="primary"
+                      size="sm"
+                      stars="4"
+                      readonly
+                    ></b-form-rating>
+                    <label for="rating-inline">6% (2 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                  </div>
+                  <div>
+                    <b-form-rating
+                      id="rating-inline"
+                      inline
+                      value="1"
+                      class="p-0 mr-1"
+                      variant="primary"
+                      size="sm"
+                      stars="4"
+                      readonly
+                    ></b-form-rating>
+                    <label for="rating-inline">4% (1 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                  </div>
+                </div>
+              </b-card>
+            </section>
+          </div>
+        </b-row>
 
-        <section>
-          <!-- <h4 v-text="'Galerija'">Galerija</h4> -->
+        <section class="description mb-4">
+          <h5 v-text="$t('riportalApp.advertisement.description')">Opis</h5>
+          <b-card>
+            {{ advertisement.description }}
+          </b-card>
+        </section>
+        <section class="conditions mb-4">
+          <h5 v-text="$t('riportalApp.advertisement.conditions')">Uslovi</h5>
+          <b-card>
+            {{ advertisement.conditions }}
+          </b-card>
+        </section>
+        <section class="contact-share d-flex flex-column flex-md-row align-items-center justify-content-between mb-4">
+          <div class="buttons d-flex flex-column flex-md-row mb-3 mb-md-0">
+            <b-button
+              v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner)"
+              v-on:click="prepareAdInquiry(advertisement)"
+              class="btn btn-modal mb-2 mb-md-0 mb mr-0 mr-md-2"
+              v-b-modal.adInquiry
+            >
+              <span v-text="$t('riportalApp.advertisement.interactionButtons.question')">Pošalji upit</span>
+            </b-button>
+            <b-button
+              v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner)"
+              v-on:click="prepareCreateMeetingModal(advertisement)"
+              class="btn btn-modal mb-2 mb-md-0 mr-0 mr-md-2"
+            >
+              <span v-text="$t('riportalApp.advertisement.interactionButtons.appointment')"> Zakaži sastanak</span>
+            </b-button>
+            <b-button
+              v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner)"
+              v-on:click="prepareAdCollaboration(advertisement)"
+              class="btn btn-modal mb-2 mb-md-0 mr-0 mr-md-2"
+              v-b-modal.adCollaboration
+            >
+              <span v-text="$t('riportalApp.advertisement.interactionButtons.collaboration')"> Pokreni saradnju</span>
+            </b-button>
+
+            <router-link
+              v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || isCompanyOwner)"
+              :to="{ name: 'AdvertisementEdit', params: { advertisementId: advertisement.id } }"
+              tag="button"
+              class="btn btn-primary mb-2 mb-md-0"
+            >
+              <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')"> Edit</span>
+            </router-link>
+          </div>
+          <div class="share-icons d-flex justify-content-end">
+            <div class="d-flex justify-content-between">
+              <a href="#">
+                <img class="mb-1 icon-contact mr-2" src="/content/images/x-twitter.svg" alt="X icon" />
+              </a>
+              <a href="#">
+                <img class="mb-1 icon-contact mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" />
+              </a>
+              <a href="#">
+                <img class="mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" />
+              </a>
+              <b-link>
+                <font-awesome-icon icon="envelope" class="icon-contact fa-lg mr-2"></font-awesome-icon>
+              </b-link>
+              <b-link>
+                <font-awesome-icon icon="copy" class="icon-contact fa-lg"></font-awesome-icon>
+              </b-link>
+            </div>
+          </div>
+        </section>
+
+        <section class="company-info-responsive d-flex d-md-none">
+          <b-card>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <div class="d-flex">
+                <div class="img-box mr-2">
+                  <!-- v-if="company.logo"  -->
+                  <img
+                    src="https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740"
+                    alt="company logo"
+                    class="img-logo"
+                  />
+                </div>
+                <div class="d-flex flex-wrap align-items-center">
+                  <h4 class="company-title mb-0">
+                    {{ advertisement.company.name }}
+                  </h4>
+                </div>
+              </div>
+              <div class="company-avg-star d-flex align-items-center">
+                <font-awesome-icon icon="star" class="fa-xs mr-1"></font-awesome-icon>
+                <div>
+                  <span class="">3.6</span>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-column">
+              <div>
+                <b-form-rating
+                  id="rating-inline"
+                  inline
+                  value="4"
+                  class="p-0 mr-1"
+                  variant="primary"
+                  size="sm"
+                  stars="4"
+                  readonly
+                ></b-form-rating>
+                <label for="rating-inline">72% (18 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+              </div>
+              <div>
+                <b-form-rating
+                  id="rating-inline"
+                  inline
+                  value="3"
+                  class="p-0 mr-1"
+                  variant="primary"
+                  size="sm"
+                  stars="4"
+                  readonly
+                ></b-form-rating>
+                <label for="rating-inline">16% (4 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+              </div>
+              <div>
+                <b-form-rating
+                  id="rating-inline"
+                  inline
+                  value="2"
+                  class="p-0 mr-1"
+                  variant="primary"
+                  size="sm"
+                  stars="4"
+                  readonly
+                ></b-form-rating>
+                <label for="rating-inline">6% (2 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+              </div>
+              <div>
+                <b-form-rating
+                  id="rating-inline"
+                  inline
+                  value="1"
+                  class="p-0 mr-1"
+                  variant="primary"
+                  size="sm"
+                  stars="4"
+                  readonly
+                ></b-form-rating>
+                <label for="rating-inline">4% (1 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+              </div>
+            </div>
+          </b-card>
+        </section>
+        <hr class="line" />
+
+        <section class="gallery-section">
+          <div class="prev-box mr-2">
+            <b-button variant="none" class="prevButton" @click="scrollPrev">
+              <font-awesome-icon icon="caret-left" class="fa-lg levaIkonica"></font-awesome-icon>
+            </b-button>
+          </div>
+          <div class="wrapper">
+            <div class="carousel" ref="carousel">
+              <img
+                v-for="document in advertisement.documents"
+                v-if="document.type.type === 'image'"
+                :src="advertisementService().retrieveImage(document.filename)"
+                alt="img"
+                @load="onImageLoad"
+              />
+            </div>
+          </div>
+          <div class="next-box ml-2">
+            <b-button variant="none" class="nextButton" @click="scrollNext">
+              <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
+            </b-button>
+          </div>
+        </section>
+
+        <section class="documents">
+          <h3 v-text="$t('riportalApp.advertisement.documents')" class="mb-4">Dokumenti</h3>
+          <div v-for="document in advertisement.documents">
+            <p v-if="document.type.type == 'document'" class="mb-1">
+              <a
+                class="text-info font-weight-normal"
+                :href="advertisementService().retrieveDocument(document.filename)"
+                target="_blank"
+                title="Preuzmite dokument"
+                >{{ document.filename }}
+              </a>
+            </p>
+          </div>
+        </section>
+
+        <!-- <section>
+          <h4 v-text="'Galerija'">Galerija</h4>
           <br />
           <div class="row images-container mt-2">
             <div
@@ -48,16 +348,9 @@
               <img class="img-thumbnail img-fluid" :src="advertisementService().retrieveImage(document.filename)" />
             </div>
           </div>
-        </section>
-        <br />
+        </section> -->
 
-        <section>
-          <!-- <h4 v-text="'Opis'">Opis</h4> -->
-          {{ advertisement.description }}
-        </section>
-        <hr />
-        <br />
-        <dl class="row jh-entity-details" style="justify-items: left; margin: 0;">
+        <!-- <dl class="row jh-entity-details" style="justify-items: left; margin: 0;">
           <dt>
             <span v-text="$t('riportalApp.advertisement.activationDatetime')">Activation Datetime</span>
           </dt>
@@ -68,9 +361,9 @@
             <span v-text="$t('riportalApp.advertisement.expirationDatetime')">Expiration Datetime</span>
           </dt>
           <dd>
-            <div v-if="advertisement.duration && advertisement.activationDatetime">
-              <!-- {{advertisement.duration.duration}} -->
-              {{ $d(Date.parse(getExpirationDate(advertisement)), 'short') }}
+            <div v-if="advertisement.duration && advertisement.activationDatetime"> -->
+        <!-- {{advertisement.duration.duration}} -->
+        <!-- {{ $d(Date.parse(getExpirationDate(advertisement)), 'short') }}
             </div>
           </dd>
           <dt>
@@ -93,26 +386,9 @@
               {{ advertisement.status.status }}
             </div>
           </dd>
-        </dl>
-        <br />
+        </dl> -->
 
-        <section>
-          <h4 v-text="$t('riportalApp.advertisement.documents')">Dokumenti</h4>
-          <div v-for="document in advertisement.documents">
-            <li v-if="document.type.type == 'document'" style="list-style-type: none;">
-              <a
-                class="text-info"
-                :href="advertisementService().retrieveDocument(document.filename)"
-                target="_blank"
-                title="Preuzmite dokument"
-                >{{ document.filename }}
-              </a>
-            </li>
-          </div>
-        </section>
-        <br />
-
-        <dl class="row jh-entity-details" style="justify-items: left; margin: 0;">
+        <!-- <dl class="row jh-entity-details" style="justify-items: left; margin: 0;">
           <h4 v-text="$t('riportalApp.advertisement.advertiser')">Oglašivač</h4>
           <br />
           <div class="d-flex" v-if="advertisement.company">
@@ -126,47 +402,13 @@
               <h2 class="jh-entity-heading" style="align-self: center;">{{ advertisement.company.name }}</h2>
             </router-link>
           </div>
-        </dl>
-        <br />
+        </dl> -->
 
         <!-- <button type="submit"
                         v-on:click.prevent="previousState()"
                         class="btn btn-info">
                     <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.back')"> Back</span>
                 </button> -->
-        <b-button
-          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner)"
-          v-on:click="prepareAdInquiry(advertisement)"
-          variant="info"
-          class="btn btn-primary"
-          v-b-modal.adInquiry
-        >
-          <span class="d-none d-md-inline" v-text="$t('riportalApp.advertisement.interactionButtons.question')">Pošalji upit</span>
-        </b-button>
-        <b-button
-          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner)"
-          v-on:click="prepareCreateMeetingModal(advertisement)"
-          class="btn btn-primary"
-        >
-          <span v-text="$t('riportalApp.advertisement.interactionButtons.appointment')"> Zakaži sastanak</span>
-        </b-button>
-        <b-button
-          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || !isCompanyOwner)"
-          v-on:click="prepareAdCollaboration(advertisement)"
-          class="btn btn-primary"
-          v-b-modal.adCollaboration
-        >
-          <span v-text="$t('riportalApp.advertisement.interactionButtons.collaboration')"> Pokreni saradnju</span>
-        </b-button>
-
-        <router-link
-          v-if="advertisement.id && authenticated && (hasAnyAuthority('ROLE_ADMIN') || isCompanyOwner)"
-          :to="{ name: 'AdvertisementEdit', params: { advertisementId: advertisement.id } }"
-          tag="button"
-          class="btn btn-primary"
-        >
-          <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')"> Edit</span>
-        </router-link>
         <br />
         <br />
         <b-modal v-if="inquiryDTO" ref="adInquiry" id="adInquiry">
@@ -377,26 +619,22 @@
                   @keyup.enter="addNonB2BMeetingParticipant()"
                 ></b-form-input>
                 <div>
-                  <b-button 
-                    @click="addNonB2BMeetingParticipant()" 
-                    variant="primary" 
+                  <b-button
+                    @click="addNonB2BMeetingParticipant()"
+                    variant="primary"
                     v-text="'Dodaj'"
                     :disabled="!$v.nonB2BMeetingParticipantEmail.email || !$v.nonB2BMeetingParticipantEmail.required"
                     >Dodaj
                   </b-button>
                 </div>
               </b-input-group>
-              <small class="form-text text-danger" v-if="!isEmailValid" v-text="'Email adresa nije ispravna'">Email adresa nije ispravna.              
+              <small class="form-text text-danger" v-if="!isEmailValid" v-text="'Email adresa nije ispravna'"
+                >Email adresa nije ispravna.
               </small>
-              <div
-                v-for="email in nonB2BParticipantsEmails"
-                :key="email"
-                class="d-flex align-items-center justify-content-between mb-3"
-              >
+              <div v-for="email in nonB2BParticipantsEmails" :key="email" class="d-flex align-items-center justify-content-between mb-3">
                 <span>{{ email }}</span>
                 <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close">x</b-button>
               </div>
-
             </div>
           </div>
           <div slot="modal-footer">
@@ -407,7 +645,7 @@
           </div>
         </b-modal>
 
-        <dl class="row jh-entity-details" v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')" style="justify-items: left; margin: 0;">
+        <!-- <dl class="row jh-entity-details" v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')" style="justify-items: left; margin: 0;">
           <h4 v-text="$t('riportalApp.advertisement.dataChanges')">Podaci o izmenama</h4>
           <br />
           <dt>
@@ -442,7 +680,7 @@
               }}</router-link>
             </div>
           </dd>
-        </dl>
+        </dl> -->
       </div>
     </div>
   </div>
@@ -454,6 +692,10 @@
   margin-left: 5rem !important;
 }
 
+.container-box {
+  color: #23384b;
+}
+
 .startech-link,
 .startech-link:link,
 .startech-link:visited,
@@ -462,6 +704,132 @@
   color: blue;
   text-decoration: none;
 }
+
+/* --- DESCRIPTION --- */
+
+.card-body {
+  padding: 10px;
+}
+
+.breadcrumb {
+  background-color: #cfcdcd;
+  font-size: 14px;
+}
+
+.breadcrumb-item a {
+  color: #23384b;
+}
+
+.breadcrumb-item span {
+  color: #23384b;
+}
+
+/* --- DESCRIPTION END ---  */
+
+/* --- COMPANY INFO --- */
+
+.img-box {
+  height: 3.125rem;
+}
+
+.img-logo {
+  height: 100%;
+  object-fit: cover;
+}
+
+.company-title {
+  white-space: normal;
+  font-size: 1.2em;
+  font-weight: 400;
+}
+
+.company-avg-star {
+  font-size: 0.8em;
+}
+
+/* --- COMPANY INFO END --- */
+
+/* --- BUTTONS MODAL --- */
+.btn-modal {
+  background-color: #23384b;
+  border-color: #23384b;
+}
+
+.btn-modal:hover {
+  background-color: #1e2b37;
+  border-color: #1e2b37;
+}
+
+.iconClass {
+  width: 25px;
+  height: 25px;
+}
+
+.icon-contact {
+  color: #23384b;
+}
+
+/* --- BUTTONS MODAL END --- */
+
+/* --- LINE --- */
+
+.line {
+  background-color: #23384b;
+}
+
+/* --- LINE END --- */
+
+/* --- GALLERY --- */
+
+.gallery-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.prev-box {
+  width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-box {
+  width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper .carousel {
+  font-size: 0px;
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.carousel img {
+  height: 240px;
+  padding: 16px;
+  object-fit: cover;
+  /* margin-left: 14px; */
+  /* width: calc(100% / 5); */
+}
+
+.carousel img:first-child {
+  margin-left: 0px;
+}
+
+/* --- GALLERY END --- */
 
 .img-thumbnail {
   /* width: 100%; Ensure images fill their container */

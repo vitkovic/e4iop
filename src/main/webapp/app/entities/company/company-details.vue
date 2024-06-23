@@ -106,10 +106,13 @@
             <div class="d-flex justify-content-end">
               <div class="d-none d-md-flex justify-content-between w-100">
                 <a href="#">
-                  <img class="iconClass mb-1 icon-contact mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" />
+                  <img class="mb-1 icon-contact mr-2" src="/content/images/x-twitter.svg" alt="X-twitter icon" />
                 </a>
                 <a href="#">
-                  <img class="iconClass mb-1 icon-fill mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" />
+                  <img class="mb-1 icon-contact mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" />
+                </a>
+                <a href="#">
+                  <img class="mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" />
                 </a>
                 <b-link>
                   <font-awesome-icon icon="envelope" class="icon-contact fa-lg mr-2"></font-awesome-icon>
@@ -123,10 +126,13 @@
                   <font-awesome-icon icon="share-alt" class="fa-lg mr-2 icon-contact"></font-awesome-icon>
                 </template>
                 <b-dropdown-item>
-                  <img class="iconClass mb-1 mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" /><span>Linkedin</span>
+                  <img class="mb-1 mr-2" src="/content/images/x-twitter.svg" alt="X icon" /><span>X</span>
                 </b-dropdown-item>
                 <b-dropdown-item>
-                  <img class="iconClass mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" /><span>Facebook</span>
+                  <img class="mb-1 mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" /><span>Linkedin</span>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <img class="mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" /><span>Facebook</span>
                 </b-dropdown-item>
                 <b-dropdown-item>
                   <font-awesome-icon icon="envelope" class="icon-dropdown fa-lg mr-2"></font-awesome-icon><span>Email</span>
@@ -171,15 +177,6 @@
                 alt="img"
                 @load="onImageLoad"
               />
-              <!-- <img src="/content/images/img-1.jpg" alt="img" @load="onImageLoad"/>
-              <img src="/content/images/img-2.jpg" alt="img" @load="onImageLoad"/>
-              <img src="/content/images/img-3.jpg" alt="img" @load="onImageLoad"/>
-              <img src="/content/images/img-4.jpg" alt="img" @load="onImageLoad"/>
-              <img src="/content/images/img-5.jpg" alt="img" @load="onImageLoad"/>
-              <img src="/content/images/img-6.jpg" alt="img" @load="onImageLoad"/>
-              <img src="/content/images/img-7.jpg" alt="img" @load="onImageLoad"/>
-              <img src="/content/images/img-8.jpg" alt="img" @load="onImageLoad"/>
-              <img src="/content/images/img-9.jpg" alt="img" @load="onImageLoad"/> -->
             </div>
           </div>
           <div class="next-box ml-2">
@@ -322,7 +319,7 @@
           <b-row class="align-items-center justify-content-center">
             <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
               <!-- @click="scrollPrevColl" -->
-              <b-button variant="none" class="prevButtonColl" >
+              <b-button variant="none" class="prevButtonColl">
                 <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
               </b-button>
             </div>
@@ -347,6 +344,7 @@
                       variant="primary"
                       size="sm"
                       stars="4"
+                      readonly
                     ></b-form-rating>
                     <label for="rating-inline">{{ compani.role }}</label>
                   </div>
@@ -359,7 +357,7 @@
             </div>
             <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
               <!-- @click="scrollNextColl" -->
-              <b-button variant="none" class="nextButtonColl" >
+              <b-button variant="none" class="nextButtonColl">
                 <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
               </b-button>
             </div>
@@ -551,7 +549,7 @@ h2 {
   color: #23384b;
 }
 
-.icon-dropdown{
+.icon-dropdown {
   padding-left: 1px;
 }
 
@@ -641,26 +639,13 @@ h2 {
   justify-content: center;
 }
 
-.prev-icon {
-  width: 5px;
-  height: 5px;
-  background-color: blue;
-}
-
-.next-icon {
-  width: 5px;
-  height: 5px;
-  background-color: blue;
-}
-
-.custom-dropdown-icon{
+.custom-dropdown-icon {
   fill: #23384b;
 }
 
 .custom-dropdown .dropdown-toggle::after {
   display: none;
 }
-
 
 @media (max-width: 991.98px) {
   .carousel-collaboration {

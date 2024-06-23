@@ -44,6 +44,7 @@
       "kind": "Kind",
       "subsubcategory": "Subcategory",
       "thread": "Thread",
+      "of": "of",
       "upload": {
         "imgUpload": "Upload images",
         "documentUpload": "Upload documents",
@@ -89,6 +90,9 @@
         "collaborationModalTitle": "Confirm the start of the collaboration",
         "advertisementTitle": "Advertisement: ",
         "companyTitle": "Company: "
+      },
+      "breadcrumb": {
+        "home": "home"
       }
     }
   }
