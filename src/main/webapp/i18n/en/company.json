@@ -35,6 +35,7 @@
       "name": "Name",
       "about": "About",
       "fields": "Fields",
+      "isOnEinovations": "Is company registered on portal eInovations?",
       "kind": "Kind:",
       "data": "Data:",
       "activities": "List of activities:",
@@ -57,6 +58,7 @@
       "saveLogo": "Save logo",
       "upload": {
         "imgUpload": "Upload images",
+        "logoUpload": "Upload logo",
         "documentUpload": "Upload documents",
         "imgInfo": {
           "imgNumber": "* Number of images you can add is: ",
@@ -106,7 +108,7 @@
       "badges": {
         "collaborations": "Number of successful collaborations.",
         "rating": "Company rating.",
-        "registered": "Registered on the portal RSNIS.",
+        "registered": "Registered on the portal eInovations.",
         "specialConditions": "Company met special conditions - based on intellectual property."
       }
     }

@@ -38,11 +38,11 @@ const validations: any = {
     createdAt: {},
     modifiedAt: {},
     rsnisId: {
-      required,
+      // required,
       numeric,
     },
     aprId: {
-      required,
+      // required,
       numeric,
     },
     name: {
@@ -50,6 +50,7 @@ const validations: any = {
     },
     about: {},
     fields: {},
+    isEinovator: {},
   },
 };
 
@@ -155,6 +156,9 @@ export default class CompanyUpdate extends Vue {
           this.companyService().updateCompanyModifiedBy(this.company.id, user.id);
         });
     } else {
+      this.company.rsnisId = 9999;
+      this.company.aprId = 9999;
+
       this.company.createdAt = new Date();
       this.companyService()
         .create(this.company)
@@ -214,11 +218,11 @@ export default class CompanyUpdate extends Vue {
   }
 
   public initRelationships(): void {
-    this.portalUserService()
-      .retrieve()
-      .then(res => {
-        this.portalUsers = res.data;
-      });
+    // this.portalUserService()
+    //   .retrieve()
+    //   .then(res => {
+    //     this.portalUsers = res.data;
+    //   });
     this.advertisementService()
       .retrieve()
       .then(res => {
@@ -254,16 +258,16 @@ export default class CompanyUpdate extends Vue {
       .then(res => {
         this.documents = res.data;
       });
-    this.portalUserService()
-      .retrieve()
-      .then(res => {
-        this.portalUsers = res.data;
-      });
-    this.portalUserService()
-      .retrieve()
-      .then(res => {
-        this.portalUsers = res.data;
-      });
+    // this.portalUserService()
+    //   .retrieve()
+    //   .then(res => {
+    //     this.portalUsers = res.data;
+    //   });
+    // this.portalUserService()
+    //   .retrieve()
+    //   .then(res => {
+    //     this.portalUsers = res.data;
+    //   });
     this.documentService()
       .retrieve()
       .then(res => {

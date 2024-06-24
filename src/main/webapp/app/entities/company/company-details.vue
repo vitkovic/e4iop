@@ -28,6 +28,7 @@
                 :title="$t('riportalApp.company.badges.rating')"
               ></rating-badge>
               <rating-badge
+                v-if="company.isEinovator"
                 class="mr-3"
                 icon="lightbulb"
                 v-b-tooltip.hover.v-info

@@ -10,7 +10,7 @@
         </h2>
         <div class="row justify-content-between">
           <div class="col-8">
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.company.rsnisId')" for="company-rsnisId">Rsnis Id</label>
               <input
                 type="number"
@@ -29,8 +29,8 @@
                   This field should be a number.
                 </small>
               </div>
-            </div>
-            <div class="form-group">
+            </div> -->
+            <!-- <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.company.aprId')" for="company-aprId">Apr Id</label>
               <input
                 type="number"
@@ -49,7 +49,7 @@
                   This field should be a number.
                 </small>
               </div>
-            </div>
+            </div> -->
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.company.name')" for="company-name">Name</label>
               <input
@@ -89,6 +89,11 @@
                 v-model="$v.company.fields.$model"
               />
             </div>
+            <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.company.isOnEinovations')" for="company-isEinovator">Is registered on portal eInovations</label>
+                        <input type="checkbox" class="form-check" name="isInRSNIS" id="company-isEinovator"
+                            :class="{'valid': !$v.company.isEinovator.$invalid, 'invalid': $v.company.isEinovator.$invalid }" v-model="$v.company.isEinovator.$model" />
+                    </div>
             <hr />
             <!-- <div class="form-group">
                         <label v-text="$t('riportalApp.company.badge')" for="company-badge">Badge</label>

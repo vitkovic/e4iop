@@ -15,6 +15,7 @@ export interface ICompany {
   name?: string;
   about?: string;
   fields?: string;
+  isEinovator?: boolean;
   portalUsers?: IPortalUser[];
   advertisements?: IAdvertisement[];
   collaborationOffers?: ICollaboration[];
@@ -39,6 +40,7 @@ export class Company implements ICompany {
     public name?: string,
     public about?: string,
     public fields?: string,
+    public isEinovator?: boolean,
     public portalUsers?: IPortalUser[],
     public advertisements?: IAdvertisement[],
     public collaborationOffers?: ICollaboration[],

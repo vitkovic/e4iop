@@ -37,6 +37,7 @@
       "name": "Naziv",
       "about": "Opis",
       "fields": "Grane",
+      "isOnEinovations": "Da li je kompanija registrovana na portalu eInovacije?",
       "portalUser": "Portal User",
       "advertisement": "Advertisement",
       "collaborationOffer": "Collaboration Offer",
@@ -105,7 +106,7 @@
       "badges": {
         "collaborations": "Broj uspešnih saradnji.",
         "rating": "Ocena kompanije.",
-        "registered": "Registrovan na portalu RSNIS.",
+        "registered": "Registrovan na portalu eInovacije.",
         "specialConditions": "Kompanija ispunila posebne uslove - na osnovu intelektualne svojine."
       }
     }

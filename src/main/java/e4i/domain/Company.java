@@ -50,6 +50,9 @@ public class Company implements Serializable {
 
     @Column(name = "fields")
     private String fields;
+    
+    @Column(name = "is_einovator")
+    private Boolean isEinovator;
 
     @OneToMany(mappedBy = "company")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -214,6 +217,15 @@ public class Company implements Serializable {
     public void setFields(String fields) {
         this.fields = fields;
     }
+    
+    
+    public Boolean isIsEinovator() {
+		return isEinovator;
+	}
+
+	public void setIsEinovator(Boolean isEinovator) {
+		this.isEinovator = isEinovator;
+	}
     
     public Set<PortalUser> getPortalUsers() {
         return portalUsers;
@@ -559,6 +571,7 @@ public class Company implements Serializable {
             ", name='" + getName() + "'" +
             ", about='" + getAbout() + "'" +
             ", fields='" + getFields() + "'" +
+            ", isEinovator='" + isIsEinovator() + "'" +
             "}";
     }
 }
