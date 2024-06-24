@@ -46,6 +46,7 @@ interface MeetingEvent {
   title: string;
   description: string;
   location: string;
+  notes: string;
   organizer: IMeetingParticipant | null;
   advertiser: IMeetingParticipant | null;
   allParticipants: IMeetingParticipant[];
@@ -74,6 +75,7 @@ const DEFAULT_MEETING_EVENT: MeetingEvent = {
   title: '',
   description: '',
   location: '',
+  notes: '',
   organizer: null,
   advertiser: null,
   allParticipants: [],
@@ -119,6 +121,7 @@ export default class CompanyCalendar extends Vue {
   public showCompaniesSearch = false;
   public nonB2BMeetingParticipantEmail: string | null = null;
   public isEmailValid = true;
+  public meetingNotes = '';
 
   public calendarOptions = {
     locales: allLocales,
@@ -250,6 +253,7 @@ export default class CompanyCalendar extends Vue {
             title: event.meeting.title,
             description: event.meeting.description,
             location: event.meeting.location,
+            notes: event.meeting.notes,
             advertisement: event.meeting.advertisement,
             backgroundColor: event.color,
             borderColor: event.color,
@@ -301,6 +305,7 @@ export default class CompanyCalendar extends Vue {
     this.selectedEvent.title = clickInfo.event.title;
     this.selectedEvent.description = clickInfo.event.extendedProps.description;
     this.selectedEvent.location = clickInfo.event.extendedProps.location;
+    this.selectedEvent.notes = clickInfo.event.extendedProps.notes;
     this.selectedEvent.advertisement = clickInfo.event.extendedProps.advertisement;
 
     const meetingId = clickInfo.event.id;
@@ -425,7 +430,7 @@ export default class CompanyCalendar extends Vue {
       advertisement: this.selectedEvent.advertisement,
       isAcepted: false,
       comment: null,
-      notes: null,
+      notes: this.selectedEvent.notes,
       meetingParticipants: null,
       company: this.company,
       portalUserOrganizer: null,
@@ -569,6 +574,34 @@ export default class CompanyCalendar extends Vue {
 
   public closeRemoveMeetingModal(): void {
     (<any>this.$refs.removeMeetingModal).hide();
+  }
+
+  public prepareMeetingNotesModal(): void {
+    this.meetingNotes = this.selectedEvent.notes;
+
+    if (<any>this.$refs.meetingNotesModal) {
+      (<any>this.$refs.meetingNotesModal).show();
+    }
+  }
+
+  public updateMeetingNotes(): void {
+    const formData = new FormData();
+    formData.append('meetingId', '' + this.selectedEvent.id);
+    formData.append('notes', '' + this.meetingNotes);
+
+    this.meetingService()
+      .updateMeetingNotes(formData)
+      .then(res => {
+        this.selectedEvent.notes = this.meetingNotes;
+        this.isCalendarPopulated = false;
+        this.populateCalendar();
+      });
+
+    this.closeMeetingNotesModal();
+  }
+
+  public closeMeetingNotesModal(): void {
+    (<any>this.$refs.meetingNotesModal).hide();
   }
 
   public combineDateAndTime(dateString: string, timeString: string): Date {

@@ -112,11 +112,11 @@
                     <b>Oglas: </b>
                     <span>{{ selectedEvent.advertisement.title }}</span>
                 </p>
-                <p>
+                <p v-if="selectedEvent.location">
                     <b>Lokacija: </b>
                     <span>{{ selectedEvent.location }}</span>
                 </p>
-                <p>
+                <p v-if="selectedEvent.description">
                     <b>Opis: </b>
                     <span>{{ selectedEvent.description }}</span>
                 </p>
@@ -185,9 +185,11 @@
                 <div v-if="selectedEvent.allNonB2BMeetingParticipants.length > 0">
                   <hr>
                   <label v-text="'Pozvani učesnici van B2B portala'"></label>
-                  <div v-for="participant in selectedEvent.allNonB2BMeetingParticipants" :key="participant.email" class="mb-2">
-                    <span>{{ participant.email }}</span>
-                  </div>
+                  <ul style="padding-left: 18px;">
+                    <li v-for="participant in selectedEvent.allNonB2BMeetingParticipants" :key="participant.email" class="mb-2">
+                      <span>{{ participant.email }}</span>
+                    </li>
+                  </ul>
                 </div>
             </div>
 
@@ -200,6 +202,7 @@
                   <span><font-awesome-icon icon="times" style="color: red;"/></span>
                   <span v-text="'Otkaži sastanak'" ></span>
                 </button>
+                <button type="button" class="btn btn-primary" v-text="'Zapisnik'" v-on:click="prepareMeetingNotesModal()">Sačuvaj</button>
                 <button type="button" class="btn btn-primary" v-text="'Preuzmi ICS'" v-on:click="createICS(selectedEvent)">Preuzmi ICS</button>
                 <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-primary" v-text="'Izmeni'" v-on:click="prepareEditMeetingModal()">Izmeni</button>
                 <!-- <button type="button" class="btn btn-danger" v-text="'Ukloni'" v-on:click="prepareRemoveMeetingModal(selectedEvent.id)">Obriši</button> -->
@@ -498,6 +501,27 @@
             </div>
         </b-modal>
 
+        <b-modal v-if="selectedEvent" ref="meetingNotesModal" id="meetingNotesModal">
+          <span slot="modal-title">{{ selectedEvent.title }}</span>
+            <div class="modal-body">
+                <p id="jhi-delete-thread-heading">
+                  <span v-text="'Zapisnik'"></span>  
+                </p>
+                <b-form-textarea
+                  :readonly="selectedEvent.organizer && company.id != selectedEvent.organizer.company.id" 
+                  v-model="meetingNotes" 
+                  class="mb-3" 
+                  id="" 
+                  cols="30" 
+                  rows="10">
+                </b-form-textarea>
+            </div>
+            <div slot="modal-footer">
+                <button v-if="selectedEvent.organizer && company.id == selectedEvent.organizer.company.id" type="button" class="btn btn-success" v-text="$t('entity.action.save')" v-on:click="updateMeetingNotes()">Potvrdi</button>
+                <button type="button" class="btn btn-danger" v-text="$t('entity.action.close')" v-on:click="closeMeetingNotesModal()">Canel</button>
+            </div>
+        </b-modal>
+        
     </div>
 
 

@@ -7,6 +7,7 @@ const apiFindAllForCompany = 'api/meetings/company';
 const apiCreateMeetingWithParticipants = 'api/meetings/new';
 const apiEditMeetingWithParticipants = 'api/meetings/edit';
 const apiCreateICSForMeeting = 'api/meetings/create-ics';
+const apiUpdateMeetingNotes = 'api/meetings/update-notes';
 
 export default class MeetingService {
   public find(id: number): Promise<IMeeting> {
@@ -142,6 +143,23 @@ export default class MeetingService {
         .post(`${apiCreateICSForMeeting}/${meetingId}`)
         .then(res => {
           resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public updateMeetingNotes(formData: FormData): Promise<IMeeting> {
+    return new Promise<IMeeting>((resolve, reject) => {
+      axios
+        .put(apiUpdateMeetingNotes, formData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(res => {
+          resolve(res);
         })
         .catch(err => {
           reject(err);
