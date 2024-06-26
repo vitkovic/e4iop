@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="col-md-12">
-        <ol>
+        <ol class="p-0 p-md-3">
           <li v-for="(doc, index) in documents" :key="index">
             <a class="text-info" :href="doc.src" target="_blank" title="Preuzmite dokument"
               >{{ doc.title }}
