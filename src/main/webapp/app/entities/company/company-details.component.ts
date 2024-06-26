@@ -104,6 +104,40 @@ export default class CompanyDetails extends Vue {
     title: false,
   };
 
+  // public imagesGall = [
+  //   '/content/images/img-1.jpg',
+  //   '/content/images/img-2.jpg',
+  //   '/content/images/img-3.jpg',
+  //   // "/content/images/img-4.jpg",
+  //   // "/content/images/img-5.jpg",
+  //   // "/content/images/img-6.jpg",
+  //   // "/content/images/img-7.jpg",
+  //   // "/content/images/img-8.jpg",
+  //   // "/content/images/img-9.jpg",
+  //   '/content/images/2.jpg',
+  //   '/content/images/3.jpg',
+  //   '/content/images/4.jpg',
+  //   '/content/images/5.jpg',
+  //   '/content/images/6.jpg',
+  //   '/content/images/7.jpg',
+  //   '/content/images/8.jpg',
+  //   '/content/images/10gal.jpg',
+  //   '/content/images/3gal.jpg',
+  //   '/content/images/4gal.jpg',
+  // ];
+
+  // public currentLightboxImage = this.imagesGall[0];
+  // public currentIndex = 0;
+  // public showMask = false;
+  // public previewImage = false;
+  // public totalImagesCount = 0;
+  public companyImagesArray: string[] = [];
+  public currentLightboxImage: string = '';
+  public currentIndex = 0;
+  public showMask = false;
+  public previewImage = false;
+  public totalImagesCount = 0;
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       // if (to.params.companyId) {
@@ -114,11 +148,19 @@ export default class CompanyDetails extends Vue {
 
   // ----------------------
 
-  mounted() {
+  created() {
     let companyId = this.$route.params.companyId;
     if (companyId) {
       this.retrieveCompany(companyId);
     }
+    this.totalImagesCount = this.imagesGall.length;
+  }
+
+  mounted() {
+    // let companyId = this.$route.params.companyId;
+    // if (companyId) {
+    //   this.retrieveCompany(companyId);
+    // }
 
     this.updateImgWidth();
     window.addEventListener('resize', this.updateImgWidth);
@@ -127,6 +169,67 @@ export default class CompanyDetails extends Vue {
   beforeDestroy() {
     window.removeEventListener('resize', this.updateImgWidth);
   }
+
+  // --- LIGHTBOX ---
+
+  public async companyImages(): Promise<void> {
+    this.companyImagesArray = []; // Clear any existing images
+    for (let document of this.company.documents) {
+      if (document.type.type === 'image') {
+        const imageUrl = await this.companyService().retrieveImage(document.filename);
+        this.companyImagesArray.push(imageUrl);
+      }
+    }
+    console.log(this.companyImagesArray);
+  }
+
+  public onPreviewImage(index: number): void {
+    this.showMask = true;
+    this.previewImage = true;
+    this.currentIndex = index;
+    this.currentLightboxImage = this.companyImagesArray[index];
+    this.$nextTick(() => {
+      const lightboxElement = this.$refs.lightbox as HTMLElement;
+      if (lightboxElement) {
+        lightboxElement.focus();
+      }
+    });
+    console.log(this.currentLightboxImage);
+  }
+
+  public onClosePreviewImage() {
+    this.showMask = false;
+    this.previewImage = false;
+  }
+
+  public prev(): void {
+    this.currentIndex = this.currentIndex - 1;
+    if (this.currentIndex < 0) {
+      this.currentIndex = this.companyImagesArray.length - 1;
+    }
+    this.currentLightboxImage = this.companyImagesArray[this.currentIndex];
+    console.log(this.currentLightboxImage);
+    // this.$forceUpdate();
+  }
+
+  public next(): void {
+    this.currentIndex = this.currentIndex + 1;
+    if (this.currentIndex > this.companyImagesArray.length - 1) {
+      this.currentIndex = 0;
+    }
+    this.currentLightboxImage = this.companyImagesArray[this.currentIndex];
+    console.log(this.currentLightboxImage);
+    // this.$forceUpdate();
+  }
+
+  public onLightboxImageLoad(): void {
+    // This method is triggered when the image in the lightbox is fully loaded
+    console.log(`Lightbox image loaded: ${this.currentLightboxImage}`);
+
+    // Optionally, you can perform additional tasks here, such as adjusting UI elements or notifying the user
+  }
+
+  // --- LIGHTBOX END ---
 
   onImageLoad() {
     this.imagesLoaded++;
@@ -195,6 +298,14 @@ export default class CompanyDetails extends Vue {
       .find(companyId)
       .then(res => {
         this.company = res;
+        console.log(this.company);
+        return this.companyImages(); // Call the method to fetch images
+      })
+      .then(() => {
+        console.log(this.companyImagesArray);
+      })
+      .catch(error => {
+        console.error('Error fetching company details or images:', error);
       });
   }
 

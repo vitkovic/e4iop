@@ -163,7 +163,7 @@
           </div>
         </section> -->
 
-        <section class="section-gallery mb-4">
+        <!-- <section class="section-gallery mb-4">
           <div class="prev-box mr-2">
             <b-button variant="none" class="prevButton" @click="scrollPrev">
               <font-awesome-icon icon="caret-left" class="fa-lg levaIkonica"></font-awesome-icon>
@@ -185,7 +185,74 @@
               <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
             </b-button>
           </div>
+        </section> -->
+
+        <section class="section-gallery mb-4">
+          <div class="prev-box mr-2">
+            <b-button variant="none" class="prevButton" @click="scrollPrev">
+              <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
+            </b-button>
+          </div>
+          <div class="wrapper">
+            <div class="carousel" ref="carousel" v-if="companyImagesArray">
+              <img
+                v-for="(document, index) in companyImagesArray"
+                :key="index"
+                @click="onPreviewImage(index)"
+                :src="document"
+                alt="img"
+                @load="onImageLoad"
+              />
+            </div>
+            <div v-if="showMask" ref="lightbox" class="lightbox"  tabindex="0" @keydown.left="prev" @keydown.right="next">
+              <div class="light-box-contain d-flex align-items-center justify-content-center">
+                <button v-if="previewImage" class="close-btn" @click="onClosePreviewImage()">
+                  <font-awesome-icon icon="times" class="fa-lg"></font-awesome-icon>
+                </button>
+                <button class="btn-lightbox-carousel btn-prev" @click="prev()" >
+                  <font-awesome-icon icon="caret-left" class="fa-3x icon-lightbox-carousel icon-prev"></font-awesome-icon>
+                </button>
+                <button class="btn-lightbox-carousel btn-next" @click="next()" >
+                  <font-awesome-icon icon="caret-right" class="fa-3x icon-lightbox-carousel icon-next"></font-awesome-icon>
+                </button>
+                <div v-if="previewImage" class="lightbox-img d-flex align-items-center justify-content-center" >
+                  <img :src="currentLightboxImage" alt="Image description" class="img-fluid"  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="next-box ml-2">
+            <b-button variant="none" class="nextButton" @click="scrollNext">
+              <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
+            </b-button>
+          </div>
         </section>
+
+        <!-- <section>
+          <b-row class="gallery-lightbox-container">
+            <div class="gallery d-flex flex-wrap align-items-center justify-content-center">
+              <div class="gallery-img" v-for="(image, index) in companyImagesArray" :key="index">
+                <img @click="onPreviewImage(index)" :src="image" alt="image name" />
+              </div>
+            </div>
+            <div v-if="showMask" ref="lightbox" class="lightbox"  tabindex="0" @keydown.left="prev" @keydown.right="next">
+              <div class="light-box-contain d-flex align-items-center justify-content-center">
+                <button v-if="previewImage" class="close-btn" @click="onClosePreviewImage()">
+                  <font-awesome-icon icon="times" class="fa-lg"></font-awesome-icon>
+                </button>
+                <button class="btn-lightbox-carousel btn-prev" @click="prev()" >
+                  <font-awesome-icon icon="caret-left" class="fa-3x icon-lightbox-carousel icon-prev"></font-awesome-icon>
+                </button>
+                <button class="btn-lightbox-carousel btn-next" @click="next()" >
+                  <font-awesome-icon icon="caret-right" class="fa-3x icon-lightbox-carousel icon-next"></font-awesome-icon>
+                </button>
+                <div v-if="previewImage" class="lightbox-img d-flex align-items-center justify-content-center" >
+                  <img :src="currentLightboxImage" alt="Image description" class="img-fluid" />
+                </div>
+              </div>
+            </div>
+          </b-row>
+        </section> -->
 
         <!-- <section>
           <h3 v-text="$t('riportalApp.company.gallery')">Galerija</h3>
@@ -409,6 +476,92 @@
 </template>
 
 <style>
+
+/* LIGHTBOX & GALLERY  */
+
+/* .gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+} */
+
+.lightbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.light-box-contain {
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 0;
+  color: #fff;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.close-btn:focus{
+  outline: none;
+}
+
+.btn-lightbox-carousel{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  color: #fff;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.btn-lightbox-carousel:focus{
+  outline: none;
+}
+
+.btn-prev{
+  left: 20px;
+}
+
+.btn-next{
+  right: 20px;
+}
+
+/* LIGHTBOX & GALLERY END  */
+
+
 .jh-entity-details > dd {
   justify-self: left;
   margin-left: 5rem !important;
