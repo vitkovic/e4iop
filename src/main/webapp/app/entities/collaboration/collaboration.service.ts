@@ -4,6 +4,7 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
 import { ICollaboration } from '@/shared/model/collaboration.model';
 import { deprecate } from 'util';
+import { ICompanyRatingsDTO } from '../../shared/model/dto/company-ratings-dto';
 
 const baseApiUrl = 'api/collaborations';
 const baseApiCreateCollaborationForAdvertisement = 'api/collaborations/request';
@@ -16,6 +17,7 @@ const apiRateCollaborationForCompanyOffer = 'api/collaborations/rate-offer';
 const apiRateCollaborationForCompanyRequest = 'api/collaborations/rate-request';
 const apiGetPendingCollaborationsCountForAdvertisement = 'api/collaborations/count-pending-for-advertisement';
 const apiCancelPendingCollaborationsForAdvertisement = 'api/collaborations/cancel-pending-for-advertisement';
+const apiGetCompanyRatings = 'api/collaborations/company-ratings';
 
 export default class CollaborationService {
   public find(id: number): Promise<ICollaboration> {
@@ -231,6 +233,19 @@ export default class CollaborationService {
         .put(`${apiCancelPendingCollaborationsForAdvertisement}/${advertisementId}`)
         .then(res => {
           resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getCompanyRatings(companyId: number): Promise<ICompanyRatingsDTO> {
+    return new Promise<CompanyRatingsDTO>((resolve, reject) => {
+      axios
+        .get(`${apiGetCompanyRatings}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
         })
         .catch(err => {
           reject(err);

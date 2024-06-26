@@ -14,6 +14,9 @@ import e4i.domain.CollaborationRating;
 import e4i.domain.CollaborationStatus;
 import e4i.domain.PortalUser;
 import e4i.repository.CollaborationRepository;
+import e4i.web.rest.dto.CompanyRatingsDTO;
+
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -226,5 +229,70 @@ public class CollaborationService {
     	
     	return collaborationRepository.findAllByCompanyRequestAndStatus(companyId, collaborationStatus.getId(), pageable);
     }
+
+    @Transactional
+	public List<Collaboration> findAllAcceptedCollaborationsForCompany(Long companyId) {
+    	String status = CollaborationStatus.ACCEPTED;
+    	
+		return collaborationRepository.findByCompanyOfferIdOrCompanyRequestIdAndStatusStatus(companyId, companyId, status);
+	}
+
+    @Transactional
+	public CompanyRatingsDTO getCompanyRatings(List<Collaboration> collaborations, Long companyId) {
+		Long totalRatings = 0L;
+		Long totalRatings1 = 0L;
+		Long totalRatings2 = 0L;
+		Long totalRatings3 = 0L;
+		Long totalRatings4 = 0L;
+		
+		for (Collaboration collaboration : collaborations) {
+			CollaborationRating rating = null;
+			
+			if (collaboration.getCompanyOffer().getId().equals(companyId) && collaboration.getRatingRequest() != null) {
+				rating = collaboration.getRatingRequest();					
+			} else if (collaboration.getCompanyRequest().getId().equals(companyId) && collaboration.getRatingOffer() != null) {
+				rating = collaboration.getRatingOffer();
+			}
+			
+			if (rating == null) {
+				continue;
+			}
+			
+			totalRatings += 1;
+			if (rating.getNumber().equals(1L)) {
+				totalRatings1 += 1;
+			} else if (rating.getNumber().equals(2L)) {
+				totalRatings2 += 1;
+			} else if (rating.getNumber().equals(3L)) {
+				totalRatings3 += 1;
+			} else if (rating.getNumber().equals(4L)) {
+				totalRatings4 += 1;
+			}
+		}
+		
+	    DecimalFormat df = new DecimalFormat("#.#");
+		
+		Long totalSum = totalRatings1 * 1 + totalRatings2 * 2 + totalRatings3 * 3 + totalRatings4 * 4;
+		Double averageRating = totalRatings > 0 ? Double.valueOf(df.format(((double) totalSum / totalRatings))) : 0;
+		
+		Double percentageRating1 = totalRatings > 0 ? Double.valueOf(df.format(((double)  totalRatings1 / totalRatings) * 100)) : 0;
+		Double percentageRating2 = totalRatings > 0 ? Double.valueOf(df.format(((double)  totalRatings2 / totalRatings) * 100)) : 0;
+		Double percentageRating3 = totalRatings > 0 ? Double.valueOf(df.format(((double)  totalRatings3 / totalRatings) * 100)) : 0;
+		Double percentageRating4 = totalRatings > 0 ? Double.valueOf(df.format(((double)  totalRatings4 / totalRatings) * 100)) : 0;
+
+		CompanyRatingsDTO companyRatingsDTO = new CompanyRatingsDTO();
+		companyRatingsDTO.setTotalRatings(totalRatings);
+		companyRatingsDTO.setTotalRatings1(totalRatings1);
+		companyRatingsDTO.setTotalRatings2(totalRatings2);
+		companyRatingsDTO.setTotalRatings3(totalRatings3);
+		companyRatingsDTO.setTotalRatings4(totalRatings4);
+		companyRatingsDTO.setAverageRating(averageRating);
+		companyRatingsDTO.setPercentageRating1(percentageRating1);
+		companyRatingsDTO.setPercentageRating2(percentageRating2);
+		companyRatingsDTO.setPercentageRating3(percentageRating3);
+		companyRatingsDTO.setPercentageRating4(percentageRating4);
+		
+		return companyRatingsDTO;
+	}
     
 }

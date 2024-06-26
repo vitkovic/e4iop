@@ -5,6 +5,7 @@ import { IAdvertisement } from '@/shared/model/advertisement.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import { ICompany } from '@/shared/model/company.model';
 import { IMeeting } from '@/shared/model/meeting.model';
+import { ICompanyRatingsDTO } from '@/shared/model/dto/company-ratings-dto';
 
 import InquiryService from './inquiry.service';
 import AccountService from '@/account/account.service';
@@ -79,6 +80,7 @@ export default class AdvertisementDetails extends Vue {
   public nonB2BParticipantsEmails: string[] = [];
   public nonB2BMeetingParticipantEmail: string | null = null;
   public isEmailValid = true;
+  public companyRatingsDTO: ICompanyRatingsDTO | null = null;
 
   public companySearchText = '';
   public showCompaniesSearch = false;
@@ -105,7 +107,6 @@ export default class AdvertisementDetails extends Vue {
 
   created() {
     console.log('Component is being created');
-    this.checkCompanyOwnership();
   }
 
   mounted() {
@@ -191,6 +192,16 @@ export default class AdvertisementDetails extends Vue {
       .find(advertisementId)
       .then(res => {
         this.advertisement = res;
+        this.checkCompanyOwnership();
+        this.getCompanyRatings(this.advertisement.company.id);
+      });
+  }
+
+  public getCompanyRatings(companyId: number): void {
+    this.collaborationService()
+      .getCompanyRatings(companyId)
+      .then(res => {
+        this.companyRatingsDTO = res;
       });
   }
 
@@ -222,7 +233,7 @@ export default class AdvertisementDetails extends Vue {
     return this.isCompanyOwnerValue;
   }
 
-  public checkCompanyOwnership(): boolean {
+  public checkCompanyOwnership(): void {
     const user = this.$store.getters.account;
 
     if (user) {
@@ -233,12 +244,8 @@ export default class AdvertisementDetails extends Vue {
           if (this.portalUser.company?.id === this.advertisement.company.id) {
             this.isCompanyOwnerValue = true;
           }
-        })
-        .catch(() => {
-          this.isCompanyOwnerValue = true;
         });
     }
-    return this.isCompanyOwnerValue;
   }
 
   public prepareAdInquiry(instance: IAdvertisement): void {

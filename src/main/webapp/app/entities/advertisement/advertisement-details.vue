@@ -62,28 +62,26 @@
             </div>
           </div>
           <div class="d-none d-md-block col-md-6 col-lg-5">
-            <section class="company-info">
+            <section v-if="advertisement.company && companyRatingsDTO" class="company-info">
               <b-card>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                   <div class="d-flex">
-                    <div class="img-box mr-2">
-                      <!-- v-if="company.logo"  -->
+                    <div v-if="advertisement.company.logo" class="img-box mr-2">
                       <img
-                        src="https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740"
+                        :src="advertisementService().retrieveImage(advertisement.company.logo.filename)"
                         alt="company logo"
                         class="img-logo"
                       />
                     </div>
-                    <div class="d-flex flex-wrap align-items-center">
-                      <h4 class="company-title mb-0">
-                        {{ advertisement.company.name }}
-                      </h4>
-                    </div>
+                    <div v-else class="img-box mr-2 placeholder-logo">{{ getCompanyInitials(advertisement.company) }}</div>
+                      <router-link class="d-flex flex-wrap align-items-center" :to="{ name: 'CompanyView', params: { companyId: advertisement.company.id } }">
+                        <h2 class="company-title mb-0" style="align-self: center;">{{ advertisement.company.name }}</h2>
+                      </router-link>
                   </div>
                   <div class="company-avg-star d-flex align-items-center">
                     <font-awesome-icon icon="star" class="fa-xs mr-1"></font-awesome-icon>
                     <div>
-                      <span class="">3.6</span>
+                      <span v-if="companyRatingsDTO.averageRating" class="">{{ companyRatingsDTO.averageRating }}</span>
                     </div>
                   </div>
                 </div>
@@ -99,7 +97,7 @@
                       stars="4"
                       readonly
                     ></b-form-rating>
-                    <label for="rating-inline">72% (18 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                    <label for="rating-inline">{{ companyRatingsDTO.percentageRating4 }} % ({{ companyRatingsDTO.totalRatings4 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
                   </div>
                   <div>
                     <b-form-rating
@@ -112,7 +110,7 @@
                       stars="4"
                       readonly
                     ></b-form-rating>
-                    <label for="rating-inline">16% (4 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                    <label for="rating-inline">{{ companyRatingsDTO.percentageRating3 }} % ({{ companyRatingsDTO.totalRatings3 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
                   </div>
                   <div>
                     <b-form-rating
@@ -125,7 +123,7 @@
                       stars="4"
                       readonly
                     ></b-form-rating>
-                    <label for="rating-inline">6% (2 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                    <label for="rating-inline">{{ companyRatingsDTO.percentageRating2 }} % ({{ companyRatingsDTO.totalRatings2 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
                   </div>
                   <div>
                     <b-form-rating
@@ -138,7 +136,7 @@
                       stars="4"
                       readonly
                     ></b-form-rating>
-                    <label for="rating-inline">4% (1 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                    <label for="rating-inline">{{ companyRatingsDTO.percentageRating1 }} % ({{ companyRatingsDTO.totalRatings1 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
                   </div>
                 </div>
               </b-card>
@@ -214,28 +212,39 @@
           </div>
         </section>
 
-        <section class="company-info-responsive d-flex d-md-none">
+        <section v-if="advertisement.company" class="company-info-responsive d-block d-md-none">
           <b-card>
             <div class="d-flex align-items-center justify-content-between mb-2">
               <div class="d-flex">
-                <div class="img-box mr-2">
+                    <div v-if="advertisement.company.logo" class="img-box mr-2">
+                      <img
+                        :src="advertisementService().retrieveImage(advertisement.company.logo.filename)"
+                        alt="company logo"
+                        class="img-logo"
+                      />
+                    </div>
+                    <div v-else class="img-box mr-2 placeholder-logo">{{ getCompanyInitials(advertisement.company) }}</div>
+                    <router-link class="d-flex flex-wrap align-items-center" :to="{ name: 'CompanyView', params: { companyId: advertisement.company.id } }">
+                      <h2 class="company-title mb-0" style="align-self: center;">{{ advertisement.company.name }}</h2>
+                    </router-link>
+                <!-- <div class="img-box mr-2"> -->
                   <!-- v-if="company.logo"  -->
-                  <img
+                  <!-- <img
                     src="https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740"
                     alt="company logo"
                     class="img-logo"
-                  />
-                </div>
-                <div class="d-flex flex-wrap align-items-center">
+                  /> -->
+                <!-- </div> -->
+                <!-- <div class="d-flex flex-wrap align-items-center">
                   <h4 class="company-title mb-0">
                     {{ advertisement.company.name }}
                   </h4>
-                </div>
+                </div> -->
               </div>
               <div class="company-avg-star d-flex align-items-center">
                 <font-awesome-icon icon="star" class="fa-xs mr-1"></font-awesome-icon>
                 <div>
-                  <span class="">3.6</span>
+                  <span v-if="companyRatingsDTO.averageRating" class="">{{ companyRatingsDTO.averageRating }}</span>
                 </div>
               </div>
             </div>
@@ -251,7 +260,7 @@
                   stars="4"
                   readonly
                 ></b-form-rating>
-                <label for="rating-inline">72% (18 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                <label for="rating-inline">{{ companyRatingsDTO.percentageRating4 }} % ({{ companyRatingsDTO.totalRatings4 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
               </div>
               <div>
                 <b-form-rating
@@ -264,7 +273,7 @@
                   stars="4"
                   readonly
                 ></b-form-rating>
-                <label for="rating-inline">16% (4 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                <label for="rating-inline">{{ companyRatingsDTO.percentageRating3 }} % ({{ companyRatingsDTO.totalRatings3 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
               </div>
               <div>
                 <b-form-rating
@@ -277,7 +286,7 @@
                   stars="4"
                   readonly
                 ></b-form-rating>
-                <label for="rating-inline">6% (2 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                <label for="rating-inline">{{ companyRatingsDTO.percentageRating2 }} % ({{ companyRatingsDTO.totalRatings2 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
               </div>
               <div>
                 <b-form-rating
@@ -290,7 +299,7 @@
                   stars="4"
                   readonly
                 ></b-form-rating>
-                <label for="rating-inline">4% (1 {{ $t('riportalApp.advertisement.of') }} 25)</label>
+                <label for="rating-inline">{{ companyRatingsDTO.percentageRating1 }} % ({{ companyRatingsDTO.totalRatings1 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
               </div>
             </div>
           </b-card>

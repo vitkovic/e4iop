@@ -26,6 +26,7 @@ import e4i.service.MailService;
 import e4i.service.MessageService;
 import e4i.service.PortalUserService;
 import e4i.service.ThreadService;
+import e4i.web.rest.dto.CompanyRatingsDTO;
 import e4i.web.rest.dto.NotificationMailDTO;
 import e4i.web.rest.errors.BadRequestAlertException;
 
@@ -375,5 +376,19 @@ public class CollaborationResource {
         	e.printStackTrace();
         	return ResponseEntity.noContent().build();
         }    
+    }
+    
+    @GetMapping("/collaborations/company-ratings/{companyId}")
+    public ResponseEntity<CompanyRatingsDTO> getCompanyRatings(@PathVariable Long companyId) {
+        log.debug("REST request to get ratings for Company {}", companyId);
+
+        List<Collaboration> collaborations = collaborationService.findAllAcceptedCollaborationsForCompany(companyId);
+        
+        if (!collaborations.isEmpty()) {
+        	CompanyRatingsDTO companyRatingsDTO = collaborationService.getCompanyRatings(collaborations, companyId);
+            return ResponseEntity.ok(companyRatingsDTO);
+        } else {
+            return ResponseEntity.noContent().build(); // Or another appropriate response
+        }
     }
 }

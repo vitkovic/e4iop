@@ -70,4 +70,6 @@ public interface CollaborationRepository extends JpaRepository<Collaboration, Lo
     Long countByAdvertisementIdAndStatusStatus(Long advertisementId, String status);
     
     List<Collaboration> findAllByAdvertisementIdAndStatusStatus(Long advertisementId, String status);
+    
+    List<Collaboration> findByCompanyOfferIdOrCompanyRequestIdAndStatusStatus(Long companyOfferId, Long companyRequestId, String status);
 }
