@@ -5,7 +5,9 @@ import AccountService from '@/account/account.service';
 import TranslationService from '@/locale/translation.service';
 import PortalUserService from '../../entities/portal-user/portal-user.service';
 import AdvertisementCategoryService from '../../entities/advertisement-category/advertisement-category.service';
+import AdvertisementCategory from '../../entities/advertisement/advertisement.service';
 import { IPortalUser } from '@/shared/model/portal-user.model';
+import AdvertisementService from '../../entities/advertisement/advertisement.service';
 
 @Component
 export default class B2BJhiNavbar extends Vue {
@@ -16,6 +18,8 @@ export default class B2BJhiNavbar extends Vue {
   @Inject('accountService') private accountService: () => AccountService;
 
   @Inject('portalUserService') private portalUserService: () => PortalUserService;
+  
+  @Inject('advertisementService') private advertisementService: () => AdvertisementService;
   
   @Inject('advertisementCategoryService') private advertisementCategoryService: () => AdvertisementCategoryService;
 
@@ -29,6 +33,7 @@ export default class B2BJhiNavbar extends Vue {
   public companyId: number;
   public companyLink = '';
   private advCategList = null;
+  private txtsearch;
 
   public isActive: boolean = false;
 
@@ -39,10 +44,19 @@ export default class B2BJhiNavbar extends Vue {
   }
   
   created() {
+	
+	
     this.translationService().refreshTranslation(this.currentLanguage);
    
   }
-
+  
+  data() {
+      return {
+        txtsearch: '',
+      }
+    }
+  
+  
   mounted() {
 	this.initRelationships();
     // Call the function to check screen size and update isActive
@@ -67,6 +81,7 @@ export default class B2BJhiNavbar extends Vue {
     });
   }
 
+  
   public changeLanguage(newLanguage: string): void {
     this.translationService().refreshTranslation(newLanguage);
   }
@@ -124,7 +139,18 @@ export default class B2BJhiNavbar extends Vue {
     return this.companyLink;
   }
   
- 
+  private advList;
+  public searchAdv(): void {
+	//  console.log(this.searchinput);
+	 this.advertisementService()
+      .retrieveSearch("test")
+      .then(res => {
+        console.log(res.data);
+        this.advList = res.data;
+      });  
+  }
+
+  private searchinput;
   public initRelationships(): void {
     this.advertisementCategoryService()
       .retrieve()

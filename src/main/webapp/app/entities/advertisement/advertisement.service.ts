@@ -5,6 +5,7 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 
 const baseApiUrl = 'api/advertisements';
+const baseApiUrlSearch = 'api/advertisements/search';
 const updateCreatedByApiUrl = 'api/advertisements/update-created';
 const updateModifiedByApiUrl = 'api/advertisements/update-modified';
 const apiUploadFiles = 'api/advertisements/upload-files';
@@ -46,7 +47,18 @@ export default class AdvertisementService {
         });
     });
   }
-
+  public retrieveSearch(search:string, paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrlSearch + `?search=${search}`+  `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
   public retrieveBrowse(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

@@ -177,7 +177,8 @@ public class AdvertisementResource {
         Optional<Advertisement> advertisement = advertisementService.findOne(id);
         return ResponseUtil.wrapOrNotFound(advertisement);
     }
-
+    
+   
     /**
      * {@code DELETE  /advertisements/:id} : delete the "id" advertisement.
      *
@@ -432,7 +433,21 @@ public class AdvertisementResource {
 	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 	        return ResponseEntity.ok().headers(headers).body(page.getContent());
 	    }
-	    
+	    /**
+	     * {@code GET  /advertisements/:search} : get the "search" advertisement.
+	     *
+	     * @param search
+	     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the advertisement, or with status {@code 404 (Not Found)}.
+	     */
+	    @GetMapping("/advertisements/search")
+	    public ResponseEntity<List<Advertisement>> getAdvertisementSearch(Pageable pageable, @RequestParam String search) {
+	        log.debug("REST request to get search Advertisements : {}", search);
+	        Page<Advertisement> page;
+	        page = advertisementService.findAllBySearch(search, pageable);
+	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+	        return ResponseEntity.ok().headers(headers).body(page.getContent());
+	    }
+
 	    @GetMapping("/advertisements/company")
 	    public ResponseEntity<List<Advertisement>> getAllAdvertisementsForCompany(
 	    		Pageable pageable, 
