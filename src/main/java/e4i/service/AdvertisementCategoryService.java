@@ -2,7 +2,7 @@ package e4i.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +46,7 @@ public class AdvertisementCategoryService {
     @Transactional(readOnly = true)
     public List<AdvertisementCategory> findAll() {
         log.debug("Request to get all AdvertisementCategories");
-        return advertisementCategoryRepository.findAll();
+        return advertisementCategoryRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
 

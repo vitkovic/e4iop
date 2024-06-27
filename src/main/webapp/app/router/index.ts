@@ -26,6 +26,7 @@ export default new Router({
       name: 'Home',
       component: Home
     },
+    
     {
       path: '/b2b',
       name: 'B2BHome',

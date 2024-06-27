@@ -1526,7 +1526,6 @@ export default [
     path: '/b2b/advertisement-category',
     name: 'AdvertisementCategory',
     component: AdvertisementCategory,
-    meta: { authorities: [Authority.USER] },
   },
   {
     path: '/b2b/advertisement-category/new',
