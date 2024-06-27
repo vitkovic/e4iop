@@ -297,9 +297,12 @@ public class CollaborationService {
 
     @Transactional
 	public List<Collaboration> findAllRatedCollaborationsForCompany(Long companyId) {
-		// TODO Auto-generated method stub
-    	
 		return collaborationRepository.findAllByCompanyAndRatingAndStatus(companyId, CollaborationStatus.ACCEPTED);
+	}
+
+    @Transactional
+	public Page<Collaboration> findPageOfRatedCollaborationsForCompany(Long companyId, Pageable pageable) {
+		return collaborationRepository.findPageByCompanyAndRatingAndStatus(companyId, CollaborationStatus.ACCEPTED, pageable);
 	}
     
 }

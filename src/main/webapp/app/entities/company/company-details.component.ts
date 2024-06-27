@@ -3,11 +3,14 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 import { ICompany } from '@/shared/model/company.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
+import { ICollaboration } from '@/shared/model/collaboration.model';
+import { ICompanyRatingsDTO } from '@/shared/model/dto/company-ratings-dto';
 
 import AccountService from '@/account/account.service';
 import InquiryService from './inquiry.service';
 import CompanyService from './company.service';
 import PortalUserService from '../../entities/portal-user/portal-user.service';
+import CollaborationService from '../../entities/collaboration/collaboration.service';
 
 import RatingBadge from './company-badge.vue';
 
@@ -33,13 +36,17 @@ export default class CompanyDetails extends Vue {
   @Inject('accountService') private accountService: () => AccountService;
   @Inject('portalUserService') private portalUserService: () => PortalUserService;
   @Inject('inquiryService') private inquiryService: () => InquiryService;
+  @Inject('collaborationService') private collaborationService: () => CollaborationService;
 
   private portalUser: IPortalUser = null;
   private hasAnyAuthorityValue = false;
   private isCompanyOwnerValue = false;
 
+  public companyId: number | null = null;
   public company: ICompany = {};
   public inquiryDTO: InquiryDTO | null = null;
+  public collaborations: ICollaboration[] = [];
+  public companyRatingsDTO: ICompanyRatingsDTO | null = null;
 
   public isModalFormIsValid: boolean = true;
   public inputSubject = {
@@ -53,38 +60,49 @@ export default class CompanyDetails extends Vue {
 
   public firstImgWidth: number = 0;
   public imagesLoaded: number = 0;
-  public companies = [
-    {
-      name: 'QCDS Consulting',
-      description: 'Analiza faktora zastoja masina',
-      rating: 4,
-      role: 'Oglasivac',
-      details:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      logo:
-        'https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740',
-    },
-    {
-      name: 'B.2.B Company',
-      description: 'Ispitivanje kostrukcija',
-      rating: 2,
-      role: 'Trazilac',
-      details:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      logo:
-        'https://img.freepik.com/free-vector/creative-flat-design-glass-logo-template_23-2149003613.jpg?t=st=1718883175~exp=1718886775~hmac=fddbc3d489a77a55d0886a8c93d6193299c11a9c037eef8a9daf149e7fe961c9&w=740',
-    },
-    {
-      name: 'Mehanika D.O.O.',
-      description: 'Ispitivanje trzista',
-      rating: 3,
-      role: 'Oglasivac',
-      details:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      logo:
-        'https://img.freepik.com/free-vector/universal-logo-geometric-abstract-shape-design-template_126523-489.jpg?t=st=1718918200~exp=1718921800~hmac=e23663886f900edf8e9b5ab4e25b0349399e147655975ce458e746d318aad20d&w=900',
-    },
-  ];
+
+  // Pagination parameters
+  public isFetching = false;
+  public itemsPerPage = 2;
+  public queryCount: number | null = null;
+  public page = 1;
+  // public previousPage = 1;
+  public propOrder = 'datetime';
+  public reverse = false;
+  public totalItems = 0;
+
+  // public companies = [
+  //   {
+  //     name: 'QCDS Consulting',
+  //     description: 'Analiza faktora zastoja masina',
+  //     rating: 4,
+  //     role: 'Oglasivac',
+  //     details:
+  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  //     logo:
+  //       'https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740',
+  //   },
+  //   {
+  //     name: 'B.2.B Company',
+  //     description: 'Ispitivanje kostrukcija',
+  //     rating: 2,
+  //     role: 'Trazilac',
+  //     details:
+  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  //     logo:
+  //       'https://img.freepik.com/free-vector/creative-flat-design-glass-logo-template_23-2149003613.jpg?t=st=1718883175~exp=1718886775~hmac=fddbc3d489a77a55d0886a8c93d6193299c11a9c037eef8a9daf149e7fe961c9&w=740',
+  //   },
+  //   {
+  //     name: 'Mehanika D.O.O.',
+  //     description: 'Ispitivanje trzista',
+  //     rating: 3,
+  //     role: 'Oglasivac',
+  //     details:
+  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  //     logo:
+  //       'https://img.freepik.com/free-vector/universal-logo-geometric-abstract-shape-design-template_126523-489.jpg?t=st=1718918200~exp=1718921800~hmac=e23663886f900edf8e9b5ab4e25b0349399e147655975ce458e746d318aad20d&w=900',
+  //   },
+  // ];
 
   private viewerOptions: any = {
     movable: false,
@@ -149,19 +167,19 @@ export default class CompanyDetails extends Vue {
   // ----------------------
 
   created() {
-    let companyId = this.$route.params.companyId;
-    if (companyId) {
-      this.retrieveCompany(companyId);
+    let companyId = Number(this.$route.params.companyId);
+
+    if (!isNaN(companyId)) {
+      this.companyId = companyId;
+      this.retrieveCompany(this.companyId);
+      this.retrieveCollaborations();
+      this.getCompanyRatings(this.companyId);
     }
+
     this.totalImagesCount = this.imagesGall.length;
   }
 
   mounted() {
-    // let companyId = this.$route.params.companyId;
-    // if (companyId) {
-    //   this.retrieveCompany(companyId);
-    // }
-
     this.updateImgWidth();
     window.addEventListener('resize', this.updateImgWidth);
   }
@@ -251,6 +269,11 @@ export default class CompanyDetails extends Vue {
 
   updateImgWidth() {
     const carousel = this.$refs.carousel as HTMLElement;
+
+    if (!carousel) {
+      return;
+    }
+
     const totalImages = carousel.querySelectorAll('img').length;
     const firstImg = carousel.querySelectorAll('img')[0] as HTMLElement;
 
@@ -298,7 +321,6 @@ export default class CompanyDetails extends Vue {
       .find(companyId)
       .then(res => {
         this.company = res;
-        console.log(this.company);
         return this.companyImages(); // Call the method to fetch images
       })
       .then(() => {
@@ -307,6 +329,69 @@ export default class CompanyDetails extends Vue {
       .catch(error => {
         console.error('Error fetching company details or images:', error);
       });
+  }
+
+  public getCompanyRatings(companyId: number): void {
+    this.collaborationService()
+      .getCompanyRatings(companyId)
+      .then(res => {
+        this.companyRatingsDTO = res;
+      });
+  }
+
+  public retrieveCollaborations(): void {
+    if (this.companyId == null) {
+      return;
+    }
+
+    this.isFetching = true;
+    const paginationQuery = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
+
+    this.collaborationService()
+      .getPageOfRatedCollaborationsForCompany(this.companyId, paginationQuery)
+      .then(
+        res => {
+          this.collaborations = res.data;
+          this.totalItems = Number(res.headers['x-total-count']);
+          this.queryCount = this.totalItems;
+          this.isFetching = false;
+        },
+        err => {
+          this.isFetching = false;
+        }
+      );
+  }
+
+  public sort(): Array<any> {
+    const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.propOrder !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
+
+  public previousPage(): void {
+    if (this.page > 1) {
+      this.page -= 1;
+    } else {
+      this.page = Math.ceil(this.totalItems / this.itemsPerPage);
+    }
+
+    this.retrieveCollaborations();
+  }
+
+  public nextPage(): void {
+    if (this.page < this.totalItems / this.itemsPerPage) {
+      this.page += 1;
+    } else {
+      this.page = 1;
+    }
+
+    this.retrieveCollaborations();
   }
 
   public previousState() {
@@ -385,8 +470,6 @@ export default class CompanyDetails extends Vue {
   }
 
   public sendInquiry(): void {
-    console.log(this.inquiryDTO);
-
     this.validateModalForm();
 
     if (!this.isModalFormIsValid) {
@@ -408,5 +491,13 @@ export default class CompanyDetails extends Vue {
     }
 
     this.closeAdInquiry();
+  }
+
+  public getCompanyInitials(company: ICompany): string {
+    return company.name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase();
   }
 }

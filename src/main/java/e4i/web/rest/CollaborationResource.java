@@ -399,4 +399,17 @@ public class CollaborationResource {
         List<Collaboration> collaborations = collaborationService.findAllRatedCollaborationsForCompany(companyId);        
         return ResponseEntity.ok(collaborations);
     }
+    
+    @GetMapping("/collaborations/company-rated-page")
+    public ResponseEntity<List<Collaboration>> getPageOfRatedCollaborationsForCompany(    		
+    		Pageable pageable,
+    		@RequestParam Long companyId
+    		) {
+        log.debug("REST request to get all rated collaborations for Company {}", companyId);
+
+        Page<Collaboration> page = collaborationService.findPageOfRatedCollaborationsForCompany(companyId, pageable);    
+        
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 }

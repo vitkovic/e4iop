@@ -19,6 +19,7 @@ const apiGetPendingCollaborationsCountForAdvertisement = 'api/collaborations/cou
 const apiCancelPendingCollaborationsForAdvertisement = 'api/collaborations/cancel-pending-for-advertisement';
 const apiGetCompanyRatings = 'api/collaborations/company-ratings';
 const apiGetRatedCollaborationsForCompany = 'api/collaborations/company-rated';
+const apiGetPageOfRatedCollaborationsForCompany = 'api/collaborations/company-rated-page';
 
 export default class CollaborationService {
   public find(id: number): Promise<ICollaboration> {
@@ -260,6 +261,19 @@ export default class CollaborationService {
         .get(`${apiGetRatedCollaborationsForCompany}/${companyId}`)
         .then(res => {
           resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getPageOfRatedCollaborationsForCompany(companyId: number, paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(apiGetPageOfRatedCollaborationsForCompany + `?companyId=${companyId}` + `&${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
         })
         .catch(err => {
           reject(err);
