@@ -18,6 +18,7 @@ const apiRateCollaborationForCompanyRequest = 'api/collaborations/rate-request';
 const apiGetPendingCollaborationsCountForAdvertisement = 'api/collaborations/count-pending-for-advertisement';
 const apiCancelPendingCollaborationsForAdvertisement = 'api/collaborations/cancel-pending-for-advertisement';
 const apiGetCompanyRatings = 'api/collaborations/company-ratings';
+const apiGetRatedCollaborationsForCompany = 'api/collaborations/company-rated';
 
 export default class CollaborationService {
   public find(id: number): Promise<ICollaboration> {
@@ -244,6 +245,19 @@ export default class CollaborationService {
     return new Promise<CompanyRatingsDTO>((resolve, reject) => {
       axios
         .get(`${apiGetCompanyRatings}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getAllRatedCollaborationsForCompany(companyId: number): Promise<ICollaboration[]> {
+    return new Promise<ICollaboration[]>((resolve, reject) => {
+      axios
+        .get(`${apiGetRatedCollaborationsForCompany}/${companyId}`)
         .then(res => {
           resolve(res.data);
         })

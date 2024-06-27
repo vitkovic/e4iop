@@ -72,4 +72,12 @@ public interface CollaborationRepository extends JpaRepository<Collaboration, Lo
     List<Collaboration> findAllByAdvertisementIdAndStatusStatus(Long advertisementId, String status);
     
     List<Collaboration> findByCompanyOfferIdOrCompanyRequestIdAndStatusStatus(Long companyOfferId, Long companyRequestId, String status);
+    
+
+    @Query("SELECT collaboration FROM Collaboration collaboration " +
+    	       "WHERE (collaboration.companyOffer.id = :companyId AND collaboration.ratingRequest IS NOT NULL " +
+    	       "OR collaboration.companyRequest.id = :companyId AND collaboration.ratingOffer IS NOT NULL) " +
+    	       "AND collaboration.status.status = :status " +
+    	       "ORDER BY collaboration.datetime DESC")
+	List<Collaboration> findAllByCompanyAndRatingAndStatus(@Param("companyId") Long companyId, @Param("status") String status);
 }

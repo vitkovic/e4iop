@@ -62,7 +62,7 @@
             </div>
           </div>
           <div class="d-none d-md-block col-md-6 col-lg-5">
-            <section v-if="advertisement.company && companyRatingsDTO" class="company-info">
+            <section v-if="advertisement.company && companyRatingsDTO" class="company-info" @click="prepareCollaborationsModal()" style="cursor: pointer;" v-b-modal.collaborationsModal>
               <b-card>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                   <div class="d-flex">
@@ -95,7 +95,7 @@
                       variant="primary"
                       size="sm"
                       stars="4"
-                      readonly
+                      disabled
                     ></b-form-rating>
                     <label for="rating-inline">{{ companyRatingsDTO.percentageRating4 }} % ({{ companyRatingsDTO.totalRatings4 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
                   </div>
@@ -108,7 +108,7 @@
                       variant="primary"
                       size="sm"
                       stars="4"
-                      readonly
+                      disabled
                     ></b-form-rating>
                     <label for="rating-inline">{{ companyRatingsDTO.percentageRating3 }} % ({{ companyRatingsDTO.totalRatings3 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
                   </div>
@@ -121,7 +121,7 @@
                       variant="primary"
                       size="sm"
                       stars="4"
-                      readonly
+                      disabled
                     ></b-form-rating>
                     <label for="rating-inline">{{ companyRatingsDTO.percentageRating2 }} % ({{ companyRatingsDTO.totalRatings2 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
                   </div>
@@ -134,7 +134,7 @@
                       variant="primary"
                       size="sm"
                       stars="4"
-                      readonly
+                      disabled
                     ></b-form-rating>
                     <label for="rating-inline">{{ companyRatingsDTO.percentageRating1 }} % ({{ companyRatingsDTO.totalRatings1 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
                   </div>
@@ -146,13 +146,13 @@
 
         <section class="description mb-4">
           <h5 v-text="$t('riportalApp.advertisement.description')">Opis</h5>
-          <b-card>
+          <b-card style="white-space: preserve-breaks;">
             {{ advertisement.description }}
           </b-card>
         </section>
         <section class="conditions mb-4">
           <h5 v-text="$t('riportalApp.advertisement.conditions')">Uslovi</h5>
-          <b-card>
+          <b-card style="white-space: preserve-breaks;">
             {{ advertisement.conditions }}
           </b-card>
         </section>
@@ -212,7 +212,7 @@
           </div>
         </section>
 
-        <section v-if="advertisement.company" class="company-info-responsive d-block d-md-none">
+        <section v-if="advertisement.company && companyRatingsDTO" class="company-info-responsive d-block d-md-none" @click="prepareCollaborationsModal()" style="cursor: pointer;" v-b-modal.collaborationsModal>
           <b-card>
             <div class="d-flex align-items-center justify-content-between mb-2">
               <div class="d-flex">
@@ -654,6 +654,73 @@
           </div>
         </b-modal>
 
+        <b-modal v-if="collaborations" ref="collaborationsModal" id="collaborationsModal">
+          <span slot="modal-title"
+            ><span id="collaboration" v-text="$t('riportalApp.collaboration.home.title')"
+              >Saradnje</span
+            ></span
+          >
+          <div class="modal-body">
+            <b-card v-for="collaboration in collaborations" :key="collaboration.id" class="card-box mb-3">
+              <div class="d-flex align-items-center">
+                <div class="d-flex mb-2">
+                  <div v-if="collaboration.companyOffer.id == advertisement.company.id && collaboration.companyRequest.logo" class="img-box mr-2">
+                    <img
+                      :src="advertisementService().retrieveImage(collaboration.companyRequest.logo.filename)"
+                      alt="company logo"
+                      class="img-logo"
+                    />
+                  </div>
+                  <div v-else-if="collaboration.companyRequest.id == advertisement.company.id && collaboration.companyOffer.logo" class="img-box mr-2">
+                    <img
+                      :src="advertisementService().retrieveImage(collaboration.companyOffer.logo.filename)"
+                      alt="company logo"
+                      class="img-logo"
+                    />
+                  </div>
+                  <div v-else class="img-box mr-2 placeholder-logo">
+                    {{ collaboration.companyOffer.id == advertisement.company.id ? getCompanyInitials(collaboration.companyRequest) : getCompanyInitials(collaboration.companyOffer) }}
+                  </div>
+                  <h2 class="company-title mb-0" style="align-self: center;">{{ collaboration.companyOffer.id == advertisement.company.id ? collaboration.companyRequest.name : collaboration.companyOffer.name }}</h2>
+                </div>
+              </div>
+              <h4 class="mb-4">{{ collaboration.advertisement.title }}</h4>
+              <div class="d-flex" style="flex-direction: column">
+                <div class="mb-2">
+                  {{ collaboration.datetime ? $d(Date.parse(collaboration.datetime.toString()), 'short') : '' }}
+                </div>
+                <div class="align-items-center">
+                  <b-form-rating
+                    id="rating-inline"
+                    inline
+                    :value="collaboration.companyOffer.id == advertisement.company.id ? collaboration.ratingRequest.number : collaboration.ratingOffer.number"
+                    class="mr-4"
+                    variant="primary"
+                    size="sm"
+                    stars="4"
+                    disabled
+                  ></b-form-rating>
+                  <label for="rating-inline">{{ collaboration.companyOffer.id == advertisement.company.id ? "Tražilac" : "Oglašivač" }}</label>
+                </div>
+
+
+
+              </div>
+
+              <hr />
+              <div>
+                <p>{{ collaboration.companyOffer.id == advertisement.company.id ? collaboration.commentRequest : collaboration.commentOffer }}</p>
+              </div>
+            </b-card>
+
+          </div>
+          <div slot="modal-footer">
+            <button class="btn btn-danger" v-text="$t('entity.action.close')" v-on:click="closeCollaborationsModal()">
+              Zatvori
+            </button>
+          </div>
+        </b-modal>
+
         <!-- <dl class="row jh-entity-details" v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')" style="justify-items: left; margin: 0;">
           <h4 v-text="$t('riportalApp.advertisement.dataChanges')">Podaci o izmenama</h4>
           <br />
@@ -886,6 +953,10 @@ h2 {
   border-radius: 50%;
   color: black;
   text-align: center; /* Center text inside the div */
+}
+
+.b-rating.disabled {
+  color: rgb(40, 40, 56);
 }
 </style>
 

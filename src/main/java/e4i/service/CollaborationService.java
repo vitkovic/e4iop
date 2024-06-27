@@ -294,5 +294,12 @@ public class CollaborationService {
 		
 		return companyRatingsDTO;
 	}
+
+    @Transactional
+	public List<Collaboration> findAllRatedCollaborationsForCompany(Long companyId) {
+		// TODO Auto-generated method stub
+    	
+		return collaborationRepository.findAllByCompanyAndRatingAndStatus(companyId, CollaborationStatus.ACCEPTED);
+	}
     
 }

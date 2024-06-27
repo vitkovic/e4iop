@@ -391,4 +391,12 @@ public class CollaborationResource {
             return ResponseEntity.noContent().build(); // Or another appropriate response
         }
     }
+    
+    @GetMapping("/collaborations/company-rated/{companyId}")
+    public ResponseEntity<List<Collaboration>> getAllRatedCollaborationsForCompany(@PathVariable Long companyId) {
+        log.debug("REST request to get all rated collaborations for Company {}", companyId);
+
+        List<Collaboration> collaborations = collaborationService.findAllRatedCollaborationsForCompany(companyId);        
+        return ResponseEntity.ok(collaborations);
+    }
 }

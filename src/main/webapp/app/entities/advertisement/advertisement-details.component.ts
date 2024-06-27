@@ -4,6 +4,7 @@ import { required, email } from 'vuelidate/lib/validators';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import { ICompany } from '@/shared/model/company.model';
+import { ICollaboration } from '@/shared/model/collaboration.model';
 import { IMeeting } from '@/shared/model/meeting.model';
 import { ICompanyRatingsDTO } from '@/shared/model/dto/company-ratings-dto';
 
@@ -81,6 +82,7 @@ export default class AdvertisementDetails extends Vue {
   public nonB2BMeetingParticipantEmail: string | null = null;
   public isEmailValid = true;
   public companyRatingsDTO: ICompanyRatingsDTO | null = null;
+  public collaborations: ICollaboration[] = [];
 
   public companySearchText = '';
   public showCompaniesSearch = false;
@@ -402,6 +404,22 @@ export default class AdvertisementDetails extends Vue {
 
   public closeCreateMeetingModal() {
     (<any>this.$refs.createMeetingModal).hide();
+  }
+
+  public prepareCollaborationsModal(): void {
+    this.collaborationService()
+      .getAllRatedCollaborationsForCompany(this.advertisement.company.id)
+      .then(res => {
+        this.collaborations = res;
+
+        if (<any>this.$refs.collaborationsModal) {
+          (<any>this.$refs.collaborationsModal).show();
+        }
+      });
+  }
+
+  public closeCollaborationsModal() {
+    (<any>this.$refs.collaborationsModal).hide();
   }
 
   public combineDateAndTime(dateString: string, timeString: string): Date {
