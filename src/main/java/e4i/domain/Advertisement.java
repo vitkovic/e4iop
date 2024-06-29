@@ -108,8 +108,20 @@ public class Advertisement implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "advertisements", allowSetters = true)
     private AdvertisementSubsubcategory subsubcategory;
+    
+    @ManyToOne
+    @JsonIgnoreProperties(value = "advertisements", allowSetters = true)
+    private AdvertisementCategory category;    
 
-    @ManyToMany(mappedBy = "advertisements")
+    public AdvertisementCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(AdvertisementCategory category) {
+		this.category = category;
+	}
+
+	@ManyToMany(mappedBy = "advertisements")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnore
     private Set<Thread> threads = new HashSet<>();

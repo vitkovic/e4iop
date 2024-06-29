@@ -47,10 +47,10 @@ export default class AdvertisementService {
         });
     });
   }
-  public retrieveSearch(search:string, paginationQuery?: any): Promise<any> {
+  public retrieveSearch(search:string, category:number, paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
-        .get(baseApiUrlSearch + `?search=${search}`+  `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .get(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
         .then(res => {
           resolve(res);
         })

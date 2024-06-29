@@ -38,7 +38,7 @@ export default class B2BJhiNavbar extends Vue {
   public isActive: boolean = false;
 
  beforeRouteEnter(to, from, next) {
-    next(vm => {
+    to(vm => {
       vm.initRelationships();
     });
   }
@@ -140,10 +140,12 @@ export default class B2BJhiNavbar extends Vue {
   }
   
   private advList;
+  
   public searchAdv(): void {
 	//  console.log(this.searchinput);
+	console.log(this.mainSearchCategory);
 	 this.advertisementService()
-      .retrieveSearch("test")
+      .retrieveSearch(this.txtsearch,Number(this.mainSearchCategory))
       .then(res => {
         console.log(res.data);
         this.advList = res.data;
@@ -155,7 +157,7 @@ export default class B2BJhiNavbar extends Vue {
     this.advertisementCategoryService()
       .retrieve()
       .then(res => {
-        console.log(res.data);
+	    console.log(res.data);
         this.advCategList = res.data;
         this.$refs.mainSearchCategory = this.advCategList;
         

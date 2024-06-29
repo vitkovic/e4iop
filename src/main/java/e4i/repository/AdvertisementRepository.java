@@ -80,6 +80,21 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     Page<Advertisement> findSearchAllByCompanyId(@Param("search") String search,@Param("companyId") Long companyId, Pageable pageable);
     
     
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+    		+ "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.category.id=:category")
+    Page<Advertisement> findAllBySearchAdminbyCategory(@Param("search") String search, @Param("category") Long category,  Pageable pageable);
+    
+    
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "where advertisement.company.id = :companyId "
+    		+ "and (upper(advertisement.description) like CONCAT('%',upper(:search),'%') or upper(advertisement.title) like CONCAT('%',upper(:search),'%')) and advertisement.category.id=:category",
+            countQuery = "select count(distinct advertisement) from Advertisement advertisement")
+    Page<Advertisement> findSearchAllByCompanyIdbyCategory(@Param("search") String search,@Param("companyId") Long companyId,@Param("category") Long category, Pageable pageable);
+    
+    
 
+    
+    
 	Optional<Advertisement> findOneByThreads(Thread thread);
 }

@@ -1,6 +1,7 @@
 package e4i.security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -116,9 +117,10 @@ public final class SecurityUtils {
         Collection<? extends GrantedAuthority> authorities = authentication instanceof JwtAuthenticationToken ?
             extractAuthorityFromClaims(((JwtAuthenticationToken) authentication).getToken().getClaims())
             : authentication.getAuthorities();
-        
-        mapAuthenticatinAuthorithies =  ((DefaultOidcUser) authentication.getPrincipal()).getAuthorities();
-        
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + authentication);
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+        	mapAuthenticatinAuthorithies =  ((DefaultOidcUser) authentication.getPrincipal()).getAuthorities();
+        }
         if (CollectionUtils.isEmpty(authentication.getAuthorities())) {
         	authorities = mapAuthenticatinAuthorithies;
         }

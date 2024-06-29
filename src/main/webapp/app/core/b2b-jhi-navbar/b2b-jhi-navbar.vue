@@ -394,7 +394,7 @@
                 <b-input-group-prepend is-text>
                   <font-awesome-icon icon="search" scale="1.3"></font-awesome-icon>
                 </b-input-group-prepend>
-                <select class="form-control" id="portal-user-company" name="company" @click="" ref="mainSearchCategory">
+                <select class="form-control" v-model="mainSearchCategory" id="portal-user-company" name="company" @click="" ref="mainSearchCategory">
                     <option v-for="element in advCategList" :key="element.id" :value="element.id">{{element.name}}</option>
                 </select>
               </b-input-group>

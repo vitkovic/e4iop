@@ -440,10 +440,10 @@ public class AdvertisementResource {
 	     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the advertisement, or with status {@code 404 (Not Found)}.
 	     */
 	    @GetMapping("/advertisements/search")
-	    public ResponseEntity<List<Advertisement>> getAdvertisementSearch(Pageable pageable, @RequestParam String search) {
+	    public ResponseEntity<List<Advertisement>> getAdvertisementSearch(Pageable pageable, @RequestParam String search, @RequestParam Long category) {
 	        log.debug("REST request to get search Advertisements : {}", search);
 	        Page<Advertisement> page;
-	        page = advertisementService.findAllBySearch(search, pageable);
+	        page = advertisementService.findAllBySearch(search, category, pageable);
 	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 	        return ResponseEntity.ok().headers(headers).body(page.getContent());
 	    }

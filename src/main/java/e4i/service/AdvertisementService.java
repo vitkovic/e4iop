@@ -108,20 +108,34 @@ public class AdvertisementService {
     * @return the list of entities.
     */
    @Transactional(readOnly = true)
-   public Page<Advertisement> findAllBySearch(String search, Pageable pageable) {
+   public Page<Advertisement> findAllBySearch(String search, Long category, Pageable pageable) {
 	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
        log.debug("Request to get all Advertisements");
        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
     	  System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-       	return advertisementRepository.findAllBySearchAdmin(search,pageable);
+      	  if (category != 1) 
+    		  return advertisementRepository.findAllBySearchAdmin(search,pageable);
+    	  else 
+    		  return advertisementRepository.findAllBySearchAdminbyCategory(search,category,pageable);
+       } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
+    	 
+    	   if (category != 1) 
+           	return advertisementRepository.findAllBySearchAdminbyCategory(search,category ,pageable);
+           else
+           	return advertisementRepository.findAllBySearchAdmin(search, pageable);
+           
+    	   
        } else {
     	   
     	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-       	 Optional<User> currentUser = userService.getUserWithAuthorities();
+       	    Optional<User> currentUser = userService.getUserWithAuthorities();
             User user = currentUser.get();
             
             PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
-            return advertisementRepository.findSearchAllByCompanyId(search, pUser.getCompany().getId() ,pageable);
+            if (category != 1) 
+            	return advertisementRepository.findSearchAllByCompanyIdbyCategory(search, pUser.getCompany().getId(), category ,pageable);
+            else
+            	return advertisementRepository.findSearchAllByCompanyId(search, pUser.getCompany().getId() ,pageable);
             
 //            List<String> userRoles = pUser.pronadjiPortalUserRolesAbbreviations();
 //            if(userRoles.contains("RPRIPO")) {
