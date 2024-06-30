@@ -113,10 +113,11 @@ export default class Advertisement extends mixins(AlertMixin) {
   }
 
   public transition(): void {
-   // this.retrieveAllAdvertisements();
+    this.retrieveAllAdvertisements();
   }
 
   public changeOrder(propOrder): void {
+	  console.log("change order klfjsdkfldjlfdjfsdlfjsdlfj");
     this.propOrder = propOrder;
     this.reverse = !this.reverse;
     this.transition();

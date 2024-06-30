@@ -48,6 +48,7 @@ export default class AdvertisementService {
     });
   }
   public retrieveSearch(search:string, category:number, paginationQuery?: any): Promise<any> {
+	 console.log(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
     return new Promise<any>((resolve, reject) => {
       axios
         .get(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`)

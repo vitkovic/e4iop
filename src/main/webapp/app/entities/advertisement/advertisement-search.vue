@@ -2,7 +2,7 @@
     <div>
         <h2 id="page-heading">
             <span v-text="$t('riportalApp.advertisement.home.title')" id="advertisement-heading">Advertisements</span>
-        kiki</h2>
+        </h2>
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
