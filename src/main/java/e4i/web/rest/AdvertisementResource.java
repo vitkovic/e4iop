@@ -423,7 +423,7 @@ public class AdvertisementResource {
 	    	log.debug("REST request to get a page of Advertisements");
 	    	
 	    	// Odraditi proveru da li status sa zadatim nazivom postoji u bazi
-	    	
+	    	System.out.println("kukuriku #####################################################################");
 	        Page<Advertisement> page;
 	        if (eagerload) {
 	            page = advertisementRepository.findAllWithEagerRelationships(pageable);
@@ -443,6 +443,10 @@ public class AdvertisementResource {
 	    public ResponseEntity<List<Advertisement>> getAdvertisementSearch(Pageable pageable, @RequestParam String search, @RequestParam Long category) {
 	        log.debug("REST request to get search Advertisements : {}", search);
 	        Page<Advertisement> page;
+	        
+	        
+	        System.out.println("Search %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+	        
 	        page = advertisementService.findAllBySearch(search, category, pageable);
 	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 	        return ResponseEntity.ok().headers(headers).body(page.getContent());

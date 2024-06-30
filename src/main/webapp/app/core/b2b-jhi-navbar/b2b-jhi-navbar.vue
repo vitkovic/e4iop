@@ -380,7 +380,7 @@
                 <b-input-group-prepend is-text>
                   <font-awesome-icon icon="search" scale="1.3"></font-awesome-icon>
                 </b-input-group-prepend>
-                <b-form-input class="inputPoljeC"  v-model='txtsearch' ref="searchadv" id="searchadv" name="searchadv" type="text" :placeholder="$t('global.menu.searchAd')"></b-form-input>
+                <b-form-input class="inputPoljeC"  v-model='txtsearchNav' ref="searchadv" id="searchadv" name="searchadv" type="text" :placeholder="$t('global.menu.searchAd')"></b-form-input>
                 <div class="input-group-append">
                   <b-button class="primary btn btn-dark" @click="searchAdv()">{{ $t('entity.action.searchBar') }}</b-button>
                 </div>

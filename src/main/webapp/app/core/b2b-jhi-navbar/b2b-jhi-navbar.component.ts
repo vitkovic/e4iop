@@ -8,7 +8,7 @@ import AdvertisementCategoryService from '../../entities/advertisement-category/
 import AdvertisementCategory from '../../entities/advertisement/advertisement.service';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import AdvertisementService from '../../entities/advertisement/advertisement.service';
-
+import buildPaginationQueryOpts from '@/shared/sort/sorts';
 @Component
 export default class B2BJhiNavbar extends Vue {
   @Inject('loginService')
@@ -33,9 +33,13 @@ export default class B2BJhiNavbar extends Vue {
   public companyId: number;
   public companyLink = '';
   private advCategList = null;
-  private txtsearch;
-
+  private txtsearchNav;
+  private mainSearchCategory = null;
+  private advertisements = null;
   public isActive: boolean = false;
+
+  
+  public category;
 
  beforeRouteEnter(to, from, next) {
     to(vm => {
@@ -47,22 +51,39 @@ export default class B2BJhiNavbar extends Vue {
 	
 	
     this.translationService().refreshTranslation(this.currentLanguage);
+    
+    
+    
    
   }
   
   data() {
       return {
-        txtsearch: '',
+       txtsearchNav: '',
+       mainSearchCategory:'',
       }
     }
   
   
   mounted() {
+	
+    
 	this.initRelationships();
     // Call the function to check screen size and update isActive
     this.checkScreenSize();
     // Add event listener to track window resize
     window.addEventListener('resize', this.checkScreenSize);
+    
+     this.txtsearchNav = this.$route.query.search;
+     this.mainSearchCategory =  this.$route.query.category;
+     
+     console.log( this.$route.query)
+    
+    if (this.txtsearchNav == null) {
+     const urlParams = new URLSearchParams(window.location.search);
+	 this.txtsearchNav = urlParams.get('search');
+     this.mainSearchCategory =  urlParams.get('category');
+    }
   }
 
   beforeDestroy() {
@@ -142,14 +163,21 @@ export default class B2BJhiNavbar extends Vue {
   private advList;
   
   public searchAdv(): void {
-	//  console.log(this.searchinput);
+
+	const baseApiUrlSearch = '/b2b/advertisement-search';
+	var ppath = baseApiUrlSearch + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+	window.location.href= baseApiUrlSearch + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+	/*
 	console.log(this.mainSearchCategory);
 	 this.advertisementService()
       .retrieveSearch(this.txtsearch,Number(this.mainSearchCategory))
       .then(res => {
         console.log(res.data);
         this.advList = res.data;
-      });  
+        this.advertisements = res.data;
+       
+      });
+      */  
   }
 
   private searchinput;

@@ -223,6 +223,8 @@ const AdvertisementDetails = () => import('@/entities/advertisement/advertisemen
 // prettier-ignore
 const AdvertisementBrowse = () => import('@/entities/advertisement/advertisement-browse.vue');
 // prettier-ignore
+const AdvertisementSearch = () => import('@/entities/advertisement/advertisement-search.vue');
+// prettier-ignore
 const CompanyAdvertisementsView = () => import('@/entities/advertisement/company-advertisements-view.vue');
 // prettier-ignore
 const CompanyAdvertisementsManage = () => import('@/entities/advertisement/company-advertisements-manage.vue');
@@ -1312,6 +1314,13 @@ export default [
     component: AdvertisementBrowse,
     meta: { authorities: [Authority.USER] },
   },
+  {
+    path: '/b2b/advertisement-search',
+    name: 'AdvertisementSearch',
+    component: AdvertisementSearch,
+  },
+  
+  
   {
     path: '/b2b/company/:companyId/advertisements-view',
     name: 'CompanyAdvertisementsView',
