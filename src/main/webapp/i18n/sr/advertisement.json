@@ -42,6 +42,8 @@
       "duration": "Trajanje oglasa (meseci)",
       "type": "Tip",
       "kind": "Vrsta",
+      "advertisementSupporters": "Priključeni oglašivači",
+      "additionalSupporters": "Dodatni oglašivači",
       "subsubcategory": "Podkategorija",
       "thread": "Thread",
       "of": "od",

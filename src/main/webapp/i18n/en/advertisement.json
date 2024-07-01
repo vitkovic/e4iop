@@ -42,6 +42,8 @@
       "duration": "Advertisement duration (months)",
       "type": "Type",
       "kind": "Kind",
+      "advertisementSupporters": "Supporting advertisers",
+      "additionalSupporters": "Additional advertisers",
       "subsubcategory": "Subcategory",
       "thread": "Thread",
       "of": "of",

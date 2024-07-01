@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import e4i.domain.Advertisement;
 import e4i.domain.AdvertisementSupporter;
+import e4i.domain.Company;
 import e4i.repository.AdvertisementSupporterRepository;
 
 import java.util.List;
@@ -71,4 +73,33 @@ public class AdvertisementSupporterService {
         log.debug("Request to delete AdvertisementSupporter : {}", id);
         advertisementSupporterRepository.deleteById(id);
     }
+
+    
+	public AdvertisementSupporter addCompanySupporter(Advertisement advertisement, Company company) {
+		AdvertisementSupporter advertisementSupporter = new AdvertisementSupporter();
+		advertisementSupporter.setAdvertisement(advertisement);
+		advertisementSupporter.setCompany(company);
+		advertisementSupporter.setHasAccepted(false);
+		
+		AdvertisementSupporter result = advertisementSupporterRepository.save(advertisementSupporter);
+		
+		return result;
+	}
+	
+	public void removeCompanySupporter(Advertisement advertisement, Company company) {
+		Optional<AdvertisementSupporter> advertisementSupporterOptional = 
+				advertisementSupporterRepository.findByAdvertisementIdAndCompanyId(advertisement.getId(), company.getId());
+	
+		if (advertisementSupporterOptional.isPresent()) {
+			AdvertisementSupporter advertisementSupporter = advertisementSupporterOptional.get();
+			advertisementSupporterRepository.delete(advertisementSupporter);
+		}
+		
+		return;
+	}
+
+	public List<AdvertisementSupporter> findAllByAdvertisementId(Advertisement advertisement) {
+		
+		return advertisementSupporterRepository.findAllByAdvertisementId(advertisement.getId());
+	}
 }

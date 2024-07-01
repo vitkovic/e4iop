@@ -42,6 +42,8 @@
       "duration": "Трајање огласа (месеци)",
       "type": "Тип",
       "kind": "Врста",
+      "advertisementSupporters": "Прикључени оглашивачи",
+      "additionalSupporters": "Додатни оглашивачи",
       "subsubcategory": "Подкатегорија",
       "thread": "Thread",
       "of": "од",

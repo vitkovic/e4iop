@@ -48,6 +48,8 @@ import AdvertisementService from './advertisement.service';
 
 import AccountService from '@/account/account.service';
 
+import CompanySelect from '@/shared/components/company-select/company-select.vue';
+
 const validations: any = {
   advertisement: {
     createdAt: {},
@@ -100,6 +102,9 @@ enum AdvertisementTypeOptions {
 
 @Component({
   validations,
+  components: {
+    CompanySelect,
+  },
 })
 export default class AdvertisementUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
@@ -155,6 +160,10 @@ export default class AdvertisementUpdate extends Vue {
   @Inject('accountService') private accountService: () => AccountService;
 
   public threads: IThread[] = [];
+  public company: ICompany | null = null;
+  public excludedCompaniesValue: ICompany[] = [];
+  public includedCompaniesValue: ICompany[] = [];
+  public portalUser: IPortalUser | null = null;
   public isSaving = false;
   public currentLanguage = '';
   private hasAnyAuthorityValue = false;
@@ -177,6 +186,8 @@ export default class AdvertisementUpdate extends Vue {
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
+      vm.setExcludedCompanies();
+
       if (vm.componentInitialized) {
         return;
       }
@@ -210,6 +221,7 @@ export default class AdvertisementUpdate extends Vue {
     if (this.$route.params.advertisementId) {
       this.advertisementTitleHasID = false;
       this.retrieveAdvertisement(this.$route.params.advertisementId);
+      this.retrieveAdvertisementSupporters(this.$route.params.advertisementId);
     } else {
       if (this.$route.query.type) {
         if (this.$route.query.type == 'offer') {
@@ -232,6 +244,43 @@ export default class AdvertisementUpdate extends Vue {
     this.initRelationships();
   }
 
+  public setExcludedCompanies(): void {
+    const user = this.$store.getters.account;
+
+    if (!user) {
+      this.excludedCompaniesValue = [];
+      return;
+    }
+
+    this.portalUserService()
+      .findByUserId(user.id)
+      .then(res => {
+        this.portalUser = res;
+        if (this.portalUser?.company) {
+          // this.company = this.portalUser.company;
+          this.excludedCompaniesValue = [this.portalUser.company];
+        } else {
+          this.excludedCompaniesValue = [];
+        }
+      });
+  }
+
+  get excludedCompanies(): ICompany[] {
+    return this.excludedCompaniesValue;
+  }
+
+  public setIncludedCompanies(): void {
+    if (this.advertisement?.advertisementSupporters) {
+      this.includedCompaniesValue = this.advertisement.advertisementSupporters.map(supporter => supporter.company);
+    } else {
+      this.includedCompaniesValue = [];
+    }
+  }
+
+  get includedCompanies(): ICompany[] {
+    return this.includedCompaniesValue;
+  }
+
   public async save(): Promise<void> {
     this.isSaving = true;
     this.isLoading = true;
@@ -245,6 +294,7 @@ export default class AdvertisementUpdate extends Vue {
         this.isSaving = false;
         const message = this.$t('riportalApp.advertisement.updated', { param: param.id });
         this.alertService().showAlert(message, 'info');
+        this.manageAdvertisementSupporters();
         await this.saveFiles(); // Wait for saveFiles to complete
         // this.isLoading = false;
         // this.$router.go(-1);     // Navigate after saveFiles() is done
@@ -281,6 +331,7 @@ export default class AdvertisementUpdate extends Vue {
         const message = this.$t('riportalApp.advertisement.created', { param: param.id });
         this.alertService().showAlert(message, 'success');
         this.advertisement = param;
+        this.manageAdvertisementSupporters();
         await this.saveFiles(); // Wait for saveFiles to complete
         // this.isLoading = false;
         // this.$router.go(-1);     // Navigate after saveFiles() is done
@@ -341,26 +392,35 @@ export default class AdvertisementUpdate extends Vue {
       });
   }
 
+  public retrieveAdvertisementSupporters(advertisementId): void {
+    this.advertisementSupporterService()
+      .retrieveAdvertisementSupporters(advertisementId)
+      .then(res => {
+        this.advertisement.advertisementSupporters = res;
+        this.setIncludedCompanies();
+      });
+  }
+
   public previousState(): void {
     this.$router.go(-1);
   }
 
   public initRelationships(): void {
-    this.advertisementSupporterService()
-      .retrieve()
-      .then(res => {
-        this.advertisementSupporters = res.data;
-      });
-    this.collaborationService()
-      .retrieve()
-      .then(res => {
-        this.collaborations = res.data;
-      });
-    this.meetingService()
-      .retrieve()
-      .then(res => {
-        this.meetings = res.data;
-      });
+    // this.advertisementSupporterService()
+    //   .retrieve()
+    //   .then(res => {
+    //     this.advertisementSupporters = res.data;
+    //   });
+    // this.collaborationService()
+    //   .retrieve()
+    //   .then(res => {
+    //     this.collaborations = res.data;
+    //   });
+    // this.meetingService()
+    //   .retrieve()
+    //   .then(res => {
+    //     this.meetings = res.data;
+    //   });
     this.documentService()
       .retrieve()
       .then(res => {
@@ -406,11 +466,11 @@ export default class AdvertisementUpdate extends Vue {
       .then(res => {
         this.advertisementSubsubcategories = res.data;
       });
-    this.threadService()
-      .retrieve()
-      .then(res => {
-        this.threads = res.data;
-      });
+    // this.threadService()
+    //   .retrieve()
+    //   .then(res => {
+    //     this.threads = res.data;
+    //   });
   }
 
   public get authenticated(): boolean {
@@ -762,5 +822,42 @@ export default class AdvertisementUpdate extends Vue {
     } else if (this.currentLanguage === 'src') {
       return this.$t('riportalApp.advertisement.browseText');
     }
+  }
+
+  public manageAdvertisementSupporters(): void {
+    let selectedCompanies = [];
+    try {
+      const companySelectComponent = this.$refs.companySelect as InstanceType<typeof CompanySelect>;
+      selectedCompanies = companySelectComponent.selectedCompanies;
+    } catch (err) {
+      console.error('Nije moguće pristupiti izabranim kompanijama', err);
+      return;
+    }
+
+    const currentSupporters = this.advertisement.advertisementSupporters.map(supporter => supporter.company);
+
+    const companyIdsToAdd = this.differenceByProperty(selectedCompanies, currentSupporters, 'id').map(company => company.id);
+
+    const companyIdsToRemove = this.differenceByProperty(currentSupporters, selectedCompanies, 'id').map(company => company.id);
+
+    let formData = new FormData();
+    formData.append('advertisementId', '' + this.advertisement.id);
+    formData.append('companyIdsToAdd', '' + companyIdsToAdd);
+    formData.append('companyIdsToRemove', '' + companyIdsToRemove);
+
+    this.advertisementSupporterService()
+      .manageAdvertisementSupporters(formData)
+      .then(res => {})
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+  /**
+   * For two arrays, A and B, find set like difference, A\B.
+   */
+  public differenceByProperty<T, K extends keyof T>(array1: T[], array2: T[], property: K): T[] {
+    const valuesInArray2 = array2.map(item => item[property]);
+    return array1.filter(element => !valuesInArray2.includes(element[property]));
   }
 }

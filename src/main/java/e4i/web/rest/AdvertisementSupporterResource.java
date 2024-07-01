@@ -4,12 +4,17 @@ import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import e4i.domain.Advertisement;
 import e4i.domain.AdvertisementSupporter;
+import e4i.domain.Company;
+import e4i.service.AdvertisementService;
 import e4i.service.AdvertisementSupporterService;
+import e4i.service.CompanyService;
 import e4i.web.rest.errors.BadRequestAlertException;
 
 import java.net.URI;
@@ -30,6 +35,12 @@ public class AdvertisementSupporterResource {
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
+    
+    @Autowired
+    AdvertisementService AdvertisementService;
+    
+    @Autowired
+    CompanyService companyService;
 
     private final AdvertisementSupporterService advertisementSupporterService;
 
@@ -112,5 +123,60 @@ public class AdvertisementSupporterResource {
         log.debug("REST request to delete AdvertisementSupporter : {}", id);
         advertisementSupporterService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    
+    @PostMapping("/advertisement-supporters/manage")
+    public ResponseEntity<Void> manageAdvertisementSupporters(
+    		@RequestParam Long advertisementId,
+    		@RequestParam List<Long> companyIdsToAdd,
+    		@RequestParam List<Long> companyIdsToRemove
+    		) throws URISyntaxException {
+        log.debug("REST request to add or remove  AdvertisementSupporters for AdvertisementId : {}", advertisementId);
+
+        
+        Optional<Advertisement> advertisementOptional = AdvertisementService.findOne(advertisementId);
+        
+        if (advertisementOptional.isEmpty()) {	
+        	return ResponseEntity.badRequest().build();
+        }
+        
+        Advertisement advertisement = advertisementOptional.get();
+        
+        for (Long companyId : companyIdsToAdd) {
+        	Optional<Company> companyOptional = companyService.findOne(companyId);
+        	
+        	if (companyOptional.isPresent()) {
+        		Company company = companyOptional.get();
+        		advertisementSupporterService.addCompanySupporter(advertisement, company);
+        	}
+        }
+        
+        for (Long companyId : companyIdsToRemove) {
+        	Optional<Company> companyOptional = companyService.findOne(companyId);
+        	
+        	if (companyOptional.isPresent()) {
+        		Company company = companyOptional.get();
+        		advertisementSupporterService.removeCompanySupporter(advertisement, company);
+        	}
+        }
+        
+        return ResponseEntity.ok().build();
+    }
+    
+    @GetMapping("/advertisement-supporters/retrieve/{advertisementId}")
+    public ResponseEntity<List<AdvertisementSupporter>> retrieveAdvertisementSupporters(@PathVariable Long advertisementId) throws URISyntaxException {
+        log.debug("REST request to retrieve AdvertisementSupporters for AdvertisementId : {}", advertisementId);
+        
+        Optional<Advertisement> advertisementOptional = AdvertisementService.findOne(advertisementId);
+        
+        if (advertisementOptional.isEmpty()) {	
+        	return ResponseEntity.badRequest().build();
+        }
+        
+        Advertisement advertisement = advertisementOptional.get();
+        
+        List<AdvertisementSupporter> supporters = advertisementSupporterService.findAllByAdvertisementId(advertisement);
+        
+        return ResponseEntity.ok(supporters);
     }
 }

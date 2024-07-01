@@ -216,7 +216,6 @@
                 </small>
               </div>
             </div>
-
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.duration')" for="advertisement-duration"
                 >Duration</label
@@ -281,7 +280,12 @@
                 v-model="$v.advertisement.conditions.$model"
               />
             </div>
+
+
           </div>
+
+
+
           <div class="col-3">
             <div class="border-line border p-3" v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')">
               <div class="form-group">
@@ -347,7 +351,7 @@
                   class="form-control"
                   id="id"
                   name="id"
-                  v-model="advertisement.modifiedBy.firstname"
+                  v-model="advertisement.modifiedBy.firstName"
                   readonly
                 />
                 <input v-else type="text" class="form-control" id="id" name="id" disabled="true" />
@@ -411,6 +415,19 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-5">
+            <hr>
+            <company-select class="mt-3"
+              ref="companySelect"
+              :labelText="$t('riportalApp.advertisement.additionalSupporters')"
+              :includedCompanies="includedCompanies"
+              :excludedCompanies="excludedCompanies"
+            ></company-select>
+          </div>
+        </div>
+
         <hr />
         <div class="row mt-4 justify-content-between">
           <div class="col-5">

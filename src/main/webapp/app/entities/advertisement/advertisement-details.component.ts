@@ -7,6 +7,7 @@ import { ICompany } from '@/shared/model/company.model';
 import { ICollaboration } from '@/shared/model/collaboration.model';
 import { IMeeting } from '@/shared/model/meeting.model';
 import { ICompanyRatingsDTO } from '@/shared/model/dto/company-ratings-dto';
+import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
 
 import InquiryService from './inquiry.service';
 import AccountService from '@/account/account.service';
@@ -15,6 +16,7 @@ import CollaborationService from '../../entities/collaboration/collaboration.ser
 import PortalUserService from '../../entities/portal-user/portal-user.service';
 import MeetingService from '../../entities/meeting/meeting.service';
 import CompanyService from '../../entities/company/company.service';
+import AdvertisementSupporterService from '../advertisement-supporter/advertisement-supporter.service';
 
 interface InquiryDTO {
   advertisement: IAdvertisement;
@@ -67,6 +69,7 @@ export default class AdvertisementDetails extends Vue {
   @Inject('inquiryService') private inquiryService: () => InquiryService;
   @Inject('meetingService') private meetingService: () => MeetingService;
   @Inject('companyService') private companyService: () => CompanyService;
+  @Inject('advertisementSupporterService') private advertisementSupporterService: () => AdvertisementSupporterService;
 
   public portalUser: IPortalUser = null;
   private hasAnyAuthorityValue = false;
@@ -196,6 +199,15 @@ export default class AdvertisementDetails extends Vue {
         this.advertisement = res;
         this.checkCompanyOwnership();
         this.getCompanyRatings(this.advertisement.company.id);
+        this.retrieveAdvertisementSupporters(this.advertisement.id);
+      });
+  }
+
+  public retrieveAdvertisementSupporters(advertisementId): void {
+    this.advertisementSupporterService()
+      .retrieveAdvertisementSupporters(advertisementId)
+      .then(res => {
+        this.advertisement.advertisementSupporters = res;
       });
   }
 

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
 
 const baseApiUrl = 'api/advertisement-supporters';
+const apiManageAdvertisementSupporters = 'api/advertisement-supporters/manage';
+const apiRetrieveAdvertisementSupporters = 'api/advertisement-supporters/retrieve';
 
 export default class AdvertisementSupporterService {
   public find(id: number): Promise<IAdvertisementSupporter> {
@@ -61,6 +63,36 @@ export default class AdvertisementSupporterService {
     return new Promise<IAdvertisementSupporter>((resolve, reject) => {
       axios
         .put(`${baseApiUrl}`, entity)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public manageAdvertisementSupporters(entity: FormData): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      axios
+        .post(apiManageAdvertisementSupporters, entity, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public retrieveAdvertisementSupporters(advertisementId: number): Promise<IAdvertisementSupporter[]> {
+    return new Promise<IAdvertisementSupporter[]>((resolve, reject) => {
+      axios
+        .get(`${apiRetrieveAdvertisementSupporters}/${advertisementId}`)
         .then(res => {
           resolve(res.data);
         })

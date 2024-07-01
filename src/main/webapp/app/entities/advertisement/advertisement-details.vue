@@ -78,10 +78,10 @@
                         <h2 class="company-title mb-0" style="align-self: center;">{{ advertisement.company.name }}</h2>
                       </router-link>
                   </div>
-                  <div class="company-avg-star d-flex align-items-center">
+                  <div v-if="companyRatingsDTO.totalRatings > 0 && companyRatingsDTO.averageRating" class="company-avg-star d-flex align-items-center">
                     <font-awesome-icon icon="star" class="fa-xs mr-1"></font-awesome-icon>
                     <div>
-                      <span v-if="companyRatingsDTO.averageRating" class="">{{ companyRatingsDTO.averageRating }}</span>
+                      <span class="">{{ companyRatingsDTO.averageRating }}</span>
                     </div>
                   </div>
                 </div>
@@ -342,6 +342,28 @@
                 >{{ document.filename }}
               </a>
             </p>
+          </div>
+        </section>
+        <hr class="line" />
+        
+        <section v-if="advertisement.advertisementSupporters && advertisement.advertisementSupporters.length > 0" class="supporters">
+          <h3 v-text="$t('riportalApp.advertisement.advertisementSupporters')" class="mb-4">Priključeni oglašivači</h3>
+          <div v-for="supporter in advertisement.advertisementSupporters" :key="supporter.id">
+            <div v-if="supporter.hasAccepted" class="d-flex align-items-center justify-content-between mb-2">
+              <div class="d-flex">
+                <div v-if="supporter.company.logo" class="img-box mr-2">
+                  <img
+                    :src="advertisementService().retrieveImage(supporter.company.logo.filename)"
+                    alt="company logo"
+                    class="img-logo"
+                  />
+                </div>
+                <div v-else class="img-box mr-2 placeholder-logo">{{ getCompanyInitials(supporter.company) }}</div>
+                  <router-link class="d-flex flex-wrap align-items-center" :to="{ name: 'CompanyView', params: { companyId: supporter.company.id } }">
+                    <h2 class="company-title mb-0" style="align-self: center;">{{ supporter.company.name }}</h2>
+                  </router-link>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -943,8 +965,8 @@ h2 {
 }
 
 .placeholder-logo {
-  width: 40px;
-  height: 40px;
+  width: 3.125rem;
+  height: 3.125rem;
   margin-right: 1rem;
   display: flex;
   align-items: center;
