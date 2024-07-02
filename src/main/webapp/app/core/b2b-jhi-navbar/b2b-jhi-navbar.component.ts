@@ -67,12 +67,12 @@ export default class B2BJhiNavbar extends Vue {
        mainSearchCategory:'',
          value: [],
          options: [
-        {name: 'Vue.js', language: 'JavaScript'},
-        {name: 'Adonis', language: 'JavaScript'},
-        {name: 'Rails', language: 'Ruby'},
-        {name: 'Sinatra', language: 'Ruby'},
-        {name: 'Laravel', language: 'PHP'},
-        {name: 'Phoenix', language: 'Elixir'}
+        {name: 'Оглас', language: '0'},
+        {name: 'Вест', language: '1'},
+        {name: 'Компанија', language: '2'},
+        {name: 'Захтев', language: '3'},
+        {name: 'Све заједно', language: ''},
+     
       ]
       }
     }

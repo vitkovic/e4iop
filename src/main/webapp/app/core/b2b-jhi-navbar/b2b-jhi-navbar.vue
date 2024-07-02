@@ -400,7 +400,7 @@
               </div>
                   <div class="col-sm-2 col-md-4" style="max-width:100%">
             <multiselect v-model="value" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false"
-                 :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
+                 :preserve-search="true" placeholder="Одаберите елемент претраживања" label="name" track-by="name" :preselect-first="true">
       <template #selection="{ values, search, isOpen }">
         <span class="multiselect__single"
               v-if="values.length"
