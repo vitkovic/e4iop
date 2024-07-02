@@ -9,6 +9,8 @@ export default class AboutComponent extends Vue {
     'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://img.freepik.com/free-photo/close-up-businesswoman-pointing-digital-tablet_1098-1875.jpg?t=st=1719953856~exp=1719957456~hmac=2e0c02e7eb58fc01b1713dca0da277e4cb014872e5a2f7c7a5415e16f3641eb2&w=996',
+    'https://img.freepik.com/free-photo/close-up-businessman-s-hand-using-digital-tablet_23-2148176180.jpg?t=st=1719953857~exp=1719957457~hmac=1b43938faabed2bc716e0a440b3d3f9424a5b66fb14fcfdb53ced5b425e16457&w=996',
   ];
 
   private documents = [
@@ -25,6 +27,137 @@ export default class AboutComponent extends Vue {
       title: 'Starting a business 101',
     },
   ];
+
+  public firstImgWidth: number = 0;
+  public imagesLoaded: number = 0;
+  public totalItems = 0;
+  public companyImagesArray: string[] = [];
+  public currentLightboxImage: string = '';
+  public currentIndex = 0;
+  public showMask = false;
+  public previewImage = false;
+  public totalImagesCount = 0;
+
+  mounted() {
+    this.updateImgWidth();
+    window.addEventListener('resize', this.updateImgWidth);
+  }
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.updateImgWidth);
+  }
+
+  // --- LIGHTBOX ---
+
+  // public async companyImages(): Promise<void> {
+  //   this.companyImagesArray = []; // Clear any existing images
+  //   for (let document of this.company.documents) {
+  //     if (document.type.type === 'image') {
+  //       const imageUrl = await this.companyService().retrieveImage(document.filename);
+  //       this.companyImagesArray.push(imageUrl);
+  //     }
+  //   }
+  // }
+
+  public onPreviewImage(index: number): void {
+    this.showMask = true;
+    this.previewImage = true;
+    this.currentIndex = index;
+    this.currentLightboxImage = this.images[index];
+    this.$nextTick(() => {
+      const lightboxElement = this.$refs.lightbox as HTMLElement;
+      if (lightboxElement) {
+        lightboxElement.focus();
+      }
+    });
+  }
+
+  public onClosePreviewImage() {
+    this.showMask = false;
+    this.previewImage = false;
+  }
+
+  public prev(): void {
+    this.currentIndex = this.currentIndex - 1;
+    if (this.currentIndex < 0) {
+      this.currentIndex = this.images.length - 1;
+    }
+    this.currentLightboxImage = this.images[this.currentIndex];
+  }
+
+  public next(): void {
+    this.currentIndex = this.currentIndex + 1;
+    if (this.currentIndex > this.images.length - 1) {
+      this.currentIndex = 0;
+    }
+    this.currentLightboxImage = this.images[this.currentIndex];
+  }
+
+  // --- LIGHTBOX END ---
+
+  onImageLoad() {
+    this.imagesLoaded++;
+    const totalImages = this.images.length; // Total number of images
+    if (this.imagesLoaded === totalImages) {
+      this.updateImgWidth();
+    }
+  }
+
+  // public imageNumber() {
+  //   let number = 0;
+  //   for (let img of this.images) {
+  //     if (company.type.type === 'image') {
+  //       number++;
+  //     }
+  //   }
+  //   return number;
+  // }
+
+  updateImgWidth() {
+    const carousel = this.$refs.carousel as HTMLElement;
+
+    if (!carousel) {
+      return;
+    }
+
+    const totalImages = carousel.querySelectorAll('img').length;
+    const firstImg = carousel.querySelectorAll('img')[0] as HTMLElement;
+
+    if (firstImg) {
+      this.updateImageWidths(totalImages);
+      this.firstImgWidth = firstImg.clientWidth;
+    }
+  }
+
+  updateImageWidths(totalImages: number) {
+    const carousel = this.$refs.carousel as HTMLElement;
+    const imgs = carousel.querySelectorAll('img');
+
+    const width = window.innerWidth;
+    let divisionFactor: number;
+
+    if (width <= 576) {
+      divisionFactor = 1;
+    } else if (width <= 1200) {
+      divisionFactor = 2;
+    } else {
+      divisionFactor = Math.min(totalImages, 3);
+    }
+
+    imgs.forEach((img: HTMLElement) => {
+      img.style.width = `calc(100% / ${divisionFactor})`;
+    });
+  }
+
+  scrollPrev() {
+    const carousel = this.$refs.carousel as HTMLElement;
+    carousel.scrollLeft += -this.firstImgWidth;
+  }
+
+  scrollNext() {
+    const carousel = this.$refs.carousel as HTMLElement;
+    carousel.scrollLeft += this.firstImgWidth;
+  }
 
   private viewerOptions: any = {
     movable: false,

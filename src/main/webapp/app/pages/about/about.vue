@@ -49,16 +49,53 @@
           </p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <h2>GALERIJA</h2>
-        </div>
-      </div>
-      <div class="row images-container mt-2" v-viewer="viewerOptions">
+      <!-- <div class="row images-container mt-2" v-viewer="viewerOptions">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 mb-4" v-for="(src, index) in images" :key="index">
           <img :src="src" class="img-thumbnail img-fluid" alt="Placeholder picture" @click="openViewer(src)" />
         </div>
-      </div>
+      </div> -->
+      <section v-if="images.length > 0" class="section-gallery mb-4">
+        <div class="prev-box mr-2">
+          <b-button variant="none" class="prevButton" @click="scrollPrev">
+            <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
+          </b-button>
+        </div>
+        <div class="wrapper">
+          <div class="carousel" ref="carousel" v-if="companyImagesArray">
+            <img v-for="(image, index) in images" :key="index" @click="onPreviewImage(index)" :src="image" alt="img" @load="onImageLoad" />
+          </div>
+          <div
+            v-if="showMask"
+            ref="lightbox"
+            class="lightbox"
+            tabindex="0"
+            @keydown.left="prev"
+            @keydown.right="next"
+            @keydown.esc="onClosePreviewImage"
+            @click="onClosePreviewImage"
+          >
+            <div class="light-box-contain d-flex align-items-center justify-content-center">
+              <button v-if="previewImage" class="close-btn" @click="onClosePreviewImage()">
+                <font-awesome-icon icon="times" class="fa-lg"></font-awesome-icon>
+              </button>
+              <button class="btn-lightbox-carousel btn-prev" @click.stop="prev()">
+                <font-awesome-icon icon="caret-left" class="fa-3x icon-lightbox-carousel icon-prev"></font-awesome-icon>
+              </button>
+              <button class="btn-lightbox-carousel btn-next" @click.stop="next()">
+                <font-awesome-icon icon="caret-right" class="fa-3x icon-lightbox-carousel icon-next"></font-awesome-icon>
+              </button>
+              <div v-if="previewImage" class="lightbox-img d-flex align-items-center justify-content-center" @click.stop>
+                <img :src="currentLightboxImage" alt="Image description" class="img-fluid" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="next-box ml-2">
+          <b-button variant="none" class="nextButton" @click="scrollNext">
+            <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
+          </b-button>
+        </div>
+      </section>
       <div class="row">
         <div class="col-xs-12">
           <h2>KORISNI DOKUMENTI</h2>
@@ -111,5 +148,129 @@
 h1,
 h2 {
   color: #004b90;
+}
+
+/* LIGHTBOX & GALLERY  */
+
+.lightbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.light-box-contain {
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 0;
+  color: #fff;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.close-btn:focus {
+  outline: none;
+}
+
+.btn-lightbox-carousel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  color: #fff;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.btn-lightbox-carousel:focus {
+  outline: none;
+}
+
+.btn-prev {
+  left: 20px;
+}
+
+.btn-next {
+  right: 20px;
+}
+
+/* LIGHTBOX & GALLERY END  */
+
+.section-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.wrapper {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper .carousel {
+  font-size: 0px;
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.carousel img {
+  height: 240px;
+  padding: 16px;
+  object-fit: cover;
+}
+
+.carousel img:first-child {
+  margin-left: 0px;
+}
+
+.prev-box {
+  width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-box {
+  width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
