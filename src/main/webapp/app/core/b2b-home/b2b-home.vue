@@ -14,7 +14,7 @@
         <br/>
         <div class="alert alert-warning" v-if="!isFetching && advertisements && advertisements.length === 0">
             <span v-text="$t('riportalApp.advertisement.home.notFound')">No advertisements found</span>
-        </div>
+        </div> 
         <div class="table-responsive" v-if="advertisements && advertisements.length > 0">
             <table class="table table-striped">
                 <thead>
@@ -105,6 +105,20 @@
 		</div>
 
 		<p v-text="$t('home.advertisements.offers.title')" class="pTag">Актуелне понуде</p>
+		
+		
+	 
+	 <div>
+		 
+		 
+		 
+		 
+
+		 
+		 
+ 
+  </div>
+		
 
 		<div class="divZaPonudeiPotraznje">
 			<div class="divOne">
@@ -625,3 +639,4 @@
 
 
 </style>
+	 

@@ -369,11 +369,11 @@
         </b-navbar>
       </div>
     </div>
-
+     
     <b-navbar-nav class="prviNav all d-flex justify-content-center align-items-center">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 col-md-10">
+          <div class="col-sm-10 col-md-4">
             <!-- Širina 70% na većim ekranima -->
             <div class="selInp">
               <b-input-group class="input-grupaC">
@@ -387,24 +387,40 @@
               </b-input-group>
             </div>
           </div>
-          <div class="col-sm-12 col-md-2 selekt">
+          <div class="col-sm-2 col-md-4" style="max-width:100%">
             <!-- Ostatak ekrana za select -->
-            <div class="selectC">
-              <b-input-group class="">
+              <b-input-group style="max-width:100%">
                 <b-input-group-prepend is-text>
                   <font-awesome-icon icon="search" scale="1.3"></font-awesome-icon>
                 </b-input-group-prepend>
-                <select class="form-control" v-model="mainSearchCategory" id="portal-user-company" name="company" @click="" ref="mainSearchCategory">
+                <select class="form-control col-md-12"  v-model="mainSearchCategory" id="portal-user-company" name="company" @click="" ref="mainSearchCategory">
                     <option v-for="element in advCategList" :key="element.id" :value="element.id">{{element.name}}</option>
                 </select>
               </b-input-group>
-            </div>
+              </div>
+                  <div class="col-sm-2 col-md-4" style="max-width:100%">
+            <multiselect v-model="value" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false"
+                 :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
+      <template #selection="{ values, search, isOpen }">
+        <span class="multiselect__single"
+              v-if="values.length"
+              v-show="!isOpen">{{ values.length }} options selected</span>
+      </template>
+    </multiselect>
           </div>
-        </div>
+      </div>
       </div>
     </b-navbar-nav>
 
-    <b-navbar> </b-navbar>
+   
+    
+       <div class="container">
+        <div class="row">
+			&nbsp;
+     </div>
+	</div>
+    
+    
   </div>
 </template>
 

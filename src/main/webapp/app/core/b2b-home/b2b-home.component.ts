@@ -5,6 +5,22 @@ import LoginService from '@/account/login.service';
 
 @Component
 export default class B2BHome extends Vue {
+	
+ data () {
+    return {
+        value: [],
+         options: [
+        {name: 'Vue.js', language: 'JavaScript'},
+        {name: 'Adonis', language: 'JavaScript'},
+        {name: 'Rails', language: 'Ruby'},
+        {name: 'Sinatra', language: 'Ruby'},
+        {name: 'Laravel', language: 'PHP'},
+        {name: 'Phoenix', language: 'Elixir'}
+      ]
+    }
+  }	
+	
+	
   @Inject('loginService')
   private loginService: () => LoginService;
 

@@ -106,6 +106,15 @@ import DocumentTypeService from '@/entities/document-type/document-type.service'
 import DocumentKindService from '@/entities/document-kind/document-kind.service';
 import InquiryService from '@/entities/inquiry/inquiry.service';
 
+import 'vue-multiselect/dist/vue-multiselect.min.css';
+
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+
+import VueMultiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect'
+Vue.component('VueMultiselect', VueMultiselect)
+Vue.component('Multiselect', Multiselect)
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 // Vitko

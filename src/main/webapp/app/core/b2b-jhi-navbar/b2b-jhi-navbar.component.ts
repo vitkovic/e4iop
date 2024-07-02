@@ -9,8 +9,12 @@ import AdvertisementCategory from '../../entities/advertisement/advertisement.se
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import AdvertisementService from '../../entities/advertisement/advertisement.service';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
+
+
+
 @Component
 export default class B2BJhiNavbar extends Vue {
+	
   @Inject('loginService')
   private loginService: () => LoginService;
   @Inject('translationService') private translationService: () => TranslationService;
@@ -56,11 +60,20 @@ export default class B2BJhiNavbar extends Vue {
     
    
   }
-  
+ 
   data() {
       return {
        txtsearchNav: '',
        mainSearchCategory:'',
+         value: [],
+         options: [
+        {name: 'Vue.js', language: 'JavaScript'},
+        {name: 'Adonis', language: 'JavaScript'},
+        {name: 'Rails', language: 'Ruby'},
+        {name: 'Sinatra', language: 'Ruby'},
+        {name: 'Laravel', language: 'PHP'},
+        {name: 'Phoenix', language: 'Elixir'}
+      ]
       }
     }
   
