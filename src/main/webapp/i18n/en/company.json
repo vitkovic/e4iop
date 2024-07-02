@@ -74,8 +74,8 @@
         "newImg": "New images:",
         "currentDoc": "Current documents:",
         "newDoc": "New documents:",
-        "currentLogo": "Current logo:",
-        "newLogo": "New logo:",
+        "currentLogo": "Current logo",
+        "newLogo": "New logo",
         "deleteImage": {
           "question": "Are you sure you want to delete the image?",
           "title": "Please confirm the deletion of the image"

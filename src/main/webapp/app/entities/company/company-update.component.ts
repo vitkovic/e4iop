@@ -671,4 +671,9 @@ export default class CompanyUpdate extends Vue {
       return this.$t('riportalApp.company.browseText');
     }
   }
+
+  public documentFileName(fileName) {
+    let regex = /^doc_company_\d+_/;
+    return fileName.replace(regex, '');
+  }
 }

@@ -1,15 +1,19 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-10 col-md-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
-        <h2 v-if="companyTitleHasID === true" id="riportalApp.company.home.createOrEditLabel" v-text="$t('riportalApp.company.home.createTitleLabel')">
+        <h2
+          v-if="companyTitleHasID === true"
+          id="riportalApp.company.home.createOrEditLabel"
+          v-text="$t('riportalApp.company.home.createTitleLabel')"
+        >
           Create a Company
         </h2>
         <h2 v-else id="riportalApp.company.home.createOrEditLabel" v-text="$t('riportalApp.company.home.editTitleLabel')">
           Edit a Company
         </h2>
         <div class="row justify-content-between">
-          <div class="col-8">
+          <div class="col-xs-12 col-md-7 col-lg-8 order-2 order-md-1">
             <!-- <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.company.rsnisId')" for="company-rsnisId">Rsnis Id</label>
               <input
@@ -90,10 +94,18 @@
               />
             </div>
             <div class="form-group">
-                        <label class="form-control-label" v-text="$t('riportalApp.company.isOnEinovations')" for="company-isEinovator">Is registered on portal eInovations</label>
-                        <input type="checkbox" class="form-check" name="isInRSNIS" id="company-isEinovator"
-                            :class="{'valid': !$v.company.isEinovator.$invalid, 'invalid': $v.company.isEinovator.$invalid }" v-model="$v.company.isEinovator.$model" />
-                    </div>
+              <label class="form-control-label" v-text="$t('riportalApp.company.isOnEinovations')" for="company-isEinovator"
+                >Is registered on portal eInovations</label
+              >
+              <input
+                type="checkbox"
+                class="form-check"
+                name="isInRSNIS"
+                id="company-isEinovator"
+                :class="{ valid: !$v.company.isEinovator.$invalid, invalid: $v.company.isEinovator.$invalid }"
+                v-model="$v.company.isEinovator.$model"
+              />
+            </div>
             <hr />
             <!-- <div class="form-group">
                         <label v-text="$t('riportalApp.company.badge')" for="company-badge">Badge</label>
@@ -103,7 +115,7 @@
                     </div> -->
             <div class="documents-section" v-show="showDocumentsSection">
               <div class="form-group row">
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-6">
                   <label
                     class="form-control-label position-relative font-weight-bold"
                     v-text="$t('riportalApp.company.upload.logoUpload')"
@@ -111,6 +123,7 @@
                   <b-form-file
                     style="margin-bottom: 5px;"
                     v-model="imageLogo"
+                    class="customPlaceholder"
                     :state="Boolean(imageLogo)"
                     :placeholder="placeholdertext"
                     drop-placeholder="Drop file here..."
@@ -120,11 +133,11 @@
                   >
                   </b-form-file>
                 </div>
-                <div class="col-6">
+                <div class="col-xs-12 col-sm-6">
                   <div v-if="company.logo">
                     <p class="logo-img-label font-weight-bold" v-text="$t('riportalApp.company.upload.currentLogo')">Current logo:</p>
                     <div class="mb-3 pl-1">
-                      <img :src="companyService().retrieveImage(company.logo.filename)" width="50" />
+                      <img :src="companyService().retrieveImage(company.logo.filename)" width="50" height="50" />
                       <!-- {{ company.logo.filename }} -->
                       <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="openDeleteLogoModal()" v-b-modal.deleteLogoModal>
                         <span v-text="$t('entity.action.delete')">Save</span>
@@ -156,7 +169,7 @@
               </b-row>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-xs-12 col-md-5 col-lg-4 col-xl-3 order-1 order-md-2 mb-4">
             <div class="border-line border p-3">
               <div class="form-group" v-if="company.id && authenticated && hasAnyAuthority('ROLE_ADMIN')">
                 <label for="id" v-text="$t('global.field.id')">ID</label>
@@ -230,8 +243,8 @@
           </div>
         </div>
         <hr />
-        <div class="row justify-content-between mt-4">
-          <div class="col-5">
+        <div v-if="company.documents.length > 0" class="row justify-content-between mt-4">
+          <div class="col-xs-12 col-md-6 col-lg-5">
             <div class="form-group">
               <label
                 class="form-control-label position-relative font-weight-bold"
@@ -240,6 +253,7 @@
               <b-form-file
                 style="margin-bottom: 5px;"
                 v-model="formImages"
+                class="customPlaceholder"
                 @input="appendImageFiles()"
                 :state="Boolean(formImages)"
                 :placeholder="placeholdertext"
@@ -265,13 +279,31 @@
                 <p class="small mb-0 text-info" v-text="$t('riportalApp.company.upload.imgInfo.imgSize')"></p>
                 <!-- <p class="small mb-0 text-info">* Dozvoljene dimenzije slike su 50 x 50.</p> -->
               </div>
-              <ol class="p-0">
+              <!-- <ol class="p-0">
+                <p class="font-weight-bold mt-3" v-text="$t('riportalApp.company.upload.currentImg')">Current images:</p>
+                <div class="row">
+                  <div v-for="document in company.documents" class="col-6 mb-3">
+                    <li v-if="document.type.type == 'image'" class="list-unstyled">
+                      <img :src="companyService().retrieveImage(document.filename)" width="50" height="50" />
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-danger mt-2"
+                        @click="openDeleteImageModal(document.id)"
+                        v-b-modal.deleteImageModal
+                      >
+                        <span v-text="$t('entity.action.delete')">Save</span>
+                      </button>
+                    </li>
+                  </div>
+                </div>
+              </ol> -->
+              <!-- <ol class="p-0">
                 <p class="font-weight-bold mt-3" v-text="$t('riportalApp.company.upload.currentImg')">Current images:</p>
                 <div v-for="document in company.documents">
                   <li v-if="document.type.type == 'image'" class="ml-4 mb-3 pl-2">
-                    <img :src="companyService().retrieveImage(document.filename)" width="50" />
-                    <!-- {{ document.filename }} -->
-                    <button
+                    <img :src="companyService().retrieveImage(document.filename)" width="50" height="50" /> -->
+              <!-- {{ document.filename }} -->
+              <!-- <button
                       type="button"
                       class="btn btn-sm btn-danger ml-3"
                       @click="openDeleteImageModal(document.id)"
@@ -281,12 +313,31 @@
                     </button>
                   </li>
                 </div>
-              </ol>
+              </ol> -->
+              <div class="p-0">
+                <p class="font-weight-bold mt-3" v-text="$t('riportalApp.company.upload.currentImg')">Current images:</p>
+                <div class="d-flex flex-wrap">
+                  <div v-for="document in company.documents" v-if="document.type.type == 'image'" class="image-item mb-4 mr-2">
+                    <div class="img-box">
+                      <img :src="companyService().retrieveImage(document.filename)" />
+                    </div>
+                    <!-- {{ document.filename }} -->
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-danger mt-2"
+                      @click="openDeleteImageModal(document.id)"
+                      v-b-modal.deleteImageModal
+                    >
+                      <span v-text="$t('entity.action.delete')">Obriši</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
               <ol class="p-0">
                 <p v-if="imageFiles.length > 0" class="font-weight-bold mt-3" v-text="$t('riportalApp.company.upload.newImg')">
                   New images:
                 </p>
-                <li v-for="image in imageFiles" class="ml-4 mb-3">
+                <li v-for="image in imageFiles" class="ml-4 mb-2 document-content">
                   {{ image.name }}
                   <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="removeImage(image.name)">
                     <span v-text="$t('entity.action.remove')">Save</span>
@@ -303,7 +354,7 @@
             </b-row>
           </div>
           <hr />
-          <div class="col-5">
+          <div class="col-xs-12 col-md-6 col-lg-5">
             <div class="form-group">
               <label
                 class="form-control-label position-relative font-weight-bold"
@@ -312,6 +363,7 @@
               <b-form-file
                 style="margin-bottom: 5px;"
                 v-model="formDocuments"
+                class="customPlaceholder"
                 @input="appendDocumentFiles()"
                 :state="Boolean(formDocuments)"
                 :placeholder="placeholdertext"
@@ -339,13 +391,13 @@
               <ol class="p-0">
                 <p class="font-weight-bold mt-3" v-text="$t('riportalApp.company.upload.currentDoc')">Current documents:</p>
                 <div v-for="document in company.documents">
-                  <li v-if="document.type.type == 'document'" class="ml-4 mb-3">
+                  <li v-if="document.type.type == 'document'" class="ml-4 mb-2">
                     <a
-                      class="text-info"
+                      class="text-info document-content"
                       :href="companyService().retrieveDocument(document.filename)"
                       target="_blank"
                       title="Preuzmite dokument"
-                      >{{ document.filename }}
+                      >{{ documentFileName(document.filename) }}
                     </a>
                     <button
                       type="button"
@@ -362,7 +414,7 @@
                 <p v-if="documentFiles.length > 0" class="font-weight-bold mt-3" v-text="$t('riportalApp.company.upload.newDoc')">
                   New documents:
                 </p>
-                <li v-for="document in documentFiles" class="ml-4 mb-3">
+                <li v-for="document in documentFiles" class="ml-4 mb-2 document-content">
                   {{ document.name }}
                   <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="removeDocument(document.name)">
                     <span v-text="$t('entity.action.remove')">Save</span>
@@ -470,5 +522,35 @@
 
 .logo-img-label {
   margin-bottom: 0.3rem;
+}
+
+.customPlaceholder {
+  overflow: hidden;
+}
+
+.image-item {
+  width: 70px;
+  /* height: 75px;  */
+  margin-bottom: 10px; /* Adjust margin as needed */
+  list-style-type: none; /* Remove bullet points */
+  display: flex; /* Use flexbox for internal alignment */
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: center;
+}
+
+.img-box{
+  width: 50px;
+  height: 50px;
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.document-content{
+  font-size: 0.8rem;
 }
 </style>

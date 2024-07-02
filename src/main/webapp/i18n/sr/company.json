@@ -72,8 +72,8 @@
         "newImg": "Nove slike:",
         "currentDoc": "Sačuvani dokumenti:",
         "newDoc": "Novi dokumenti:",
-        "currentLogo": "Sačuvani logo:",
-        "newLogo": "Novi logo:",
+        "currentLogo": "Sačuvani logo",
+        "newLogo": "Novi logo",
         "deleteImage": {
           "question": "Da li ste sigurni da želite da obrišete sliku?",
           "title": "Potvrdite brisanje slike"
