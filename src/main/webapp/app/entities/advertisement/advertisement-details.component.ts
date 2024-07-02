@@ -101,6 +101,12 @@ export default class AdvertisementDetails extends Vue {
 
   public firstImgWidth: number = 0;
   public imagesLoaded: number = 0;
+  public advertisementImagesArray: string[] = [];
+  public currentLightboxImage: string = '';
+  public currentIndex = 0;
+  public showMask = false;
+  public previewImage = false;
+  public totalImagesCount = 0;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -110,22 +116,66 @@ export default class AdvertisementDetails extends Vue {
     });
   }
 
-  created() {
-    console.log('Component is being created');
-  }
+  created() {}
 
   mounted() {
-    console.log('Component is being mounted');
-
     this.updateImgWidth();
     window.addEventListener('resize', this.updateImgWidth);
   }
 
-  // GALLERY LOGIC
-
   beforeDestroy() {
     window.removeEventListener('resize', this.updateImgWidth);
   }
+
+  // GALLERY LOGIC
+
+  public async companyImages(): Promise<void> {
+    this.advertisementImagesArray = []; // Clear any existing images
+    for (let document of this.advertisement.documents) {
+      if (document.type.type === 'image') {
+        const imageUrl = await this.advertisementService().retrieveImage(document.filename);
+        this.advertisementImagesArray.push(imageUrl);
+      }
+    }
+  }
+
+  // --- LIGHTBOX ---
+
+  public onPreviewImage(index: number): void {
+    this.showMask = true;
+    this.previewImage = true;
+    this.currentIndex = index;
+    this.currentLightboxImage = this.advertisementImagesArray[index];
+    this.$nextTick(() => {
+      const lightboxElement = this.$refs.lightbox as HTMLElement;
+      if (lightboxElement) {
+        lightboxElement.focus();
+      }
+    });
+  }
+
+  public onClosePreviewImage() {
+    this.showMask = false;
+    this.previewImage = false;
+  }
+
+  public prev(): void {
+    this.currentIndex = this.currentIndex - 1;
+    if (this.currentIndex < 0) {
+      this.currentIndex = this.advertisementImagesArray.length - 1;
+    }
+    this.currentLightboxImage = this.advertisementImagesArray[this.currentIndex];
+  }
+
+  public next(): void {
+    this.currentIndex = this.currentIndex + 1;
+    if (this.currentIndex > this.advertisementImagesArray.length - 1) {
+      this.currentIndex = 0;
+    }
+    this.currentLightboxImage = this.advertisementImagesArray[this.currentIndex];
+  }
+
+  // --- LIGHTBOX END ---
 
   onImageLoad() {
     this.imagesLoaded++;
@@ -200,6 +250,10 @@ export default class AdvertisementDetails extends Vue {
         this.checkCompanyOwnership();
         this.getCompanyRatings(this.advertisement.company.id);
         this.retrieveAdvertisementSupporters(this.advertisement.id);
+        return this.companyImages();
+      })
+      .catch(error => {
+        console.error('Error fetching company details or images:', error);
       });
   }
 

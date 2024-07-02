@@ -3,7 +3,9 @@
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8">
       <div v-if="advertisement">
         <b-breadcrumb v-if="advertisement.subsubcategory" class="breadcrumb-box p-2">
-          <b-breadcrumb-item href="/b2b"> <font-awesome-icon icon="home" /> {{ $t('riportalApp.advertisement.breadcrumb.home') }} </b-breadcrumb-item>
+          <b-breadcrumb-item href="/b2b">
+            <font-awesome-icon icon="home" /> {{ $t('riportalApp.advertisement.breadcrumb.home') }}
+          </b-breadcrumb-item>
           <b-breadcrumb-item href="#">{{
             advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name
           }}</b-breadcrumb-item>
@@ -15,29 +17,7 @@
         <b-row class="mb-4">
           <div class="col-xs-12 col-md-6 col-lg-7 d-flex flex-column">
             <h2 class="jh-entity-heading mb-1 mb-md-5">{{ advertisement.title }}</h2>
-            <div class="company-info-responsive mb-5">
-              <!-- <div class="d-flex d-md-none">
-                <div class="img-box mr-2"> -->
-              <!-- v-if="company.logo"  -->
-              <!-- <img
-                    src="https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740"
-                    alt="company logo"
-                    class="img-logo"
-                  />
-                </div>
-                <div class="d-flex flex-wrap align-items-center mr-3">
-                  <h4 class="company-title mb-0">
-                    {{ advertisement.company.name }}
-                  </h4>
-                </div>
-                <div class="company-avg-star d-flex align-items-center">
-                    <font-awesome-icon icon="star" class="fa-xs mr-1"></font-awesome-icon>
-                    <div>
-                      <span>3.6</span>
-                    </div>
-                  </div>
-              </div> -->
-            </div>
+            <div class="company-info-responsive mb-5"></div>
             <div>
               <dl class="d-flex flex-wrap mb-1">
                 <dt class="mr-4">
@@ -62,7 +42,13 @@
             </div>
           </div>
           <div class="d-none d-md-block col-md-6 col-lg-5">
-            <section v-if="advertisement.company && companyRatingsDTO" class="company-info" @click="prepareCollaborationsModal()" style="cursor: pointer;" v-b-modal.collaborationsModal>
+            <section
+              v-if="advertisement.company && companyRatingsDTO"
+              class="company-info"
+              @click="prepareCollaborationsModal()"
+              style="cursor: pointer;"
+              v-b-modal.collaborationsModal
+            >
               <b-card>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                   <div class="d-flex">
@@ -74,11 +60,17 @@
                       />
                     </div>
                     <div v-else class="img-box mr-2 placeholder-logo">{{ getCompanyInitials(advertisement.company) }}</div>
-                      <router-link class="d-flex flex-wrap align-items-center" :to="{ name: 'CompanyView', params: { companyId: advertisement.company.id } }">
-                        <h2 class="company-title mb-0" style="align-self: center;">{{ advertisement.company.name }}</h2>
-                      </router-link>
+                    <router-link
+                      class="d-flex flex-wrap align-items-center"
+                      :to="{ name: 'CompanyView', params: { companyId: advertisement.company.id } }"
+                    >
+                      <h2 class="company-title mb-0" style="align-self: center;">{{ advertisement.company.name }}</h2>
+                    </router-link>
                   </div>
-                  <div v-if="companyRatingsDTO.totalRatings > 0 && companyRatingsDTO.averageRating" class="company-avg-star d-flex align-items-center">
+                  <div
+                    v-if="companyRatingsDTO.totalRatings > 0 && companyRatingsDTO.averageRating"
+                    class="company-avg-star d-flex align-items-center"
+                  >
                     <font-awesome-icon icon="star" class="fa-xs mr-1"></font-awesome-icon>
                     <div>
                       <span class="">{{ companyRatingsDTO.averageRating }}</span>
@@ -97,7 +89,10 @@
                       stars="4"
                       disabled
                     ></b-form-rating>
-                    <label for="rating-inline">{{ companyRatingsDTO.percentageRating4 }} % ({{ companyRatingsDTO.totalRatings4 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
+                    <label for="rating-inline"
+                      >{{ companyRatingsDTO.percentageRating4 }} % ({{ companyRatingsDTO.totalRatings4 }}
+                      {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label
+                    >
                   </div>
                   <div>
                     <b-form-rating
@@ -110,7 +105,10 @@
                       stars="4"
                       disabled
                     ></b-form-rating>
-                    <label for="rating-inline">{{ companyRatingsDTO.percentageRating3 }} % ({{ companyRatingsDTO.totalRatings3 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
+                    <label for="rating-inline"
+                      >{{ companyRatingsDTO.percentageRating3 }} % ({{ companyRatingsDTO.totalRatings3 }}
+                      {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label
+                    >
                   </div>
                   <div>
                     <b-form-rating
@@ -123,7 +121,10 @@
                       stars="4"
                       disabled
                     ></b-form-rating>
-                    <label for="rating-inline">{{ companyRatingsDTO.percentageRating2 }} % ({{ companyRatingsDTO.totalRatings2 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
+                    <label for="rating-inline"
+                      >{{ companyRatingsDTO.percentageRating2 }} % ({{ companyRatingsDTO.totalRatings2 }}
+                      {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label
+                    >
                   </div>
                   <div>
                     <b-form-rating
@@ -136,7 +137,10 @@
                       stars="4"
                       disabled
                     ></b-form-rating>
-                    <label for="rating-inline">{{ companyRatingsDTO.percentageRating1 }} % ({{ companyRatingsDTO.totalRatings1 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
+                    <label for="rating-inline"
+                      >{{ companyRatingsDTO.percentageRating1 }} % ({{ companyRatingsDTO.totalRatings1 }}
+                      {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label
+                    >
                   </div>
                 </div>
               </b-card>
@@ -212,34 +216,30 @@
           </div>
         </section>
 
-        <section v-if="advertisement.company && companyRatingsDTO" class="company-info-responsive d-block d-md-none" @click="prepareCollaborationsModal()" style="cursor: pointer;" v-b-modal.collaborationsModal>
+        <section
+          v-if="advertisement.company && companyRatingsDTO"
+          class="company-info-responsive d-block d-md-none"
+          @click="prepareCollaborationsModal()"
+          style="cursor: pointer;"
+          v-b-modal.collaborationsModal
+        >
           <b-card>
             <div class="d-flex align-items-center justify-content-between mb-2">
               <div class="d-flex">
-                    <div v-if="advertisement.company.logo" class="img-box mr-2">
-                      <img
-                        :src="advertisementService().retrieveImage(advertisement.company.logo.filename)"
-                        alt="company logo"
-                        class="img-logo"
-                      />
-                    </div>
-                    <div v-else class="img-box mr-2 placeholder-logo">{{ getCompanyInitials(advertisement.company) }}</div>
-                    <router-link class="d-flex flex-wrap align-items-center" :to="{ name: 'CompanyView', params: { companyId: advertisement.company.id } }">
-                      <h2 class="company-title mb-0" style="align-self: center;">{{ advertisement.company.name }}</h2>
-                    </router-link>
-                <!-- <div class="img-box mr-2"> -->
-                  <!-- v-if="company.logo"  -->
-                  <!-- <img
-                    src="https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740"
+                <div v-if="advertisement.company.logo" class="img-box mr-2">
+                  <img
+                    :src="advertisementService().retrieveImage(advertisement.company.logo.filename)"
                     alt="company logo"
                     class="img-logo"
-                  /> -->
-                <!-- </div> -->
-                <!-- <div class="d-flex flex-wrap align-items-center">
-                  <h4 class="company-title mb-0">
-                    {{ advertisement.company.name }}
-                  </h4>
-                </div> -->
+                  />
+                </div>
+                <div v-else class="img-box mr-2 placeholder-logo">{{ getCompanyInitials(advertisement.company) }}</div>
+                <router-link
+                  class="d-flex flex-wrap align-items-center"
+                  :to="{ name: 'CompanyView', params: { companyId: advertisement.company.id } }"
+                >
+                  <h2 class="company-title mb-0" style="align-self: center;">{{ advertisement.company.name }}</h2>
+                </router-link>
               </div>
               <div class="company-avg-star d-flex align-items-center">
                 <font-awesome-icon icon="star" class="fa-xs mr-1"></font-awesome-icon>
@@ -260,7 +260,10 @@
                   stars="4"
                   readonly
                 ></b-form-rating>
-                <label for="rating-inline">{{ companyRatingsDTO.percentageRating4 }} % ({{ companyRatingsDTO.totalRatings4 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
+                <label for="rating-inline"
+                  >{{ companyRatingsDTO.percentageRating4 }} % ({{ companyRatingsDTO.totalRatings4 }}
+                  {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label
+                >
               </div>
               <div>
                 <b-form-rating
@@ -273,7 +276,10 @@
                   stars="4"
                   readonly
                 ></b-form-rating>
-                <label for="rating-inline">{{ companyRatingsDTO.percentageRating3 }} % ({{ companyRatingsDTO.totalRatings3 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
+                <label for="rating-inline"
+                  >{{ companyRatingsDTO.percentageRating3 }} % ({{ companyRatingsDTO.totalRatings3 }}
+                  {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label
+                >
               </div>
               <div>
                 <b-form-rating
@@ -286,7 +292,10 @@
                   stars="4"
                   readonly
                 ></b-form-rating>
-                <label for="rating-inline">{{ companyRatingsDTO.percentageRating2 }} % ({{ companyRatingsDTO.totalRatings2 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
+                <label for="rating-inline"
+                  >{{ companyRatingsDTO.percentageRating2 }} % ({{ companyRatingsDTO.totalRatings2 }}
+                  {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label
+                >
               </div>
               <div>
                 <b-form-rating
@@ -299,28 +308,57 @@
                   stars="4"
                   readonly
                 ></b-form-rating>
-                <label for="rating-inline">{{ companyRatingsDTO.percentageRating1 }} % ({{ companyRatingsDTO.totalRatings1 }} {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label>
+                <label for="rating-inline"
+                  >{{ companyRatingsDTO.percentageRating1 }} % ({{ companyRatingsDTO.totalRatings1 }}
+                  {{ $t('riportalApp.advertisement.of') }} {{ companyRatingsDTO.totalRatings }})</label
+                >
               </div>
             </div>
           </b-card>
         </section>
         <hr class="line" />
 
-        <section class="gallery-section">
+        <section v-if="advertisementImagesArray.length > 0" class="section-gallery mb-4">
           <div class="prev-box mr-2">
             <b-button variant="none" class="prevButton" @click="scrollPrev">
-              <font-awesome-icon icon="caret-left" class="fa-lg levaIkonica"></font-awesome-icon>
+              <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
             </b-button>
           </div>
           <div class="wrapper">
-            <div class="carousel" ref="carousel">
+            <div class="carousel" ref="carousel" v-if="advertisementImagesArray">
               <img
-                v-for="document in advertisement.documents"
-                v-if="document.type.type === 'image'"
-                :src="advertisementService().retrieveImage(document.filename)"
+                v-for="(document, index) in advertisementImagesArray"
+                :key="index"
+                @click="onPreviewImage(index)"
+                :src="document"
                 alt="img"
                 @load="onImageLoad"
               />
+            </div>
+            <div
+              v-if="showMask"
+              ref="lightbox"
+              class="lightbox"
+              tabindex="0"
+              @keydown.left="prev"
+              @keydown.right="next"
+              @keydown.esc="onClosePreviewImage"
+              @click="onClosePreviewImage"
+            >
+              <div class="light-box-contain d-flex align-items-center justify-content-center">
+                <button v-if="previewImage" class="close-btn" @click="onClosePreviewImage()">
+                  <font-awesome-icon icon="times" class="fa-lg"></font-awesome-icon>
+                </button>
+                <button class="btn-lightbox-carousel btn-prev" @click.stop="prev()">
+                  <font-awesome-icon icon="caret-left" class="fa-3x icon-lightbox-carousel icon-prev"></font-awesome-icon>
+                </button>
+                <button class="btn-lightbox-carousel btn-next" @click.stop="next()">
+                  <font-awesome-icon icon="caret-right" class="fa-3x icon-lightbox-carousel icon-next"></font-awesome-icon>
+                </button>
+                <div v-if="previewImage" class="lightbox-img d-flex align-items-center justify-content-center" @click.stop>
+                  <img :src="currentLightboxImage" alt="Image description" class="img-fluid" />
+                </div>
+              </div>
             </div>
           </div>
           <div class="next-box ml-2">
@@ -345,101 +383,27 @@
           </div>
         </section>
         <hr class="line" />
-        
+
         <section v-if="advertisement.advertisementSupporters && advertisement.advertisementSupporters.length > 0" class="supporters">
           <h3 v-text="$t('riportalApp.advertisement.advertisementSupporters')" class="mb-4">Priključeni oglašivači</h3>
           <div v-for="supporter in advertisement.advertisementSupporters" :key="supporter.id">
             <div v-if="supporter.hasAccepted" class="d-flex align-items-center justify-content-between mb-2">
               <div class="d-flex">
                 <div v-if="supporter.company.logo" class="img-box mr-2">
-                  <img
-                    :src="advertisementService().retrieveImage(supporter.company.logo.filename)"
-                    alt="company logo"
-                    class="img-logo"
-                  />
+                  <img :src="advertisementService().retrieveImage(supporter.company.logo.filename)" alt="company logo" class="img-logo" />
                 </div>
                 <div v-else class="img-box mr-2 placeholder-logo">{{ getCompanyInitials(supporter.company) }}</div>
-                  <router-link class="d-flex flex-wrap align-items-center" :to="{ name: 'CompanyView', params: { companyId: supporter.company.id } }">
-                    <h2 class="company-title mb-0" style="align-self: center;">{{ supporter.company.name }}</h2>
-                  </router-link>
+                <router-link
+                  class="d-flex flex-wrap align-items-center"
+                  :to="{ name: 'CompanyView', params: { companyId: supporter.company.id } }"
+                >
+                  <h2 class="company-title mb-0" style="align-self: center;">{{ supporter.company.name }}</h2>
+                </router-link>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- <section>
-          <h4 v-text="'Galerija'">Galerija</h4>
-          <br />
-          <div class="row images-container mt-2">
-            <div
-              class="col-xs-12 col-sm-6 col-md-4 col-lg-2 mb-4"
-              v-for="document in advertisement.documents"
-              v-if="document.type.type == 'image'"
-            >
-              <img class="img-thumbnail img-fluid" :src="advertisementService().retrieveImage(document.filename)" />
-            </div>
-          </div>
-        </section> -->
-
-        <!-- <dl class="row jh-entity-details" style="justify-items: left; margin: 0;">
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.activationDatetime')">Activation Datetime</span>
-          </dt>
-          <dd>
-            <span v-if="advertisement.activationDatetime">{{ $d(Date.parse(advertisement.activationDatetime), 'short') }}</span>
-          </dd>
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.expirationDatetime')">Expiration Datetime</span>
-          </dt>
-          <dd>
-            <div v-if="advertisement.duration && advertisement.activationDatetime"> -->
-        <!-- {{advertisement.duration.duration}} -->
-        <!-- {{ $d(Date.parse(getExpirationDate(advertisement)), 'short') }}
-            </div>
-          </dd>
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.budget')">Budget</span>
-          </dt>
-          <dd>
-            <span>{{ advertisement.budget }}</span>
-          </dd>
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.conditions')">Conditions</span>
-          </dt>
-          <dd>
-            <span>{{ advertisement.conditions }}</span>
-          </dd>
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.status')">Status</span>
-          </dt>
-          <dd>
-            <div v-if="advertisement.status">
-              {{ advertisement.status.status }}
-            </div>
-          </dd>
-        </dl> -->
-
-        <!-- <dl class="row jh-entity-details" style="justify-items: left; margin: 0;">
-          <h4 v-text="$t('riportalApp.advertisement.advertiser')">Oglašivač</h4>
-          <br />
-          <div class="d-flex" v-if="advertisement.company">
-            <img
-              v-if="advertisement.company.logo"
-              :src="advertisementService().retrieveImage(advertisement.company.logo.filename)"
-              alt="company logo"
-              style="width: 70px; height: 70x; margin-right: 1rem;"
-            />
-            <router-link :to="{ name: 'CompanyView', params: { companyId: advertisement.company.id } }" class="d-flex">
-              <h2 class="jh-entity-heading" style="align-self: center;">{{ advertisement.company.name }}</h2>
-            </router-link>
-          </div>
-        </dl> -->
-
-        <!-- <button type="submit"
-                        v-on:click.prevent="previousState()"
-                        class="btn btn-info">
-                    <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.back')"> Back</span>
-                </button> -->
         <br />
         <br />
         <b-modal v-if="inquiryDTO" ref="adInquiry" id="adInquiry">
@@ -677,23 +641,25 @@
         </b-modal>
 
         <b-modal v-if="collaborations" ref="collaborationsModal" id="collaborationsModal">
-          <span slot="modal-title"
-            ><span id="collaboration" v-text="$t('riportalApp.collaboration.home.title')"
-              >Saradnje</span
-            ></span
-          >
+          <span slot="modal-title"><span id="collaboration" v-text="$t('riportalApp.collaboration.home.title')">Saradnje</span></span>
           <div class="modal-body">
             <b-card v-for="collaboration in collaborations" :key="collaboration.id" class="card-box mb-3">
               <div class="d-flex align-items-center">
                 <div class="d-flex mb-2">
-                  <div v-if="collaboration.companyOffer.id == advertisement.company.id && collaboration.companyRequest.logo" class="img-box mr-2">
+                  <div
+                    v-if="collaboration.companyOffer.id == advertisement.company.id && collaboration.companyRequest.logo"
+                    class="img-box mr-2"
+                  >
                     <img
                       :src="advertisementService().retrieveImage(collaboration.companyRequest.logo.filename)"
                       alt="company logo"
                       class="img-logo"
                     />
                   </div>
-                  <div v-else-if="collaboration.companyRequest.id == advertisement.company.id && collaboration.companyOffer.logo" class="img-box mr-2">
+                  <div
+                    v-else-if="collaboration.companyRequest.id == advertisement.company.id && collaboration.companyOffer.logo"
+                    class="img-box mr-2"
+                  >
                     <img
                       :src="advertisementService().retrieveImage(collaboration.companyOffer.logo.filename)"
                       alt="company logo"
@@ -701,13 +667,23 @@
                     />
                   </div>
                   <div v-else class="img-box mr-2 placeholder-logo">
-                    {{ collaboration.companyOffer.id == advertisement.company.id ? getCompanyInitials(collaboration.companyRequest) : getCompanyInitials(collaboration.companyOffer) }}
+                    {{
+                      collaboration.companyOffer.id == advertisement.company.id
+                        ? getCompanyInitials(collaboration.companyRequest)
+                        : getCompanyInitials(collaboration.companyOffer)
+                    }}
                   </div>
-                  <h2 class="company-title mb-0" style="align-self: center;">{{ collaboration.companyOffer.id == advertisement.company.id ? collaboration.companyRequest.name : collaboration.companyOffer.name }}</h2>
+                  <h2 class="company-title mb-0" style="align-self: center;">
+                    {{
+                      collaboration.companyOffer.id == advertisement.company.id
+                        ? collaboration.companyRequest.name
+                        : collaboration.companyOffer.name
+                    }}
+                  </h2>
                 </div>
               </div>
               <h4 class="mb-4">{{ collaboration.advertisement.title }}</h4>
-              <div class="d-flex" style="flex-direction: column">
+              <div class="d-flex" style="flex-direction: column;">
                 <div class="mb-2">
                   {{ collaboration.datetime ? $d(Date.parse(collaboration.datetime.toString()), 'short') : '' }}
                 </div>
@@ -715,26 +691,32 @@
                   <b-form-rating
                     id="rating-inline"
                     inline
-                    :value="collaboration.companyOffer.id == advertisement.company.id ? collaboration.ratingRequest.number : collaboration.ratingOffer.number"
+                    :value="
+                      collaboration.companyOffer.id == advertisement.company.id
+                        ? collaboration.ratingRequest.number
+                        : collaboration.ratingOffer.number
+                    "
                     class="mr-4"
                     variant="primary"
                     size="sm"
                     stars="4"
                     disabled
                   ></b-form-rating>
-                  <label for="rating-inline">{{ collaboration.companyOffer.id == advertisement.company.id ? "Tražilac" : "Oglašivač" }}</label>
+                  <label for="rating-inline">{{
+                    collaboration.companyOffer.id == advertisement.company.id ? 'Tražilac' : 'Oglašivač'
+                  }}</label>
                 </div>
-
-
-
               </div>
 
               <hr />
               <div>
-                <p>{{ collaboration.companyOffer.id == advertisement.company.id ? collaboration.commentRequest : collaboration.commentOffer }}</p>
+                <p>
+                  {{
+                    collaboration.companyOffer.id == advertisement.company.id ? collaboration.commentRequest : collaboration.commentOffer
+                  }}
+                </p>
               </div>
             </b-card>
-
           </div>
           <div slot="modal-footer">
             <button class="btn btn-danger" v-text="$t('entity.action.close')" v-on:click="closeCollaborationsModal()">
@@ -742,43 +724,6 @@
             </button>
           </div>
         </b-modal>
-
-        <!-- <dl class="row jh-entity-details" v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')" style="justify-items: left; margin: 0;">
-          <h4 v-text="$t('riportalApp.advertisement.dataChanges')">Podaci o izmenama</h4>
-          <br />
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.createdAt')">Created At</span>
-          </dt>
-          <dd>
-            <span v-if="advertisement.createdAt">{{ $d(Date.parse(advertisement.createdAt), 'long') }}</span>
-          </dd>
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.createdBy')">Created By</span>
-          </dt>
-          <dd>
-            <div v-if="advertisement.createdBy">
-              <router-link :to="{ name: 'PortalUserView', params: { portalUserId: advertisement.createdBy.id } }">{{
-                advertisement.createdBy.firstname
-              }}</router-link>
-            </div>
-          </dd>
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.modifiedAt')">Modified At</span>
-          </dt>
-          <dd>
-            <span v-if="advertisement.modifiedAt">{{ $d(Date.parse(advertisement.modifiedAt), 'long') }}</span>
-          </dd>
-          <dt>
-            <span v-text="$t('riportalApp.advertisement.modifiedBy')">Modified By</span>
-          </dt>
-          <dd>
-            <div v-if="advertisement.modifiedBy">
-              <router-link :to="{ name: 'PortalUserView', params: { portalUserId: advertisement.modifiedBy.id } }">{{
-                advertisement.modifiedBy.firstname
-              }}</router-link>
-            </div>
-          </dd>
-        </dl> -->
       </div>
     </div>
   </div>
@@ -879,7 +824,7 @@
 
 /* --- GALLERY --- */
 
-.gallery-section {
+.section-gallery {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -918,16 +863,91 @@
 .carousel img {
   height: 240px;
   padding: 16px;
-  object-fit: cover;
-  /* margin-left: 14px; */
-  /* width: calc(100% / 5); */
+  object-fit: contain;
 }
-
 .carousel img:first-child {
   margin-left: 0px;
 }
 
 /* --- GALLERY END --- */
+
+/* --- LIGHTBOX --- */
+
+.lightbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.light-box-contain {
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 0;
+  color: #fff;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.close-btn:focus {
+  outline: none;
+}
+
+.btn-lightbox-carousel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  color: #fff;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.btn-lightbox-carousel:focus {
+  outline: none;
+}
+
+.btn-prev {
+  left: 20px;
+}
+
+.btn-next {
+  right: 20px;
+}
+
+/* --- LIGHTBOX END--- */
 
 .img-thumbnail {
   /* width: 100%; Ensure images fill their container */
