@@ -64,5 +64,8 @@ export default new Router({
     ...admin,
     ...entities,
     ...pages
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 }; // Scroll to the top of the page on route change
+  }
 });

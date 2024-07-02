@@ -220,9 +220,9 @@
 
 <style>
 
-/* .banner {
+.banner {
 	display: none;
-} */
+}
 
 .div1 {
   display: flex;
