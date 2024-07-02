@@ -58,6 +58,13 @@ public class Thread implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "meeting_id", referencedColumnName = "id"))
     private Set<Meeting> meetings = new HashSet<>();
     
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(name = "thread_advertisement_supporter",
+               joinColumns = @JoinColumn(name = "thread_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "advertisement_supporter_id", referencedColumnName = "id"))
+    private Set<AdvertisementSupporter> advertisementSupporters= new HashSet<>();
+    
     @ManyToOne
     @JsonIgnoreProperties(value = "threadsSenders", allowSetters = true)
     private Company companySender;
@@ -200,6 +207,36 @@ public class Thread implements Serializable {
     public void setMeetings(Set<Meeting> meetings) {
         this.meetings = meetings;
     }
+    
+    
+    
+    
+    public Set<AdvertisementSupporter> getAdvertisementSupporters() {
+        return advertisementSupporters;
+    }
+
+    public Thread advertisementSupporters(Set<AdvertisementSupporter> advertisementSupporters) {
+        this.advertisementSupporters = advertisementSupporters;
+        return this;
+    }
+
+    public Thread addAdvertisementSupporter(AdvertisementSupporter advertisementSupporter) {
+        this.advertisementSupporters.add(advertisementSupporter);
+        advertisementSupporter.getThreads().add(this);
+        return this;
+    }
+
+    public Thread removeAdvertisementSupporter(AdvertisementSupporter advertisementSupporter) {
+        this.advertisementSupporters.remove(advertisementSupporter);
+        advertisementSupporter.getThreads().remove(this);
+        return this;
+    }
+
+    public void setAdvertisementSupporters(Set<AdvertisementSupporter> advertisementSupporters) {
+        this.advertisementSupporters = advertisementSupporters;
+    }
+    
+    
     
     public Company getCompanySender() {
         return companySender;

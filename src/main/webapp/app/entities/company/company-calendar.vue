@@ -193,20 +193,25 @@
                 </div>
             </div>
 
-            <div slot="modal-footer">
-                <button v-if="!isThereMeetingResponseForCurrentCompany(selectedEvent)" type="button" class="btn btn-secondary" v-on:click="prepareAcceptMeetingModal()">
+            <div slot="modal-footer" style="width: 100%;">
+              <div class="d-flex mb-2" style="width: 100%; justify-content: flex-end;">
+                <button v-if="!isThereMeetingResponseForCurrentCompany(selectedEvent)" type="button" class="btn btn-secondary mr-2" v-on:click="prepareAcceptMeetingModal()" style="width:30%;">
                   <span><font-awesome-icon icon="check" style="color: green;"/></span>
-                  <span v-text="'Prihvati sastanak'"></span>
+                  <span v-text="'Prihvati'"></span>
                 </button>
-                <button v-if="!isThereMeetingResponseForCurrentCompany(selectedEvent)" type="button" class="btn btn-secondary" v-on:click="prepareRejectMeetingModal()">
+                <button v-if="!isThereMeetingResponseForCurrentCompany(selectedEvent)" type="button" class="btn btn-secondary" v-on:click="prepareRejectMeetingModal()" style="width: 30%;">
                   <span><font-awesome-icon icon="times" style="color: red;"/></span>
-                  <span v-text="'Otkaži sastanak'" ></span>
+                  <span v-text="'Otkaži'" ></span>
                 </button>
-                <button type="button" class="btn btn-primary" v-text="'Zapisnik'" v-on:click="prepareMeetingNotesModal()">Sačuvaj</button>
-                <button type="button" class="btn btn-primary" v-text="'Preuzmi ICS'" v-on:click="createICS(selectedEvent)">Preuzmi ICS</button>
-                <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-primary" v-text="'Izmeni'" v-on:click="prepareEditMeetingModal()">Izmeni</button>
+              </div>
+              <div class="d-flex" style="width: 100%; justify-content: flex-end;">
+                <button v-if="selectedEvent.organizer && (selectedEvent.organizer.company.id == companyId)" type="button" class="btn btn-primary mr-2" v-text="'Izmeni'" v-on:click="prepareEditMeetingModal()" style="width: 30%;">Izmeni</button>
+                <button type="button" class="btn btn-primary mr-2" v-text="'Zapisnik'" v-on:click="prepareMeetingNotesModal()" style="width: 30%;">Zapisnik</button>
+                <button type="button" class="btn btn-primary" v-text="'Preuzmi ICS'" v-on:click="createICS(selectedEvent)" style="width: 30%;">Preuzmi ICS</button>
                 <!-- <button type="button" class="btn btn-danger" v-text="'Ukloni'" v-on:click="prepareRemoveMeetingModal(selectedEvent.id)">Obriši</button> -->
                 <!-- <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeViewMeetingModal()">Cancel</button> -->
+
+              </div>
             </div>
         </b-modal>
 

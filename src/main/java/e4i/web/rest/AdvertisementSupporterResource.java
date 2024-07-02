@@ -6,15 +6,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import e4i.domain.Advertisement;
 import e4i.domain.AdvertisementSupporter;
 import e4i.domain.Company;
+import e4i.domain.Meeting;
+import e4i.domain.MeetingParticipant;
+import e4i.domain.Message;
+import e4i.domain.Thread;
 import e4i.service.AdvertisementService;
 import e4i.service.AdvertisementSupporterService;
 import e4i.service.CompanyService;
+import e4i.service.MailService;
+import e4i.service.MessageService;
+import e4i.service.ThreadService;
+import e4i.web.rest.dto.NotificationMailDTO;
 import e4i.web.rest.errors.BadRequestAlertException;
 
 import java.net.URI;
@@ -41,11 +50,22 @@ public class AdvertisementSupporterResource {
     
     @Autowired
     CompanyService companyService;
+    
+    @Autowired
+    ThreadService threadService;
+    
+    @Autowired
+    MessageService messageService;
+    
+    private final MailService mailService;
 
     private final AdvertisementSupporterService advertisementSupporterService;
 
-    public AdvertisementSupporterResource(AdvertisementSupporterService advertisementSupporterService) {
+    public AdvertisementSupporterResource(
+    		AdvertisementSupporterService advertisementSupporterService,
+    		MailService mailService) {
         this.advertisementSupporterService = advertisementSupporterService;
+        this.mailService = mailService;
     }
 
     /**
@@ -147,7 +167,16 @@ public class AdvertisementSupporterResource {
         	
         	if (companyOptional.isPresent()) {
         		Company company = companyOptional.get();
-        		advertisementSupporterService.addCompanySupporter(advertisement, company);
+        		AdvertisementSupporter advertisementSupporter =  advertisementSupporterService.addCompanySupporter(advertisement, company);
+        		
+            	Thread thread = threadService.createThreadForNewSupporter(advertisementSupporter);
+            	Message message = messageService.createFirstMessageInThreadSupporter(thread, advertisementSupporter);
+            
+            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForSupporterInvitation(
+            			advertisementSupporter);
+            	if (!mailDTO.getEmails().isEmpty()) {
+            		mailService.sendNotificationMail(mailDTO);
+            	}  
         	}
         }
         
@@ -178,5 +207,37 @@ public class AdvertisementSupporterResource {
         List<AdvertisementSupporter> supporters = advertisementSupporterService.findAllByAdvertisementId(advertisement);
         
         return ResponseEntity.ok(supporters);
+    }
+    
+    @PutMapping("/advertisement-supporters/accept/{advertisementId}/{companyId}")
+    public ResponseEntity<?> acceptMeetingForCompany(@PathVariable Long advertisementId, @PathVariable Long companyId) {
+        log.debug("REST request to accept AdvertisementSupporter for Advertisement {} and Company {}", advertisementId, companyId);
+        
+        Optional<AdvertisementSupporter> advertisementSupporterOptional = advertisementSupporterService.findByAdvertisementIdAndCompanyId(advertisementId, companyId);
+        if (advertisementSupporterOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No AdvertisementSupporter found for the given advertisementId and companyId");
+        }
+        
+        AdvertisementSupporter advertisementSupporter = advertisementSupporterOptional.get();
+        if (advertisementSupporter.isHasAccepted()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(advertisementSupporter);
+        }
+        
+        try {
+        	AdvertisementSupporter result = advertisementSupporterService.acceptForCompany(advertisementSupporter);
+        	
+        	Thread thread = threadService.createThreadForSupporterAcceptance(advertisementSupporter);
+        	Message message = messageService.createFirstMessageInThreadAcceptanceSupporter(thread, advertisementSupporter);
+        
+        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForSupporterAcceptance(advertisementSupporter);
+        	if (!mailDTO.getEmails().isEmpty()) {
+        		mailService.sendNotificationMail(mailDTO);
+        	}
+        	
+            return ResponseEntity.ok(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Server error!");
+		}
     }
 }

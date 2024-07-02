@@ -1,12 +1,18 @@
 package e4i.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import e4i.domain.Thread;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A AdvertisementSupporter.
@@ -33,6 +39,11 @@ public class AdvertisementSupporter implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "advertisementSupporters", allowSetters = true)
     private Company company;
+    
+    @ManyToMany(mappedBy = "advertisementSupporters")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnore
+    private Set<Thread> threads = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -81,6 +92,32 @@ public class AdvertisementSupporter implements Serializable {
     public void setCompany(Company company) {
         this.company = company;
     }
+    
+    public Set<Thread> getThreads() {
+        return threads;
+    }
+
+    public AdvertisementSupporter threads(Set<Thread> threads) {
+        this.threads = threads;
+        return this;
+    }
+
+    public AdvertisementSupporter addThread(Thread thread) {
+        this.threads.add(thread);
+        thread.getAdvertisementSupporters().add(this);
+        return this;
+    }
+
+    public AdvertisementSupporter removeThread(Thread thread) {
+        this.threads.remove(thread);
+        thread.getAdvertisementSupporters().remove(this);
+        return this;
+    }
+
+    public void setThreads(Set<Thread> threads) {
+        this.threads = threads;
+    }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

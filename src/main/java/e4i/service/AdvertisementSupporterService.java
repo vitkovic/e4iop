@@ -102,4 +102,14 @@ public class AdvertisementSupporterService {
 		
 		return advertisementSupporterRepository.findAllByAdvertisementId(advertisement.getId());
 	}
+
+	public Optional<AdvertisementSupporter> findByAdvertisementIdAndCompanyId(Long advertisementId, Long companyId) {
+		return advertisementSupporterRepository.findByAdvertisementIdAndCompanyId(advertisementId, companyId);
+	}
+
+	public AdvertisementSupporter acceptForCompany(AdvertisementSupporter advertisementSupporter) {
+		advertisementSupporter.setHasAccepted(true);
+		
+		return advertisementSupporterRepository.save(advertisementSupporter);
+	}
 }

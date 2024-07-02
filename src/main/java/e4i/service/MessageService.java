@@ -1,5 +1,6 @@
 package e4i.service;
 
+import e4i.domain.AdvertisementSupporter;
 import e4i.domain.Collaboration;
 import e4i.domain.Company;
 import e4i.domain.Meeting;
@@ -258,6 +259,49 @@ public class MessageService {
     			+ "\nDetalje svih zakazanih sastanaka možete pogledati sa stranice 'Kalendar'.";
     	
     	String content = infoText + "\n\n" + comment;
+    	
+    	Message message = new Message();
+        message.setThread(thread);
+//        message.setPortalUserSender(portalUser);
+        message.setContent(content);
+        message.setDatetime(Instant.now());
+        message.setIsRead(false);
+        message.setIsDeletedSender(true);
+        message.setIsDeletedReceiver(false);
+    	
+    	Message result = this.save(message);
+    	
+    	return result;
+	}
+
+    @Transactional
+	public Message createFirstMessageInThreadSupporter(Thread thread, AdvertisementSupporter advertisementSupporter) {
+    	String infoText = "\nImate poziv za zajedničko oglašavanje na B2B portalu.\n"
+    			+ "\nPoziv možete potvrditi klikom na odgovorajuću opciju u ovoj poruci.\n\n";
+    	
+    	String content = infoText;
+    	
+    	Message message = new Message();
+        message.setThread(thread);
+//        message.setPortalUserSender(portalUser);
+        message.setContent(content);
+        message.setDatetime(Instant.now());
+        message.setIsRead(false);
+        message.setIsDeletedSender(true);
+        message.setIsDeletedReceiver(false);
+    	
+    	Message result = this.save(message);
+    	
+    	return result;
+	}
+
+    @Transactional
+	public Message createFirstMessageInThreadAcceptanceSupporter(Thread thread,
+			AdvertisementSupporter advertisementSupporter) {
+    	String infoText = "\nKompanija " + advertisementSupporter.getCompany().getName() 
+    			+ " je prihvatila poziv za zajedničko oglašavanje na B2B portalu.\n";
+    	
+    	String content = infoText;
     	
     	Message message = new Message();
         message.setThread(thread);

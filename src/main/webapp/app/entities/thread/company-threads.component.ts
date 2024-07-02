@@ -11,6 +11,7 @@ import { ICollaboration } from '@/shared/model/collaboration.model';
 import { IMeeting } from '@/shared/model/meeting.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import { IMeetingParticipant } from '@/shared/model/meeting-participant.model';
+import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
 
 import ThreadService from './thread.service';
 import CompanyService from '@/entities/company.service';
@@ -18,6 +19,7 @@ import MessageService from '@/entities/message.service';
 import CollaborationService from '@/entities/collaboration.service';
 import MeetingParticipantService from '@/entities/meeting-participant/meeting-participant.service';
 import PortalUserService from '../../entities/portal-user/portal-user.service';
+import AdvertisementSupporterService from '@/entities/advertisement-supporter/advertisement-supporter.service';
 
 enum ThreadsFilter {
   ALL = 'all',
@@ -40,6 +42,7 @@ interface IThreadDTO {
   advertisement: IAdvertisement;
   collaboration: ICollaboration;
   meeting: IMeeting;
+  advertisementSupporter: IAdvertisementSupporter;
   messageCount: number;
   lastMessageDatetime: Date;
   lastMessageContent: string;
@@ -72,6 +75,7 @@ export default class Thread extends mixins(AlertMixin) {
   @Inject('collaborationService') private collaborationService: () => CollaborationService;
   @Inject('meetingParticipantService') private meetingParticipantService: () => MeetingParticipantService;
   @Inject('portalUserService') private portalUserService: () => PortalUserService;
+  @Inject('advertisementSupporterService') private advertisementSupporterService: () => AdvertisementSupporterService;
 
   private removeId: number = null;
   private removeThreadDTO: IThreadDTO = null;
@@ -95,6 +99,7 @@ export default class Thread extends mixins(AlertMixin) {
   public newMessage: IMessage = new Message();
   public meeting: IMeeting | null = null;
   public meetingParticipant: IMeetingParticipant | null = null;
+  public advertisementSupporter: IAdvertisementSupporter | null = null;
 
   public isFetching = false;
 
@@ -149,7 +154,6 @@ export default class Thread extends mixins(AlertMixin) {
             this.totalItems = Number(res.headers['x-total-count']);
             this.queryCount = this.totalItems;
             this.isFetching = false;
-            console.log(this.threadsDTO);
           },
           err => {
             this.isFetching = false;
@@ -369,7 +373,7 @@ export default class Thread extends mixins(AlertMixin) {
   }
 
   public deleteMessage(message: IMessage, thread: IThreadDTO) {
-    if (!(message?.id && this.portalUser && thread?.companySender?.id && thread?.companyReceiver?.id)) {
+    if (!message?.id) {
       return;
     }
 
@@ -383,18 +387,14 @@ export default class Thread extends mixins(AlertMixin) {
         // Aktuelno stanje poruke u bazi
         const messageFromDB = res;
 
-        const companySenderId = thread.companySender.id;
-        const companyReceiverId = thread.companyReceiver.id;
-        const portalUserCompanyId = this.portalUser.company.id;
-
         // Odredjivanje za koga treba da se sakrije poruka.
-        if (portalUserCompanyId === companySenderId) {
+        if (thread?.companySender?.id && this.company.id === thread.companySender.id) {
           messageFromDB.isDeletedSender = true;
-        } else if (portalUserCompanyId === companyReceiverId) {
+        } else if (thread?.companyReceiver?.id && this.company.id === thread.companyReceiver.id) {
           messageFromDB.isDeletedReceiver = true;
         }
 
-        if (messageFromDB.isDeletedSender === messageFromDB.isDeletedReceiver) {
+        if (messageFromDB.isDeletedSender && messageFromDB.isDeletedReceiver) {
           this.messageService()
             .delete(messageFromDB.id)
             .then(res => {
@@ -564,6 +564,60 @@ export default class Thread extends mixins(AlertMixin) {
 
   public closeRejectMeetingModal(): void {
     (<any>this.$refs.rejectMeetingModal).hide();
+  }
+
+  public prepareAcceptAdvertisementSupporterModal(threadDTO: IThreadDTO): void {
+    this.activeThreadDTO = threadDTO;
+    this.advertisementSupporter = threadDTO.advertisementSupporter;
+
+    if (<any>this.$refs.acceptAdvertisementSupporterModal) {
+      (<any>this.$refs.acceptAdvertisementSupporterModal).show();
+    }
+  }
+
+  public acceptAdvertisementSupporter(): void {
+    let message = '';
+    this.advertisementSupporterService()
+      .acceptForCompany(this.advertisementSupporter.advertisement.id, this.advertisementSupporter.company.id)
+      .then(res => {
+        // this.showMessages(this.activeThreadDTO);
+        this.retrieveThreads();
+        message = 'Uspešno ste prihvatili poziv za pridruženo oglašavanje';
+        this.$notify({
+          text: message,
+        });
+      })
+      .catch(error => {
+        if (error.response) {
+          const status = error.response.status;
+          // const message = error.response.data;
+
+          if (status === 404) {
+            message = 'Sistemska greška, nemate poziv za pridruženo oglašavanje';
+            this.$notify({
+              text: message,
+            });
+          } else if (status === 400) {
+            message = 'Poziv za pridruženo oglašavanje je već prihvaćen';
+            this.$notify({
+              text: message,
+            });
+          } else {
+            message = error.response.data;
+            this.$notify({
+              text: message,
+            });
+          }
+        } else {
+          console.error('Greska!', error.message);
+        }
+      });
+
+    this.closeAcceptAdvertisementSupporterModal();
+  }
+
+  public closeAcceptAdvertisementSupporterModal(): void {
+    (<any>this.$refs.acceptAdvertisementSupporterModal).hide();
   }
 
   public formatRejectMeetingComment(): string {

@@ -362,6 +362,33 @@
                         <span>Nothing</span>
                       </div> -->
                     </div>
+
+                    <div v-if="thread.advertisementSupporter">
+                      <div>
+                        <b>{{ 'Oglas:' }} </b> 
+                        <span></span>{{ thread.advertisementSupporter.advertisement.title }}
+                      </div>
+                      <div>
+                        <b>{{ 'Oglašivač:' }} </b> 
+                        <span></span>{{ thread.advertisementSupporter.advertisement.company.name }}
+                      </div>
+
+                      <p style="white-space: pre-line;">{{ message.content }}</p>
+
+                      <div v-if="company.id === thread.advertisementSupporter.company.id">
+                        <div v-if="thread.advertisementSupporter.hasAccepted === false">
+                          <button type="button" class="btn btn-secondary" v-on:click="prepareAcceptAdvertisementSupporterModal(thread)">
+                            <span><font-awesome-icon icon="check" style="color: green;"/></span>
+                            <span v-text="'Prihvati poziv'"></span>
+                          </button>
+                        </div>
+                        <div v-else-if="thread.advertisementSupporter.hasAccepted === true">
+                          <span><font-awesome-icon icon="check" style="color: green;"/></span>
+                          <span v-text="'Poziv za pridruženo oglašavanje je prihvaćen'"></span>
+                        </div>
+                      </div>
+                    </div>
+
                     <div v-else></div>
 
                   </div>
@@ -513,6 +540,29 @@
           class="btn btn-danger"
           v-text="'Otkaži'"
           v-on:click="closeRejectMeetingModal()"
+          >
+
+          </button>
+      </div>
+  </b-modal>
+
+  <b-modal v-if="advertisementSupporter" ref="acceptAdvertisementSupporterModal" id="acceptAdvertisementSupporterModal">
+      <div class="modal-body">
+          <p>
+              <span v-text="'Da li želite da prihvatite poziv za zajedničko oglašavanje?'">Da li želite da prihvatite poziv za za zajedničko oglašavanje?</span>
+              <br>
+              <span v-text="'Oglas: '"></span>
+              <span>{{ advertisementSupporter.advertisement.title }}</span>
+          </p>
+          
+      </div>
+      <div slot="modal-footer">
+          <button type="button" class="btn btn-success" v-text="'Potvrdi'" v-on:click="acceptAdvertisementSupporter()">Potvrdi</button>
+          <button
+          type="button"
+          class="btn btn-danger"
+          v-text="'Otkaži'"
+          v-on:click="closeAcceptAdvertisementSupporterModal()"
           >
 
           </button>

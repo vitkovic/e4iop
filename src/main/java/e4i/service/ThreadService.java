@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import e4i.domain.AdvertisementSupporter;
 import e4i.domain.Collaboration;
 import e4i.domain.Company;
 import e4i.domain.Meeting;
@@ -186,6 +187,34 @@ public class ThreadService {
     	// Zasto ovde mora ovako, dok u createThreadForNewMeeting() moze samo thread.addMeeting(meeting)???????????????
     	thread.setMeetings(new HashSet<>());    	
     	thread.getMeetings().add(meeting);
+    	
+    	Thread result = this.save(thread);
+    	
+		return result;
+	}
+    
+    @Transactional
+	public Thread createThreadForNewSupporter(AdvertisementSupporter advertisementSupporter) {
+    	Thread thread = new Thread();
+    	thread.setSubject("Poziv za zajedničko oglašavanje");
+    	thread.setCompanyReceiver(advertisementSupporter.getCompany());
+    	thread.setIsFromAdministration(true);
+    	thread.setAdvertisementSupporters(new HashSet<>());
+    	thread.getAdvertisementSupporters().add(advertisementSupporter);
+    	
+    	Thread result = this.save(thread);
+    	
+		return result;
+	}
+    
+    @Transactional
+	public Thread createThreadForSupporterAcceptance(AdvertisementSupporter advertisementSupporter) {
+    	Thread thread = new Thread();
+    	thread.setSubject("Prihvaćen je poziv za zajedničko oglašavanje");
+    	thread.setCompanyReceiver(advertisementSupporter.getAdvertisement().getCompany());
+    	thread.setIsFromAdministration(true);
+    	thread.setAdvertisementSupporters(new HashSet<>());
+    	thread.getAdvertisementSupporters().add(advertisementSupporter);
     	
     	Thread result = this.save(thread);
     	

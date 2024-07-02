@@ -3,6 +3,7 @@ package e4i.web.rest.dto;
 import java.time.Instant;
 
 import e4i.domain.Advertisement;
+import e4i.domain.AdvertisementSupporter;
 import e4i.domain.Collaboration;
 import e4i.domain.Company;
 import e4i.domain.Meeting;
@@ -18,6 +19,7 @@ public class ThreadDTO {
 	private Advertisement advertisement;
 	private Collaboration collaboration;
 	private Meeting meeting;
+	private AdvertisementSupporter advertisementSupporter;
 	private Long messageCount;
 	private Instant lastMessageDatetime;
 	private String lastMessageContent;
@@ -27,8 +29,8 @@ public class ThreadDTO {
 	public ThreadDTO(
 			Long id, String subject, Boolean isFromAdministration, 
 			Company companySender, Company companyReceiver, Advertisement advertisement, 
-			Collaboration collaboration, Meeting meeting, Long messageCount, 
-			Instant lastMessageDatetime, String lastMessageContent, Boolean unreadExists
+			Collaboration collaboration, Meeting meeting, AdvertisementSupporter advertisementSupporter,
+			Long messageCount, Instant lastMessageDatetime, String lastMessageContent, Boolean unreadExists
 			) {
 		super();
 		this.id = id;
@@ -39,6 +41,7 @@ public class ThreadDTO {
 		this.advertisement = advertisement;
 		this.collaboration = collaboration;
 		this.meeting = meeting;
+		this.setAdvertisementSupporter(advertisementSupporter);
 		this.messageCount = messageCount;
 		this.lastMessageDatetime = lastMessageDatetime;
 		this.lastMessageContent = lastMessageContent;
@@ -133,6 +136,14 @@ public class ThreadDTO {
 
 	public void setMeeting(Meeting meeting) {
 		this.meeting = meeting;
+	}
+
+	public AdvertisementSupporter getAdvertisementSupporter() {
+		return advertisementSupporter;
+	}
+
+	public void setAdvertisementSupporter(AdvertisementSupporter advertisementSupporter) {
+		this.advertisementSupporter = advertisementSupporter;
 	}
 
 	public Long getMessageCount() {

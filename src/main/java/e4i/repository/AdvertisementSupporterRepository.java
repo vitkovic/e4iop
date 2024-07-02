@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 import e4i.domain.AdvertisementSupporter;
+import e4i.domain.Thread;
 
 /**
  * Spring Data  repository for the AdvertisementSupporter entity.
@@ -18,4 +19,6 @@ public interface AdvertisementSupporterRepository extends JpaRepository<Advertis
 	Optional<AdvertisementSupporter> findByAdvertisementIdAndCompanyId(Long advertisementId, Long companyId);
 
 	List<AdvertisementSupporter> findAllByAdvertisementId(Long advertisementId);
+
+	Optional<AdvertisementSupporter> findOneByThreads(Thread thread);
 }

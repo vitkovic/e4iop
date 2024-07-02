@@ -1,12 +1,14 @@
 package e4i.web.rest;
 
 import e4i.domain.Advertisement;
+import e4i.domain.AdvertisementSupporter;
 import e4i.domain.Collaboration;
 import e4i.domain.Company;
 import e4i.domain.Meeting;
 import e4i.domain.Message;
 import e4i.domain.Thread;
 import e4i.repository.AdvertisementRepository;
+import e4i.repository.AdvertisementSupporterRepository;
 import e4i.repository.CollaborationRepository;
 import e4i.repository.CompanyRepository;
 import e4i.repository.MeetingRepository;
@@ -72,6 +74,9 @@ public class ThreadResource {
     
     @Autowired
     MeetingRepository meetingRepository;
+    
+    @Autowired
+    AdvertisementSupporterRepository advertisementSupporterRepository;
     
     public ThreadResource(ThreadService threadService) {
         this.threadService = threadService;
@@ -332,6 +337,13 @@ public class ThreadResource {
         	Meeting meeting = meetingOptional.get();
         	threadDTO.setMeeting(meeting);
         	threadDTO.setAdvertisement(meeting.getAdvertisement());
+        }
+        
+        Optional<AdvertisementSupporter> advertisementSupporterOptional = advertisementSupporterRepository.findOneByThreads(thread);
+        if (advertisementSupporterOptional.isPresent()) {
+        	AdvertisementSupporter advertisementSupporter = advertisementSupporterOptional.get();
+        	threadDTO.setAdvertisementSupporter(advertisementSupporter);
+        	threadDTO.setAdvertisement(advertisementSupporter.getAdvertisement());
         }
 		
 		return threadDTO;
