@@ -206,18 +206,18 @@
                 @load="onImageLoad"
               />
             </div>
-            <div v-if="showMask" ref="lightbox" class="lightbox"  tabindex="0" @keydown.left="prev" @keydown.right="next">
+            <div v-if="showMask" ref="lightbox" class="lightbox"  tabindex="0" @keydown.left="prev" @keydown.right="next" @keydown.esc="onClosePreviewImage" @click="onClosePreviewImage">
               <div class="light-box-contain d-flex align-items-center justify-content-center">
                 <button v-if="previewImage" class="close-btn" @click="onClosePreviewImage()">
                   <font-awesome-icon icon="times" class="fa-lg"></font-awesome-icon>
                 </button>
-                <button class="btn-lightbox-carousel btn-prev" @click="prev()" >
+                <button class="btn-lightbox-carousel btn-prev" @click.stop="prev()" >
                   <font-awesome-icon icon="caret-left" class="fa-3x icon-lightbox-carousel icon-prev"></font-awesome-icon>
                 </button>
-                <button class="btn-lightbox-carousel btn-next" @click="next()" >
+                <button class="btn-lightbox-carousel btn-next" @click.stop="next()" >
                   <font-awesome-icon icon="caret-right" class="fa-3x icon-lightbox-carousel icon-next"></font-awesome-icon>
                 </button>
-                <div v-if="previewImage" class="lightbox-img d-flex align-items-center justify-content-center" >
+                <div v-if="previewImage" class="lightbox-img d-flex align-items-center justify-content-center" @click.stop>
                   <img :src="currentLightboxImage" alt="Image description" class="img-fluid"  />
                 </div>
               </div>
@@ -441,35 +441,6 @@
                     <p>{{ collaboration.companyOffer.id == company.id ? collaboration.commentRequest : collaboration.commentOffer }}</p>
                   </div>
                 </b-card>
-
-                <!-- <b-card v-for="(compani, index) in companies" :key="index" class="card-box">
-                  <div class="d-flex align-items-center">
-                    <div class="image-box-test mr-2">
-                      <img v-if="company.logo" :src="compani.logo" alt="company logo" class="img-logo-test" />
-                    </div>
-                    <h3 class="company-title" style="align-self: center;">
-                      {{ compani.name }}
-                    </h3>
-                  </div>
-                  <h4>{{ compani.description }}</h4>
-                  <div>
-                    <b-form-rating
-                      id="rating-inline"
-                      inline
-                      :value="compani.rating"
-                      class="mr-4"
-                      variant="primary"
-                      size="sm"
-                      stars="4"
-                      readonly
-                    ></b-form-rating>
-                    <label for="rating-inline">{{ compani.role }}</label>
-                  </div>
-                  <hr />
-                  <div>
-                    <p>{{ compani.details }}</p>
-                  </div>
-                </b-card> -->
               </div>
             </div>
             <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
@@ -527,11 +498,6 @@
 
 /* LIGHTBOX & GALLERY  */
 
-/* .gallery {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-} */
 
 .lightbox {
   display: flex;
@@ -815,7 +781,7 @@ h2 {
 .carousel img {
   height: 240px;
   padding: 16px;
-  object-fit: cover;
+  object-fit: contain;
   /* margin-left: 14px; */
   /* width: calc(100% / 5); */
 }

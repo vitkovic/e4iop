@@ -176,7 +176,7 @@ export default class CompanyDetails extends Vue {
       this.getCompanyRatings(this.companyId);
     }
 
-    this.totalImagesCount = this.imagesGall.length;
+    // this.totalImagesCount = this.imagesGall.length;
   }
 
   mounted() {
@@ -198,7 +198,6 @@ export default class CompanyDetails extends Vue {
         this.companyImagesArray.push(imageUrl);
       }
     }
-    console.log(this.companyImagesArray);
   }
 
   public onPreviewImage(index: number): void {
@@ -212,7 +211,6 @@ export default class CompanyDetails extends Vue {
         lightboxElement.focus();
       }
     });
-    console.log(this.currentLightboxImage);
   }
 
   public onClosePreviewImage() {
@@ -226,8 +224,6 @@ export default class CompanyDetails extends Vue {
       this.currentIndex = this.companyImagesArray.length - 1;
     }
     this.currentLightboxImage = this.companyImagesArray[this.currentIndex];
-    console.log(this.currentLightboxImage);
-    // this.$forceUpdate();
   }
 
   public next(): void {
@@ -236,15 +232,6 @@ export default class CompanyDetails extends Vue {
       this.currentIndex = 0;
     }
     this.currentLightboxImage = this.companyImagesArray[this.currentIndex];
-    console.log(this.currentLightboxImage);
-    // this.$forceUpdate();
-  }
-
-  public onLightboxImageLoad(): void {
-    // This method is triggered when the image in the lightbox is fully loaded
-    console.log(`Lightbox image loaded: ${this.currentLightboxImage}`);
-
-    // Optionally, you can perform additional tasks here, such as adjusting UI elements or notifying the user
   }
 
   // --- LIGHTBOX END ---
@@ -280,7 +267,6 @@ export default class CompanyDetails extends Vue {
     if (firstImg) {
       this.updateImageWidths(totalImages);
       this.firstImgWidth = firstImg.clientWidth;
-      console.log(this.firstImgWidth);
     }
   }
 
@@ -293,12 +279,10 @@ export default class CompanyDetails extends Vue {
 
     if (width <= 576) {
       divisionFactor = 1;
-    } else if (width <= 768) {
-      divisionFactor = 2;
     } else if (width <= 1200) {
-      divisionFactor = 3;
+      divisionFactor = 2;
     } else {
-      divisionFactor = Math.min(totalImages, 5);
+      divisionFactor = Math.min(totalImages, 3);
     }
 
     imgs.forEach((img: HTMLElement) => {
@@ -323,9 +307,7 @@ export default class CompanyDetails extends Vue {
         this.company = res;
         return this.companyImages(); // Call the method to fetch images
       })
-      .then(() => {
-        console.log(this.companyImagesArray);
-      })
+      .then(() => {})
       .catch(error => {
         console.error('Error fetching company details or images:', error);
       });
