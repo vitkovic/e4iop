@@ -1,0 +1,38 @@
+{
+  "component": {
+    "fileUpload": {
+      "imgUpload": "Upload images",
+      "documentUpload": "Upload documents",
+      "imgInfo": {
+        "imgNumber": "* Number of images you can add is: ",
+        "imgSize": "* Maximum allowed image size is 2 mb.",
+        "imgLimit": "Maximum number of images (15) has been reached. Please remove some images in order to add new ones."
+      },
+      "documentInfo": {
+        "documentNumber": "* Number of documents you can add is: ",
+        "documentSize": "* Maximum allowed document size is 2 mb.",
+        "documentLimit": "Maximum number of documents (15) has been reached. Please remove some documents in order to add new ones."
+      },
+      "currentImg": "Current images:",
+      "newImg": "New images:",
+      "currentDoc": "Current documents:",
+      "newDoc": "New documents:",
+      "deleteImage": {
+        "question": "Are you sure you want to delete the image?",
+        "title": "Please confirm the deletion of the image"
+      },
+      "deleteDocument": {
+        "question": "Are you sure you want to delete the document?",
+        "title": "Please confirm the deletion of the document"
+      }
+    },
+    "error": {
+      "imgSize": "Number of images that cannot be added is {numberOfBigImages}.<br>Limits exceeded:<br><ul><li>maximum image size (2mb).</li></ul>",
+      "imgNumber": "Number of images that cannot be added is {numberOfLimitImages}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li></ul>",
+      "imgSize&Number": "Number of images that cannot be added is {totalNumberOfImages}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li><li>maximum image size (2mb).</li></ul>",
+      "documentSize": "Number of images that cannot be added is {numberOfBigDocuments}.<br>Limits exceeded:<br><ul><li>maximum document size (2mb).</li></ul>",
+      "documentNumber": "Number of documents that cannot be added is {numberOfLimitDocuments}.<br>Limits exceeded:<br><ul><li>maximum number of documents (15).</li></ul>",
+      "documentSize&Number": "Number of documents that cannot be added is {totalNumberOfDocuments}.<br>Limits exceeded:<br><ul><li>maximum number of documents (15).</li><li>maximum document size (2mb).</li></ul>"
+    }
+  }
+}

@@ -1,8 +1,12 @@
 package e4i.web.rest;
 
 import e4i.domain.CmsNews;
-import e4i.domain.Company;
+import e4i.domain.Document;
+import e4i.domain.DocumentType;
+import e4i.repository.DocumentRepository;
+import e4i.repository.DocumentTypeRepository;
 import e4i.service.CmsNewsService;
+import e4i.service.FilesStorageService;
 import e4i.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -15,14 +19,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -41,6 +50,15 @@ public class CmsNewsResource {
     public CmsNewsResource(CmsNewsService cmsNewsService) {
         this.cmsNewsService = cmsNewsService;
     }
+    
+    @Autowired
+    DocumentRepository documentRepository;
+    
+    @Autowired
+    DocumentTypeRepository documentTypeRepository;
+    
+    @Autowired
+    FilesStorageService storageService;
 
     /**
      * {@code POST  /cms-news} : Create a new cmsNews.
@@ -105,7 +123,7 @@ public class CmsNewsResource {
     @GetMapping("/cms-news/{id}")
     public ResponseEntity<CmsNews> getCmsNews(@PathVariable Long id) {
         log.debug("REST request to get CmsNews : {}", id);
-        Optional<CmsNews> cmsNews = cmsNewsService.getCmsNewsById(id);
+        Optional<CmsNews> cmsNews = cmsNewsService.findOne(id);
         return ResponseUtil.wrapOrNotFound(cmsNews);
     }
 
@@ -120,6 +138,95 @@ public class CmsNewsResource {
         log.debug("REST request to delete CmsNews : {}", id);
         cmsNewsService.deleteCmsNews(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    
+    
+    
+    
+    
+    @PostMapping("/cms-news/upload-files")
+    @Transactional
+    public ResponseEntity<?> uploadFiles(
+  		  @RequestParam Long id, 
+  		  @RequestParam("imageFiles") MultipartFile[] imageFiles,
+  		  @RequestParam("documentFiles") MultipartFile[] documentFiles
+  		  ) {		  
+  	  Optional<CmsNews> cmsNewsOptional = cmsNewsService.getCmsNewsById(id);
+  	  if (cmsNewsOptional.isEmpty()) {
+  		  return ResponseEntity.notFound().build();
+  	  }
+  	  
+  	  CmsNews cmsNews = cmsNewsOptional.get();
+  	
+  	  DocumentType imageType = documentTypeRepository.findByType(DocumentType.IMAGE);  
+  	  Set<Document> images = new HashSet<Document>();
+  	  
+   	  DocumentType documentType = documentTypeRepository.findByType(DocumentType.DOCUMENT);  
+   	  Set<Document> documents = new HashSet<Document>();
+      	    	
+  	  Arrays.asList(imageFiles).stream().forEach(file -> {
+  		  Document image = new Document();		  
+  		  String namePrefix = "img_news_" + id + "_";
+  		  String imageName = storageService.saveImage(namePrefix, file);
+  		  image.setFilename(imageName);
+  		  image.setType(imageType);
+  		  images.add(image);    		
+  	  });
+  	  
+   	  Arrays.asList(documentFiles).stream().forEach(file -> {
+   		  String namePrefix = "doc_news_" + id + "_";
+   		  Document document = new Document();		  
+   		  String documentName = storageService.saveDocument(namePrefix, file);
+   		  document.setFilename(documentName);
+   		  document.setType(documentType);
+   		  documents.add(document);    		
+   	  });
+   	  
+  	  documentRepository.saveAll(images);
+   	  documentRepository.saveAll(documents);
+   	  
+     	  Set<Document> allFiles = new HashSet<Document>();
+     	  allFiles.addAll(images);
+     	  allFiles.addAll(documents);
+     	  allFiles.addAll(cmsNews.getDocuments());
+     	  cmsNews.setDocuments(allFiles);
+     	         	  
+   	  cmsNewsService.createOrUpdateCmsNews(cmsNews);
+  	  
+  	  return ResponseEntity.ok().build();
+    }
+    
+    @DeleteMapping("/cms-news/delete-file/{id}/{fileId}")
+    @Transactional
+    public ResponseEntity<Set<Document>> deleteDocument(@PathVariable Long id, @PathVariable Long fileId) {
+        log.debug("REST request to delete document for CmsNews : {}", id);
+
+     	  Optional<CmsNews> cmsNewsOptional = cmsNewsService.getCmsNewsById(id);
+     	  if (cmsNewsOptional.isEmpty()) {
+     		return ResponseEntity.notFound().build();
+     	  }
+     	
+        Optional<Document> documentOptional = documentRepository.findById(fileId);
+     	  if (documentOptional.isEmpty()) {
+     		return ResponseEntity.notFound().build();
+     	  }
+     	  
+     	  CmsNews cmsNews = cmsNewsOptional.get();
+        Document document = documentOptional.get();
+
+        // Ovako se brisu veze iz many-to-many tabele "company-documents"
+        cmsNews.getDocuments().remove(document);
+     	  document.getCmsNewses().remove(cmsNews);
+
+        documentRepository.delete(document);
+        
+        if (document.getType().getType().equals(DocumentType.DOCUMENT)) {
+            storageService.deleteB2BDocument(document);
+        } else if (document.getType().getType().equals(DocumentType.IMAGE)) {
+      	  storageService.deleteImage(document.getFilename());
+        }
+              
+        return ResponseEntity.ok().build();
     }
     
     /**
@@ -138,4 +245,8 @@ public class CmsNewsResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    
+    
+    
+    
 }

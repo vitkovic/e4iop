@@ -19,6 +19,9 @@ import java.util.Set;
 public class DocumentType implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    public static final String IMAGE = "image";
+    public static final String DOCUMENT = "document";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")

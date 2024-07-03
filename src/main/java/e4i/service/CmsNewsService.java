@@ -1,7 +1,6 @@
 package e4i.service;
 
 import e4i.domain.CmsNews;
-import e4i.domain.CmsNews;
 import e4i.repository.CmsNewsRepository;
 import e4i.security.AuthoritiesConstants;
 import e4i.security.SecurityUtils;
@@ -65,6 +64,12 @@ public class CmsNewsService {
     public Optional<CmsNews> getCmsNewsById(Long id) {
         log.debug("Request to get CmsNews : {}", id);
         return cmsNewsRepository.findById(id);
+    }
+    
+    @Transactional(readOnly = true)
+    public Optional<CmsNews> findOne(Long id) {
+        log.debug("Request to get Advertisement : {}", id);
+        return cmsNewsRepository.findOneWithEagerRelationships(id);
     }
 
     /**

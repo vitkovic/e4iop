@@ -30,7 +30,27 @@
                 :class="{'valid': !$v.cmsNews.sequenceNumber.$invalid, 'invalid': $v.cmsNews.sequenceNumber.$invalid }" v-model="$v.cmsNews.sequenceNumber.$model" />
             </div>
 
-            <ImageUpload ref="imageUpload"></ImageUpload>
+            <hr class="mt-5">
+            <div class="row mt-4 mb-4 justify-content-between">
+              <div class="col-5">
+                <FileUpload 
+                  ref="imageUpload"
+                  :parentRef="'imageUpload'"
+                  :fileType="documentTypeOptions.IMAGE"
+                  :includedFiles="cmsNewsImages"
+                  @delete-file="deleteFile">
+                </FileUpload>
+              </div>
+              <div class="col-5">
+                <FileUpload 
+                  ref="documentUpload"
+                  :parentRef="'documentUpload'"
+                  :fileType="documentTypeOptions.DOCUMENT"
+                  :includedFiles="cmsNewsDocuments"
+                  @delete-file="deleteFile">
+                </FileUpload>
+              </div>
+            </div>
 
           </div>
           <div>

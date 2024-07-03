@@ -1,5 +1,10 @@
 import { IDocument } from '@/shared/model/document.model';
 
+export enum DocumentTypeOptions {
+  IMAGE = 'image',
+  DOCUMENT = 'document',
+}
+
 export interface IDocumentType {
   id?: number;
   type?: string;

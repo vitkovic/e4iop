@@ -69,4 +69,12 @@ export default class DocumentService {
         });
     });
   }
+
+  public retrieveImage(filename): string {
+    return 'api/retrieve/image/' + filename;
+  }
+
+  public retrieveDocument(filename): string {
+    return 'api/retrieve/document/' + filename;
+  }
 }

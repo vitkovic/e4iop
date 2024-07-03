@@ -6,6 +6,8 @@ const baseApiUrlSearch = 'api/cms-news/search';
 import { ICmsNews } from '@/shared/model/cms-news.model';
 
 const baseApiUrl = 'api/cms-news';
+const apiUploadFiles = 'api/cms-news/upload-files';
+const apiDeleteFile = 'api/cms-news/delete-file';
 
 export default class CmsNewsService {
   public find(id: number): Promise<ICmsNews> {
@@ -33,11 +35,11 @@ export default class CmsNewsService {
         });
     });
   }
-public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
-	 console.log(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+  public retrieveSearch(search: string, paginationQuery?: any): Promise<any> {
+    console.log(baseApiUrlSearch + `?search=${search}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
     return new Promise<any>((resolve, reject) => {
       axios
-        .get(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .get(baseApiUrlSearch + `?search=${search}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
         .then(res => {
           resolve(res);
         })
@@ -78,6 +80,36 @@ public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
         .put(`${baseApiUrl}`, entity)
         .then(res => {
           resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public uploadFiles(entity: FormData): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .post(apiUploadFiles, entity, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public deleteFile(id: number, fileId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .delete(`${apiDeleteFile}/${id}/${fileId}`)
+        .then(res => {
+          resolve(res);
         })
         .catch(err => {
           reject(err);

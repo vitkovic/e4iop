@@ -1,7 +1,8 @@
 package e4i.repository;
 
-import e4i.domain.Advertisement;
 import e4i.domain.CmsNews;
+
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,9 @@ public interface CmsNewsRepository extends JpaRepository<CmsNews, Long> {
 	  
 	   Page<CmsNews> findAllSearch(@Param("search") String search, Pageable pageable);
 
-	
+		
+	  @Query("select cms_news from CmsNews cms_news left join fetch cms_news.documents where cms_news.id =:id")	
+	  Optional<CmsNews> findOneWithEagerRelationships(@Param("id") Long id);
 	
 	
 	
