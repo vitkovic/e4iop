@@ -42,7 +42,7 @@ h<template>
                         ref="imageUpload"
                         :parentRef="'imageUpload'"
                         :fileType="documentTypeOptions.IMAGE"
-                        :includedFiles="cmsNewsImages"
+                        :includedFiles="cmsPageImages"
                         @delete-file="deleteFile">
                         </FileUpload>
                     </div>
@@ -51,7 +51,7 @@ h<template>
                         ref="documentUpload"
                         :parentRef="'documentUpload'"
                         :fileType="documentTypeOptions.DOCUMENT"
-                        :includedFiles="cmsNewsDocuments"
+                        :includedFiles="cmsPageDocuments"
                         @delete-file="deleteFile">
                         </FileUpload>
                     </div>

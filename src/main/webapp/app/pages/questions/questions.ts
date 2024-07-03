@@ -1,58 +1,66 @@
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import { Component, Vue, Inject } from 'vue-property-decorator';
+
+import { ICmsQuestion } from '@/shared/model/cms-question.model';
+import CmsQuestionService from './cms-question.service';
 
 @Component
 export default class QuestionsComponent extends Vue {
+  @Inject('cmsQuestionService')
+  private cmsQuestionService: () => CmsQuestionService;
+
+  public cmsQuestions: ICmsQuestion[] = [];
   public activeIndex: number | null = null;
 
-  public questions = [
-    {
-      question: '1. Ko može da se registruje na portal?',
-      answer:
-        'Na portalu se registruju pravna lica, preduzetnici i frilenseri.<br><br>Registraciju pravnog lica može da obavi samo zakonski zastupnik koristeći svoj kvalifikovani elektronski sertifikat ili Consent ID.<br><br>Nakon potvrde identiteta, sistem će automatski preuzeti podatke o pravnom licu i preusmeriti na “Moj profil” stranicu. Potrebno je da unesete svoj PIB/MB, nakon čega će se automatski dopuniti ostali podaci. Dodatne podatke možete dodati sami uz potvrdu istinitosti i verodostojnosti podataka.',
-    },
-    {
-      question: '2. Kako da se registrujem?',
-      answer:
-        'Registraciju pravnog lica može da obavi samo zakonski zastupnik koristeći svoj kvalifikovani elektronski sertifikat ili Consent ID.<br><br> Nakon potvrde identiteta, sistem će automatski preuzeti podatke o pravnom licu i preusmeriti na “Moj profil” stranicu. Potrebno je da unesete svoj PIB/MB, nakon čega će se automatski dopuniti ostali podaci. Dodatne podatke možete dodati sami uz potvrdu istinitosti i verodostojnosti podataka.',
-    },
-    {
-      question: '3. Šta ako sam već registrovan?',
-      answer:
-        'Prilikom registracije se proverava da li je pravno lice već registrovano, ukoliko se utvrdi da jeste - sistem će ispisati obaveštenje da nalog za datu firmu/preduzetnika već postoji i uputiće Vas na formu za prijavu, te posle prijave preusmeriti na “Moj profil” stranicu.',
-    },
-    {
-      question: '4.	Da li korisnik može biti i oglašivač i tražilac?',
-      answer: 'Korisnik može biti istovremeno oglašivač i tražilac, ili samo jedno od ponuđenih. ',
-    },
-    {
-      question: '5.	Da li mogu da pogledam spisak korisnika koji imaju pristup mom nalogu?',
-      answer: 'Samo Administrator može da pogleda spisak korisnika koji imaju pristup Vašem nalogu.',
-    },
-    {
-      question: '6.	Da li mogu da dodam nove korisnike naloga?',
-      answer: 'Možete dodati nove korisnike ukoliko ste administrator.',
-    },
-    {
-      question: '7.	Kako da dodam nove korisnike naloga?',
-      answer:
-        'Novi korisnik se dodaje unosom email-a na koji će biti poslata pozivnica koju primalac mora da prihvati klikom na aktivacioni link u email-u. Aktivacioni link traje 72h i vodi na stranicu gde novi korisnik treba da potvrdi nalog.',
-    },
-    {
-      question: '8.	Da li mogu da izbrišem dodate korisnike mog naloga?',
-      answer: 'Možete izbrisati dodatne korisnike ali samo ukoliko ste administrator.',
-    },
-    {
-      question: '9.	Šta predstavlja saradnju?',
-      answer:
-        'Saradnja predstavlja obavljenu transakciju između oglašivača i tražioca, preko oglasa koji je oglašivač postavio, a na koji se tražilac javio.',
-    },
-    {
-      question: '10.	Kako da ostvarim kontakt?',
-      answer:
-        'Tražilac kroz poruku na platformi može da pošalje upite oglašivaču za razjašnjenje nedoumica i otvorenih pitanja vezanih za dati oglas.<br><br>Poruka se može poslati direktno sa oglasa.',
-    },
-  ];
+  // Pagination parameters
+  public itemsPerPage = 10;
+  public queryCount: number = null;
+  public page = 1;
+  public previousPage = 1;
+  public propOrder = 'createdAt';
+  public reverse = true;
+  public totalItems = 0;
+
+  public isFetching = false;
+
+  public mounted(): void {
+    this.retrieveAllCmsQuestions();
+  }
+
+  public clear(): void {
+    this.page = 1;
+    this.retrieveAllCmsQuestions();
+  }
+
+  public sort(): Array<any> {
+    const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.propOrder !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
+
+  public retrieveAllCmsQuestions(): void {
+    this.isFetching = true;
+
+    const paginationQuery = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
+    this.cmsQuestionService()
+      .retrieve(paginationQuery)
+      .then(
+        res => {
+          this.cmsQuestions = res.data;
+          this.totalItems = Number(res.headers['x-total-count']);
+          this.queryCount = this.totalItems;
+          this.isFetching = false;
+        },
+        err => {
+          this.isFetching = false;
+        }
+      );
+  }
 
   public toggleAnswer(index: number): void {
     this.activeIndex = this.activeIndex === index ? null : index;
@@ -60,5 +68,22 @@ export default class QuestionsComponent extends Vue {
 
   public isAnswerShown(index: number): boolean {
     return this.activeIndex === index;
+  }
+
+  public loadPage(page: number): void {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.transition();
+    }
+  }
+
+  public transition(): void {
+    this.retrieveAllCmsQuestions();
+  }
+
+  public changeOrder(propOrder): void {
+    this.propOrder = propOrder;
+    this.reverse = !this.reverse;
+    this.transition();
   }
 }

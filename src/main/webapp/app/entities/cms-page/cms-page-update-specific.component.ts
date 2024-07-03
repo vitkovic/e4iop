@@ -61,8 +61,8 @@ export default class CmsPageUpdate extends Vue {
 
   public cmsPageTypes: ICmsPageType[] = [];
 
-  public cmsNewsImagesValue: IDocument[] = [];
-  public cmsNewsDocumentsValue: IDocument[] = [];
+  public cmsPageImagesValue: IDocument[] = [];
+  public cmsPageDocumentsValue: IDocument[] = [];
   public documentTypeOptions = DocumentTypeOptions;
   public cmsPageTypeOptions = CmsPageTypeOptions;
   public imageFiles: ImageBlob[] = [];
@@ -160,8 +160,8 @@ export default class CmsPageUpdate extends Vue {
       .getSpecificByType(type)
       .then(res => {
         this.cmsPage = res;
-        this.cmsNewsImagesValue = this.cmsPage.documents.filter(doc => doc.type.type === this.documentTypeOptions.IMAGE);
-        this.cmsNewsDocumentsValue = this.cmsPage.documents.filter(doc => doc.type.type === this.documentTypeOptions.DOCUMENT);
+        this.cmsPageImagesValue = this.cmsPage.documents.filter(doc => doc.type.type === this.documentTypeOptions.IMAGE);
+        this.cmsPageDocumentsValue = this.cmsPage.documents.filter(doc => doc.type.type === this.documentTypeOptions.DOCUMENT);
       })
       .catch(err => {
         console.error(err);
@@ -249,11 +249,11 @@ export default class CmsPageUpdate extends Vue {
       });
   }
 
-  get cmsNewsImages(): IDocument[] {
-    return this.cmsNewsImagesValue;
+  get cmsPageImages(): IDocument[] {
+    return this.cmsPageImagesValue;
   }
 
-  get cmsNewsDocuments(): IDocument[] {
-    return this.cmsNewsDocumentsValue;
+  get cmsPageDocuments(): IDocument[] {
+    return this.cmsPageDocumentsValue;
   }
 }

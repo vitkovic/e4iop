@@ -6,7 +6,17 @@
           <h1 v-text="$t('faq.title')">NAJČEŠĆA PITANJA</h1>
         </div>
       </div>
-      <div class="row mb-4 ml-1">
+
+      <div v-show="cmsQuestions && cmsQuestions.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
+        </div>
+      </div>
+
+      <!-- <div class="row mb-4 ml-1">
         <div class="col-xs-12 w-100">
           <label for="searchInput" class="font-weight-bold" v-text="$t('faq.searchQuestions')" >Pretražite pitanja</label>
           <div class="input-group">
@@ -16,20 +26,21 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row ml-1">
-        <div class="card col-12 mb-2" v-for="(question, index) in questions" :key="index">
+      </div> -->
+      <div v-if="cmsQuestions.length > 0" class="row ml-1">
+        <div class="card col-12 mb-2" v-for="(question, index) in cmsQuestions" :key="index">
           <div class="card-header p-0 border-0">
             <button class="btn text-left w-100 font-weight-bold text-white rounded" @click="toggleAnswer(index)">
               {{ question.question }}
             </button>
           </div>
           <div class="card-body" v-show="isAnswerShown(index)">
-            <p v-html="question.answer"></p>
+            <p v-text="question.answer" style="white-space: preserve;"></p>
           </div>
         </div>
       </div>
-      <div class="row justify-content-center">
+
+      <!-- <div class="row justify-content-center">
         <div class="col-xs-12">
           <nav aria-label="Demo nav">
             <ul class="pagination">
@@ -51,7 +62,7 @@
             </ul>
           </nav>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
