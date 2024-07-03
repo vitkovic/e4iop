@@ -46,6 +46,8 @@
       "additionalSupporters": "Додатни оглашивачи",
       "subsubcategory": "Подкатегорија",
       "thread": "Thread",
+      "offer": "Понуда",
+      "demand": "Потражња",
       "of": "од",
       "upload": {
         "imgUpload": "Додајте слике",
@@ -112,7 +114,9 @@
         "all": "Сви",
         "active": "Активни",
         "inactive": "Неактивни",
-        "archived": "Архивирани"
+        "archived": "Архивирани",
+        "offer": "Понуда",
+        "demand": "Потражња"
       },
       "notifications": {
         "advertisementActivation": "Оглас је активиран!",

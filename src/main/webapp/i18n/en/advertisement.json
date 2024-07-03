@@ -46,6 +46,7 @@
       "additionalSupporters": "Additional advertisers",
       "subsubcategory": "Subcategory",
       "thread": "Thread",
+
       "of": "of",
       "upload": {
         "imgUpload": "Upload images",
@@ -112,7 +113,9 @@
         "all": "All",
         "active": "Active",
         "inactive": "Inactive",
-        "archived": "Archived"
+        "archived": "Archived",
+        "offer": "Offer",
+        "demand": "Demand"
       },
       "notifications": {
         "advertisementActivation": "The advertisement has been activated!",

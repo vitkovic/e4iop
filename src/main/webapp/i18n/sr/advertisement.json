@@ -46,6 +46,7 @@
       "additionalSupporters": "Dodatni oglašivači",
       "subsubcategory": "Podkategorija",
       "thread": "Thread",
+
       "of": "od",
       "upload": {
         "imgUpload": "Dodajte slike",
@@ -112,7 +113,9 @@
         "all": "Svi",
         "active": "Aktivni",
         "inactive": "Neaktivni",
-        "archived": "Arhivirani"
+        "archived": "Arhivirani",
+        "offer": "Ponuda",
+        "demand": "Potražnja"
       },
       "notifications": {
         "advertisementActivation": "Oglas je aktiviran!",

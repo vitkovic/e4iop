@@ -632,8 +632,11 @@ export default class AdvertisementUpdate extends Vue {
       }
     }
 
-    if (this.advertisement.documents.filter(doc => doc.type.type === 'image').length + this.imageFiles.length + newImagesArray.length > 5) {
-      const imagesToAdd = 5 - this.imageFiles.length - this.advertisement.documents.filter(doc => doc.type.type === 'image').length;
+    if (
+      this.advertisement.documents.filter(doc => doc.type.type === 'image').length + this.imageFiles.length + newImagesArray.length >
+      15
+    ) {
+      const imagesToAdd = 15 - this.imageFiles.length - this.advertisement.documents.filter(doc => doc.type.type === 'image').length;
       const imagesToAddArray = newImagesArray.slice(0, imagesToAdd);
       numberOfLimitImages = newImagesArray.length - imagesToAddArray.length;
       this.imageFiles.push(...imagesToAddArray);
@@ -688,10 +691,10 @@ export default class AdvertisementUpdate extends Vue {
       this.advertisement.documents.filter(doc => doc.type.type === 'document').length +
         this.documentFiles.length +
         newDocumentsArray.length >
-      5
+      15
     ) {
       const documentsToAdd =
-        5 - this.documentFiles.length - this.advertisement.documents.filter(doc => doc.type.type === 'document').length;
+        15 - this.documentFiles.length - this.advertisement.documents.filter(doc => doc.type.type === 'document').length;
       const documentsToAddArray = newDocumentsArray.slice(0, documentsToAdd);
       numberOfLimitDocuments = newDocumentsArray.length - documentsToAddArray.length;
       this.documentFiles.push(...documentsToAddArray);
@@ -794,22 +797,22 @@ export default class AdvertisementUpdate extends Vue {
   }
 
   get availableNumberOfImagesToAdd(): number {
-    return 5 - this.advertisement.documents.filter(doc => doc.type.type === 'image').length;
+    return 15 - this.advertisement.documents.filter(doc => doc.type.type === 'image').length;
   }
 
   get isUploadImageFilesDisabled(): boolean {
     const totalImages: number = this.advertisement.documents.filter(doc => doc.type.type === 'image').length + this.imageFiles.length;
-    return totalImages === 5;
+    return totalImages === 15;
   }
 
   get availableNumberOfDocumentsToAdd(): number {
-    return 5 - this.advertisement.documents.filter(doc => doc.type.type === 'document').length;
+    return 15 - this.advertisement.documents.filter(doc => doc.type.type === 'document').length;
   }
 
   get isUploadDocumentFilesDisabled(): boolean {
     const totalDocuments: number =
       this.advertisement.documents.filter(doc => doc.type.type === 'document').length + this.documentFiles.length;
-    return totalDocuments === 5;
+    return totalDocuments === 15;
   }
 
   get browseButtonText(): string {
