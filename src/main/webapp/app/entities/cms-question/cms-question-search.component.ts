@@ -20,12 +20,21 @@ export default class CmsQuestion extends mixins(AlertMixin) {
   public propOrder = 'id';
   public reverse = false;
   public totalItems = 0;
-
+public txtsearch;
   public cmsQuestions: ICmsQuestion[] = [];
 
   public isFetching = false;
 
   public mounted(): void {
+	  
+	this.txtsearch = this.$route.query.search;  
+	if (this.txtsearch == null) {
+     const urlParams = new URLSearchParams(window.location.search);
+	 this.txtsearch = urlParams.get('search');
+   //  this.category =  urlParams.get('category');
+    }  
+	  
+	  
     this.retrieveAllCmsQuestions();
   }
 
@@ -43,7 +52,7 @@ export default class CmsQuestion extends mixins(AlertMixin) {
       sort: this.sort(),
     };
     this.cmsQuestionService()
-      .retrieve(paginationQuery)
+      .retrieveSearch(this.txtsearch,paginationQuery)
       .then(
         res => {
           this.cmsQuestions = res.data;

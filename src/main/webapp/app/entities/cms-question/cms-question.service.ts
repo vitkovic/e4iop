@@ -2,11 +2,15 @@ import axios from 'axios';
 
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
+
 import { ICmsQuestion } from '@/shared/model/cms-question.model';
 
 const baseApiUrl = 'api/cms-questions';
 
 export default class CmsQuestionService {
+
+  public baseApiUrlSearch = '/b2b/cms-questions/search';
+ 
   public find(id: number): Promise<ICmsQuestion> {
     return new Promise<ICmsQuestion>((resolve, reject) => {
       axios
@@ -32,7 +36,19 @@ export default class CmsQuestionService {
         });
     });
   }
-
+public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
+	 console.log(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
   public delete(id: number): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
