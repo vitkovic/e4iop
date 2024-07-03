@@ -5,6 +5,8 @@ import { Authority } from '@/shared/security/authority';
 const CMSB2B = () => import('@/cms-b2b/cms-b2b.vue');
 const CMSAdvertsement = () => import('@/entities/advertisement/advertisement.vue');
 const CMSCodebook = () => import('@/cms-b2b/cms-b2b-codebook.vue');
+const CMSPages = () => import('@/cms-b2b/cms-b2b-pages.vue');
+const CMSPageUpdateSpecific = () => import('@/entities/cms-page/cms-page-update-specific.vue');
 const CMSNews = () => import('@/entities/cms-news/cms-news.vue');
 const CMSNewsUpdate = () => import('@/entities/cms-news/cms-news-update.vue');
 const CMSNewsDetails = () => import('@/entities/cms-news/cms-news-details.vue');
@@ -26,6 +28,18 @@ export default [
     path: '/b2b/cms/codebook',
     name: 'CMSCodebook',
     component: CMSCodebook,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/b2b/cms/pages',
+    name: 'CMSPages',
+    component: CMSPages,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/b2b/cms/page/edit/:pageType',
+    name: 'CMSPageEditSpecific',
+    component: CMSPageUpdateSpecific,
     meta: { authorities: [Authority.ADMIN] },
   },
   {

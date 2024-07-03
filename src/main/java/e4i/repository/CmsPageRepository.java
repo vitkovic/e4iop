@@ -26,4 +26,7 @@ public interface CmsPageRepository extends JpaRepository<CmsPage, Long> {
 
     @Query("select cmsPage from CmsPage cmsPage left join fetch cmsPage.documents where cmsPage.id =:id")
     Optional<CmsPage> findOneWithEagerRelationships(@Param("id") Long id);
+
+	@Query("select cms_page from CmsPage cms_page left join fetch cms_page.documents where cms_page.type.type =:type")	
+	Optional<CmsPage> findOneByType(@Param("type") String type);
 }

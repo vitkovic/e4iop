@@ -1,5 +1,12 @@
 import { ICmsPage } from '@/shared/model/cms-page.model';
 
+export enum CmsPageTypeOptions {
+  COOKIES = 'cookies',
+  PRIVACY_POLICY = 'privacy-policy',
+  TERMS_OF_USE = 'terms-of-use',
+  ABOUT = 'about',
+}
+
 export interface ICmsPageType {
   id?: number;
   type?: string;
