@@ -94,6 +94,7 @@ import MeetingParticipantService from '@/entities/meeting-participant/meeting-pa
 import MeetingParticipantNonB2BService from '@/entities/meeting-participant-non-b2b/meeting-participant-non-b2b.service';
 import MeetingParticipantStatusService from '@/entities/meeting-participant-status/meeting-participant-status.service';
 import MeetingTypeService from '@/entities/meeting-type/meeting-type.service';
+import CmsNewsService from '@/entities/cms-news/cms-news.service';
 import CmsPageService from '@/entities/cms-page/cms-page.service';
 import CmsPageTypeService from '@/entities/cms-page-type/cms-page-type.service';
 import CmsTestimonialsService from '@/entities/cms-testimonials/cms-testimonials.service';
@@ -108,13 +109,13 @@ import InquiryService from '@/entities/inquiry/inquiry.service';
 
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 
-import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
+// import vSelect from 'vue-select'
+// Vue.component('v-select', vSelect)
 
-import VueMultiselect from 'vue-multiselect'
-import Multiselect from 'vue-multiselect'
-Vue.component('VueMultiselect', VueMultiselect)
-Vue.component('Multiselect', Multiselect)
+import VueMultiselect from 'vue-multiselect';
+import Multiselect from 'vue-multiselect';
+Vue.component('VueMultiselect', VueMultiselect);
+Vue.component('Multiselect', Multiselect);
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 // Vitko
@@ -268,6 +269,7 @@ new Vue({
     meetingParticipantNonB2BService: () => new MeetingParticipantNonB2BService(),
     meetingParticipantStatusService: () => new MeetingParticipantStatusService(),
     meetingTypeService: () => new MeetingTypeService(),
+    cmsNewsService: () => new CmsNewsService(),
     cmsPageService: () => new CmsPageService(),
     cmsPageTypeService: () => new CmsPageTypeService(),
     cmsTestimonialsService: () => new CmsTestimonialsService(),

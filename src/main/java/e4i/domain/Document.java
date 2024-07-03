@@ -71,6 +71,11 @@ public class Document implements Serializable {
     @ManyToMany(mappedBy = "documents")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnore
+    private Set<CmsNews> cmsNewses = new HashSet<>();
+    
+    @ManyToMany(mappedBy = "documents")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnore
     private Set<CmsPage> cmsPages = new HashSet<>();
 
     @ManyToMany(mappedBy = "documents")
@@ -300,7 +305,33 @@ public class Document implements Serializable {
     public void setCompanies(Set<Company> companies) {
         this.companies = companies;
     }
+    
+    
+    public Set<CmsNews> getCmsNewses() {
+        return cmsNewses;
+    }
 
+    public Document cmsNewses(Set<CmsNews> cmsNewses) {
+        this.cmsNewses = cmsNewses;
+        return this;
+    }
+
+    public Document addCmsNews(CmsNews cmsNews) {
+        this.cmsNewses.add(cmsNews);
+        cmsNews.getDocuments().add(this);
+        return this;
+    }
+
+    public Document removeCmsNews(CmsNews cmsNews) {
+        this.cmsNewses.remove(cmsNews);
+        cmsNews.getDocuments().remove(this);
+        return this;
+    }
+
+    public void setCmsNewses(Set<CmsNews> cmsNewses) {
+        this.cmsNewses = cmsNewses;
+    }
+    
     public Set<CmsPage> getCmsPages() {
         return cmsPages;
     }

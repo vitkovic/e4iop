@@ -14,6 +14,7 @@ import account from '@/router/account.ts';
 import admin from '@/router/admin.ts';
 import entities from '@/router/entities.ts';
 import pages from '@/router/pages.ts';
+import cms from '@/router/cms.ts';
 
 Vue.use(Router);
 
@@ -63,7 +64,8 @@ export default new Router({
     ...account,
     ...admin,
     ...entities,
-    ...pages
+    ...pages,
+    ...cms
   ],
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 }; // Scroll to the top of the page on route change
