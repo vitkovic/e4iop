@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h1>O NAMA</h1>
+          <h1 v-text="$t('about.title')">O NAMA</h1>
         </div>
         <div class="col-md-12">
           <p class="lh-1">
@@ -98,7 +98,7 @@
       </section>
       <div class="row">
         <div class="col-xs-12">
-          <h2>KORISNI DOKUMENTI</h2>
+          <h2 v-text="$t('about.documents')">KORISNI DOKUMENTI</h2>
         </div>
       </div>
       <div class="col-md-12">
