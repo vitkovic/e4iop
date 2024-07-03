@@ -271,7 +271,10 @@
       "zbirniPrikaz": "Збирни приказ",
       "readLess": "Прочитај мање",
       "readMore": "Прочитај више",
-      "saveDocuments": "Упамти документа"
+      "saveDocuments": "Упамти документа",
+      "activate": "Активирај",
+      "deactivate": "Деактивирај",
+      "deleteDatabase": "Обриши из базе"
     },
     "detail": {
       "field": "Поље",

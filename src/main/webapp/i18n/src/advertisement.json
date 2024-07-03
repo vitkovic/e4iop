@@ -2,18 +2,18 @@
   "riportalApp": {
     "advertisement": {
       "home": {
-        "title": "Advertisements",
-        "createLabel": "Kreiraj novi Advertisement",
+        "title": "Огласи",
+        "createLabel": "Креирај нови оглас",
         "createOrEditLabel": "Креирајте или измените оглас",
         "createTitleLabel": "Креирајте оглас",
         "editTitleLabel": "Измените оглас",
-        "notFound": "No Advertisements found"
+        "notFound": "Није пронађен ниједан оглас"
       },
       "created": "Kreiran je novi Advertisement pod nazivom {{ param }}",
       "updated": "Advertisement pod nazivom {{ param }} je ažuriran",
       "deleted": "Advertisement pod nazivom {{ param }} je obrisan",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Advertisement pod nazivom {{ id }}?"
+        "question": "Да ли сте сигурни да желите да обришете оглас?"
       },
       "detail": {
         "title": "Advertisement"
@@ -92,10 +92,32 @@
         "advertisementModalTitle": "Упит за оглас",
         "collaborationModalTitle": "Потврдите покретање сарадње",
         "advertisementTitle": "Оглас: ",
-        "companyTitle": "Компанија: "
+        "companyTitle": "Компанија: ",
+        "deactivateModal": {
+          "title": "Потврдите деактивирање огласа",
+          "question": "Да ли сте сигурни да желите да деактивирате оглас?"
+        },
+        "activateModal": {
+          "title": "Потврдите активирање огласа",
+          "question": "Да ли сте сигурни да желите да активирате оглас?"
+        },
+        "deleteDatabaseModal": {
+          "question": "Да ли сте сигурни да желите да обришете овај оглас из базе?"
+        }
       },
       "breadcrumb": {
         "home": "почетна"
+      },
+      "filterButtons": {
+        "all": "Сви",
+        "active": "Активни",
+        "inactive": "Неактивни",
+        "archived": "Архивирани"
+      },
+      "notifications": {
+        "advertisementActivation": "Оглас је активиран!",
+        "advertisementDeactivation": "Оглас је деактивиран!",
+        "advertisementDeleted": "Оглас је обрисан!"
       },
 
       "content": "Content",

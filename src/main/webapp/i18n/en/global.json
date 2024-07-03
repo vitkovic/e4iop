@@ -274,7 +274,10 @@
       "zbirniPrikaz": "Service request overview",
       "readLess": "Read Less",
       "readMore": "Read More",
-      "saveDocuments": "Save documents"
+      "saveDocuments": "Save documents",
+      "activate": "Activate",
+      "deactivate": "Deactivate",
+      "deleteDatabase": "Delete from database"
     },
     "detail": {
       "field": "Field",

@@ -197,7 +197,7 @@ export default class Advertisement extends mixins(AlertMixin) {
     this.advertisementService()
       .updateStatus(this.advertisementToSwitchStatus.id, this.newAdvertisementStatus.id)
       .then(() => {
-        const message = 'Oglas je deaktiviran!';
+        const message = this.$t('riportalApp.advertisement.notifications.advertisementDeactivation');
         this.alertService().showAlert(message, 'danger');
         this.getAlertFromStore();
         this.retrieveAllAdvertisements();
@@ -222,7 +222,7 @@ export default class Advertisement extends mixins(AlertMixin) {
     this.advertisementService()
       .updateStatus(this.advertisementToSwitchStatus.id, this.newAdvertisementStatus.id)
       .then(() => {
-        const message = 'Oglas je aktiviran!';
+        const message = this.$t('riportalApp.advertisement.notifications.advertisementActivation');
         this.alertService().showAlert(message, 'danger');
         this.getAlertFromStore();
         this.$router.push({ name: 'AdvertisementEdit', params: { advertisementId: this.advertisementToSwitchStatus.id } });
@@ -249,7 +249,7 @@ export default class Advertisement extends mixins(AlertMixin) {
     this.advertisementService()
       .updateStatus(this.advertisementToSwitchStatus.id, this.newAdvertisementStatus.id)
       .then(() => {
-        const message = 'Oglas je obrisan!';
+        const message = this.$t('riportalApp.advertisement.notifications.advertisementDeleted');
         this.alertService().showAlert(message, 'danger');
         this.getAlertFromStore();
         this.retrieveAllAdvertisements();

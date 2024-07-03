@@ -2,18 +2,18 @@
   "riportalApp": {
     "advertisement": {
       "home": {
-        "title": "Advertisements",
-        "createLabel": "Kreiraj novi Advertisement",
+        "title": "Oglasi",
+        "createLabel": "Kreiraj novi oglas",
         "createOrEditLabel": "Kreirajte ili izmenite oglas",
         "createTitleLabel": "Kreirajte oglas",
         "editTitleLabel": "Izmenite oglas",
-        "notFound": "No Advertisements found"
+        "notFound": "Nije pronađen nijedan oglas"
       },
       "created": "Kreiran je novi Advertisement pod nazivom {{ param }}",
       "updated": "Advertisement pod nazivom {{ param }} je ažuriran",
       "deleted": "Advertisement pod nazivom {{ param }} je obrisan",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Advertisement pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete oglas?"
       },
       "detail": {
         "title": "Advertisement"
@@ -92,10 +92,32 @@
         "advertisementModalTitle": "Upit za oglas",
         "collaborationModalTitle": "Potvrdite pokretanje saradnje",
         "advertisementTitle": "Oglas: ",
-        "companyTitle": "Kompanija: "
+        "companyTitle": "Kompanija: ",
+        "deactivateModal": {
+          "title": "Potvrdite deaktiviranje oglasa",
+          "question": "Da li ste sigurni da želite da deaktivirate oglas?"
+        },
+        "activateModal": {
+          "title": "Potvrdite aktiviranje oglasa",
+          "question": "Da li ste sigurni da želite da aktivirate oglas?"
+        },
+        "deleteDatabaseModal": {
+          "question": "Da li ste sigurni da želite da obrišete ovaj oglas iz baze?"
+        }
       },
       "breadcrumb": {
         "home": "početna"
+      },
+      "filterButtons": {
+        "all": "Svi",
+        "active": "Aktivni",
+        "inactive": "Neaktivni",
+        "archived": "Arhivirani"
+      },
+      "notifications": {
+        "advertisementActivation": "Oglas je aktiviran!",
+        "advertisementDeactivation": "Oglas je deaktiviran!",
+        "advertisementDeleted": "Oglas je obrisan!"
       }
     }
   }
