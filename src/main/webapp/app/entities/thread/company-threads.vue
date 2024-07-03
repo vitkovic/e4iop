@@ -23,7 +23,7 @@
     </div>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && threadsDTO && threadsDTO.length === 0">
-      <span v-text="$t('b2BportalApp.thread.home.notFound')">No threads found</span>
+      <span v-text="$t('riportalApp.thread.home.notFound')">No threads found</span>
     </div>
     <div class="ml-3 mb-3" style="display: flex; align-items: center;">
       <h3
