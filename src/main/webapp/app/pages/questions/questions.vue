@@ -3,16 +3,16 @@
     <div class="container">
       <div class="row mb-4">
         <div class="col-xs-12">
-          <h1>NAJČEŠĆA PITANJA</h1>
+          <h1 v-text="$t('faq.title')">NAJČEŠĆA PITANJA</h1>
         </div>
       </div>
       <div class="row mb-4 ml-1">
         <div class="col-xs-12 w-100">
-          <label for="searchInput" class="font-weight-bold">Pretražite pitanja</label>
+          <label for="searchInput" class="font-weight-bold" v-text="$t('faq.searchQuestions')" >Pretražite pitanja</label>
           <div class="input-group">
-            <input type="text" id="searchInput" class="form-control" placeholder="Unesite pojam za pretragu" />
+            <input type="text" id="searchInput" class="form-control" :placeholder="$t('faq.searchPlaceholder')" />
             <div class="input-group-append">
-              <button class="btn btn-search pt-0 pb-0" type="button">Pretraži</button>
+              <button class="btn btn-search pt-0 pb-0" v-text="$t('entity.action.search')" type="button">Pretraži</button>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
           <nav aria-label="Demo nav">
             <ul class="pagination">
               <li class="page-item">
-                <a href="#" class="page-link" @click.prevent>Prethodna</a>
+                <a href="#" class="page-link" v-text="$t('faq.pagginationPrev')" @click.prevent>Prethodna</a>
               </li>
               <li class="page-item">
                 <a href="" class="page-link" @click.prevent>1</a>
@@ -46,7 +46,7 @@
                 <a href="" class="page-link" @click.prevent>3</a>
               </li>
               <li class="page-item">
-                <a href="" class="page-link" @click.prevent>Sledeća</a>
+                <a href="" class="page-link" v-text="$t('faq.pagginationNext')" @click.prevent>Sledeća</a>
               </li>
             </ul>
           </nav>
