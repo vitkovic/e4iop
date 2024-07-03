@@ -5,7 +5,7 @@
         "title": "Сарадње",
         "createLabel": "Креирај нову Сарадњу",
         "createOrEditLabel": "Креирајте или измените Сарадњу",
-        "notFound": "Није пронађена ниједна Сарадња"
+        "notFound": "Није пронађена ниједна сарадња"
       },
       "created": "Креирана је нова Сарадња под називом {{ param }}",
       "updated": "Сарадња под називом {{ param }} је ажурирана",
@@ -40,6 +40,18 @@
         "renewAd": "Обнови оглас",
         "confirmCollaboration": "Потврди сарадњу",
         "cancelCollaboration": "Одбиј сарадњу"
+      },
+      "modal": {
+        "ratingEntityModal": {
+          "title": "Оцените сарадњу",
+          "placeholderComment": "Коментар сарадње...",
+          "ratingButton": "Изаберите оцену",
+          "ratingValidation": "Оцена није изабрана."
+        },
+        "renewAdModal": {
+          "title": "Потврдите обнову огласа",
+          "question": "Да ли сте сигурни да желите да обновите оглас"
+        }
       }
     }
   }
