@@ -82,4 +82,18 @@ public class CmsPageService {
         log.debug("Request to delete CmsPage : {}", id);
         cmsPageRepository.deleteById(id);
     }
+
+	public Optional<CmsPage> findOneByType(String type) {
+		return cmsPageRepository.findOneByType(type);
+	}
+
+	public Optional<CmsPage> getCmsPageById(Long id) {
+        log.debug("Request to get CmsPage : {}", id);
+        return cmsPageRepository.findById(id);
+	}
+
+	public CmsPage createOrUpdateCmsPage(CmsPage cmsPage) {
+        log.debug("Request to save CmsPage : {}", cmsPage);
+        return cmsPageRepository.save(cmsPage);
+	}
 }

@@ -5,25 +5,35 @@ import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import e4i.domain.CmsPage;
+import e4i.domain.Document;
+import e4i.domain.DocumentType;
+import e4i.repository.DocumentRepository;
+import e4i.repository.DocumentTypeRepository;
 import e4i.service.CmsPageService;
+import e4i.service.FilesStorageService;
 import e4i.web.rest.errors.BadRequestAlertException;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing {@link e4i.domain.CmsPage}.
@@ -40,6 +50,15 @@ public class CmsPageResource {
     private String applicationName;
 
     private final CmsPageService cmsPageService;
+    
+    @Autowired
+    DocumentRepository documentRepository;
+    
+    @Autowired
+    DocumentTypeRepository documentTypeRepository;
+    
+    @Autowired
+    FilesStorageService storageService;
 
     public CmsPageResource(CmsPageService cmsPageService) {
         this.cmsPageService = cmsPageService;
@@ -129,5 +148,104 @@ public class CmsPageResource {
         log.debug("REST request to delete CmsPage : {}", id);
         cmsPageService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    
+    @GetMapping("/cms-pages/specific/{type}")
+    public ResponseEntity<CmsPage> getSpecificByType(@PathVariable String type) {
+        log.debug("REST request to get specific CmsPage by type : {}", type);
+        Optional<CmsPage> cmsPageOptional = cmsPageService.findOneByType(type);
+        if (cmsPageOptional.isEmpty()) {
+        	return ResponseEntity.notFound().build();
+        }
+        
+        CmsPage cmsPage = cmsPageOptional.get();
+        
+        return ResponseEntity.ok().body(cmsPage);
+    }
+    
+    
+    @PostMapping("/cms-pages/upload-files")
+    @Transactional
+    public ResponseEntity<?> uploadFiles(
+  		  @RequestParam Long id, 
+  		  @RequestParam("imageFiles") MultipartFile[] imageFiles,
+  		  @RequestParam("documentFiles") MultipartFile[] documentFiles
+  		  ) {		  
+  	  Optional<CmsPage> cmsPageOptional = cmsPageService.getCmsPageById(id);
+  	  if (cmsPageOptional.isEmpty()) {
+  		  return ResponseEntity.notFound().build();
+  	  }
+  	  
+  	  CmsPage cmsPage = cmsPageOptional.get();
+  	
+  	  DocumentType imageType = documentTypeRepository.findByType(DocumentType.IMAGE);  
+  	  Set<Document> images = new HashSet<Document>();
+  	  
+   	  DocumentType documentType = documentTypeRepository.findByType(DocumentType.DOCUMENT);  
+   	  Set<Document> documents = new HashSet<Document>();
+      	    	
+  	  Arrays.asList(imageFiles).stream().forEach(file -> {
+  		  Document image = new Document();		  
+  		  String namePrefix = "img_page_" + id + "_";
+  		  String imageName = storageService.saveImage(namePrefix, file);
+  		  image.setFilename(imageName);
+  		  image.setType(imageType);
+  		  images.add(image);    		
+  	  });
+  	  
+   	  Arrays.asList(documentFiles).stream().forEach(file -> {
+   		  String namePrefix = "doc_page_" + id + "_";
+   		  Document document = new Document();		  
+   		  String documentName = storageService.saveDocument(namePrefix, file);
+   		  document.setFilename(documentName);
+   		  document.setType(documentType);
+   		  documents.add(document);    		
+   	  });
+   	  
+  	  documentRepository.saveAll(images);
+   	  documentRepository.saveAll(documents);
+   	  
+ 	  Set<Document> allFiles = new HashSet<Document>();
+ 	  allFiles.addAll(images);
+ 	  allFiles.addAll(documents);
+ 	  allFiles.addAll(cmsPage.getDocuments());
+ 	  cmsPage.setDocuments(allFiles);
+     	         	  
+   	  cmsPageService.createOrUpdateCmsPage(cmsPage);
+  	  
+  	  return ResponseEntity.ok().build();
+    }
+    
+    @DeleteMapping("/cms-pages/delete-file/{id}/{fileId}")
+    @Transactional
+    public ResponseEntity<Set<Document>> deleteDocument(@PathVariable Long id, @PathVariable Long fileId) {
+        log.debug("REST request to delete document for CmsNews : {}", id);
+
+     	  Optional<CmsPage> cmsPageOptional = cmsPageService.getCmsPageById(id);
+     	  if (cmsPageOptional.isEmpty()) {
+     		return ResponseEntity.notFound().build();
+     	  }
+     	
+        Optional<Document> documentOptional = documentRepository.findById(fileId);
+     	  if (documentOptional.isEmpty()) {
+     		return ResponseEntity.notFound().build();
+     	  }
+     	    
+     	CmsPage cmsPage = cmsPageOptional.get();
+        Document document = documentOptional.get();
+
+        // Ovako se brisu veze iz many-to-many tabele "company-documents"
+        cmsPage.getDocuments().remove(document);
+     	document.getCmsPages().remove(cmsPage);
+
+        documentRepository.delete(document);
+        
+        if (document.getType().getType().equals(DocumentType.DOCUMENT)) {
+            storageService.deleteB2BDocument(document);
+        } else if (document.getType().getType().equals(DocumentType.IMAGE)) {
+      	  storageService.deleteImage(document.getFilename());
+        }
+              
+        return ResponseEntity.ok().build();
     }
 }
