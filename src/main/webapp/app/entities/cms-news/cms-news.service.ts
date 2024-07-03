@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
+const baseApiUrlSearch = 'api/cms-news/search';
 
 import { ICmsNews } from '@/shared/model/cms-news.model';
 
@@ -32,7 +33,19 @@ export default class CmsNewsService {
         });
     });
   }
-
+public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
+	 console.log(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
   public delete(id: number): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

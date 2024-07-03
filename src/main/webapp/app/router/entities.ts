@@ -238,6 +238,9 @@ const CompanyDetails = () => import('@/entities/company/company-details.vue');
 const CompanyCalendar = () => import('@/entities/company/company-calendar.vue');
 //
 const CompanySearch = () => import('@/entities/company/company-search.vue');
+
+const CmsNewsSearch = () => import('@/entities/cms-news/cms-news-search.vue');
+
 // prettier-ignore
 const Message = () => import('@/entities/message/message.vue');
 // prettier-ignore
@@ -1813,6 +1816,12 @@ export default [
     name: 'MeetingTypeView',
     component: MeetingTypeDetails,
     meta: { authorities: [Authority.USER] },
+  },
+   {
+    path: '/b2b/cms-news/search',
+    name: 'CmsNewsSearch',
+    component: CmsNewsSearch,
+  
   },
   {
     path: '/b2b/cms-page',

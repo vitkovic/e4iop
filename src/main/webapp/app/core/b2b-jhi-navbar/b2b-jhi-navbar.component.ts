@@ -189,7 +189,7 @@ export default class B2BJhiNavbar extends Vue {
 	var ppathNw = baseApiUrlSearchNews + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
 	
 	
-	window.location.href= ppathCmp;
+	window.location.href= ppathNw;
 	/*
 	console.log(this.mainSearchCategory);
 	 this.advertisementService()
