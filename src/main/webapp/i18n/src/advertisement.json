@@ -49,6 +49,7 @@
       "of": "од",
       "upload": {
         "imgUpload": "Додајте слике",
+        "filesSelectedPlaceholder": "Селектовано фајлова: {filesLength}",
         "documentUpload": "Додајте документе",
         "imgInfo": {
           "imgNumber": "* Број слика које можете додати је: ",
@@ -62,7 +63,7 @@
         },
         "currentImg": "Сачуване слике:",
         "newImg": "Нове слике:",
-        "currentDoc": "Сачивани документи:",
+        "currentDoc": "Сачувани документи:",
         "newDoc": "Нови документи:",
         "deleteImage": {
           "question": "Да ли сте сигурни да желите да обришете слику?",

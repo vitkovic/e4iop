@@ -497,12 +497,13 @@ export default class AdvertisementUpdate extends Vue {
     return option;
   }
 
-  public formatNames(files): string {
+  public formatNames(files) {
+    const filesLength = files.length;
     if (files.length === 1) {
       return files[0].name;
     } else {
       // const out = '' + this.$t('riportalApp.researchInfrastructure.filesSelected', { param: files.length });
-      const out = 'Files selected: ' + files.length;
+      const out = this.$t('riportalApp.advertisement.upload.filesSelectedPlaceholder', { filesLength });
       return out;
     }
     // return files.length === 1 ? files[0].name : `${files.length} files selected`;
@@ -631,11 +632,8 @@ export default class AdvertisementUpdate extends Vue {
       }
     }
 
-    if (
-      this.advertisement.documents.filter(doc => doc.type.type === 'image').length + this.imageFiles.length + newImagesArray.length >
-      15
-    ) {
-      const imagesToAdd = 15 - this.imageFiles.length - this.advertisement.documents.filter(doc => doc.type.type === 'image').length;
+    if (this.advertisement.documents.filter(doc => doc.type.type === 'image').length + this.imageFiles.length + newImagesArray.length > 5) {
+      const imagesToAdd = 5 - this.imageFiles.length - this.advertisement.documents.filter(doc => doc.type.type === 'image').length;
       const imagesToAddArray = newImagesArray.slice(0, imagesToAdd);
       numberOfLimitImages = newImagesArray.length - imagesToAddArray.length;
       this.imageFiles.push(...imagesToAddArray);
@@ -690,10 +688,10 @@ export default class AdvertisementUpdate extends Vue {
       this.advertisement.documents.filter(doc => doc.type.type === 'document').length +
         this.documentFiles.length +
         newDocumentsArray.length >
-      15
+      5
     ) {
       const documentsToAdd =
-        15 - this.documentFiles.length - this.advertisement.documents.filter(doc => doc.type.type === 'document').length;
+        5 - this.documentFiles.length - this.advertisement.documents.filter(doc => doc.type.type === 'document').length;
       const documentsToAddArray = newDocumentsArray.slice(0, documentsToAdd);
       numberOfLimitDocuments = newDocumentsArray.length - documentsToAddArray.length;
       this.documentFiles.push(...documentsToAddArray);
@@ -796,22 +794,22 @@ export default class AdvertisementUpdate extends Vue {
   }
 
   get availableNumberOfImagesToAdd(): number {
-    return 15 - this.advertisement.documents.filter(doc => doc.type.type === 'image').length;
+    return 5 - this.advertisement.documents.filter(doc => doc.type.type === 'image').length;
   }
 
   get isUploadImageFilesDisabled(): boolean {
     const totalImages: number = this.advertisement.documents.filter(doc => doc.type.type === 'image').length + this.imageFiles.length;
-    return totalImages === 15;
+    return totalImages === 5;
   }
 
   get availableNumberOfDocumentsToAdd(): number {
-    return 15 - this.advertisement.documents.filter(doc => doc.type.type === 'document').length;
+    return 5 - this.advertisement.documents.filter(doc => doc.type.type === 'document').length;
   }
 
   get isUploadDocumentFilesDisabled(): boolean {
     const totalDocuments: number =
       this.advertisement.documents.filter(doc => doc.type.type === 'document').length + this.documentFiles.length;
-    return totalDocuments === 15;
+    return totalDocuments === 5;
   }
 
   get browseButtonText(): string {

@@ -49,6 +49,7 @@
       "of": "of",
       "upload": {
         "imgUpload": "Upload images",
+        "filesSelectedPlaceholder": "Files selected: {filesLength}",
         "documentUpload": "Upload documents",
         "imgInfo": {
           "imgNumber": "* Number of images you can add is: ",

@@ -49,6 +49,7 @@
       "of": "od",
       "upload": {
         "imgUpload": "Dodajte slike",
+        "filesSelectedPlaceholder": "Selektovano fajlova: {filesLength}",
         "documentUpload": "Dodajte dokumente",
         "imgInfo": {
           "imgNumber": "* Broj slika koje možete dodati je: ",
