@@ -5,6 +5,7 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { ICompany } from '@/shared/model/company.model';
 
 const baseApiUrl = 'api/companies';
+const baseApiUrlSearch = 'api/companies/search';
 const updateCompanyCreatedApiUrl = 'api/companies/update-created';
 const updateCompanyModifiedApiUrl = 'api/companies/update-modified';
 const apiUploadLogo = 'api/companies/upload-logo';
@@ -41,7 +42,19 @@ export default class CompanyService {
         });
     });
   }
-
+public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
+	 console.log(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
   public delete(id: number): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

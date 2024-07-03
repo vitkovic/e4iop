@@ -41,7 +41,7 @@ export default class B2BJhiNavbar extends Vue {
   private mainSearchCategory = null;
   private advertisements = null;
   public isActive: boolean = false;
-
+  public valuetype;
   
   public category;
 
@@ -65,13 +65,13 @@ export default class B2BJhiNavbar extends Vue {
       return {
        txtsearchNav: '',
        mainSearchCategory:'',
-         value: [],
-         options: [
-        {name: 'Оглас', language: '0'},
-        {name: 'Вест', language: '1'},
-        {name: 'Компанија', language: '2'},
-        {name: 'Захтев', language: '3'},
-        {name: 'Све заједно', language: ''},
+       valuetype: [],
+       options: [
+        {name: 'Оглас', value: '0'},
+        {name: 'Вест', value: '1'},
+        {name: 'Компанија', value: '2'},
+        {name: 'Најчешћа питања', value: '3'},
+        {name: 'Све заједно', value: '4'},
      
       ]
       }
@@ -176,10 +176,20 @@ export default class B2BJhiNavbar extends Vue {
   private advList;
   
   public searchAdv(): void {
-
-	const baseApiUrlSearch = '/b2b/advertisement-search';
-	var ppath = baseApiUrlSearch + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-	window.location.href= baseApiUrlSearch + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+	
+	
+	const baseApiUrlSearchAdv = '/b2b/advertisement-search';
+	const baseApiUrlSearchCmp = '/b2b/company-search';
+	const baseApiUrlSearchQA = '/b2b/cms-questions/search';
+	const baseApiUrlSearchNews = '/b2b/cms-news/search';
+	
+	var ppathAdv = baseApiUrlSearchAdv + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+	var ppathCmp = baseApiUrlSearchCmp + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+	var ppathQa = baseApiUrlSearchQA + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+	var ppathNw = baseApiUrlSearchNews + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+	
+	
+	window.location.href= ppathCmp;
 	/*
 	console.log(this.mainSearchCategory);
 	 this.advertisementService()

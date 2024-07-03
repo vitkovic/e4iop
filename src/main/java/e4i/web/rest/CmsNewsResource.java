@@ -1,6 +1,7 @@
 package e4i.web.rest;
 
 import e4i.domain.CmsNews;
+import e4i.domain.Company;
 import e4i.service.CmsNewsService;
 import e4i.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
@@ -120,4 +121,21 @@ public class CmsNewsResource {
         cmsNewsService.deleteCmsNews(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    /**
+     * {@code GET  /advertisements/:search} : get the "search" advertisement.
+     *
+     * @param search
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the advertisement, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/cms-news/search")
+    public ResponseEntity<List<CmsNews>> getCompanySearch(Pageable pageable, @RequestParam String search) {
+        log.debug("REST request to get search Companies : {}", search);
+        Page<CmsNews> page;
+        System.out.println("Search %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        page = cmsNewsService.findAllBySearch(search, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
 }

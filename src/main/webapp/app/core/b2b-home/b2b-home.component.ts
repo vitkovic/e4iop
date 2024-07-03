@@ -5,6 +5,7 @@ import LoginService from '@/account/login.service';
 
 @Component
 export default class B2BHome extends Vue {
+	private advertisements;
   data() {
     return {
       value: [],

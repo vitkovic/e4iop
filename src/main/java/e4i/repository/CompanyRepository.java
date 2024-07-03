@@ -34,4 +34,19 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     
     @Query("SELECT c FROM Company c WHERE UPPER(c.name) LIKE UPPER(concat('%', :name, '%')) AND c.id NOT IN :excludedIds")
     List<Company> findAllByNameContainingIgnoreCaseAndNotInIds(@Param("name") String name, @Param("excludedIds") List<Long> excludedIds);
+    
+    @Query(value = "select distinct company from Company company left join fetch company.badges left join fetch company.documents where "
+    		+ " upper(company.name) like CONCAT('%',upper(:search),'%') or upper(company.about) like CONCAT('%',upper(:search),'%')",
+            countQuery = "select distinct company from Company company left join fetch company.badges left join fetch company.documents where "
+    		+ " upper(company.name) like CONCAT('%',upper(:search),'%') or upper(company.about) like CONCAT('%',upper(:search),'%')")
+        Page<Company> findAllSearchWithEagerRelationships(@Param("search") String search,Pageable pageable);
+    
+    @Query(value = "select distinct company from Company company where "
+    		+ " upper(company.name) like CONCAT('%',upper(:search),'%') or upper(company.about) like CONCAT('%',upper(:search),'%')",
+            countQuery = "select distinct company from Company company where "
+    		+ " upper(company.name) like CONCAT('%',upper(:search),'%') or upper(company.about) like CONCAT('%',upper(:search),'%')")
+        Page<Company> findAllSearch(@Param("search") String search,Pageable pageable);
+
+    
+    
 }

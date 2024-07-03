@@ -16,6 +16,7 @@ import e4i.service.FilesStorageService;
 import e4i.domain.DocumentType;
 import e4i.repository.DocumentRepository;
 import e4i.repository.DocumentTypeRepository;
+import e4i.domain.Advertisement;
 import e4i.domain.Company;
 import e4i.domain.Document;
 import e4i.domain.PortalUser;
@@ -373,4 +374,26 @@ public class CompanyResource {
             return companies;
         }
     }
+    
+    
+    /**
+     * {@code GET  /companies/:search} : get the "search" advertisement.
+     *
+     * @param search
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the advertisement, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/companies/search")
+    public ResponseEntity<List<Company>> getCompanySearch(Pageable pageable, @RequestParam String search) {
+        log.debug("REST request to get search Companies : {}", search);
+        Page<Company> page;
+        System.out.println("Search Company %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        page = companyService.findAllBySearch(search, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    
+    
+    
+    
 }

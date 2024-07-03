@@ -236,6 +236,8 @@ const CompanyUpdate = () => import('@/entities/company/company-update.vue');
 const CompanyDetails = () => import('@/entities/company/company-details.vue');
 // prettier-ignore
 const CompanyCalendar = () => import('@/entities/company/company-calendar.vue');
+//
+const CompanySearch = () => import('@/entities/company/company-search.vue');
 // prettier-ignore
 const Message = () => import('@/entities/message/message.vue');
 // prettier-ignore
@@ -1338,6 +1340,12 @@ export default [
     name: 'Company',
     component: Company,
     meta: { authorities: [Authority.USER] },
+  },
+   {
+    path: '/b2b/company-search',
+    name: 'CompanySearch',
+    component: CompanySearch,
+    
   },
   {
     path: '/b2b/company/new',

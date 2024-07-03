@@ -8,10 +8,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import e4i.domain.Advertisement;
 import e4i.domain.Company;
 import e4i.domain.PortalUser;
 import e4i.domain.Thread;
+import e4i.domain.User;
 import e4i.repository.CompanyRepository;
+import e4i.security.AuthoritiesConstants;
+import e4i.security.SecurityUtils;
 
 import java.util.Optional;
 
@@ -56,6 +60,29 @@ public class CompanyService {
     }
 
 
+    /* Get all the advertisements.
+    *
+    * @param pageable the pagination information.
+    * @return the list of entities.
+    */
+   @Transactional(readOnly = true)
+   public Page<Company> findAllBySearch(String search, Pageable pageable) {
+	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+       log.debug("Request to get all Advertisements");
+       if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
+    	  System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+      	
+    		  return companyRepository.findAllSearch(search,pageable);
+    	
+       } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
+    	      return companyRepository.findAllSearch(search,pageable);
+       } else {	 
+    	      return companyRepository.findAllSearch(search,pageable);
+       } 
+   }
+
+    
+    
     /**
      * Get all the companies with eager load of many-to-many relationships.
      *

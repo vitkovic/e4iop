@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import e4i.domain.CmsQuestion;
+import e4i.domain.Company;
 import e4i.service.CmsQuestionService;
 import e4i.web.rest.errors.BadRequestAlertException;
 
@@ -124,4 +125,22 @@ public class CmsQuestionResource {
         cmsQuestionService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    /**
+     * {@code GET  /advertisements/:search} : get the "search" advertisement.
+     *
+     * @param search
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the advertisement, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/cms-questions/search")
+    public ResponseEntity<List<CmsQuestion>> getQuestionSearch(Pageable pageable, @RequestParam String search) {
+        log.debug("REST request to get search Companies : {}", search);
+        Page<CmsQuestion> page;
+        System.out.println("Search %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        page = cmsQuestionService.findAllBySearch(search, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+    
+    
 }

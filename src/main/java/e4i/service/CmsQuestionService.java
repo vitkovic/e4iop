@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import e4i.domain.CmsQuestion;
+import e4i.domain.Company;
 import e4i.repository.CmsQuestionRepository;
+import e4i.security.AuthoritiesConstants;
+import e4i.security.SecurityUtils;
 
 import java.util.Optional;
 
@@ -73,4 +76,30 @@ public class CmsQuestionService {
         log.debug("Request to delete CmsQuestion : {}", id);
         cmsQuestionRepository.deleteById(id);
     }
+    
+    /* Get all the advertisements.
+    *
+    * @param pageable the pagination information.
+    * @return the list of entities.
+    */
+   @Transactional(readOnly = true)
+   public Page<CmsQuestion> findAllBySearch(String search, Pageable pageable) {
+	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+       log.debug("Request to get all Advertisements");
+       if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
+    	  System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+      	
+    		  return cmsQuestionRepository.findAllSearch(search,pageable);
+    	
+       } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
+    	      return cmsQuestionRepository.findAllSearch(search,pageable);
+       } else {	 
+    	      return cmsQuestionRepository.findAllSearch(search,pageable);
+       } 
+   }
+
+    
+    
+    
+    
 }

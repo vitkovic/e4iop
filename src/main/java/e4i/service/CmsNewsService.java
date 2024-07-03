@@ -1,7 +1,11 @@
 package e4i.service;
 
 import e4i.domain.CmsNews;
+import e4i.domain.CmsNews;
 import e4i.repository.CmsNewsRepository;
+import e4i.security.AuthoritiesConstants;
+import e4i.security.SecurityUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,4 +76,27 @@ public class CmsNewsService {
         log.debug("Request to delete CmsNews : {}", id);
         cmsNewsRepository.deleteById(id);
     }
+    
+    /* Get all the advertisements.
+    *
+    * @param pageable the pagination information.
+    * @return the list of entities.
+    */
+   @Transactional(readOnly = true)
+   public Page<CmsNews> findAllBySearch(String search, Pageable pageable) {
+	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+       log.debug("Request to get all Advertisements");
+       if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
+    	  System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+      	
+    		  return cmsNewsRepository.findAllSearch(search,pageable);
+    	
+       } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
+    	      return cmsNewsRepository.findAllSearch(search,pageable);
+       } else {	 
+    	      return cmsNewsRepository.findAllSearch(search,pageable);
+       } 
+   }
+    
+    
 }

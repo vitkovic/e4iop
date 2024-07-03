@@ -15,48 +15,38 @@ const PORT = process.env.PORT && Number(process.env.PORT);
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
+    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true }),
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
   entry: {
     global: './src/main/webapp/content/scss/global.scss',
-    main: './src/main/webapp/app/main'
+    main: './src/main/webapp/app/main',
   },
   output: {
     path: jhiUtils.root('target/classes/static/'),
     filename: 'app/[name].bundle.js',
-    chunkFilename: 'app/[id].chunk.js'
+    chunkFilename: 'app/[id].chunk.js',
   },
   devServer: {
     contentBase: './target/classes/static/',
-    port: 9060,
+    port: 9070,
     proxy: [
       {
-        context: [
-          '/api',
-          '/services',
-          '/management',
-          '/swagger-resources',
-          '/v2/api-docs',
-          '/h2-console',
-          '/oauth2',
-          '/login',
-          '/auth'
-        ],
+        context: ['/api', '/services', '/management', '/swagger-resources', '/v2/api-docs', '/h2-console', '/oauth2', '/login', '/auth'],
         target: 'http://127.0.0.1:80',
         secure: false,
-        headers: { host: 'localhost:9000' }
+        headers: { host: 'localhost:9001' },
       },
     ],
     watchOptions: {
-      ignored: /node_modules/
+      ignored: /node_modules/,
     },
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': require('../config/dev.env')
+      'process.env': require('../config/dev.env'),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
@@ -64,15 +54,15 @@ module.exports = merge(baseWebpackConfig, {
     new BrowserSyncPlugin(
       {
         host: 'localhost',
-        port: 9000,
+        port: 9001,
         proxy: {
-          target: 'http://localhost:9060',
+          target: 'http://localhost:9070',
         },
         socket: {
           clients: {
-            heartbeatTimeout: 60000
-          }
-        }
+            heartbeatTimeout: 60000,
+          },
+        },
         /*
         ,ghostMode: { // uncomment this part to disable BrowserSync ghostMode; https://github.com/jhipster/generator-jhipster/issues/11116
           clicks: false,
@@ -82,8 +72,8 @@ module.exports = merge(baseWebpackConfig, {
         } */
       },
       {
-        reload: false
+        reload: false,
       }
-    )
-  ]
+    ),
+  ],
 });
