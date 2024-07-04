@@ -106,6 +106,7 @@ import DocumentService from '@/entities/document/document.service';
 import DocumentTypeService from '@/entities/document-type/document-type.service';
 import DocumentKindService from '@/entities/document-kind/document-kind.service';
 import InquiryService from '@/entities/inquiry/inquiry.service';
+import ScrollToTop from '@/shared/components/scroll-to-top/ScrollToTop.vue';
 
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 import SearchPageService from './core/b2b-jhi-navbar/searchpage.service';
@@ -145,6 +146,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);
 Vue.component('jhi-sort-indicator', JhiSortIndicatorComponent);
 Vue.component('infinite-loading', InfiniteLoading);
+Vue.component('ScrollToTop', ScrollToTop);
 
 // Upload i Autocomplete
 Vue.component('UploadFiles', UploadFiles);
