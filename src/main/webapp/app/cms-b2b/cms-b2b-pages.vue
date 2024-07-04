@@ -75,8 +75,22 @@
                             <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
                         </router-link>        
                         <router-link :to="{name: 'CmsQuestion'}" tag="button" class="btn btn-info btn-sm details">
-                            <!-- <font-awesome-icon icon="plus"></font-awesome-icon> -->
                             <span class="d-none d-md-inline" v-text="'Upravljanje pitanjima'">View</span>
+                        </router-link>              
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p v-text="'Slajder'"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <router-link :to="{name: 'B2BHome'}" tag="button" class="btn btn-info btn-sm details">
+                            <font-awesome-icon icon="eye"></font-awesome-icon>
+                            <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                        </router-link>        
+                        <router-link :to="{name: 'CmsSlider'}" tag="button" class="btn btn-info btn-sm details">
+                            <span class="d-none d-md-inline" v-text="'Upravljanje slajderom'">View</span>
                         </router-link>              
                     </div>
                 </div>

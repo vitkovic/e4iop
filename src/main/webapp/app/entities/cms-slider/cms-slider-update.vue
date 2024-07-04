@@ -9,24 +9,7 @@
                         <input type="text" class="form-control" id="id" name="id"
                                v-model="cmsSlider.id" readonly />
                     </div>
-                    <div class="form-group">
-                        <label class="form-control-label" v-text="$t('riportalApp.cmsSlider.createdAt')" for="cms-slider-createdAt">Created At</label>
-                        <div class="d-flex">
-                            <input id="cms-slider-createdAt" type="datetime-local" class="form-control" name="createdAt" :class="{'valid': !$v.cmsSlider.createdAt.$invalid, 'invalid': $v.cmsSlider.createdAt.$invalid }"
-                            
-                            :value="convertDateTimeFromServer($v.cmsSlider.createdAt.$model)"
-                            @change="updateInstantField('createdAt', $event)"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-control-label" v-text="$t('riportalApp.cmsSlider.modifiedAt')" for="cms-slider-modifiedAt">Modified At</label>
-                        <div class="d-flex">
-                            <input id="cms-slider-modifiedAt" type="datetime-local" class="form-control" name="modifiedAt" :class="{'valid': !$v.cmsSlider.modifiedAt.$invalid, 'invalid': $v.cmsSlider.modifiedAt.$invalid }"
-                            
-                            :value="convertDateTimeFromServer($v.cmsSlider.modifiedAt.$model)"
-                            @change="updateInstantField('modifiedAt', $event)"/>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.cmsSlider.title')" for="cms-slider-title">Title</label>
                         <input type="text" class="form-control" name="title" id="cms-slider-title"
@@ -40,7 +23,7 @@
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.cmsSlider.link')" for="cms-slider-link">Link</label>
                         <input type="text" class="form-control" name="link" id="cms-slider-link"
-                            :class="{'valid': !$v.cmsSlider.link.$invalid, 'invalid': $v.cmsSlider.link.$invalid }" v-model="$v.cmsSlider.link.$model"  required/>
+                            :class="{'valid': !$v.cmsSlider.link.$invalid, 'invalid': $v.cmsSlider.link.$invalid }" v-model="$v.cmsSlider.link.$model" placeholder="Uneti link sa http:// ili https://" required/>
                         <div v-if="$v.cmsSlider.link.$anyDirty && $v.cmsSlider.link.$invalid">
                             <small class="form-text text-danger" v-if="!$v.cmsSlider.link.required" v-text="$t('entity.validation.required')">
                                 This field is required.
@@ -49,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.cmsSlider.newTab')" for="cms-slider-newTab">New Tab</label>
-                        <input type="checkbox" class="form-check" name="newTab" id="cms-slider-newTab"
+                        <input type="checkbox" class="form-check" name="newTab" id="cms-slider-newTab" required
                             :class="{'valid': !$v.cmsSlider.newTab.$invalid, 'invalid': $v.cmsSlider.newTab.$invalid }" v-model="$v.cmsSlider.newTab.$model" />
                     </div>
                     <div class="form-group">
@@ -57,28 +40,51 @@
                         <input type="number" class="form-control" name="ordinalNumber" id="cms-slider-ordinalNumber"
                             :class="{'valid': !$v.cmsSlider.ordinalNumber.$invalid, 'invalid': $v.cmsSlider.ordinalNumber.$invalid }" v-model.number="$v.cmsSlider.ordinalNumber.$model" />
                     </div>
-                    <div class="form-group">
-                        <label class="form-control-label" v-text="$t('riportalApp.cmsSlider.createdBy')" for="cms-slider-createdBy">Created By</label>
-                        <select class="form-control" id="cms-slider-createdBy" name="createdBy" v-model="cmsSlider.createdBy">
-                            <option v-bind:value="null"></option>
-                            <option v-bind:value="cmsSlider.createdBy && portalUserOption.id === cmsSlider.createdBy.id ? cmsSlider.createdBy : portalUserOption" v-for="portalUserOption in portalUsers" :key="portalUserOption.id">{{portalUserOption.id}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-control-label" v-text="$t('riportalApp.cmsSlider.modifiedBy')" for="cms-slider-modifiedBy">Modified By</label>
-                        <select class="form-control" id="cms-slider-modifiedBy" name="modifiedBy" v-model="cmsSlider.modifiedBy">
-                            <option v-bind:value="null"></option>
-                            <option v-bind:value="cmsSlider.modifiedBy && portalUserOption.id === cmsSlider.modifiedBy.id ? cmsSlider.modifiedBy : portalUserOption" v-for="portalUserOption in portalUsers" :key="portalUserOption.id">{{portalUserOption.id}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-control-label" v-text="$t('riportalApp.cmsSlider.image')" for="cms-slider-image">Image</label>
-                        <select class="form-control" id="cms-slider-image" name="image" v-model="cmsSlider.image">
-                            <option v-bind:value="null"></option>
-                            <option v-bind:value="cmsSlider.image && documentOption.id === cmsSlider.image.id ? cmsSlider.image : documentOption" v-for="documentOption in documents" :key="documentOption.id">{{documentOption.id}}</option>
-                        </select>
+
+                    <div class="documents-section">
+                        <div class="form-group row">
+                            <div class="col-xs-12 col-sm-6">
+                            <label
+                                class="form-control-label position-relative font-weight-bold"
+                                v-text="'Dodajte sliku'"
+                            ></label>
+                            <b-form-file
+                                style="margin-bottom: 5px;"
+                                v-model="sliderImage"
+                                class="customPlaceholder"
+                                :state="Boolean(sliderImage)"
+                                :placeholder="placeholdertext"
+                                drop-placeholder="Drop file here..."
+                                :browse-text="browseButtonText"
+                                accept=".jpg, .jpeg, .png, .svg"
+                                :file-name-formatter="formatNames"
+                            >
+                            </b-form-file>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                            <div v-if="cmsSlider.image">
+                                <p class="logo-img-label font-weight-bold" v-text="$t('riportalApp.company.upload.currentLogo')">Current logo:</p>
+                                <div class="mb-3 pl-1">
+                                <img :src="retrieveFile(cmsSlider.image)" width="50" height="50" />
+                                <!-- {{ company.logo.filename }} -->
+                                <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="openDeleteSliderImageModal()" v-b-modal.deleteSliderImageModal>
+                                    <span v-text="$t('entity.action.delete')">Save</span>
+                                </button>
+                                </div>
+                            </div>
+                            <!-- <div v-else>There is no image uploaded</div> -->
+                            </div>
+                        </div>
+                        <div v-if="sliderImage != null" class="mb-4">
+                            <p class="font-weight-bold" v-text="$t('riportalApp.company.upload.newLogo')">New logo:</p>
+                            {{ sliderImage.name }}
+                            <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="removeSliderImage()">
+                            <span v-text="$t('entity.action.remove')">Save</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
+
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
@@ -89,6 +95,19 @@
                 </div>
             </form>
         </div>
+
+        <b-modal ref="deleteSliderImageModal" id="deleteSliderImageModal">
+            <span slot="modal-title" v-text="'Potvrda brisanja slike slajdera'"></span>
+            <div class="modal-body">
+            <p v-text="'Da li ste sigurni da želite da izbrišete sliku slajdera?'"></p>
+            </div>
+            <div slot="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="closeDeleteSliderImageModal()" v-text="$t('entity.action.cancel')">
+                Odustani
+            </button>
+            <button type="button" class="btn btn-danger" @click="deleteSliderImage()" v-text="$t('entity.action.delete')">Obriši</button>
+            </div>
+        </b-modal>
     </div>
 </template>
 <script lang="ts" src="./cms-slider-update.component.ts">

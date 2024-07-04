@@ -1,33 +1,39 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
-import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vuelidate/lib/validators';
+import { url, required } from 'vuelidate/lib/validators';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import parseISO from 'date-fns/parseISO';
 import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 
-import PortalUserService from '../portal-user/portal-user.service';
-import { IPortalUser } from '@/shared/model/portal-user.model';
-
-import DocumentService from '../document/document.service';
+import { ICmsSlider, CmsSlider } from '@/shared/model/cms-slider.model';
 import { IDocument } from '@/shared/model/document.model';
+import { DocumentTypeOptions } from '@/shared/model/document-type.model';
 
 import AlertService from '@/shared/alert/alert.service';
-import { ICmsSlider, CmsSlider } from '@/shared/model/cms-slider.model';
 import CmsSliderService from './cms-slider.service';
+import DocumentService from '../document/document.service';
+
+interface ImageBlob extends Blob {
+  name: string;
+  type: 'image/*';
+}
 
 const validations: any = {
   cmsSlider: {
-    createdAt: {},
-    modifiedAt: {},
     title: {
       required,
     },
     link: {
       required,
+      url,
     },
-    newTab: {},
-    ordinalNumber: {},
+    newTab: {
+      required,
+    },
+    ordinalNumber: {
+      required,
+    },
   },
 };
 
@@ -37,24 +43,20 @@ const validations: any = {
 export default class CmsSliderUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('cmsSliderService') private cmsSliderService: () => CmsSliderService;
-  public cmsSlider: ICmsSlider = new CmsSlider();
-
-  @Inject('portalUserService') private portalUserService: () => PortalUserService;
-
-  public portalUsers: IPortalUser[] = [];
-
   @Inject('documentService') private documentService: () => DocumentService;
 
-  public documents: IDocument[] = [];
+  public cmsSlider: ICmsSlider = new CmsSlider();
+  public sliderImage: ImageBlob | null = null;
   public isSaving = false;
   public currentLanguage = '';
+
+  public placeholdertext = '';
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.cmsSliderId) {
         vm.retrieveCmsSlider(to.params.cmsSliderId);
       }
-      vm.initRelationships();
     });
   }
 
@@ -78,8 +80,10 @@ export default class CmsSliderUpdate extends Vue {
           this.$router.go(-1);
           const message = this.$t('riportalApp.cmsSlider.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
+          this.saveSliderImage();
         });
     } else {
+      this.cmsSlider.createdAt = new Date();
       this.cmsSliderService()
         .create(this.cmsSlider)
         .then(param => {
@@ -87,6 +91,9 @@ export default class CmsSliderUpdate extends Vue {
           this.$router.go(-1);
           const message = this.$t('riportalApp.cmsSlider.created', { param: param.id });
           this.alertService().showAlert(message, 'success');
+
+          this.cmsSlider = param;
+          this.saveSliderImage();
         });
     }
   }
@@ -128,21 +135,85 @@ export default class CmsSliderUpdate extends Vue {
     this.$router.go(-1);
   }
 
-  public initRelationships(): void {
-    this.portalUserService()
-      .retrieve()
+  public saveSliderImage(): void {
+    if (this.sliderImage === null) {
+      return;
+    }
+
+    this.isSaving = true;
+    const formData = new FormData();
+
+    formData.append('files', this.sliderImage);
+    formData.append('id', '' + this.cmsSlider.id);
+
+    this.cmsSliderService()
+      .uploadSliderImage(formData)
       .then(res => {
-        this.portalUsers = res.data;
+        this.isSaving = false;
+        this.sliderImage = null;
+        this.retrieveCmsSlider(this.cmsSlider.id);
+      })
+      .catch(error => {
+        this.isSaving = false;
+        console.error(error);
       });
-    this.portalUserService()
-      .retrieve()
+  }
+
+  public openDeleteSliderImageModal(): void {}
+
+  public deleteSliderImage(): void {
+    const cmsSliderId = this.cmsSlider.id;
+    this.cmsSliderService()
+      .deleteSliderImage(cmsSliderId)
       .then(res => {
-        this.portalUsers = res.data;
+        this.isSaving = false;
+        // this.documentFiles = [];
+        // this.company.documents = res;
+        this.retrieveCmsSlider(this.cmsSlider.id);
       });
-    this.documentService()
-      .retrieve()
-      .then(res => {
-        this.documents = res.data;
-      });
+
+    this.closeDeleteSliderImageModal();
+  }
+
+  public closeDeleteSliderImageModal(): void {
+    (this.$refs.deleteSliderImageModal as any).hide();
+  }
+
+  public retrieveFile(file: IDocument): string {
+    if (file.type.type === DocumentTypeOptions.IMAGE) {
+      return this.documentService().retrieveImage(file.filename);
+    } else if (file.type.type === DocumentTypeOptions.DOCUMENT) {
+      return this.documentService().retrieveDocument(file.filename);
+    } else {
+      return '';
+    }
+  }
+
+  public removeSliderImage(): void {
+    if (this.sliderImage != null) {
+      this.sliderImage = null;
+    }
+  }
+
+  get browseButtonText(): string {
+    if (this.currentLanguage === 'en') {
+      return this.$t('riportalApp.company.browseText');
+    } else if (this.currentLanguage === 'sr') {
+      return this.$t('riportalApp.company.browseText');
+    } else if (this.currentLanguage === 'src') {
+      return this.$t('riportalApp.company.browseText');
+    }
+  }
+
+  public formatNames(files) {
+    const filesLength = files.length;
+    if (files.length === 1) {
+      return files[0].name;
+    } else {
+      // const out = '' + this.$t('riportalApp.researchInfrastructure.filesSelected', { param: files.length });
+      const out = this.$t('riportalApp.advertisement.upload.filesSelectedPlaceholder', { filesLength });
+      return out;
+    }
+    // return files.length === 1 ? files[0].name : `${files.length} files selected`;
   }
 }

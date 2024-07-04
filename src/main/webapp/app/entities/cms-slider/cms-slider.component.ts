@@ -5,13 +5,19 @@ import Vue2Filters from 'vue2-filters';
 import { ICmsSlider } from '@/shared/model/cms-slider.model';
 import AlertMixin from '@/shared/alert/alert.mixin';
 
+import { IDocument } from '@/shared/model/document.model';
+import { DocumentTypeOptions } from '@/shared/model/document-type.model';
+
 import CmsSliderService from './cms-slider.service';
+import DocumentService from '../document/document.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],
 })
 export default class CmsSlider extends mixins(AlertMixin) {
   @Inject('cmsSliderService') private cmsSliderService: () => CmsSliderService;
+  @Inject('documentService') private documentService: () => DocumentService;
+
   private removeId: number = null;
   public itemsPerPage = 20;
   public queryCount: number = null;
@@ -104,5 +110,15 @@ export default class CmsSlider extends mixins(AlertMixin) {
 
   public closeDialog(): void {
     (<any>this.$refs.removeEntity).hide();
+  }
+
+  public retrieveFile(file: IDocument): string {
+    if (file.type.type === DocumentTypeOptions.IMAGE) {
+      return this.documentService().retrieveImage(file.filename);
+    } else if (file.type.type === DocumentTypeOptions.DOCUMENT) {
+      return this.documentService().retrieveDocument(file.filename);
+    } else {
+      return '';
+    }
   }
 }

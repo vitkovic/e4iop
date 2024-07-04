@@ -5,6 +5,8 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { ICmsSlider } from '@/shared/model/cms-slider.model';
 
 const baseApiUrl = 'api/cms-sliders';
+const apiUploadSliderImage = 'api/cms-sliders/upload-image';
+const apiDeleteSliderImage = 'api/cms-sliders/delete-image';
 
 export default class CmsSliderService {
   public find(id: number): Promise<ICmsSlider> {
@@ -65,6 +67,36 @@ export default class CmsSliderService {
         .put(`${baseApiUrl}`, entity)
         .then(res => {
           resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public uploadSliderImage(entity: FormData): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .post(apiUploadSliderImage, entity, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public deleteSliderImage(Id: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .delete(`${apiDeleteSliderImage}/${Id}`)
+        .then(res => {
+          resolve(res);
         })
         .catch(err => {
           reject(err);

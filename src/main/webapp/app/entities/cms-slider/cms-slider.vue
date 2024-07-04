@@ -25,14 +25,12 @@
                 <thead>
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('ordinalNumber')"><span v-text="$t('riportalApp.cmsSlider.ordinalNumber')">Ordinal Number</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ordinalNumber'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('createdAt')"><span v-text="$t('riportalApp.cmsSlider.createdAt')">Created At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdAt'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('modifiedAt')"><span v-text="$t('riportalApp.cmsSlider.modifiedAt')">Modified At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedAt'"></jhi-sort-indicator></th>
+                    <!-- <th v-on:click="changeOrder('modifiedAt')"><span v-text="$t('riportalApp.cmsSlider.modifiedAt')">Modified At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedAt'"></jhi-sort-indicator></th> -->
                     <th v-on:click="changeOrder('title')"><span v-text="$t('riportalApp.cmsSlider.title')">Title</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('link')"><span v-text="$t('riportalApp.cmsSlider.link')">Link</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'link'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('newTab')"><span v-text="$t('riportalApp.cmsSlider.newTab')">New Tab</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'newTab'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('ordinalNumber')"><span v-text="$t('riportalApp.cmsSlider.ordinalNumber')">Ordinal Number</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ordinalNumber'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.cmsSlider.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.cmsSlider.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('image.id')"><span v-text="$t('riportalApp.cmsSlider.image')">Image</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'image.id'"></jhi-sort-indicator></th>
                     <th></th>
                 </tr>
@@ -43,25 +41,17 @@
                     <td>
                         <router-link :to="{name: 'CmsSliderView', params: {cmsSliderId: cmsSlider.id}}">{{cmsSlider.id}}</router-link>
                     </td>
-                    <td>{{cmsSlider.createdAt ? $d(Date.parse(cmsSlider.createdAt), 'short') : ''}}</td>
-                    <td>{{cmsSlider.modifiedAt ? $d(Date.parse(cmsSlider.modifiedAt), 'short') : ''}}</td>
-                    <td>{{cmsSlider.title}}</td>
-                    <td>{{cmsSlider.link}}</td>
-                    <td>{{cmsSlider.newTab}}</td>
                     <td>{{cmsSlider.ordinalNumber}}</td>
+                    <td>{{cmsSlider.createdAt ? $d(Date.parse(cmsSlider.createdAt.toString()), 'short') : ''}}</td>
+                    <!-- <td>{{cmsSlider.modifiedAt ? $d(Date.parse(cmsSlider.modifiedAt), 'short') : ''}}</td> -->
+                    <td>{{cmsSlider.title}}</td>
                     <td>
-                        <div v-if="cmsSlider.createdBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: cmsSlider.createdBy.id}}">{{cmsSlider.createdBy.id}}</router-link>
-                        </div>
+                        <b-link :href="cmsSlider.link" :target="cmsSlider.newTab ? '_blank' : '_self'">{{ cmsSlider.link }}</b-link>
                     </td>
-                    <td>
-                        <div v-if="cmsSlider.modifiedBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: cmsSlider.modifiedBy.id}}">{{cmsSlider.modifiedBy.id}}</router-link>
-                        </div>
-                    </td>
+                    <td>{{cmsSlider.newTab}}</td>
                     <td>
                         <div v-if="cmsSlider.image">
-                            <router-link :to="{name: 'DocumentView', params: {documentId: cmsSlider.image.id}}">{{cmsSlider.image.id}}</router-link>
+                            <img :src="retrieveFile(cmsSlider.image)" width="50" height="50" />
                         </div>
                     </td>
                     <td class="text-right">

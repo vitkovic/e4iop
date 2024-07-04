@@ -10,12 +10,12 @@
                     <dd>
                         <span v-if="cmsSlider.createdAt">{{$d(Date.parse(cmsSlider.createdAt), 'long') }}</span>
                     </dd>
-                    <dt>
+                    <!-- <dt>
                         <span v-text="$t('riportalApp.cmsSlider.modifiedAt')">Modified At</span>
                     </dt>
                     <dd>
                         <span v-if="cmsSlider.modifiedAt">{{$d(Date.parse(cmsSlider.modifiedAt), 'long') }}</span>
-                    </dd>
+                    </dd> -->
                     <dt>
                         <span v-text="$t('riportalApp.cmsSlider.title')">Title</span>
                     </dt>
@@ -26,7 +26,7 @@
                         <span v-text="$t('riportalApp.cmsSlider.link')">Link</span>
                     </dt>
                     <dd>
-                        <span>{{cmsSlider.link}}</span>
+                        <b-link :href="cmsSlider.link" :target="cmsSlider.newTab ? '_blank' : '_self'">{{ cmsSlider.link }}</b-link>
                     </dd>
                     <dt>
                         <span v-text="$t('riportalApp.cmsSlider.newTab')">New Tab</span>
@@ -41,27 +41,11 @@
                         <span>{{cmsSlider.ordinalNumber}}</span>
                     </dd>
                     <dt>
-                        <span v-text="$t('riportalApp.cmsSlider.createdBy')">Created By</span>
-                    </dt>
-                    <dd>
-                        <div v-if="cmsSlider.createdBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: cmsSlider.createdBy.id}}">{{cmsSlider.createdBy.id}}</router-link>
-                        </div>
-                    </dd>
-                    <dt>
-                        <span v-text="$t('riportalApp.cmsSlider.modifiedBy')">Modified By</span>
-                    </dt>
-                    <dd>
-                        <div v-if="cmsSlider.modifiedBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: cmsSlider.modifiedBy.id}}">{{cmsSlider.modifiedBy.id}}</router-link>
-                        </div>
-                    </dd>
-                    <dt>
                         <span v-text="$t('riportalApp.cmsSlider.image')">Image</span>
                     </dt>
                     <dd>
                         <div v-if="cmsSlider.image">
-                            <router-link :to="{name: 'DocumentView', params: {documentId: cmsSlider.image.id}}">{{cmsSlider.image.id}}</router-link>
+                            <img :src="retrieveFile(cmsSlider.image)" width="50" height="50" />
                         </div>
                     </dd>
                 </dl>
