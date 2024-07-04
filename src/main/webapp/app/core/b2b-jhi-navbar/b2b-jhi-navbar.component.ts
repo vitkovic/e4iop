@@ -47,6 +47,11 @@ export default class B2BJhiNavbar extends Vue {
   public valuetype;
   
   public category;
+  
+  private companies;
+  private questions;
+  private news;
+  
 
  beforeRouteEnter(to, from, next) {
     to(vm => {
@@ -178,60 +183,107 @@ export default class B2BJhiNavbar extends Vue {
   
   public searchAdv(): void {
 	
-	
-	const searchtype = this.valuetype[0].value;
-	
-	console.log(this.valuetype[0].value);
-	
-	const baseApiUrlSearchAdv = '/b2b/advertisement-search';
-	const baseApiUrlSearchCmp = '/b2b/company-search';
-	const baseApiUrlSearchQA = '/b2b/cms-questions/search';
-	const baseApiUrlSearchNews = '/b2b/cms-news/search';
-	
-	var ppathAdv = baseApiUrlSearchAdv + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-	var ppathCmp = baseApiUrlSearchCmp + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-	var ppathQa = baseApiUrlSearchQA + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-	var ppathNw = baseApiUrlSearchNews + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-	var ppath = '';
-	switch (Number(searchtype)) {
-		case 0: 
-			ppath = ppathAdv;
-			break;
-		case 1: 
-			ppath = ppathNw;
-			break;
-		case 2: 
-			ppath = ppathCmp;
-			break;
-		case 3: 
-			ppath = ppathQa;
-			break;
-		default:
-			ppath = ppathAdv; 
-			break;
+	if (this.valuetype!= null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length == 1) {
+			const searchtype = this.valuetype[0].value;
 			
-	}
+			console.log(this.valuetype[0].value);
+			
+			const baseApiUrlSearchAdv = '/b2b/advertisement-search';
+			const baseApiUrlSearchCmp = '/b2b/company-search';
+			const baseApiUrlSearchQA = '/b2b/cms-questions/search';
+			const baseApiUrlSearchNews = '/b2b/cms-news/search';
+			
+			var ppathAdv = baseApiUrlSearchAdv + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+			var ppathCmp = baseApiUrlSearchCmp + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+			var ppathQa = baseApiUrlSearchQA + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+			var ppathNw = baseApiUrlSearchNews + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
+			var ppath = '';
+			switch (Number(searchtype)) {
+				case 0: 
+					ppath = ppathAdv;
+					break;
+				case 1: 
+					ppath = ppathNw;
+					break;
+				case 2: 
+					ppath = ppathCmp;
+					break;
+				case 3: 
+					ppath = ppathQa;
+					break;
+				default:
+					ppath = ppathAdv; 
+					break;
+					
+			}
 	
-	window.location.href= ppath;
+	     window.location.href= ppath;
+	 }
 	
 	
+	console.log(this.valuetype);
 	
-	/*
 	
-	console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
+	if (this.valuetype != null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length > 1) {
 	
-	this.searchPageService()
-	 .retrieveSearchAdv(this.txtsearchNav)
-      .then(res => {
-        console.log(res.data);
-        this.advList = res.data;
-        this.advertisements = res.data;
-       
-      });
-     */
+	const num = this.valuetype.length;
+	
+	for (var i = 0; i <= num - 1; i++) 
+	{
+		const val = this.valuetype[i].value;
+		
+		if (val == '0') {
+				this.searchPageService()
+				 .retrieveSearchAdv(this.txtsearchNav)
+			      .then(resa => {
+			        console.log(resa.data);
+			        this.advList = resa.data;
+			        this.advertisements = resa.data;
+			      });
+		    } 
+		
+		 if (val == '2') {  
+			     this.searchPageService()
+				 .retrieveSearchCmp(this.txtsearchNav)
+			      .then(resc => {
+			        console.log(resc.data);
+			        this.advList = resc.data;
+			        this.companies = resc.data;
+			       
+			      });
+		 }
+		 
+		  if (val == '3') {   
+			      this.searchPageService()
+				 .retrieveSearchQA(this.txtsearchNav)
+			      .then(resqa => {
+			        console.log(resqa.data);
+			        this.advList = resqa.data;
+			        this.questions= resqa.data;
+			       
+		  		    });
+		  }
+		  if (val == '1') {    
+		     
+		     	this.searchPageService()
+			 		.retrieveSearchNW(this.txtsearchNav)
+		      		.then(resnw => {
+		        		console.log(resnw.data);
+		        		this.advList = resnw.data;
+		        		this.news = resnw.data;
+		     	 });
+		 	}
+		  
+		}
+			
+			
+     
+	//console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
   }
 
   private searchinput;
+  
+  
   public initRelationships(): void {
     this.advertisementCategoryService()
       .retrieve()

@@ -1,5 +1,14 @@
 <template>
   <div>
+	  
+	 
+	  
+	  
+	  
+	  
+	  
+	  
+	  
     <section class="banner">
       <div>
         <b-carousel
