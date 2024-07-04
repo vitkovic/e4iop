@@ -1,108 +1,236 @@
 <template>
   <section class="bg-white">
-    <div class="container">
-      <div class="row mb-2">
-        <div class="col-xs-12">
-          <h1>VESTI</h1>
+    <div v-if="cmsNews" class="container">
+      <div class="row">
+        <div class="col-xs-12 mb-5">
+          <h1 v-text="cmsNews.title"></h1>
+        </div>
+        <div class="col-md-12">
+          <p v-text="cmsNews.content" style="white-space: preserve;"></p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6 col-lg-4 mb-4" v-for="(newsItem, index) in news" :key="index">
-          <div class="card bg-white shadow">
-            <img :src="newsItem.img" alt="Placeholder picture" class="card-img-top img-fluid" style="height: 200px;" />
-            <div class="card-body">
-              <h3 class="card-title font-weight-bold text-white">{{ newsItem.title }}</h3>
-              <p class="card-subtitle text-sm text-white">Datum: {{ newsItem.date }}</p>
-              <a href="#" class="btn" @click.prevent>Pročitaj vest</a>
+
+      <section v-if="cmsNewsImages.length > 0" class="section-gallery mb-4">
+        <div class="prev-box mr-2">
+          <b-button variant="none" class="prevButton" @click="scrollPrev">
+            <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
+          </b-button>
+        </div>
+        <div class="wrapper">
+          <div class="carousel" ref="carousel" v-if="companyImagesArray">
+            <img v-for="(image, index) in cmsNewsImages" :key="image.id" @click="onPreviewImage(index)" :src="retrieveFile(image)" alt="img" @load="onImageLoad" />
+          </div>
+          <div
+            v-if="showMask"
+            ref="lightbox"
+            class="lightbox"
+            tabindex="0"
+            @keydown.left="prev"
+            @keydown.right="next"
+            @keydown.esc="onClosePreviewImage"
+            @click="onClosePreviewImage"
+          >
+            <div class="light-box-contain d-flex align-items-center justify-content-center">
+              <button v-if="previewImage" class="close-btn" @click="onClosePreviewImage()">
+                <font-awesome-icon icon="times" class="fa-lg"></font-awesome-icon>
+              </button>
+              <button class="btn-lightbox-carousel btn-prev" @click.stop="prev()">
+                <font-awesome-icon icon="caret-left" class="fa-3x icon-lightbox-carousel icon-prev"></font-awesome-icon>
+              </button>
+              <button class="btn-lightbox-carousel btn-next" @click.stop="next()">
+                <font-awesome-icon icon="caret-right" class="fa-3x icon-lightbox-carousel icon-next"></font-awesome-icon>
+              </button>
+              <div v-if="previewImage" class="lightbox-img d-flex align-items-center justify-content-center" @click.stop>
+                <img :src="retrieveFile(cmsNewsImages[currentIndex])" alt="Image description" class="img-fluid" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-xs-12">
-          <nav aria-label="Demo nav">
-            <ul class="pagination">
-              <li class="page-item">
-                <a href="#" class="page-link" @click.prevent>Prethodna</a>
-              </li>
-              <li class="page-item">
-                <a href="" class="page-link" @click.prevent>1</a>
-              </li>
-              <li class="page-item">
-                <a href="" class="page-link" @click.prevent>2</a>
-              </li>
-              <li class="page-item">
-                <a href="" class="page-link" @click.prevent>3</a>
-              </li>
-              <li class="page-item">
-                <a href="" class="page-link" @click.prevent>Sledeća</a>
-              </li>
-            </ul>
-          </nav>
+        <div class="next-box ml-2">
+          <b-button variant="none" class="nextButton" @click="scrollNext">
+            <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
+          </b-button>
         </div>
-      </div>
+      </section>
+
+      <section v-if="cmsNewsDocuments.length > 0">
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 v-text="$t('about.documents')">KORISNI DOKUMENTI</h2>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <ol class="p-0 p-md-3">
+            <li v-for="document in cmsNewsDocuments" :key="document.id">
+              <a
+                class="text-info"
+                :href="retrieveFile(document)"
+                target="_blank"
+                title="Preuzmite dokument"
+                >{{ document.filename }}
+              </a>
+
+            </li>
+          </ol>
+        </div>
+      </section>
+
     </div>
   </section>
 </template>
 
-<script src="./news.ts"></script>
-
+<script lang="ts" src="./news.ts"></script>
 <style scoped>
-.card {
-  height: 420px; /* Set fixed height for the card */
-  position: relative;
-  border: 0;
-  transition: transform 0.4s ease;
+.startech-link,
+.startech-link:link,
+.startech-link:visited,
+.startech-link:hover,
+.startech-link:active {
+  color: blue;
+  text-decoration: none;
 }
 
-.card:hover {
-  transform: scale(1.02);
-}
-
-.card-body {
-  background-color: #004b90;
-  border-bottom-left-radius: calc(0.25rem - 1px);
-  border-bottom-right-radius: calc(0.25rem - 1px);
-}
-
-.card img {
+.img-thumbnail {
+  width: 100%; /* Ensure images fill their container */
+  height: 200px; /* Maintain aspect ratio */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  padding: 0;
+  transition: all 0.4s;
+  box-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.075);
   object-fit: cover; /* Ensure images fill the entire card */
 }
 
-h1 {
+.img-thumbnail:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.06);
+}
+
+h1,
+h2 {
   color: #004b90;
 }
 
-h3 {
-  font-size: 1.25rem;
+/* LIGHTBOX & GALLERY  */
+
+.lightbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
-.btn {
+.light-box-contain {
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.close-btn {
   position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 0;
+  color: #fff;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.close-btn:focus {
+  outline: none;
+}
+
+.btn-lightbox-carousel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  color: #fff;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.btn-lightbox-carousel:focus {
+  outline: none;
+}
+
+.btn-prev {
   left: 20px;
-  bottom: 20px;
-  background-color: #E74C3C;
-  color: #fff;
-  transition: all 0.3s;
 }
 
-.btn:hover {
-  background-color: #fff;
-  color: #E74C3C;
-  font-weight: normal;
+.btn-next {
+  right: 20px;
 }
 
-.page-link {
-  color: #004b90;
-  background-color: #fff;
-  border: 0.1px solid;
-  margin-right: 2px;
+/* LIGHTBOX & GALLERY END  */
+
+.section-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.page-link:hover {
-  color: #fff;
-  background-color: #004b90;
+.wrapper {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.wrapper .carousel {
+  font-size: 0px;
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  white-space: nowrap;
+}
 
+.carousel img {
+  height: 240px;
+  padding: 16px;
+  object-fit: cover;
+}
+
+.carousel img:first-child {
+  margin-left: 0px;
+}
+
+.prev-box {
+  width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-box {
+  width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

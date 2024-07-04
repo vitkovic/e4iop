@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import e4i.domain.CmsSlider;
 import e4i.repository.CmsSliderRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -73,4 +74,8 @@ public class CmsSliderService {
         log.debug("Request to delete CmsSlider : {}", id);
         cmsSliderRepository.deleteById(id);
     }
+
+	public List<CmsSlider> retrieveAll() {
+		return cmsSliderRepository.findAll();
+	}
 }

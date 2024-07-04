@@ -3,8 +3,10 @@ import axios from 'axios';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
 import { ICmsSlider } from '@/shared/model/cms-slider.model';
+import CmsSlider from './cms-slider.component';
 
 const baseApiUrl = 'api/cms-sliders';
+const apiRetrieveAll = 'api/cms-sliders/all';
 const apiUploadSliderImage = 'api/cms-sliders/upload-image';
 const apiDeleteSliderImage = 'api/cms-sliders/delete-image';
 
@@ -28,6 +30,19 @@ export default class CmsSliderService {
         .get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`)
         .then(res => {
           resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public retrieveAll(): Promise<CmsSlider[]> {
+    return new Promise<CmsSlider[]>((resolve, reject) => {
+      axios
+        .get(apiRetrieveAll)
+        .then(res => {
+          resolve(res.data);
         })
         .catch(err => {
           reject(err);

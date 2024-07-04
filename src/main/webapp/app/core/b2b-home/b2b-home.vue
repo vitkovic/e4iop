@@ -15,9 +15,9 @@
           @sliding-start="onSlideStart"
           @sliding-end="onSlideEnd"
         >
-          <b-carousel-slide v-for="(image, index) in imagesArray" :key="index" @click.native="handleImageClick(image)">
+          <b-carousel-slide v-for="(cmsSlider, index) in cmsSliders" :key="index" @click.native="handleImageClick(cmsSlider)">
             <template #img>
-              <img :src="getImageSrc(index)" class="d-block w-100" alt="image slot" />
+              <img v-if="cmsSlider.image" :src="retrieveFile(cmsSlider.image)" class="d-block w-100" alt="image slot" />
             </template>
           </b-carousel-slide>
         </b-carousel>

@@ -114,6 +114,13 @@ public class CmsSliderResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+    
+    @GetMapping("/cms-sliders/all")
+    public ResponseEntity<List<CmsSlider>> retrievaAllCmsSliders() {
+        log.debug("REST request to get a page of CmsSliders");
+        List<CmsSlider> cmsSliders = cmsSliderService.retrieveAll();
+        return ResponseEntity.ok().body(cmsSliders);
+    }
 
     /**
      * {@code GET  /cms-sliders/:id} : get the "id" cmsSlider.
