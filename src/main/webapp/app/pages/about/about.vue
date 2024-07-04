@@ -1,12 +1,13 @@
 <template>
   <section class="bg-white">
-    <div class="container">
+    <div v-if="cmsPage" class="container">
       <div class="row">
-        <div class="col-xs-12">
-          <h1>O NAMA</h1>
+        <div class="col-xs-12 mb-5">
+          <h1 v-text="cmsPage.title"></h1>
         </div>
         <div class="col-md-12">
-          <p class="lh-1">
+          <p v-text="cmsPage.content" style="white-space: preserve;"></p>
+          <!-- <p class="lh-1">
             Portal B2B (<em>Business to Business</em>) predstavlja virtuelnu platformu za povezivanje velike i male privrede. Reč je o
             digitalnom rešenju koje omogućava preduzećima da međusobno oglašavaju potrebe, proizvode ili usluge po principu ponude i
             tražnje.
@@ -46,7 +47,7 @@
           <p>
             Više informacija o StarTech projektu možete pronaći na sajtu
             <a class="startech-link" href="https://www.startech.org.rs/" target="_blank">www.startech.org.rs</a>.
-          </p>
+          </p> -->
         </div>
       </div>
       <!-- <div class="row images-container mt-2" v-viewer="viewerOptions">
@@ -54,7 +55,7 @@
           <img :src="src" class="img-thumbnail img-fluid" alt="Placeholder picture" @click="openViewer(src)" />
         </div>
       </div> -->
-      <section v-if="images.length > 0" class="section-gallery mb-4">
+      <section v-if="cmsPageImages.length > 0" class="section-gallery mb-4">
         <div class="prev-box mr-2">
           <b-button variant="none" class="prevButton" @click="scrollPrev">
             <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
@@ -62,7 +63,7 @@
         </div>
         <div class="wrapper">
           <div class="carousel" ref="carousel" v-if="companyImagesArray">
-            <img v-for="(image, index) in images" :key="index" @click="onPreviewImage(index)" :src="image" alt="img" @load="onImageLoad" />
+            <img v-for="(image, index) in cmsPageImages" :key="image.id" @click="onPreviewImage(index)" :src="retrieveFile(image)" alt="img" @load="onImageLoad" />
           </div>
           <div
             v-if="showMask"
@@ -85,7 +86,7 @@
                 <font-awesome-icon icon="caret-right" class="fa-3x icon-lightbox-carousel icon-next"></font-awesome-icon>
               </button>
               <div v-if="previewImage" class="lightbox-img d-flex align-items-center justify-content-center" @click.stop>
-                <img :src="currentLightboxImage" alt="Image description" class="img-fluid" />
+                <img :src="retrieveFile(cmsPageImages[currentIndex])" alt="Image description" class="img-fluid" />
               </div>
             </div>
           </div>
@@ -96,25 +97,36 @@
           </b-button>
         </div>
       </section>
-      <div class="row">
-        <div class="col-xs-12">
-          <h2>KORISNI DOKUMENTI</h2>
+
+      <section v-if="cmsPageDocuments.length > 0">
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 v-text="$t('about.documents')">KORISNI DOKUMENTI</h2>
+          </div>
         </div>
-      </div>
-      <div class="col-md-12">
-        <ol class="p-0 p-md-3">
-          <li v-for="(doc, index) in documents" :key="index">
-            <a class="text-info" :href="doc.src" target="_blank" title="Preuzmite dokument"
-              >{{ doc.title }}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width: 16px; height: 16px; fill: #3498db;">
-                <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                <path
-                  d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.5 211.4l-96.4 95.7c-6.7 6.6-17.4 6.6-24 0l-96.4-95.7C73.4 337.3 80.5 320 94.8 320H160v-80c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v80h65.2c14.3 0 21.4 17.3 11.3 27.4zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"
-                /></svg
-            ></a>
-          </li>
-        </ol>
-      </div>
+        <div class="col-md-12">
+          <ol class="p-0 p-md-3">
+            <li v-for="document in cmsPageDocuments" :key="document.id">
+              <a
+                class="text-info"
+                :href="retrieveFile(document)"
+                target="_blank"
+                title="Preuzmite dokument"
+                >{{ document.filename }}
+              </a>
+              <!-- <a class="text-info" :href="document." target="_blank" title="Preuzmite dokument" -->
+                <!-- >{{ doc.title }} -->
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width: 16px; height: 16px; fill: #3498db;"> -->
+                  <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                  <!-- <path -->
+                    <!-- d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.5 211.4l-96.4 95.7c-6.7 6.6-17.4 6.6-24 0l-96.4-95.7C73.4 337.3 80.5 320 94.8 320H160v-80c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v80h65.2c14.3 0 21.4 17.3 11.3 27.4zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z" -->
+                  <!-- /></svg -->
+              <!-- ></a> -->
+            </li>
+          </ol>
+        </div>
+      </section>
+
     </div>
   </section>
 </template>

@@ -70,7 +70,7 @@
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'datetime'"></jhi-sort-indicator>
             </th>
             <th v-on:click="changeOrder('status.id')">
-              <span v-text="'Status'">Status</span>
+              <span v-text="$t('riportalApp.advertisement.status')">Status</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'status.status'"></jhi-sort-indicator>
             </th>
             <!-- <th v-on:click="changeOrder('commentOffer')"><span v-text="$t('riportalApp.collaboration.commentOffer')">Comment Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'commentOffer'"></jhi-sort-indicator></th>
@@ -321,13 +321,13 @@
     </b-modal>
 
     <b-modal v-if="collaborationToRate" ref="ratingEntity" id="ratingEntity">
-      <span slot="modal-title"><span v-text="'Ocenite saradnju'">Ocenite saradnju</span></span>
+      <span slot="modal-title"><span v-text="$t('riportalApp.collaboration.modal.ratingEntityModal.title')">Ocenite saradnju</span></span>
       <div class="modal-body">
-        <p v-if="company.id != collaborationToRate.companyOffer.id"><b>Oglašivač: </b>{{ collaborationToRate.companyOffer.name }}</p>
-        <p v-if="company.id != collaborationToRate.companyRequest.id"><b>Tražilac: </b>{{ collaborationToRate.companyRequest.name }}</p>
-        <p><b>Oglas: </b>{{ collaborationToRate.advertisement.title }}</p>
+        <p v-if="company.id != collaborationToRate.companyOffer.id"><b>{{ $t('riportalApp.collaboration.companyOffer') }}: </b>{{ collaborationToRate.companyOffer.name }}</p>
+        <p v-if="company.id != collaborationToRate.companyRequest.id"><b>{{ $t('riportalApp.collaboration.companyRequest') }}: </b>{{ collaborationToRate.companyRequest.name }}</p>
+        <p><b>{{ $t('riportalApp.collaboration.advertisement') }}: </b>{{ collaborationToRate.advertisement.title }}</p>
         <div>
-          <b-dropdown text="Izaberite ocenu" class="mb-3">
+          <b-dropdown :text="$t('riportalApp.collaboration.modal.ratingEntityModal.ratingButton')" class="mb-3">
             <b-dropdown-item v-for="rating in collaborationRatings" :key="rating.id" @click="selectRating(rating)">
               <b-form-rating disabled :value="rating.number" stars="4" inline size="sm"> </b-form-rating>
               <span class="ml-2">{{ rating.description }}</span>
@@ -338,18 +338,18 @@
             <span class="ml-2">{{ selectedRating.description }}</span>
           </div>
           <div v-else class="mb-3">
-            <span style="color: red;">Ocena nije izabrana</span>
+            <span style="color: red;" v-text="$t('riportalApp.collaboration.modal.ratingEntityModal.ratingValidation')">Ocena nije izabrana</span>
           </div>
         </div>
-        <b-form-textarea id="textarea" v-model="ratingComment" placeholder="Komentar saradnje..."> </b-form-textarea>
+        <b-form-textarea id="textarea" v-model="ratingComment" :placeholder="$t('riportalApp.collaboration.modal.ratingEntityModal.placeholderComment')"> </b-form-textarea>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-success" v-text="'Oceni'" v-on:click="rateCollaboration()">Oceni</button>
+        <button type="button" class="btn btn-success" v-text="$t('riportalApp.collaboration.actions.rate')" v-on:click="rateCollaboration()">Oceni</button>
         <button
           type="button"
           class="btn btn-danger"
           id="jhi-confirm-delete-collaboration"
-          v-text="'Otkaži'"
+          v-text="$t('entity.action.cancel')"
           v-on:click="closeRatingDialog()"
         >
           Otkaži
@@ -382,7 +382,7 @@
 
     <b-modal ref="copyAdModal" id="copyAdModal">
       <span slot="modal-title"
-        ><span id="riportalApp.collaboration.delete.question" v-text="'Potvrdite obnovu oglasa'">Potvrdite obnovu oglasa</span></span
+        ><span id="riportalApp.collaboration.delete.question" v-text="$t('riportalApp.collaboration.modal.ratingEntityModal.ratingValidation')">Potvrdite obnovu oglasa</span></span
       >
       <div class="modal-body">
         <p
@@ -402,17 +402,16 @@
     </b-modal>
 
     <b-modal v-if="advertisementToSwitchStatus" ref="activateEntity" id="activateEntity" >
-        <span slot="modal-title"><span id="riportalApp.advertisement.delete.question">Potvrdite aktiviranje oglasa</span></span>
+        <span slot="modal-title"><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.collaboration.modal.renewAdModal.title')">Potvrdite aktiviranje oglasa</span></span>
         <div class="modal-body">
             <p id="jhi-delete-advertisement-heading">
-              <span v-text="'Da li ste sigurni da zelite da obnovite oglas '"></span>
-              <span>{{ advertisementToSwitchStatus.title }}</span>
-              <span>?</span>
+              <span v-text="$t('riportalApp.collaboration.modal.renewAdModal.question')"></span>
+              <span>{{ advertisementToSwitchStatus.title }}?</span>
             </p>
         </div>
         <div slot="modal-footer">
             <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeActivateDialog()">Cancel</button>
-            <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-on:click="activateAdvertisement()">Aktiviraj</button>
+            <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-on:click="activateAdvertisement()" v-text="$t('entity.action.confirm')">Aktiviraj</button>
         </div>
     </b-modal>
 

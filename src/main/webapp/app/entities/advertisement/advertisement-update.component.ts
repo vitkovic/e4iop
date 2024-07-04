@@ -497,12 +497,13 @@ export default class AdvertisementUpdate extends Vue {
     return option;
   }
 
-  public formatNames(files): string {
+  public formatNames(files) {
+    const filesLength = files.length;
     if (files.length === 1) {
       return files[0].name;
     } else {
       // const out = '' + this.$t('riportalApp.researchInfrastructure.filesSelected', { param: files.length });
-      const out = 'Files selected: ' + files.length;
+      const out = this.$t('riportalApp.advertisement.upload.filesSelectedPlaceholder', { filesLength });
       return out;
     }
     // return files.length === 1 ? files[0].name : `${files.length} files selected`;

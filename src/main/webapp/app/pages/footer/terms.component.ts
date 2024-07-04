@@ -11,7 +11,7 @@ import CmsPageService from './cms-page.service';
 import DocumentService from '../document/document.service';
 
 @Component
-export default class PageAbout extends Vue {
+export default class PageTerms extends Vue {
   @Inject('cmsPageService')
   private cmsPageService: () => CmsPageService;
 
@@ -52,7 +52,7 @@ export default class PageAbout extends Vue {
   public totalImagesCount = 0;
 
   public cmsPage: ICmsPage | null = null;
-  public cmsPageType = CmsPageTypeOptions.ABOUT;
+  public cmsPageType = CmsPageTypeOptions.TERMS_OF_USE;
   public cmsPageImages: IDocument[] = [];
   public cmsPageDocuments: IDocument[] = [];
 

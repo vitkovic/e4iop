@@ -1,0 +1,9 @@
+{
+  "faq": {
+    "title": "FREQUENTLY ASKED QUESTIONS",
+    "searchQuestions": "Search questions",
+    "searchPlaceholder": "Unesite pojam za pretragu",
+    "pagginationPrev": "Previous",
+    "pagginationNext": "Next"
+  }
+}

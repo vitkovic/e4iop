@@ -22,11 +22,11 @@
             <span v-text="$t('riportalApp.advertisement.home.notFound')">No advertisements found</span>
         </div>
         <div class="ml-3 mb-3" style="display: flex; align-items: center;">
-            <h3 v-text="'Oglasi'" class="mr-3">Oglasi</h3>
+            <h3 v-text="$t('riportalApp.advertisement.home.title')" class="mr-3">Oglasi</h3>
             <div>
-                <b-button :variant="filterAllButtonVariant" v-text="'Svi'" v-on:click="showAllAdvertisements()">Cancel</b-button>
-                <b-button :variant="filterOfferButtonVariant" v-text="'Ponuda'" v-on:click="showOfferAdvertisements()">Cancel</b-button>
-                <b-button :variant="filterDemandButtonVariant" v-text="'Potražnja'" v-on:click="showDemandAdvertisements()">Cancel</b-button>
+                <b-button :variant="filterAllButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.all')" v-on:click="showAllAdvertisements()">Cancel</b-button>
+                <b-button :variant="filterOfferButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.offer')" v-on:click="showOfferAdvertisements()">Cancel</b-button>
+                <b-button :variant="filterDemandButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.demand')" v-on:click="showDemandAdvertisements()">Cancel</b-button>
             </div>
         </div>
         <div class="table-responsive" v-if="advertisements && advertisements.length > 0">
@@ -40,7 +40,7 @@
                     <th v-on:click="changeOrder('subsubcategory.name')"><span v-text="$t('riportalApp.advertisement.subsubcategory')">Subsubcategory</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subsubcategory.name'"></jhi-sort-indicator></th>  
                     <th v-on:click="changeOrder('budget')"><span v-text="$t('riportalApp.advertisement.budget')">Budget</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'budget'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('activationDatetime')"><span v-text="$t('riportalApp.advertisement.activationDatetime')">Activation Datetime</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'activationDatetime'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('duration.id')"><span v-text="'Expiration Date'">Duration</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'duration.id'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('duration.id')"><span v-text="$t('riportalApp.advertisement.expirationDatetime')">Duration</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'duration.id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('company.id')"><span v-text="$t('riportalApp.advertisement.company')">Company</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'company.id'"></jhi-sort-indicator></th>
                 </tr>
                 </thead>

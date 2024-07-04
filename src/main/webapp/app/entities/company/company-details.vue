@@ -479,8 +479,8 @@
             </p>
           </div>
           <div slot="modal-footer">
-            <button type="button" class="btn btn-secondary" v-text="'Otkaži'" v-on:click="closeAdInquiry()">Otkaži</button>
-            <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-on:click="sendInquiry()">Pošalji</button>
+            <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeAdInquiry()">Otkaži</button>
+            <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-text="$t('entity.action.send')" v-on:click="sendInquiry()">Pošalji</button>
           </div>
         </b-modal>
 

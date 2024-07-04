@@ -26,11 +26,11 @@
                 <tr>
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('createdAt')"><span v-text="$t('riportalApp.cmsQuestion.createdAt')">Created At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdAt'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('modifiedAt')"><span v-text="$t('riportalApp.cmsQuestion.modifiedAt')">Modified At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedAt'"></jhi-sort-indicator></th>
+                    <!-- <th v-on:click="changeOrder('modifiedAt')"><span v-text="$t('riportalApp.cmsQuestion.modifiedAt')">Modified At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedAt'"></jhi-sort-indicator></th> -->
                     <th v-on:click="changeOrder('question')"><span v-text="$t('riportalApp.cmsQuestion.question')">Question</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'question'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('answer')"><span v-text="$t('riportalApp.cmsQuestion.answer')">Answer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'answer'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.cmsQuestion.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.cmsQuestion.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th>
+                    <!-- <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.cmsQuestion.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.cmsQuestion.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th> -->
                     <th></th>
                 </tr>
                 </thead>
@@ -40,11 +40,11 @@
                     <td>
                         <router-link :to="{name: 'CmsQuestionView', params: {cmsQuestionId: cmsQuestion.id}}">{{cmsQuestion.id}}</router-link>
                     </td>
-                    <td>{{cmsQuestion.createdAt ? $d(Date.parse(cmsQuestion.createdAt), 'short') : ''}}</td>
-                    <td>{{cmsQuestion.modifiedAt ? $d(Date.parse(cmsQuestion.modifiedAt), 'short') : ''}}</td>
+                    <td>{{cmsQuestion.createdAt ? $d(Date.parse(cmsQuestion.createdAt.toString()), 'short') : ''}}</td>
+                    <!-- <td>{{cmsQuestion.modifiedAt ? $d(Date.parse(cmsQuestion.modifiedAt), 'short') : ''}}</td> -->
                     <td>{{cmsQuestion.question}}</td>
                     <td>{{cmsQuestion.answer}}</td>
-                    <td>
+                    <!-- <td>
                         <div v-if="cmsQuestion.createdBy">
                             <router-link :to="{name: 'PortalUserView', params: {portalUserId: cmsQuestion.createdBy.id}}">{{cmsQuestion.createdBy.id}}</router-link>
                         </div>
@@ -53,7 +53,7 @@
                         <div v-if="cmsQuestion.modifiedBy">
                             <router-link :to="{name: 'PortalUserView', params: {portalUserId: cmsQuestion.modifiedBy.id}}">{{cmsQuestion.modifiedBy.id}}</router-link>
                         </div>
-                    </td>
+                    </td> -->
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'CmsQuestionView', params: {cmsQuestionId: cmsQuestion.id}}" tag="button" class="btn btn-info btn-sm details">

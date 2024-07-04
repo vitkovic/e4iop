@@ -8,14 +8,14 @@
                         <span v-text="$t('riportalApp.cmsQuestion.createdAt')">Created At</span>
                     </dt>
                     <dd>
-                        <span v-if="cmsQuestion.createdAt">{{$d(Date.parse(cmsQuestion.createdAt), 'long') }}</span>
+                        <span v-if="cmsQuestion.createdAt">{{$d(Date.parse(cmsQuestion.createdAt.toString()), 'long') }}</span>
                     </dd>
-                    <dt>
+                    <!-- <dt>
                         <span v-text="$t('riportalApp.cmsQuestion.modifiedAt')">Modified At</span>
                     </dt>
                     <dd>
                         <span v-if="cmsQuestion.modifiedAt">{{$d(Date.parse(cmsQuestion.modifiedAt), 'long') }}</span>
-                    </dd>
+                    </dd> -->
                     <dt>
                         <span v-text="$t('riportalApp.cmsQuestion.question')">Question</span>
                     </dt>
@@ -28,7 +28,7 @@
                     <dd>
                         <span>{{cmsQuestion.answer}}</span>
                     </dd>
-                    <dt>
+                    <!-- <dt>
                         <span v-text="$t('riportalApp.cmsQuestion.createdBy')">Created By</span>
                     </dt>
                     <dd>
@@ -43,7 +43,7 @@
                         <div v-if="cmsQuestion.modifiedBy">
                             <router-link :to="{name: 'PortalUserView', params: {portalUserId: cmsQuestion.modifiedBy.id}}">{{cmsQuestion.modifiedBy.id}}</router-link>
                         </div>
-                    </dd>
+                    </dd> -->
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

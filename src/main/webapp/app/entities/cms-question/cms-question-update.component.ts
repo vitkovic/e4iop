@@ -15,8 +15,6 @@ import CmsQuestionService from './cms-question.service';
 
 const validations: any = {
   cmsQuestion: {
-    createdAt: {},
-    modifiedAt: {},
     question: {
       required,
     },
@@ -45,7 +43,6 @@ export default class CmsQuestionUpdate extends Vue {
       if (to.params.cmsQuestionId) {
         vm.retrieveCmsQuestion(to.params.cmsQuestionId);
       }
-      vm.initRelationships();
     });
   }
 
@@ -71,6 +68,7 @@ export default class CmsQuestionUpdate extends Vue {
           this.alertService().showAlert(message, 'info');
         });
     } else {
+      this.cmsQuestion.createdAt = new Date();
       this.cmsQuestionService()
         .create(this.cmsQuestion)
         .then(param => {
@@ -117,18 +115,5 @@ export default class CmsQuestionUpdate extends Vue {
 
   public previousState(): void {
     this.$router.go(-1);
-  }
-
-  public initRelationships(): void {
-    this.portalUserService()
-      .retrieve()
-      .then(res => {
-        this.portalUsers = res.data;
-      });
-    this.portalUserService()
-      .retrieve()
-      .then(res => {
-        this.portalUsers = res.data;
-      });
   }
 }
