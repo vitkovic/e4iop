@@ -509,11 +509,11 @@
         <b-modal v-if="selectedEvent" ref="meetingNotesModal" id="meetingNotesModal">
           <span slot="modal-title">{{ selectedEvent.title }}</span>
             <div class="modal-body">
-                <p id="jhi-delete-thread-heading">
+                <h4 id="jhi-delete-thread-heading" class="mb-4">
                   <span v-text="'Zapisnik'"></span>  
-                </p>
+                </h4>
                 <b-form-textarea
-                  :readonly="selectedEvent.organizer && company.id != selectedEvent.organizer.company.id" 
+                  :plaintext="selectedEvent.organizer && company.id != selectedEvent.organizer.company.id" 
                   v-model="meetingNotes" 
                   class="mb-3" 
                   id="" 
