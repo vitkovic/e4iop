@@ -31,9 +31,9 @@
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.advertisementSubcategory.advertisementCategory')" for="advertisement-subcategory-advertisementCategory">Advertisement Category</label>
-                        <select class="form-control" id="advertisement-subcategory-advertisementCategory" name="advertisementCategory" v-model="advertisementSubcategory.advertisementCategory">
+                        <select class="form-control" id="advertisement-subcategory-advertisementCategory" name="advertisementCategory" :class="{'valid': !$v.advertisementSubcategory.advertisementCategory.$invalid, 'invalid': $v.advertisementSubcategory.advertisementCategory.$invalid }" v-model="advertisementSubcategory.advertisementCategory" required>
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="advertisementSubcategory.advertisementCategory && advertisementCategoryOption.id === advertisementSubcategory.advertisementCategory.id ? advertisementSubcategory.advertisementCategory : advertisementCategoryOption" v-for="advertisementCategoryOption in advertisementCategories" :key="advertisementCategoryOption.id">{{advertisementCategoryOption.id}}</option>
+                            <option v-bind:value="advertisementSubcategory.advertisementCategory && advertisementCategoryOption.id === advertisementSubcategory.advertisementCategory.id ? advertisementSubcategory.advertisementCategory : advertisementCategoryOption" v-for="advertisementCategoryOption in advertisementCategories" :key="advertisementCategoryOption.id">{{advertisementCategoryOption.name}}</option>
                         </select>
                     </div>
                 </div>

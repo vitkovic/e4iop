@@ -43,7 +43,7 @@
                     <td>{{advertisementSubcategory.isDeleted}}</td>
                     <td>
                         <div v-if="advertisementSubcategory.advertisementCategory">
-                            <router-link :to="{name: 'AdvertisementCategoryView', params: {advertisementCategoryId: advertisementSubcategory.advertisementCategory.id}}">{{advertisementSubcategory.advertisementCategory.id}}</router-link>
+                            <router-link :to="{name: 'AdvertisementCategoryView', params: {advertisementCategoryId: advertisementSubcategory.advertisementCategory.id}}">{{advertisementSubcategory.advertisementCategory.name}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

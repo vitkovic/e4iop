@@ -17,6 +17,9 @@ const validations: any = {
     name: {
       required,
     },
+    advertisementCategory: {
+      required,
+    },
     isVisible: {},
     isDeleted: {},
   },
