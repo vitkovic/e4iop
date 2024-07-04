@@ -127,7 +127,7 @@ public class CmsQuestionResource {
     }
     
     /**
-     * {@code GET  /advertisements/:search} : get the "search" advertisement.
+     * {@code GET  /cms-questions/:search} : get the "search" advertisement.
      *
      * @param search
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the advertisement, or with status {@code 404 (Not Found)}.

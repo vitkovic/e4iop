@@ -376,6 +376,10 @@ const CmsQuestion = () => import('@/entities/cms-question/cms-question.vue');
 const CmsQuestionUpdate = () => import('@/entities/cms-question/cms-question-update.vue');
 // prettier-ignore
 const CmsQuestionDetails = () => import('@/entities/cms-question/cms-question-details.vue');
+
+
+const CmsQuestionSearch = () => import('@/entities/cms-question/cms-question-search.vue');
+
 // prettier-ignore
 const CmsSlider = () => import('@/entities/cms-slider/cms-slider.vue');
 // prettier-ignore
@@ -1900,6 +1904,12 @@ export default [
     name: 'CmsQuestion',
     component: CmsQuestion,
     meta: { authorities: [Authority.USER] },
+  },
+   {
+    path: '/b2b/cms-questions/search',
+    name: 'CmsQuestionSearch',
+    component: CmsQuestionSearch,
+    
   },
   {
     path: '/b2b/cms-question/new',

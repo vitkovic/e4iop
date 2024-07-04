@@ -6,10 +6,10 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { ICmsQuestion } from '@/shared/model/cms-question.model';
 
 const baseApiUrl = 'api/cms-questions';
-
+const baseApiUrlSearch = 'api/cms-questions/search';
 export default class CmsQuestionService {
 
-  public baseApiUrlSearch = '/b2b/cms-questions/search';
+  
  
   public find(id: number): Promise<ICmsQuestion> {
     return new Promise<ICmsQuestion>((resolve, reject) => {

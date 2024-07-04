@@ -71,9 +71,7 @@ export default class B2BJhiNavbar extends Vue {
         {name: 'Вест', value: '1'},
         {name: 'Компанија', value: '2'},
         {name: 'Најчешћа питања', value: '3'},
-        {name: 'Све заједно', value: '4'},
-     
-      ]
+        ]
       }
     }
   
@@ -177,6 +175,9 @@ export default class B2BJhiNavbar extends Vue {
   
   public searchAdv(): void {
 	
+	const searchtype = this.valuetype[0].value;
+	
+	console.log(this.valuetype[0].value);
 	
 	const baseApiUrlSearchAdv = '/b2b/advertisement-search';
 	const baseApiUrlSearchCmp = '/b2b/company-search';
@@ -187,9 +188,27 @@ export default class B2BJhiNavbar extends Vue {
 	var ppathCmp = baseApiUrlSearchCmp + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
 	var ppathQa = baseApiUrlSearchQA + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
 	var ppathNw = baseApiUrlSearchNews + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-	
-	
-	window.location.href= ppathNw;
+	var ppath = '';
+	switch (Number(searchtype)) {
+		case 0: 
+			ppath = ppathAdv;
+			break;
+		case 1: 
+			ppath = ppathNw;
+			break;
+		case 2: 
+			ppath = ppathCmp;
+			break;
+		case 3: 
+			ppath = ppathQa;
+			break;
+		default:
+			ppath = ppathAdv; 
+			break;
+			
+	}
+	console.log(ppath);
+	window.location.href= ppath;
 	/*
 	console.log(this.mainSearchCategory);
 	 this.advertisementService()
