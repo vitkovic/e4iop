@@ -1,6 +1,28 @@
 <template>
   <div>
-  
+    <section class="banner">
+      <div>
+        <b-carousel
+          id="carousel-1"
+          v-model="slide"
+          :interval="4000"
+          fade
+          controls
+          indicators
+          background="#ababab"
+          class="custom-carousel"
+          style="text-shadow: 1px 1px 2px #333;"
+          @sliding-start="onSlideStart"
+          @sliding-end="onSlideEnd"
+        >
+          <b-carousel-slide v-for="(image, index) in imagesArray" :key="index" @click.native="handleImageClick(image)">
+            <template #img>
+              <img :src="getImageSrc(index)" class="d-block w-100" alt="image slot" />
+            </template>
+          </b-carousel-slide>
+        </b-carousel>
+      </div>
+    </section>
  
 
 
@@ -95,11 +117,11 @@
 <script lang="ts" src="./b2b-home.component.ts"></script>
 
 <style>
-
+/*
 .banner {
 	display: none;
 }
-
+*/
 .div1 {
   display: flex;
   justify-content: center;
