@@ -65,7 +65,7 @@
                   <span v-text="$t('riportalApp.company.registrationDateList')">Datum registracije:</span>
                 </dt>
                 <dd>
-                  <span>{{ company.createdAt ? $d(Date.parse(company.createdAt.toString()), {dateStyle: 'short'}) : '' }}</span>
+                  <span>{{ company.createdAt ? $d(Date.parse(company.createdAt.toString()), { dateStyle: 'short' }) : '' }}</span>
                 </dd>
               </dl>
               <dl class="d-flex flex-wrap mb-1">
@@ -108,19 +108,19 @@
             </div>
             <div class="d-flex justify-content-end">
               <div class="d-none d-md-flex justify-content-between w-100">
-                <a href="#">
+                <a href="#" @click="shareOnNewTwitter($event)">
                   <img class="mb-1 icon-contact mr-2" src="/content/images/x-twitter.svg" alt="X-twitter icon" />
                 </a>
-                <a href="#">
+                <a href="#" @click="shareOnLinkedIn($event)">
                   <img class="mb-1 icon-contact mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" />
                 </a>
-                <a href="#">
+                <a href="#" @click="shareOnFacebook($event)">
                   <img class="mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" />
                 </a>
-                <b-link>
+                <b-link href="mailto:info@example.com" target="_blank" type="button">
                   <font-awesome-icon icon="envelope" class="icon-contact fa-lg mr-2"></font-awesome-icon>
                 </b-link>
-                <b-link>
+                <b-link @click="copyToClipboard" type="button">
                   <font-awesome-icon icon="copy" class="icon-contact fa-lg"></font-awesome-icon>
                 </b-link>
               </div>
@@ -128,20 +128,30 @@
                 <template #button-content>
                   <font-awesome-icon icon="share-alt" class="fa-lg mr-2 icon-contact"></font-awesome-icon>
                 </template>
-                <b-dropdown-item>
-                  <img class="mb-1 mr-2" src="/content/images/x-twitter.svg" alt="X icon" /><span>X</span>
+                <b-dropdown-item @click="shareOnNewTwitter($event)">
+                  <a href="#" @click="shareOnNewTwitter($event)">
+                    <img class="mb-1 icon-contact mr-2" src="/content/images/x-twitter.svg" alt="X-twitter icon" /><span>X</span>
+                  </a>
+                </b-dropdown-item>
+                <b-dropdown-item @click="shareOnLinkedIn($event)">
+                  <a href="#" @click="shareOnLinkedIn($event)">
+                    <img class="mb-1 icon-contact mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" /><span>Linkedin</span>
+                  </a>
+                </b-dropdown-item>
+                <b-dropdown-item @click="shareOnFacebook($event)">
+                  <a href="#" @click="shareOnFacebook($event)">
+                    <img class="mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" /><span>Facebook</span>
+                  </a>
                 </b-dropdown-item>
                 <b-dropdown-item>
-                  <img class="mb-1 mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" /><span>Linkedin</span>
+                  <b-link href="mailto:info@example.com" target="_blank" type="button">
+                    <font-awesome-icon icon="envelope" class="icon-contact fa-lg mr-2"></font-awesome-icon><span>Email</span>
+                  </b-link>
                 </b-dropdown-item>
                 <b-dropdown-item>
-                  <img class="mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" /><span>Facebook</span>
-                </b-dropdown-item>
-                <b-dropdown-item>
-                  <font-awesome-icon icon="envelope" class="icon-dropdown fa-lg mr-2"></font-awesome-icon><span>Email</span>
-                </b-dropdown-item>
-                <b-dropdown-item>
-                  <font-awesome-icon icon="copy" class="icon-dropdown fa-lg mr-2"></font-awesome-icon><span>Copy company</span>
+                  <b-link @click="copyToClipboard" type="button">
+                    <font-awesome-icon icon="copy" class="icon-contact fa-lg mr-2"></font-awesome-icon><span>Copy company</span>
+                  </b-link>
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -206,19 +216,28 @@
                 @load="onImageLoad"
               />
             </div>
-            <div v-if="showMask" ref="lightbox" class="lightbox"  tabindex="0" @keydown.left="prev" @keydown.right="next" @keydown.esc="onClosePreviewImage" @click="onClosePreviewImage">
+            <div
+              v-if="showMask"
+              ref="lightbox"
+              class="lightbox"
+              tabindex="0"
+              @keydown.left="prev"
+              @keydown.right="next"
+              @keydown.esc="onClosePreviewImage"
+              @click="onClosePreviewImage"
+            >
               <div class="light-box-contain d-flex align-items-center justify-content-center">
                 <button v-if="previewImage" class="close-btn" @click="onClosePreviewImage()">
                   <font-awesome-icon icon="times" class="fa-lg"></font-awesome-icon>
                 </button>
-                <button class="btn-lightbox-carousel btn-prev" @click.stop="prev()" >
+                <button class="btn-lightbox-carousel btn-prev" @click.stop="prev()">
                   <font-awesome-icon icon="caret-left" class="fa-3x icon-lightbox-carousel icon-prev"></font-awesome-icon>
                 </button>
-                <button class="btn-lightbox-carousel btn-next" @click.stop="next()" >
+                <button class="btn-lightbox-carousel btn-next" @click.stop="next()">
                   <font-awesome-icon icon="caret-right" class="fa-3x icon-lightbox-carousel icon-next"></font-awesome-icon>
                 </button>
                 <div v-if="previewImage" class="lightbox-img d-flex align-items-center justify-content-center" @click.stop>
-                  <img :src="currentLightboxImage" alt="Image description" class="img-fluid"  />
+                  <img :src="currentLightboxImage" alt="Image description" class="img-fluid" />
                 </div>
               </div>
             </div>
@@ -397,14 +416,20 @@
                 <b-card v-for="collaboration in collaborations" :key="collaboration.id" class="card-box">
                   <div class="d-flex align-items-center">
                     <div class="d-flex mb-2">
-                      <div v-if="collaboration.companyOffer.id == company.id && collaboration.companyRequest.logo" class="img-logo-test mr-2">
+                      <div
+                        v-if="collaboration.companyOffer.id == company.id && collaboration.companyRequest.logo"
+                        class="img-logo-test mr-2"
+                      >
                         <img
                           :src="companyService().retrieveImage(collaboration.companyRequest.logo.filename)"
                           alt="company logo"
                           class="img-logo"
                         />
                       </div>
-                      <div v-else-if="collaboration.companyRequest.id == company.id && collaboration.companyOffer.logo" class="img-logo-test mr-2">
+                      <div
+                        v-else-if="collaboration.companyRequest.id == company.id && collaboration.companyOffer.logo"
+                        class="img-logo-test mr-2"
+                      >
                         <img
                           :src="companyService().retrieveImage(collaboration.companyOffer.logo.filename)"
                           alt="company logo"
@@ -412,13 +437,21 @@
                         />
                       </div>
                       <div v-else class="img-box mr-2 placeholder-logo">
-                        {{ collaboration.companyOffer.id == company.id ? getCompanyInitials(collaboration.companyRequest) : getCompanyInitials(collaboration.companyOffer) }}
+                        {{
+                          collaboration.companyOffer.id == company.id
+                            ? getCompanyInitials(collaboration.companyRequest)
+                            : getCompanyInitials(collaboration.companyOffer)
+                        }}
                       </div>
-                      <h3 class="company-title mb-0" style="align-self: center;">{{ collaboration.companyOffer.id == company.id ? collaboration.companyRequest.name : collaboration.companyOffer.name }}</h3>
+                      <h3 class="company-title mb-0" style="align-self: center;">
+                        {{
+                          collaboration.companyOffer.id == company.id ? collaboration.companyRequest.name : collaboration.companyOffer.name
+                        }}
+                      </h3>
                     </div>
                   </div>
                   <h4 class="mb-4">{{ collaboration.advertisement.title }}</h4>
-                  <div class="d-flex" style="flex-direction: column">
+                  <div class="d-flex" style="flex-direction: column;">
                     <div class="mb-2">
                       {{ collaboration.datetime ? $d(Date.parse(collaboration.datetime.toString()), 'short') : '' }}
                     </div>
@@ -426,14 +459,18 @@
                       <b-form-rating
                         id="rating-inline"
                         inline
-                        :value="collaboration.companyOffer.id == company.id ? collaboration.ratingRequest.number : collaboration.ratingOffer.number"
+                        :value="
+                          collaboration.companyOffer.id == company.id
+                            ? collaboration.ratingRequest.number
+                            : collaboration.ratingOffer.number
+                        "
                         class="mr-4"
                         variant="primary"
                         size="sm"
                         stars="4"
                         disabled
                       ></b-form-rating>
-                      <label for="rating-inline">{{ collaboration.companyOffer.id == company.id ? "Tražilac" : "Oglašivač" }}</label>
+                      <label for="rating-inline">{{ collaboration.companyOffer.id == company.id ? 'Tražilac' : 'Oglašivač' }}</label>
                     </div>
                   </div>
                   <hr />
@@ -479,8 +516,18 @@
             </p>
           </div>
           <div slot="modal-footer">
-            <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeAdInquiry()">Otkaži</button>
-            <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-text="$t('entity.action.send')" v-on:click="sendInquiry()">Pošalji</button>
+            <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeAdInquiry()">
+              Otkaži
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="jhi-confirm-delete-advertisement"
+              v-text="$t('entity.action.send')"
+              v-on:click="sendInquiry()"
+            >
+              Pošalji
+            </button>
           </div>
         </b-modal>
 
@@ -495,9 +542,7 @@
 </template>
 
 <style>
-
 /* LIGHTBOX & GALLERY  */
-
 
 .lightbox {
   display: flex;
@@ -543,11 +588,11 @@
   cursor: pointer;
 }
 
-.close-btn:focus{
+.close-btn:focus {
   outline: none;
 }
 
-.btn-lightbox-carousel{
+.btn-lightbox-carousel {
   position: absolute;
   display: flex;
   align-items: center;
@@ -561,20 +606,19 @@
   z-index: 1001;
 }
 
-.btn-lightbox-carousel:focus{
+.btn-lightbox-carousel:focus {
   outline: none;
 }
 
-.btn-prev{
+.btn-prev {
   left: 20px;
 }
 
-.btn-next{
+.btn-next {
   right: 20px;
 }
 
 /* LIGHTBOX & GALLERY END  */
-
 
 .jh-entity-details > dd {
   justify-self: left;

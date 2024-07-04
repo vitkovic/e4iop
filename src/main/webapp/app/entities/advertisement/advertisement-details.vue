@@ -197,19 +197,19 @@
           </div>
           <div class="share-icons d-flex justify-content-end">
             <div class="d-flex justify-content-between">
-              <a href="#">
+              <a href="#" @click="shareOnNewTwitter($event)">
                 <img class="mb-1 icon-contact mr-2" src="/content/images/x-twitter.svg" alt="X icon" />
               </a>
-              <a href="#">
+              <a href="#" @click="shareOnLinkedIn($event)">
                 <img class="mb-1 icon-contact mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" />
               </a>
-              <a href="#">
+              <a href="#" @click="shareOnFacebook($event)">
                 <img class="mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" />
               </a>
-              <b-link>
+              <b-link href="mailto:info@example.com" target="_blank" type="button">
                 <font-awesome-icon icon="envelope" class="icon-contact fa-lg mr-2"></font-awesome-icon>
               </b-link>
-              <b-link>
+              <b-link @click="copyToClipboard" type="button">
                 <font-awesome-icon icon="copy" class="icon-contact fa-lg"></font-awesome-icon>
               </b-link>
             </div>

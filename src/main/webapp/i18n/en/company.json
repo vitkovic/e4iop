@@ -56,6 +56,8 @@
       "modifiedBy": "Modified by",
       "logo": "Logo",
       "saveLogo": "Save logo",
+      "copyLink": "Link is copied",
+      "copyCompany": "Copy company",
       "upload": {
         "imgUpload": "Upload images",
         "logoUpload": "Upload logo",

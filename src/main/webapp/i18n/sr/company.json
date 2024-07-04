@@ -54,6 +54,8 @@
       "modifiedBy": "Izmenio",
       "logo": "Logo",
       "saveLogo": "Sačuvaj logo",
+      "copyLink": "Link je kopiran",
+      "copyCompany": "Kopiraj kompaniju",
       "upload": {
         "imgUpload": "Dodajte slike",
         "documentUpload": "Dodajte dokumente",

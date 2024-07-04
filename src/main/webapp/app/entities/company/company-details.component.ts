@@ -236,6 +236,68 @@ export default class CompanyDetails extends Vue {
 
   // --- LIGHTBOX END ---
 
+  // --- SHARE ---
+
+  shareOnFacebook(event: Event) {
+    event.preventDefault();
+    const currentUrl = window.location.href;
+
+    const encodedUrl = encodeURIComponent(currentUrl);
+
+    const shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodedUrl;
+
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+  }
+
+  shareOnLinkedIn(event: Event) {
+    event.preventDefault();
+
+    const currentUrl = window.location.href;
+    const documentTitle = document.title;
+
+    const encodedUrl = encodeURIComponent(currentUrl);
+    const encodedTitle = encodeURIComponent(documentTitle);
+
+    const shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`;
+
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+  }
+
+  shareOnNewTwitter(event: Event) {
+    event.preventDefault();
+
+    const currentUrl = window.location.href;
+    const documentTitle = document.title;
+
+    const encodedUrl = encodeURIComponent(currentUrl);
+    const encodedTitle = encodeURIComponent(documentTitle);
+
+    const shareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
+
+    window.open(shareUrl, 'twitter-share-dialog', 'width=800,height=600');
+  }
+
+  copyToClipboard() {
+    const url = window.location.href;
+
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        const errorText = this.$t('riportalApp.company.copyLink');
+        this.$notify({
+          text: errorText,
+          type: 'info',
+          duration: 1000,
+        });
+      })
+      .catch(error => {
+        console.error('Failed to copy URL to clipboard: ', error);
+        alert('Failed to copy URL to clipboard');
+      });
+  }
+
+  // ---  SHARE END ---
+
   onImageLoad() {
     this.imagesLoaded++;
     const totalImages = this.imageNumber(); // Total number of images
