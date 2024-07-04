@@ -22,6 +22,8 @@ const apiFindAllByStatusId = 'api/advertisements/status';
 const apiFindAllByCompanyIdAndTypeId = 'api/advertisements/company-type';
 
 export default class AdvertisementService {
+	
+	
   public find(id: number): Promise<IAdvertisement> {
     return new Promise<IAdvertisement>((resolve, reject) => {
       axios

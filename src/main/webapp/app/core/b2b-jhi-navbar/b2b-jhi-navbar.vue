@@ -389,16 +389,16 @@
           </div>
           <div class="col-sm-2 col-md-4" style="max-width:100%">
             <!-- Ostatak ekrana za select -->
-              <b-input-group style="max-width:100%">
+              <b-input-group  class="w-100" style="max-width:100%">
                 <b-input-group-prepend is-text>
                   <font-awesome-icon icon="search" scale="1.3"></font-awesome-icon>
                 </b-input-group-prepend>
-                <select class="form-control col-md-12"  v-model="mainSearchCategory" id="portal-user-company" name="company" @click="" ref="mainSearchCategory">
-                    <option v-for="element in advCategList" :key="element.id" :value="element.id">{{element.name}}</option>
+                <select class="form-control" style="width:100%;max-width:100%" v-model="mainSearchCategory" id="kat" name="kat" @click="" >
+                    <option  v-for="element in advCategList" :key="element.id" :value="element.id" >{{element.name}}</option>
                 </select>
-              </b-input-group>
+                </b-input-group>
               </div>
-                  <div class="col-sm-2 col-md-4" style="max-width:100%">
+            <div class="col-sm-2 col-md-4" style="max-width:100%">
             <multiselect v-model="valuetype" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false"
                  :preserve-search="true" placeholder="Одаберите елемент претраживања" label="name" track-by="name" :preselect-first="true">
       <template #selection="{ values, search, isOpen }">
@@ -425,6 +425,7 @@
 </template>
 
 <script lang="ts" src="./b2b-jhi-navbar.component.ts"></script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -667,12 +668,14 @@
     height: 7em;
   }
 
-  .selekt {
-    margin-top: 0.3em;
-  }
+ 
 
   #portal-user-company {
     width: 32em !important;
   }
+ 
 }
+
+ select {display: flex; max-width:100%}
+
 </style>

@@ -10,6 +10,7 @@ const apiUploadFiles = 'api/cms-news/upload-files';
 const apiDeleteFile = 'api/cms-news/delete-file';
 
 export default class CmsNewsService {
+  
   public find(id: number): Promise<ICmsNews> {
     return new Promise<ICmsNews>((resolve, reject) => {
       axios

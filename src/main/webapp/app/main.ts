@@ -108,7 +108,7 @@ import DocumentKindService from '@/entities/document-kind/document-kind.service'
 import InquiryService from '@/entities/inquiry/inquiry.service';
 
 import 'vue-multiselect/dist/vue-multiselect.min.css';
-
+import SearchPageService from './core/b2b-jhi-navbar/searchpage.service';
 // import vSelect from 'vue-select'
 // Vue.component('v-select', vSelect)
 
@@ -281,6 +281,7 @@ new Vue({
     documentTypeService: () => new DocumentTypeService(),
     documentKindService: () => new DocumentKindService(),
     inquiryService: () => new InquiryService(),
+    searchPageService: () => SearchPageService,
   },
   i18n,
   store,

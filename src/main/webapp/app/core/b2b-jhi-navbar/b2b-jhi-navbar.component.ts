@@ -1,6 +1,7 @@
 import { Component, Inject, Vue } from 'vue-property-decorator';
 import { VERSION } from '@/constants';
 import LoginService from '@/account/login.service';
+
 import AccountService from '@/account/account.service';
 import TranslationService from '@/locale/translation.service';
 import PortalUserService from '../../entities/portal-user/portal-user.service';
@@ -10,7 +11,7 @@ import { IPortalUser } from '@/shared/model/portal-user.model';
 import AdvertisementService from '../../entities/advertisement/advertisement.service';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
-
+import SearchPageService from '../../core/b2b-jhi-navbar/searchpage.service';
 
 @Component
 export default class B2BJhiNavbar extends Vue {
@@ -26,6 +27,8 @@ export default class B2BJhiNavbar extends Vue {
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
   
   @Inject('advertisementCategoryService') private advertisementCategoryService: () => AdvertisementCategoryService;
+  
+  @Inject('searchPageService') private searchPageService: () => SearchPageService;
 
   public version = VERSION ? 'v' + VERSION : '';
   private currentLanguage = this.$store.getters.currentLanguage;
@@ -55,7 +58,7 @@ export default class B2BJhiNavbar extends Vue {
 	
 	
     this.translationService().refreshTranslation(this.currentLanguage);
-    
+    this.mainSearchCategory = 1;
     
     
    
@@ -64,7 +67,7 @@ export default class B2BJhiNavbar extends Vue {
   data() {
       return {
        txtsearchNav: '',
-       mainSearchCategory:'',
+       mainSearchCategory:1,
        valuetype: [],
        options: [
         {name: 'Оглас', value: '0'},
@@ -78,7 +81,7 @@ export default class B2BJhiNavbar extends Vue {
   
   mounted() {
 	
-    
+  
 	this.initRelationships();
     // Call the function to check screen size and update isActive
     this.checkScreenSize();
@@ -88,7 +91,7 @@ export default class B2BJhiNavbar extends Vue {
      this.txtsearchNav = this.$route.query.search;
      this.mainSearchCategory =  this.$route.query.category;
      
-     console.log( this.$route.query)
+     //console.log( this.$route.query)
     
     if (this.txtsearchNav == null) {
      const urlParams = new URLSearchParams(window.location.search);
@@ -175,6 +178,7 @@ export default class B2BJhiNavbar extends Vue {
   
   public searchAdv(): void {
 	
+	/*
 	const searchtype = this.valuetype[0].value;
 	
 	console.log(this.valuetype[0].value);
@@ -207,19 +211,20 @@ export default class B2BJhiNavbar extends Vue {
 			break;
 			
 	}
-	console.log(ppath);
+	
 	window.location.href= ppath;
-	/*
+	
+	
 	console.log(this.mainSearchCategory);
-	 this.advertisementService()
-      .retrieveSearch(this.txtsearch,Number(this.mainSearchCategory))
+	this.searchPageService()
+	 .retrieveSearchAdv(this.txtsearchNav,Number(this.mainSearchCategory))
       .then(res => {
         console.log(res.data);
         this.advList = res.data;
         this.advertisements = res.data;
        
       });
-      */  
+      */ 
   }
 
   private searchinput;
@@ -230,6 +235,7 @@ export default class B2BJhiNavbar extends Vue {
 	    console.log(res.data);
         this.advCategList = res.data;
         this.$refs.mainSearchCategory = this.advCategList;
+          this.mainSearchCategory = 1;
         
       });
 
