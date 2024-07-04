@@ -178,7 +178,7 @@ export default class B2BJhiNavbar extends Vue {
   
   public searchAdv(): void {
 	
-	/*
+	
 	const searchtype = this.valuetype[0].value;
 	
 	console.log(this.valuetype[0].value);
@@ -215,16 +215,20 @@ export default class B2BJhiNavbar extends Vue {
 	window.location.href= ppath;
 	
 	
-	console.log(this.mainSearchCategory);
+	
+	/*
+	
+	console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
+	
 	this.searchPageService()
-	 .retrieveSearchAdv(this.txtsearchNav,Number(this.mainSearchCategory))
+	 .retrieveSearchAdv(this.txtsearchNav)
       .then(res => {
         console.log(res.data);
         this.advList = res.data;
         this.advertisements = res.data;
        
       });
-      */ 
+     */
   }
 
   private searchinput;

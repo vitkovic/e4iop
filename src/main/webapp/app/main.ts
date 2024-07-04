@@ -281,7 +281,7 @@ new Vue({
     documentTypeService: () => new DocumentTypeService(),
     documentKindService: () => new DocumentKindService(),
     inquiryService: () => new InquiryService(),
-    searchPageService: () => SearchPageService,
+    searchPageService: () => new SearchPageService(),
   },
   i18n,
   store,

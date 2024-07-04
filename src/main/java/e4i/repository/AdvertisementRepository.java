@@ -97,6 +97,6 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     		+ "and (upper(advertisement.description) like CONCAT('%',upper(:search),'%') or upper(advertisement.title) like CONCAT('%',upper(:search),'%')) and advertisement.category.id=:category")
     Page<Advertisement> findSearchAllByCompanyIdbyCategory(@Param("search") String search,@Param("companyId") Long companyId,@Param("category") Long category, Pageable pageable);
     
-        
+      
 	Optional<Advertisement> findOneByThreads(Thread thread);
 }

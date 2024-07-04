@@ -151,6 +151,7 @@ public class AdvertisementService {
 //            }
        }   
    }
+  
 
     /**
      * Get all the advertisements with eager load of many-to-many relationships.
