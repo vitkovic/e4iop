@@ -75,19 +75,19 @@
                 <b-dropdown-item to="#" active-class="active">
                   <span v-text="'Upravljanje administratorima'">Upravljanje administratorima</span>
                 </b-dropdown-item>
-                <b-dropdown-item to="#" active-class="active">
+                <b-dropdown-item :to="{name: 'CMSJhiUser'}" active-class="active">
                   <span v-text="'Upravljanje korisnicima'">Upravljanje korisnicima</span>
                 </b-dropdown-item>
-                <b-dropdown-item to="#" active-class="active">
+                <b-dropdown-item :to="{name: 'CMSAdvertsement'}" active-class="active">
                   <span v-text="'Upravljanje oglasima'">Upravljanje oglasima</span>
                 </b-dropdown-item>
-                <b-dropdown-item to="#" active-class="active">
+                <b-dropdown-item :to="{name: 'CMSPages'}" active-class="active">
                   <span v-text="'Upravljanje stranicama'">Upravljanje stranicama</span>
                 </b-dropdown-item>
-                <b-dropdown-item to="#" active-class="active">
+                <b-dropdown-item :to="{name: 'CMSCodebook'}" active-class="active">
                   <span v-text="'Šifarnici'">Šifarnici</span>
                 </b-dropdown-item>
-                <b-dropdown-item to="#" active-class="active">
+                <b-dropdown-item :to="{name: 'CMSNews'}" active-class="active">
                   <span v-text="'Vesti'">Vesti</span>
                 </b-dropdown-item>
                 <b-dropdown-item to="#" active-class="active">
@@ -304,9 +304,9 @@
                 >
                   <span v-text="$t('global.menu.account.accountData')">Moji podaci</span>
                 </b-dropdown-item>
-                <b-dropdown-item to="#" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+                <!-- <b-dropdown-item to="#" tag="b-dropdown-item" v-if="authenticated" active-class="active">
                   <span v-text="$t('global.menu.account.rsnisData')">RSNIS podaci</span>
-                </b-dropdown-item>
+                </b-dropdown-item> -->
                 <b-dropdown-item to="#" tag="b-dropdown-item" v-if="authenticated" active-class="active">
                   <span v-text="$t('global.menu.account.additionalusers')">Unos dodatnih korisnika</span>
                 </b-dropdown-item>

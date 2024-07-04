@@ -10,12 +10,19 @@ const CMSPageUpdateSpecific = () => import('@/entities/cms-page/cms-page-update-
 const CMSNews = () => import('@/entities/cms-news/cms-news.vue');
 const CMSNewsUpdate = () => import('@/entities/cms-news/cms-news-update.vue');
 const CMSNewsDetails = () => import('@/entities/cms-news/cms-news-details.vue');
+const JhiUserManagementComponent = () => import('@/admin/user-management/user-management.vue');
 
 export default [
   {
     path: '/b2b/cms',
     name: 'CMSB2B',
     component: CMSB2B,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/b2b/cms/user-management',
+    name: 'CMSJhiUser',
+    component: JhiUserManagementComponent,
     meta: { authorities: [Authority.ADMIN] },
   },
   {
