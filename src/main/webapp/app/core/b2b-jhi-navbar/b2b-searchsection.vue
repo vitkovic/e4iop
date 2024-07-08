@@ -10,13 +10,13 @@
                             <span v-text="$t('global.field.id')">ID</span>
                         </th>
                         <th @click="changeOrder('date')">
-                            <span v-text="$t('riportalApp.cmsnews.date')">Date</span>
+                            <span v-text="$t('riportalApp.cmsNews.date')">Date</span>
                         </th>
                         <th @click="changeOrder('title')">
-                            <span v-text="$t('riportalApp.cmsnews.title')">Title</span>
+                            <span v-text="$t('riportalApp.cmsNews.title')">Title</span>
                         </th>
                         <th @click="changeOrder('sequenceNumber')">
-                            <span v-text="$t('riportalApp.cmsnews.sequenceNumber')">Sequence Number</span>
+                            <span v-text="$t('riportalApp.cmsNews.sequenceNumber')">Sequence Number</span>
                         </th>
                         <th></th>
                     </tr>
