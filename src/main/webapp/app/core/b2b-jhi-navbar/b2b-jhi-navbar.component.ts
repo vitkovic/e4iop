@@ -15,7 +15,8 @@ import SearchPageService from '../../core/b2b-jhi-navbar/searchpage.service';
 
 @Component
 export default class B2BJhiNavbar extends Vue {
-	
+
+ 
   @Inject('loginService')
   private loginService: () => LoginService;
   @Inject('translationService') private translationService: () => TranslationService;
@@ -42,7 +43,10 @@ export default class B2BJhiNavbar extends Vue {
   private advCategList = null;
   private txtsearchNav;
   private mainSearchCategory = null;
-  private advertisements = null;
+  public advertisements = null;
+  public cmsnews = null;
+  public cmsquestions = null;
+  public companies = null;
   public isActive: boolean = false;
   public valuetype;
   
@@ -68,9 +72,15 @@ export default class B2BJhiNavbar extends Vue {
     
    
   }
+  
+  
  
   data() {
-      return {
+     return {
+       advertisements:[],
+       cmsnews:[],
+       cmsquestions:[],
+       companies:[],
        txtsearchNav: '',
        mainSearchCategory:1,
        valuetype: [],
@@ -81,7 +91,14 @@ export default class B2BJhiNavbar extends Vue {
         {name: 'Најчешћа питања', value: '3'},
         ]
       }
-    }
+    },
+  	  
+	  beforeMount () {
+	  // conosle.log('u beforemount')
+	    this.$emit('update', this.advertisements)
+	  }
+  
+  
   
   
   mounted() {
@@ -103,12 +120,18 @@ export default class B2BJhiNavbar extends Vue {
 	 this.txtsearchNav = urlParams.get('search');
      this.mainSearchCategory =  urlParams.get('category');
     }
+    
+     // this.advertisements = "hsdgadjhdgajdhg"
+    
+    
   }
 
   beforeDestroy() {
     // Remove event listener when component is destroyed
     window.removeEventListener('resize', this.checkScreenSize);
   }
+  
+  
 
   public checkScreenSize() {
     this.isActive = window.innerWidth < 786;
@@ -182,11 +205,20 @@ export default class B2BJhiNavbar extends Vue {
   private advList;
   
   public searchAdv(): void {
+  
+  
+  
+    //this.advertisements = ['kukuriku'];
+    
+    
+    
+   // console.log(this.advertisements);
+  
 	
 	if (this.valuetype!= null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length == 1) {
 			const searchtype = this.valuetype[0].value;
 			
-			console.log(this.valuetype[0].value);
+		//	console.log(this.valuetype[0].value);
 			
 			const baseApiUrlSearchAdv = '/b2b/advertisement-search';
 			const baseApiUrlSearchCmp = '/b2b/company-search';
@@ -221,7 +253,7 @@ export default class B2BJhiNavbar extends Vue {
 	 }
 	
 	
-	console.log(this.valuetype);
+//	console.log(this.valuetype);
 	
 	
 	if (this.valuetype != null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length > 1) {
@@ -236,9 +268,14 @@ export default class B2BJhiNavbar extends Vue {
 				this.searchPageService()
 				 .retrieveSearchAdv(this.txtsearchNav)
 			      .then(resa => {
-			        console.log(resa.data);
+			        //console.log(resa.data);
 			        this.advList = resa.data;
 			        this.advertisements = resa.data;
+			        //this.advertisements.push(resa.data);
+			       this.$emit('adv:change', this.advertisements);
+			       
+			      // console.log(this.advertisements);
+			       
 			      });
 		    } 
 		
@@ -246,9 +283,11 @@ export default class B2BJhiNavbar extends Vue {
 			     this.searchPageService()
 				 .retrieveSearchCmp(this.txtsearchNav)
 			      .then(resc => {
-			        console.log(resc.data);
+			       // console.log(resc.data);
 			        this.advList = resc.data;
 			        this.companies = resc.data;
+			        
+			        this.$emit('companies:change', this.companies);
 			       
 			      });
 		 }
@@ -257,9 +296,12 @@ export default class B2BJhiNavbar extends Vue {
 			      this.searchPageService()
 				 .retrieveSearchQA(this.txtsearchNav)
 			      .then(resqa => {
-			        console.log(resqa.data);
+			       // console.log(resqa.data);
 			        this.advList = resqa.data;
 			        this.questions= resqa.data;
+			        this.cmsquestions = resqa.data;
+			        console.log(this.cmsquestions);
+			        this.$emit('quests:change', this.cmsquestions);
 			       
 		  		    });
 		  }
@@ -268,9 +310,13 @@ export default class B2BJhiNavbar extends Vue {
 		     	this.searchPageService()
 			 		.retrieveSearchNW(this.txtsearchNav)
 		      		.then(resnw => {
-		        		console.log(resnw.data);
+		        		//console.log(resnw.data);
 		        		this.advList = resnw.data;
 		        		this.news = resnw.data;
+		        		this.cmsnews = resnw.data;
+			        	this.$emit('news:change', this.cmsnews);
+		        		
+		        		
 		     	 });
 		 	}
 		  

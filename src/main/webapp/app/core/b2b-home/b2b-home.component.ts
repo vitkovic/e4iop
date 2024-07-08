@@ -12,6 +12,12 @@ import DocumentService from '../document/document.service';
 
 @Component
 export default class B2BHome extends Vue {
+
+   props: ['advs','news']
+
+
+
+
   @Inject('cmsSliderService') private cmsSliderService: () => CmsSliderService;
   @Inject('documentService') private documentService: () => DocumentService;
 

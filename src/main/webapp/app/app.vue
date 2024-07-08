@@ -2,12 +2,18 @@
   <div id="app">
    
     <div id="app-header" class="fixed">
-      <b2b-jhi-navbar v-if="checkB2Bdomain()"></b2b-jhi-navbar>
-      <jhi-navbar v-else></jhi-navbar>
-
+      <b2b-jhi-navbar v-if="checkB2Bdomain()" ref="b2bnavbar" @adv:change="changeAdv" 
+      @news:change="changeNews"  @quests:change="changeQuestions" @companies:change="changeCompanies" ></b2b-jhi-navbar>
+     
+      <jhi-navbar v-else></jhi-navbar> 
+      <div id="hide" v-show='toggle'>
+      		<b2b-searchsection v-bind:advertisements="advertisements" 
+      		v-bind:cmsnews="cmsnews" v-bind:cmsquestions="cmsquestions" v-bind:companies="companies"></b2b-searchsection>
+   	  </div>
+      <b-button v-if="checkB2Bdomain()" @click='toggle = !toggle' style="float:right"> Show/Hide </b-button>
     </div>
     <notifications width="300px" classes="vue-notification notification-font" position="top center"/> 
-    
+    	
     <div class="container-fluid">
 		
       <div class="card jh-card marg">

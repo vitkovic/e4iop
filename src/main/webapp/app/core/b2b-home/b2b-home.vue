@@ -1,14 +1,6 @@
 <template>
   <div>
-	  
 	 
-	  
-	  
-	  
-	  
-	  
-	  
-	  
     <section class="banner">
       <div>
         <b-carousel
@@ -33,7 +25,7 @@
       </div>
     </section>
  
-
+ 
 
     <div class="div1">
       <div class="divZaA">
