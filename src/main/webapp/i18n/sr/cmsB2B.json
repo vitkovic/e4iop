@@ -1,0 +1,23 @@
+{
+  "riportalApp": {
+    "cmsB2B": {
+      "titlePages": "Upravljanje stranicama",
+      "pages": {
+        "about": "O nama",
+        "privacyPolicy": "Politika privatnosti",
+        "termsOfUse": "Uslovi korišćenja",
+        "cookiePolicy": "Politika kolačića",
+        "faq": "Najčešća pitanja",
+        "slider": "Slajder"
+      },
+      "titleCoders": "Šifarnici",
+      "coders": {
+        "category": "Kategorije oglasa",
+        "subcategory": "Potkategorije oglasa",
+        "subsubcategory": "Potpotkategorije oglasa",
+        "type": "Tip oglasa",
+        "kind": "Vrste oglasa"
+      }
+    }
+  }
+}

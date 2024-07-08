@@ -2,24 +2,26 @@
   "riportalApp": {
     "cmsNews": {
       "home": {
-        "title": "Vesti",
-        "createLabel": "Kreiraj novu vest",
+        "title": "News",
+        "createLabel": "Create a new news",
         "createOrEditLabel": "Kreirajte ili izmenite vest",
-        "notFound": "Nije pronađena nijedna vest"
+        "createTitleLabel": "Create news",
+        "editTitleLabel": "Edit news",
+        "notFound": "No news found"
       },
-      "created": "Kreirana je nova vest pod nazivom {{ param }}",
-      "updated": "Vest pod nazivom {{ param }} je ažurirana",
-      "deleted": "Vest pod nazivom {{ param }} je obrisana",
+      "created": "A new news is created with identifier {{ param }}",
+      "updated": "A news is updated with identifier {{ param }}",
+      "deleted": "A news is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete vest pod nazivom {{ id }}?"
+        "question": "Are you sure you want to delete news?"
       },
       "detail": {
-        "title": "Vest"
+        "title": "News"
       },
-      "title": "Naslov",
-      "content": "Sadržaj",
-      "sequenceNumber": "Redni broj",
-      "date": "Datum"
+      "title": "Title",
+      "content": "Content",
+      "sequenceNumber": "Ordinal number",
+      "date": "Date"
     }
   }
 }

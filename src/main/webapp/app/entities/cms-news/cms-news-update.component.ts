@@ -47,6 +47,7 @@ export default class CmsNewsUpdate extends Vue {
   public cmsNewsImagesValue: IDocument[] = [];
   public cmsNewsDocumentsValue: IDocument[] = [];
   public documentTypeOptions = DocumentTypeOptions;
+  public cmsNewsTitleHasID: boolean = false;
 
   public isSaving = false;
   public currentLanguage = '';
@@ -58,8 +59,10 @@ export default class CmsNewsUpdate extends Vue {
     next(vm => {
       if (to.params.cmsNewsId) {
         vm.retrieveCmsNews(to.params.cmsNewsId);
+        vm.cmsNewsTitleHasID = true;
+      } else {
+        vm.cmsNewsTitleHasID = false;
       }
-      vm.initRelationships();
     });
   }
 

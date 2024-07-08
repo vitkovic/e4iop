@@ -1,0 +1,23 @@
+{
+  "riportalApp": {
+    "cmsB2B": {
+      "titlePages": "Pages management",
+      "pages": {
+        "about": "About",
+        "privacyPolicy": "Privacy policy",
+        "termsOfUse": "Terms of use",
+        "cookiePolicy": "Cookie policy",
+        "faq": "FAQ",
+        "slider": "Slider"
+      },
+      "titleCoders": "Coders",
+      "coders": {
+        "category": "Advertisement categories",
+        "subcategory": "Advertisement subcategories",
+        "subsubcategory": "Advertisement subsubcategories",
+        "type": "Advertisement type",
+        "kind": "Advertisement kinds"
+      }
+    }
+  }
+}

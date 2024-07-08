@@ -16,7 +16,7 @@ interface DocumentBlob extends Blob {
 }
 
 const DELETE_FILE_EVENT = 'delete-file';
-const MAXIMUM_FILES_NUMBER = 5;
+const MAXIMUM_FILES_NUMBER = 15;
 const MAXIMUM_FILE_SIZE = 2;
 
 @Component

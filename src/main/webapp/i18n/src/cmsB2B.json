@@ -1,0 +1,23 @@
+{
+  "riportalApp": {
+    "cmsB2B": {
+      "titlePages": "Управљање страницама",
+      "pages": {
+        "about": "О нама",
+        "privacyPolicy": "Политика приватности",
+        "termsOfUse": "Услови коришћења",
+        "cookiePolicy": "Политика колачића",
+        "faq": "Најчешћа питања",
+        "slider": "Слајдер"
+      },
+      "titleCoders": "Шифарници",
+      "coders": {
+        "category": "Категорије огласа",
+        "subcategory": "Поткатегорије огласа",
+        "subsubcategory": "Потпоткатегорије огласа",
+        "type": "Тип огласа",
+        "kind": "Врсте огласа"
+      }
+    }
+  }
+}

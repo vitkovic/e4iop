@@ -2,11 +2,11 @@
     <div>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h2 class="mb-5" v-text="'Upravljanje stranicama'"></h2>
+                <h2 class="mb-5" v-text="$t('riportalApp.cmsB2B.titlePages')"></h2>
 
                 <div class="row">
                     <div class="col-md-3">
-                        <p v-text="'O nama'"></p>
+                        <p v-text="$t('riportalApp.cmsB2B.pages.about')"></p>
                     </div>
                     <div class="col-md-3">
                         <router-link :to="{name: 'About'}" tag="button" class="btn btn-info btn-sm details">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <p v-text="'Politika privatnosti'"></p>
+                        <p v-text="$t('riportalApp.cmsB2B.pages.privacyPolicy')"></p>
                     </div>
                     <div class="col-md-3">
                         <router-link :to="{name: 'PrivacyPolicy'}" tag="button" class="btn btn-info btn-sm details">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <p v-text="'Uslovi koriščenja'"></p>
+                        <p v-text="$t('riportalApp.cmsB2B.pages.termsOfUse')"></p>
                     </div>
                     <div class="col-md-3">
                         <router-link :to="{name: 'TermsOfUse'}" tag="button" class="btn btn-info btn-sm details">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <p v-text="'Politika kolačića'"></p>
+                        <p v-text="$t('riportalApp.cmsB2B.pages.cookiePolicy')"></p>
                     </div>
                     <div class="col-md-3">
                         <router-link :to="{name: 'CookiePolicy'}" tag="button" class="btn btn-info btn-sm details">
@@ -67,7 +67,7 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <p v-text="'Najčešća pitanja'"></p>
+                        <p v-text="$t('riportalApp.cmsB2B.pages.faq')"></p>
                     </div>
                     <div class="col-md-3">
                         <router-link :to="{name: 'Questions'}" tag="button" class="btn btn-info btn-sm details">
@@ -82,7 +82,7 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <p v-text="'Slajder'"></p>
+                        <p v-text="$t('riportalApp.cmsB2B.pages.slider')"></p>
                     </div>
                     <div class="col-md-3">
                         <router-link :to="{name: 'B2BHome'}" tag="button" class="btn btn-info btn-sm details">

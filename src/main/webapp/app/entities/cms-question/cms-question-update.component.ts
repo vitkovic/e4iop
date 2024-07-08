@@ -41,12 +41,11 @@ export default class CmsQuestionUpdate extends Vue {
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      // Inside the callback, `vm` refers to the Vue component instance
       if (to.params.cmsQuestionId) {
         vm.retrieveCmsQuestion(to.params.cmsQuestionId);
-        vm.cmsQuestionTitleHasID = true; // Set to true for edit mode
+        vm.cmsQuestionTitleHasID = true;
       } else {
-        vm.cmsQuestionTitleHasID = false; // Set to false for new mode
+        vm.cmsQuestionTitleHasID = false;
       }
     });
   }
