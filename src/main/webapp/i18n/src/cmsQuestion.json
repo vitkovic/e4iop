@@ -5,24 +5,26 @@
         "title": "Питања",
         "createLabel": "Креирај ново питање",
         "createOrEditLabel": "Креирајте или измените питање",
+        "createTitleLabel": "Креирајте питање",
+        "editTitleLabel": "Измените питање",
         "notFound": "Nије пронађено ниједно питање"
       },
-      "created": "Kreiran je novi Cms Question pod nazivom {{ param }}",
-      "updated": "Cms Question pod nazivom {{ param }} je ažuriran",
-      "deleted": "Cms Question pod nazivom {{ param }} je obrisan",
+      "created": "Креирано је ново питање",
+      "updated": "Питање под називом {{ param }} је ажурирано",
+      "deleted": "Питање под називом {{ param }} је обрисано",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Cms Question pod nazivom {{ id }}?"
+        "question": "Да ли сте сигурни да желите да обришете питање?"
       },
       "detail": {
-        "title": "Cms Question"
+        "title": "Питање"
       },
       "createdAt": "Креирано",
       "modifiedAt": "Измењено",
       "id": "ИД",
       "question": "Питање",
       "answer": "Одговор",
-      "createdBy": "Created By",
-      "modifiedBy": "Modified By"
+      "createdBy": "Креирао",
+      "modifiedBy": "Изменио"
     }
   }
 }

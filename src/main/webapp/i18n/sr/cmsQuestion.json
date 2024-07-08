@@ -4,25 +4,27 @@
       "home": {
         "title": "Pitanja",
         "createLabel": "Kreiraj novo pitanje",
-        "createOrEditLabel": "Kreirajte ili izmenite piranje",
+        "createOrEditLabel": "Kreirajte ili izmenite pitanje",
+        "createTitleLabel": "Kreirajte pitanje",
+        "editTitleLabel": "Izmenite pitanje",
         "notFound": "Nije prona]eno nijedno pitanje"
       },
-      "created": "Kreiran je novi Cms Question pod nazivom {{ param }}",
-      "updated": "Cms Question pod nazivom {{ param }} je ažuriran",
-      "deleted": "Cms Question pod nazivom {{ param }} je obrisan",
+      "created": "Kreirano je novo pitanje",
+      "updated": "Pitanje pod nazivom {{ param }} je ažurirano",
+      "deleted": "Pitanje pod nazivom {{ param }} je obrisano",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Cms Question pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete pitanje?"
       },
       "detail": {
-        "title": "Cms Question"
+        "title": "Pitanje"
       },
       "createdAt": "Kreirano",
       "modifiedAt": "Izmenjeno",
       "id": "ID",
       "question": "Pitanje",
       "answer": "Odgovor",
-      "createdBy": "Created By",
-      "modifiedBy": "Modified By"
+      "createdBy": "Kreirao",
+      "modifiedBy": "Izmenio"
     }
   }
 }

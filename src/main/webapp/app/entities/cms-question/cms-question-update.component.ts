@@ -37,11 +37,16 @@ export default class CmsQuestionUpdate extends Vue {
   public portalUsers: IPortalUser[] = [];
   public isSaving = false;
   public currentLanguage = '';
+  public cmsQuestionTitleHasID: boolean = false;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
+      // Inside the callback, `vm` refers to the Vue component instance
       if (to.params.cmsQuestionId) {
         vm.retrieveCmsQuestion(to.params.cmsQuestionId);
+        vm.cmsQuestionTitleHasID = true; // Set to true for edit mode
+      } else {
+        vm.cmsQuestionTitleHasID = false; // Set to false for new mode
       }
     });
   }

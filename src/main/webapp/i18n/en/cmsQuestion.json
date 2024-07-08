@@ -5,24 +5,26 @@
         "title": "Questions",
         "createLabel": "Create a new question",
         "createOrEditLabel": "Create or edit a question",
+        "createTitleLabel": "Create a question",
+        "editTitleLabel": "Edit a question",
         "notFound": "No questions found"
       },
-      "created": "A new Cms Question is created with identifier {{ param }}",
-      "updated": "A Cms Question is updated with identifier {{ param }}",
-      "deleted": "A Cms Question is deleted with identifier {{ param }}",
+      "created": "A new Question is created",
+      "updated": "A question is updated with identifier {{ param }}",
+      "deleted": "A question is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Cms Question {{ id }}?"
+        "question": "Are you sure you want to delete question?"
       },
       "detail": {
-        "title": "Cms Question"
+        "title": "Question"
       },
       "createdAt": "Created at",
       "modifiedAt": "Modified at",
       "id": "ID",
       "question": "Question",
       "answer": "Answer",
-      "createdBy": "Created By",
-      "modifiedBy": "Modified By"
+      "createdBy": "Created by",
+      "modifiedBy": "Modified by"
     }
   }
 }
