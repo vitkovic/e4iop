@@ -24,6 +24,7 @@ export default class App extends Vue {
    public cmsNews = [];
    public cmsquestions = [];
    public companies = [];
+   public showbutt = false;
    
    data() {
       return {
@@ -32,7 +33,8 @@ export default class App extends Vue {
        cmsquestions:[],
        companies:[],
        toggle:true,
-       dissbutton:'disabled'
+       dissbutton:'disabled',
+       showbutt:false
       }
     }
 
@@ -52,8 +54,15 @@ export default class App extends Vue {
   
   public changeAdv(value,event): void {
   //    console.log(value[0]);
-      
+      console.log(this.showbutt);
       this.advertisements = value;
+      console.log(value);
+      if (value != null && typeof(value)!='undefined' && this.advertisements.length > 0 )
+      	this.showbutt = true;
+      else
+      	this.showbutt = false;
+      	
+      	console.log(this.showbutt);
       
      // console.log(this.advertisements)
       
@@ -64,6 +73,11 @@ export default class App extends Vue {
       
       this.cmsnews = value;
       
+       if (value != null && typeof(value)!='undefined' && this.cmsnews.length > 0 )
+      	this.showbutt = true;
+      else
+      	this.showbutt = false;
+      
    //   console.log(this.cmsnews)
       
   }
@@ -73,6 +87,11 @@ export default class App extends Vue {
       
       this.cmsquestions = value;
       
+       if (value != null && typeof(value)!='undefined' && this.questions.length > 0 )
+      	this.showbutt = true;
+      else
+      	this.showbutt = false;
+      
    //   console.log(this.cmsnews)
       
   }
@@ -81,6 +100,11 @@ export default class App extends Vue {
      console.log("news");
       
       this.companies = value;
+      
+       if (value != null && typeof(value)!='undefined' && this.companies.length > 0 )
+      	this.showbutt = true;
+      else
+      	this.showbutt = false;
       
    //   console.log(this.cmsnews)
       

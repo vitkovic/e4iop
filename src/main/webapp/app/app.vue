@@ -10,10 +10,10 @@
       		<b2b-searchsection v-bind:advertisements="advertisements" 
       		v-bind:cmsnews="cmsnews" v-bind:cmsquestions="cmsquestions" v-bind:companies="companies"></b2b-searchsection>
    	  </div>
-      <b-button v-if="checkB2Bdomain()" @click='toggle = !toggle' style="float:right"> Show/Hide </b-button>
+      <b-button v-if="checkB2Bdomain() && showbutt" @click='toggle = !toggle' style="float:right"> Show/Hide </b-button>
     </div>
     <notifications width="300px" classes="vue-notification notification-font" position="top center"/> 
-    	
+    	 
     <div class="container-fluid">
 		
       <div class="card jh-card marg">
