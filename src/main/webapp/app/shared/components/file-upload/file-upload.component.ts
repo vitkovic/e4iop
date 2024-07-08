@@ -166,6 +166,18 @@ export default class FileUpload extends Vue {
 
     for (const formFile of this.formFiles) {
       try {
+        const isAlreadyIncluded = this.includedFiles.some(doc => {
+          const transformedFileName = this.abbreviatedFileName(doc.filename);
+          return transformedFileName === formFile.name;
+        });
+        const isAlreadySelected = this.files.some(file => file.name === formFile.name);
+
+        console.log(`File: ${formFile.name}, Already included: ${isAlreadyIncluded}, Already selected: ${isAlreadySelected}`);
+
+        if (isAlreadyIncluded || isAlreadySelected) {
+          continue;
+        }
+
         let isDimensionsValid = true;
 
         // Perform dimension validation only for image uploads
@@ -325,6 +337,11 @@ export default class FileUpload extends Vue {
 
   public documentFileName(fileName) {
     let regex = /^doc_[a-zA-Z]+_\d+_/;
+    return fileName.replace(regex, '');
+  }
+
+  public abbreviatedFileName(fileName: string): string {
+    let regex = /^[a-zA-Z]+_[a-zA-Z]+_\d+_/;
     return fileName.replace(regex, '');
   }
 }
