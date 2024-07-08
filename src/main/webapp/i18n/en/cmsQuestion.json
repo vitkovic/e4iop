@@ -2,10 +2,10 @@
   "riportalApp": {
     "cmsQuestion": {
       "home": {
-        "title": "Cms Questions",
-        "createLabel": "Create a new Cms Question",
-        "createOrEditLabel": "Create or edit a Cms Question",
-        "notFound": "No Cms Questions found"
+        "title": "Questions",
+        "createLabel": "Create a new question",
+        "createOrEditLabel": "Create or edit a question",
+        "notFound": "No questions found"
       },
       "created": "A new Cms Question is created with identifier {{ param }}",
       "updated": "A Cms Question is updated with identifier {{ param }}",
@@ -16,8 +16,9 @@
       "detail": {
         "title": "Cms Question"
       },
-      "createdAt": "Created At",
-      "modifiedAt": "Modified At",
+      "createdAt": "Created at",
+      "modifiedAt": "Modified at",
+      "id": "ID",
       "question": "Question",
       "answer": "Answer",
       "createdBy": "Created By",

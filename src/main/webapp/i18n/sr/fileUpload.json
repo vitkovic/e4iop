@@ -3,10 +3,12 @@
     "fileUpload": {
       "imgUpload": "Dodajte slike",
       "documentUpload": "Dodajte dokumente",
+      "filesSelectedPlaceholder": "Selektovano fajlova: {filesLength}",
       "imgInfo": {
         "imgNumber": "* Broj slika koje možete dodati je: ",
         "imgSize": "* Dozvoljena maksimalna veličina slike je 2 mb.",
-        "imgLimit": "Dostignut je maksimalan broj slika (15). Molim Vas uklonite pojedine slike, kako biste mogli da dodate nove."
+        "imgLimit": "Dostignut je maksimalan broj slika (15). Molim Vas uklonite pojedine slike, kako biste mogli da dodate nove.",
+        "imgDimension": "* Minimalne dozvoljene dimenzije slike su 480x320."
       },
       "documentInfo": {
         "documentNumber": "* Broj dokumenata koje možete dodati je: ",
@@ -27,12 +29,16 @@
       }
     },
     "error": {
-      "imgSize": "Broj slika koji ne može biti dodat je {numberOfBigImages}.<br>Prekoračena ograničenja:<br><ul><li>veličina slike (2mb).</li></ul>",
-      "imgNumber": "Broj slika koji ne može biti dodat je {numberOfLimitImages}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj slika (15).</li></ul>",
-      "imgSize&Number": "Broj slika koji ne može biti dodat je {totalNumberOfImages}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj slika (15).</li><li>veličina slike (2mb).</li></ul>",
-      "documentSize": "Broj dokumenata koji ne može biti dodat je {numberOfBigDocuments}.<br>Prekoračena ograničenja:<br><ul><li>veličina dokumenta (2mb).</li></ul>",
-      "documentNumber": "Broj dokumenata koji ne može biti dodat je {numberOfLimitDocuments}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj dokumenata (15).</li></ul>",
-      "documentSize&Number": "Broj dokumenata koji ne može biti dodat je {totalNumberOfDocuments}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj dokumenata (15).</li><li>veličina dokumenta (2mb).</li></ul>"
+      "imgSize": "Broj slika koji ne može biti dodat je {numberOfBigFiles}.<br>Prekoračena ograničenja:<br><ul><li>veličina slike (2mb).</li></ul>",
+      "imgDimension": "Broj slika koji ne može biti dodat je {numberOfSmallDimensions}.<br>Prekoračena ograničenja:<br><ul><li>minimalne dimenzije slike (480x320).</li></ul>",
+      "imgNumber": "Broj slika koji ne može biti dodat je {numberOfLimitFiles}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj slika (15).</li></ul>",
+      "imgSize&Number&Dimension": "Broj slika koji ne može biti dodat je {totalNumberOfFiles}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj slika (15).</li><li>veličina slike (2mb).</li><li>minimalne dimenzije slike (480x320).</li></ul>",
+      "imgDimension&Number": "Broj slika koji ne može biti dodat je {totalNumberOfFiles}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj slika (15).</li><li>minimalne dimenzije slike (480x320).</li></ul>",
+      "imgSize&Number": "Broj slika koji ne može biti dodat je {totalNumberOfFiles}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj slika (15).</li><li>veličina slike (2mb).</li></ul>",
+      "imgSize&Dimension": "Broj slika koji ne može biti dodat je {totalNumberOfFiles}.<br>Prekoračena ograničenja:<br><ul><li>veličina slike (2mb).</li><li>minimalne dimenzije slike (480x320).</li></ul>",
+      "documentSize": "Broj dokumenata koji ne može biti dodat je {numberOfBigFiles}.<br>Prekoračena ograničenja:<br><ul><li>veličina dokumenta (2mb).</li></ul>",
+      "documentNumber": "Broj dokumenata koji ne može biti dodat je {numberOfLimitFiles}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj dokumenata (15).</li></ul>",
+      "documentSize&Number": "Broj dokumenata koji ne može biti dodat je {totalNumberOfFiles}.<br>Prekoračena ograničenja:<br><ul><li>maksimalan broj dokumenata (15).</li><li>veličina dokumenta (2mb).</li></ul>"
     }
   }
 }

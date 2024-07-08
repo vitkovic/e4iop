@@ -2,10 +2,10 @@
   "riportalApp": {
     "cmsQuestion": {
       "home": {
-        "title": "Pitanja",
-        "createLabel": "Kreiraj novo pitanje",
-        "createOrEditLabel": "Kreirajte ili izmenite piranje",
-        "notFound": "Nije prona]eno nijedno pitanje"
+        "title": "Питања",
+        "createLabel": "Креирај ново питање",
+        "createOrEditLabel": "Креирајте или измените питање",
+        "notFound": "Nије пронађено ниједно питање"
       },
       "created": "Kreiran je novi Cms Question pod nazivom {{ param }}",
       "updated": "Cms Question pod nazivom {{ param }} je ažuriran",
@@ -16,11 +16,11 @@
       "detail": {
         "title": "Cms Question"
       },
-      "createdAt": "Kreirano",
-      "modifiedAt": "Izmenjeno",
-      "id": "ID",
-      "question": "Pitanje",
-      "answer": "Odgovor",
+      "createdAt": "Креирано",
+      "modifiedAt": "Измењено",
+      "id": "ИД",
+      "question": "Питање",
+      "answer": "Одговор",
       "createdBy": "Created By",
       "modifiedBy": "Modified By"
     }

@@ -16,7 +16,7 @@ interface DocumentBlob extends Blob {
 }
 
 const DELETE_FILE_EVENT = 'delete-file';
-const MAXIMUM_FILES_NUMBER = 15;
+const MAXIMUM_FILES_NUMBER = 5;
 const MAXIMUM_FILE_SIZE = 2;
 
 @Component
@@ -34,13 +34,16 @@ export default class FileUpload extends Vue {
   public textFileLimit = '';
   public textFileNumber = '';
   public textFileSize = '';
+  public textFileDimensions = '';
   public textCurrentFiles = '';
   public textNewFile = '';
   public textDeleteFileTitle = '';
   public textDeleteFileQuestion = '';
+  public textErrorFileSizeAndNumberAndDimension = '';
   public textErrorFileSizeAndNumber = '';
   public textErrorFileNumber = '';
   public textErrorFileSize = '';
+  public textErrorDimension = '';
 
   public documents: IDocument[] = [];
   public formFiles: ImageBlob[] | DocumentBlob[] = [];
@@ -96,14 +99,17 @@ export default class FileUpload extends Vue {
       this.textFileLimit = this.$t('component.fileUpload.imgInfo.imgLimit');
       this.textFileNumber = this.$t('component.fileUpload.imgInfo.imgNumber');
       this.textFileSize = this.$t('component.fileUpload.imgInfo.imgSize');
+      this.textFileDimensions = this.$t('component.fileUpload.imgInfo.imgDimension');
       this.textCurrentFiles = this.$t('component.fileUpload.currentImg');
       this.textNewFile = this.$t('component.fileUpload.newImg');
       this.textDeleteFileTitle = this.$t('component.fileUpload.deleteImage.title');
       this.textDeleteFileQuestion = this.$t('component.fileUpload.deleteImage.question');
 
+      this.textErrorFileSizeAndNumberAndDimension = 'component.error.imgSize&Number&Dimension';
       this.textErrorFileSizeAndNumber = 'component.error.imgSize&Number';
       this.textErrorFileNumber = 'component.error.imgNumber';
       this.textErrorFileSize = 'component.error.imgSize';
+      this.textErrorDimension = 'component.error.imgDimension';
     } else if (this.fileType === DocumentTypeOptions.DOCUMENT) {
       this.textLabel = this.$t('component.fileUpload.documentUpload');
       this.textFileLimit = this.$t('component.fileUpload.documentInfo.documentLimit');
@@ -120,17 +126,62 @@ export default class FileUpload extends Vue {
     }
   }
 
-  public appendFiles(): void {
+  public async appendFiles(): Promise<void> {
     this.newFilesArray = [];
     let numberOfBigFiles: number = 0;
     let numberOfLimitFiles: number = 0;
+    let numberOfSmallDimensions: number = 0;
+
+    const validateImageDimensions = (imageFile: ImageBlob): Promise<{ valid: boolean; width: number; height: number }> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event: ProgressEvent<FileReader>) => {
+          const img = new Image();
+          img.onload = () => {
+            const width = img.width;
+            const height = img.height;
+            if (width < 480 || height < 320) {
+              resolve({ valid: false, width, height });
+            } else {
+              resolve({ valid: true, width, height });
+            }
+          };
+          img.onerror = reject;
+          img.src = event.target?.result as string;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(imageFile);
+      });
+    };
+
+    const processImages = async (formFile: ImageBlob): Promise<boolean> => {
+      try {
+        const { valid } = await validateImageDimensions(formFile);
+        return valid;
+      } catch (error) {
+        console.error('Error validating image dimensions:', error);
+        return false;
+      }
+    };
 
     for (const formFile of this.formFiles) {
-      if (formFile.size > 2 * 1024 * 1024) {
-        numberOfBigFiles++;
-      }
-      if (formFile.size <= 2 * 1024 * 1024 && this.files.filter(file => file.name === formFile.name).length === 0) {
-        this.newFilesArray.push(formFile);
+      try {
+        let isDimensionsValid = true;
+
+        // Perform dimension validation only for image uploads
+        if (this.fileType === DocumentTypeOptions.IMAGE) {
+          isDimensionsValid = await processImages(formFile);
+        }
+
+        if (this.fileType === DocumentTypeOptions.IMAGE && !isDimensionsValid) {
+          numberOfSmallDimensions++;
+        } else if (formFile.size > 2 * 1024 * 1024) {
+          numberOfBigFiles++;
+        } else if (this.files.filter(file => file.name === formFile.name).length === 0) {
+          this.newFilesArray.push(formFile);
+        }
+      } catch (error) {
+        console.error('Error processing file:', error);
       }
     }
 
@@ -140,20 +191,36 @@ export default class FileUpload extends Vue {
       numberOfLimitFiles = this.newFilesArray.length - filesToAddArray.length;
       this.files.push(...filesToAddArray);
 
-      if (numberOfLimitFiles > 0 && numberOfBigFiles > 0) {
-        const totalNumberOfFiles = numberOfLimitFiles + numberOfBigFiles;
-        const errorText = this.$t(this.textErrorFileSizeAndNumber, { totalNumberOfFiles: totalNumberOfFiles });
+      if (numberOfLimitFiles > 0 && numberOfBigFiles > 0 && numberOfSmallDimensions > 0) {
+        const totalNumberOfFiles = numberOfLimitFiles + numberOfBigFiles + numberOfSmallDimensions;
+        const errorText = this.$t(this.textErrorFileSizeAndNumberAndDimension, { totalNumberOfFiles });
         this.$notify({
           text: errorText,
           type: 'error',
-          duration: 8000, // Duration of the notification
+          duration: 8000,
+        });
+      } else if (numberOfLimitFiles > 0 && numberOfBigFiles > 0 && numberOfSmallDimensions === 0) {
+        const totalNumberOfFiles = numberOfLimitFiles + numberOfBigFiles;
+        const errorText = this.$t(this.textErrorFileSizeAndNumber, { totalNumberOfFiles });
+        this.$notify({
+          text: errorText,
+          type: 'error',
+          duration: 8000,
+        });
+      } else if (numberOfLimitFiles > 0 && numberOfBigFiles === 0 && numberOfSmallDimensions > 0) {
+        const totalNumberOfFiles = numberOfLimitFiles + numberOfSmallDimensions;
+        const errorText = this.$t(this.textErrorFileSizeAndNumber, { totalNumberOfFiles });
+        this.$notify({
+          text: errorText,
+          type: 'error',
+          duration: 8000,
         });
       } else if (numberOfLimitFiles > 0) {
-        const errorText = this.$t(this.textErrorFileNumber, { numberOfLimitImages: numberOfLimitFiles });
+        const errorText = this.$t(this.textErrorFileNumber, { numberOfLimitFiles });
         this.$notify({
           text: errorText,
           type: 'error',
-          duration: 8000, // Duration of the notification
+          duration: 8000,
         });
       }
     } else {
@@ -161,8 +228,23 @@ export default class FileUpload extends Vue {
         this.files.push(formFile);
       }
 
-      if (numberOfBigFiles > 0) {
-        const errorText = this.$t(this.textErrorFileSize, { numberOfBigImages: numberOfBigFiles });
+      if (numberOfBigFiles > 0 && numberOfSmallDimensions > 0) {
+        const totalNumberOfFiles = numberOfBigFiles + numberOfSmallDimensions;
+        const errorText = this.$t(this.textErrorFileSizeAndNumber, { totalNumberOfFiles });
+        this.$notify({
+          text: errorText,
+          type: 'error',
+          duration: 8000,
+        });
+      } else if (numberOfBigFiles > 0) {
+        const errorText = this.$t(this.textErrorFileSize, { numberOfBigFiles });
+        this.$notify({
+          text: errorText,
+          type: 'error',
+          duration: 8000,
+        });
+      } else if (numberOfSmallDimensions > 0) {
+        const errorText = this.$t(this.textErrorDimension, { numberOfSmallDimensions });
         this.$notify({
           text: errorText,
           type: 'error',
@@ -229,14 +311,20 @@ export default class FileUpload extends Vue {
     (this.$refs[this.deleteFileModalRef] as any).hide();
   }
 
-  public formatNames(files): string {
+  public formatNames(files) {
+    const filesLength = files.length;
     if (files.length === 1) {
       return files[0].name;
     } else {
       // const out = '' + this.$t('riportalApp.researchInfrastructure.filesSelected', { param: files.length });
-      const out = 'Files selected: ' + files.length;
+      const out = this.$t('component.fileUpload.filesSelectedPlaceholder', { filesLength });
       return out;
     }
     // return files.length === 1 ? files[0].name : `${files.length} files selected`;
+  }
+
+  public documentFileName(fileName) {
+    let regex = /^doc_[a-zA-Z]+_\d+_/;
+    return fileName.replace(regex, '');
   }
 }

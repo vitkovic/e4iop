@@ -3,10 +3,12 @@
     "fileUpload": {
       "imgUpload": "Upload images",
       "documentUpload": "Upload documents",
+      "filesSelectedPlaceholder": "Files selected: {filesLength}",
       "imgInfo": {
         "imgNumber": "* Number of images you can add is: ",
         "imgSize": "* Maximum allowed image size is 2 mb.",
-        "imgLimit": "Maximum number of images (15) has been reached. Please remove some images in order to add new ones."
+        "imgLimit": "Maximum number of images (15) has been reached. Please remove some images in order to add new ones.",
+        "imgDimension": "* Minimum allowed image dimensions are 480x320."
       },
       "documentInfo": {
         "documentNumber": "* Number of documents you can add is: ",
@@ -27,12 +29,16 @@
       }
     },
     "error": {
-      "imgSize": "Number of images that cannot be added is {numberOfBigImages}.<br>Limits exceeded:<br><ul><li>maximum image size (2mb).</li></ul>",
-      "imgNumber": "Number of images that cannot be added is {numberOfLimitImages}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li></ul>",
-      "imgSize&Number": "Number of images that cannot be added is {totalNumberOfImages}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li><li>maximum image size (2mb).</li></ul>",
-      "documentSize": "Number of images that cannot be added is {numberOfBigDocuments}.<br>Limits exceeded:<br><ul><li>maximum document size (2mb).</li></ul>",
-      "documentNumber": "Number of documents that cannot be added is {numberOfLimitDocuments}.<br>Limits exceeded:<br><ul><li>maximum number of documents (15).</li></ul>",
-      "documentSize&Number": "Number of documents that cannot be added is {totalNumberOfDocuments}.<br>Limits exceeded:<br><ul><li>maximum number of documents (15).</li><li>maximum document size (2mb).</li></ul>"
+      "imgSize": "Number of images that cannot be added is {numberOfBigFiles}.<br>Limits exceeded:<br><ul><li>maximum image size (2mb).</li></ul>",
+      "imgDimension": "Number of images that cannot be added is {numberOfSmallDimensions}.<br>Limits exceeded:<br><ul><li>minimum image dimensions (480x320).</li></ul>",
+      "imgNumber": "Number of images that cannot be added is {numberOfLimitFiles}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li></ul>",
+      "imgSize&Number&Dimension": "Number of images that cannot be added is {totalNumberOfFiles}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li><li>maximum image size (2mb).</li><li>minimum image dimensions (480x320).</li></ul>",
+      "imgDimension&Number": "Number of images that cannot be added is {totalNumberOfFiles}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li><li>minimum image dimensions (480x320).</li></ul>",
+      "imgSize&Number": "Number of images that cannot be added is {totalNumberOfFiles}.<br>Limits exceeded:<br><ul><li>maximum number of images (15).</li><li>maximum image size (2mb).</li></ul>",
+      "imgSize&Dimension": "Number of images that cannot be added is {totalNumberOfFiles}.<br>Limits exceeded:<br><ul><li>maximum image size (2mb).</li><li>minimum image dimensions (480x320).</li></ul>",
+      "documentSize": "Number of images that cannot be added is {numberOfBigFiles}.<br>Limits exceeded:<br><ul><li>maximum document size (2mb).</li></ul>",
+      "documentNumber": "Number of documents that cannot be added is {numberOfLimitFiles}.<br>Limits exceeded:<br><ul><li>maximum number of documents (15).</li></ul>",
+      "documentSize&Number": "Number of documents that cannot be added is {totalNumberOfFiles}.<br>Limits exceeded:<br><ul><li>maximum number of documents (15).</li><li>maximum document size (2mb).</li></ul>"
     }
   }
 }
