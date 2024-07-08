@@ -49,13 +49,18 @@ export default class CmsSliderUpdate extends Vue {
   public sliderImage: ImageBlob | null = null;
   public isSaving = false;
   public currentLanguage = '';
+  public cmsSliderTitleHasID: boolean = false;
 
   public placeholdertext = '';
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
+      // Inside the callback, `vm` refers to the Vue component instance
       if (to.params.cmsSliderId) {
         vm.retrieveCmsSlider(to.params.cmsSliderId);
+        vm.cmsSliderTitleHasID = true; // Set to true for edit mode
+      } else {
+        vm.cmsSliderTitleHasID = false; // Set to false for new mode
       }
     });
   }

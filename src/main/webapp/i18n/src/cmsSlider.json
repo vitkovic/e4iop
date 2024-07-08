@@ -1,0 +1,32 @@
+{
+  "riportalApp": {
+    "cmsSlider": {
+      "home": {
+        "title": "Слајдери",
+        "createLabel": "Креирај нови слајдер",
+        "createOrEditLabel": "Kreirajte ili izmenite Cms Slider",
+        "createTitleLabel": "Креирајте слајдер",
+        "editTitleLabel": "Измените слајдер",
+        "notFound": "Није пронађен ниједан слајдер"
+      },
+      "created": "Креиран је нови слајдер под идентификацијом {{ param }}",
+      "updated": "Слајдер под идентификацијом {{ param }} је ажуриран",
+      "deleted": "Слајдер под идентификацијом {{ param }} је обрисан",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете слајдер?"
+      },
+      "detail": {
+        "title": "Слајдер"
+      },
+      "createdAt": "Креирано",
+      "modifiedAt": "Измењено",
+      "title": "Назив",
+      "link": "Линк",
+      "newTab": "Нови таб",
+      "ordinalNumber": "Редни број",
+      "createdBy": "Креирао",
+      "modifiedBy": "Изменио",
+      "image": "Слика"
+    }
+  }
+}

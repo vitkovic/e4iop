@@ -7,7 +7,7 @@
         "createOrEditLabel": "Kreirajte ili izmenite pitanje",
         "createTitleLabel": "Kreirajte pitanje",
         "editTitleLabel": "Izmenite pitanje",
-        "notFound": "Nije prona]eno nijedno pitanje"
+        "notFound": "Nije pronađeno nijedno pitanje"
       },
       "created": "Kreirano je novo pitanje",
       "updated": "Pitanje pod nazivom {{ param }} je ažurirano",

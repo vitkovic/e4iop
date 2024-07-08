@@ -2,7 +2,8 @@
     <div class="row justify-content-center">
         <div class="col-8">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
-                <h2 id="riportalApp.cmsSlider.home.createOrEditLabel" v-text="$t('riportalApp.cmsSlider.home.createOrEditLabel')">Create or edit a CmsSlider</h2>
+                <h2 v-if="cmsSliderTitleHasID === false" id="riportalApp.cmsQuestion.home.createTitleLabel" v-text="$t('riportalApp.cmsSlider.home.createTitleLabel')">Create a CmsQuestion</h2>
+                <h2 v-else id="riportalApp.cmsQuestion.home.editTitleLabel" v-text="$t('riportalApp.cmsSlider.home.editTitleLabel')">Edit a CmsQuestion</h2>
                 <div>
                     <div class="form-group" v-if="cmsSlider.id">
                         <label for="id" v-text="$t('global.field.id')">ID</label>
@@ -46,7 +47,7 @@
                             <div class="col-xs-12 col-sm-6">
                             <label
                                 class="form-control-label position-relative font-weight-bold"
-                                v-text="'Dodajte sliku'"
+                                v-text="$t('riportalApp.advertisement.upload.imgUpload')"
                             ></label>
                             <b-form-file
                                 style="margin-bottom: 5px;"
@@ -63,7 +64,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-6">
                             <div v-if="cmsSlider.image">
-                                <p class="logo-img-label font-weight-bold" v-text="$t('riportalApp.company.upload.currentLogo')">Current logo:</p>
+                                <p class="logo-img-label font-weight-bold" v-text="$t('riportalApp.advertisement.upload.currentImg')">Current logo:</p>
                                 <div class="mb-3 pl-1">
                                 <img :src="retrieveFile(cmsSlider.image)" width="50" height="50" />
                                 <!-- {{ company.logo.filename }} -->
