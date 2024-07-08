@@ -2,28 +2,37 @@
   "riportalApp": {
     "cmsPage": {
       "home": {
-        "title": "Cms Pages",
-        "createLabel": "Create a new Cms Page",
+        "title": "Cms pages",
+        "createLabel": "Create a new cms page",
         "createOrEditLabel": "Create or edit a Cms Page",
-        "notFound": "No Cms Pages found"
+        "createTitleLabel": "Create a new cms page",
+        "editTitleLabel": "Edit a cms page",
+        "notFound": "No cms pages found"
       },
-      "created": "A new Cms Page is created with identifier {{ param }}",
-      "updated": "A Cms Page is updated with identifier {{ param }}",
-      "deleted": "A Cms Page is deleted with identifier {{ param }}",
+      "created": "A new cms pages is created with identifier {{ param }}",
+      "updated": "A cms pages is updated with identifier {{ param }}",
+      "deleted": "A cms pages is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Cms Page {{ id }}?"
+        "question": "Are you sure you want to delete cms page {{ id }}?"
       },
       "detail": {
-        "title": "Cms Page"
+        "title": "Cms page"
       },
-      "createdAt": "Created At",
-      "modifiedAt": "Modified At",
+      "createdAt": "Created at",
+      "modifiedAt": "Modified at",
       "title": "Title",
+      "titleChange": "Edit page",
       "content": "Content",
       "document": "Document",
       "type": "Type",
-      "createdBy": "Created By",
-      "modifiedBy": "Modified By"
+      "createdBy": "Created by",
+      "modifiedBy": "Modified by",
+      "textHeading": {
+        "about": "about",
+        "privacyPolicy": "privacy policy",
+        "termsOfUse": "terms of use",
+        "cookiePolicy": "cookie policy"
+      }
     }
   }
 }

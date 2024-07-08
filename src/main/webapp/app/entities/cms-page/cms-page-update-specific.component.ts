@@ -1,4 +1,4 @@
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import { Component, Vue, Inject, Watch } from 'vue-property-decorator';
 
 import { numeric, required, minLength, maxLength, minValue, maxValue } from 'vuelidate/lib/validators';
 import format from 'date-fns/format';
@@ -73,6 +73,16 @@ export default class CmsPageUpdate extends Vue {
   public isSaving = false;
   public currentLanguage = '';
 
+  @Watch('pageType')
+  onPageTypeChange() {
+    this.setTextHeading();
+  }
+
+  @Watch('$i18n.locale')
+  onLocaleChange() {
+    this.setTextHeading();
+  }
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.pageType) {
@@ -96,15 +106,16 @@ export default class CmsPageUpdate extends Vue {
   }
 
   public setTextHeading() {
+    console.log(this.$i18n.messages);
     // TO DO - dodati jezike u json!!!
     if (this.pageType === this.cmsPageTypeOptions.ABOUT) {
-      this.textHeading = 'O nama';
+      this.textHeading = this.$t('riportalApp.cmsPage.textHeading.about') as string;
     } else if (this.pageType === this.cmsPageTypeOptions.PRIVACY_POLICY) {
-      this.textHeading = 'Politika privatnosti';
+      this.textHeading = this.$t('riportalApp.cmsPage.textHeading.privacyPolicy') as string;
     } else if (this.pageType === this.cmsPageTypeOptions.TERMS_OF_USE) {
-      this.textHeading = 'Uslovi korišćenja';
+      this.textHeading = this.$t('riportalApp.cmsPage.textHeading.termsOfUse') as string;
     } else if (this.pageType === this.cmsPageTypeOptions.COOKIES) {
-      this.textHeading = 'Politika kolačića';
+      this.textHeading = this.$t('riportalApp.cmsPage.textHeading.cookiePolicy') as string;
     }
   }
 

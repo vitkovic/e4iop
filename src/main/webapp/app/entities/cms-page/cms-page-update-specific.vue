@@ -3,7 +3,7 @@ h<template>
         <div v-if="cmsPage.id" class="col-8">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
                 <h2 id="riportalApp.cmsPage.home.createOrEditLabel">
-                    <span v-text="'Izmenite stranicu'">Create or edit a CmsPage</span>
+                    <span v-text="$t('riportalApp.cmsPage.titleChange')">Create or edit a CmsPage</span>
                     <span v-text="textHeading">Stranica</span>                
                 </h2>
                 <div>

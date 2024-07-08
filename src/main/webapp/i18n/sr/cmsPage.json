@@ -2,28 +2,37 @@
   "riportalApp": {
     "cmsPage": {
       "home": {
-        "title": "Cms Pages",
-        "createLabel": "Kreiraj novi Cms Page",
+        "title": "Cms stranice",
+        "createLabel": "Kreiraj novu cms stranicu",
         "createOrEditLabel": "Kreirajte ili izmenite Cms Page",
-        "notFound": "No Cms Pages found"
+        "createTitleLabel": "Kreirajte novu cms stranicu",
+        "editTitleLabel": "Izmenite cms stranicu",
+        "notFound": "Nije pronađena nijedna cms stranica"
       },
-      "created": "Kreiran je novi Cms Page pod nazivom {{ param }}",
-      "updated": "Cms Page pod nazivom {{ param }} je ažuriran",
-      "deleted": "Cms Page pod nazivom {{ param }} je obrisan",
+      "created": "Kreirana je nova cms stranica pod identifikatorom {{ param }}",
+      "updated": "Cms stranica pod identifikatorom {{ param }} je ažurirana",
+      "deleted": "Cms stranica pod identifikatorom {{ param }} je obrisana",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Cms Page pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete cms stranicu?"
       },
       "detail": {
-        "title": "Cms Page"
+        "title": "Cms stranica"
       },
-      "createdAt": "Created At",
-      "modifiedAt": "Modified At",
-      "title": "Title",
-      "content": "Content",
-      "document": "Document",
-      "type": "Type",
-      "createdBy": "Created By",
-      "modifiedBy": "Modified By"
+      "createdAt": "Kreirano",
+      "modifiedAt": "Izmenjeno",
+      "title": "Naslov",
+      "titleChange": "Izmenite stranicu",
+      "content": "Sadržaj",
+      "document": "Dokument",
+      "type": "Tip",
+      "createdBy": "Kreirao",
+      "modifiedBy": "Izmenio",
+      "textHeading": {
+        "about": "o nama",
+        "privacyPolicy": "politika privatnosti",
+        "termsOfUse": "uslovi korišćenja",
+        "cookiePolicy": "politka kolačića"
+      }
     }
   }
 }

@@ -1,0 +1,38 @@
+{
+  "riportalApp": {
+    "cmsPage": {
+      "home": {
+        "title": "Странице",
+        "createLabel": "Креирај нову страницу",
+        "createOrEditLabel": "Kreirajte ili izmenite Cms Slider",
+        "createTitleLabel": "Креирајте страницу",
+        "editTitleLabel": "Измените страницу",
+        "notFound": "Није пронађена ниједна страница"
+      },
+      "created": "Креирна је нова страница под идентификатором {{ param }}",
+      "updated": "Страница под идентификатором {{ param }} је ажурирана",
+      "deleted": "Страница под идентификатором {{ param }} је обрисана",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете страницу?"
+      },
+      "detail": {
+        "title": "Страница"
+      },
+      "createdAt": "Креирано",
+      "modifiedAt": "Измењено",
+      "title": "Наслов",
+      "titleChange": "Измените страницу",
+      "content": "Садржај",
+      "document": "Документ",
+      "type": "Тип",
+      "createdBy": "Креирао",
+      "modifiedBy": "Изменио",
+      "textHeading": {
+        "about": "о нама",
+        "privacyPolicy": "политика приватности",
+        "termsOfUse": "услови коришћења",
+        "cookiePolicy": "политика колачића"
+      }
+    }
+  }
+}

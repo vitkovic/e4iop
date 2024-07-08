@@ -9,9 +9,9 @@
         "editTitleLabel": "Izmenite slajder",
         "notFound": "Nije pronađen nijedan slajder"
       },
-      "created": "Kreiran je novi slajder pod identifikacijom {{ param }}",
-      "updated": "Slajder pod identifikacijom {{ param }} je ažuriran",
-      "deleted": "Slajder pod identifikacijom {{ param }} je obrisan",
+      "created": "Kreiran je novi slajder pod identifikatorom {{ param }}",
+      "updated": "Slajder pod identifikatorom {{ param }} je ažuriran",
+      "deleted": "Slajder pod identifikatorom {{ param }} je obrisan",
       "delete": {
         "question": "Da li ste sigurni da želite da obrišete slajder?"
       },
