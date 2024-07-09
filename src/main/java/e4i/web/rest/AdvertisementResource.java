@@ -459,7 +459,7 @@ public class AdvertisementResource {
 	        log.debug("REST request to get search Advertisements : {}");
 	        Page<Advertisement> page;
 	        System.out.println("Search %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-	        page = advertisementService.findAll(pageable);
+	        page = advertisementService.findAllFree(pageable);
 	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 	        return ResponseEntity.ok().headers(headers).body(page.getContent());
 	    }

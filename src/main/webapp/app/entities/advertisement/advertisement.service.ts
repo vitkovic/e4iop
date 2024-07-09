@@ -53,7 +53,7 @@ export default class AdvertisementService {
   public retrieveSearch(search:string, category:number, paginationQuery?: any): Promise<any> {
     const urlgo='';
     
-	if (search = '' || typeof(search)=='undefined' || search == null) 
+	if (search == '' || typeof(search)=='undefined' || search == null) 
 	{
 		urlgo = baseApiUrlSearchAll +`?` + `${buildPaginationQueryOpts(paginationQuery)}`
 	 	
@@ -63,6 +63,9 @@ export default class AdvertisementService {
 		
 	
 	}
+	
+	console.log(urlgo);
+	
 	// console.log(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
     return new Promise<any>((resolve, reject) => {
       axios

@@ -36,8 +36,8 @@
                 <span slot="button-content" class="navbar-dropdown-menu">
                   <span class="headerItemi" v-text="$t('global.menu.advertisements.main')">Oglasi</span>
                 </span>
-                <b-dropdown-item :to="{ name: 'AdvertisementSearch' }">
-                  <span v-text="$t('global.menu.advertisements.advertisesearch')">Oglasi ponudu</span>
+                <b-dropdown-item :to="{ name: 'AdvertisementGet' }">
+                  <span v-text="$t('global.menu.advertisements.advertisesearch')">Svi oglasi</span>
                 </b-dropdown-item>
                 <b-dropdown-item :to="{ name: 'AdvertisementCreate', query: { type: 'offer' } }">
                   <span v-text="$t('global.menu.advertisements.advertiseOffer')">Oglasi ponudu</span>
@@ -376,7 +376,7 @@
     <b-navbar-nav class="prviNav all d-flex justify-content-center align-items-center">
       <div class="container">
         <div class="row">
-          <div class="col-sm-10 col-md-4">
+          <div class="col-sm-8 col-md-8">
             <!-- Širina 70% na većim ekranima -->
             <div class="selInp">
               <b-input-group class="input-grupaC">
@@ -390,8 +390,7 @@
               </b-input-group>
             </div>
           </div>
-          <div class="col-sm-2 col-md-4" style="max-width:100%">
-            <!-- Ostatak ekrana za select -->
+          <!--<div class="col-sm-8 col-md-8" style="max-width:100%">
               <b-input-group  class="w-100" style="max-width:100%">
                 <b-input-group-prepend is-text>
                   <font-awesome-icon icon="search" scale="1.3"></font-awesome-icon>
@@ -400,7 +399,7 @@
                     <option  v-for="element in advCategList" :key="element.id" :value="element.id" >{{element.name}}</option>
                 </select>
                 </b-input-group>
-              </div>
+              </div>-->
             <div class="col-sm-2 col-md-4" style="max-width:100%">
             <multiselect v-model="valuetype" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false"
                  :preserve-search="true" placeholder="Одаберите елемент претраживања" label="name" track-by="name" :preselect-first="true">

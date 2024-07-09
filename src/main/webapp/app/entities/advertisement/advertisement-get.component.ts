@@ -29,7 +29,7 @@ export default class Advertisement extends mixins(AlertMixin) {
   public advertisementStatuses: IAdvertisementStatus[] = [];
   private hasAnyAuthorityValue = false;
 
-  public itemsPerPage = 20;
+  public itemsPerPage = 1000000;
   public queryCount: number = null;
   public page = 1;
   public previousPage = 1;
@@ -102,7 +102,7 @@ export default class Advertisement extends mixins(AlertMixin) {
     
 	 
     this.advertisementService()
-       .retrieveSearch(this.txtsearch, 1,paginationQuery)
+       .retrieveSearch(this.txtsearch, Number(this.category),paginationQuery)
         .then(
         res => {
           // Ovo koristiti az originalno povucene rezultate pretrage

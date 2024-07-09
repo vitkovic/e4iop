@@ -236,7 +236,7 @@ public class CmsNewsResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the advertisement, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/cms-news/search")
-    public ResponseEntity<List<CmsNews>> getCompanySearch(Pageable pageable, @RequestParam String search) {
+    public ResponseEntity<List<CmsNews>> getNewsSearch(Pageable pageable, @RequestParam String search) {
         log.debug("REST request to get search Companies : {}", search);
         Page<CmsNews> page;
         System.out.println("Search %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");

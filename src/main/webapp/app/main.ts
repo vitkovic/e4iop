@@ -183,6 +183,9 @@ const loginService = new LoginService();
 const accountService = new AccountService(store, (<any>Vue).cookie, translationService, router);
 const portalUserService = new PortalUserService(store);
 
+
+Vue.prototype.$testGlobal = 'test'
+
 router.beforeEach((to, from, next) => {
   if (!to.matched.length) {
     next('/not-found');
@@ -267,7 +270,7 @@ new Vue({
     companyService: () => new CompanyService(),
     messageService: () => new MessageService(),
     badgeService: () => new BadgeService(),
-    advertisementSupporterService: () => new AdvertisementSupporterService(),
+   // advertisementSupporterService: () => new AdvertisementSupporterService(),
     advertisementSupporterStatusService: () => new AdvertisementSupporterStatusService(),
     advertisementStatusService: () => new AdvertisementStatusService(),
     advertisementDurationService: () => new AdvertisementDurationService(),

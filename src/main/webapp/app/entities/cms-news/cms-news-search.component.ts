@@ -42,7 +42,7 @@ export default class CmsNews extends mixins(AlertMixin) {
   }
 
   public retrieveAllCmsNews(): void {
-	console.log("usao u cms newserkerjterkljekltejtklerjterkltjekltjekltjekltejtlk");  
+	//console.log("usao u cms newserkerjterkljekltejtklerjterkltjekltjekltjekltejtlk");  
     this.isFetching = true;
 
     const paginationQuery = {

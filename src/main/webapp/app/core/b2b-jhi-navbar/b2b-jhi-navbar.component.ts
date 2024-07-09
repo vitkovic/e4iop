@@ -218,7 +218,8 @@ export default class B2BJhiNavbar extends Vue {
 	if (this.valuetype!= null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length == 1) {
 			const searchtype = this.valuetype[0].value;
 			
-		//	console.log(this.valuetype[0].value);
+		    console.log(this.valuetype[0].value);
+			
 			
 			const baseApiUrlSearchAdv = '/b2b/advertisement-search';
 			const baseApiUrlSearchCmp = '/b2b/company-search';
@@ -230,6 +231,7 @@ export default class B2BJhiNavbar extends Vue {
 			var ppathQa = baseApiUrlSearchQA + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
 			var ppathNw = baseApiUrlSearchNews + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
 			var ppath = '';
+			
 			switch (Number(searchtype)) {
 				case 0: 
 					ppath = ppathAdv;
