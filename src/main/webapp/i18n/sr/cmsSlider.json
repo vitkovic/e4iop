@@ -13,7 +13,9 @@
       "updated": "Slajder pod identifikatorom {{ param }} je ažuriran",
       "deleted": "Slajder pod identifikatorom {{ param }} je obrisan",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete slajder?"
+        "question": "Da li ste sigurni da želite da obrišete slajder?",
+        "questionImage": "Da li ste sigurni da želite da obrišete sliku?",
+        "title": "Potvrdite brisanje"
       },
       "detail": {
         "title": "Slajder"
@@ -26,7 +28,15 @@
       "ordinalNumber": "Redni broj",
       "createdBy": "Kreirao",
       "modifiedBy": "Izmenio",
-      "image": "Slika"
+      "image": "Slika",
+      "imageUpload": {
+        "title": "Dodajte sliku",
+        "newImage": "Nova slika",
+        "currentImage": "Sačuvana slika",
+        "imgDimension": "* Dimenzije slike moraju biti 1700x680.",
+        "errorSize": "Slika nije dodata. Veličina slike mora biti do 2mb.",
+        "errorDimension": "Slika nije dodata. Dimenzije slike moraju biti 1700x680."
+      }
     }
   }
 }

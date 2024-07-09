@@ -221,4 +221,48 @@ export default class CmsSliderUpdate extends Vue {
     }
     // return files.length === 1 ? files[0].name : `${files.length} files selected`;
   }
+
+  public handleFileChange(event): void {
+    const files = event.target.files;
+    if (!files.length) return;
+
+    const file = files[0];
+    const maxSize = 2 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+      const errorText = this.$t('riportalApp.cmsSlider.imageUpload.errorSize') as string;
+      this.$notify({
+        text: errorText,
+        type: 'error',
+        duration: 5000,
+      });
+      return;
+    }
+
+    this.checkImageDimensions(file).then(valid => {
+      if (!valid) {
+        const errorText = this.$t('riportalApp.cmsSlider.imageUpload.errorDimension') as string;
+        this.$notify({
+          text: errorText,
+          type: 'error',
+          duration: 5000,
+        });
+        return;
+      }
+
+      this.sliderImage = file;
+    });
+  }
+
+  private checkImageDimensions(file: File): Promise<boolean> {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        const isValid = img.width >= 1600 && img.height >= 500;
+        URL.revokeObjectURL(img.src);
+        resolve(isValid);
+      };
+    });
+  }
 }

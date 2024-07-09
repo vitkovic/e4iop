@@ -13,7 +13,9 @@
       "updated": "A slider is updated with identifier {{ param }}",
       "deleted": "A slider is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete slider?"
+        "question": "Are you sure you want to delete slider?",
+        "questionImage": "Are you sure you want to delete image?",
+        "title": "Confirm delete operation"
       },
       "detail": {
         "title": "Slider"
@@ -26,7 +28,15 @@
       "ordinalNumber": "Ordinal number",
       "createdBy": "Created by",
       "modifiedBy": "Modified by",
-      "image": "Image"
+      "image": "Image",
+      "imageUpload": {
+        "title": "Upload image",
+        "newImage": "New image",
+        "currentImage": "Current image",
+        "imgDimension": "* Allowed image dimensions are 1700x680.",
+        "errorSize": "Image cannot be added. Maximum image size must be 2mb.",
+        "errorDimension": "Image cannot be added. Image dimensions must be 1700x680."
+      }
     }
   }
 }
