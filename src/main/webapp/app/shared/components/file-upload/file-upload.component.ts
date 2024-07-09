@@ -41,10 +41,11 @@ export default class FileUpload extends Vue {
   public textDeleteFileQuestion = '';
   public textErrorFileSizeAndNumberAndDimension = '';
   public textErrorFileSizeAndNumber = '';
+  public textErrorFileDimensionAndNumber = '';
+  public textErrorFileSizeAndDimension = '';
   public textErrorFileNumber = '';
   public textErrorFileSize = '';
   public textErrorDimension = '';
-
   public documents: IDocument[] = [];
   public formFiles: ImageBlob[] | DocumentBlob[] = [];
   public files: ImageBlob[] | DocumentBlob[] = [];
@@ -107,6 +108,8 @@ export default class FileUpload extends Vue {
 
       this.textErrorFileSizeAndNumberAndDimension = 'component.error.imgSize&Number&Dimension';
       this.textErrorFileSizeAndNumber = 'component.error.imgSize&Number';
+      this.textErrorFileDimensionAndNumber = 'component.error.imgDimension&Number';
+      this.textErrorFileSizeAndDimension = 'component.error.imgSize&Dimension';
       this.textErrorFileNumber = 'component.error.imgNumber';
       this.textErrorFileSize = 'component.error.imgSize';
       this.textErrorDimension = 'component.error.imgDimension';
@@ -172,8 +175,6 @@ export default class FileUpload extends Vue {
         });
         const isAlreadySelected = this.files.some(file => file.name === formFile.name);
 
-        console.log(`File: ${formFile.name}, Already included: ${isAlreadyIncluded}, Already selected: ${isAlreadySelected}`);
-
         if (isAlreadyIncluded || isAlreadySelected) {
           continue;
         }
@@ -202,67 +203,34 @@ export default class FileUpload extends Vue {
       const filesToAddArray = this.newFilesArray.slice(0, filesToAdd);
       numberOfLimitFiles = this.newFilesArray.length - filesToAddArray.length;
       this.files.push(...filesToAddArray);
-
-      if (numberOfLimitFiles > 0 && numberOfBigFiles > 0 && numberOfSmallDimensions > 0) {
-        const totalNumberOfFiles = numberOfLimitFiles + numberOfBigFiles + numberOfSmallDimensions;
-        const errorText = this.$t(this.textErrorFileSizeAndNumberAndDimension, { totalNumberOfFiles });
-        this.$notify({
-          text: errorText,
-          type: 'error',
-          duration: 8000,
-        });
-      } else if (numberOfLimitFiles > 0 && numberOfBigFiles > 0 && numberOfSmallDimensions === 0) {
-        const totalNumberOfFiles = numberOfLimitFiles + numberOfBigFiles;
-        const errorText = this.$t(this.textErrorFileSizeAndNumber, { totalNumberOfFiles });
-        this.$notify({
-          text: errorText,
-          type: 'error',
-          duration: 8000,
-        });
-      } else if (numberOfLimitFiles > 0 && numberOfBigFiles === 0 && numberOfSmallDimensions > 0) {
-        const totalNumberOfFiles = numberOfLimitFiles + numberOfSmallDimensions;
-        const errorText = this.$t(this.textErrorFileSizeAndNumber, { totalNumberOfFiles });
-        this.$notify({
-          text: errorText,
-          type: 'error',
-          duration: 8000,
-        });
-      } else if (numberOfLimitFiles > 0) {
-        const errorText = this.$t(this.textErrorFileNumber, { numberOfLimitFiles });
-        this.$notify({
-          text: errorText,
-          type: 'error',
-          duration: 8000,
-        });
-      }
     } else {
-      for (const formFile of this.newFilesArray) {
-        this.files.push(formFile);
-      }
+      this.files.push(...this.newFilesArray);
+    }
 
-      if (numberOfBigFiles > 0 && numberOfSmallDimensions > 0) {
-        const totalNumberOfFiles = numberOfBigFiles + numberOfSmallDimensions;
-        const errorText = this.$t(this.textErrorFileSizeAndNumber, { totalNumberOfFiles });
-        this.$notify({
-          text: errorText,
-          type: 'error',
-          duration: 8000,
-        });
-      } else if (numberOfBigFiles > 0) {
-        const errorText = this.$t(this.textErrorFileSize, { numberOfBigFiles });
-        this.$notify({
-          text: errorText,
-          type: 'error',
-          duration: 8000,
-        });
-      } else if (numberOfSmallDimensions > 0) {
-        const errorText = this.$t(this.textErrorDimension, { numberOfSmallDimensions });
-        this.$notify({
-          text: errorText,
-          type: 'error',
-          duration: 8000,
-        });
-      }
+    let errorText = '';
+    const totalNumberOfFiles = numberOfLimitFiles + numberOfBigFiles + numberOfSmallDimensions;
+    if (numberOfLimitFiles > 0 && numberOfBigFiles > 0 && numberOfSmallDimensions > 0) {
+      errorText = this.$t(this.textErrorFileSizeAndNumberAndDimension, { totalNumberOfFiles });
+    } else if (numberOfLimitFiles > 0 && numberOfBigFiles > 0) {
+      errorText = this.$t(this.textErrorFileSizeAndNumber, { totalNumberOfFiles });
+    } else if (numberOfLimitFiles > 0 && numberOfSmallDimensions > 0) {
+      errorText = this.$t(this.textErrorFileDimensionAndNumber, { totalNumberOfFiles });
+    } else if (numberOfLimitFiles > 0) {
+      errorText = this.$t(this.textErrorFileNumber, { numberOfLimitFiles });
+    } else if (numberOfBigFiles > 0 && numberOfSmallDimensions > 0) {
+      errorText = this.$t(this.textErrorFileSizeAndDimension, { totalNumberOfFiles });
+    } else if (numberOfBigFiles > 0) {
+      errorText = this.$t(this.textErrorFileSize, { numberOfBigFiles });
+    } else if (numberOfSmallDimensions > 0) {
+      errorText = this.$t(this.textErrorDimension, { numberOfSmallDimensions });
+    }
+
+    if (errorText) {
+      this.$notify({
+        text: errorText,
+        type: 'error',
+        duration: 5000, // Duration of the notification
+      });
     }
   }
 
