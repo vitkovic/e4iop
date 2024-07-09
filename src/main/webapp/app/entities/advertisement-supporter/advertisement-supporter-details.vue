@@ -26,6 +26,14 @@
                             <router-link :to="{name: 'CompanyView', params: {companyId: advertisementSupporter.company.id}}">{{advertisementSupporter.company.id}}</router-link>
                         </div>
                     </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.advertisementSupporter.status')">Company</span>
+                    </dt>
+                    <dd>
+                        <div v-if="advertisementSupporter.status">
+                            <span>{{ advertisementSupporter.status.nameSr }}</span>
+                        </div>
+                    </dd>
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

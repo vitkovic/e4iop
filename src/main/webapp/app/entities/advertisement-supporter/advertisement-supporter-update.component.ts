@@ -10,7 +10,9 @@ import { ICompany } from '@/shared/model/company.model';
 
 import AlertService from '@/shared/alert/alert.service';
 import { IAdvertisementSupporter, AdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
+import { IAdvertisementSupporterStatus } from '@/shared/model/advertisement-supporter-status.model';
 import AdvertisementSupporterService from './advertisement-supporter.service';
+import AdvertisementSupporterStatusService from './advertisement-supporter-status.service';
 
 const validations: any = {
   advertisementSupporter: {
@@ -24,6 +26,7 @@ const validations: any = {
 export default class AdvertisementSupporterUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('advertisementSupporterService') private advertisementSupporterService: () => AdvertisementSupporterService;
+  @Inject('advertisementSupporterStatusService') private advertisementSupporterStatusService: () => AdvertisementSupporterStatusService;
   public advertisementSupporter: IAdvertisementSupporter = new AdvertisementSupporter();
 
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
@@ -33,6 +36,7 @@ export default class AdvertisementSupporterUpdate extends Vue {
   @Inject('companyService') private companyService: () => CompanyService;
 
   public companies: ICompany[] = [];
+  public advertisementSupporterStatuses: IAdvertisementSupporterStatus[] = [];
   public isSaving = false;
   public currentLanguage = '';
 
@@ -100,6 +104,11 @@ export default class AdvertisementSupporterUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.companies = res.data;
+      });
+    this.advertisementSupporterStatusService()
+      .retrieve()
+      .then(res => {
+        this.advertisementSupporterStatuses = res.data;
       });
   }
 }

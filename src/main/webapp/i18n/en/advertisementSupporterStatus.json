@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "advertisementSupporterStatus": {
+      "home": {
+        "title": "Advertisement Supporter Statuses",
+        "createLabel": "Create a new Advertisement Supporter Status",
+        "createOrEditLabel": "Create or edit an Advertisement Supporter Status",
+        "notFound": "No Advertisement Supporter Statuses found"
+      },
+      "created": "A new Advertisement Supporter Status is created with identifier {{ param }}",
+      "updated": "An Advertisement Supporter Status is updated with identifier {{ param }}",
+      "deleted": "An Advertisement Supporter Status is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Advertisement Supporter Status {{ id }}?"
+      },
+      "detail": {
+        "title": "Advertisement Supporter Status"
+      },
+      "nameSr": "Name SR",
+      "nameSrc": "Name SRC",
+      "nameEn": "Name EN",
+      "isVisible": "Is Visible",
+      "isDeleted": "Is Deleted",
+      "advertisementSupporter": "advertisementSupporter"
+    }
+  }
+}

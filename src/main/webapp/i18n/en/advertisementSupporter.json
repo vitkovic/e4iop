@@ -18,7 +18,8 @@
       },
       "hasAccepted": "Has Accepted",
       "advertisement": "Advertisement",
-      "company": "Company"
+      "company": "Company",
+      "status": "Status"
     }
   }
 }

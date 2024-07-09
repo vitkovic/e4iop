@@ -28,6 +28,7 @@
                     <th><span v-text="$t('riportalApp.advertisementSupporter.hasAccepted')">Has Accepted</span></th>
                     <th><span v-text="$t('riportalApp.advertisementSupporter.advertisement')">Advertisement</span></th>
                     <th><span v-text="$t('riportalApp.advertisementSupporter.company')">Company</span></th>
+                    <th><span v-text="$t('riportalApp.advertisementSupporter.status')">Status</span></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -46,6 +47,11 @@
                     <td>
                         <div v-if="advertisementSupporter.company">
                             <router-link :to="{name: 'CompanyView', params: {companyId: advertisementSupporter.company.id}}">{{advertisementSupporter.company.id}}</router-link>
+                        </div>
+                    </td>
+                    <td>
+                        <div v-if="advertisementSupporter.status">
+                            <span>{{ advertisementSupporter.status.nameSr }}</span>
                         </div>
                     </td>
                     <td class="text-right">

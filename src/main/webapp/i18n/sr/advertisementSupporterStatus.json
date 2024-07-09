@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "advertisementSupporterStatus": {
+      "home": {
+        "title": "Statusi pridruženih oglašivača",
+        "createLabel": "Kreiraj novi status pridruženih oglašivača",
+        "createOrEditLabel": "Kreiraj ili izmeni status pridruženih oglašivača",
+        "notFound": "Nema pronađenih statusa pridruženih oglašivača"
+      },
+      "created": "Novi status pridruženih oglašivača je kreiran sa identifikatorom {{ param }}",
+      "updated": "Status pridruženih oglašivača je ažuriran sa identifikatorom {{ param }}",
+      "deleted": "Status pridruženih oglašivača je obrisan sa identifikatorom {{ param }}",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete status pridruženih oglašivača {{ id }}?"
+      },
+      "detail": {
+        "title": "Detalji statusa pridruženih oglašivača"
+      },
+      "nameSr": "Naziv SR",
+      "nameSrc": "Naziv SRC",
+      "nameEn": "Naziv EN",
+      "isVisible": "Vidljivo",
+      "isDeleted": "Obrisano",
+      "advertisementSupporter": "Oglašivač"
+    }
+  }
+}

@@ -237,9 +237,9 @@ const CompanyDetails = () => import('@/entities/company/company-details.vue');
 // prettier-ignore
 const CompanyCalendar = () => import('@/entities/company/company-calendar.vue');
 //
-const CompanySearch = () => import('@/entities/company/company-search.vue');
+// const CompanySearch = () => import('@/entities/company/company-search.vue');
 
-const CmsNewsSearch = () => import('@/entities/cms-news/cms-news-search.vue');
+// const CmsNewsSearch = () => import('@/entities/cms-news/cms-news-search.vue');
 
 // prettier-ignore
 const Message = () => import('@/entities/message/message.vue');
@@ -258,6 +258,12 @@ const AdvertisementSupporter = () => import('@/entities/advertisement-supporter/
 const AdvertisementSupporterUpdate = () => import('@/entities/advertisement-supporter/advertisement-supporter-update.vue');
 // prettier-ignore
 const AdvertisementSupporterDetails = () => import('@/entities/advertisement-supporter/advertisement-supporter-details.vue');
+// prettier-ignore
+const AdvertisementSupporterStatus = () => import('@/entities/advertisement-supporter-status/advertisement-supporter-status.vue');
+// prettier-ignore
+const AdvertisementSupporterStatusDetails = () => import('@/entities/advertisement-supporter-status/advertisement-supporter-status-details.vue');
+// prettier-ignore
+const AdvertisementSupporterStatusUpdate = () => import('@/entities/advertisement-supporter-status/advertisement-supporter-status-update.vue');
 // prettier-ignore
 const AdvertisementStatus = () => import('@/entities/advertisement-status/advertisement-status.vue');
 // prettier-ignore
@@ -377,8 +383,7 @@ const CmsQuestionUpdate = () => import('@/entities/cms-question/cms-question-upd
 // prettier-ignore
 const CmsQuestionDetails = () => import('@/entities/cms-question/cms-question-details.vue');
 
-
-const CmsQuestionSearch = () => import('@/entities/cms-question/cms-question-search.vue');
+// const CmsQuestionSearch = () => import('@/entities/cms-question/cms-question-search.vue');
 
 // prettier-ignore
 const CmsSlider = () => import('@/entities/cms-slider/cms-slider.vue');
@@ -1328,8 +1333,7 @@ export default [
     name: 'AdvertisementSearch',
     component: AdvertisementSearch,
   },
-  
-  
+
   {
     path: '/b2b/company/:companyId/advertisements-view',
     name: 'CompanyAdvertisementsView',
@@ -1348,12 +1352,12 @@ export default [
     component: Company,
     meta: { authorities: [Authority.USER] },
   },
-   {
-    path: '/b2b/company-search',
-    name: 'CompanySearch',
-    component: CompanySearch,
-    
-  },
+  //  {
+  //   path: '/b2b/company-search',
+  //   name: 'CompanySearch',
+  //   component: CompanySearch,
+
+  // },
   {
     path: '/b2b/company/new',
     name: 'CompanyCreate',
@@ -1449,6 +1453,30 @@ export default [
     name: 'AdvertisementSupporterView',
     component: AdvertisementSupporterDetails,
     meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/b2b/advertisement-supporter-status',
+    name: 'AdvertisementSupporterStatus',
+    component: AdvertisementSupporterStatus,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/b2b/advertisement-supporter-status/new',
+    name: 'AdvertisementSupporterStatusCreate',
+    component: AdvertisementSupporterStatusUpdate,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/b2b/advertisement-supporter-status/:advertisementSupporterStatusId/edit',
+    name: 'AdvertisementSupporterStatusEdit',
+    component: AdvertisementSupporterStatusUpdate,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/b2b/advertisement-supporter-status/:advertisementSupporterStatusId/view',
+    name: 'AdvertisementSupporterStatusView',
+    component: AdvertisementSupporterStatusDetails,
+    meta: { authorities: [Authority.ADMIN] },
   },
   {
     path: '/b2b/advertisement-status',
@@ -1821,12 +1849,12 @@ export default [
     component: MeetingTypeDetails,
     meta: { authorities: [Authority.USER] },
   },
-   {
-    path: '/b2b/cms-news/search',
-    name: 'CmsNewsSearch',
-    component: CmsNewsSearch,
-  
-  },
+  //  {
+  //   path: '/b2b/cms-news/search',
+  //   name: 'CmsNewsSearch',
+  //   component: CmsNewsSearch,
+
+  // },
   {
     path: '/b2b/cms-page',
     name: 'CmsPage',
@@ -1905,12 +1933,12 @@ export default [
     component: CmsQuestion,
     meta: { authorities: [Authority.USER] },
   },
-   {
-    path: '/b2b/cms-questions/search',
-    name: 'CmsQuestionSearch',
-    component: CmsQuestionSearch,
-    
-  },
+  //  {
+  //   path: '/b2b/cms-questions/search',
+  //   name: 'CmsQuestionSearch',
+  //   component: CmsQuestionSearch,
+
+  // },
   {
     path: '/b2b/cms-question/new',
     name: 'CmsQuestionCreate',

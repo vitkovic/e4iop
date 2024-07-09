@@ -28,6 +28,13 @@
                             <option v-bind:value="advertisementSupporter.company && companyOption.id === advertisementSupporter.company.id ? advertisementSupporter.company : companyOption" v-for="companyOption in companies" :key="companyOption.id">{{companyOption.id}}</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.advertisementSupporter.status')" for="advertisement-supporter-status">Company</label>
+                        <select class="form-control" id="advertisement-supporter-status" name="status" v-model="advertisementSupporter.status">
+                            <option v-bind:value="null"></option>
+                            <option v-bind:value="advertisementSupporter.status && status.id === advertisementSupporter.status.id ? advertisementSupporter.status : status" v-for="status in advertisementSupporterStatuses" :key="status.id">{{status.nameSr}}</option>
+                        </select>
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

@@ -44,6 +44,10 @@ public class AdvertisementSupporter implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnore
     private Set<Thread> threads = new HashSet<>();
+    
+    @ManyToOne
+    @JsonIgnoreProperties(value = "advertisementSupporters", allowSetters = true)
+    private AdvertisementSupporterStatus status;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -116,6 +120,19 @@ public class AdvertisementSupporter implements Serializable {
 
     public void setThreads(Set<Thread> threads) {
         this.threads = threads;
+    }
+    
+    public AdvertisementSupporterStatus getStatus() {
+        return status;
+    }
+
+    public AdvertisementSupporter status(AdvertisementSupporterStatus advertisementSupporterStatus) {
+        this.status = advertisementSupporterStatus;
+        return this;
+    }
+
+    public void setStatus(AdvertisementSupporterStatus advertisementSupporterStatus) {
+        this.status = advertisementSupporterStatus;
     }
     
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

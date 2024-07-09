@@ -78,6 +78,7 @@ import CompanyService from '@/entities/company/company.service';
 import MessageService from '@/entities/message/message.service';
 import BadgeService from '@/entities/badge/badge.service';
 import AdvertisementSupporterService from '@/entities/advertisement-supporter/advertisement-supporter.service';
+import AdvertisementSupporterStatusService from '@/entities/advertisement-supporter-status/advertisement-supporter-status.service';
 import AdvertisementStatusService from '@/entities/advertisement-status/advertisement-status.service';
 import AdvertisementDurationService from '@/entities/advertisement-duration/advertisement-duration.service';
 import AdvertisementTypeService from '@/entities/advertisement-type/advertisement-type.service';
@@ -152,21 +153,17 @@ Vue.component('ScrollToTop', ScrollToTop);
 Vue.component('UploadFiles', UploadFiles);
 //Vue.component('AutoComp', AutoComp);
 
+import { AgGridVue } from '@ag-grid-community/vue';
 
-
-import  {AgGridVue}  from "@ag-grid-community/vue";
-
-   
 import { ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 
-ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
-
+ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 Vue.component('AgGridVue', AgGridVue);
 
-import "@ag-grid-community/styles/ag-grid.css";
-import "@ag-grid-community/styles/ag-theme-alpine.css";
+import '@ag-grid-community/styles/ag-grid.css';
+import '@ag-grid-community/styles/ag-theme-alpine.css';
 
 //Dodao Dragan
 import FullCalendar from '@fullcalendar/vue';
@@ -271,6 +268,7 @@ new Vue({
     messageService: () => new MessageService(),
     badgeService: () => new BadgeService(),
     advertisementSupporterService: () => new AdvertisementSupporterService(),
+    advertisementSupporterStatusService: () => new AdvertisementSupporterStatusService(),
     advertisementStatusService: () => new AdvertisementStatusService(),
     advertisementDurationService: () => new AdvertisementDurationService(),
     advertisementTypeService: () => new AdvertisementTypeService(),
@@ -299,7 +297,7 @@ new Vue({
     documentTypeService: () => new DocumentTypeService(),
     documentKindService: () => new DocumentKindService(),
     inquiryService: () => new InquiryService(),
-     searchPageService: () => new SearchPageService(),
+    searchPageService: () => new SearchPageService(),
   },
   i18n,
   store,
