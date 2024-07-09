@@ -165,6 +165,7 @@
       },
       "advertisements": {
         "main": "Огласи",
+        "advertisesearch": "Сви огласи",
         "advertiseOffer": "Огласи понуду",
         "advertiseDemand": "Огласи потражњу",
         "findAllOffers": "Погледај све понуде",

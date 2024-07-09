@@ -8,6 +8,7 @@ import B2BJhiNavbar from '@/core/b2b-jhi-navbar/b2b-jhi-navbar.vue';
 import SearchSection from '@/core/b2b-jhi-navbar/b2b-searchsection.vue';
 import LoginForm from '@/account/login-form/login-form.vue';
 
+
 @Component({
   components: {
     ribbon: Ribbon,
@@ -17,14 +18,22 @@ import LoginForm from '@/account/login-form/login-form.vue';
     'b2b-searchsection': SearchSection,
     'b2b-jhi-footer': B2BJhiFooter,
     'login-form': LoginForm,
+    'b2b-searchsection':SearchSection
+   
   },
 })
 export default class App extends Vue {
+   
+ 
+   
    public advertisements = [];
    public cmsNews = [];
    public cmsquestions = [];
    public companies = [];
    public showbutt = false;
+   public columnDefs = [];
+   public rowData = [];
+   public currentLanguage = '';
    
    data() {
       return {
@@ -34,37 +43,50 @@ export default class App extends Vue {
        companies:[],
        toggle:true,
        dissbutton:'disabled',
-       showbutt:false
+       showbutt:false,
+       columnDefs: [
+	        { headerName: this.$t('riportalApp.advertisement.title'), field: "make",filter:'true' },
+	        { headerName: "Model", field: "model" },
+	        { headerName: "Price", field: "price" },
+	      ],
+       rowData: [
+	        { make: "Toyota", model: "Celica", price: 35000 },
+	        { make: "Ford", model: "Mondeo", price: 32000 },
+	        { make: "Porsche", model: "Boxster", price: 72000 },
+	      ],
       }
     }
 
-
+	
   
 
   public isB2BDomain = false;
   
   mounted() {
-  
-  	
+  /*
+    fetch('https://www.ag-grid.com/example-assets/small-row-data.json')
+             .then(result => result.json())
+             .then(rowData => this.rowData = rowData);
+ */ 	
   }
   created() {
- 
-  
+    this.currentLanguage = this.$store.getters.currentLanguage;
+    //alert(JSON.stringify($t('riportalApp.advertisement.title')));
   }
   
   public changeAdv(value,event): void {
   //    console.log(value[0]);
-      console.log(this.showbutt);
+   //   console.log(this.showbutt);
       this.advertisements = value;
-      console.log(value);
+  //    console.log(value);
       if (value != null && typeof(value)!='undefined' && this.advertisements.length > 0 )
       	this.showbutt = true;
       else
       	this.showbutt = false;
       	
-      	console.log(this.showbutt);
+    //  	console.log(this.showbutt);
       
-     // console.log(this.advertisements)
+      console.log(this.advertisements)
       
   }
   

@@ -8,6 +8,17 @@ import TranslationService from '@/locale/translation.service';
 import SearchPageService from '../../core/b2b-jhi-navbar/searchpage.service';
 
 
+import { mixins } from 'vue-class-component';
+
+
+import Vue2Filters from 'vue2-filters';
+import AlertMixin from '@/shared/alert/alert.mixin';
+
+
+@Component({
+  mixins: [Vue2Filters.mixin],
+})
+
 const advProps= Vue.extend({
   props: {
     advertisements: null,
@@ -44,7 +55,16 @@ export default class SearchSection extends advProps {
     this.translationService().refreshTranslation(this.currentLanguage);
     this.mainSearchCategory = 1;
     
-    
+   // const message = this.$t('riportalApp.researchInfrastructure.errors.deleteFailed');
+     this.currentLanguage = this.$store.getters.currentLanguage;
+    this.$store.watch(
+      () => this.$store.getters.currentLanguage,
+      () => {
+        this.currentLanguage = this.$store.getters.currentLanguage;
+      }
+    );
+    //alert(this.$t('riportalApp.researchInfrastructure.errors.deleteFailed') + this.currentLanguage);
+   
    
   }
    public changeLanguage(newLanguage: string): void {

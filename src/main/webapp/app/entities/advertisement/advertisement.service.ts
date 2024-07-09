@@ -6,6 +6,7 @@ import { IAdvertisement } from '@/shared/model/advertisement.model';
 
 const baseApiUrl = 'api/advertisements';
 const baseApiUrlSearch = 'api/advertisements/search';
+const baseApiUrlSearchAll = 'api/advertisements/get';
 const updateCreatedByApiUrl = 'api/advertisements/update-created';
 const updateModifiedByApiUrl = 'api/advertisements/update-modified';
 const apiUploadFiles = 'api/advertisements/upload-files';
@@ -50,10 +51,22 @@ export default class AdvertisementService {
     });
   }
   public retrieveSearch(search:string, category:number, paginationQuery?: any): Promise<any> {
-	 console.log(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+    const urlgo='';
+    
+	if (search = '' || typeof(search)=='undefined' || search == null) 
+	{
+		urlgo = baseApiUrlSearchAll +`?` + `${buildPaginationQueryOpts(paginationQuery)}`
+	 	
+	} else {
+	
+		urlgo = baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
+		
+	
+	}
+	// console.log(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
     return new Promise<any>((resolve, reject) => {
       axios
-        .get(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .get(urlgo)
         .then(res => {
           resolve(res);
         })

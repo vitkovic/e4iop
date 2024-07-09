@@ -9,8 +9,25 @@
       <div id="hide" v-show='toggle'>
       		<b2b-searchsection v-bind:advertisements="advertisements" 
       		v-bind:cmsnews="cmsnews" v-bind:cmsquestions="cmsquestions" v-bind:companies="companies"></b2b-searchsection>
+      		
+   <!--    <ag-grid-vue 
+    			style="width: 500px; height: 200px"
+    			class="ag-theme-alpine"
+    			:columnDefs="columnDefs"
+    			:rowData="rowData"
+  		>
+  		</ag-grid-vue> -->		
+      		
+      		
    	  </div>
       <b-button v-if="checkB2Bdomain() && showbutt" @click='toggle = !toggle' style="float:right"> Show/Hide </b-button>
+      
+      
+      
+      
+      
+      
+      
     </div>
     <notifications width="300px" classes="vue-notification notification-font" position="top center"/> 
     	 

@@ -165,6 +165,7 @@
       },
       "advertisements": {
         "main": "Advertisements",
+        "advertisesearch": "All Advertises",
         "advertiseOffer": "Advertise offer",
         "advertiseDemand": "Advertise demand",
         "findAllOffers": "Browse all offers",

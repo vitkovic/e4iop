@@ -152,6 +152,22 @@ Vue.component('ScrollToTop', ScrollToTop);
 Vue.component('UploadFiles', UploadFiles);
 //Vue.component('AutoComp', AutoComp);
 
+
+
+import  {AgGridVue}  from "@ag-grid-community/vue";
+
+   
+import { ModuleRegistry } from '@ag-grid-community/core';
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+
+ModuleRegistry.registerModules([ ClientSideRowModelModule ]);
+
+
+Vue.component('AgGridVue', AgGridVue);
+
+import "@ag-grid-community/styles/ag-grid.css";
+import "@ag-grid-community/styles/ag-theme-alpine.css";
+
 //Dodao Dragan
 import FullCalendar from '@fullcalendar/vue';
 import dayGridPlugin from '@fullcalendar/daygrid';

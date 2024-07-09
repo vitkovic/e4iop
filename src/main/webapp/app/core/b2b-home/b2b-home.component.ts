@@ -83,6 +83,8 @@ export default class B2BHome extends Vue {
         this.cmsSliders = res;
         console.log(this.cmsSliders);
       });
+      
+   //   alert(this.$t('riportalApp.researchInfrastructure.errors.deleteFailed') + this.currentLanguage);
   }
 
   mounted() {

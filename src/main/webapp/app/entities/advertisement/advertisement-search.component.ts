@@ -22,7 +22,7 @@ export default class Advertisement extends mixins(AlertMixin) {
   public advertisementStatuses: IAdvertisementStatus[] = [];
   private hasAnyAuthorityValue = false;
 
-  public itemsPerPage = 20;
+  public itemsPerPage = 1000000;
   public queryCount: number = null;
   public page = 1;
   public previousPage = 1;
@@ -36,6 +36,25 @@ export default class Advertisement extends mixins(AlertMixin) {
   public isFetching = false;
   public txtsearch;
   public category;
+  
+   public columnDefs = [];
+   public rowData = [];
+  
+   data() {
+      return {
+       columnDefs: [
+	        { headerName: this.$t('riportalApp.advertisement.title'), field: "title",filter:'true', sortable: true },
+	        { headerName: this.$t('riportalApp.advertisement.status'), field: "status",filter:'true',sortable: true },
+	        { headerName: this.$t('riportalApp.advertisement.type'), field: "type",filter:'true',sortable: true },
+	        { headerName: this.$t('riportalApp.advertisement.kind'), field: "kind",filter:'true',sortable: true },
+	        { headerName: this.$t('riportalApp.advertisement.subsubcategory'), field: "subsubcategory",filter:'true',sortable: true },
+	        { headerName: this.$t('riportalApp.advertisement.budget'), field: "budget",filter:'true',sortable: true },
+	        { headerName: this.$t('riportalApp.advertisement.company'), field: "company",filter:'true',filter:'true',sortable: true },
+	        { headerName: this.$t('riportalApp.advertisement.activationDatetime'), field: "datetime",filter:'true',sortable: true },
+	      ],
+       rowData: [],
+      }
+    }
 
   public mounted(): void {
 	 this.txtsearch = this.$route.query.search;
@@ -47,7 +66,7 @@ export default class Advertisement extends mixins(AlertMixin) {
      this.category =  urlParams.get('category');
     }
     
-	//  console.log(this.$route.query);
+	  
     this.retrieveAllAdvertisements();
   }
 
@@ -65,12 +84,19 @@ export default class Advertisement extends mixins(AlertMixin) {
       sort: this.sort()
     };
     
+	 
     this.advertisementService()
        .retrieveSearch(this.txtsearch, Number(this.category),paginationQuery)
-      .then(
+        .then(
         res => {
           // Ovo koristiti az originalno povucene rezultate pretrage
           this.advertisements = res.data;
+          console.log(this.advertisements);
+         
+          
+          this.rowData =  this.createRows(this.advertisements)
+          
+          console.log(this.rowData);
           // Ovo koristiti za filtrirane rezultate pretrage
           this.selectedAdvertisements = this.advertisements;
 
@@ -82,6 +108,48 @@ export default class Advertisement extends mixins(AlertMixin) {
           this.isFetching = false;
         }
       );
+     
+  }
+
+  public createRows(advs): any {
+   
+   var i = 0;
+   var rows = [];
+  	while (i < advs.length) {
+	   	
+	    var subobj = {};
+	  
+	    subobj['title'] = advs[i].title;
+	    subobj['status'] = advs[i].status.status;
+	    subobj['type'] = advs[i].type.type);
+	    subobj['kind'] = advs[i].kind.kind;
+	    subobj['subsubcategory'] = advs[i].subsubcategory.name;
+	    subobj['budget']=advs[i].budget;
+	    subobj['company'] = advs[i].company.name;
+	    subobj['datetime'] = advs[i].activationDatetime;
+	   
+	    
+	   
+     	rows.push(subobj);
+	    console.log(rows);
+	    i++;
+	}
+    console.log(rows);
+  	return rows;
+  
+  
+  [
+    "Analiza faktora zastoja mašine",
+    "Активан",
+    "Потражња",
+    "Експертиза",
+    "статистичка обрада",
+    42000,
+    "B2B Kompanija",
+    "2024-05-29T10:58:05.408Z"
+]
+  
+  
   }
 
   public get authenticated(): boolean {
@@ -117,7 +185,7 @@ export default class Advertisement extends mixins(AlertMixin) {
   }
 
   public changeOrder(propOrder): void {
-	  console.log("change order klfjsdkfldjlfdjfsdlfjsdlfj");
+	//  console.log("change order klfjsdkfldjlfdjfsdlfjsdlfj");
     this.propOrder = propOrder;
     this.reverse = !this.reverse;
     this.transition();

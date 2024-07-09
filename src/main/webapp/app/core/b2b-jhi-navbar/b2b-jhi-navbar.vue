@@ -36,6 +36,9 @@
                 <span slot="button-content" class="navbar-dropdown-menu">
                   <span class="headerItemi" v-text="$t('global.menu.advertisements.main')">Oglasi</span>
                 </span>
+                <b-dropdown-item :to="{ name: 'AdvertisementSearch' }">
+                  <span v-text="$t('global.menu.advertisements.advertisesearch')">Oglasi ponudu</span>
+                </b-dropdown-item>
                 <b-dropdown-item :to="{ name: 'AdvertisementCreate', query: { type: 'offer' } }">
                   <span v-text="$t('global.menu.advertisements.advertiseOffer')">Oglasi ponudu</span>
                 </b-dropdown-item>
