@@ -164,6 +164,7 @@
         "repoBackup": "Копија репозиторијума докумената"
       },
       "advertisements": {
+        "id":"ИД",
         "main": "Огласи",
         "advertisesearch": "Сви огласи",
         "advertiseOffer": "Огласи понуду",

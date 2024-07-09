@@ -164,6 +164,7 @@
         "repoBackup": "Backup repozitorijuma dokumenata"
       },
       "advertisements": {
+        "id":"ID",
         "main": "Oglasi",
         "advertisesearch": "Svi Oglasi",
         "advertiseOffer": "Oglasi ponudu",

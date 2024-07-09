@@ -164,6 +164,7 @@
         "repoBackup": "Document Repository Backup"
       },
       "advertisements": {
+        "id":"ID",
         "main": "Advertisements",
         "advertisesearch": "All Advertises",
         "advertiseOffer": "Advertise offer",

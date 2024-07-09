@@ -23,6 +23,7 @@
       "activationDatetime": "Activation datetime",
       "expirationDatetime": "Expiration datetime",
       "deletionDatetime": "Deletion datetime",
+      "id":"ID",
       "title": "Title",
       "description": "Description",
       "budget": "Expected budget (rsd)",

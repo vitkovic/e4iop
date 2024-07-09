@@ -11,6 +11,8 @@ import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model'
 
 import AccountService from '@/account/account.service';
 
+import { IdRenderer } from "./IdRenderer";
+
 @Component({
   mixins: [Vue2Filters.mixin],
 })
@@ -51,11 +53,14 @@ export default class Advertisement extends mixins(AlertMixin) {
 	        { headerName: this.$t('riportalApp.advertisement.budget'), field: "budget",filter:'true',sortable: true },
 	        { headerName: this.$t('riportalApp.advertisement.company'), field: "company",filter:'true',filter:'true',sortable: true },
 	        { headerName: this.$t('riportalApp.advertisement.activationDatetime'), field: "datetime",filter:'true',sortable: true },
+	        { headerName: this.$t('riportalApp.advertisement.id'), field: "id",filter:'true', cellRenderer: IdRenderer },
+	      
 	      ],
        rowData: [],
       }
     }
-
+  
+ 
   public mounted(): void {
 	 this.txtsearch = this.$route.query.search;
      this.category =  this.$route.query.category;
@@ -127,6 +132,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 	    subobj['budget']=advs[i].budget;
 	    subobj['company'] = advs[i].company.name;
 	    subobj['datetime'] = advs[i].activationDatetime;
+	    subobj['id'] = advs[i].id;
 	   
 	    
 	   

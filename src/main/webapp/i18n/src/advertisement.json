@@ -23,6 +23,7 @@
       "activationDatetime": "Датум активације",
       "expirationDatetime": "Датум истека",
       "deletionDatetime": "Датум брисања",
+      "id":"ИД",
       "title": "Наслов",
       "description": "Опис",
       "budget": "Очекивани буџет (рсд)",
