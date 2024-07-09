@@ -219,5 +219,19 @@ public class ThreadService {
     	Thread result = this.save(thread);
     	
 		return result;
+	}
+    
+    @Transactional
+	public Thread createThreadForSupporterRejection(AdvertisementSupporter advertisementSupporter) {
+    	Thread thread = new Thread();
+    	thread.setSubject("Odbijen je poziv za zajedničko oglašavanje");
+    	thread.setCompanyReceiver(advertisementSupporter.getAdvertisement().getCompany());
+    	thread.setIsFromAdministration(true);
+    	thread.setAdvertisementSupporters(new HashSet<>());
+    	thread.getAdvertisementSupporters().add(advertisementSupporter);
+    	
+    	Thread result = this.save(thread);
+    	
+		return result;
 	}   
 }

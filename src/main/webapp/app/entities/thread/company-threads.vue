@@ -376,15 +376,23 @@
                       <p style="white-space: pre-line;">{{ message.content }}</p>
 
                       <div v-if="company.id === thread.advertisementSupporter.company.id">
-                        <div v-if="thread.advertisementSupporter.hasAccepted === false">
+                        <div v-if="thread.advertisementSupporter.status.nameEn === advertisementSupporterStatusOptions.NO_RESPONSE">
                           <button type="button" class="btn btn-secondary" v-on:click="prepareAcceptAdvertisementSupporterModal(thread)">
                             <span><font-awesome-icon icon="check" style="color: green;"/></span>
-                            <span v-text="'Prihvati poziv'"></span>
+                            <span v-text="'Prihvati'"></span>
+                          </button>
+                          <button type="button" class="btn btn-secondary" v-on:click="prepareRejectAdvertisementSupporterModal(thread)">
+                            <span><font-awesome-icon icon="times" style="color: red;"/></span>
+                            <span v-text="'Otkaži'" ></span>
                           </button>
                         </div>
-                        <div v-else-if="thread.advertisementSupporter.hasAccepted === true">
+                        <div v-else-if="thread.advertisementSupporter.status.nameEn === meetingParticipantStatusOptions.INVITATION_ACCEPTED">
                           <span><font-awesome-icon icon="check" style="color: green;"/></span>
                           <span v-text="'Poziv za pridruženo oglašavanje je prihvaćen'"></span>
+                        </div>
+                        <div v-else-if="thread.advertisementSupporter.status.nameEn === meetingParticipantStatusOptions.INVITATION_REJECTED">
+                          <span><font-awesome-icon icon="times" style="color: red;"/></span>
+                          <span v-text="'Poziv za pridruženo oglašavanje je odbijen'"></span>
                         </div>
                       </div>
                     </div>
@@ -554,7 +562,6 @@
               <span v-text="'Oglas: '"></span>
               <span>{{ advertisementSupporter.advertisement.title }}</span>
           </p>
-          
       </div>
       <div slot="modal-footer">
           <button type="button" class="btn btn-success" v-text="'Potvrdi'" v-on:click="acceptAdvertisementSupporter()">Potvrdi</button>
@@ -564,7 +571,27 @@
           v-text="'Otkaži'"
           v-on:click="closeAcceptAdvertisementSupporterModal()"
           >
+          </button>
+      </div>
+  </b-modal>
 
+  <b-modal v-if="advertisementSupporter" ref="rejectAdvertisementSupporterModal" id="rejectAdvertisementSupporterModal">
+      <div class="modal-body">
+          <p>
+              <span v-text="'Da li želite da odbijete poziv za zajedničko oglašavanje?'">Da li želite da odbijete poziv za za zajedničko oglašavanje?</span>
+              <br>
+              <span v-text="'Oglas: '"></span>
+              <span>{{ advertisementSupporter.advertisement.title }}</span>
+          </p>
+      </div>
+      <div slot="modal-footer">
+          <button type="button" class="btn btn-success" v-text="'Potvrdi'" v-on:click="rejectAdvertisementSupporter()">Otkaži</button>
+          <button
+          type="button"
+          class="btn btn-danger"
+          v-text="'Otkaži'"
+          v-on:click="closeRejectAdvertisementSupporterModal()"
+          >
           </button>
       </div>
   </b-modal>

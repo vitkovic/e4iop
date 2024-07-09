@@ -316,4 +316,26 @@ public class MessageService {
     	
     	return result;
 	}
+
+    @Transactional
+	public Message createFirstMessageInThreadRejectionSupporter(Thread thread,
+			AdvertisementSupporter advertisementSupporter) {
+    	String infoText = "\nKompanija " + advertisementSupporter.getCompany().getName() 
+    			+ " je odbila poziv za zajedničko oglašavanje na B2B portalu.\n";
+    	
+    	String content = infoText;
+    	
+    	Message message = new Message();
+        message.setThread(thread);
+//        message.setPortalUserSender(portalUser);
+        message.setContent(content);
+        message.setDatetime(Instant.now());
+        message.setIsRead(false);
+        message.setIsDeletedSender(true);
+        message.setIsDeletedReceiver(false);
+    	
+    	Message result = this.save(message);
+    	
+    	return result;
+	}
 }

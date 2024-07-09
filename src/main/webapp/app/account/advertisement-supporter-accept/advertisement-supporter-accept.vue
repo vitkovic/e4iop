@@ -9,9 +9,20 @@
                 </h1>
             </div>
             <div v-else-if="error">
-                <h1>
+                <div v-if="status === 400">
+                    <h1>
+                        <span v-if="advertisementSupporter.status.nameEn === advertisementSupporterStatusOptions.ACCEPTED">
+                            <font-awesome-icon icon="check" style="color: green;"/>
+                        </span>
+                        <span v-else-if="advertisementSupporter.status.nameEn === advertisementSupporterStatusOptions.REJECTED">
+                            <font-awesome-icon icon="times" style="color: red;"/>
+                        </span>
+                        <span>{{ message }}</span>
+                    </h1>
+                </div>
+                <div v-else>
                     <span>{{ message }}</span>
-                </h1>
+                </div>
             </div>
             <div v-else>
                 <h1>

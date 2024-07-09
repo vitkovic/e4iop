@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import e4i.domain.Advertisement;
 import e4i.domain.AdvertisementSupporter;
 import e4i.domain.Company;
-import e4i.domain.Meeting;
-import e4i.domain.MeetingParticipant;
 import e4i.domain.Message;
 import e4i.domain.Thread;
 import e4i.service.AdvertisementService;
@@ -210,7 +208,7 @@ public class AdvertisementSupporterResource {
     }
     
     @PutMapping("/advertisement-supporters/accept/{advertisementId}/{companyId}")
-    public ResponseEntity<?> acceptMeetingForCompany(@PathVariable Long advertisementId, @PathVariable Long companyId) {
+    public ResponseEntity<?> acceptSupportForCompany(@PathVariable Long advertisementId, @PathVariable Long companyId) {
         log.debug("REST request to accept AdvertisementSupporter for Advertisement {} and Company {}", advertisementId, companyId);
         
         Optional<AdvertisementSupporter> advertisementSupporterOptional = advertisementSupporterService.findByAdvertisementIdAndCompanyId(advertisementId, companyId);
@@ -219,7 +217,7 @@ public class AdvertisementSupporterResource {
         }
         
         AdvertisementSupporter advertisementSupporter = advertisementSupporterOptional.get();
-        if (advertisementSupporter.isHasAccepted()) {
+        if (!advertisementSupporterService.checkNoResponse(advertisementSupporter)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(advertisementSupporter);
         }
         
@@ -230,6 +228,38 @@ public class AdvertisementSupporterResource {
         	Message message = messageService.createFirstMessageInThreadAcceptanceSupporter(thread, advertisementSupporter);
         
         	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForSupporterAcceptance(advertisementSupporter);
+        	if (!mailDTO.getEmails().isEmpty()) {
+        		mailService.sendNotificationMail(mailDTO);
+        	}
+        	
+            return ResponseEntity.ok(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Server error!");
+		}
+    }
+    
+    @PutMapping("/advertisement-supporters/reject/{advertisementId}/{companyId}")
+    public ResponseEntity<?> rejectSupportForCompany(@PathVariable Long advertisementId, @PathVariable Long companyId) {
+        log.debug("REST request to reject AdvertisementSupporter for Advertisement {} and Company {}", advertisementId, companyId);
+        
+        Optional<AdvertisementSupporter> advertisementSupporterOptional = advertisementSupporterService.findByAdvertisementIdAndCompanyId(advertisementId, companyId);
+        if (advertisementSupporterOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No AdvertisementSupporter found for the given advertisementId and companyId");
+        }
+        
+        AdvertisementSupporter advertisementSupporter = advertisementSupporterOptional.get();
+        if (!advertisementSupporterService.checkNoResponse(advertisementSupporter)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(advertisementSupporter);
+        }
+        
+        try {
+        	AdvertisementSupporter result = advertisementSupporterService.rejectForCompany(advertisementSupporter);
+        	
+        	Thread thread = threadService.createThreadForSupporterRejection(advertisementSupporter);
+        	Message message = messageService.createFirstMessageInThreadRejectionSupporter(thread, advertisementSupporter);
+        
+        	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForSupporterRejection(advertisementSupporter);
         	if (!mailDTO.getEmails().isEmpty()) {
         		mailService.sendNotificationMail(mailDTO);
         	}

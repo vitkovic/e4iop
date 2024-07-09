@@ -2,6 +2,7 @@ import Component from 'vue-class-component';
 import { Vue, Inject } from 'vue-property-decorator';
 
 import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
+import { AdvertisementSupporterStatusOptions } from '@/shared/model/advertisement-supporter-status.model';
 
 import AdvertisementSupporterService from '@/entities/advertisement-supporter/advertisement-supporter.service';
 
@@ -11,9 +12,11 @@ export default class AdvertisementSupporterAccept extends Vue {
   private advertisementSupporterService: () => AdvertisementSupporterService;
 
   public advertisementSupporter: IAdvertisementSupporter | null = null;
+  public advertisementSupporterStatusOptions = AdvertisementSupporterStatusOptions;
   public advertisementId: number | null = null;
   public companyId: number | null = null;
   public message = '';
+  public status = 200;
 
   success = false;
   error = false;
@@ -24,7 +27,7 @@ export default class AdvertisementSupporterAccept extends Vue {
         vm.advertisementId = to.query.advertisementId;
         vm.companyId = to.query.companyId;
 
-        vm.success = true;
+        // vm.success = true;
         vm.acceptAdvertisementSupporter();
       }
     });
@@ -43,14 +46,20 @@ export default class AdvertisementSupporterAccept extends Vue {
         this.error = true;
 
         if (error.response) {
-          const status = error.response.status;
+          this.status = error.response.status;
           // const message = error.response.data;
 
-          if (status === 404) {
+          if (this.status === 404) {
             this.message = 'Sistemska greška, nemate poziv za pridruženo oglašavanje';
-          } else if (status === 400) {
+          } else if (this.status === 400) {
             this.advertisementSupporter = error.response.data;
-            this.message = 'Poziv za pridruženo oglašavanje je već prihvaćen';
+            if (this.advertisementSupporter.status.nameEn === AdvertisementSupporterStatusOptions.ACCEPTED) {
+              this.message = 'Poziv za pridruženo oglašavanje je već prihvaćen';
+            } else if (this.advertisementSupporter.status.nameEn === AdvertisementSupporterStatusOptions.REJECTED) {
+              this.message = 'Poziv za pridruženo oglašavanje je već odbijen';
+            } else {
+              this.message = 'Status poziva za pridruženo oglašavanje nije poznat';
+            }
           } else {
             this.message = error.response.data;
           }

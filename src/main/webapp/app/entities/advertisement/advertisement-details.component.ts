@@ -8,6 +8,7 @@ import { ICollaboration } from '@/shared/model/collaboration.model';
 import { IMeeting } from '@/shared/model/meeting.model';
 import { ICompanyRatingsDTO } from '@/shared/model/dto/company-ratings-dto';
 import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
+import { AdvertisementSupporterStatusOptions } from '@/shared/model/advertisement-supporter-status.model';
 
 import InquiryService from './inquiry.service';
 import AccountService from '@/account/account.service';
@@ -86,6 +87,7 @@ export default class AdvertisementDetails extends Vue {
   public isEmailValid = true;
   public companyRatingsDTO: ICompanyRatingsDTO | null = null;
   public collaborations: ICollaboration[] = [];
+  public advertisementSupporterStatusOptions = AdvertisementSupporterStatusOptions;
 
   public companySearchText = '';
   public showCompaniesSearch = false;

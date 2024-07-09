@@ -12,6 +12,7 @@ import { IMeeting } from '@/shared/model/meeting.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import { IMeetingParticipant } from '@/shared/model/meeting-participant.model';
 import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
+import { AdvertisementSupporterStatusOptions } from '@/shared/model/advertisement-supporter-status.model';
 
 import ThreadService from './thread.service';
 import CompanyService from '@/entities/company.service';
@@ -104,6 +105,7 @@ export default class Thread extends mixins(AlertMixin) {
   public isFetching = false;
 
   public meetingParticipantStatusOptions = MeetingParticipantStatusOptions;
+  public advertisementSupporterStatusOptions = AdvertisementSupporterStatusOptions;
   public activeThreadFilter = ThreadsFilter.ALL;
   public filterAllButtonVariant = 'secondary';
   public filterSenderButtonVariant = 'outline-secondary';
@@ -504,6 +506,45 @@ export default class Thread extends mixins(AlertMixin) {
     (<any>this.$refs.acceptMeetingModal).hide();
   }
 
+  public acceptMeeting(): void {
+    this.meetingParticipantService()
+      .acceptMeetingForCompany(this.meeting.id, this.companyId)
+      .then(res => {
+        this.showMessages(this.activeThreadDTO);
+        const message = 'Prihvatili ste poziv za sastanak - ' + this.meeting.title;
+        this.$notify({
+          text: message,
+        });
+      })
+      .catch(error => {
+        if (error.response) {
+          const status = error.response.status;
+          // const message = error.response.data;
+
+          if (status === 404) {
+            const message = 'Sistemska greska, nemate poziv za izabrani sastanak';
+            this.$notify({
+              text: message,
+            });
+          } else if (status === 400) {
+            const message = 'Već ste prihvatili poziv za ovaj sastanak';
+            this.$notify({
+              text: message,
+            });
+          } else {
+            const message = error.response.data;
+            this.$notify({
+              text: message,
+            });
+          }
+        } else {
+          console.error('Greska!', error.message);
+        }
+      });
+
+    this.closeAcceptMeetingModal();
+  }
+
   public prepareRejectMeetingModal(threadDTO: IThreadDTO): void {
     this.activeThreadDTO = threadDTO;
     this.meeting = threadDTO.meeting;
@@ -514,6 +555,45 @@ export default class Thread extends mixins(AlertMixin) {
     if (<any>this.$refs.rejectMeetingModal) {
       (<any>this.$refs.rejectMeetingModal).show();
     }
+  }
+
+  public acceptMeeting(): void {
+    this.meetingParticipantService()
+      .acceptMeetingForCompany(this.meeting.id, this.companyId)
+      .then(res => {
+        this.showMessages(this.activeThreadDTO);
+        const message = 'Prihvatili ste poziv za sastanak - ' + this.meeting.title;
+        this.$notify({
+          text: message,
+        });
+      })
+      .catch(error => {
+        if (error.response) {
+          const status = error.response.status;
+          // const message = error.response.data;
+
+          if (status === 404) {
+            const message = 'Sistemska greska, nemate poziv za izabrani sastanak';
+            this.$notify({
+              text: message,
+            });
+          } else if (status === 400) {
+            const message = 'Već ste prihvatili poziv za ovaj sastanak';
+            this.$notify({
+              text: message,
+            });
+          } else {
+            const message = error.response.data;
+            this.$notify({
+              text: message,
+            });
+          }
+        } else {
+          console.error('Greska!', error.message);
+        }
+      });
+
+    this.closeAcceptMeetingModal();
   }
 
   public rejectMeeting(): void {
@@ -598,7 +678,7 @@ export default class Thread extends mixins(AlertMixin) {
               text: message,
             });
           } else if (status === 400) {
-            message = 'Poziv za pridruženo oglašavanje je već prihvaćen';
+            message = 'Poziv za pridruženo oglašavanje je već prihvaćen ili odbijen';
             this.$notify({
               text: message,
             });
@@ -618,6 +698,60 @@ export default class Thread extends mixins(AlertMixin) {
 
   public closeAcceptAdvertisementSupporterModal(): void {
     (<any>this.$refs.acceptAdvertisementSupporterModal).hide();
+  }
+
+  public prepareRejectAdvertisementSupporterModal(threadDTO: IThreadDTO): void {
+    this.activeThreadDTO = threadDTO;
+    this.advertisementSupporter = threadDTO.advertisementSupporter;
+
+    if (<any>this.$refs.rejectAdvertisementSupporterModal) {
+      (<any>this.$refs.rejectAdvertisementSupporterModal).show();
+    }
+  }
+
+  public rejectAdvertisementSupporter(): void {
+    let message = '';
+    this.advertisementSupporterService()
+      .rejectForCompany(this.advertisementSupporter.advertisement.id, this.advertisementSupporter.company.id)
+      .then(res => {
+        // this.showMessages(this.activeThreadDTO);
+        this.retrieveThreads();
+        message = 'Poziv za pridruženo oglašavanje je odbijen.';
+        this.$notify({
+          text: message,
+        });
+      })
+      .catch(error => {
+        if (error.response) {
+          const status = error.response.status;
+          // const message = error.response.data;
+
+          if (status === 404) {
+            message = 'Sistemska greška, nemate poziv za pridruženo oglašavanje';
+            this.$notify({
+              text: message,
+            });
+          } else if (status === 400) {
+            message = 'Poziv za pridruženo oglašavanje je već prihvaćen ili odbijen';
+            this.$notify({
+              text: message,
+            });
+          } else {
+            message = error.response.data;
+            this.$notify({
+              text: message,
+            });
+          }
+        } else {
+          console.error('Greska!', error.message);
+        }
+      });
+
+    this.closeRejectAdvertisementSupporterModal();
+  }
+
+  public closeRejectAdvertisementSupporterModal(): void {
+    (<any>this.$refs.rejectAdvertisementSupporterModal).hide();
   }
 
   public formatRejectMeetingComment(): string {

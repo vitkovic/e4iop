@@ -6,6 +6,7 @@ const baseApiUrl = 'api/advertisement-supporters';
 const apiManageAdvertisementSupporters = 'api/advertisement-supporters/manage';
 const apiRetrieveAdvertisementSupporters = 'api/advertisement-supporters/retrieve';
 const apiAcceptForCompany = 'api/advertisement-supporters/accept';
+const apiRejectForCompany = 'api/advertisement-supporters/reject';
 
 export default class AdvertisementSupporterService {
   public find(id: number): Promise<IAdvertisementSupporter> {
@@ -107,6 +108,19 @@ export default class AdvertisementSupporterService {
     return new Promise<any>((resolve, reject) => {
       axios
         .put(`${apiAcceptForCompany}/${advertisementId}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public rejectForCompany(advertisementId: number, companyId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .put(`${apiRejectForCompany}/${advertisementId}/${companyId}`)
         .then(res => {
           resolve(res.data);
         })

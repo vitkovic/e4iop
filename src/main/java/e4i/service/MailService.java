@@ -464,7 +464,25 @@ public class MailService {
         
         return mailDTO;
 	}
+    
 
+	public NotificationMailDTO createNotificationMailDTOForSupporterRejection(
+			AdvertisementSupporter advertisementSupporter) {
+        List<PortalUser> companyPortalUsers = portalUserRepository.findAllByCompanyAndDoNotify(advertisementSupporter.getAdvertisement().getCompany(), true); 
+        List<String> emails = companyPortalUsers.stream()
+                .map(portalUser -> portalUser.getUser().getEmail())
+                .collect(Collectors.toList());
+	
+        String mailSubject = "B2B portal - Obaveštenje o odbijanju poziva za zajedničko oglašavanje";
+        String mailContent = this.prepareNotificationContentForSupporterRejection(advertisementSupporter);
+
+        NotificationMailDTO mailDTO = new NotificationMailDTO();
+        mailDTO.setEmails(emails);
+        mailDTO.setSubject(mailSubject);
+        mailDTO.setContent(mailContent);
+        
+        return mailDTO;
+	}
 
 	public String prepareContentForNewMessageNotification(Message message, Thread thread, Company company, PortalUser portalUser) {
     	
@@ -834,7 +852,7 @@ public class MailService {
         		+ "<p>Poziv možete potvrditi klikom na "
         		+ "<a href='" + acceptLink + "'>ovaj link<a>.</p>"
         		+ "<br>"
-        		+ "<p>Ukoliko link nije aktivan, poziv na sastanak možete potvrditi i sa stranice poruka na "
+        		+ "<p>Ukoliko link nije aktivan, na poziv za pridruženo oglašavanje možete odgovoriti i sa stranice poruka na "
         		+ "<a href='" + companyThreadsLink + "'> B2B profilu Vaše kompanije<a>.</p>"
         		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
         
@@ -865,5 +883,31 @@ public class MailService {
       		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
       
   	return content;
+	}
+	
+
+	private String prepareNotificationContentForSupporterRejection(AdvertisementSupporter advertisementSupporter) {
+	  	String homeURL = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+	  	
+
+	    String advertisementLink = homeURL + "/b2b/advertisement/" + advertisementSupporter.getAdvertisement().getId() + "/view";
+	  	String advertisementText = "<p><b>Oglas: </b><a href='" + advertisementLink + "'>" + advertisementSupporter.getAdvertisement().getTitle() + "<a><p>";
+	  	
+	  	String supporterLink = homeURL + "/b2b/company/" + advertisementSupporter.getCompany().getId() + "/view";
+	  	String supporterText = "<a href='" + supporterLink + "'>" + advertisementSupporter.getCompany().getName() + "<a>";
+	  	
+	      
+	      
+	      String content = "<div>"
+	      		+ "<p>Kompanija " + supporterText + " sa B2B portala je odbila poziv za pridruženo oglašavanje."
+	      		+ "<br>"
+	      		+ "<br>"
+	      		+ advertisementText
+	      		+ "<hr>"
+	      		+ "<br>"
+	      		+ "<br>"
+	      		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
+	      
+	  	return content;
 	}
 }

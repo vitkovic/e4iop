@@ -383,9 +383,9 @@
           </div>
         </section>
         
-        <hr v-if="advertisement.advertisementSupporters && advertisement.advertisementSupporters.some(supporter => supporter.hasAccepted === true)" class="line" />
+        <hr v-if="advertisement.advertisementSupporters && advertisement.advertisementSupporters.some(supporter => supporter.status.nameEn === advertisementSupporterStatusOptions.ACCEPTED)" class="line" />
 
-        <section v-if="advertisement.advertisementSupporters && advertisement.advertisementSupporters.some(supporter => supporter.hasAccepted === true)" class="supporters">
+        <section v-if="advertisement.advertisementSupporters && advertisement.advertisementSupporters.some(supporter => supporter.status.nameEn === advertisementSupporterStatusOptions.ACCEPTED)" class="supporters">
           <h3 v-text="$t('riportalApp.advertisement.advertisementSupporters')" class="mb-4">Priključeni oglašivači</h3>
           <div v-for="supporter in advertisement.advertisementSupporters" :key="supporter.id">
             <div v-if="supporter.hasAccepted" class="d-flex align-items-center justify-content-between mb-2">

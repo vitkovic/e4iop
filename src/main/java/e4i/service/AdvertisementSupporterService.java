@@ -2,17 +2,22 @@ package e4i.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import e4i.domain.Advertisement;
 import e4i.domain.AdvertisementSupporter;
+import e4i.domain.AdvertisementSupporterStatus;
 import e4i.domain.Company;
+import e4i.domain.MeetingParticipantStatus;
 import e4i.repository.AdvertisementSupporterRepository;
+import e4i.repository.AdvertisementSupporterStatusRepository;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 /**
  * Service Implementation for managing {@link AdvertisementSupporter}.
@@ -25,6 +30,10 @@ public class AdvertisementSupporterService {
 
     private final AdvertisementSupporterRepository advertisementSupporterRepository;
 
+    
+    @Autowired
+    AdvertisementSupporterStatusRepository advertisementSupporterStatusRepository;
+    
     public AdvertisementSupporterService(AdvertisementSupporterRepository advertisementSupporterRepository) {
         this.advertisementSupporterRepository = advertisementSupporterRepository;
     }
@@ -76,9 +85,20 @@ public class AdvertisementSupporterService {
 
     
 	public AdvertisementSupporter addCompanySupporter(Advertisement advertisement, Company company) {
+    	Optional<AdvertisementSupporterStatus> advertisementSupporterStatusOptional = advertisementSupporterStatusRepository
+                .findByNameInAnyLanguage(AdvertisementSupporterStatus.NO_RESPONSE);
+
+        if (advertisementSupporterStatusOptional.isEmpty()) {
+    		String errorMessage = String.format("MeetinParticipantStatus {} could not be found.", MeetingParticipantStatus.NO_RESPONSE);
+        	throw new EntityNotFoundException(errorMessage);
+    	}
+        
+        AdvertisementSupporterStatus advertisementSupporterStatus = advertisementSupporterStatusOptional.get();
+		
 		AdvertisementSupporter advertisementSupporter = new AdvertisementSupporter();
 		advertisementSupporter.setAdvertisement(advertisement);
 		advertisementSupporter.setCompany(company);
+		advertisementSupporter.setStatus(advertisementSupporterStatus);
 		advertisementSupporter.setHasAccepted(false);
 		
 		AdvertisementSupporter result = advertisementSupporterRepository.save(advertisementSupporter);
@@ -108,8 +128,40 @@ public class AdvertisementSupporterService {
 	}
 
 	public AdvertisementSupporter acceptForCompany(AdvertisementSupporter advertisementSupporter) {
+    	Optional<AdvertisementSupporterStatus> advertisementSupporterStatusOptional = advertisementSupporterStatusRepository
+                .findByNameInAnyLanguage(AdvertisementSupporterStatus.ACCEPTED);
+
+        if (advertisementSupporterStatusOptional.isEmpty()) {
+    		String errorMessage = String.format("MeetinParticipantStatus {} could not be found.", MeetingParticipantStatus.ACCEPTED);
+        	throw new EntityNotFoundException(errorMessage);
+    	}
+        
+        AdvertisementSupporterStatus advertisementSupporterStatus = advertisementSupporterStatusOptional.get();
+	
+		advertisementSupporter.setStatus(advertisementSupporterStatus);
 		advertisementSupporter.setHasAccepted(true);
 		
 		return advertisementSupporterRepository.save(advertisementSupporter);
+	}
+	
+	public AdvertisementSupporter rejectForCompany(AdvertisementSupporter advertisementSupporter) {
+    	Optional<AdvertisementSupporterStatus> advertisementSupporterStatusOptional = advertisementSupporterStatusRepository
+                .findByNameInAnyLanguage(AdvertisementSupporterStatus.REJECTED);
+
+        if (advertisementSupporterStatusOptional.isEmpty()) {
+    		String errorMessage = String.format("MeetinParticipantStatus {} could not be found.", MeetingParticipantStatus.REJECTED);
+        	throw new EntityNotFoundException(errorMessage);
+    	}
+        
+        AdvertisementSupporterStatus advertisementSupporterStatus = advertisementSupporterStatusOptional.get();
+	
+		advertisementSupporter.setStatus(advertisementSupporterStatus);
+		advertisementSupporter.setHasAccepted(false);
+		
+		return advertisementSupporterRepository.save(advertisementSupporter);
+	}
+
+	public boolean checkNoResponse(AdvertisementSupporter advertisementSupporter) {
+		return advertisementSupporter.getStatus().getNameEn().equals(AdvertisementSupporterStatus.NO_RESPONSE);
 	}
 }
