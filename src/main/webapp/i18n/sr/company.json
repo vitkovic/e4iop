@@ -63,7 +63,8 @@
         "imgInfo": {
           "imgNumber": "* Broj slika koje možete dodati je: ",
           "imgSize": "* Dozvoljena maksimalna veličina slike je 2 mb.",
-          "imgLimit": "Dostignut je maksimalan broj slika (15). Molim Vas uklonite pojedine slike, kako biste mogli da dodate nove."
+          "imgLimit": "Dostignut je maksimalan broj slika (15). Molim Vas uklonite pojedine slike, kako biste mogli da dodate nove.",
+          "logoSizeLimit": "Slika nije dodata. Dozvoljena maksimalna veličina slike je 2 mb."
         },
         "documentInfo": {
           "documentNumber": "* Broj dokumenata koje možete dodati je: ",

@@ -65,7 +65,8 @@
         "imgInfo": {
           "imgNumber": "* Number of images you can add is: ",
           "imgSize": "* Maximum allowed image size is 2 mb.",
-          "imgLimit": "Maximum number of images (15) has been reached. Please remove some images in order to add new ones."
+          "imgLimit": "Maximum number of images (15) has been reached. Please remove some images in order to add new ones.",
+          "logoSizeLimit": "No image added. Maximum allowed image size is 2 mb."
         },
         "documentInfo": {
           "documentNumber": "* Number of documents you can add is: ",

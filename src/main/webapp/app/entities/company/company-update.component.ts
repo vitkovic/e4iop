@@ -677,4 +677,24 @@ export default class CompanyUpdate extends Vue {
     let regex = /^doc_company_\d+_/;
     return fileName.replace(regex, '');
   }
+
+  public handleFileChange(event) {
+    const files = event.target.files;
+    if (!files.length) return;
+
+    const file = files[0];
+
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      const errorText = this.$t('riportalApp.company.upload.imgInfo.logoSizeLimit') as string;
+      this.$notify({
+        text: errorText,
+        type: 'error',
+        duration: 5000,
+      });
+      this.imageLogo = null;
+    } else {
+      this.imageLogo = file;
+    }
+  }
 }

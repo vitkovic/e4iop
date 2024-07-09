@@ -122,7 +122,7 @@
                   ></label>
                   <b-form-file
                     style="margin-bottom: 5px;"
-                    v-model="imageLogo"
+                    @change="handleFileChange"
                     class="customPlaceholder"
                     :state="Boolean(imageLogo)"
                     :placeholder="placeholdertext"
@@ -132,6 +132,9 @@
                     :file-name-formatter="formatNames"
                   >
                   </b-form-file>
+                  <div>
+                    <p class="small mb-0 text-info" v-text="$t('riportalApp.company.upload.imgInfo.imgSize')"></p>
+                  </div>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                   <div v-if="company.logo">
