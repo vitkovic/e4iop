@@ -91,7 +91,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/auth-info").permitAll()
             .antMatchers("/api/advertisement-categories/**").permitAll()
             .antMatchers("/api/advertisement-categories/*").permitAll()
-    //        http://localhost:9001/b2b/advertisement/6351/view
+            .antMatchers("/api/advertisements/view/*").permitAll()
+            .antMatchers("/api/advertisements/view/**").permitAll()
+            .antMatchers("/api/collaborations/company-ratings*").permitAll()
+            .antMatchers("/api/advertisement-supporters/retrieve*").permitAll()
+            .antMatchers("/api/retrieve/image*").permitAll()
             .antMatchers("/api/advertisement-categories/*").permitAll()
             .antMatchers("/api/advertisement-categories").permitAll()
             .antMatchers("/api/advertisements/search*").permitAll()

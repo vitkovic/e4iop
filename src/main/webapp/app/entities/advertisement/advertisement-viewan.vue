@@ -325,7 +325,7 @@
             </b-button>
           </div>
           <div class="wrapper">
-            <div class="carousel" ref="carousel" v-if="advertisementImagesArray">
+            <div class="carousel" ref="carousel" id = 'carousel' v-if="advertisementImagesArray">
               <img
                 v-for="(document, index) in advertisementImagesArray"
                 :key="index"

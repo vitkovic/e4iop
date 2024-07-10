@@ -270,7 +270,7 @@ new Vue({
     companyService: () => new CompanyService(),
     messageService: () => new MessageService(),
     badgeService: () => new BadgeService(),
-   // advertisementSupporterService: () => new AdvertisementSupporterService(),
+    advertisementSupporterService: () => new AdvertisementSupporterService(),
     advertisementSupporterStatusService: () => new AdvertisementSupporterStatusService(),
     advertisementStatusService: () => new AdvertisementStatusService(),
     advertisementDurationService: () => new AdvertisementDurationService(),

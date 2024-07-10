@@ -113,16 +113,21 @@ export default class AdvertisementDetails extends Vue {
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.advertisementId) {
-        vm.retrieveAdvertisement(to.params.advertisementId);
+        vm.retrieveAdvertisementView(to.params.advertisementId);
       }
     });
   }
 
-  created() {}
+  created() {
+  
+  }
 
   mounted() {
-    this.updateImgWidth();
-    window.addEventListener('resize', this.updateImgWidth);
+  
+       //this.updateImgWidth();
+    	window.addEventListener('resize', this.updateImgWidth);
+  
+    
   }
 
   beforeDestroy() {
@@ -137,6 +142,7 @@ export default class AdvertisementDetails extends Vue {
       if (document.type.type === 'image') {
         const imageUrl = await this.advertisementService().retrieveImage(document.filename);
         this.advertisementImagesArray.push(imageUrl);
+        
       }
     }
   }
@@ -261,7 +267,9 @@ export default class AdvertisementDetails extends Vue {
 
   updateImgWidth() {
     console.log('Update image width called');
-    const carousel = this.$refs.carousel as HTMLElement;
+    
+    var carousel = this.$refs.carousel as HTMLElement;
+    
     const totalImages = carousel.querySelectorAll('img').length;
     const firstImg = carousel.querySelectorAll('img')[0] as HTMLElement;
 
@@ -323,6 +331,7 @@ export default class AdvertisementDetails extends Vue {
 
 
 	public retrieveAdvertisementView(advertisementId) {
+	
     this.advertisementService()
       .findView(advertisementId)
       .then(res => {
