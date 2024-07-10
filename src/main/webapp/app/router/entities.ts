@@ -1323,7 +1323,7 @@ export default [
     path: '/b2b/advertisement/:advertisementId/view',
     name: 'AdvertisementView',
     component: AdvertisementDetails,
-    meta: { authorities: [Authority.USER] },
+   
   },
   {
     path: '/b2b/advertisement-browse',

@@ -142,7 +142,8 @@ export default class Advertisement extends mixins(AlertMixin) {
 	    subobj['subsubcategory'] = advs[i].subsubcategory.name;
 	    subobj['budget']=advs[i].budget;
 	    subobj['company'] = advs[i].company.name;
-	    subobj['datetime'] = advs[i].activationDatetime;
+	    var dtm = new Date(advs[i].activationDatetime)
+	    subobj['datetime'] = dtm.toUTCString();
 	    subobj['id'] = advs[i].id;
 	   
 	    
