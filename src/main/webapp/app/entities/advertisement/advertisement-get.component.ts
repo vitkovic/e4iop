@@ -67,7 +67,7 @@ export default class Advertisement extends mixins(AlertMixin) {
   
  public IdRenderer(params: ICellRendererParams):any {
     const lnktxt = this.$t('entity.action.view');
-    const link = `<a href="/b2b/advertisement/${params.value}/view" target="_blank">`+this.$t('entity.action.view')+`</a>`;
+    const link = `<a href="/b2b/advertisement/viewan/${params.value}" target="_blank">`+this.$t('entity.action.view')+`</a>`;
     
    
     return link;

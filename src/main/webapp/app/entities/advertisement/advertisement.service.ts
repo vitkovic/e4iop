@@ -5,6 +5,7 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 
 const baseApiUrl = 'api/advertisements';
+const baseApiUrlView = 'api/advertisements/view';
 const baseApiUrlSearch = 'api/advertisements/search';
 const baseApiUrlSearchAll = 'api/advertisements/get';
 const updateCreatedByApiUrl = 'api/advertisements/update-created';
@@ -29,6 +30,19 @@ export default class AdvertisementService {
     return new Promise<IAdvertisement>((resolve, reject) => {
       axios
         .get(`${baseApiUrl}/${id}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+  
+  public findView(id: number): Promise<IAdvertisement> {
+    return new Promise<IAdvertisement>((resolve, reject) => {
+      axios
+        .get(`${baseApiUrlView}/${id}`)
         .then(res => {
           resolve(res.data);
         })

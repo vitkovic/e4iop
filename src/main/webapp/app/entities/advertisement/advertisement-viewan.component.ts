@@ -322,7 +322,22 @@ export default class AdvertisementDetails extends Vue {
   }
 
 
-	
+	public retrieveAdvertisementView(advertisementId) {
+    this.advertisementService()
+      .findView(advertisementId)
+      .then(res => {
+        this.advertisement = res;
+        
+        console.log(res)
+        this.checkCompanyOwnership();
+        this.getCompanyRatings(this.advertisement.company.id);
+        this.retrieveAdvertisementSupporters(this.advertisement.id);
+        return this.companyImages();
+      })
+      .catch(error => {
+        console.error('Error fetching company details or images:', error);
+      });
+  }
 
 
   public retrieveAdvertisementSupporters(advertisementId): void {
@@ -370,18 +385,11 @@ export default class AdvertisementDetails extends Vue {
   }
 
   public checkCompanyOwnership(): void {
-    const user = this.$store.getters.account;
+   // const user = this.$store.getters.account;
 
-    if (user) {
-      this.portalUserService()
-        .findByUserId(user.id)
-        .then(res => {
-          this.portalUser = res;
-          if (this.portalUser.company?.id === this.advertisement.company.id) {
+   
             this.isCompanyOwnerValue = true;
-          }
-        });
-    }
+      
   }
 
   public prepareAdInquiry(instance: IAdvertisement): void {

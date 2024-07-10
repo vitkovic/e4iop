@@ -178,6 +178,18 @@ public class AdvertisementResource {
         return ResponseUtil.wrapOrNotFound(advertisement);
     }
     
+    /**
+     * {@code GET  /advertisements/:id} : get the "id" advertisement.
+     *
+     * @param id the id of the advertisement to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the advertisement, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/advertisements/view/{id}")
+    public ResponseEntity<Advertisement> getAdvertisementView(@PathVariable Long id) {
+        log.debug("REST request to get Advertisement : {}", id);
+        Optional<Advertisement> advertisement = advertisementService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(advertisement);
+    }
    
     /**
      * {@code DELETE  /advertisements/:id} : delete the "id" advertisement.
