@@ -861,4 +861,9 @@ export default class AdvertisementUpdate extends Vue {
     const valuesInArray2 = array2.map(item => item[property]);
     return array1.filter(element => !valuesInArray2.includes(element[property]));
   }
+
+  public documentFileName(fileName) {
+    let regex = /^doc_ad_\d+_/;
+    return fileName.replace(regex, '');
+  }
 }

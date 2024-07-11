@@ -1,8 +1,12 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-10 col-md-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
-        <h2 v-if="advertisementTitleHasID === true" id="riportalApp.advertisement.home.createOrEditLabel" v-text="$t('riportalApp.advertisement.home.createTitleLabel')">
+        <h2
+          v-if="advertisementTitleHasID === true"
+          id="riportalApp.advertisement.home.createOrEditLabel"
+          v-text="$t('riportalApp.advertisement.home.createTitleLabel')"
+        >
           Create an Advertisement
         </h2>
         <h2 v-else id="riportalApp.advertisement.home.createOrEditLabel" v-text="$t('riportalApp.advertisement.home.editTitleLabel')">
@@ -14,18 +18,18 @@
                         <input type="text" class="form-control" id="id" name="id"
                                v-model="advertisement.id" readonly />
                     </div> -->
-          <div class="col-8">
+          <div class="col-xs-12 col-md-7 col-lg-8 order-2 order-md-1">
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.type')" for="advertisement-type">Type</label>
-              <select 
-                class="form-control" 
-                id="advertisement-type" 
-                name="type" 
+              <select
+                class="form-control"
+                id="advertisement-type"
+                name="type"
                 v-model="advertisement.type"
                 :class="{ valid: !$v.advertisement.type.$invalid, invalid: $v.advertisement.type.$invalid }"
                 @blur="$v.advertisement.type.$touch()"
                 required
-                >
+              >
                 <option v-bind:value="null"></option>
                 <option
                   v-bind:value="
@@ -39,11 +43,7 @@
                 >
               </select>
               <div v-if="$v.advertisement.type.$anyDirty && $v.advertisement.type.$invalid">
-                <small
-                  class="form-text text-danger"
-                  v-if="!$v.advertisement.type.required"
-                  v-text="$t('entity.validation.required')"
-                >
+                <small class="form-text text-danger" v-if="!$v.advertisement.type.required" v-text="$t('entity.validation.required')">
                   This field is required.
                 </small>
               </div>
@@ -71,41 +71,41 @@
               </select>
             </div>
             <div v-if="!advertisementTitleHasID" class="form-group">
-                <label
-                  class="form-control-label"
-                  v-text="$t('riportalApp.advertisement.activationDatetime')"
-                  for="advertisement-activationDatetime"
-                  >Activation Datetime</label
-                >
-                <div class="d-flex">
-                  <input
-                    id="advertisement-activationDatetime"
-                    type="datetime-local"
-                    class="form-control"
-                    name="activationDatetime"
-                    :class="{ valid: !$v.advertisement.activationDatetime.$invalid, invalid: $v.advertisement.activationDatetime.$invalid }"
-                    :value="convertDateTimeFromServer($v.advertisement.activationDatetime.$model)"
-                    @change="updateInstantField('activationDatetime', $event)"
-                    readonly
-                  />
-                </div>
-                <div v-if="$v.advertisement.activationDatetime.$anyDirty && $v.advertisement.activationDatetime.$invalid">
-                  <small
-                    class="form-text text-danger"
-                    v-if="!$v.advertisement.activationDatetime.required"
-                    v-text="$t('entity.validation.required')"
-                  >
-                    This field is required.
-                  </small>
-                  <small
-                    class="form-text text-danger"
-                    v-if="!$v.advertisement.activationDatetime.ZonedDateTimelocal"
-                    v-text="$t('entity.validation.ZonedDateTimelocal')"
-                  >
-                    This field should be a date and time.
-                  </small>
-                </div>
+              <label
+                class="form-control-label"
+                v-text="$t('riportalApp.advertisement.activationDatetime')"
+                for="advertisement-activationDatetime"
+                >Activation Datetime</label
+              >
+              <div class="d-flex">
+                <input
+                  id="advertisement-activationDatetime"
+                  type="datetime-local"
+                  class="form-control"
+                  name="activationDatetime"
+                  :class="{ valid: !$v.advertisement.activationDatetime.$invalid, invalid: $v.advertisement.activationDatetime.$invalid }"
+                  :value="convertDateTimeFromServer($v.advertisement.activationDatetime.$model)"
+                  @change="updateInstantField('activationDatetime', $event)"
+                  readonly
+                />
               </div>
+              <div v-if="$v.advertisement.activationDatetime.$anyDirty && $v.advertisement.activationDatetime.$invalid">
+                <small
+                  class="form-text text-danger"
+                  v-if="!$v.advertisement.activationDatetime.required"
+                  v-text="$t('entity.validation.required')"
+                >
+                  This field is required.
+                </small>
+                <small
+                  class="form-text text-danger"
+                  v-if="!$v.advertisement.activationDatetime.ZonedDateTimelocal"
+                  v-text="$t('entity.validation.ZonedDateTimelocal')"
+                >
+                  This field should be a date and time.
+                </small>
+              </div>
+            </div>
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.title')" for="advertisement-title">Title</label>
               <input
@@ -150,14 +150,14 @@
             </div>
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.kind')" for="advertisement-kind">Kind</label>
-              <select 
-              class="form-control" 
-              id="advertisement-kind" 
-              name="kind" 
-              v-model="advertisement.kind"
+              <select
+                class="form-control"
+                id="advertisement-kind"
+                name="kind"
+                v-model="advertisement.kind"
                 :class="{ valid: !$v.advertisement.kind.$invalid, invalid: $v.advertisement.kind.$invalid }"
                 @blur="$v.advertisement.kind.$touch()"
-              required
+                required
               >
                 <option v-bind:value="null"></option>
                 <option
@@ -172,11 +172,7 @@
                 >
               </select>
               <div v-if="$v.advertisement.kind.$anyDirty && $v.advertisement.kind.$invalid">
-                <small
-                  class="form-text text-danger"
-                  v-if="!$v.advertisement.kind.required"
-                  v-text="$t('entity.validation.required')"
-                >
+                <small class="form-text text-danger" v-if="!$v.advertisement.kind.required" v-text="$t('entity.validation.required')">
                   This field is required.
                 </small>
               </div>
@@ -185,14 +181,14 @@
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.subsubcategory')" for="advertisement-subsubcategory"
                 >Subsubcategory</label
               >
-              <select 
-              class="form-control" 
-              id="advertisement-subsubcategory" 
-              name="subsubcategory" 
-              v-model="advertisement.subsubcategory"
+              <select
+                class="form-control"
+                id="advertisement-subsubcategory"
+                name="subsubcategory"
+                v-model="advertisement.subsubcategory"
                 :class="{ valid: !$v.advertisement.subsubcategory.$invalid, invalid: $v.advertisement.subsubcategory.$invalid }"
                 @blur="$v.advertisement.subsubcategory.$touch()"
-              required
+                required
               >
                 <option v-bind:value="null"></option>
                 <option
@@ -220,14 +216,14 @@
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.duration')" for="advertisement-duration"
                 >Duration</label
               >
-              <select 
-              class="form-control" 
-              id="advertisement-duration" 
-              name="duration" 
-              v-model="advertisement.duration"
+              <select
+                class="form-control"
+                id="advertisement-duration"
+                name="duration"
+                v-model="advertisement.duration"
                 :class="{ valid: !$v.advertisement.duration.$invalid, invalid: $v.advertisement.duration.$invalid }"
                 @blur="$v.advertisement.duration.$touch()"
-              required
+                required
               >
                 <option v-bind:value="null"></option>
                 <option
@@ -242,11 +238,7 @@
                 >
               </select>
               <div v-if="$v.advertisement.duration.$anyDirty && $v.advertisement.duration.$invalid">
-                <small
-                  class="form-text text-danger"
-                  v-if="!$v.advertisement.duration.required"
-                  v-text="$t('entity.validation.required')"
-                >
+                <small class="form-text text-danger" v-if="!$v.advertisement.duration.required" v-text="$t('entity.validation.required')">
                   This field is required.
                 </small>
               </div>
@@ -264,13 +256,10 @@
             </div>
             <div class="form-group">
               <label class="form-control-label" for="advertisement-conditions"
-                >{{ $t('riportalApp.advertisement.conditions') }} 
-                <span
-                  class="text-info"
-                  v-b-tooltip.hover.v-info
-                  :title="$t('riportalApp.advertisement.conditionsInfo')"
-                ><font-awesome-icon icon='question-circle'></font-awesome-icon></span></label
-              >
+                >{{ $t('riportalApp.advertisement.conditions') }}
+                <span class="text-info" v-b-tooltip.hover.v-info :title="$t('riportalApp.advertisement.conditionsInfo')"
+                  ><font-awesome-icon icon="question-circle"></font-awesome-icon></span
+              ></label>
               <textarea
                 type="text"
                 class="form-control"
@@ -280,13 +269,9 @@
                 v-model="$v.advertisement.conditions.$model"
               />
             </div>
-
-
           </div>
 
-
-
-          <div class="col-3">
+          <div class="col-xs-12 col-md-5 col-lg-4 col-xl-3 order-1 order-md-2 mb-4">
             <div class="border-line border p-3" v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')">
               <div class="form-group">
                 <label class="form-control-label" v-text="$t('riportalApp.advertisement.createdAt')" for="advertisement-createdAt"
@@ -417,9 +402,10 @@
         </div>
 
         <div class="row">
-          <div class="col-5">
-            <hr>
-            <company-select class="mt-3"
+          <div class="col-9 col-md-5">
+            <hr />
+            <company-select
+              class="mt-3"
               ref="companySelect"
               :labelText="$t('riportalApp.advertisement.additionalSupporters')"
               :includedCompanies="includedCompanies"
@@ -430,12 +416,16 @@
 
         <hr />
         <div class="row mt-4 justify-content-between">
-          <div class="col-5">
+          <div class="col-xs-12 col-md-6 col-lg-5">
             <div class="form-group">
-              <label class="form-control-label position-relative" v-text="$t('riportalApp.advertisement.upload.imgUpload')"></label>
+              <label
+                class="form-control-label position-relative font-weight-bold"
+                v-text="$t('riportalApp.advertisement.upload.imgUpload')"
+              ></label>
               <b-form-file
                 style="margin-bottom: 5px;"
                 v-model="formImages"
+                class="customPlaceholder"
                 @input="appendImageFiles()"
                 :state="Boolean(formImages)"
                 :placeholder="placeholdertext"
@@ -461,28 +451,30 @@
                 <p class="small mb-0 text-info" v-text="$t('riportalApp.advertisement.upload.imgInfo.imgSize')"></p>
                 <!-- <p class="small mb-0 text-info">* Dozvoljene dimenzije slike su 50 x 50.</p> -->
               </div>
-              <ol class="p-0">
+              <div class="p-0">
                 <p class="font-weight-bold mt-3" v-text="$t('riportalApp.advertisement.upload.currentImg')">Current images:</p>
-                <div v-for="document in advertisement.documents">
-                  <li v-if="document.type.type == 'image'" class="ml-4 mb-3 pl-2">
-                    <img :src="advertisementService().retrieveImage(document.filename)" width="50" />
+                <div class="d-flex flex-wrap">
+                  <div v-for="document in advertisement.documents" v-if="document.type.type == 'image'" class="image-item mb-4 mr-2">
+                    <div class="img-box">
+                      <img :src="advertisementService().retrieveImage(document.filename)" />
+                    </div>
                     <!-- {{ document.filename }} -->
                     <button
                       type="button"
-                      class="btn btn-sm btn-danger ml-3"
+                      class="btn btn-sm btn-danger mt-3"
                       @click="openDeleteImageModal(document.id)"
                       v-b-modal.deleteImageModal
                     >
                       <span v-text="$t('entity.action.delete')">Save</span>
                     </button>
-                  </li>
+                  </div>
                 </div>
-              </ol>
+              </div>
               <ol class="p-0">
                 <p v-if="imageFiles.length > 0" class="font-weight-bold mt-3" v-text="$t('riportalApp.advertisement.upload.newImg')">
                   New images:
                 </p>
-                <li v-for="image in imageFiles" class="ml-4 mb-3">
+                <li v-for="image in imageFiles" class="ml-4 mb-3 document-content">
                   {{ image.name }}
                   <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="removeImage(image.name)">
                     <span v-text="$t('entity.action.remove')">Save</span>
@@ -499,12 +491,16 @@
             </b-row> -->
           </div>
           <hr />
-          <div class="col-5">
+          <div class="col-xs-12 col-md-6 col-lg-5">
             <div class="form-group">
-              <label class="form-control-label position-relative" v-text="$t('riportalApp.advertisement.upload.documentUpload')"></label>
+              <label
+                class="form-control-label position-relative font-weight-bold"
+                v-text="$t('riportalApp.advertisement.upload.documentUpload')"
+              ></label>
               <b-form-file
                 style="margin-bottom: 5px;"
                 v-model="formDocuments"
+                class="customPlaceholder"
                 @input="appendDocumentFiles()"
                 :state="Boolean(formDocuments)"
                 :placeholder="placeholdertext"
@@ -534,11 +530,11 @@
                 <div v-for="document in advertisement.documents">
                   <li v-if="document.type.type == 'document'" class="ml-4 mb-3">
                     <a
-                      class="text-info"
+                      class="text-info document-content"
                       :href="advertisementService().retrieveDocument(document.filename)"
                       target="_blank"
                       title="Preuzmite dokument"
-                      >{{ document.filename }}
+                      >{{ documentFileName(document.filename) }}
                     </a>
                     <button
                       type="button"
@@ -555,7 +551,7 @@
                 <p v-if="documentFiles.length > 0" class="font-weight-bold mt-3" v-text="$t('riportalApp.advertisement.upload.newDoc')">
                   New documents:
                 </p>
-                <li v-for="document in documentFiles" class="ml-4 mb-3">
+                <li v-for="document in documentFiles" class="ml-4 mb-3 document-content">
                   {{ document.name }}
                   <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="removeDocument(document.name)">
                     <span v-text="$t('entity.action.remove')">Save</span>
@@ -641,5 +637,30 @@
 
 .form-group textarea {
   height: 40px;
+}
+
+.customPlaceholder {
+  overflow: hidden;
+}
+
+.image-item {
+  width: 70px;
+  margin-bottom: 10px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-box {
+  width: 50px;
+  height: 50px;
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

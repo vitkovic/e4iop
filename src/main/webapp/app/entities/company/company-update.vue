@@ -533,12 +533,11 @@
 
 .image-item {
   width: 70px;
-  /* height: 75px;  */
-  margin-bottom: 10px; /* Adjust margin as needed */
-  list-style-type: none; /* Remove bullet points */
-  display: flex; /* Use flexbox for internal alignment */
+  margin-bottom: 10px; 
+  list-style-type: none; 
+  display: flex; 
   flex-direction: column;
-  align-items: center; /* Center items horizontally */
+  align-items: center; 
   justify-content: center;
 }
 
