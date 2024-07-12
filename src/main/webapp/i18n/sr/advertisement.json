@@ -24,7 +24,7 @@
       "expirationDatetime": "Datum isteka",
       "deletionDatetime": "Datum brisanja",
       "id":"ID",
-      "title": "Naslov",
+      "title": "Naziv",
       "description": "Opis",
       "budget": "Očekivani budžet (rsd)",
       "conditions": "Uslovi",

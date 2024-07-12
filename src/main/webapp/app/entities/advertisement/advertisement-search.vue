@@ -42,20 +42,19 @@
                     <!-- <th v-on:click="changeOrder('createdAt')"><span v-text="$t('riportalApp.advertisement.createdAt')">Created At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdAt'"></jhi-sort-indicator></th> -->
                     <!-- <th v-on:click="changeOrder('modifiedAt')"><span v-text="$t('riportalApp.advertisement.modifiedAt')">Modified At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedAt'"></jhi-sort-indicator></th> -->
 
-                    <th><span v-text="$t('riportalApp.advertisement.title')">Title</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('title')"><span v-text="$t('riportalApp.advertisement.title')">Title</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator></th>
                     <!-- <th v-on:click="changeOrder('description')"><span v-text="$t('riportalApp.advertisement.description')">Description</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'description'"></jhi-sort-indicator></th> -->
                     <!-- <th v-on:click="changeOrder('conditions')"><span v-text="$t('riportalApp.advertisement.conditions')">Conditions</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'conditions'"></jhi-sort-indicator></th> -->
                     <!-- <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.advertisement.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th> -->
                     <!-- <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.advertisement.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th> -->
-                    <th><span v-text="$t('riportalApp.advertisement.status')">Status</span> </th>
-                    <th ><span v-text="$t('riportalApp.advertisement.type')">Type</span> </th>
-                    <th ><span v-text="$t('riportalApp.advertisement.kind')">Kind</span></th> 
-                    <th ><span v-text="$t('riportalApp.advertisement.subsubcategory')">Subsubcategory</span></th>
-                    <th ><span v-text="$t('riportalApp.advertisement.budget')">Budget</span></th>
-                    <th ><span v-text="$t('riportalApp.advertisement.company')">Company</span> </th>
-                    <th ><span v-text="$t('riportalApp.advertisement.activationDatetime')">Activation Datetime</span> </th>
-                    <th ><span v-text="$t('riportalApp.advertisement.expirationDatetime')">Expiration Date</span> </th>
-                    <th ><span v-text="$t('riportalApp.advertisement.deletionDatetime')">Deletion Date</span> </th>
+                    <th v-on:click="changeOrder('status')"><span v-text="$t('riportalApp.advertisement.status')">Status</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'status'"></jhi-sort-indicator></th></th>
+                    <th v-on:click="changeOrder('type')"><span v-text="$t('riportalApp.advertisement.type')">Type</span> </th>
+                    <th v-on:click="changeOrder('kind')"><span v-text="$t('riportalApp.advertisement.kind')">Kind</span></th> 
+                    <th v-on:click="changeOrder('subsubcategory')"><span v-text="$t('riportalApp.advertisement.subsubcategory')">Subsubcategory</span><jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subsubcategory'"></jhi-sort-indicator></th></th>
+                    <th v-on:click="changeOrder('budget')"><span v-text="$t('riportalApp.advertisement.budget')">Budget</span> </th>
+                    <th v-on:click="changeOrder('company')"><span v-text="$t('riportalApp.advertisement.company')">Company</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'sompany'"></jhi-sort-indicator></th></th>
+                    <th v-on:click="changeOrder('activationDatetime')"><span v-text="$t('riportalApp.advertisement.activationDatetime')">Activation Datetime</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'activationDatetime'"></jhi-sort-indicator></th></th>
+                    <th v-on:click="changeOrder('expirationDatetime')"><span v-text="$t('riportalApp.advertisement.expirationDatetime')">Expiration Date</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'expirationDatetime'"></jhi-sort-indicator></th></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -102,7 +101,7 @@
                             {{advertisement.subsubcategory.name}}
                         </div>
                     </td>
-                    <td>{{advertisement.budget}}</td>
+                    <td>{{advertisement.budget.toLocaleString('us-US', { style: 'currency', currency: 'RSD' })}}</script></td>
                     <td>
                         <div v-if="advertisement.company">
                             <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}">{{advertisement.company.name}}</router-link>

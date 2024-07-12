@@ -69,7 +69,10 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     
     @Query(value = "select distinct advertisement from Advertisement advertisement "
     		+ "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
-    		+ "or upper(advertisement.title) like CONCAT('%',upper(:search),'%')")
+    		+ "or upper(advertisement.title) like CONCAT('%',upper(:search),'%')",
+    	 countQuery = "select distinct advertisement from Advertisement advertisement "
+   		+ "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+   		+ "or upper(advertisement.title) like CONCAT('%',upper(:search),'%')")
     Page<Advertisement> findAllBySearchAdmin(@Param("search") String search, Pageable pageable);
     
     
@@ -96,6 +99,43 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     		+ "where advertisement.company.id = :companyId "
     		+ "and (upper(advertisement.description) like CONCAT('%',upper(:search),'%') or upper(advertisement.title) like CONCAT('%',upper(:search),'%')) and advertisement.category.id=:category")
     Page<Advertisement> findSearchAllByCompanyIdbyCategory(@Param("search") String search,@Param("companyId") Long companyId,@Param("category") Long category, Pageable pageable);
+
+    
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+    		+ "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.category.id=:category and advertisement.status.id = :status",
+    		countQuery = "select count(distinct advertisement) from Advertisement advertisement "
+    				+     		 "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+    				+     		 "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.category.id=:category and advertisement.status.id = :status")
+    Page<Advertisement> findAllBySearchAdminbyCategoryStatus(@Param("search") String search,@Param("status") Long status, @Param("category") Long category,  Pageable pageable);
+    
+    
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "where advertisement.company.id = :companyId "
+    		+ "and (upper(advertisement.description) like CONCAT('%',upper(:search),'%') or upper(advertisement.title) like CONCAT('%',upper(:search),'%')) "
+    		+ "and advertisement.category.id=:category and advertisement.status.id = :status",
+            countQuery = "select count(distinct advertisement) from Advertisement advertisement "
+    		+ "where advertisement.company.id = :companyId "
+    		+ "and (upper(advertisement.description) like CONCAT('%',upper(:search),'%') or upper(advertisement.title) like CONCAT('%',upper(:search),'%')) and advertisement.category.id=:category and advertisement.status.id = :status")
+    Page<Advertisement> findSearchAllByCompanyIdbyCategoryStatus(@Param("search") String search,@Param("status") Long status,@Param("companyId") Long companyId,@Param("category") Long category, Pageable pageable);
+
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+    		+ "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.status.id = :status",
+    		 countQuery = "select distinct advertisement from Advertisement advertisement "
+    		+ "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+    		+ "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.status.id = :status")
+    Page<Advertisement> findAllBySearchAdminStatus(@Param("search") String search,@Param("status") Long status, Pageable pageable);
+    
+    
+   
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "where advertisement.company.id = :companyId and advertisement.status.id = :status  "
+    		+ "and (upper(advertisement.description) like CONCAT('%',upper(:search),'%') or upper(advertisement.title) like CONCAT('%',upper(:search),'%'))",
+            countQuery = "select distinct advertisement from Advertisement advertisement "
+    		+ "where advertisement.company.id = :companyId and advertisement.status.id = :status  "
+    		+ "and (upper(advertisement.description) like CONCAT('%',upper(:search),'%') or upper(advertisement.title) like CONCAT('%',upper(:search),'%'))")
+    Page<Advertisement> findSearchAllByCompanyIdStatus(@Param("search") String search,@Param("status") Long status, @Param("companyId") Long companyId, Pageable pageable);
     
       
 	Optional<Advertisement> findOneByThreads(Thread thread);

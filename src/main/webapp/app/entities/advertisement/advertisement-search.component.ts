@@ -1,32 +1,43 @@
+import Vue2Filters from 'vue2-filters';
+import AlertMixin from '@/shared/alert/alert.mixin';
 import { mixins } from 'vue-class-component';
 
 import { Component, Vue, Inject } from 'vue-property-decorator';
-import Vue2Filters from 'vue2-filters';
+import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
-import AlertMixin from '@/shared/alert/alert.mixin';
 
 import AdvertisementService from './advertisement.service';
-
-import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model';
-
+import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
 import AccountService from '@/account/account.service';
 
-//import { IdRenderer } from "./IdRenderer";
+enum AdvertisementStatus {
+  ACTIVE = 'Активан',
+  INACTIVE = 'Неактиван',
+  ARCHIVED = 'Архивиран',
+}
 
-import { ICellRendererParams } from '@ag-grid-community/core';
-
-
-
+enum AdvertisementStatusFilter {
+  ALL = 'all',
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  ARCHIVED = 'archived',
+}
 
 @Component({
   mixins: [Vue2Filters.mixin],
 })
 export default class Advertisement extends mixins(AlertMixin) {
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
-
+  @Inject('advertisementStatusService') private advertisementStatusService: () => AdvertisementStatusService;
   @Inject('accountService') private accountService: () => AccountService;
 
+  public advertisements: IAdvertisement[] = [];
   public advertisementStatuses: IAdvertisementStatus[] = [];
+  public activeAdStatus: IAdvertisementStatus | null = null;
+
+  private removeId: number = null;
+  private advertisementToSwitchStatus: IAdvertisement = null;
+  private newAdvertisementStatus: IAdvertisementStatus = null;
   private hasAnyAuthorityValue = false;
 
   public itemsPerPage = 20;
@@ -36,44 +47,21 @@ export default class Advertisement extends mixins(AlertMixin) {
   public propOrder = 'id';
   public reverse = false;
   public totalItems = 0;
-
-  public advertisements: IAdvertisement[] = [];
-  public selectedAdvertisements: IAdvertisement[] = [];
-
   public isFetching = false;
+  
   public txtsearch;
   public category;
-  public tlang = this.$t;
-   public columnDefs = [];
-   public rowData = [];
-  
-   data() {
-      return {
-       columnDefs: [
-	        { headerName: this.$t('riportalApp.advertisement.title'), field: "title",filter:'true', sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.status'), field: "status",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.type'), field: "type",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.kind'), field: "kind",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.subsubcategory'), field: "subsubcategory",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.budget'), field: "budget",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.company'), field: "company",filter:'true',filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.activationDatetime'), field: "datetime",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.id'), field: "id",filter:'true', cellRenderer: this.IdRenderer },
-	      
-	      ],
-       rowData: [],
-      }
-    }
-  
- public IdRenderer(params: ICellRendererParams):any {
-    const lnktxt = this.$t('entity.action.view');
-    const link = `<a href="/b2b/advertisement/${params.value}/view" target="_blank">`+this.$t('entity.action.view')+`</a>`;
-    
-   
-    return link;
-}
+
+  public activeAdStatusFilter = AdvertisementStatusFilter.ALL;
+  public filterAllButtonVariant = 'secondary';
+  public filterActiveButtonVariant = 'outline-secondary';
+  public filterInactiveButtonVariant = 'outline-secondary';
+  public filterSoftDeleteButtonVariant = 'outline-secondary';
+
   public mounted(): void {
-	 this.txtsearch = this.$route.query.search;
+    this.retrieveAllAdvertisements();
+    
+   this.txtsearch = this.$route.query.search;
      this.category =  this.$route.query.category;
      
      if (this.txtsearch == null) {
@@ -82,10 +70,33 @@ export default class Advertisement extends mixins(AlertMixin) {
      this.category =  urlParams.get('category');
     }
     
-	  
-    this.retrieveAllAdvertisements();
+    console.log(this.txtsearch );
+    
+    this.advertisementStatusService()
+      .retrieve()
+      .then(res => {
+        this.advertisementStatuses = res.data;
+      });
   }
-
+  public created(): void {
+    this.retrieveAllAdvertisements();
+    
+   
+    this.txtsearch = this.$route.query.search;
+     this.category =  this.$route.query.category;
+     
+     if (this.txtsearch == null) {
+     const urlParams = new URLSearchParams(window.location.search);
+	 this.txtsearch = urlParams.get('search');
+     this.category =  urlParams.get('category');
+    }
+    
+    this.advertisementStatusService()
+      .retrieve()
+      .then(res => {
+        this.advertisementStatuses = res.data;
+      });
+  }
   public clear(): void {
     this.page = 1;
     this.retrieveAllAdvertisements();
@@ -97,76 +108,40 @@ export default class Advertisement extends mixins(AlertMixin) {
     const paginationQuery = {
       page: this.page - 1,
       size: this.itemsPerPage,
-      sort: this.sort()
+      sort: this.sort(),
     };
-    
-	 
-    this.advertisementService()
-       .retrieveSearch(this.txtsearch, 1,paginationQuery)
+
+    if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
+      this.advertisementService()
+       .retrieveSearch(this.txtsearch, this.category,paginationQuery)
         .then(
-        res => {
-          // Ovo koristiti az originalno povucene rezultate pretrage
-          this.advertisements = res.data;
-          console.log(this.advertisements);
-         
-          
-          this.rowData =  this.createRows(this.advertisements)
-          
-          console.log(this.rowData);
-          // Ovo koristiti za filtrirane rezultate pretrage
-          this.selectedAdvertisements = this.advertisements;
-
-          this.totalItems = Number(res.headers['x-total-count']);
-          this.queryCount = this.totalItems;
-          this.isFetching = false;
-        },
-        err => {
-          this.isFetching = false;
-        }
-      );
-     
-  }
-
-  public createRows(advs): any {
-   
-   var i = 0;
-   var rows = [];
-  	while (i < advs.length) {
-	   	
-	    var subobj = {};
-	  
-	    subobj['title'] = advs[i].title;
-	    subobj['status'] = advs[i].status.status;
-	    subobj['type'] = advs[i].type.type);
-	    subobj['kind'] = advs[i].kind.kind;
-	    subobj['subsubcategory'] = advs[i].subsubcategory.name;
-	    subobj['budget']=advs[i].budget;
-	    subobj['company'] = advs[i].company.name;
-	    subobj['datetime'] = advs[i].activationDatetime;
-	    subobj['id'] = advs[i].id;
-	   
-	    
-	   
-     	rows.push(subobj);
-	    console.log(rows);
-	    i++;
-	}
-    console.log(rows);
-  	return rows;
-  
-  
-  [
-    "Analiza faktora zastoja mašine",
-    "Активан",
-    "Потражња",
-    "Експертиза",
-    "статистичка обрада",
-    42000,
-    "B2B Kompanija",
-    "2024-05-29T10:58:05.408Z"
-]
-  
-  
+          res => {
+            this.advertisements = res.data;
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+    } else {
+      if (this.activeAdStatus) {
+        this.advertisementService()
+          .retrieveSearchByStatusId(this.txtsearch, this.activeAdStatus.id, this.category,paginationQuery)
+          .then(
+            res => {
+              this.advertisements = res.data;
+              this.totalItems = Number(res.headers['x-total-count']);
+              this.queryCount = this.totalItems;
+              this.isFetching = false;
+            },
+            err => {
+              this.isFetching = false;
+            }
+          );
+      }
+    }
   }
 
   public get authenticated(): boolean {
@@ -180,6 +155,26 @@ export default class Advertisement extends mixins(AlertMixin) {
         this.hasAnyAuthorityValue = value;
       });
     return this.hasAnyAuthorityValue;
+  }
+
+  public prepareRemove(instance: IAdvertisement): void {
+    this.removeId = instance.id;
+    if (<any>this.$refs.removeEntity) {
+      (<any>this.$refs.removeEntity).show();
+    }
+  }
+
+  public removeAdvertisement(): void {
+    this.advertisementService()
+      .delete(this.removeId)
+      .then(() => {
+        const message = this.$t('riportalApp.advertisement.deleted', { param: this.removeId });
+        this.alertService().showAlert(message, 'danger');
+        this.getAlertFromStore();
+        this.removeId = null;
+        this.retrieveAllAdvertisements();
+        this.closeDialog();
+      });
   }
 
   public sort(): Array<any> {
@@ -202,10 +197,13 @@ export default class Advertisement extends mixins(AlertMixin) {
   }
 
   public changeOrder(propOrder): void {
-	//  console.log("change order klfjsdkfldjlfdjfsdlfjsdlfj");
     this.propOrder = propOrder;
     this.reverse = !this.reverse;
     this.transition();
+  }
+
+  public closeDialog(): void {
+    (<any>this.$refs.removeEntity).hide();
   }
 
   public getExpirationDate(advertisement: IAdvertisement): Date {
@@ -213,5 +211,125 @@ export default class Advertisement extends mixins(AlertMixin) {
     expirationDate.setMonth(expirationDate.getMonth() + Number(advertisement.duration.duration));
 
     return expirationDate;
+  }
+
+  public prepareDeactivate(instance: IAdvertisement): void {
+    this.advertisementToSwitchStatus = instance;
+    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Неактиван')[0];
+
+    if (<any>this.$refs.deactivateEntity) {
+      (<any>this.$refs.deactivateEntity).show();
+    }
+  }
+
+  public closeDeactivateDialog(): void {
+    (<any>this.$refs.deactivateEntity).hide();
+  }
+
+  public deactivateAdvertisement(): void {
+    this.advertisementService()
+      .updateStatus(this.advertisementToSwitchStatus.id, this.newAdvertisementStatus.id)
+      .then(() => {
+        const message = this.$t('riportalApp.advertisement.notifications.advertisementDeactivation');
+        this.alertService().showAlert(message, 'danger');
+        this.getAlertFromStore();
+        this.retrieveAllAdvertisements();
+        this.closeDeactivateDialog();
+      });
+  }
+
+  public prepareActivate(instance: IAdvertisement): void {
+    this.advertisementToSwitchStatus = instance;
+    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Активан')[0];
+
+    if (<any>this.$refs.activateEntity) {
+      (<any>this.$refs.activateEntity).show();
+    }
+  }
+
+  public closeActivateDialog(): void {
+    (<any>this.$refs.activateEntity).hide();
+  }
+
+  public activateAdvertisement(): void {
+    this.advertisementService()
+      .updateStatus(this.advertisementToSwitchStatus.id, this.newAdvertisementStatus.id)
+      .then(() => {
+        const message = this.$t('riportalApp.advertisement.notifications.advertisementActivation');
+        this.alertService().showAlert(message, 'danger');
+        this.getAlertFromStore();
+        this.$router.push({ name: 'AdvertisementEdit', params: { advertisementId: this.advertisementToSwitchStatus.id } });
+      });
+
+    this.closeActivateDialog();
+  }
+
+  public prepareSoftDelete(instance: IAdvertisement): void {
+    this.advertisementToSwitchStatus = instance;
+    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Архивиран')[0];
+
+    this.removeId = instance.id;
+    if (<any>this.$refs.softDeleteEntity) {
+      (<any>this.$refs.softDeleteEntity).show();
+    }
+  }
+
+  public closeSoftDeleteDialog(): void {
+    (<any>this.$refs.softDeleteEntity).hide();
+  }
+
+  public softDeleteAdvertisement(): void {
+    this.advertisementService()
+      .updateStatus(this.advertisementToSwitchStatus.id, this.newAdvertisementStatus.id)
+      .then(() => {
+        const message = this.$t('riportalApp.advertisement.notifications.advertisementDeleted');
+        this.alertService().showAlert(message, 'danger');
+        this.getAlertFromStore();
+        this.retrieveAllAdvertisements();
+        this.closeSoftDeleteDialog();
+      });
+  }
+
+  public showAllAdvertisements(): void {
+    this.activeAdStatusFilter = AdvertisementStatusFilter.ALL;
+    this.activeAdStatus = null;
+    this.retrieveAllAdvertisements();
+
+    this.filterAllButtonVariant = 'secondary';
+    this.filterActiveButtonVariant = 'outline-secondary';
+    this.filterInactiveButtonVariant = 'outline-secondary';
+  }
+
+  public showActiveAdvertisements(): void {
+    this.activeAdStatusFilter = AdvertisementStatusFilter.ACTIVE;
+    this.activeAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.ACTIVE);
+    this.retrieveAllAdvertisements();
+
+    this.filterAllButtonVariant = 'outline-secondary';
+    this.filterActiveButtonVariant = 'secondary';
+    this.filterInactiveButtonVariant = 'outline-secondary';
+    this.filterSoftDeleteButtonVariant = 'outline-secondary';
+  }
+
+  public showInactiveAdvertisements(): void {
+    this.activeAdStatusFilter = AdvertisementStatusFilter.INACTIVE;
+    this.activeAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.INACTIVE);
+    this.retrieveAllAdvertisements();
+
+    this.filterAllButtonVariant = 'outline-secondary';
+    this.filterActiveButtonVariant = 'outline-secondary';
+    this.filterInactiveButtonVariant = 'secondary';
+    this.filterSoftDeleteButtonVariant = 'outline-secondary';
+  }
+
+  public showSoftDeleteAdvertisements(): void {
+    this.activeAdStatusFilter = AdvertisementStatusFilter.ARCHIVED;
+    this.activeAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.ARCHIVED);
+    this.retrieveAllAdvertisements();
+
+    this.filterAllButtonVariant = 'outline-secondary';
+    this.filterActiveButtonVariant = 'outline-secondary';
+    this.filterInactiveButtonVariant = 'outline-secondary';
+    this.filterSoftDeleteButtonVariant = 'secondary';
   }
 }

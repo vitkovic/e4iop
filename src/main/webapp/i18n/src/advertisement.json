@@ -24,7 +24,7 @@
       "expirationDatetime": "Датум истека",
       "deletionDatetime": "Датум брисања",
       "id":"ИД",
-      "title": "Наслов",
+      "title": "Назив",
       "description": "Опис",
       "budget": "Очекивани буџет (рсд)",
       "conditions": "Услови",

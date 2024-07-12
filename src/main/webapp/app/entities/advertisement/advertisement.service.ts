@@ -7,6 +7,7 @@ import { IAdvertisement } from '@/shared/model/advertisement.model';
 const baseApiUrl = 'api/advertisements';
 const baseApiUrlView = 'api/advertisements/view';
 const baseApiUrlSearch = 'api/advertisements/search';
+const baseApiUrlSearchStatus = 'api/advertisements/searchstatus';
 const baseApiUrlSearchAll = 'api/advertisements/get';
 const updateCreatedByApiUrl = 'api/advertisements/update-created';
 const updateModifiedByApiUrl = 'api/advertisements/update-modified';
@@ -38,6 +39,21 @@ export default class AdvertisementService {
         });
     });
   }
+  
+  public autoAdv(src: string): Promise<IAdvertisement> {
+    return new Promise<IAdvertisement>((resolve, reject) => {
+      axios
+        .get(`${baseApiUrlAuto}/${src}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+  
+  
   
   public findView(id: number): Promise<IAdvertisement> {
     return new Promise<IAdvertisement>((resolve, reject) => {
@@ -92,6 +108,48 @@ export default class AdvertisementService {
         });
     });
   }
+  
+  public retrieveBaseSearch(search:string, category:number, paginationQuery?: any): Promise<any> {
+  
+	
+	const  urlgo = baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
+		
+	
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+  
+  
+   public retrieveSearchByStatusId(search:string, category:number, paginationQuery?: any): Promise<any> {
+  
+	
+	const  urlgo = baseApiUrlSearchStatus + `?search=${search}`+ + `&statusId=${statusId}` + `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
+		
+	
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+  
+  
+  
+  
+  
   public retrieveBrowse(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

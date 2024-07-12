@@ -1,42 +1,6 @@
 <template>
   <div>
-  <div v-if="cmsnews && cmsnews.length > 0" style="overflow-y: scroll; height:200px;">
-  
-   <div class="table-responsive" >
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th @click="changeOrder('id')">
-                            <span v-text="$t('global.field.id')">ID</span>
-                        </th>
-                        <th @click="changeOrder('date')">
-                            <span v-text="$t('riportalApp.cmsNews.date')">Date</span>
-                        </th>
-                        <th @click="changeOrder('title')">
-                            <span v-text="$t('riportalApp.cmsNews.title')">Title</span>
-                        </th>
-                        <th @click="changeOrder('sequenceNumber')">
-                            <span v-text="$t('riportalApp.cmsNews.sequenceNumber')">Sequence Number</span>
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="news in cmsnews" :key="news.id">
-                        <td>
-                            {{ news.id }}
-                        </td>
-                        <td>{{ news.date ? $d(Date.parse(news.date), 'short') : '' }}</td>
-                        <td>{{ news.title }}</td>
-                        <td>{{ news.sequenceNumber }}</td>
-                        <td class="text-right">
-                          
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-   </div>
+ 
    <div v-if="advertisements && advertisements.length > 0" style="overflow-y: scroll; height:200px;">
   
    <div class="table-responsive">
@@ -108,7 +72,7 @@
                             {{advertisement.subsubcategory.name}}
                         </div>
                     </td>
-                    <td>{{advertisement.budget}}</td>
+                    <td>{{advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' })}}</td>
                     <td>
                         <div v-if="advertisement.company">
                             <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}">{{advertisement.company.name}}</router-link>
@@ -120,6 +84,46 @@
                     <td class="text-right">
                        
                     </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <router-link :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}" tag="button" class="btn btn-info btn-sm details">
+                                <font-awesome-icon icon="eye"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                            </router-link>
+                            <router-link v-if="advertisement.status.status === 'Активан'" :to="{name: 'AdvertisementEdit', params: {advertisementId: advertisement.id}}"  tag="button" class="btn btn-primary btn-sm edit">
+                                <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                            </router-link>
+                            <b-button v-if="advertisement.status.status === 'Активан'" v-on:click="prepareDeactivate(advertisement)"
+                                   variant="dark"
+                                   class="btn btn-sm"
+                                   v-b-modal.deactivateEntity>
+                                <!-- <font-awesome-icon icon="times"></font-awesome-icon> -->
+                                <span class="d-none d-md-inline">Deaktiviraj</span>
+                            </b-button>
+                            <b-button v-if="['Неактиван', 'Архивиран'].includes(advertisement.status.status)" v-on:click="prepareActivate(advertisement)"
+                                   variant="success"
+                                   class="btn btn-sm"
+                                   v-b-modal.activateEntity>
+                                   <!-- <font-awesome-icon icon="check"></font-awesome-icon> -->
+                                <span class="d-none d-md-inline">Aktiviraj</span>
+                            </b-button>
+                            <b-button v-if="advertisement.status.status === 'Неактиван'" v-on:click="prepareSoftDelete(advertisement)"
+                                   variant="danger"
+                                   class="btn btn-sm"
+                                   v-b-modal.softDeleteEntity>
+                                <font-awesome-icon icon="times"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                            </b-button>
+                            <b-button v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')" v-on:click="prepareRemove(advertisement)"
+                                   variant="outline-danger"
+                                   class="btn btn-sm"
+                                   v-b-modal.removeEntity>
+                                <font-awesome-icon icon="times"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="'Obriši iz baze'">Obriši iz baze</span>
+                            </b-button>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -127,106 +131,7 @@
   
    </div>
   
-   <div v-if="cmsquestions && cmsquestions.length > 0" style="overflow-y: scroll; height:200px;">
    
-    <div class="table-responsive" v-if="cmsquestions && cmsquestions.length > 0">
-    
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('createdAt')"><span v-text="$t('riportalApp.cmsQuestion.createdAt')">Created At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdAt'"></jhi-sort-indicator></th>
-                    <!-- <th v-on:click="changeOrder('modifiedAt')"><span v-text="$t('riportalApp.cmsQuestion.modifiedAt')">Modified At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedAt'"></jhi-sort-indicator></th> -->
-                    <th v-on:click="changeOrder('question')"><span v-text="$t('riportalApp.cmsQuestion.question')">Question</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'question'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('answer')"><span v-text="$t('riportalApp.cmsQuestion.answer')">Answer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'answer'"></jhi-sort-indicator></th>
-                    <!-- <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.cmsQuestion.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.cmsQuestion.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th> -->
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="cmsQuestion in cmsquestions"
-                    :key="cmsQuestion.id">
-                    <td>
-                        <router-link :to="{name: 'CmsQuestionView', params: {cmsQuestionId: cmsQuestion.id}}">{{cmsQuestion.id}}</router-link>
-                    </td>
-                    <td>{{cmsQuestion.createdAt ? $d(Date.parse(cmsQuestion.createdAt.toString()), 'short') : ''}}</td>
-                    <!-- <td>{{cmsQuestion.modifiedAt ? $d(Date.parse(cmsQuestion.modifiedAt), 'short') : ''}}</td> -->
-                    <td>{{cmsQuestion.question}}</td>
-                    <td>{{cmsQuestion.answer}}</td>
-                    <!-- <td>
-                        <div v-if="cmsQuestion.createdBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: cmsQuestion.createdBy.id}}">{{cmsQuestion.createdBy.id}}</router-link>
-                        </div>
-                    </td>
-                    <td>
-                        <div v-if="cmsQuestion.modifiedBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: cmsQuestion.modifiedBy.id}}">{{cmsQuestion.modifiedBy.id}}</router-link>
-                        </div>
-                    </td> -->
-                    <td class="text-right">
-                     
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-  </div>
-  <div v-if="companies && companies.length > 0" style="overflow-y: scroll; height:200px;">
-    <div class="table-responsive" v-if="companies && companies.length > 0">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <!-- <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th> -->
-                    <th v-on:click="changeOrder('name')"><span v-text="$t('riportalApp.company.name')">Name</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'name'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('rsnisId')"><span v-text="$t('riportalApp.company.rsnisId')">Rsnis Id</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'rsnisId'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('aprId')"><span v-text="$t('riportalApp.company.aprId')">Apr Id</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'aprId'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('fields')"><span v-text="$t('riportalApp.company.fields')">Fields</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'fields'"></jhi-sort-indicator></th>
-                    <!-- <th v-on:click="changeOrder('about')"><span v-text="$t('riportalApp.company.about')">About</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'about'"></jhi-sort-indicator></th> -->
-                    <th v-on:click="changeOrder('createdAt')"><span v-text="$t('riportalApp.company.createdAt')">Created At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdAt'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('modifiedAt')"><span v-text="$t('riportalApp.company.modifiedAt')">Modified At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedAt'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.company.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th>
-                    <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.company.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th>
-                    <!-- <th v-on:click="changeOrder('logo.id')"><span v-text="$t('riportalApp.company.logo')">Logo</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'logo.id'"></jhi-sort-indicator></th> -->
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="company in companies"
-                    :key="company.id">
-                    <!-- <td>
-                        <router-link :to="{name: 'CompanyView', params: {companyId: company.id}}">{{company.id}}</router-link>
-                    </td> -->
-                    <td>{{company.name}}</td>
-                    <td>{{company.rsnisId}}</td>
-                    <td>{{company.aprId}}</td>
-                    <!-- <td>{{company.about}}</td> -->
-                    <td>{{company.fields}}</td>
-                    <td>{{company.createdAt ? $d(Date.parse(company.createdAt), 'short') : ''}}</td>
-                    <td>{{company.modifiedAt ? $d(Date.parse(company.modifiedAt), 'short') : ''}}</td>
-                    <td>
-                        <div v-if="company.createdBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: company.createdBy.id}}">{{company.createdBy.firstname}}</router-link>
-                        </div>
-                    </td>
-                    <td>
-                        <div v-if="company.modifiedBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: company.modifiedBy.id}}">{{company.modifiedBy.firstname}}</router-link>
-                        </div>
-                    </td>
-                    <!-- <td>
-                        <div v-if="company.logo">
-                            <router-link :to="{name: 'DocumentView', params: {documentId: company.logo.id}}">{{company.logo.id}}</router-link>
-                        </div>
-                    </td> -->
-                    <td class="text-right">
-                        
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-      </div>
   </div>
 </template>
 

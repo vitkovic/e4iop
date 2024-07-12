@@ -187,6 +187,56 @@ public class AdvertisementService {
        }   
    }
   
+   
+   /* Get all the advertisements.
+   *
+   * @param pageable the pagination information.
+   * @return the list of entities.
+   */
+  @Transactional(readOnly = true)
+  public Page<Advertisement> findAllBySearchStatus(String search, Long status, Long category, Pageable pageable) {
+	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+      log.debug("Request to get all Advertisements");
+      if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
+   	  System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+     	  if (category != 1) 
+   		  return advertisementRepository.findAllBySearchAdminStatus(search,status,pageable);
+   	  else 
+   		  return advertisementRepository.findAllBySearchAdminbyCategoryStatus(search, status, category,pageable);
+      } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
+   	 
+   	   if (category != 1) 
+          	return advertisementRepository.findAllBySearchAdminbyCategoryStatus(search,status, category ,pageable);
+          else
+          	return advertisementRepository.findAllBySearchAdminStatus(search,status, pageable);
+          
+   	   
+      } else {
+   	   
+   	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+      	    Optional<User> currentUser = userService.getUserWithAuthorities();
+           User user = currentUser.get();
+           
+           PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
+           if (category != 1) 
+           	return advertisementRepository.findSearchAllByCompanyIdbyCategoryStatus(search, pUser.getCompany().getId(), status,  category ,pageable);
+           else
+           	return advertisementRepository.findSearchAllByCompanyIdStatus(search, status, pUser.getCompany().getId() ,pageable);
+           
+//           List<String> userRoles = pUser.pronadjiPortalUserRolesAbbreviations();
+//           if(userRoles.contains("RPRIPO")) {
+//          	 RiResearchOrganization rio = riResearchOrganizationRepository.findByPuOrganizationId(pUser.getUserOrganization().getId());
+//          	 Page<ResearchInfrastructure> out = researchInfrastructureRepository.findByOwnerId(rio.getId(), pageable);
+//          	 return out;
+//           }else if(userRoles.contains("PA")) {
+//          	 return researchInfrastructureRepository.findAll(pageable);
+//           }else if(userRoles.contains("RPRI")) {
+//          	 return researchInfrastructureRepository.findByManagerId(pUser.getId(), pageable);
+//           }else {
+//          	 return null;
+//           }
+      }   
+  }
 
     /**
      * Get all the advertisements with eager load of many-to-many relationships.

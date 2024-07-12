@@ -53,7 +53,7 @@ public class Advertisement implements Serializable {
     private String description;
 
     @Column(name = "budget")
-    private Long budget;
+    private Float budget;
 
     @Column(name = "conditions")
     private String conditions;
@@ -226,16 +226,16 @@ public class Advertisement implements Serializable {
         this.description = description;
     }
 
-    public Long getBudget() {
+    public Float getBudget() {
         return budget;
     }
 
-    public Advertisement budget(Long budget) {
+    public Advertisement budget(Float budget) {
         this.budget = budget;
         return this;
     }
 
-    public void setBudget(Long budget) {
+    public void setBudget(Float budget) {
         this.budget = budget;
     }
 

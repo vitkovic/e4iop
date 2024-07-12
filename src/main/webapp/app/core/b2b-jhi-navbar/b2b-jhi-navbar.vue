@@ -393,6 +393,8 @@
                   id="searchadv"
                   name="searchadv"
                   type="text"
+                  @keyup.enter="searchAdv()"
+                  @keyup = "autoAdv()"
                   :placeholder="$t('global.menu.searchAd')"
                 ></b-form-input>
                 <div class="input-group-append">
@@ -401,7 +403,7 @@
               </b-input-group>
             </div>
           </div>
-          <!--<div class="col-sm-8 col-md-8" style="max-width:100%">
+          <div class="col-sm-4 col-md-4" style="max-width:100%">
               <b-input-group  class="w-100" style="max-width:100%">
                 <b-input-group-prepend is-text>
                   <font-awesome-icon icon="search" scale="1.3"></font-awesome-icon>
@@ -410,8 +412,8 @@
                     <option  v-for="element in advCategList" :key="element.id" :value="element.id" >{{element.name}}</option>
                 </select>
                 </b-input-group>
-              </div>-->
-          <div class="col-sm-2 col-md-4" style="max-width: 100%;">
+              </div>
+         <!-- <div class="col-sm-2 col-md-4" style="max-width: 100%;">
             <multiselect
               v-model="valuetype"
               :options="options"
@@ -428,7 +430,7 @@
                 <span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span>
               </template>
             </multiselect>
-          </div>
+          </div>-->
         </div>
       </div>
     </b-navbar-nav>

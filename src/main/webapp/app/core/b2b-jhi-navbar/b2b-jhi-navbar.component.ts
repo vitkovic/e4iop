@@ -56,7 +56,14 @@ export default class B2BJhiNavbar extends Vue {
   private questions;
   private news;
   
-
+  public itemsPerPage = 20;
+  public queryCount: number = null;
+  public page = 1;
+  public previousPage = 1;
+  public propOrder = 'id';
+  public reverse = false;
+  public totalItems = 0;
+  public isFetching = false;
  beforeRouteEnter(to, from, next) {
     to(vm => {
       vm.initRelationships();
@@ -203,6 +210,51 @@ export default class B2BJhiNavbar extends Vue {
   }
   
   private advList;
+  public sort(): Array<any> {
+    const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.propOrder !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
+  public searchFound;
+  public autoAdv(): any {
+  
+  
+    console.log('true');
+  
+  
+       this.isFetching = true;
+
+    const paginationQuery = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort()
+    };
+    
+	 
+    this.advertisementService()
+       .retrieveBaseSearch(this.txtsearchNav, this.mainSearchCategory,paginationQuery)
+        .then(
+        res => {
+          // Ovo koristiti az originalno povucene rezultate pretrage
+          this.advertisements = res.data;
+          console.log(this.advertisements);
+         
+          this.$emit('adv:change', this.advertisements);
+          // Ovo koristiti za filtrirane rezultate pretrage
+          
+          this.totalItems = Number(res.headers['x-total-count']);
+          this.queryCount = this.totalItems;
+          this.isFetching = false;
+        },
+        err => {
+          this.isFetching = false;
+        }
+      );
+  }
+  
+  
   
   public searchAdv(): void {
   
@@ -215,11 +267,12 @@ export default class B2BJhiNavbar extends Vue {
    // console.log(this.advertisements);
   
 	
-	if (this.valuetype!= null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length == 1) {
-			const searchtype = this.valuetype[0].value;
+//	if (this.valuetype!= null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length == 1) {
+			//const searchtype = this.valuetype[0].value;
 			
-		    console.log(this.valuetype[0].value);
+		   // console.log(this.valuetype[0].value);
 			
+			const searchtype = 0;
 			
 			const baseApiUrlSearchAdv = '/b2b/advertisement-search';
 			const baseApiUrlSearchCmp = '/b2b/company-search';
@@ -252,12 +305,12 @@ export default class B2BJhiNavbar extends Vue {
 			}
 	
 	     window.location.href= ppath;
-	 }
+	 //}
 	
 	
 //	console.log(this.valuetype);
 	
-	
+/*	
 	if (this.valuetype != null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length > 1) {
 	
 	const num = this.valuetype.length;
@@ -324,7 +377,7 @@ export default class B2BJhiNavbar extends Vue {
 		  
 		}
 			
-			
+		*/	
      
 	//console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
   }
@@ -336,6 +389,8 @@ export default class B2BJhiNavbar extends Vue {
     this.advertisementCategoryService()
       .retrieve()
       .then(res => {
+       console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaas");
+      
 	    console.log(res.data);
         this.advCategList = res.data;
         this.$refs.mainSearchCategory = this.advCategList;
