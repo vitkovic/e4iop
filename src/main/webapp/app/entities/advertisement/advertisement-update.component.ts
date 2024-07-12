@@ -462,7 +462,7 @@ export default class AdvertisementUpdate extends Vue {
         this.advertisementKinds = res.data;
       });
     this.advertisementSubsubcategoryService()
-      .retrieve()
+      .getAllOrdered()
       .then(res => {
         this.advertisementSubsubcategories = res.data;
       });

@@ -71,4 +71,11 @@ public class AdvertisementSubsubcategoryService {
         log.debug("Request to delete AdvertisementSubsubcategory : {}", id);
         advertisementSubsubcategoryRepository.deleteById(id);
     }
+
+
+    @Transactional(readOnly = true)
+	public List<AdvertisementSubsubcategory> findAllOrdered() {
+        log.debug("Request to get all AdvertisementSubsubcategories");
+        return advertisementSubsubcategoryRepository.findAllOrderByCategorySubcategorySubsubcategoryName();
+	}
 }

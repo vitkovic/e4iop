@@ -3,6 +3,7 @@ import axios from 'axios';
 import { IAdvertisementSubsubcategory } from '@/shared/model/advertisement-subsubcategory.model';
 
 const baseApiUrl = 'api/advertisement-subsubcategories';
+const apiGetAllOrdered = 'api/advertisement-subsubcategories/ordered';
 
 export default class AdvertisementSubsubcategoryService {
   public find(id: number): Promise<IAdvertisementSubsubcategory> {
@@ -63,6 +64,19 @@ export default class AdvertisementSubsubcategoryService {
         .put(`${baseApiUrl}`, entity)
         .then(res => {
           resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getAllOrdered(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(apiGetAllOrdered)
+        .then(res => {
+          resolve(res);
         })
         .catch(err => {
           reject(err);

@@ -23,7 +23,7 @@
       "activationDatetime": "Activation datetime",
       "expirationDatetime": "Expiration datetime",
       "deletionDatetime": "Deletion datetime",
-      "id":"ID",
+      "id": "ID",
       "title": "Title",
       "description": "Description",
       "budget": "Expected budget (rsd)",
@@ -45,8 +45,9 @@
       "kind": "Kind",
       "advertisementSupporters": "Supporting advertisers",
       "additionalSupporters": "Additional advertisers",
-      "subsubcategory": "Subcategory",
+      "subsubcategory": "Subsubcategory",
       "thread": "Thread",
+      "categorization": "Categorization",
 
       "of": "of",
       "upload": {

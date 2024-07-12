@@ -114,4 +114,11 @@ public class AdvertisementSubsubcategoryResource {
         advertisementSubsubcategoryService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+
+    @GetMapping("/advertisement-subsubcategories/ordered")
+    public List<AdvertisementSubsubcategory> getAllOrdered() {
+        log.debug("REST request to get all AdvertisementSubsubcategories ordered");
+        return advertisementSubsubcategoryService.findAllOrdered();
+    }
 }

@@ -23,7 +23,7 @@
       "activationDatetime": "Датум активације",
       "expirationDatetime": "Датум истека",
       "deletionDatetime": "Датум брисања",
-      "id":"ИД",
+      "id": "ИД",
       "title": "Назив",
       "description": "Опис",
       "budget": "Очекивани буџет (рсд)",
@@ -45,10 +45,10 @@
       "kind": "Врста",
       "advertisementSupporters": "Прикључени оглашивачи",
       "additionalSupporters": "Додатни оглашивачи",
-      "subsubcategory": "Поткатегорија",
+      "subsubcategory": "Потпоткатегорија",
       "thread": "Thread",
-      "offer": "Понуда",
-      "demand": "Потражња",
+      "categorization": "Категоризација",
+
       "of": "од",
       "upload": {
         "imgUpload": "Додајте слике",

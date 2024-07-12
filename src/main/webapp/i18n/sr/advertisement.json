@@ -23,7 +23,7 @@
       "activationDatetime": "Datum aktivacije",
       "expirationDatetime": "Datum isteka",
       "deletionDatetime": "Datum brisanja",
-      "id":"ID",
+      "id": "ID",
       "title": "Naziv",
       "description": "Opis",
       "budget": "Očekivani budžet (rsd)",
@@ -45,8 +45,9 @@
       "kind": "Vrsta",
       "advertisementSupporters": "Priključeni oglašivači",
       "additionalSupporters": "Dodatni oglašivači",
-      "subsubcategory": "Potkategorija",
+      "subsubcategory": "Potpotkategorija",
       "thread": "Thread",
+      "categorization": "Kategorizacija",
 
       "of": "od",
       "upload": {

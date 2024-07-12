@@ -178,7 +178,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="form-control-label" v-text="$t('riportalApp.advertisement.subsubcategory')" for="advertisement-subsubcategory"
+              <label class="form-control-label" v-text="$t('riportalApp.advertisement.categorization')" for="advertisement-subsubcategory"
                 >Subsubcategory</label
               >
               <select
@@ -199,7 +199,7 @@
                   "
                   v-for="advertisementSubsubcategoryOption in advertisementSubsubcategories"
                   :key="advertisementSubsubcategoryOption.id"
-                  >{{ advertisementSubsubcategoryOption.name }}</option
+                  >{{ advertisementSubsubcategoryOption.advertisementSubcategory.advertisementCategory.name + " / " + advertisementSubsubcategoryOption.advertisementSubcategory.name + " / " + advertisementSubsubcategoryOption.name }}</option
                 >
               </select>
               <div v-if="$v.advertisement.subsubcategory.$anyDirty && $v.advertisement.subsubcategory.$invalid">
