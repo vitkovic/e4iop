@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class Advertisement implements Serializable {
     private String description;
 
     @Column(name = "budget")
-    private Float budget;
+    private BigDecimal budget;
 
     @Column(name = "conditions")
     private String conditions;
@@ -226,16 +227,16 @@ public class Advertisement implements Serializable {
         this.description = description;
     }
 
-    public Float getBudget() {
+    public BigDecimal getBudget() {
         return budget;
     }
 
-    public Advertisement budget(Float budget) {
+    public Advertisement budget(BigDecimal budget) {
         this.budget = budget;
         return this;
     }
 
-    public void setBudget(Float budget) {
+    public void setBudget(BigDecimal budget) {
         this.budget = budget;
     }
 

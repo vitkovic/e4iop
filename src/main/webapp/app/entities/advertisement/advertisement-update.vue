@@ -246,12 +246,14 @@
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.budget')" for="advertisement-budget">Budget</label>
               <input
-                type="number"
+                type="text"
                 class="form-control"
                 name="budget"
                 id="advertisement-budget"
                 :class="{ valid: !$v.advertisement.budget.$invalid, invalid: $v.advertisement.budget.$invalid }"
-                v-model.number="$v.advertisement.budget.$model"
+                v-model="$v.advertisement.budget.$model"
+                @input="budgetInputFormatter($event)"
+                maxlength="16"
               />
             </div>
             <div class="form-group">

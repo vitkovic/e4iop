@@ -36,6 +36,7 @@ import '../content/scss/vendor.scss';
 import AlertService from '@/shared/alert/alert.service';
 import TranslationService from '@/locale/translation.service';
 import ConfigurationService from '@/admin/configuration/configuration.service';
+import NumericDataUtils from '@/shared/data/numeric-data-utils.service';
 
 /* tslint:disable */
 
@@ -183,8 +184,7 @@ const loginService = new LoginService();
 const accountService = new AccountService(store, (<any>Vue).cookie, translationService, router);
 const portalUserService = new PortalUserService(store);
 
-
-Vue.prototype.$testGlobal = 'test'
+Vue.prototype.$testGlobal = 'test';
 
 router.beforeEach((to, from, next) => {
   if (!to.matched.length) {
@@ -301,6 +301,7 @@ new Vue({
     documentKindService: () => new DocumentKindService(),
     inquiryService: () => new InquiryService(),
     searchPageService: () => new SearchPageService(),
+    numericDataUtils: () => new NumericDataUtils(),
   },
   i18n,
   store,

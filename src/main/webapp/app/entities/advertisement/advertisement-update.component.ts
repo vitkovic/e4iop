@@ -50,6 +50,8 @@ import AccountService from '@/account/account.service';
 
 import CompanySelect from '@/shared/components/company-select/company-select.vue';
 
+import NumericDataUtils from '@/shared/data/numeric-data-utils.service';
+
 const validations: any = {
   advertisement: {
     createdAt: {},
@@ -158,6 +160,8 @@ export default class AdvertisementUpdate extends Vue {
   @Inject('threadService') private threadService: () => ThreadService;
 
   @Inject('accountService') private accountService: () => AccountService;
+
+  @Inject('numericDataUtils') public numericDataUtils: () => NumericDataUtils;
 
   public threads: IThread[] = [];
   public company: ICompany | null = null;
@@ -284,6 +288,10 @@ export default class AdvertisementUpdate extends Vue {
   public async save(): Promise<void> {
     this.isSaving = true;
     this.isLoading = true;
+
+    // Remove any dots that might be in budget input
+    this.formatBudgetToRealNumber();
+
     if (this.advertisement.id) {
       this.advertisement.expirationDatetime = new Date(this.advertisement.activationDatetime);
       const expirationMonth = this.advertisement.expirationDatetime.getMonth();
@@ -389,6 +397,9 @@ export default class AdvertisementUpdate extends Vue {
         res.modifiedAt = new Date(res.modifiedAt);
         res.activationDatetime = new Date(res.activationDatetime);
         this.advertisement = res;
+
+        // Make budget easier to read
+        this.formatBudgetToDottedStringNumber();
       });
   }
 
@@ -865,5 +876,20 @@ export default class AdvertisementUpdate extends Vue {
   public documentFileName(fileName) {
     let regex = /^doc_ad_\d+_/;
     return fileName.replace(regex, '');
+  }
+
+  public budgetInputFormatter(event: Event): void {
+    let input = event.target as HTMLInputElement;
+    let value = input.value;
+
+    this.advertisement.budget = this.numericDataUtils().dottedInputFormatter(value);
+  }
+
+  public formatBudgetToDottedStringNumber(): void {
+    this.advertisement.budget = this.numericDataUtils().dottedInputFormatter(this.advertisement.budget);
+  }
+
+  public formatBudgetToRealNumber(): void {
+    this.advertisement.budget = parseInt(this.advertisement.budget.replace(/\D/g, ''), 10);
   }
 }

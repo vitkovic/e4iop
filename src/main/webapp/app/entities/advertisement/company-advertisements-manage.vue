@@ -96,7 +96,7 @@
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind.id'"></jhi-sort-indicator>
             </th>
             <th v-on:click="changeOrder('subsubcategory.name')">
-              <span v-text="$t('riportalApp.advertisement.subsubcategory')">Subsubcategory</span>
+              <span v-text="$t('riportalApp.advertisement.categorization')">Subsubcategory</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subsubcategory.name'"></jhi-sort-indicator>
             </th>
             <th v-on:click="changeOrder('budget')">
@@ -156,7 +156,7 @@
                 {{ advertisement.subsubcategory.name }}
               </div>
             </td>
-            <td>{{ advertisement.budget }}</td>
+            <td>{{ advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' })}}</td>
             <td>
               {{
                 advertisement.activationDatetime ? $d(Date.parse(advertisement.activationDatetime.toString()), { dateStyle: 'short' }) : ''
