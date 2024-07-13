@@ -113,7 +113,7 @@
         "accountData": "Account data",
         "rsnisData": "RSNIS data",
         "additionalusers": "Entry of additional users",
-        "advertisements": "Advertisements",
+        "advertisements": "My advertisements",
         "collaborations": "Collaborations",
         "messages": "Messages",
         "calendar": "Calendar"
@@ -164,7 +164,7 @@
         "repoBackup": "Document Repository Backup"
       },
       "advertisements": {
-        "id":"ID",
+        "id": "ID",
         "main": "Advertisements",
         "advertisesearch": "All Advertises",
         "advertiseOffer": "Advertise offer",

@@ -16,7 +16,6 @@ import e4i.service.FilesStorageService;
 import e4i.domain.DocumentType;
 import e4i.repository.DocumentRepository;
 import e4i.repository.DocumentTypeRepository;
-import e4i.domain.Advertisement;
 import e4i.domain.Company;
 import e4i.domain.Document;
 import e4i.domain.PortalUser;
@@ -236,6 +235,7 @@ public class CompanyResource {
     	}
     }
     
+    @Deprecated
     @PostMapping("/companies/upload-images")
     @Transactional
     public ResponseEntity<Set<Document>> uploadImages(@RequestParam Long id, @RequestParam("files") MultipartFile[] files) {
@@ -264,6 +264,7 @@ public class CompanyResource {
   	  return ResponseEntity.ok().body(images);
     }
     
+    @Deprecated
     @PostMapping("/companies/upload-documents")
     @Transactional
     public ResponseEntity<Set<Document>> uploadCompanyDocuments(@RequestParam Long id, @RequestParam("files") MultipartFile[] files) {
@@ -293,7 +294,60 @@ public class CompanyResource {
      	  companyRepository.save(company);
      	  
      	  return ResponseEntity.ok().body(documents);        
-    }      
+    }
+    
+    @PostMapping("/companies/upload-files")
+    @Transactional
+    public ResponseEntity<?> uploadFiles(
+  		  @RequestParam Long id, 
+  		  @RequestParam("imageFiles") MultipartFile[] imageFiles,
+  		  @RequestParam("documentFiles") MultipartFile[] documentFiles
+  		  ) {
+    	
+   	  Optional<Company> companyOptional = companyService.findOne(id);
+   	  if (companyOptional.isEmpty()) {
+   		return ResponseEntity.notFound().build();
+   	  }
+  	  
+   	  Company company = companyOptional.get();
+  	
+  	  DocumentType imageType = documentTypeRepository.findByType(DocumentType.IMAGE);  
+  	  Set<Document> images = new HashSet<Document>();
+  	  
+   	  DocumentType documentType = documentTypeRepository.findByType(DocumentType.DOCUMENT);  
+   	  Set<Document> documents = new HashSet<Document>();
+      	    	
+  	  Arrays.asList(imageFiles).stream().forEach(file -> {
+  		  Document image = new Document();		  
+  		  String namePrefix = "img_page_" + id + "_";
+  		  String imageName = storageService.saveImage(namePrefix, file);
+  		  image.setFilename(imageName);
+  		  image.setType(imageType);
+  		  images.add(image);    		
+  	  });
+  	  
+   	  Arrays.asList(documentFiles).stream().forEach(file -> {
+   		  String namePrefix = "doc_page_" + id + "_";
+   		  Document document = new Document();		  
+   		  String documentName = storageService.saveDocument(namePrefix, file);
+   		  document.setFilename(documentName);
+   		  document.setType(documentType);
+   		  documents.add(document);    		
+   	  });
+   	  
+  	  documentRepository.saveAll(images);
+   	  documentRepository.saveAll(documents);
+   	  
+ 	  Set<Document> allFiles = new HashSet<Document>();
+ 	  allFiles.addAll(images);
+ 	  allFiles.addAll(documents);
+ 	  allFiles.addAll(company.getDocuments());
+ 	  company.setDocuments(allFiles);
+     	         	  
+   	  companyService.save(company);
+  	  
+  	  return ResponseEntity.ok().build();
+    }
 
     @DeleteMapping("/companies/delete-logo/{companyId}")
     @Transactional
@@ -316,6 +370,7 @@ public class CompanyResource {
         return ResponseEntity.ok().body(company);
     }
     
+    @Deprecated
     @DeleteMapping("/companies/delete-image/{companyId}/{imageId}")
     @Transactional
     public ResponseEntity<Set<Document>> deleteCompanyImage(@PathVariable Long companyId, @PathVariable Long imageId) {
@@ -339,6 +394,7 @@ public class CompanyResource {
         return ResponseEntity.ok().body(images);
     }
     
+    @Deprecated
     @DeleteMapping("/companies/delete-document/{companyId}/{documentId}")
     @Transactional
     public ResponseEntity<Set<Document>> deleteCompanyDocument(@PathVariable Long companyId, @PathVariable Long documentId) {
@@ -360,6 +416,39 @@ public class CompanyResource {
         // Ovo vraca i slike i dokumenta. Izdvojiti samo slike.
         Set<Document> documents = company.getDocuments();
         return ResponseEntity.ok().body(documents);
+    }
+    
+    @DeleteMapping("/companies/delete-file/{id}/{fileId}")
+    @Transactional
+    public ResponseEntity<?> deleteFile(@PathVariable Long id, @PathVariable Long fileId) {
+        log.debug("REST request to delete document for CmsNews : {}", id);
+
+     	  Optional<Company> companyOptional = companyService.findOne(id);
+     	  if (companyOptional.isEmpty()) {
+     		return ResponseEntity.notFound().build();
+     	  }
+     	
+        Optional<Document> documentOptional = documentRepository.findById(fileId);
+     	  if (documentOptional.isEmpty()) {
+     		return ResponseEntity.notFound().build();
+     	  }
+     	     
+     	Company company = companyOptional.get();
+        Document document = documentOptional.get();
+
+        // Ovako se brisu veze iz many-to-many tabele "company-documents"
+        company.getDocuments().remove(document);
+     	document.getCompanies().remove(company);
+
+        documentRepository.delete(document);
+        
+        if (document.getType().getType().equals(DocumentType.DOCUMENT)) {
+            storageService.deleteB2BDocument(document);
+        } else if (document.getType().getType().equals(DocumentType.IMAGE)) {
+        	storageService.deleteImage(document.getFilename());
+        }
+              
+        return ResponseEntity.ok().build();
     }
        
     @GetMapping("/companies/autocomplete/{name}/{excludedIds}")

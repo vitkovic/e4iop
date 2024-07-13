@@ -59,7 +59,7 @@ export default [
     path: '/b2b/cms/news/:cmsNewsId/view',
     name: 'CMSNewsDetails',
     component: CMSNewsDetails,
-    meta: { authorities: [Authority.ADMIN] },
+    // meta: { authorities: [Authority.ADMIN] },
   },
   {
     path: '/b2b/cms/news/:cmsNewsId/edit',

@@ -113,7 +113,7 @@
         "accountData": "Моји подаци",
         "rsnisData": "РСНИС подаци",
         "additionalusers": "Унос додатних корисника",
-        "advertisements": "Огласи",
+        "advertisements": "Моји огласи",
         "collaborations": "Сарадње",
         "messages": "Поруке",
         "calendar": "Календар"
@@ -164,7 +164,7 @@
         "repoBackup": "Копија репозиторијума докумената"
       },
       "advertisements": {
-        "id":"ИД",
+        "id": "ИД",
         "main": "Огласи",
         "advertisesearch": "Сви огласи",
         "advertiseOffer": "Огласи понуду",
@@ -257,7 +257,7 @@
       "delete": "Обриши",
       "edit": "Измени",
       "open": "Отвори",
-      "save": "Пошаљи",
+      "save": "Сачувај",
       "send": "Пошаљи",
       "remove": "Уклони",
       "yes": "Да",

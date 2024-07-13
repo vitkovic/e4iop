@@ -9,11 +9,13 @@ const baseApiUrlSearch = 'api/companies/search';
 const updateCompanyCreatedApiUrl = 'api/companies/update-created';
 const updateCompanyModifiedApiUrl = 'api/companies/update-modified';
 const apiUploadLogo = 'api/companies/upload-logo';
-const apiUploadImages = 'api/companies/upload-images';
-const apiUploadDocuments = 'api/companies/upload-documents';
+const apiUploadImages = 'api/companies/upload-images'; // Deprecated
+const apiUploadDocuments = 'api/companies/upload-documents'; // Deprecated
+const apiUploadFiles = 'api/companies/upload-files';
 const deleteLogoApi = 'api/companies/delete-logo';
-const deleteImageApi = 'api/companies/delete-image';
-const deleteDocumentApi = 'api/companies/delete-document';
+const deleteImageApi = 'api/companies/delete-image'; // Deprecated
+const deleteDocumentApi = 'api/companies/delete-document'; // Deprecated
+const apiDeleteFile = 'api/companies/delete-file';
 const apiGetAllAutocompleteByName = 'api/companies/autocomplete';
 
 export default class CompanyService {
@@ -42,11 +44,11 @@ export default class CompanyService {
         });
     });
   }
-public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
-	 console.log(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+  public retrieveSearch(search: string, paginationQuery?: any): Promise<any> {
+    console.log(baseApiUrlSearch + `?search=${search}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
     return new Promise<any>((resolve, reject) => {
       axios
-        .get(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .get(baseApiUrlSearch + `?search=${search}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
         .then(res => {
           resolve(res);
         })
@@ -137,6 +139,10 @@ public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
     });
   }
 
+  /**
+   * @deprecated
+   * Upload images is now going through {@link uploadFiles} method.
+   */
   public uploadImages(entity: FormData): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
@@ -154,10 +160,31 @@ public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
     });
   }
 
+  /**
+   * @deprecated
+   * Upload documents is now going through {@link uploadFiles} method.
+   */
   public uploadCompanyDocuments(entity: FormData): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
         .post(apiUploadDocuments, entity, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public uploadFiles(entity: FormData): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .post(apiUploadFiles, entity, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -192,6 +219,10 @@ public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
     });
   }
 
+  /**
+   * @deprecated
+   * Delete image is now going through {@link deleteFile} method.
+   */
   public deleteImage(companyId: number, imageId: number): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
@@ -205,10 +236,27 @@ public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
     });
   }
 
+  /**
+   * @deprecated
+   * Delete document is now going through {@link deleteFile} method.
+   */
   public deleteDocument(companyId: number, documentId: number): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
         .delete(`${deleteDocumentApi}/${companyId}/${documentId}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public deleteFile(companyId: number, fileId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .delete(`${apiDeleteFile}/${companyId}/${fileId}`)
         .then(res => {
           resolve(res);
         })
