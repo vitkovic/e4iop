@@ -3,6 +3,7 @@
     "advertisement": {
       "home": {
         "title": "Advertisements",
+        "myAdvertisements": "My advertisements",
         "createLabel": "Create a new аdvertisement",
         "createOrEditLabel": "Create or edit an Advertisement",
         "createTitleLabel": "Create an advertisement",

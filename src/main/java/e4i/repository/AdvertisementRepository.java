@@ -49,12 +49,20 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     Page<Advertisement> findAllByCompanyIdandStatus(@Param("companyId") Long companyId, @Param("status") String status, Pageable pageable);
     
     @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "left join fetch advertisement.status "
+    		+ "left join fetch advertisement.type "
+    		+ "left join fetch advertisement.kind "
+    		+ "left join fetch advertisement.subsubcategory "
     		+ "where advertisement.company.id = :companyId "
     		+ "and advertisement.status.id = :statusId",
             countQuery = "select count(distinct advertisement) from Advertisement advertisement")
     Page<Advertisement> findAllByCompanyIdandStatusId(@Param("companyId") Long companyId, @Param("statusId") Long statusId, Pageable pageable);
 
     @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "left join fetch advertisement.status "
+    		+ "left join fetch advertisement.type "
+    		+ "left join fetch advertisement.kind "
+    		+ "left join fetch advertisement.subsubcategory "
     		+ "where advertisement.company.id = :companyId "
     		+ "and advertisement.status.id != :statusId",
             countQuery = "select count(distinct advertisement) from Advertisement advertisement")

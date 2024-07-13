@@ -3,6 +3,7 @@
     "advertisement": {
       "home": {
         "title": "Огласи",
+        "myAdvertisements": "Моји огласи",
         "createLabel": "Креирај нови оглас",
         "createOrEditLabel": "Креирајте или измените оглас",
         "createTitleLabel": "Креирајте оглас",
@@ -24,7 +25,7 @@
       "expirationDatetime": "Датум истека",
       "deletionDatetime": "Датум брисања",
       "id": "ИД",
-      "title": "Назив",
+      "title": "Наслов",
       "description": "Опис",
       "budget": "Очекивани буџет (рсд)",
       "conditions": "Услови",

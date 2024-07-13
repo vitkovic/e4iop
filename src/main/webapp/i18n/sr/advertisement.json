@@ -3,6 +3,7 @@
     "advertisement": {
       "home": {
         "title": "Oglasi",
+        "myAdvertisements": "Moji oglasi",
         "createLabel": "Kreiraj novi oglas",
         "createOrEditLabel": "Kreirajte ili izmenite oglas",
         "createTitleLabel": "Kreirajte oglas",
@@ -24,7 +25,7 @@
       "expirationDatetime": "Datum isteka",
       "deletionDatetime": "Datum brisanja",
       "id": "ID",
-      "title": "Naziv",
+      "title": "Naslov",
       "description": "Opis",
       "budget": "Očekivani budžet (rsd)",
       "conditions": "Uslovi",

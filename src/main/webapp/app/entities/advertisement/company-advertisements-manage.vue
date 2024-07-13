@@ -33,7 +33,7 @@
       <span v-text="$t('riportalApp.advertisement.home.notFound')">No advertisements found</span>
     </div>
     <div class="ml-3 mb-3 d-flex flex-column flex-sm-row">
-      <h3 v-text="$t('riportalApp.advertisement.home.title')" class="mr-3 mb-3 mb-sm-0">Oglasi</h3>
+      <h3 v-text="$t('riportalApp.advertisement.home.myAdvertisements')" class="mr-3 mb-3 mb-sm-0">Oglasi</h3>
       <div>
         <b-button
           :variant="filterAllButtonVariant"
@@ -78,21 +78,21 @@
             <!-- <th v-on:click="changeOrder('conditions')"><span v-text="$t('riportalApp.advertisement.conditions')">Conditions</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'conditions'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.advertisement.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.advertisement.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th> -->
-            <th v-on:click="changeOrder('status.id')">
+            <th v-on:click="changeOrder('status.status')">
               <span v-text="$t('riportalApp.advertisement.status')">Status</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'status.id'"></jhi-sort-indicator>
             </th>
-            <th v-on:click="changeOrder('type.id')">
+            <th v-on:click="changeOrder('type.type')">
               <span v-text="$t('riportalApp.advertisement.type')">Type</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'type.id'"></jhi-sort-indicator>
             </th>
-            <th v-on:click="changeOrder('kind.id')">
+            <th v-on:click="changeOrder('kind.kind')">
               <span v-text="$t('riportalApp.advertisement.kind')">Kind</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind.id'"></jhi-sort-indicator>
             </th>
             <th v-on:click="changeOrder('subsubcategory.name')">
               <span v-text="$t('riportalApp.advertisement.categorization')">Subsubcategory</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subsubcategory.name'"></jhi-sort-indicator>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subsubcategory.id'"></jhi-sort-indicator>
             </th>
             <th v-on:click="changeOrder('budget')">
               <span v-text="$t('riportalApp.advertisement.budget')">Budget</span>
@@ -116,7 +116,11 @@
                     </td> -->
             <!-- <td>{{advertisement.createdAt ? $d(Date.parse(advertisement.createdAt), 'short') : ''}}</td> -->
             <!-- <td>{{advertisement.modifiedAt ? $d(Date.parse(advertisement.modifiedAt), 'short') : ''}}</td> -->
-            <td class="title-column">{{ advertisement.title }}</td>
+            <td class="title-column">
+              <router-link :to="{ name: 'AdvertisementView', params: { advertisementId: advertisement.id } }" class="text-body">
+                {{ advertisement.title }}      
+              </router-link>
+            </td>
             <!-- <td>{{advertisement.description}}</td> -->
 
             <!-- <td>{{advertisement.conditions}}</td> -->
@@ -148,7 +152,7 @@
             </td>
             <td>
               <div v-if="advertisement.subsubcategory">
-                {{ advertisement.subsubcategory.name }}
+                {{ advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name + " / " + advertisement.subsubcategory.advertisementSubcategory.name + " / " + advertisement.subsubcategory.name }}
               </div>
             </td>
             <td>{{ advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) }}</td>
@@ -164,14 +168,14 @@
             </td>
             <td class="text-right">
               <div class="btn-group">
-                <router-link
+                <!-- <router-link
                   :to="{ name: 'AdvertisementView', params: { advertisementId: advertisement.id } }"
                   tag="button"
                   class="btn btn-info btn-sm details"
                 >
                   <font-awesome-icon icon="eye"></font-awesome-icon>
                   <span v-text="$t('entity.action.view')">View</span>
-                </router-link>
+                </router-link> -->
                 <router-link
                   v-if="advertisement.status.status === 'Активан'"
                   :to="{ name: 'AdvertisementEdit', params: { advertisementId: advertisement.id } }"
