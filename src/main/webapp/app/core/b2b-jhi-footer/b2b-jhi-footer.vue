@@ -1,12 +1,29 @@
 <template>
   <div id="footer" class="footer">
-    <div class="logoi">
+    <div class="mainFooter">
+      <a href="https://www.srbija.gov.rs/" target="_blank">
+        <img src="/content/images/vlada_republike_srbijeE.jpg" alt="Vlada Republike Srbije logo" />
+      </a>
+      <a href="https://nitra.gov.rs/cir" target="_blank">
+        <img src="/content/images/NITRA logo.png" alt="Ministarstvo nauke, tehnoološkog razvoja i inovacija logo" />
+      </a>
+      <a href="https://www.pmi.com/markets/serbia/rs/about-us/overview" target="_blank">
+        <img src="/content/images/Philip-Morris-LogoO.png" alt="Philip Morris logo" />
+      </a>
+      <a href="https://www.startech.org.rs/" target="_blank">
+        <img src="/content/images/StarTech logoO.jpg" alt="STARTECH logo" class="startech"/>
+      </a>
+      <a href="https://naled.rs/" target="_blank">
+        <img src="/content/images/naledLogo.png" alt="Naled logo" />
+      </a>
+    </div>
+    <!-- <div class="logoi">
       <img src="/content/images/vlada_republike_srbije.jpg" class="logo1" alt="" />
       <img src="/content/images/NITRA logo.png" class="logo2" alt="" />
       <img src="/content/images/Philip.png" class="logo3" alt="" />
       <img src="/content/images/StarTech logo.jpg" class="logo4" alt="" />
       <img src="/content/images/naledLogo.jpg" class="logo5" alt="" />
-    </div>
+    </div> -->
     <div class="footFootera">
       <div class="rightContent">
         <router-link to="/b2b/contact-us">{{ $t('footer.contact') }}</router-link>
@@ -28,7 +45,7 @@
   margin-right: auto;
   background-color: rgb(255, 208, 208);
 
-  height: 16em;
+  /* height: 16em; */
   background-color: white;
   border-bottom: 2em solid rgb(11, 62, 132);
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
@@ -37,6 +54,18 @@
   display: flex;
   flex-direction: column;
   border: none !important;
+}
+
+.mainFooter {
+  width: 100%;
+  display: flex;
+  /* height: 40px; */
+  justify-content: space-around;
+  padding: 24px 0;
+}
+
+.mainFooter a img {
+  height: 5rem;
 }
 
 .logoi {
@@ -137,13 +166,13 @@
     padding: 0;
     width: 100%;
   }
-  .footer {
+  /* .footer {
     height: 30em;
   }
   .footFootera {
     margin-top: auto;
     margin-bottom: none;
-  }
+  } */
 
   .logoi img {
     width: 48%;
@@ -178,5 +207,45 @@
     font-size: 0.5em;
     display: flex;
   }
+
+  @media screen and (max-width: 1320px) {
+    .mainFooter a img {
+      height: 4rem;
+    }
+  }
+
+  @media screen and (max-width: 1100px) {
+    .mainFooter a img {
+      height: 3rem;
+    }
+  }
+
+  @media screen and (max-width: 835px) {
+    .mainFooter a img {
+      height: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 580px) {
+    .mainFooter {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mainFooter a img {
+      height: 4rem;
+    }
+
+    .startech {
+      /* width: 250px; */
+    }
+  }
+
+  /* @media screen and (max-width: 440px) {
+    .mainFooter a img {
+      height: 1.4rem;
+    }
+  } */
 }
 </style>

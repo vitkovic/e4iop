@@ -22,14 +22,9 @@
     >
       {{ alertMessage }}
     </b-alert>
-    <div v-if="company" class="d-flex mb-3">
-      <img
-        v-if="company.logo"
-        :src="companyService().retrieveImage(company.logo.filename)"
-        alt="company logo"
-        style="height: 100px; margin-right: 1rem;"
-      />
-      <h2 id="page-heading" class="jh-entity-heading" style="align-self: center; text-wrap: nowrap;">
+    <div v-if="company" class="d-flex mb-3 mt-5">
+      <img v-if="company.logo" :src="companyService().retrieveImage(company.logo.filename)" alt="company logo" class="company-logo mr-3" />
+      <h2 id="page-heading" class="jh-entity-heading company-title" style="align-self: center;">
         {{ company.name }}
       </h2>
     </div>
@@ -37,8 +32,8 @@
     <div class="alert alert-warning" v-if="!isFetching && advertisements && advertisements.length === 0">
       <span v-text="$t('riportalApp.advertisement.home.notFound')">No advertisements found</span>
     </div>
-    <div class="ml-3 mb-3" style="display: flex; align-items: center;">
-      <h3 v-text="$t('riportalApp.advertisement.home.title')" class="mr-3">Oglasi</h3>
+    <div class="ml-3 mb-3 d-flex flex-column flex-sm-row">
+      <h3 v-text="$t('riportalApp.advertisement.home.title')" class="mr-3 mb-3 mb-sm-0">Oglasi</h3>
       <div>
         <b-button
           :variant="filterAllButtonVariant"
@@ -67,7 +62,7 @@
         >
       </div>
     </div>
-    <div class="table-responsive" v-if="advertisements && advertisements.length > 0">
+    <div class="custom-table-responsive" v-if="advertisements && advertisements.length > 0">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -121,7 +116,7 @@
                     </td> -->
             <!-- <td>{{advertisement.createdAt ? $d(Date.parse(advertisement.createdAt), 'short') : ''}}</td> -->
             <!-- <td>{{advertisement.modifiedAt ? $d(Date.parse(advertisement.modifiedAt), 'short') : ''}}</td> -->
-            <td>{{ advertisement.title }}</td>
+            <td class="title-column">{{ advertisement.title }}</td>
             <!-- <td>{{advertisement.description}}</td> -->
 
             <!-- <td>{{advertisement.conditions}}</td> -->
@@ -156,7 +151,7 @@
                 {{ advertisement.subsubcategory.name }}
               </div>
             </td>
-            <td>{{ advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' })}}</td>
+            <td>{{ advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) }}</td>
             <td>
               {{
                 advertisement.activationDatetime ? $d(Date.parse(advertisement.activationDatetime.toString()), { dateStyle: 'short' }) : ''
@@ -175,7 +170,7 @@
                   class="btn btn-info btn-sm details"
                 >
                   <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                  <span v-text="$t('entity.action.view')">View</span>
                 </router-link>
                 <router-link
                   v-if="advertisement.status.status === 'Активан'"
@@ -184,7 +179,7 @@
                   class="btn btn-primary btn-sm edit"
                 >
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                  <span v-text="$t('entity.action.edit')">Edit</span>
                 </router-link>
                 <b-button
                   v-if="advertisement.status.status === 'Активан'"
@@ -194,7 +189,7 @@
                   v-b-modal.deactivateEntity
                 >
                   <!-- <font-awesome-icon icon="times"></font-awesome-icon> -->
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.deactivate')">Deaktiviraj</span>
+                  <span v-text="$t('entity.action.deactivate')">Deaktiviraj</span>
                 </b-button>
                 <b-button
                   v-if="['Неактиван', 'Архивиран'].includes(advertisement.status.status)"
@@ -204,7 +199,7 @@
                   v-b-modal.activateEntity
                 >
                   <!-- <font-awesome-icon icon="check"></font-awesome-icon> -->
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.activate')">Aktiviraj</span>
+                  <span v-text="$t('entity.action.activate')">Aktiviraj</span>
                 </b-button>
                 <b-button
                   v-if="advertisement.status.status === 'Неактиван'"
@@ -214,7 +209,7 @@
                   v-b-modal.softDeleteEntity
                 >
                   <font-awesome-icon icon="times"></font-awesome-icon>
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                  <span v-text="$t('entity.action.delete')">Delete</span>
                 </b-button>
                 <b-button
                   v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')"
@@ -224,7 +219,7 @@
                   v-b-modal.removeEntity
                 >
                   <font-awesome-icon icon="times"></font-awesome-icon>
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.deleteDatabase')">Obriši iz baze</span>
+                  <span v-text="$t('entity.action.deleteDatabase')">Obriši iz baze</span>
                 </b-button>
               </div>
             </td>
@@ -342,3 +337,25 @@
 </template>
 
 <script lang="ts" src="./company-advertisements-manage.component.ts"></script>
+
+<style scoped>
+.company-logo {
+  height: 75px;
+}
+
+.custom-table-responsive {
+  overflow-x: auto;
+}
+
+@media (max-width: 1280px) {
+  .custom-table-responsive table {
+    min-width: 1280px;
+  }
+}
+
+@media screen and (max-width: 578px) {
+  .company-title {
+    font-size: 2rem;
+  }
+}
+</style>
