@@ -33,6 +33,7 @@ export interface IAdvertisement {
   duration?: IAdvertisementDuration;
   type?: IAdvertisementType;
   kind?: IAdvertisementKind;
+  kinds?: IAdvertisementKind[];
   subsubcategory?: IAdvertisementSubsubcategory;
   threads?: IThread[];
 }
@@ -60,6 +61,7 @@ export class Advertisement implements IAdvertisement {
     public duration?: IAdvertisementDuration,
     public type?: IAdvertisementType,
     public kind?: IAdvertisementKind,
+    public kinds?: IAdvertisementKind[],
     public subsubcategory?: IAdvertisementSubsubcategory,
     public threads?: IThread[]
   ) {}

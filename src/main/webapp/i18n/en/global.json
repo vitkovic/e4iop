@@ -1,8 +1,8 @@
 {
   "global": {
-	"navbar": {
-		"autosearchnote":"Autocomplete after 3 chars"
-	},
+    "navbar": {
+      "autosearchnote": "Autocomplete after 3 chars"
+    },
     "title": "ORI",
     "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
     "menu": {
@@ -286,7 +286,8 @@
     },
     "detail": {
       "field": "Field",
-      "value": "Value"
+      "value": "Value",
+      "multipleChoice": "multiple choice"
     },
     "delete": {
       "title": "Confirm delete operation",
@@ -342,5 +343,10 @@
     "organizations": "Organizations",
     "users": "Users",
     "text": "The Portal of the Open Research Infrastructure of Serbia aims to collect and display in one place data on the available research infrastructure and the services offered through its use"
+  },
+  "multiselect": {
+    "selectLabel": "Select",
+    "selectedLabel": "Selected",
+    "deselectLabel": "Remove"
   }
 }

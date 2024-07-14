@@ -3,6 +3,8 @@ package e4i.domain;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -35,8 +37,13 @@ public class AdvertisementKind implements Serializable {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToMany(mappedBy = "kind")
+//    @OneToMany(mappedBy = "kind")
+//    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//    private Set<Advertisement> advertisements = new HashSet<>();
+    
+    @ManyToMany(mappedBy = "kinds")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnore
     private Set<Advertisement> advertisements = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -87,6 +94,31 @@ public class AdvertisementKind implements Serializable {
         this.isDeleted = isDeleted;
     }
 
+//    public Set<Advertisement> getAdvertisements() {
+//        return advertisements;
+//    }
+//
+//    public AdvertisementKind advertisements(Set<Advertisement> advertisements) {
+//        this.advertisements = advertisements;
+//        return this;
+//    }
+//
+//    public AdvertisementKind addAdvertisement(Advertisement advertisement) {
+//        this.advertisements.add(advertisement);
+//        advertisement.setKind(this);
+//        return this;
+//    }
+//
+//    public AdvertisementKind removeAdvertisement(Advertisement advertisement) {
+//        this.advertisements.remove(advertisement);
+//        advertisement.setKind(null);
+//        return this;
+//    }
+//
+//    public void setAdvertisements(Set<Advertisement> advertisements) {
+//        this.advertisements = advertisements;
+//    }
+    
     public Set<Advertisement> getAdvertisements() {
         return advertisements;
     }
@@ -98,13 +130,13 @@ public class AdvertisementKind implements Serializable {
 
     public AdvertisementKind addAdvertisement(Advertisement advertisement) {
         this.advertisements.add(advertisement);
-        advertisement.setKind(this);
+        advertisement.getKinds().add(this);
         return this;
     }
 
     public AdvertisementKind removeAdvertisement(Advertisement advertisement) {
         this.advertisements.remove(advertisement);
-        advertisement.setKind(null);
+        advertisement.getKinds().remove(this);
         return this;
     }
 

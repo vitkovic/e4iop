@@ -18,14 +18,21 @@ import java.util.Optional;
 @Repository
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
 
-    @Query(value = "select distinct advertisement from Advertisement advertisement left join fetch advertisement.documents",
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "left join fetch advertisement.documents "
+    		+ "left join fetch advertisement.kinds",
         countQuery = "select count(distinct advertisement) from Advertisement advertisement")
     Page<Advertisement> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct advertisement from Advertisement advertisement left join fetch advertisement.documents")
+    @Query("select distinct advertisement from Advertisement advertisement "
+    		+ "left join fetch advertisement.documents "
+    		+ "left join fetch advertisement.kinds")
     List<Advertisement> findAllWithEagerRelationships();
 
-    @Query("select advertisement from Advertisement advertisement left join fetch advertisement.documents where advertisement.id =:id")
+    @Query("select advertisement from Advertisement advertisement "
+    		+ "left join fetch advertisement.documents "
+    		+ "left join fetch advertisement.kinds "
+    		+ "where advertisement.id =:id")
     Optional<Advertisement> findOneWithEagerRelationships(@Param("id") Long id);
     
     Page<Advertisement> findByCompanyId(Long companyId, Pageable pageable);
@@ -43,15 +50,16 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     Page<Advertisement> findAllByCompanyId(@Param("companyId") Long companyId, Pageable pageable);
     
     @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "left join fetch advertisement.subsubcategory "
     		+ "where advertisement.company.id = :companyId "
     		+ "and advertisement.status.status = :status",
             countQuery = "select count(distinct advertisement) from Advertisement advertisement")
     Page<Advertisement> findAllByCompanyIdandStatus(@Param("companyId") Long companyId, @Param("status") String status, Pageable pageable);
     
     @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "left join advertisement.kinds "
     		+ "left join fetch advertisement.status "
     		+ "left join fetch advertisement.type "
-    		+ "left join fetch advertisement.kind "
     		+ "left join fetch advertisement.subsubcategory "
     		+ "where advertisement.company.id = :companyId "
     		+ "and advertisement.status.id = :statusId",
@@ -59,9 +67,9 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     Page<Advertisement> findAllByCompanyIdandStatusId(@Param("companyId") Long companyId, @Param("statusId") Long statusId, Pageable pageable);
 
     @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "left join advertisement.kinds "
     		+ "left join fetch advertisement.status "
     		+ "left join fetch advertisement.type "
-    		+ "left join fetch advertisement.kind "
     		+ "left join fetch advertisement.subsubcategory "
     		+ "where advertisement.company.id = :companyId "
     		+ "and advertisement.status.id != :statusId",
@@ -69,6 +77,7 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     Page<Advertisement> findAllByCompanyIdandNotStatusId(@Param("companyId") Long companyId, @Param("statusId") Long statusId, Pageable pageable);
     
     @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "left join fetch advertisement.subsubcategory "
     		+ "where advertisement.company.id = :companyId "
     		+ "and advertisement.type.id = :typeId",
             countQuery = "select count(distinct advertisement) from Advertisement advertisement")

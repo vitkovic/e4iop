@@ -500,7 +500,7 @@ public class AdvertisementResource {
 	    	
 	    	// Odraditi proveru da li status sa zadatim nazivom postoji u bazi
 	    	
-	        Page<Advertisement> page = advertisementRepository.findAllByCompanyIdandStatus(companyId, status, pageable);
+	        Page<Advertisement> page = advertisementService.findAllByCompanyIdandStatus(companyId, status, pageable);
 	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 	        return ResponseEntity.ok().headers(headers).body(page.getContent());
 	    }

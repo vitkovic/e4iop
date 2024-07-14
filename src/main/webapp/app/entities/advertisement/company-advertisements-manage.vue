@@ -88,7 +88,7 @@
             </th>
             <th v-on:click="changeOrder('kind.kind')">
               <span v-text="$t('riportalApp.advertisement.kind')">Kind</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind.id'"></jhi-sort-indicator>
+              <!-- <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind.id'"></jhi-sort-indicator> -->
             </th>
             <th v-on:click="changeOrder('subsubcategory.name')">
               <span v-text="$t('riportalApp.advertisement.categorization')">Subsubcategory</span>
@@ -146,8 +146,12 @@
               </div>
             </td>
             <td>
-              <div v-if="advertisement.kind">
-                {{ advertisement.kind.kind }}
+              <div v-if="advertisement.kinds">
+                <!-- {{ advertisement.kind.kind }} -->
+                <div v-for="(kind, index) in advertisement.kinds" :key="kind.id">
+                  <span style="white-space: pre;">{{ kind.kind }}<span v-if="index != advertisement.kinds.length -1">, </span>
+                  </span>
+                </div>
               </div>
             </td>
             <td>

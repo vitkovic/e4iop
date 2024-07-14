@@ -148,7 +148,38 @@
                 </small>
               </div>
             </div>
+
             <div class="form-group">
+              <label class="form-control-label"  for="advertisement-kind">
+                <span v-text="$t('riportalApp.advertisement.kind')">Kind</span>
+                <span v-text="'(' + $t('entity.detail.multipleChoice') + ')'">(višestruki izbor)</span>
+              </label>
+              <multiselect
+                v-model="advertisement.kinds"
+                :options="advertisementKinds"
+                :multiple="true"
+                :close-on-select="false"
+                :clear-on-select="false"
+                :custom-label="customKindLabel"
+                placeholder=''
+                :selectLabel="$t('multiselect.selectLabel')"
+                :selectedLabel="$t('multiselect.selectedLabel')"
+                :deselectLabel="$t('multiselect.deselectLabel')"
+                label="kind"
+                track-by="kind"
+                :class="{ valid: !$v.advertisement.kinds.$invalid, invalid: $v.advertisement.kinds.$invalid }"
+                @blur="$v.advertisement.kinds.$touch()"
+                required
+              >
+              </multiselect>
+              <div v-if="$v.advertisement.kinds.$anyDirty && $v.advertisement.kinds.$invalid">
+                <small class="form-text text-danger" v-if="!$v.advertisement.kinds.required" v-text="$t('entity.validation.required')">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.kind')" for="advertisement-kind">Kind</label>
               <select
                 class="form-control"
@@ -176,7 +207,8 @@
                   This field is required.
                 </small>
               </div>
-            </div>
+            </div> -->
+
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.categorization')" for="advertisement-subsubcategory"
                 >Subsubcategory</label

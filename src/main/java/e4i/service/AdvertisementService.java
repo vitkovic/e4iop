@@ -1,5 +1,6 @@
 package e4i.service;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -311,12 +312,24 @@ public class AdvertisementService {
     
     @Transactional
     public Page<Advertisement> findAllByCompanyIdAndStatusId(Long companyId, Long statusId, Pageable pageable) {
-    	return advertisementRepository.findAllByCompanyIdandStatusId(companyId, statusId, pageable);
+    	Page<Advertisement> advertisements = advertisementRepository.findAllByCompanyIdandStatusId(companyId, statusId, pageable);
+    	
+    	advertisements.getContent().forEach(advertisement -> {
+    		Hibernate.initialize(advertisement.getKinds());
+        });
+    	
+    	return advertisements;
     }
     
     @Transactional
     public Page<Advertisement> findAllByCompanyIdAndNotStatusId(Long companyId, Long statusId, Pageable pageable) {
-    	return advertisementRepository.findAllByCompanyIdandNotStatusId(companyId, statusId, pageable);
+    	Page<Advertisement> advertisements = advertisementRepository.findAllByCompanyIdandNotStatusId(companyId, statusId, pageable);
+    	
+    	advertisements.getContent().forEach(advertisement -> {
+    		Hibernate.initialize(advertisement.getKinds());
+        });
+    	
+    	return advertisements;
     }
     
     @Transactional
@@ -326,6 +339,23 @@ public class AdvertisementService {
     
     @Transactional
     public Page<Advertisement> findAllByCompanyIdAndTypeId(Long companyId, Long typeId, Pageable pageable) {
-    	return advertisementRepository.findAllByCompanyIdandTypeId(companyId, typeId, pageable);
+    	Page<Advertisement> advertisements = advertisementRepository.findAllByCompanyIdandTypeId(companyId, typeId, pageable);
+    	
+    	advertisements.getContent().forEach(advertisement -> {
+    		Hibernate.initialize(advertisement.getKinds());
+        });
+    	
+    	return advertisements;
     }
+
+    @Transactional
+	public Page<Advertisement> findAllByCompanyIdandStatus(Long companyId, String status, Pageable pageable) {
+    	Page<Advertisement> advertisements = advertisementRepository.findAllByCompanyIdandStatus(companyId, status, pageable);
+    	
+    	advertisements.getContent().forEach(advertisement -> {
+    		Hibernate.initialize(advertisement.getKinds());
+        });
+    	
+    	return advertisements;
+	}
 }

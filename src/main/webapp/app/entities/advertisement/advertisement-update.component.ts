@@ -74,6 +74,9 @@ const validations: any = {
       required,
     },
     kind: {
+      // required,
+    },
+    kinds: {
       required,
     },
     subsubcategory: {
@@ -891,5 +894,9 @@ export default class AdvertisementUpdate extends Vue {
 
   public formatBudgetToRealNumber(): void {
     this.advertisement.budget = parseInt(this.advertisement.budget.replace(/\D/g, ''), 10);
+  }
+
+  public customKindLabel(kind: IAdvertisementKind) {
+    return `${kind.kind}`;
   }
 }

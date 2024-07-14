@@ -77,6 +77,13 @@ public class Advertisement implements Serializable {
                joinColumns = @JoinColumn(name = "advertisement_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "document_id", referencedColumnName = "id"))
     private Set<Document> documents = new HashSet<>();
+    
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(name = "advertisement_advertisement_kind",
+               joinColumns = @JoinColumn(name = "advertisement_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "advertisement_kind_id", referencedColumnName = "id"))
+    private Set<AdvertisementKind> kinds = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = "advertisementCreateds", allowSetters = true)
@@ -352,7 +359,32 @@ public class Advertisement implements Serializable {
     public void setDocuments(Set<Document> documents) {
         this.documents = documents;
     }
+    
+    public Set<AdvertisementKind> getKinds() {
+        return kinds;
+    }
 
+    public Advertisement kinds(Set<AdvertisementKind> kinds) {
+        this.kinds = kinds;
+        return this;
+    }
+
+    public Advertisement addKind(AdvertisementKind kind) {
+        this.kinds.add(kind);
+        kind.getAdvertisements().add(this);
+        return this;
+    }
+
+    public Advertisement removeKind(AdvertisementKind kind) {
+        this.kinds.remove(kind);
+        kind.getAdvertisements().remove(this);
+        return this;
+    }
+
+    public void setKinds(Set<AdvertisementKind> kinds) {
+        this.kinds = kinds;
+    }
+    
     public PortalUser getCreatedBy() {
         return createdBy;
     }

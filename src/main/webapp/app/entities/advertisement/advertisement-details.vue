@@ -34,8 +34,11 @@
                   <span>{{ $t('riportalApp.advertisement.kind') }}:</span>
                 </dt>
                 <dd>
-                  <div v-if="advertisement.kind">
-                    {{ advertisement.kind.kind }}
+                  <div v-if="advertisement.kinds" class="d-flex" style="flex-direction: row;">
+                    <div v-for="(kind, index) in advertisement.kinds" :key="kind.id">
+                      <span style="white-space: pre;">{{ kind.kind }}<span v-if="index != advertisement.kinds.length -1">, </span>
+                      </span>
+                    </div>
                   </div>
                 </dd>
               </dl>

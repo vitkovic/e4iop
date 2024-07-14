@@ -1,8 +1,8 @@
 {
   "global": {
-	  "navbar": {
-		"autosearchnote":"Automatska dopuna termina pretrage izvršava se nakon unosa 3 karaktera"
-	},
+    "navbar": {
+      "autosearchnote": "Automatska dopuna termina pretrage izvršava se nakon unosa 3 karaktera"
+    },
     "title": "OII",
     "browsehappy": "Koristite <strong>zastareli</strong> pretraživač. Molimo vas <a href=\"http://browsehappy.com/?locale=en\">nadogradite pretraživač</a> kako biste poboljšali Vaše iskustvo.",
     "menu": {
@@ -283,7 +283,8 @@
     },
     "detail": {
       "field": "Polje",
-      "value": "Vrednost"
+      "value": "Vrednost",
+      "multipleChoice": "višestruki izbor"
     },
     "delete": {
       "title": "Potvrdi brisanje",
@@ -338,5 +339,10 @@
     "organizations": "Organizacije",
     "users": "Korisnici",
     "text": "Portal Otvorene istraživačke infrastrukture Srbije ima za cilj da na jednom mestu prikupi i prikaže podatke o dostupnoj istraživačkoj infrastrukturi i uslugama koje se nude njenim korišćenjem"
+  },
+  "multiselect": {
+    "selectLabel": "Izaberi",
+    "selectedLabel": "Izabrano",
+    "deselectLabel": "Ukloni"
   }
 }
