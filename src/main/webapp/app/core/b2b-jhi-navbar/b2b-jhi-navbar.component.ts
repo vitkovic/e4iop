@@ -218,40 +218,50 @@ export default class B2BJhiNavbar extends Vue {
     return result;
   }
   public searchFound;
+  public notifsearchshown = false;
+  
   public autoAdv(): any {
-  
-  
-    console.log('true');
-  
-  
-       this.isFetching = true;
-
-    const paginationQuery = {
-      page: this.page - 1,
-      size: this.itemsPerPage,
-      sort: this.sort()
-    };
     
-	 
-    this.advertisementService()
-       .retrieveBaseSearch(this.txtsearchNav, this.mainSearchCategory,paginationQuery)
-        .then(
-        res => {
-          // Ovo koristiti az originalno povucene rezultate pretrage
-          this.advertisements = res.data;
-          console.log(this.advertisements);
-         
-          this.$emit('adv:change', this.advertisements);
-          // Ovo koristiti za filtrirane rezultate pretrage
-          
-          this.totalItems = Number(res.headers['x-total-count']);
-          this.queryCount = this.totalItems;
-          this.isFetching = false;
-        },
-        err => {
-          this.isFetching = false;
-        }
-      );
+    if (!this.notifsearchshown) {
+    this.$notify({
+            text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
+            type: 'info',
+            duration: 4000,
+          });
+   	this.notifsearchshown = true;
+   }
+   if (this.txtsearchNav.length >= 3) {
+	   this.isFetching = true;
+	    
+	    
+	    
+	    const paginationQuery = {
+	      page: this.page - 1,
+	      size: this.itemsPerPage,
+	      sort: this.sort()
+	    };
+	    
+	  	 
+	    this.advertisementService()
+	       .retrieveBaseSearch(this.txtsearchNav, this.mainSearchCategory,paginationQuery)
+	        .then(
+	        res => {
+	          // Ovo koristiti az originalno povucene rezultate pretrage
+	          this.advertisements = res.data;
+	          console.log(this.advertisements);
+	         
+	          this.$emit('adv:change', this.advertisements);
+	          // Ovo koristiti za filtrirane rezultate pretrage
+	          
+	          this.totalItems = Number(res.headers['x-total-count']);
+	          this.queryCount = this.totalItems;
+	          this.isFetching = false;
+	        },
+	        err => {
+	          this.isFetching = false;
+	        }
+	      );
+	   }
   }
   
   

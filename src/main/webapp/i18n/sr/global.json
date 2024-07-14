@@ -1,5 +1,8 @@
 {
   "global": {
+	  "navbar": {
+		"autosearchnote":"Automatska dopuna termina pretrage izvršava se nakon unosa 3 karaktera"
+	},
     "title": "OII",
     "browsehappy": "Koristite <strong>zastareli</strong> pretraživač. Molimo vas <a href=\"http://browsehappy.com/?locale=en\">nadogradite pretraživač</a> kako biste poboljšali Vaše iskustvo.",
     "menu": {

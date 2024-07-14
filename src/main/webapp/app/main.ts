@@ -175,6 +175,13 @@ Vue.component('FullCalendar', FullCalendar);
 
 //Vue.use(FullCalendar);
 
+import Vue2Editor from "vue2-editor";
+
+Vue.use(Vue2Editor);
+
+
+
+
 const i18n = config.initI18N(Vue);
 const store = config.initVueXStore(Vue);
 
@@ -183,6 +190,13 @@ const translationService = new TranslationService(store, i18n);
 const loginService = new LoginService();
 const accountService = new AccountService(store, (<any>Vue).cookie, translationService, router);
 const portalUserService = new PortalUserService(store);
+
+
+
+
+
+
+
 
 Vue.prototype.$testGlobal = 'test';
 

@@ -18,7 +18,7 @@ import LoginForm from '@/account/login-form/login-form.vue';
     'b2b-searchsection': SearchSection,
     'b2b-jhi-footer': B2BJhiFooter,
     'login-form': LoginForm,
-    'b2b-searchsection':SearchSection
+   
    
   },
 })
@@ -54,6 +54,12 @@ export default class App extends Vue {
 	        { make: "Ford", model: "Mondeo", price: 32000 },
 	        { make: "Porsche", model: "Boxster", price: 72000 },
 	      ],
+	       content: "<h1>Some initial content</h1>",
+		   customToolbar: [
+	       ["bold", "italic", "underline"],
+	       [{ list: "ordered" }, { list: "bullet" }],
+	       ["image", "code-block"]
+	     ]
       }
     }
 
