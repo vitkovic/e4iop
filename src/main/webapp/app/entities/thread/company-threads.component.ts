@@ -232,7 +232,7 @@ export default class Thread extends mixins(AlertMixin) {
     this.threadService()
       .hideUserMessages(this.removeThreadDTO.id, isDeletedSender)
       .then(() => {
-        const notificatonMessage = 'Konverzacija je obrisana!';
+        const notificatonMessage = this.$t('riportalApp.thread.deletedConversation');
         this.$notify({
           text: notificatonMessage,
         });
@@ -400,7 +400,7 @@ export default class Thread extends mixins(AlertMixin) {
           this.messageService()
             .delete(messageFromDB.id)
             .then(res => {
-              const notificatonMessage = 'Poruka je obrisana!';
+              const notificatonMessage = this.$t('riportalApp.thread.messageSection.deleteMessage');
               this.$notify({
                 text: notificatonMessage,
               });
@@ -418,7 +418,7 @@ export default class Thread extends mixins(AlertMixin) {
           this.messageService()
             .update(messageFromDB)
             .then(res => {
-              const notificatonMessage = 'Poruka je obrisana!';
+              const notificatonMessage = this.$t('riportalApp.thread.messageSection.deleteMessage');
               this.$notify({
                 text: notificatonMessage,
               });
@@ -608,7 +608,8 @@ export default class Thread extends mixins(AlertMixin) {
       .rejectMeetingForCompany(formData)
       .then(res => {
         this.showMessages(this.activeThreadDTO);
-        const message = 'Otkazali ste poziv za sastanak - ' + this.meeting.title;
+        const message = this.$t('riportalApp.thread.meetingCancellation');
+        +this.meeting.title;
         this.$notify({
           text: message,
         });
@@ -619,12 +620,12 @@ export default class Thread extends mixins(AlertMixin) {
           // const message = error.response.data;
 
           if (status === 404) {
-            const message = 'Sistemska greska, nemate poziv za izabrani sastanak';
+            const message = this.$t('riportalApp.thread.systemError');
             this.$notify({
               text: message,
             });
           } else if (status === 400) {
-            const message = 'Već ste odbili poziv za ovaj sastanak';
+            const message = this.$t('riportalApp.thread.meetingCancellationError');
             this.$notify({
               text: message,
             });
@@ -662,7 +663,7 @@ export default class Thread extends mixins(AlertMixin) {
       .then(res => {
         // this.showMessages(this.activeThreadDTO);
         this.retrieveThreads();
-        message = 'Uspešno ste prihvatili poziv za pridruženo oglašavanje';
+        message = this.$t('riportalApp.thread.advertisementSupporter.acceptAdvertisementSupporter');
         this.$notify({
           text: message,
         });
@@ -673,12 +674,12 @@ export default class Thread extends mixins(AlertMixin) {
           // const message = error.response.data;
 
           if (status === 404) {
-            message = 'Sistemska greška, nemate poziv za pridruženo oglašavanje';
+            message = this.$t('riportalApp.thread.advertisementSupporter.systemError');
             this.$notify({
               text: message,
             });
           } else if (status === 400) {
-            message = 'Poziv za pridruženo oglašavanje je već prihvaćen ili odbijen';
+            message = this.$t('riportalApp.thread.advertisementSupporter.advertisingCancellationError');
             this.$notify({
               text: message,
             });
@@ -716,7 +717,7 @@ export default class Thread extends mixins(AlertMixin) {
       .then(res => {
         // this.showMessages(this.activeThreadDTO);
         this.retrieveThreads();
-        message = 'Poziv za pridruženo oglašavanje je odbijen.';
+        message = this.$t('riportalApp.thread.advertisementSupporter.rejectAdvertisementSupporter');
         this.$notify({
           text: message,
         });
@@ -727,12 +728,12 @@ export default class Thread extends mixins(AlertMixin) {
           // const message = error.response.data;
 
           if (status === 404) {
-            message = 'Sistemska greška, nemate poziv za pridruženo oglašavanje';
+            message = this.$t('riportalApp.thread.advertisementSupporter.systemError');
             this.$notify({
               text: message,
             });
           } else if (status === 400) {
-            message = 'Poziv za pridruženo oglašavanje je već prihvaćen ili odbijen';
+            message = this.$t('riportalApp.thread.advertisementSupporter.advertisingCancellationError');
             this.$notify({
               text: message,
             });

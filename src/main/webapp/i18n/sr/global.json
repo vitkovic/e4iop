@@ -279,7 +279,8 @@
       "saveDocuments": "Upamti dokumenta",
       "activate": "Aktiviraj",
       "deactivate": "Deaktiviraj",
-      "deleteDatabase": "Obriši iz baze"
+      "deleteDatabase": "Obriši iz baze",
+      "accept": "Prihvati"
     },
     "detail": {
       "field": "Polje",

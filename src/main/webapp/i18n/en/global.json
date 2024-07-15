@@ -282,7 +282,8 @@
       "saveDocuments": "Save documents",
       "activate": "Activate",
       "deactivate": "Deactivate",
-      "deleteDatabase": "Delete from database"
+      "deleteDatabase": "Delete from database",
+      "accept": "Accept"
     },
     "detail": {
       "field": "Field",

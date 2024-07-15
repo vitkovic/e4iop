@@ -16,6 +16,16 @@
       "detail": {
         "title": "Thread"
       },
+      "systemError": "Sistemska greška, nemate poziv za izabrani sastanak",
+      "meetingCancellation": "Otkazali ste poziv za sastanak - ",
+      "meetingCancellationError": "Već ste odbili poziv za ovaj sastanak",
+      "advertisementSupporter": {
+        "acceptAdvertisementSupporter": "Uspešno ste prihvatili poziv za pridruženo oglašavanje.",
+        "rejectAdvertisementSupporter": "Poziv za pridruženo oglašavanje je odbijen.",
+        "systemError": "Sistemska greška, nemate poziv za pridruženo oglašavanje",
+        "advertisingCancellationError": "Poziv za pridruženo oglašavanje je već prihvaćen ili odbijen"
+      },
+      "deletedConversation": "Konverzacija je obrisana!",
       "subject": "Subject",
       "isFromAdministration": "Od administracije",
       "message": "Message",
@@ -41,7 +51,19 @@
       "messageSection": {
         "date": "Vreme:",
         "sender": "Pošiljalac:",
-        "placeholder": "Unesite novu poruku..."
+        "placeholder": "Unesite novu poruku...",
+        "acceptMeeting": "Prihvati sastanak",
+        "cancelMeeting": "Otkaži sastanak",
+        "acceptedMeeting": "Poziv za ovaj sastanak je prihvaćen.",
+        "cancelledMeeting": "Poziv za ovaj sastanak je otkazan.",
+        "acceptedAdvertising": "Poziv za pridruženo oglašavanje je prihvaćen.",
+        "cancelledAdvertising": "Poziv za pridruženo oglašavanje je odbijen.",
+        "meeting": "Sastanak",
+        "organizer": "Organizator",
+        "startTime": "Vreme početka",
+        "endTime": "Vreme završetka",
+        "deleteMessage": "Poruka je obrisana!",
+        "advertiser": "Oglašivač"
       },
       "modalConfirm": {
         "title": "Da li želite da potvrdite zahtev za saradnju?",
@@ -53,6 +75,20 @@
         "title": "Da li želite da odbijete zahtev za saradnju?",
         "advertisement": "Oglas:",
         "company": "Kompanija tražilac saradnje:"
+      },
+      "acceptMeetingModal": {
+        "bodyTitle": "Da li želite da prihvatite poziv za sastanak - "
+      },
+      "rejectMeetingModal": {
+        "bodyTitle": "Da li želite da otkažete poziv za sastanak - ",
+        "cancellationReason": "Razlog otkazivanja",
+        "newAppointment": "Predložite novi termin"
+      },
+      "acceptAdvertisementSupporterModal": {
+        "bodyTitle": "Da li želite da prihvatite poziv za zajedničko oglašavanje?"
+      },
+      "rejectAdvertisementSupporterModal": {
+        "bodyTitle": "Da li želite da odbijete poziv za zajedničko oglašavanje?"
       },
       "iconHover": {
         "confirmCollaboration": "Saradnja prihvaćena.",

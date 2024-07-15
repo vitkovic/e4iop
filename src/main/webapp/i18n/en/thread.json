@@ -13,8 +13,18 @@
       "delete": {
         "question": "Are you sure you want to delete this thread?"
       },
+      "deletedConversation": "The conversation has been deleted!",
       "detail": {
         "title": "Thread"
+      },
+      "systemError": "System error, you do not have an invitation for the selected meeting",
+      "meetingCancellation": "You canceled the meeting invitation - ",
+      "meetingCancellationError": "You have already declined an invitation to this meeting",
+      "advertisementSupporter": {
+        "acceptAdvertisementSupporter": "You have successfully accepted the invitation for affiliate advertising.",
+        "rejectAdvertisementSupporter": "Affiliate advertising invitation declined.",
+        "systemError": "System error, you do not have an affiliate advertising invitation",
+        "advertisingCancellationError": "The invitation to affiliate advertising has already been accepted or declined"
       },
       "subject": "Subject",
       "isFromAdministration": "Is From Administration",
@@ -41,7 +51,19 @@
       "messageSection": {
         "date": "Date:",
         "sender": "Sender:",
-        "placeholder": "Enter new message..."
+        "placeholder": "Enter new message...",
+        "acceptMeeting": "Accept meeting",
+        "cancelMeeting": "Cancel meeting",
+        "acceptedMeeting": "The invitation to this meeting has been accepted.",
+        "cancelledMeeting": "The invitation to this meeting has been cancelled.",
+        "acceptedAdvertising": "Affiliate advertising invitation accepted.",
+        "cancelledAdvertising": "Affiliate advertising invitation declined.",
+        "meeting": "Meeting",
+        "organizer": "Organizer",
+        "startTime": "Start time",
+        "endTime": "End time",
+        "deleteMessage": "The message has been deleted!",
+        "advertiser": "Advertiser"
       },
       "modalConfirm": {
         "title": "Do you want to confirm the request for collaboration?",
@@ -53,6 +75,20 @@
         "title": "Do you want to cancel the request for collaboration?",
         "advertisement": "Advertisement:",
         "company": "Company seeking collaboration:"
+      },
+      "acceptMeetingModal": {
+        "bodyTitle": "Do you want to accept the meeting invitation - "
+      },
+      "rejectMeetingModal": {
+        "bodyTitle": "Do you want to cancel the meeting invitation - ",
+        "cancellationReason": "Reason for cancellation",
+        "newAppointment": "Suggest a new appointment"
+      },
+      "acceptAdvertisementSupporterModal": {
+        "bodyTitle": "Would you like to accept an invitation to joint advertising?"
+      },
+      "rejectAdvertisementSupporterModal": {
+        "bodyTitle": "Would you like to decline an invitation to joint advertising?"
       },
       "iconHover": {
         "confirmCollaboration": "Collaboration confirmed.",

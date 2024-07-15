@@ -279,7 +279,8 @@
       "saveDocuments": "Упамти документа",
       "activate": "Активирај",
       "deactivate": "Деактивирај",
-      "deleteDatabase": "Обриши из базе"
+      "deleteDatabase": "Обриши из базе",
+      "accept": "Прихвати"
     },
     "detail": {
       "field": "Поље",
