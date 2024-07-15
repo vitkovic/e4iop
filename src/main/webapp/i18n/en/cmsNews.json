@@ -21,7 +21,13 @@
       "title": "Title",
       "content": "Content",
       "sequenceNumber": "Ordinal number",
-      "date": "Date"
+      "date": "Date",
+      "createdAt": "Created at",
+      "modifiedAt": "Modified at",
+      "documents": "Documents",
+      "type": "Type",
+      "createdBy": "Created by",
+      "modifiedBy": "Modified by"
     }
   }
 }

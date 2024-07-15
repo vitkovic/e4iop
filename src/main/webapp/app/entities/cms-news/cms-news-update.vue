@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-10 col-md-8">
       <form name="editForm" role="form" novalidate @submit.prevent="save">
         <h2
           v-if="cmsNewsTitleHasID === false"
@@ -60,7 +60,7 @@
 
           <hr class="mt-5" />
           <div class="row mt-4 mb-4 justify-content-between">
-            <div class="col-5">
+            <div class="col-xs-12 col-md-6 col-lg-5">
               <FileUpload
                 ref="imageUpload"
                 :parentRef="'imageUpload'"
@@ -70,7 +70,7 @@
               >
               </FileUpload>
             </div>
-            <div class="col-5">
+            <div class="col-xs-12 col-md-6 col-lg-5">
               <FileUpload
                 ref="documentUpload"
                 :parentRef="'documentUpload'"

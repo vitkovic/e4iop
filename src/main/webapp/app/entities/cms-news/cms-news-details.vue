@@ -29,7 +29,7 @@
               <span>{{ cmsNews.content }}</span>
             </dd>
             <dt>
-              <span>{{ $t('riportalApp.cmsNews.document') }}</span>
+              <span>{{ $t('riportalApp.cmsNews.documents') }}</span>
             </dt>
             <dd>
               <span v-for="(document, i) in cmsNews.documents" :key="document.id">{{ i > 0 ? ', ' : '' }}

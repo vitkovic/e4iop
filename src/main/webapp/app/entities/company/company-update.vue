@@ -243,7 +243,7 @@
         <hr />
 
         <div class="row mt-4 mb-4 justify-content-between">
-            <div class="col-5">
+            <div class="col-xs-12 col-md-6 col-lg-5">
                 <FileUpload 
                 ref="imageUpload"
                 :parentRef="'imageUpload'"
@@ -252,7 +252,7 @@
                 @delete-file="deleteFile">
                 </FileUpload>
             </div>
-            <div class="col-5">
+            <div class="col-xs-12 col-md-6 col-lg-5">
                 <FileUpload 
                 ref="documentUpload"
                 :parentRef="'documentUpload'"

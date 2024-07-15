@@ -21,7 +21,13 @@
       "title": "Naslov",
       "content": "Sadržaj",
       "sequenceNumber": "Redni broj",
-      "date": "Datum"
+      "date": "Datum",
+      "createdAt": "Kreirano",
+      "modifiedAt": "Izmenjeno",
+      "documents": "Dokumenti",
+      "type": "Tip",
+      "createdBy": "Kreirao",
+      "modifiedBy": "Izmenio"
     }
   }
 }

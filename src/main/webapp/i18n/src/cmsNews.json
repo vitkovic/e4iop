@@ -21,7 +21,13 @@
       "title": "Наслов",
       "content": "Садржај",
       "sequenceNumber": "Редни број",
-      "date": "Датум"
+      "date": "Датум",
+      "createdAt": "Креирано",
+      "modifiedAt": "Измењено",
+      "documents": "Документи",
+      "type": "Тип",
+      "createdBy": "Креирао",
+      "modifiedBy": "Изменио"
     }
   }
 }
