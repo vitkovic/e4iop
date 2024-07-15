@@ -9,6 +9,7 @@ const baseApiUrlView = 'api/advertisements/view';
 const baseApiUrlSearch = 'api/advertisements/search';
 const baseApiUrlSearchStatus = 'api/advertisements/searchstatus';
 const baseApiUrlSearchType = 'api/advertisements/searchtype';
+const baseApiUrlSearchTypeStatus = 'api/advertisements/searchtypestatus';
 const baseApiUrlSearchAll = 'api/advertisements/get';
 const updateCreatedByApiUrl = 'api/advertisements/update-created';
 const updateModifiedByApiUrl = 'api/advertisements/update-modified';
@@ -81,7 +82,7 @@ export default class AdvertisementService {
     });
   }
   public retrieveSearch(search: string, category: number, paginationQuery?: any): Promise<any> {
-    const urlgo = '';
+    var urlgo = '';
 
     if (search == '' || typeof search == 'undefined' || search == null) {
       urlgo = baseApiUrlSearchAll + `?` + `${buildPaginationQueryOpts(paginationQuery)}`;
@@ -119,11 +120,13 @@ export default class AdvertisementService {
     });
   }
 
-  public retrieveSearchType(type: string, paginationQuery?: any): Promise<any> {
-    const urlgo = baseApiUrlSearchType + `?type=${type}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
-
-    console.log('TYPE');
-
+ public retrieveSearchType(type:number, paginationQuery?: any): Promise<any> {
+  
+	
+	const  urlgo = baseApiUrlSearchType + `?type=${type}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
+	
+	
+	
     return new Promise<any>((resolve, reject) => {
       axios
         .get(urlgo)
@@ -135,6 +138,30 @@ export default class AdvertisementService {
         });
     });
   }
+  
+   public retrieveSearchTypeStatus(type:number, status:number, paginationQuery?: any): Promise<any> {
+  
+	
+	const  urlgo = baseApiUrlSearchTypeStatus + `?type=${type}`+  `&` + `status=${status}`  + `&` + `${buildPaginationQueryOpts(paginationQuery)}`
+	
+	
+	//console.log("STATUS");	
+	
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+
+
+
 
   public retrieveSearchByStatusId(search: string, category: number, paginationQuery?: any): Promise<any> {
     const urlgo =

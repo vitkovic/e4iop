@@ -168,12 +168,20 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
         		+ " where advertisement.type.id=:type and advertisement.company.id = :companyId ")
     Page<Advertisement> findSearchAllByCompanyIdbyType(@Param("type") Long type, @Param("companyId") Long companyId, Pageable pageable);
     
+ 
+    
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ " where advertisement.type.id=:type and advertisement.status.id = :status ",
+        countQuery = "select distinct advertisement from Advertisement advertisement "
+        		+ " where advertisement.type.id=:type and advertisement.status.id = :status ")
+    Page<Advertisement> findAllBySearchAdminTypeStatus(@Param("type") Long type,@Param("status") Long status, Pageable pageable);
     
     
-    
-    
-    
-    
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ " where advertisement.type.id=:type and advertisement.company.id = :companyId and advertisement.status.id = :status ",
+        countQuery = "select distinct advertisement from Advertisement advertisement "
+        		+ " where advertisement.type.id=:type and advertisement.company.id = :companyId and advertisement.status.id = :status ")
+    Page<Advertisement> findSearchAllByCompanyIdbyTypeStatus(@Param("type") Long type, @Param("companyId") Long companyId, @Param("status") Long status,Pageable pageable);
     
     
 	Optional<Advertisement> findOneByThreads(Thread thread);

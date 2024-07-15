@@ -33,7 +33,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public advertisements: IAdvertisement[] = [];
   public advertisementStatuses: IAdvertisementStatus[] = [];
-  public activeAdStatus: IAdvertisementStatus | null = null;
+  public activeAdStatus: IAdvertisementStatus  = null;
 
   private removeId: number = null;
   private advertisementToSwitchStatus: IAdvertisement = null;
@@ -146,22 +146,46 @@ export default class Advertisement extends mixins(AlertMixin) {
     
     
     if (this.typesearch) {
-		
-		 this.advertisementService()
-       .retrieveSearchType(this.types,paginationQuery)
-        .then(
-          res => {
-            this.advertisements = res.data;
-            this.totalItems = Number(res.headers['x-total-count']);
-            this.queryCount = this.totalItems;
-            this.isFetching = false;
-            return;
-          },
-          err => {
-            this.isFetching = false;
-          }
-        );
-		
+		  if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
+				 this.advertisementService()
+				       .retrieveSearchType(this.types,paginationQuery)
+				        .then(
+				          res => {
+				            this.advertisements = res.data;
+				            this.totalItems = Number(res.headers['x-total-count']);
+				            this.queryCount = this.totalItems;
+				            this.isFetching = false;
+				            return;
+				          },
+				          err => {
+				            this.isFetching = false;
+				          }
+				        );
+		  } else {
+		      if (this.activeAdStatus) {
+				  console.log(this.activeAdStatus);
+				   this.advertisementService()
+				       .retrieveSearchTypeStatus(this.types,this.activeAdStatus.id, paginationQuery)
+				        .then(
+				          res => {
+				            this.advertisements = res.data;
+				            this.totalItems = Number(res.headers['x-total-count']);
+				            this.queryCount = this.totalItems;
+				            this.isFetching = false;
+				            return;
+				          },
+				          err => {
+				            this.isFetching = false;
+				          }
+				        );
+				  
+				  
+				  
+			  }
+		      
+		      
+		      
+		  }
 		
 		
 	 if (this.typesearch) return;
@@ -362,9 +386,17 @@ export default class Advertisement extends mixins(AlertMixin) {
   }
 
   public showActiveAdvertisements(): void {
-    this.activeAdStatusFilter = AdvertisementStatusFilter.ACTIVE;
+	  
+	//console.log("Active");  
+	this.activeAdStatusFilter = AdvertisementStatusFilter.ACTIVE;
     this.activeAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.ACTIVE);
+    
+    this.activeAdStatus = {}
+	this.activeAdStatus.id = 3551
+    
+    
     this.retrieveAllAdvertisements();
+
 
     this.filterAllButtonVariant = 'outline-secondary';
     this.filterActiveButtonVariant = 'secondary';
@@ -375,7 +407,13 @@ export default class Advertisement extends mixins(AlertMixin) {
   public showInactiveAdvertisements(): void {
     this.activeAdStatusFilter = AdvertisementStatusFilter.INACTIVE;
     this.activeAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.INACTIVE);
+   
+    this.activeAdStatus = {}
+	this.activeAdStatus.id = 3552
+	
     this.retrieveAllAdvertisements();
+    
+   
 
     this.filterAllButtonVariant = 'outline-secondary';
     this.filterActiveButtonVariant = 'outline-secondary';
@@ -386,8 +424,13 @@ export default class Advertisement extends mixins(AlertMixin) {
   public showSoftDeleteAdvertisements(): void {
     this.activeAdStatusFilter = AdvertisementStatusFilter.ARCHIVED;
     this.activeAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.ARCHIVED);
-    this.retrieveAllAdvertisements();
+    
+    
+    this.activeAdStatus = {}
+	this.activeAdStatus.id = 3551
 
+	this.retrieveAllAdvertisements();
+    
     this.filterAllButtonVariant = 'outline-secondary';
     this.filterActiveButtonVariant = 'outline-secondary';
     this.filterInactiveButtonVariant = 'outline-secondary';

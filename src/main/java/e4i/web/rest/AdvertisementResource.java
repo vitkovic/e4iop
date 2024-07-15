@@ -493,6 +493,24 @@ public class AdvertisementResource {
 	    }
 	    
 	    
+	    /**
+	     * {@code GET  /advertisements/:search} : get the "search" advertisement.
+	     *
+	     * @param search
+	     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the advertisement, or with status {@code 404 (Not Found)}.
+	     */
+	    @GetMapping("/advertisements/searchtypestatus")
+	    public ResponseEntity<List<Advertisement>> getAdvertisementSearchStatus(@RequestParam Long type, @RequestParam Long status, Pageable pageable) {
+	        log.debug("REST request to get search Advertisements : {}", type);
+	        Page<Advertisement> page;
+	        System.out.println("Search %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+	        page = advertisementService.findAllBySearchTypeStatus(type, status, pageable);
+	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+	        return ResponseEntity.ok().headers(headers).body(page.getContent());
+	    }
+	    
+	    
+	    
 	    
 	    /**
 	     * {@code GET  /advertisements/:searchall} : get the "search" advertisement.
