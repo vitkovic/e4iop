@@ -49,9 +49,10 @@ export default class Advertisement extends mixins(AlertMixin) {
   public totalItems = 0;
   public isFetching = false;
   
-  public txtsearch;
-  public category;
-
+  public txtsearch=null;
+  public category = null;
+  public types;
+  public typesearch = false;
   public activeAdStatusFilter = AdvertisementStatusFilter.ALL;
   public filterAllButtonVariant = 'secondary';
   public filterActiveButtonVariant = 'outline-secondary';
@@ -59,18 +60,34 @@ export default class Advertisement extends mixins(AlertMixin) {
   public filterSoftDeleteButtonVariant = 'outline-secondary';
 
   public mounted(): void {
-    this.retrieveAllAdvertisements();
     
-   this.txtsearch = this.$route.query.search;
-     this.category =  this.$route.query.category;
+      const urlParams = new URLSearchParams(window.location.search);
      
-     if (this.txtsearch == null) {
-     const urlParams = new URLSearchParams(window.location.search);
+     this.txtsearch = this.$route.query.search;
+     this.category =  this.$route.query.category;
+     this.types =  this.$route.query.type;
+     
+     if (this.txtsearch == null || this.txtsearch === 'undefined') {
+     
 	 this.txtsearch = urlParams.get('search');
      this.category =  urlParams.get('category');
+     this.types = urlParams.get('type');
     }
     
-    console.log(this.txtsearch );
+    if (this.types != null) 
+    {
+		this.typesearch = true;
+	} else {
+		this.typesearch = false;
+	} 
+	
+    
+    
+    this.retrieveAllAdvertisements();
+    
+   
+    
+    
     
     this.advertisementStatusService()
       .retrieve()
@@ -79,17 +96,30 @@ export default class Advertisement extends mixins(AlertMixin) {
       });
   }
   public created(): void {
-    this.retrieveAllAdvertisements();
-    
-   
-    this.txtsearch = this.$route.query.search;
-     this.category =  this.$route.query.category;
-     
-     if (this.txtsearch == null) {
      const urlParams = new URLSearchParams(window.location.search);
+     
+     this.txtsearch = this.$route.query.search;
+     this.category =  this.$route.query.category;
+     this.types =  this.$route.query.type;
+     
+     if (this.txtsearch == null || this.txtsearch === 'undefined') {
+     
 	 this.txtsearch = urlParams.get('search');
      this.category =  urlParams.get('category');
+     this.types = urlParams.get('type');
     }
+    
+    if (this.types != null) 
+    {
+		this.typesearch = true;
+	} else {
+		this.typesearch = false;
+	} 
+	
+    
+    
+    this.retrieveAllAdvertisements();
+     
     
     this.advertisementStatusService()
       .retrieve()
@@ -105,43 +135,74 @@ export default class Advertisement extends mixins(AlertMixin) {
   public retrieveAllAdvertisements(): void {
     this.isFetching = true;
 
+    //console.log(this.types + "   TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+
+
     const paginationQuery = {
       page: this.page - 1,
       size: this.itemsPerPage,
       sort: this.sort(),
     };
-
-    if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
-      this.advertisementService()
-       .retrieveSearch(this.txtsearch, this.category,paginationQuery)
+    
+    
+    if (this.typesearch) {
+		
+		 this.advertisementService()
+       .retrieveSearchType(this.types,paginationQuery)
         .then(
           res => {
             this.advertisements = res.data;
             this.totalItems = Number(res.headers['x-total-count']);
             this.queryCount = this.totalItems;
             this.isFetching = false;
+            return;
           },
           err => {
             this.isFetching = false;
           }
         );
-    } else {
-      if (this.activeAdStatus) {
-        this.advertisementService()
-          .retrieveSearchByStatusId(this.txtsearch, this.activeAdStatus.id, this.category,paginationQuery)
-          .then(
-            res => {
-              this.advertisements = res.data;
-              this.totalItems = Number(res.headers['x-total-count']);
-              this.queryCount = this.totalItems;
-              this.isFetching = false;
-            },
-            err => {
-              this.isFetching = false;
-            }
-          );
-      }
-    }
+		
+		
+		
+	 if (this.typesearch) return;
+    
+		    
+		    
+		
+		    if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
+		      this.advertisementService()
+		       .retrieveSearch(this.txtsearch, this.category,paginationQuery)
+		        .then(
+		          res => {
+		            this.advertisements = res.data;
+		            this.totalItems = Number(res.headers['x-total-count']);
+		            this.queryCount = this.totalItems;
+		            this.isFetching = false;
+		          },
+		          err => {
+		            this.isFetching = false;
+		          }
+		        );
+		    } else {
+		      if (this.activeAdStatus) {
+		        this.advertisementService()
+		          .retrieveSearchByStatusId(this.txtsearch, this.activeAdStatus.id, this.category,paginationQuery)
+		          .then(
+		            res => {
+		              this.advertisements = res.data;
+		              this.totalItems = Number(res.headers['x-total-count']);
+		              this.queryCount = this.totalItems;
+		              this.isFetching = false;
+		            },
+		            err => {
+		              this.isFetching = false;
+		            }
+		          );
+		      }
+		    }
+		    
+    
+    
   }
 
   public get authenticated(): boolean {

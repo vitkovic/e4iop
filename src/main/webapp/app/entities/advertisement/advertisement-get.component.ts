@@ -134,14 +134,14 @@ export default class Advertisement extends mixins(AlertMixin) {
   	while (i < advs.length) {
 	   	
 	    var subobj = {};
-	  
-	    subobj['title'] = advs[i].title;
-	    subobj['status'] = advs[i].status.status;
-	    subobj['type'] = advs[i].type.type);
-	    subobj['kind'] = advs[i].kind.kind;
-	    subobj['subsubcategory'] = advs[i].subsubcategory.name;
-	    subobj['budget']=advs[i].budget;
-	    subobj['company'] = advs[i].company.name;
+	    
+	    subobj['title'] = (advs[i].title != null) ? advs[i].title: '';
+	    subobj['status'] = (advs[i].status != null) ? advs[i].status.status: ''; 
+	    subobj['type'] = (advs[i].type != null) ? advs[i].type.type : '';
+	    subobj['kind'] = (advs[i].kind != null) ? advs[i].kind.kind: '';
+	    subobj['subsubcategory'] = (advs[i].subsubcategory.name != null) ? advs[i].subsubcategory.name: '';
+	    subobj['budget']=(advs[i].budget != null) ? advs[i].budget: '';
+	    subobj['company'] = (advs[i].company != null) ? advs[i].company.name: '';
 	    var dtm = new Date(advs[i].activationDatetime)
 	    subobj['datetime'] = dtm.toUTCString();
 	    subobj['id'] = advs[i].id;

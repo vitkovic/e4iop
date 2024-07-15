@@ -3,7 +3,7 @@
    
     <div id="app-header" class="fixed">
 
-		  <vue-editor v-model="content" :editor-toolbar="customToolbar" />
+		 <!-- <vue-editor v-model="content" :editor-toolbar="customToolbar" />-->
 		
       <b2b-jhi-navbar v-if="checkB2Bdomain()" ref="b2bnavbar" @adv:change="changeAdv" 
       @news:change="changeNews"  @quests:change="changeQuestions" @companies:change="changeCompanies" ></b2b-jhi-navbar>

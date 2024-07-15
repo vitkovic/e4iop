@@ -46,10 +46,10 @@
               <b-dropdown-item :to="{ name: 'AdvertisementCreate', query: { type: 'demand' } }">
                 <span v-text="$t('global.menu.advertisements.advertiseDemand')">Oglasi potražnju</span>
               </b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'AdvertisementBrowse' }">
+              <b-dropdown-item :to="{ name: 'AdvertisementSearch', query:{type:'3451'} }">
                 <span v-text="$t('global.menu.advertisements.findAllOffers')">Pogledaj sve ponude</span>
               </b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'AdvertisementBrowse' }">
+              <b-dropdown-item :to="{ name: 'AdvertisementSearch',query:{type:'3452'} }">
                 <span v-text="$t('global.menu.advertisements.findAllDemands')">Pogledaj sve potražnje</span>
               </b-dropdown-item>
             </b-nav-item-dropdown>

@@ -8,6 +8,7 @@ const baseApiUrl = 'api/advertisements';
 const baseApiUrlView = 'api/advertisements/view';
 const baseApiUrlSearch = 'api/advertisements/search';
 const baseApiUrlSearchStatus = 'api/advertisements/searchstatus';
+const baseApiUrlSearchType = 'api/advertisements/searchtype';
 const baseApiUrlSearchAll = 'api/advertisements/get';
 const updateCreatedByApiUrl = 'api/advertisements/update-created';
 const updateModifiedByApiUrl = 'api/advertisements/update-modified';
@@ -114,6 +115,27 @@ export default class AdvertisementService {
 	
 	const  urlgo = baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
 		
+	
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+  
+  
+  public retrieveSearchType(type:string, paginationQuery?: any): Promise<any> {
+  
+	
+	const  urlgo = baseApiUrlSearchType + `?type=${type}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
+	
+	
+	console.log("TYPE");	
 	
     return new Promise<any>((resolve, reject) => {
       axios
