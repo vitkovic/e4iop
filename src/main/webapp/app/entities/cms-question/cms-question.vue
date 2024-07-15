@@ -20,6 +20,7 @@
         <div class="alert alert-warning" v-if="!isFetching && cmsQuestions && cmsQuestions.length === 0">
             <span v-text="$t('riportalApp.cmsQuestion.home.notFound')">No cmsQuestions found</span>
         </div>
+        
         <div class="table-responsive" v-if="cmsQuestions && cmsQuestions.length > 0">
             <table class="table table-striped">
                 <thead>

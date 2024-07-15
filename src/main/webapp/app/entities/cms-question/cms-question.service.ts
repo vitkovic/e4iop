@@ -37,7 +37,7 @@ export default class CmsQuestionService {
     });
   }
 public retrieveSearch(search:string,  paginationQuery?: any): Promise<any> {
-	 console.log(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+	// console.log(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
     return new Promise<any>((resolve, reject) => {
       axios
         .get(baseApiUrlSearch + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`)

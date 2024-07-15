@@ -20,7 +20,8 @@ export default class CmsQuestion extends mixins(AlertMixin) {
   public propOrder = 'id';
   public reverse = false;
   public totalItems = 0;
-public txtsearch;
+  public txtsearch;
+  
   public cmsQuestions: ICmsQuestion[] = [];
 
   public isFetching = false;

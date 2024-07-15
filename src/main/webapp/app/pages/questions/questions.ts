@@ -19,10 +19,30 @@ export default class QuestionsComponent extends Vue {
   public propOrder = 'createdAt';
   public reverse = true;
   public totalItems = 0;
-
+  public txtsearch = null;
   public isFetching = false;
-
+  public txtsearchNav;
+  
+  
+   data() {
+     return {
+       txtsearchNav: '',
+      }
+    }
+  
+  
+  
   public mounted(): void {
+	  
+	this.txtsearch = this.$route.query.search;  
+	if (this.txtsearch == null) {
+     const urlParams = new URLSearchParams(window.location.search);
+	 this.txtsearch = urlParams.get('search');
+   //  this.category =  urlParams.get('category');
+    }   
+	  
+	  
+	  
     this.retrieveAllCmsQuestions();
   }
 
@@ -47,19 +67,36 @@ export default class QuestionsComponent extends Vue {
       size: this.itemsPerPage,
       sort: this.sort(),
     };
-    this.cmsQuestionService()
-      .retrieve(paginationQuery)
-      .then(
-        res => {
-          this.cmsQuestions = res.data;
-          this.totalItems = Number(res.headers['x-total-count']);
-          this.queryCount = this.totalItems;
-          this.isFetching = false;
-        },
-        err => {
-          this.isFetching = false;
-        }
-      );
+    if (this.txtsearch != null && this.txtsearch.trim().length > 0) {
+	    this.cmsQuestionService()
+	      .retrieveSearch(this.txtsearch,paginationQuery)
+	      .then(
+	        res => {
+	          this.cmsQuestions = res.data;
+	          this.totalItems = Number(res.headers['x-total-count']);
+	          this.queryCount = this.totalItems;
+	          this.isFetching = false;
+	        },
+	        err => {
+	          this.isFetching = false;
+	        }
+	      );
+	 } else {
+		  this.cmsQuestionService()
+	      .retrieve(paginationQuery)
+	      .then(
+	        res => {
+	          this.cmsQuestions = res.data;
+	          this.totalItems = Number(res.headers['x-total-count']);
+	          this.queryCount = this.totalItems;
+	          this.isFetching = false;
+	        },
+	        err => {
+	          this.isFetching = false;
+	        }
+	      );
+		 
+	 }
   }
 
   public toggleAnswer(index: number): void {
@@ -85,5 +122,13 @@ export default class QuestionsComponent extends Vue {
     this.propOrder = propOrder;
     this.reverse = !this.reverse;
     this.transition();
+  }
+  
+  public searchQ(): void {
+	  
+	  this.txtsearch = this.txtsearchNav;
+	  console.log(this.txtsearch);
+	  this.retrieveAllCmsQuestions();
+	  
   }
 }

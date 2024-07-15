@@ -16,17 +16,17 @@
         </div>
       </div>
 
-      <!-- <div class="row mb-4 ml-1">
+      <div class="row mb-4 ml-1">
         <div class="col-xs-12 w-100">
           <label for="searchInput" class="font-weight-bold" v-text="$t('faq.searchQuestions')" >Pretražite pitanja</label>
           <div class="input-group">
-            <input type="text" id="searchInput" class="form-control" :placeholder="$t('faq.searchPlaceholder')" />
+            <input type="text"  v-model="txtsearchNav" class="form-control" :placeholder="$t('faq.searchPlaceholder')" />
             <div class="input-group-append">
-              <button class="btn btn-search pt-0 pb-0" v-text="$t('entity.action.search')" type="button">Pretraži</button>
+              <button class="btn btn-search pt-0 pb-0" @click="searchQ()" v-text="$t('entity.action.search')" type="button">Pretraži</button>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       <div v-if="cmsQuestions.length > 0" class="row ml-1">
         <div class="card col-12 mb-2" v-for="(question, index) in cmsQuestions" :key="index">
           <div class="card-header p-0 border-0">

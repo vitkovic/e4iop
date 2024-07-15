@@ -1947,7 +1947,7 @@ export default [
     path: '/b2b/cms-question',
     name: 'CmsQuestion',
     component: CmsQuestion,
-    meta: { authorities: [Authority.USER] },
+ //   meta: { authorities: [Authority.USER] },
   },
    {
      path: '/b2b/cms-questions/search',
