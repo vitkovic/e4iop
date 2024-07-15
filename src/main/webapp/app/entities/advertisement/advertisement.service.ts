@@ -24,10 +24,11 @@ const apiFindAllByCompanyIdAndStatusId = 'api/advertisements/company-status';
 const apiFindAllByCompanyIdAndNotStatusId = 'api/advertisements/company-not-status';
 const apiFindAllByStatusId = 'api/advertisements/status';
 const apiFindAllByCompanyIdAndTypeId = 'api/advertisements/company-type';
+const apiGetCountAllForCompany = 'api/advertisements/company-count-all';
+const apiGetCountActiveForCompany = 'api/advertisements/company-count-active';
+const apiGetCountInactiveForCompany = 'api/advertisements/company-count-inactive';
 
 export default class AdvertisementService {
-	
-	
   public find(id: number): Promise<IAdvertisement> {
     return new Promise<IAdvertisement>((resolve, reject) => {
       axios
@@ -40,7 +41,7 @@ export default class AdvertisementService {
         });
     });
   }
-  
+
   public autoAdv(src: string): Promise<IAdvertisement> {
     return new Promise<IAdvertisement>((resolve, reject) => {
       axios
@@ -53,9 +54,7 @@ export default class AdvertisementService {
         });
     });
   }
-  
-  
-  
+
   public findView(id: number): Promise<IAdvertisement> {
     return new Promise<IAdvertisement>((resolve, reject) => {
       axios
@@ -81,23 +80,18 @@ export default class AdvertisementService {
         });
     });
   }
-  public retrieveSearch(search:string, category:number, paginationQuery?: any): Promise<any> {
-    const urlgo='';
-    
-	if (search == '' || typeof(search)=='undefined' || search == null) 
-	{
-		urlgo = baseApiUrlSearchAll +`?` + `${buildPaginationQueryOpts(paginationQuery)}`
-	 	
-	} else {
-	
-		urlgo = baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
-		
-	
-	}
-	
-	console.log(urlgo);
-	
-	// console.log(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+  public retrieveSearch(search: string, category: number, paginationQuery?: any): Promise<any> {
+    const urlgo = '';
+
+    if (search == '' || typeof search == 'undefined' || search == null) {
+      urlgo = baseApiUrlSearchAll + `?` + `${buildPaginationQueryOpts(paginationQuery)}`;
+    } else {
+      urlgo = baseApiUrlSearch + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
+    }
+
+    console.log(urlgo);
+
+    // console.log(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
     return new Promise<any>((resolve, reject) => {
       axios
         .get(urlgo)
@@ -109,13 +103,10 @@ export default class AdvertisementService {
         });
     });
   }
-  
-  public retrieveBaseSearch(search:string, category:number, paginationQuery?: any): Promise<any> {
-  
-	
-	const  urlgo = baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
-		
-	
+
+  public retrieveBaseSearch(search: string, category: number, paginationQuery?: any): Promise<any> {
+    const urlgo = baseApiUrlSearch + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
+
     return new Promise<any>((resolve, reject) => {
       axios
         .get(urlgo)
@@ -127,16 +118,12 @@ export default class AdvertisementService {
         });
     });
   }
-  
-  
-  public retrieveSearchType(type:string, paginationQuery?: any): Promise<any> {
-  
-	
-	const  urlgo = baseApiUrlSearchType + `?type=${type}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
-	
-	
-	console.log("TYPE");	
-	
+
+  public retrieveSearchType(type: string, paginationQuery?: any): Promise<any> {
+    const urlgo = baseApiUrlSearchType + `?type=${type}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
+
+    console.log('TYPE');
+
     return new Promise<any>((resolve, reject) => {
       axios
         .get(urlgo)
@@ -148,14 +135,16 @@ export default class AdvertisementService {
         });
     });
   }
-  
-  
-   public retrieveSearchByStatusId(search:string, category:number, paginationQuery?: any): Promise<any> {
-  
-	
-	const  urlgo = baseApiUrlSearchStatus + `?search=${search}`+ + `&statusId=${statusId}` + `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
-		
-	
+
+  public retrieveSearchByStatusId(search: string, category: number, paginationQuery?: any): Promise<any> {
+    const urlgo =
+      baseApiUrlSearchStatus +
+      `?search=${search}` +
+      +`&statusId=${statusId}` +
+      `&category=${category}` +
+      `&` +
+      `${buildPaginationQueryOpts(paginationQuery)}`;
+
     return new Promise<any>((resolve, reject) => {
       axios
         .get(urlgo)
@@ -167,11 +156,7 @@ export default class AdvertisementService {
         });
     });
   }
-  
-  
-  
-  
-  
+
   public retrieveBrowse(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
@@ -429,6 +414,45 @@ export default class AdvertisementService {
         .put(`${apiUpdateStatus}/${id}/${statusId}`)
         .then(res => {
           resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getCountAllForCompany(companyId: number): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      axios
+        .get(`${apiGetCountAllForCompany}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getCountActiveForCompany(companyId: number): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      axios
+        .get(`${apiGetCountActiveForCompany}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getCountInactiveForCompany(companyId: number): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      axios
+        .get(`${apiGetCountInactiveForCompany}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
         })
         .catch(err => {
           reject(err);

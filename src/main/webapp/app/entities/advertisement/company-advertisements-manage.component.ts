@@ -45,6 +45,9 @@ export default class Advertisement extends mixins(AlertMixin) {
   private newAdvertisementStatus: IAdvertisementStatus = null;
   private hasAnyAuthorityValue = false;
   private companyId: number;
+  private countAllAdvertisementsValue = 0;
+  private countActiveAdvertisementsValue = 0;
+  private countInactiveAdvertisementsValue = 0;
 
   public itemsPerPage = 20;
   public queryCount: number = null;
@@ -70,6 +73,8 @@ export default class Advertisement extends mixins(AlertMixin) {
           .then(res => {
             vm.company = res;
           });
+
+        vm.getAdvertisementsCounts();
       }
     });
   }
@@ -107,6 +112,8 @@ export default class Advertisement extends mixins(AlertMixin) {
             this.totalItems = Number(res.headers['x-total-count']);
             this.queryCount = this.totalItems;
             this.isFetching = false;
+
+            this.getAdvertisementsCounts();
           },
           err => {
             this.isFetching = false;
@@ -122,6 +129,8 @@ export default class Advertisement extends mixins(AlertMixin) {
               this.totalItems = Number(res.headers['x-total-count']);
               this.queryCount = this.totalItems;
               this.isFetching = false;
+
+              this.getAdvertisementsCounts();
             },
             err => {
               this.isFetching = false;
@@ -318,5 +327,27 @@ export default class Advertisement extends mixins(AlertMixin) {
     this.filterActiveButtonVariant = 'outline-secondary';
     this.filterInactiveButtonVariant = 'outline-secondary';
     this.filterSoftDeleteButtonVariant = 'secondary';
+  }
+
+  public async getAdvertisementsCounts() {
+    try {
+      this.countAllAdvertisementsValue = await this.advertisementService().getCountAllForCompany(this.companyId);
+      this.countActiveAdvertisementsValue = await this.advertisementService().getCountActiveForCompany(this.companyId);
+      this.countInactiveAdvertisementsValue = await this.advertisementService().getCountInactiveForCompany(this.companyId);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  get countAllAdvertisements(): number {
+    return this.countAllAdvertisementsValue;
+  }
+
+  get countActiveAdvertisements(): number {
+    return this.countActiveAdvertisementsValue;
+  }
+
+  get countInactiveAdvertisements(): number {
+    return this.countInactiveAdvertisementsValue;
   }
 }

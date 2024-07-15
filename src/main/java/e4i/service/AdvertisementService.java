@@ -404,4 +404,22 @@ public class AdvertisementService {
     	
     	return advertisements;
 	}
+    
+    @Transactional
+	public Long getCountAllForCompany(Long companyId) {
+        log.debug("Request to get count for all Advertisments for Company : {}", companyId);
+        return advertisementRepository.countByCompanyIdAndStatus_statusNot(companyId, AdvertisementStatus.ARCHIVED);
+	}
+    
+    @Transactional
+	public Long getCountActiveForCompany(Long companyId) {        
+        log.debug("Request to get count for active Advertisments for Company : {}", companyId);
+        return advertisementRepository.countByCompanyIdAndStatusStatus(companyId, AdvertisementStatus.ACTIVE);
+	}
+    
+    @Transactional
+	public Long getCountInactiveForCompany(Long companyId) {        
+        log.debug("Request to get count for inactive Advertisments for Company : {}", companyId);
+        return advertisementRepository.countByCompanyIdAndStatusStatus(companyId, AdvertisementStatus.INACTIVE);
+	}
 }

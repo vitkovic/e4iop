@@ -574,4 +574,28 @@ public class AdvertisementResource {
 	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 	        return ResponseEntity.ok().headers(headers).body(page.getContent());
 	    }
+	    
+	    @GetMapping("/advertisements/company-count-all/{companyId}")
+	    public ResponseEntity<Long> getCountAllForCompany(@PathVariable Long companyId) {
+	    	log.debug("REST request to get count for all Advertisments for Company : {}", companyId);
+	        Long count = advertisementService.getCountAllForCompany(companyId);
+	        
+	        return ResponseEntity.ok(count);
+	    }
+	    
+	    @GetMapping("/advertisements/company-count-active/{companyId}")
+	    public ResponseEntity<Long> getCountActiveForCompany(@PathVariable Long companyId) {
+	    	log.debug("REST request to get count for active Advertisments for Company : {}", companyId);
+	    	Long count = advertisementService.getCountActiveForCompany(companyId);
+    	
+	    	return ResponseEntity.ok(count);
+	    }
+	    
+	    @GetMapping("/advertisements/company-count-inactive/{companyId}")
+	    public ResponseEntity<Long> getCountInactiveForCompany(@PathVariable Long companyId) {
+	    	log.debug("REST request to get count for inactive Advertisments for Company : {}", companyId);
+	    	Long count = advertisementService.getCountInactiveForCompany(companyId);
+	    	
+	    	return ResponseEntity.ok(count);
+	    }
 }

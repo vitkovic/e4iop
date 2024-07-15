@@ -37,19 +37,19 @@
       <div>
         <b-button
           :variant="filterAllButtonVariant"
-          v-text="$t('riportalApp.advertisement.filterButtons.all')"
+          v-text="$t('riportalApp.advertisement.filterButtons.all') + ` (${countAllAdvertisements})`"
           v-on:click="showAllAdvertisements()"
           >Cancel</b-button
         >
         <b-button
           :variant="filterActiveButtonVariant"
-          v-text="$t('riportalApp.advertisement.filterButtons.active')"
+          v-text="$t('riportalApp.advertisement.filterButtons.active') + ` (${countActiveAdvertisements})`"
           v-on:click="showActiveAdvertisements()"
           >Cancel</b-button
         >
         <b-button
           :variant="filterInactiveButtonVariant"
-          v-text="$t('riportalApp.advertisement.filterButtons.inactive')"
+          v-text="$t('riportalApp.advertisement.filterButtons.inactive') + ` (${countInactiveAdvertisements})`"
           v-on:click="showInactiveAdvertisements()"
           >Cancel</b-button
         >

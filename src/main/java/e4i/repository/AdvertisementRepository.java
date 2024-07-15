@@ -177,4 +177,7 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     
     
 	Optional<Advertisement> findOneByThreads(Thread thread);
+	
+	Long countByCompanyIdAndStatus_statusNot(@Param("companyId") Long companyId, @Param("status") String status);
+	Long countByCompanyIdAndStatusStatus(@Param("companyId") Long companyId, @Param("status") String status);
 }
