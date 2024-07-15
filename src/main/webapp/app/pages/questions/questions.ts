@@ -59,6 +59,49 @@ export default class QuestionsComponent extends Vue {
     return result;
   }
 
+ public notifsearchshown = false;
+ public autoQ(): any {
+    
+    if (!this.notifsearchshown) {
+    this.$notify({
+            text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
+            type: 'info',
+            duration: 4000,
+          });
+   	this.notifsearchshown = true;
+   }
+   if (this.txtsearchNav.length >= 3) {
+	   this.isFetching = true;
+	    
+	    this.txtsearch = this.txtsearchNav;
+	    
+	    const paginationQuery = {
+	      page: this.page - 1,
+	      size: this.itemsPerPage,
+	      sort: this.sort()
+	    };
+	    
+	  	 
+	     this.cmsQuestionService()
+	      .retrieveSearch(this.txtsearch,paginationQuery)
+	      .then(
+	        res => {
+	          this.cmsQuestions = res.data;
+	          this.totalItems = Number(res.headers['x-total-count']);
+	          this.queryCount = this.totalItems;
+	          this.isFetching = false;
+	        },
+	        err => {
+	          this.isFetching = false;
+	        }
+	      );
+	   }
+  }
+  
+
+
+
+
   public retrieveAllCmsQuestions(): void {
     this.isFetching = true;
 

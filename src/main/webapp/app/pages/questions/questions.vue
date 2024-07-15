@@ -20,7 +20,7 @@
         <div class="col-xs-12 w-100">
           <label for="searchInput" class="font-weight-bold" v-text="$t('faq.searchQuestions')" >Pretražite pitanja</label>
           <div class="input-group">
-            <input type="text"  v-model="txtsearchNav" class="form-control" :placeholder="$t('faq.searchPlaceholder')" />
+            <input type="text"  v-model="txtsearchNav" @keyup="autoQ()" @keyup.enter="searchQ()" class="form-control" :placeholder="$t('faq.searchPlaceholder')" />
             <div class="input-group-append">
               <button class="btn btn-search pt-0 pb-0" @click="searchQ()" v-text="$t('entity.action.search')" type="button">Pretraži</button>
             </div>
