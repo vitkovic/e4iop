@@ -39,11 +39,15 @@ export default class AdvertisementCategoryUpdate extends Vue {
   public cmsAdvertisementCategories: ICmsAdvertisementCategory[] = [];
   public isSaving = false;
   public currentLanguage = '';
+  public advertisementCategoryTitleHasID: boolean = false;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.advertisementCategoryId) {
         vm.retrieveAdvertisementCategory(to.params.advertisementCategoryId);
+        vm.advertisementCategoryTitleHasID = true;
+      } else {
+        vm.advertisementCategoryTitleHasID = false;
       }
       vm.initRelationships();
     });

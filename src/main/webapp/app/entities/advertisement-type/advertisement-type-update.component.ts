@@ -32,11 +32,15 @@ export default class AdvertisementTypeUpdate extends Vue {
   public advertisements: IAdvertisement[] = [];
   public isSaving = false;
   public currentLanguage = '';
+  public advertisementTypeTitleHasID: boolean = false;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.advertisementTypeId) {
         vm.retrieveAdvertisementType(to.params.advertisementTypeId);
+        vm.advertisementTypeTitleHasID = true;
+      } else {
+        vm.advertisementTypeTitleHasID = false;
       }
       vm.initRelationships();
     });

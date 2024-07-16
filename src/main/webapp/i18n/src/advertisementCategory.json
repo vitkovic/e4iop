@@ -1,0 +1,28 @@
+{
+  "riportalApp": {
+    "advertisementCategory": {
+      "home": {
+        "title": "Поткатегорије огласа",
+        "createLabel": "Креирај нову поткатегорију огласа",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Category",
+        "createTitleLabel": "Креирајте поткатегорију огласа",
+        "editTitleLabel": "Измените поткатегорију огласа",
+        "notFound": "Није пронађена ниједна поткатегорија огласа"
+      },
+      "created": "Креирана је нова поткатегорија огласа под идентификатором {{ param }}",
+      "updated": "Поткатегорија огласа под идентификатором {{ param }} је ажурирана",
+      "deleted": "Поткатегорија огласа под идентификатором {{ param }} је обрисана",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете категорију огласа?"
+      },
+      "detail": {
+        "title": "Поткатегорија огласа"
+      },
+      "name": "Назив",
+      "isVisible": "Видљива",
+      "isDeleted": "Обрисана",
+      "advertisementSubcategory": "Поткатегорија огласа",
+      "cmsAdvertisementCategory": "Cms категорија огласа"
+    }
+  }
+}

@@ -2,25 +2,27 @@
   "riportalApp": {
     "advertisementSubsubcategory": {
       "home": {
-        "title": "Advertisement Subsubcategories",
-        "createLabel": "Kreiraj novi Advertisement Subsubcategory",
-        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Subsubcategory",
-        "notFound": "No Advertisement Subsubcategories found"
+        "title": "Potpotkategorije oglasa",
+        "createLabel": "Kreiraj novu potpotkategoriju oglasa",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Category",
+        "createTitleLabel": "Kreirajte potpotkategoriju oglasa",
+        "editTitleLabel": "Izmenite potpotkategoriju oglasa",
+        "notFound": "Nije pronađena nijedna potpotkategorija oglasa"
       },
-      "created": "Kreiran je novi Advertisement Subsubcategory pod nazivom {{ param }}",
-      "updated": "Advertisement Subsubcategory pod nazivom {{ param }} je ažuriran",
-      "deleted": "Advertisement Subsubcategory pod nazivom {{ param }} je obrisan",
+      "created": "Kreiranа je nova potpotkategorija oglasa pod identifikatorom {{ param }}",
+      "updated": "Potpotkategorija oglasa pod identifikatorom {{ param }} je ažurirana",
+      "deleted": "Potpotkategorija oglasa pod identifikatorom {{ param }} je obrisana",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Advertisement Subsubcategory pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete potpotkategoriju oglasa?"
       },
       "detail": {
-        "title": "Advertisement Subsubcategory"
+        "title": "Potkategorija oglasa"
       },
-      "name": "Name",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
-      "advertisement": "Advertisement",
-      "advertisementSubcategory": "Advertisement Subcategory"
+      "name": "Naziv",
+      "isVisible": "Vidljiva",
+      "isDeleted": "Obrisana",
+      "advertisement": "Oglas",
+      "advertisementSubcategory": "Potkategorija oglasa"
     }
   }
 }

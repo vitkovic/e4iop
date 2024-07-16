@@ -2,25 +2,28 @@
   "riportalApp": {
     "advertisementSubcategory": {
       "home": {
-        "title": "Advertisement Subcategories",
-        "createLabel": "Kreiraj novi Advertisement Subcategory",
-        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Subcategory",
-        "notFound": "No Advertisement Subcategories found"
+        "title": "Potkategorije oglasa",
+        "createLabel": "Kreiraj novu potkategoriju oglasa",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Category",
+        "createTitleLabel": "Kreirajte potkategoriju oglasa",
+        "editTitleLabel": "Izmenite potkategoriju oglasa",
+        "notFound": "Nije pronađena nijedna potkategorija oglasa"
       },
-      "created": "Kreiran je novi Advertisement Subcategory pod nazivom {{ param }}",
-      "updated": "Advertisement Subcategory pod nazivom {{ param }} je ažuriran",
-      "deleted": "Advertisement Subcategory pod nazivom {{ param }} je obrisan",
+      "created": "Kreiranа je nova potkategorija oglasa pod identifikatorom {{ param }}",
+      "updated": "Potkategorija oglasa pod identifikatorom {{ param }} je ažurirana",
+      "deleted": "Potkategorija oglasa pod identifikatorom {{ param }} je obrisana",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Advertisement Subcategory pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete potkategoriju oglasa?"
       },
       "detail": {
-        "title": "Advertisement Subcategory"
+        "title": "Potkategorija oglasa"
       },
-      "name": "Name",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
-      "advertisementSubsubcategory": "Advertisement Subsubcategory",
-      "advertisementCategory": "Advertisement Category"
+      "name": "Naziv",
+      "isVisible": "Vidljiva",
+      "isDeleted": "Obrisana",
+      "advertisementSubsubcategory": "Potpotkategorija oglasa",
+      "advertisementCategory": "Kategorija oglasa",
+      "cmsAdvertisementCategory": "Cms kategorija oglasa"
     }
   }
 }

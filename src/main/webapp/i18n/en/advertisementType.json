@@ -2,23 +2,25 @@
   "riportalApp": {
     "advertisementType": {
       "home": {
-        "title": "Advertisement Types",
-        "createLabel": "Create a new Advertisement Type",
+        "title": "Advertisement types",
+        "createLabel": "Create a new advertisement type",
         "createOrEditLabel": "Create or edit a Advertisement Type",
-        "notFound": "No Advertisement Types found"
+        "createTitleLabel": "Create advertisement type",
+        "editTitleLabel": "Edit advertisement type",
+        "notFound": "No advertisement types found"
       },
-      "created": "A new Advertisement Type is created with identifier {{ param }}",
-      "updated": "A Advertisement Type is updated with identifier {{ param }}",
-      "deleted": "A Advertisement Type is deleted with identifier {{ param }}",
+      "created": "A new advertisement type is created with identifier {{ param }}",
+      "updated": "A advertisement type is updated with identifier {{ param }}",
+      "deleted": "A advertisement type is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Advertisement Type {{ id }}?"
+        "question": "Are you sure you want to delete advertisement type?"
       },
       "detail": {
-        "title": "Advertisement Type"
+        "title": "Advertisement type"
       },
       "type": "Type",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
+      "isVisible": "Is visible",
+      "isDeleted": "Is deleted",
       "advertisement": "Advertisement"
     }
   }

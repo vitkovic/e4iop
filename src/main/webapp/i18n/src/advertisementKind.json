@@ -1,0 +1,27 @@
+{
+  "riportalApp": {
+    "advertisementKind": {
+      "home": {
+        "title": "Врсте огласа",
+        "createLabel": "Креирај нову врсту огласа",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Category",
+        "createTitleLabel": "Креирајте врсту огласа",
+        "editTitleLabel": "Измените врсту огласа",
+        "notFound": "Није пронађена ниједна врста огласа"
+      },
+      "created": "Креирана је нова врста огласа под идентификатором {{ param }}",
+      "updated": "Врста огласа под идентификатором {{ param }} је ажурирана",
+      "deleted": "Врста огласа под идентификатором {{ param }} је обрисана",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете врсту огласа?"
+      },
+      "detail": {
+        "title": "Врста огласа"
+      },
+      "kind": "Врста",
+      "isVisible": "Видљив",
+      "isDeleted": "Обрисан",
+      "advertisement": "Оглас"
+    }
+  }
+}

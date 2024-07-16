@@ -27,7 +27,7 @@
                     </dt>
                     <dd>
                         <div v-if="advertisementSubcategory.advertisementCategory">
-                            <router-link :to="{name: 'AdvertisementCategoryView', params: {advertisementCategoryId: advertisementSubcategory.advertisementCategory.id}}">{{advertisementSubcategory.advertisementCategory.name}}</router-link>
+                            <router-link :to="{name: 'AdvertisementCategoryView', params: {advertisementCategoryId: advertisementSubcategory.advertisementCategory.id}}" class="text-body font-weight-normal">{{advertisementSubcategory.advertisementCategory.name}}</router-link>
                         </div>
                     </dd>
                 </dl>

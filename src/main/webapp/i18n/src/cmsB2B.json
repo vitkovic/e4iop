@@ -8,7 +8,9 @@
         "termsOfUse": "Услови коришћења",
         "cookiePolicy": "Политика колачића",
         "faq": "Најчешћа питања",
-        "slider": "Слајдер"
+        "slider": "Слајдер",
+        "questionsManagement": "Управљање питањима",
+        "sliderManagement": "Управљање слајдером"
       },
       "titleCoders": "Шифарници",
       "coders": {

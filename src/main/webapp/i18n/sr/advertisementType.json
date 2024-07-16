@@ -2,24 +2,26 @@
   "riportalApp": {
     "advertisementType": {
       "home": {
-        "title": "Advertisement Types",
-        "createLabel": "Kreiraj novi Advertisement Type",
-        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Type",
-        "notFound": "No Advertisement Types found"
+        "title": "Tipovi oglasa",
+        "createLabel": "Kreiraj novi tip oglasa",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Category",
+        "createTitleLabel": "Kreirajte tip oglasa",
+        "editTitleLabel": "Izmenite tip oglasa",
+        "notFound": "Nije pronađen nijedan tip oglasa"
       },
-      "created": "Kreiran je novi Advertisement Type pod nazivom {{ param }}",
-      "updated": "Advertisement Type pod nazivom {{ param }} je ažuriran",
-      "deleted": "Advertisement Type pod nazivom {{ param }} je obrisan",
+      "created": "Kreiran je novi tip oglasa pod identifikatorom {{ param }}",
+      "updated": "Tip oglasa pod identifikatorom {{ param }} je ažurirana",
+      "deleted": "Tip oglasa pod identifikatorom {{ param }} je obrisana",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Advertisement Type pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete tip oglasa?"
       },
       "detail": {
-        "title": "Advertisement Type"
+        "title": "Tip oglasa"
       },
-      "type": "Type",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
-      "advertisement": "Advertisement"
+      "type": "Tip",
+      "isVisible": "Vidljiv",
+      "isDeleted": "Obrisan",
+      "advertisement": "Oglas"
     }
   }
 }

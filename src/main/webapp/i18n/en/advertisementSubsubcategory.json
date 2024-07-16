@@ -2,25 +2,27 @@
   "riportalApp": {
     "advertisementSubsubcategory": {
       "home": {
-        "title": "Advertisement Subsubcategories",
-        "createLabel": "Create a new Advertisement Subsubcategory",
-        "createOrEditLabel": "Create or edit a Advertisement Subsubcategory",
-        "notFound": "No Advertisement Subsubcategories found"
+        "title": "Advertisement subsubcategories",
+        "createLabel": "Create a new advertisement subsubcategory",
+        "createOrEditLabel": "Create or edit a Advertisement Category",
+        "createTitleLabel": "Create advertisement subsubcategory",
+        "editTitleLabel": "Edit advertisement subsubcategory",
+        "notFound": "No advertisement subsubcategories found"
       },
-      "created": "A new Advertisement Subsubcategory is created with identifier {{ param }}",
-      "updated": "A Advertisement Subsubcategory is updated with identifier {{ param }}",
-      "deleted": "A Advertisement Subsubcategory is deleted with identifier {{ param }}",
+      "created": "A new advertisement subcategory is created with identifier {{ param }}",
+      "updated": "A advertisement subsubcategory is updated with identifier {{ param }}",
+      "deleted": "A advertisement subsubcategory is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Advertisement Subsubcategory {{ id }}?"
+        "question": "Are you sure you want to delete advertisement subsubcategory?"
       },
       "detail": {
-        "title": "Advertisement Subsubcategory"
+        "title": "Advertisement subsubcategory"
       },
       "name": "Name",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
+      "isVisible": "Is visible",
+      "isDeleted": "Is deleted",
       "advertisement": "Advertisement",
-      "advertisementSubcategory": "Advertisement Subcategory"
+      "advertisementSubcategory": "Advertisement subcategory"
     }
   }
 }

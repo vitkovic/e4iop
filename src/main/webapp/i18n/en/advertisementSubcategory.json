@@ -2,25 +2,28 @@
   "riportalApp": {
     "advertisementSubcategory": {
       "home": {
-        "title": "Advertisement Subcategories",
-        "createLabel": "Create a new Advertisement Subcategory",
-        "createOrEditLabel": "Create or edit a Advertisement Subcategory",
-        "notFound": "No Advertisement Subcategories found"
+        "title": "Advertisement subcategories",
+        "createLabel": "Create a new advertisement subcategory",
+        "createOrEditLabel": "Create or edit a Advertisement Category",
+        "createTitleLabel": "Create advertisement subcategory",
+        "editTitleLabel": "Edit advertisement subcategory",
+        "notFound": "No advertisement subcategories found"
       },
-      "created": "A new Advertisement Subcategory is created with identifier {{ param }}",
-      "updated": "A Advertisement Subcategory is updated with identifier {{ param }}",
-      "deleted": "A Advertisement Subcategory is deleted with identifier {{ param }}",
+      "created": "A new advertisement subcategory is created with identifier {{ param }}",
+      "updated": "A advertisement subcategory is updated with identifier {{ param }}",
+      "deleted": "A advertisement subcategory is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Advertisement Subcategory {{ id }}?"
+        "question": "Are you sure you want to delete advertisement subcategory?"
       },
       "detail": {
-        "title": "Advertisement Subcategory"
+        "title": "Advertisement subcategory"
       },
       "name": "Name",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
-      "advertisementSubsubcategory": "Advertisement Subsubcategory",
-      "advertisementCategory": "Advertisement Category"
+      "isVisible": "Is visible",
+      "isDeleted": "Is deleted",
+      "advertisementSubsubcategory": "Advertisement subsubcategory",
+      "advertisementCategory": "Advertisement category",
+      "cmsAdvertisementCategory": "Cms advertisement category"
     }
   }
 }

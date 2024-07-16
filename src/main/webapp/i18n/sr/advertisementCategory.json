@@ -2,25 +2,27 @@
   "riportalApp": {
     "advertisementCategory": {
       "home": {
-        "title": "Advertisement Categories",
-        "createLabel": "Kreiraj novi Advertisement Category",
+        "title": "Kategorije oglasa",
+        "createLabel": "Kreiraj novu kategoriju oglasa",
         "createOrEditLabel": "Kreirajte ili izmenite Advertisement Category",
-        "notFound": "No Advertisement Categories found"
+        "createTitleLabel": "Kreirajte kategoriju oglasa",
+        "editTitleLabel": "Izmenite kategoriju oglasa",
+        "notFound": "Nije pronađena nijedna kategorija oglasa"
       },
-      "created": "Kreiran je novi Advertisement Category pod nazivom {{ param }}",
-      "updated": "Advertisement Category pod nazivom {{ param }} je ažuriran",
-      "deleted": "Advertisement Category pod nazivom {{ param }} je obrisan",
+      "created": "Kreiranа je nova kategorija oglasa pod identifikatorom {{ param }}",
+      "updated": "Kategorija oglasa pod identifikatorom {{ param }} je ažurirana",
+      "deleted": "Kategorija oglasa pod identifikatorom {{ param }} je obrisana",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Advertisement Category pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete kategoriju oglasa?"
       },
       "detail": {
-        "title": "Advertisement Category"
+        "title": "Kategorija oglasa"
       },
-      "name": "Name",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
-      "advertisementSubcategory": "Advertisement Subcategory",
-      "cmsAdvertisementCategory": "Cms Advertisement Category"
+      "name": "Naziv",
+      "isVisible": "Vidljiva",
+      "isDeleted": "Obrisana",
+      "advertisementSubcategory": "Potkategorija oglasa",
+      "cmsAdvertisementCategory": "Cms kategorija oglasa"
     }
   }
 }

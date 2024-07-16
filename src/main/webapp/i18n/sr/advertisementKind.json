@@ -2,24 +2,26 @@
   "riportalApp": {
     "advertisementKind": {
       "home": {
-        "title": "Advertisement Kinds",
-        "createLabel": "Kreiraj novi Advertisement Kind",
-        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Kind",
-        "notFound": "No Advertisement Kinds found"
+        "title": "Vrste oglasa",
+        "createLabel": "Kreiraj novu vrstu oglasa",
+        "createOrEditLabel": "Kreirajte ili izmenite Advertisement Category",
+        "createTitleLabel": "Kreirajte vrstu oglasa",
+        "editTitleLabel": "Izmenite vrstu oglasa",
+        "notFound": "Nije pronađena nijedna vrsta oglasa"
       },
-      "created": "Kreiran je novi Advertisement Kind pod nazivom {{ param }}",
-      "updated": "Advertisement Kind pod nazivom {{ param }} je ažuriran",
-      "deleted": "Advertisement Kind pod nazivom {{ param }} je obrisan",
+      "created": "Kreirana je nova vrsta oglasa pod identifikatorom {{ param }}",
+      "updated": "Vrsta oglasa pod identifikatorom {{ param }} je ažurirana",
+      "deleted": "Vrsta oglasa pod identifikatorom {{ param }} je obrisana",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Advertisement Kind pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete vrstu oglasa?"
       },
       "detail": {
-        "title": "Advertisement Kind"
+        "title": "Vrsta oglasa"
       },
-      "kind": "Kind",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
-      "advertisement": "Advertisement"
+      "kind": "Vrsta",
+      "isVisible": "Vidljiva",
+      "isDeleted": "Obrisana",
+      "advertisement": "Oglas"
     }
   }
 }

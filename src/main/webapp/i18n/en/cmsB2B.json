@@ -8,7 +8,9 @@
         "termsOfUse": "Terms of use",
         "cookiePolicy": "Cookie policy",
         "faq": "FAQ",
-        "slider": "Slider"
+        "slider": "Slider",
+        "questionsManagement": "Questions management",
+        "sliderManagement": "Slider management"
       },
       "titleCoders": "Coders",
       "coders": {

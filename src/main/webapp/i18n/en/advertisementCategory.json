@@ -2,25 +2,27 @@
   "riportalApp": {
     "advertisementCategory": {
       "home": {
-        "title": "Advertisement Categories",
-        "createLabel": "Create a new Advertisement Category",
+        "title": "Advertisement categories",
+        "createLabel": "Create a new advertisement category",
         "createOrEditLabel": "Create or edit a Advertisement Category",
-        "notFound": "No Advertisement Categories found"
+        "createTitleLabel": "Create advertisement category",
+        "editTitleLabel": "Edit advertisement category",
+        "notFound": "No advertisement categories found"
       },
-      "created": "A new Advertisement Category is created with identifier {{ param }}",
-      "updated": "A Advertisement Category is updated with identifier {{ param }}",
-      "deleted": "A Advertisement Category is deleted with identifier {{ param }}",
+      "created": "A new advertisement category is created with identifier {{ param }}",
+      "updated": "A advertisement category is updated with identifier {{ param }}",
+      "deleted": "A advertisement category is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Advertisement Category {{ id }}?"
+        "question": "Are you sure you want to delete advertisement category?"
       },
       "detail": {
-        "title": "Advertisement Category"
+        "title": "Advertisement category"
       },
       "name": "Name",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
-      "advertisementSubcategory": "Advertisement Subcategory",
-      "cmsAdvertisementCategory": "Cms Advertisement Category"
+      "isVisible": "Is visible",
+      "isDeleted": "Is deleted",
+      "advertisementSubcategory": "Advertisement subcategory",
+      "cmsAdvertisementCategory": "Cms advertisement category"
     }
   }
 }

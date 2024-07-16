@@ -32,11 +32,15 @@ export default class AdvertisementKindUpdate extends Vue {
   public advertisements: IAdvertisement[] = [];
   public isSaving = false;
   public currentLanguage = '';
+  public advertisementKindTitleHasID: boolean = false;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.advertisementKindId) {
         vm.retrieveAdvertisementKind(to.params.advertisementKindId);
+        vm.advertisementKindTitleHasID = true;
+      } else {
+        vm.advertisementKindTitleHasID = false;
       }
       vm.initRelationships();
     });

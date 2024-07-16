@@ -2,7 +2,8 @@
     <div class="row justify-content-center">
         <div class="col-8">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
-                <h2 id="riportalApp.advertisementCategory.home.createOrEditLabel" v-text="$t('riportalApp.advertisementCategory.home.createOrEditLabel')">Create or edit a AdvertisementCategory</h2>
+                <h2 v-if="advertisementCategoryTitleHasID === false" id="riportalApp.advertisementCategory.home.createOrEditLabel" v-text="$t('riportalApp.advertisementCategory.home.createTitleLabel')">Create or edit a AdvertisementCategory</h2>
+                <h2 v-else id="riportalApp.advertisementCategory.home.createOrEditLabel" v-text="$t('riportalApp.advertisementCategory.home.editTitleLabel')">Create or edit a AdvertisementCategory</h2>
                 <div>
                     <div class="form-group" v-if="advertisementCategory.id">
                         <label for="id" v-text="$t('global.field.id')">ID</label>

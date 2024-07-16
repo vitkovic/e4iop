@@ -42,11 +42,15 @@ export default class AdvertisementSubsubcategoryUpdate extends Vue {
   public advertisementSubcategories: IAdvertisementSubcategory[] = [];
   public isSaving = false;
   public currentLanguage = '';
+  public advertisementSubSubCategoryTitleHasID: boolean = false;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.advertisementSubsubcategoryId) {
         vm.retrieveAdvertisementSubsubcategory(to.params.advertisementSubsubcategoryId);
+        vm.advertisementSubSubCategoryTitleHasID = true;
+      } else {
+        vm.advertisementSubSubCategoryTitleHasID = false;
       }
       vm.initRelationships();
     });
