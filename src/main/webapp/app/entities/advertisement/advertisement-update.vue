@@ -15,7 +15,7 @@
 
 
         <div id="appc">
-          <input v-model="inputCode" placeholder="Please Input" />
+          <input v-model="inputCode" placeholder="Please Input Captcha" />
           <captcha-code @click="handleClick()" ref="code" ></captcha-code>
           <button @click="handleConfirm()"  class="btn btn-primary" style="margin-top:0px;padding-top:0px">Confirm</button>
       </div>
