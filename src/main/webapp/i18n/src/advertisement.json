@@ -10,6 +10,7 @@
         "editTitleLabel": "Измените оглас",
         "notFound": "Није пронађен ниједан оглас"
       },
+      "captchafalse":"Captcha погрешан! Унесите исправам captcha",
       "created": "Kreiran je novi Advertisement pod nazivom {{ param }}",
       "updated": "Advertisement pod nazivom {{ param }} je ažuriran",
       "deleted": "Advertisement pod nazivom {{ param }} je obrisan",

@@ -190,30 +190,34 @@ export default class AdvertisementUpdate extends Vue {
   public isLoading: boolean = false;
   public advertisementTypeOptions = AdvertisementTypeOptions;
   public componentInitialized = false;
-  public code, inputCode;
+  public codetrue, inputCode;
 
   data() {
     return {
-      code: this.refreshCaptcha(),
       inputCode: "",
     };
   },
 
  public handleClick():void {
-      this.$refs.captcha.refreshCaptcha();
+      this.$refs.code.getCode();
   }
- public handleConfirm():void {
-      if (Number(this.code) === Number(this.inputCode)) {
-        alert("Matched");
-        this.code = this.refreshCaptcha();
-        this.inputCode = "";
+ public handleConfirm():any {
+	 var capcthacode =  this.$refs.code.getCode(); 
+	 
+      if (capcthacode == this.inputCode) {
+      
+      	this.codetrue = true;
+      	
       } else {
-        alert("Not Matched");
+		
+        this.codetrue = false;
       }
+      
+      return this.codetrue;
     }
 
  public refreshCaptcha(): any{
-	return Math.floor(Math.random() * 90000) + 10000;
+	return (Math.floor(Math.random() * 90000) + 10000).toString();
  }
 
   beforeRouteEnter(to, from, next) {
@@ -317,9 +321,17 @@ export default class AdvertisementUpdate extends Vue {
     this.isSaving = true;
     this.isLoading = true;
 
+	if (this.handleConfirm()) {
+		const message = this.$t('riportalApp.advertisement.captchafalse');
+		this.alertService().showAlert(message, 'info');
+		return;
+		
+	}
+
+
     // Remove any dots that might be in budget input
     this.formatBudgetToRealNumber();
-
+ 
     if (this.advertisement.id) {
       this.advertisement.expirationDatetime = new Date(this.advertisement.activationDatetime);
       const expirationMonth = this.advertisement.expirationDatetime.getMonth();

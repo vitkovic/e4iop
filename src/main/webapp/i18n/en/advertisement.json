@@ -10,6 +10,7 @@
         "editTitleLabel": "Edit an advertisement",
         "notFound": "No аdvertisements found"
       },
+      "captchafalse":"Captcha False! You need to enter correct captcha",
       "created": "A new Advertisement is created with identifier {{ param }}",
       "updated": "A Advertisement is updated with identifier {{ param }}",
       "deleted": "A Advertisement is deleted with identifier {{ param }}",

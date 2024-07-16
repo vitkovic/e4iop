@@ -16,22 +16,11 @@
 
         <div id="appc">
           <input v-model="inputCode" placeholder="Please Input" />
-          <br /><br /><br />
-          <captcha-code :captcha.sync="code" ref="captcha"></captcha-code>
-          <div>
-            <button @click="handleConfirm()">Confirm</button>
-           
-          </div>
+          <captcha-code @click="handleClick()" ref="code" ></captcha-code>
+          <button @click="handleConfirm()"  class="btn btn-primary" style="margin-top:0px;padding-top:0px">Confirm</button>
       </div>
-  
-
-
-
-
-
-
-
-        <div class="row justify-content-between">
+      <div>&nbsp;</div>
+          <div class="row justify-content-between">
           <!-- <div class="form-group" v-if="advertisement.id">
                         <label for="id" v-text="$t('global.field.id')">ID</label>
                         <input type="text" class="form-control" id="id" name="id"
