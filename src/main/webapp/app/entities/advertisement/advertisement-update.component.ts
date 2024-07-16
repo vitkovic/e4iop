@@ -321,12 +321,14 @@ export default class AdvertisementUpdate extends Vue {
     this.isSaving = true;
     this.isLoading = true;
 
-	if (this.handleConfirm()) {
+	if (!this.handleConfirm()) {
 		const message = this.$t('riportalApp.advertisement.captchafalse');
-		this.alertService().showAlert(message, 'info');
+		this.$notify({ text: JSON.stringify(message).replace(/["]/g, ''), type: 'error', duration: 10000 });
+		this.isSaving = false;
+    	this.isLoading = false;
 		return;
 		
-	}
+	} 
 
 
     // Remove any dots that might be in budget input
