@@ -6,19 +6,21 @@ import { ICmsNews } from '@/shared/model/cms-news.model';
 import AlertMixin from '@/shared/alert/alert.mixin';
 
 import CmsNewsService from './cms-news.service';
+import DocumentService from '@/entities/document/document.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],
 })
 export default class CmsNews extends mixins(AlertMixin) {
   @Inject('cmsNewsService') private cmsNewsService: () => CmsNewsService;
+  @Inject('documentService') private documentService: () => DocumentService;
 
   private removeId: number | null = null;
   public itemsPerPage = 20;
   public queryCount: number | null = null;
   public page = 1;
   public previousPage = 1;
-  public propOrder = 'id';
+  public propOrder = 'date';
   public reverse = false;
   public totalItems = 0;
   public txtsearch;
@@ -27,11 +29,11 @@ export default class CmsNews extends mixins(AlertMixin) {
   public isFetching = false;
 
   public mounted(): void {
-	this.txtsearch = this.$route.query.search;  
-	if (this.txtsearch == null) {
-     const urlParams = new URLSearchParams(window.location.search);
-	 this.txtsearch = urlParams.get('search');
-   //  this.category =  urlParams.get('category');
+    this.txtsearch = this.$route.query.search;
+    if (this.txtsearch == null) {
+      const urlParams = new URLSearchParams(window.location.search);
+      this.txtsearch = urlParams.get('search');
+      //  this.category =  urlParams.get('category');
     }
     this.retrieveAllCmsNews();
   }
@@ -42,7 +44,7 @@ export default class CmsNews extends mixins(AlertMixin) {
   }
 
   public retrieveAllCmsNews(): void {
-	//console.log("usao u cms newserkerjterkljekltejtklerjterkltjekltjekltjekltejtlk");  
+    //console.log("usao u cms newserkerjterkljekltejtklerjterkltjekltjekltjekltejtlk");
     this.isFetching = true;
 
     const paginationQuery = {
@@ -51,7 +53,7 @@ export default class CmsNews extends mixins(AlertMixin) {
       sort: this.sort(),
     };
     this.cmsNewsService()
-      .retrieveSearch(this.txtsearch,paginationQuery)
+      .retrieveSearch(this.txtsearch, paginationQuery)
       .then(
         res => {
           this.cmsNews = res.data;
@@ -116,5 +118,9 @@ export default class CmsNews extends mixins(AlertMixin) {
     if (this.$refs.removeEntity) {
       (this.$refs.removeEntity as any).hide();
     }
+  }
+
+  public retrieveImage(filename: string): string {
+    return this.documentService().retrieveImage(filename);
   }
 }

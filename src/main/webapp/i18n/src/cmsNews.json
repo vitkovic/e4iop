@@ -19,6 +19,7 @@
         "title": "Вест"
       },
       "title": "Наслов",
+      "titleImage": "Насловна слика",
       "content": "Садржај",
       "sequenceNumber": "Редни број",
       "date": "Датум",
@@ -27,7 +28,12 @@
       "documents": "Документи",
       "type": "Тип",
       "createdBy": "Креирао",
-      "modifiedBy": "Изменио"
+      "modifiedBy": "Изменио",
+      "upload": {
+        "newTitleImage": "Нова насловна слика",
+        "currentTitleImage": "Тренутна насловна слика",
+        "noTitleImage": "Насловна слика није изабрана"
+      }
     }
   }
 }

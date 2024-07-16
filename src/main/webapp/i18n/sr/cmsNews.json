@@ -19,6 +19,7 @@
         "title": "Vest"
       },
       "title": "Naslov",
+      "titleImage": "Naslovna slika",
       "content": "Sadržaj",
       "sequenceNumber": "Redni broj",
       "date": "Datum",
@@ -27,7 +28,12 @@
       "documents": "Dokumenti",
       "type": "Tip",
       "createdBy": "Kreirao",
-      "modifiedBy": "Izmenio"
+      "modifiedBy": "Izmenio",
+      "upload": {
+        "newTitleImage": "Nova naslovna slika",
+        "currentTitleImage": "Trenutna naslovna slika",
+        "noTitleImage": "Naslovna slika nije izabrana"
+      }
     }
   }
 }

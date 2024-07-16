@@ -7,6 +7,7 @@ export interface ICmsNews {
   sequenceNumber?: number;
   date?: Date;
   documents?: IDocument[];
+  titleImage?: IDocument;
 }
 
 export class CmsNews implements ICmsNews {
@@ -16,6 +17,7 @@ export class CmsNews implements ICmsNews {
     public content?: string,
     public sequenceNumber?: number,
     public date?: Date,
-    public documents?: IDocument[]
+    public documents?: IDocument[],
+    public titleImage?: IDocument
   ) {}
 }

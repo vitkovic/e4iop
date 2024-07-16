@@ -10,6 +10,7 @@
       "home": "Home",
       "about": "About",
       "faq": "FAQ",
+      "news": "News",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "searchAd": "Search advertisements",
       "entities": {

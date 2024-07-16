@@ -3,6 +3,7 @@ package e4i.web.rest;
 import e4i.domain.CmsNews;
 import e4i.domain.Document;
 import e4i.domain.DocumentType;
+import e4i.repository.CmsNewsRepository;
 import e4i.repository.DocumentRepository;
 import e4i.repository.DocumentTypeRepository;
 import e4i.service.CmsNewsService;
@@ -50,6 +51,9 @@ public class CmsNewsResource {
     public CmsNewsResource(CmsNewsService cmsNewsService) {
         this.cmsNewsService = cmsNewsService;
     }
+    
+    @Autowired
+    CmsNewsRepository cmsNewsRepository;
     
     @Autowired
     DocumentRepository documentRepository;
@@ -140,9 +144,71 @@ public class CmsNewsResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
     
+    @PostMapping("/cms-news/upload-title-image")                   
+    @Transactional
+    public ResponseEntity<Document> uploadTitleImage(@RequestParam Long id, @RequestParam("files") MultipartFile[] file) {     
+        log.debug("REST request to upload title image for CmsNews : {}", id);
+    	try {
+    		Optional<CmsNews> cmsNewsOptional = cmsNewsService.findOne(id);
+    		
+    		if (cmsNewsOptional.isEmpty()) {
+    			log.debug("No CmsNews found with id: {}", id);
+    			return ResponseEntity.notFound().build();
+    		}
+    		
+    		CmsNews cmsNews = cmsNewsOptional.get();
+    		Document existingTitleImage = cmsNews.getTitleImage();
+    		
+    		// brisanje postojeceg title image ako postoji
+    		if(existingTitleImage != null) {
+    			storageService.deleteImage(existingTitleImage.getFilename());
+    			documentRepository.delete(existingTitleImage);
+    		}
+    		
+    		DocumentType documentType = documentTypeRepository.findByType(DocumentType.IMAGE);    
+    		Document image = new Document();
+    		String namePrefix = "cms_news_" + id + "_title_image_";
+    		String titleImageFilename = storageService.saveImage(namePrefix, file[0]);
+    		
+    		image.setFilename(titleImageFilename);
+    		image.setType(documentType);
+    		documentRepository.save(image);
+    		
+    		cmsNews.setTitleImage(image);
+    		cmsNewsService.createOrUpdateCmsNews(cmsNews);
+  	
+    		return ResponseEntity.ok().body(image);
+    	} catch (Exception e) {
+    		throw new BadRequestAlertException("Upis nije uspeo", "", "");
+    	}
+    }
     
-    
-    
+    @DeleteMapping("/cms-news/delete-title-image/{cmsNewsId}")
+    @Transactional
+    public ResponseEntity<CmsNews> deleteTitleImage(@PathVariable Long cmsNewsId) {
+        log.debug("REST request to delete title image for CmsNews : {}", cmsNewsId);
+
+		Optional<CmsNews> cmsNewsOptional = cmsNewsService.findOne(cmsNewsId);
+		
+		if (cmsNewsOptional.isEmpty()) {
+			log.debug("No CmsNews found with id: {}", cmsNewsId);
+			return ResponseEntity.notFound().build();
+		}
+		
+		CmsNews cmsNews = cmsNewsOptional.get();
+		Document existingTitleImage = cmsNews.getTitleImage();
+  	    
+		// brisanje postojeceg title image ako postoji  
+		if(existingTitleImage != null) {
+			storageService.deleteImage(existingTitleImage.getFilename());
+			documentRepository.delete(existingTitleImage);  
+		}
+	
+		cmsNews.setTitleImage(null);
+		cmsNewsService.createOrUpdateCmsNews(cmsNews);
+     	  
+        return ResponseEntity.ok().body(cmsNews);
+    }
     
     @PostMapping("/cms-news/upload-files")
     @Transactional

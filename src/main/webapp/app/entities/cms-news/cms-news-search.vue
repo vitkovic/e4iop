@@ -1,101 +1,117 @@
 <template>
-    <div>
-        <h2 id="page-heading">
-            <span v-text="$t('riportalApp.cmsNews.home.title')" id="cms-news-heading">Cms News</span>
-            <router-link :to="{ name: 'CMSNewsCreate' }" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cms-news">
-                <font-awesome-icon icon="plus"></font-awesome-icon>
-                <span v-text="$t('riportalApp.cmsNews.home.createLabel')">Create a new Cms News</span>
-            </router-link>
-        </h2>
-        <b-alert :show="dismissCountDown"
-            dismissible
-            :variant="alertType"
-            @dismissed="dismissCountDown = 0"
-            @dismiss-count-down="countDownChanged">
-            {{ alertMessage }}
-        </b-alert>
-        <br/>
-        <div class="alert alert-warning" v-if="!isFetching && cmsNews && cmsNews.length === 0">
-            <span v-text="$t('riportalApp.cmsNews.home.notFound')">No cmsNews found</span>
-        </div>
-        <div class="table-responsive" v-if="cmsNews && cmsNews.length > 0">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th @click="changeOrder('id')">
-                            <span v-text="$t('global.field.id')">ID</span>
-                            <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
-                        </th>
-                        <th @click="changeOrder('date')">
-                            <span v-text="$t('riportalApp.cmsNews.date')">Date</span>
-                            <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'date'"></jhi-sort-indicator>
-                        </th>
-                        <th @click="changeOrder('title')">
-                            <span v-text="$t('riportalApp.cmsNews.title')">Title</span>
-                            <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator>
-                        </th>
-                        <th @click="changeOrder('sequenceNumber')">
-                            <span v-text="$t('riportalApp.cmsNews.sequenceNumber')">Sequence Number</span>
-                            <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'sequenceNumber'"></jhi-sort-indicator>
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="news in cmsNews" :key="news.id">
-                        <td>
-                            <router-link :to="{ name: 'CMSNewsDetails', params: { cmsNewsId: news.id }}">{{ news.id }}</router-link>
-                        </td>
-                        <td>{{ news.date ? $d(Date.parse(news.date), 'short') : '' }}</td>
-                        <td>{{ news.title }}</td>
-                        <td>{{ news.sequenceNumber }}</td>
-                        <td class="text-right">
-                            <div class="btn-group">
-                                <router-link :to="{ name: 'CMSNewsDetails', params: { cmsNewsId: news.id }}" tag="button" class="btn btn-info btn-sm details">
-                                    <font-awesome-icon icon="eye"></font-awesome-icon>
-                                    <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
-                                </router-link>
-                                <router-link :to="{ name: 'CMSNewsEdit', params: { cmsNewsId: news.id }}" tag="button" class="btn btn-primary btn-sm edit">
-                                    <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                    <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
-                                </router-link>
-                                <b-button @click="prepareRemove(news)"
-                                    variant="danger"
-                                    class="btn btn-sm"
-                                    v-b-modal.removeEntity>
-                                    <font-awesome-icon icon="times"></font-awesome-icon>
-                                    <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
-                                </b-button>
+    <section class="bg-white">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-xs-12">
+                    <h1 v-text="$t('riportalApp.cmsNews.home.title')">Vesti</h1>
+                </div>
+            </div>
+        
+            <div v-show="cmsNews && cmsNews.length > 0">
+                <div class="row justify-content-center">
+                    <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" @change="loadPage(page)"></b-pagination>
+                </div>
+            </div>
+
+            <div class="row mb-4 ml-1">
+                <div class="col-xs-12 w-100">
+                <label for="searchInput" class="font-weight-bold" v-text="$t('faq.searchQuestions')" >Pretražite pitanja</label>
+                <div class="input-group">
+                    <input type="text"  v-model="txtsearchNav" @keyup="autoQ()" @keyup.enter="searchQ()" class="form-control" :placeholder="$t('faq.searchPlaceholder')" />
+                    <div class="input-group-append">
+                    <button class="btn btn-search pt-0 pb-0" @click="searchQ()" v-text="$t('entity.action.search')" type="button">Pretraži</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+                
+            <div v-if="cmsNews && cmsNews.length > 0" class="row">
+                <div class="col-md-6 col-lg-4 mb-4" v-for="(news, index) in cmsNews" :key="index">
+                    <div class="card bg-white shadow">
+                      <img :src="retrieveImage(news.titleImage.filename)" alt="Placeholder picture" class="card-img-top img-fluid" style="height: 200px;" />
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h3 class="card-title font-weight-bold text-white">{{ news.title }}</h3>
+                            <div class="d-flex justify-content-between">
+                                <router-link :to="{name: 'NewsView', params: {'cmsNewsId': news.id} }" class="btn" @click.prevent>Pročitaj vest</router-link>
+                                <div class="d-flex align-items-center" style="height: 100%;">
+                                    <p class="text-sm text-white mb-0" style="text-align: center;">
+                                        <font-awesome-icon icon="calendar-alt" />
+                                        <span>
+                                            {{ news.date ? $d(Date.parse(news.date.toString()), { dateStyle: 'short' }) : '' }}
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <b-modal ref="removeEntity" id="removeEntity">
-            <span slot="modal-title">
-                <span id="riportalApp.cmsNews.delete.question" v-text="$t('entity.delete.title')">Confirm delete operation</span>
-            </span>
-            <div class="modal-body">
-                <p id="jhi-delete-cmsNews-heading" v-text="$t('riportalApp.cmsNews.delete.question', { 'id': removeId })">
-                    Are you sure you want to delete this Cms News?
-                </p>
-            </div>
-            <div slot="modal-footer">
-                <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" @click="closeDialog()">Cancel</button>
-                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-cmsNews" v-text="$t('entity.action.delete')" @click="removeCmsNews()">Delete</button>
-            </div>
-        </b-modal>
-        <div v-show="cmsNews && cmsNews.length > 0">
-            <div class="row justify-content-center">
-                <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" @change="loadPage(page)"></b-pagination>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script lang="ts" src="./cms-news-search.component.ts">
 </script>
+
+<style scoped>
+.card {
+  height: 420px; /* Set fixed height for the card */
+  position: relative;
+  border: 0;
+  transition: transform 0.4s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-body {
+  background-color: #1f3448;
+  border-bottom-left-radius: calc(0.25rem - 1px);
+  border-bottom-right-radius: calc(0.25rem - 1px);
+}
+
+.card img {
+  object-fit: cover; /* Ensure images fill the entire card */
+}
+
+h1 {
+  color: #004b90;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+.btn {
+  /* position: absolute; */
+  /* left: 20px; */
+  /* bottom: 20px; */
+  background-color: #E74C3C;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: #fff;
+  color: #E74C3C;
+  font-weight: normal;
+}
+
+.page-link {
+  color: #004b90;
+  background-color: #fff;
+  border: 0.1px solid;
+  margin-right: 2px;
+}
+
+.page-link:hover {
+  color: #fff;
+  background-color: #004b90;
+}
+
+</style>
+

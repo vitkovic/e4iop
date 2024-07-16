@@ -8,9 +8,10 @@ import { ICmsNews } from '@/shared/model/cms-news.model';
 const baseApiUrl = 'api/cms-news';
 const apiUploadFiles = 'api/cms-news/upload-files';
 const apiDeleteFile = 'api/cms-news/delete-file';
+const apiUploadTitleImage = 'api/cms-news/upload-title-image';
+const apiDeleteTitleImage = 'api/cms-news/delete-title-image';
 
 export default class CmsNewsService {
-  
   public find(id: number): Promise<ICmsNews> {
     return new Promise<ICmsNews>((resolve, reject) => {
       axios
@@ -109,6 +110,36 @@ export default class CmsNewsService {
     return new Promise<any>((resolve, reject) => {
       axios
         .delete(`${apiDeleteFile}/${id}/${fileId}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public uploadTitleImage(entity: FormData): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .post(apiUploadTitleImage, entity, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public deleteTitleImage(cmsNewsId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .delete(`${apiDeleteTitleImage}/${cmsNewsId}`)
         .then(res => {
           resolve(res);
         })

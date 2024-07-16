@@ -33,6 +33,9 @@
               <span v-text="$t('global.field.id')">ID</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
+            <th>
+              <span v-text="$t('riportalApp.cmsNews.titleImage')">ID</span>
+            </th>
             <th @click="changeOrder('date')">
               <span v-text="$t('riportalApp.cmsNews.date')">Date</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'date'"></jhi-sort-indicator>
@@ -53,12 +56,15 @@
             <td>
               <router-link :to="{ name: 'CMSNewsDetails', params: { cmsNewsId: news.id } }" class="text-body">{{ news.id }}</router-link>
             </td>
+            <td>
+              <img v-if="news.titleImage" :src="retrieveImage(news.titleImage.filename)" width="50" height="50" />
+            </td>
             <td>{{ news.date ? $d(Date.parse(news.date), 'short') : '' }}</td>
             <td>{{ news.title }}</td>
             <td>{{ news.sequenceNumber }}</td>
             <td class="text-right">
               <div class="btn-group">
-                <router-link :to="{ name: 'News', params: { cmsNewsId: news.id } }" tag="button" class="btn btn-info btn-sm details">
+                <router-link :to="{ name: 'NewsView', params: { cmsNewsId: news.id } }" tag="button" class="btn btn-info btn-sm details">
                   <font-awesome-icon icon="eye"></font-awesome-icon>
                   <span v-text="$t('entity.action.view')">View</span>
                 </router-link>

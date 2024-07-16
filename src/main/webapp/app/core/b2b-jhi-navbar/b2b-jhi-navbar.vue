@@ -66,6 +66,12 @@
               </span>
             </b-nav-item>
 
+            <b-nav-item to="/b2b/news" exact style="white-space: nowrap;" class="navbar-menu-item">
+              <span>
+                <span class="headerItemi" v-text="$t('global.menu.news')">Најчешћа питања</span>
+              </span>
+            </b-nav-item>
+
             <b-nav-item-dropdown
               right
               id="cms-admin-menu"

@@ -34,6 +34,10 @@ public class Document implements Serializable {
     @OneToMany(mappedBy = "logo")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Company> companyLogos = new HashSet<>();
+    
+    @OneToMany(mappedBy = "titleImage")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<CmsNews> cmsNewsTitleImages = new HashSet<>();
 
     @OneToMany(mappedBy = "image")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -129,6 +133,36 @@ public class Document implements Serializable {
     public void setCompanyLogos(Set<Company> companies) {
         this.companyLogos = companies;
     }
+    
+    
+    
+    
+
+    public Set<CmsNews> getCmsNewsTitleImages() {
+        return cmsNewsTitleImages;
+    }
+
+    public Document cmsNewsTitleImages(Set<CmsNews> cmsNewses) {
+        this.cmsNewsTitleImages = cmsNewses;
+        return this;
+    }
+
+    public Document addCmsNewsTitleImage(CmsNews cmsNews) {
+        this.cmsNewsTitleImages.add(cmsNews);
+        cmsNews.setTitleImage(this);
+        return this;
+    }
+
+    public Document removeCmsNewsTitleImage(CmsNews cmsNews) {
+        this.cmsNewsTitleImages.remove(cmsNews);
+        cmsNews.setTitleImage(null);
+        return this;
+    }
+
+    public void setCmsNewsTitleImages(Set<CmsNews> CmsNewses) {
+        this.cmsNewsTitleImages = CmsNewses;
+    }
+    
 
     public Set<Badge> getBadges() {
         return badges;

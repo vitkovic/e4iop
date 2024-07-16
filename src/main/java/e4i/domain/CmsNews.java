@@ -5,6 +5,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -34,6 +36,10 @@ public class CmsNews implements Serializable{
 
     @Column(name = "sequence_number", nullable = false)
     private Long sequenceNumber;
+    
+    @ManyToOne
+    @JsonIgnoreProperties(value = "newsTitleImages", allowSetters = true)
+    private Document titleImage;
     
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -81,6 +87,19 @@ public class CmsNews implements Serializable{
 	public void setSequenceNumber(Long sequenceNumber) {
 		this.sequenceNumber = sequenceNumber;
 	}
+	
+    public Document getTitleImage() {
+        return titleImage;
+    }
+
+    public CmsNews titleImage(Document titleImage) {
+        this.titleImage = titleImage;
+        return this;
+    }
+
+    public void setTitleImage(Document titleImage) {
+        this.titleImage = titleImage;
+    }
 	
     public Set<Document> getDocuments() {
         return documents;

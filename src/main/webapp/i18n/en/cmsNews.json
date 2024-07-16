@@ -19,6 +19,7 @@
         "title": "News"
       },
       "title": "Title",
+      "titleImage": "Title image",
       "content": "Content",
       "sequenceNumber": "Ordinal number",
       "date": "Date",
@@ -27,7 +28,12 @@
       "documents": "Documents",
       "type": "Type",
       "createdBy": "Created by",
-      "modifiedBy": "Modified by"
+      "modifiedBy": "Modified by",
+      "upload": {
+        "newTitleImage": "New title image",
+        "currentTitleImage": "Current title image",
+        "noTitleImage": "There is no title image"
+      }
     }
   }
 }

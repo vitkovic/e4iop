@@ -10,12 +10,18 @@ import { IDocument } from '@/shared/model/document.model';
 import { DocumentTypeOptions } from '@/shared/model/document-type.model';
 
 import CmsNewsService from './cms-news.service';
+import DocumentService from '@/entities/document/document.service';
 
 import FileUpload from '@/shared/components/file-upload/file-upload.vue';
 
 interface ImageBlob extends Blob {
   name: string;
   type: 'image/*';
+}
+
+interface DocumentBlob extends Blob {
+  name: string;
+  type: 'application/pdf';
 }
 
 const validations: any = {
@@ -42,6 +48,7 @@ const validations: any = {
 export default class CmsNewsUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('cmsNewsService') private cmsNewsService: () => CmsNewsService;
+  @Inject('documentService') private documentService: () => DocumentService;
 
   public cmsNews: ICmsNews = new CmsNews();
   public cmsNewsImagesValue: IDocument[] = [];
@@ -51,9 +58,11 @@ export default class CmsNewsUpdate extends Vue {
 
   public isSaving = false;
   public currentLanguage = '';
+  public placeholdertext = '';
 
   public imageFiles: ImageBlob[] = [];
-  public documentFiles: ImageBlob[] = [];
+  public documentFiles: DocumentBlob[] = [];
+  public titleImage: ImageBlob | null = null;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -76,29 +85,33 @@ export default class CmsNewsUpdate extends Vue {
     );
   }
 
-  public save(): void {
+  public async save(): void {
     this.isSaving = true;
     if (this.cmsNews.id) {
-      this.saveFiles();
-      this.cmsNewsService()
+      await this.cmsNewsService()
         .update(this.cmsNews)
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
           const message = this.$t('riportalApp.cmsNews.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
+          this.saveTitleImage();
         });
+      await this.saveFiles();
     } else {
       this.cmsNews.date = new Date();
-
-      this.cmsNewsService()
+      const param = await this.cmsNewsService()
         .create(this.cmsNews)
         .then(param => {
+          this.cmsNews = param;
+          this.saveTitleImage();
+
           this.isSaving = false;
           this.$router.go(-1);
           const message = this.$t('riportalApp.cmsNews.created', { param: param.id });
           this.alertService().showAlert(message, 'success');
         });
+      await this.saveFiles();
     }
   }
 
@@ -211,5 +224,104 @@ export default class CmsNewsUpdate extends Vue {
         this.isSaving = false;
         this.retrieveCmsNews(this.cmsNews.id);
       });
+  }
+
+  public retrieveImage(filename: string): string {
+    return this.documentService().retrieveImage(filename);
+  }
+
+  public handleFileChange(event) {
+    const files = event.target.files;
+    if (!files.length) return;
+
+    const file = files[0];
+
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      const errorText = this.$t('riportalApp.company.upload.imgInfo.logoSizeLimit') as string;
+      this.$notify({
+        text: errorText,
+        type: 'error',
+        duration: 5000,
+      });
+      this.titleImage = null;
+    } else {
+      this.titleImage = file;
+    }
+  }
+
+  get browseButtonText(): string {
+    if (this.currentLanguage === 'en') {
+      return this.$t('riportalApp.company.browseText');
+    } else if (this.currentLanguage === 'sr') {
+      return this.$t('riportalApp.company.browseText');
+    } else if (this.currentLanguage === 'src') {
+      return this.$t('riportalApp.company.browseText');
+    }
+  }
+
+  public formatNames(files) {
+    const filesLength = files.length;
+    if (files.length === 1) {
+      return files[0].name;
+    } else {
+      // const out = '' + this.$t('riportalApp.researchInfrastructure.filesSelected', { param: files.length });
+      const out = this.$t('riportalApp.advertisement.upload.filesSelectedPlaceholder', { filesLength });
+      return out;
+    }
+    // return files.length === 1 ? files[0].name : `${files.length} files selected`;
+  }
+
+  public removeLogo(): void {
+    if (this.titleImage != null) {
+      this.titleImage = null;
+    }
+  }
+
+  public saveTitleImage(): void {
+    if (this.titleImage === null || this.cmsNews.titleImage != null) {
+      return;
+    }
+
+    this.isSaving = true;
+    const formData = new FormData();
+
+    formData.append('files', this.titleImage);
+
+    formData.append('id', '' + this.cmsNews.id);
+
+    this.cmsNewsService()
+      .uploadTitleImage(formData)
+      .then(res => {
+        this.isSaving = false;
+        this.titleImage = null;
+        this.retrieveCmsNews(this.cmsNews.id);
+      })
+      .catch(error => {
+        this.isSaving = false;
+        if (error.response.status === 400 && error.response.data.type === 'INFRASTRUCTURE_IMAGES_LIMIT') {
+          const por = this.$t('riportalApp.researchInfrastructure.errors.infrastructureImagesLimit');
+          this.$notify({ text: JSON.stringify(por).replace(/["]/g, ''), type: 'error', duration: 10000 });
+        }
+      });
+  }
+
+  public deleteTitleImage(): void {
+    this.cmsNewsService()
+      .deleteTitleImage(this.cmsNews.id)
+      .then(res => {
+        this.isSaving = false;
+        this.retrieveCmsNews(this.cmsNews.id);
+      });
+
+    this.closeDeleteTitleImageModal();
+  }
+
+  public openDeleteTitleImageModal(): void {
+    (this.$refs.deleteTitleImageModal as any).show();
+  }
+
+  public closeDeleteTitleImageModal(): void {
+    (this.$refs.deleteTitleImageModal as any).hide();
   }
 }

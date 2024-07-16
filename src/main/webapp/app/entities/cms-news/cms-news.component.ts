@@ -6,12 +6,14 @@ import { ICmsNews } from '@/shared/model/cms-news.model';
 import AlertMixin from '@/shared/alert/alert.mixin';
 
 import CmsNewsService from './cms-news.service';
+import DocumentService from '@/entities/document/document.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],
 })
 export default class CmsNews extends mixins(AlertMixin) {
   @Inject('cmsNewsService') private cmsNewsService: () => CmsNewsService;
+  @Inject('documentService') private documentService: () => DocumentService;
 
   private removeId: number | null = null;
   public itemsPerPage = 20;
@@ -109,5 +111,9 @@ export default class CmsNews extends mixins(AlertMixin) {
     if (this.$refs.removeEntity) {
       (this.$refs.removeEntity as any).hide();
     }
+  }
+
+  public retrieveImage(filename: string): string {
+    return this.documentService().retrieveImage(filename);
   }
 }

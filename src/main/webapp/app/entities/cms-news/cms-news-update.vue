@@ -58,6 +58,50 @@
             />
           </div>
 
+          <br>
+          <div class="form-group row">
+            <div class="col-xs-12 col-sm-6">
+              <label
+                class="form-control-label position-relative font-weight-bold"
+                v-text="$t('riportalApp.cmsNews.titleImage')"
+              ></label>
+              <b-form-file
+                style="margin-bottom: 5px;"
+                @change="handleFileChange"
+                class="customPlaceholder"
+                :state="Boolean(titleImage)"
+                :placeholder="placeholdertext"
+                drop-placeholder="Drop file here..."
+                :browse-text="browseButtonText"
+                accept=".jpg, .jpeg, .png, .svg"
+                :file-name-formatter="formatNames"
+              >
+              </b-form-file>
+              <div>
+                <p class="small mb-0 text-info" v-text="$t('riportalApp.company.upload.imgInfo.imgSize')"></p>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <div v-if="cmsNews.titleImage">
+                <p class="logo-img-label font-weight-bold" v-text="$t('riportalApp.cmsNews.upload.currentTitleImage')">Current title i:</p>
+                <div class="mb-3 pl-1">
+                  <img :src="retrieveImage(cmsNews.titleImage.filename)" width="50" height="50" />
+                  <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="openDeleteTitleImageModal()" v-b-modal.deleteTitleImageModal>
+                    <span v-text="$t('entity.action.delete')">Save</span>
+                  </button>
+                </div>
+              </div>
+              <div v-else v-text="$t('riportalApp.cmsNews.upload.noTitleImage')">There is no title image found</div>
+            </div>
+          </div>
+          <div v-if="titleImage != null" class="mb-4">
+              <p class="font-weight-bold" v-text="$t('riportalApp.cmsNews.upload.newTitleImage')">New logo:</p>
+              {{ titleImage.name }}
+              <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="removeLogo()">
+                <span v-text="$t('entity.action.remove')">Save</span>
+              </button>
+            </div>
+
           <hr class="mt-5" />
           <div class="row mt-4 mb-4 justify-content-between">
             <div class="col-xs-12 col-md-6 col-lg-5">
@@ -91,6 +135,18 @@
           </button>
         </div>
       </form>
+      <b-modal ref="deleteTitleImageModal" id="deleteTitleImageModal">
+        <span slot="modal-title" v-text="$t('riportalApp.company.upload.deleteLogo.title')"></span>
+        <div class="modal-body">
+          <p v-text="$t('riportalApp.company.upload.deleteLogo.question')"></p>
+        </div>
+        <div slot="modal-footer">
+          <button type="button" class="btn btn-secondary" @click="closeDeleteTitleImageModal()" v-text="$t('entity.action.cancel')">
+            Odustani
+          </button>
+          <button type="button" class="btn btn-danger" @click="deleteTitleImage()" v-text="$t('entity.action.delete')">Obriši</button>
+        </div>
+      </b-modal>
     </div>
   </div>
 </template>

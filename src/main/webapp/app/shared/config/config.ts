@@ -50,6 +50,7 @@ import { faToggleOn } from '@fortawesome/free-solid-svg-icons/faToggleOn';
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons/faCaretLeft';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons/faCaretRight';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons/faShareAlt';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
 
 import VueCookie from 'vue-cookie';
 import Vuelidate from 'vuelidate';
@@ -180,7 +181,8 @@ export function initFortAwesome(vue) {
     faToggleOn,
     faCaretLeft,
     faCaretRight,
-    faShareAlt
+    faShareAlt,
+    faCalendarAlt
   );
 }
 
