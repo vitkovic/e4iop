@@ -14,12 +14,7 @@
         </h2>
 
 
-        <div id="appc">
-          <input v-model="inputCode" placeholder="Please Input Captcha" />
-          <captcha-code @click="handleClick()" ref="code" ></captcha-code>
-          <button @click="handleConfirm()"  class="btn btn-primary" style="margin-top:0px;padding-top:0px">Confirm</button>
-      </div>
-      <div>&nbsp;</div>
+    
           <div class="row justify-content-between">
           <!-- <div class="form-group" v-if="advertisement.id">
                         <label for="id" v-text="$t('global.field.id')">ID</label>
@@ -311,6 +306,7 @@
                 v-model="$v.advertisement.conditions.$model"
               />
             </div>
+            
           </div>
 
           <div class="col-xs-12 col-md-5 col-lg-4 col-xl-3 order-1 order-md-2 mb-4">
@@ -532,6 +528,7 @@
               </b-col>
             </b-row> -->
           </div>
+          
           <hr />
           <div class="col-xs-12 col-md-6 col-lg-5">
             <div class="form-group">
@@ -622,7 +619,14 @@
                         </select>
                     </div> -->
         </div>
+        
         <hr />
+          <div id="appc">
+          <input v-model="inputCode" placeholder="Please Input Captcha" />
+          <captcha-code @click="handleClick()" ref="code"></captcha-code>
+        <!--  <button @click="handleConfirm()"  class="btn btn-primary" style="margin-top:0px;padding-top:0px">Confirm</button>-->
+      </div>
+      
         <div class="mt-4">
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
             <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
@@ -632,6 +636,7 @@
           </button>
           <b-spinner v-if="isLoading" small label="Loading..." type="border" class="d-inline-block ml-2"></b-spinner>
         </div>
+        
       </form>
       <b-modal ref="deleteImageModal" id="deleteImageModal">
         <span slot="modal-title" v-text="$t('riportalApp.advertisement.upload.deleteImage.title')"></span>
@@ -658,6 +663,7 @@
         </div>
       </b-modal>
     </div>
+      
   </div>
 </template>
 <script lang="ts" src="./advertisement-update.component.ts"></script>
@@ -706,12 +712,5 @@
   object-fit: cover;
 }
 
-#appc {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: left;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
