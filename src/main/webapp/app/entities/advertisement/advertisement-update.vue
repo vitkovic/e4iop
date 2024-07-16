@@ -12,6 +12,25 @@
         <h2 v-else id="riportalApp.advertisement.home.createOrEditLabel" v-text="$t('riportalApp.advertisement.home.editTitleLabel')">
           Edit an Advertisement
         </h2>
+
+
+        <div id="appc">
+          <input v-model="inputCode" placeholder="Please Input" />
+          <br /><br /><br />
+          <captcha-code :captcha.sync="code" ref="captcha"></captcha-code>
+          <div>
+            <button @click="handleConfirm()">Confirm</button>
+           
+          </div>
+      </div>
+  
+
+
+
+
+
+
+
         <div class="row justify-content-between">
           <!-- <div class="form-group" v-if="advertisement.id">
                         <label for="id" v-text="$t('global.field.id')">ID</label>
@@ -696,5 +715,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+#appc {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>

@@ -179,7 +179,8 @@ import Vue2Editor from "vue2-editor";
 
 Vue.use(Vue2Editor);
 
-
+import VueCaptchaCode from '@johnnyguan/vue-captcha-code'
+Vue.use(VueCaptchaCode)
 
 
 const i18n = config.initI18N(Vue);

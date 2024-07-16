@@ -190,6 +190,31 @@ export default class AdvertisementUpdate extends Vue {
   public isLoading: boolean = false;
   public advertisementTypeOptions = AdvertisementTypeOptions;
   public componentInitialized = false;
+  public code, inputCode;
+
+  data() {
+    return {
+      code: this.refreshCaptcha(),
+      inputCode: "",
+    };
+  },
+
+ public handleClick():void {
+      this.$refs.captcha.refreshCaptcha();
+  }
+ public handleConfirm():void {
+      if (Number(this.code) === Number(this.inputCode)) {
+        alert("Matched");
+        this.code = this.refreshCaptcha();
+        this.inputCode = "";
+      } else {
+        alert("Not Matched");
+      }
+    }
+
+ public refreshCaptcha(): any{
+	return Math.floor(Math.random() * 90000) + 10000;
+ }
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
