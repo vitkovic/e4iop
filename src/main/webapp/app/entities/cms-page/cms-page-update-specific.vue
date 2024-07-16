@@ -1,6 +1,6 @@
 h<template>
     <div class="row justify-content-center">
-        <div v-if="cmsPage.id" class="col-8">
+        <div v-if="cmsPage.id" class="col10 col-md-8">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
                 <h2 id="riportalApp.cmsPage.home.createOrEditLabel">
                     <span v-text="$t('riportalApp.cmsPage.titleChange')">Create or edit a CmsPage</span>
@@ -37,7 +37,7 @@ h<template>
 
                 <hr class="mt-5">
                 <div class="row mt-4 mb-4 justify-content-between">
-                    <div class="col-5">
+                    <div class="col-xs-12 col-md-6 col-lg-5">
                         <FileUpload 
                         ref="imageUpload"
                         :parentRef="'imageUpload'"
@@ -46,7 +46,7 @@ h<template>
                         @delete-file="deleteFile">
                         </FileUpload>
                     </div>
-                    <div class="col-5">
+                    <div class="col-xs-12 col-md-6 col-lg-5">
                         <FileUpload 
                         ref="documentUpload"
                         :parentRef="'documentUpload'"

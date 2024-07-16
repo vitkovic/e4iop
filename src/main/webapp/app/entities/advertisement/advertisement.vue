@@ -182,7 +182,7 @@
                   class="btn btn-info btn-sm details"
                 >
                   <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                  <span v-text="$t('entity.action.view')">View</span>
                 </router-link>
                 <router-link
                   v-if="advertisement.status.status === 'Активан'"
@@ -191,7 +191,7 @@
                   class="btn btn-primary btn-sm edit"
                 >
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                  <span v-text="$t('entity.action.edit')">Edit</span>
                 </router-link>
                 <b-button
                   v-if="advertisement.status.status === 'Активан'"
@@ -201,7 +201,7 @@
                   v-b-modal.deactivateEntity
                 >
                   <!-- <font-awesome-icon icon="times"></font-awesome-icon> -->
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.deactivate')">Deaktiviraj</span>
+                  <span v-text="$t('entity.action.deactivate')">Deaktiviraj</span>
                 </b-button>
                 <b-button
                   v-if="['Неактиван', 'Архивиран'].includes(advertisement.status.status)"
@@ -211,7 +211,7 @@
                   v-b-modal.activateEntity
                 >
                   <!-- <font-awesome-icon icon="check"></font-awesome-icon> -->
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.activate')">Aktiviraj</span>
+                  <span v-text="$t('entity.action.activate')">Aktiviraj</span>
                 </b-button>
                 <b-button
                   v-if="advertisement.status.status === 'Неактиван'"
@@ -221,7 +221,7 @@
                   v-b-modal.softDeleteEntity
                 >
                   <font-awesome-icon icon="times"></font-awesome-icon>
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                  <span v-text="$t('entity.action.delete')">Delete</span>
                 </b-button>
                 <b-button
                   v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')"
@@ -231,7 +231,7 @@
                   v-b-modal.removeEntity
                 >
                   <font-awesome-icon icon="times"></font-awesome-icon>
-                  <span class="d-none d-md-inline" v-text="$t('entity.action.deleteDatabase')">Obriši iz baze</span>
+                  <span v-text="$t('entity.action.deleteDatabase')">Obriši iz baze</span>
                 </b-button>
               </div>
             </td>
