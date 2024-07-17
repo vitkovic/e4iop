@@ -17,10 +17,12 @@
         <br />
         <div class="fc fc-media-screen fc-direction-ltr fc-theme-standard" style="position: relative; height: 60vh; overflow-y: auto;">
           <!-- <div class="calendar-wrapper "> -->
-          <FullCalendar class="calendarMoja" ref="fullCalendar" :options="calendarOptions" />
+          <FullCalendar ref="fullCalendar" :options="calendarOptions" />
         </div>
       </div>
     </div>
+
+    <!-- PRVI MODAL --- RESPONSIVE JE -->
 
     <b-modal v-if="selectedEvent" ref="acceptMeetingModal" id="acceptMeetingModal">
       <div class="modal-body">
@@ -37,6 +39,10 @@
         <button type="button" class="btn btn-danger" v-text="'Otkaži'" v-on:click="closeAcceptMeetingModal()"></button>
       </div>
     </b-modal>
+
+    <!-- PRVI MODAL END  -->
+
+    <!-- DRUGI MODAL --- RESPONSIVE JE -->
 
     <b-modal v-if="selectedEvent" ref="rejectMeetingModal" id="rejectMeetingModal">
       <div class="modal-body">
@@ -79,6 +85,10 @@
         <button type="button" class="btn btn-danger" v-text="'Otkaži'" v-on:click="closeRejectMeetingModal()"></button>
       </div>
     </b-modal>
+
+    <!-- DRUGI MODAL END -->
+
+    <!-- TRECI ---  OVAJ JE RESPONSIVE  -->
 
     <b-modal v-if="selectedEvent" ref="viewMeetingModal" id="viewMeetingModal">
       <span slot="modal-title">{{ selectedEvent.title }}</span>
@@ -236,6 +246,10 @@
       </div>
     </b-modal>
 
+    <!-- TRECI END -->
+
+    <!-- CETRVTI MODAL -  NIJE RESPONSIVE -->
+
     <b-modal ref="createMeetingModal" id="createMeetingModal" size="lg">
       <span slot="modal-title"><span id="riportalApp.researchInfrastructure.calendar" v-text="'Novi sastanak'"></span></span>
       <div class="d-flex">
@@ -244,25 +258,25 @@
             <b-input v-model="meetingEvent.title" placeholder="Unesite naslov..."></b-input>
           </div>
 
-          <div class="d-flex">
+          <div class="d-flex flex-column flex-lg-row mb-2 mb-lg-0">
             <b-form-datepicker
-              style="width: 70%;"
+              class="datePicker"
               v-model="meetingEvent.startDate"
               :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
               placeholder="Izaberite datum početka..."
               @input="updateBFormCalendarEndDate(meetingEvent, 'startDate', 'endDate')"
             ></b-form-datepicker>
-            <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="meetingEvent.startTime"></b-form-timepicker>
+            <b-form-timepicker class="timePicker" minutes-step="15" v-model="meetingEvent.startTime"></b-form-timepicker>
           </div>
 
-          <div class="d-flex mb-3">
+          <div class="d-flex flex-column flex-lg-row mb-3">
             <b-form-datepicker
-              style="width: 70%;"
+              class="datePicker"
               v-model="meetingEvent.endDate"
               :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
               :min="meetingEvent.startDate"
             ></b-form-datepicker>
-            <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="meetingEvent.endTime"></b-form-timepicker>
+            <b-form-timepicker class="timePicker" minutes-step="15" v-model="meetingEvent.endTime"></b-form-timepicker>
           </div>
 
           <b-input v-model="meetingEvent.location" class="mb-3" placeholder="Unesite lokaciju..."></b-input>
@@ -361,8 +375,10 @@
             >Email adresa nije ispravna.
           </small>
           <div v-for="email in nonB2BParticipantsEmails" :key="email" class="d-flex align-items-center justify-content-between mb-3">
-            <span>{{ email }}</span>
-            <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close">x</b-button>
+            <div class="emailSection">
+              <span class="emailText">{{ email }}</span>
+              <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close closeButtonEmail">x</b-button>
+            </div>
           </div>
         </div>
       </div>
@@ -373,6 +389,8 @@
         </button>
       </div>
     </b-modal>
+
+    <!-- PETI MODAL -->
 
     <b-modal v-if="selectedEvent" ref="editMeetingModal" id="editMeetingModal" size="lg">
       <div slot="modal-title" v-if="selectedEvent.advertisement">
@@ -495,8 +513,10 @@
             >Email adresa nije ispravna.
           </small>
           <div v-for="email in nonB2BParticipantsEmails" :key="email" class="d-flex align-items-center justify-content-between mb-3">
-            <span>{{ email }}</span>
-            <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close">x</b-button>
+            <div class="emailSection">
+              <span class="emailText">{{ email }}</span>
+              <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close closeButtonEmail">x</b-button>
+            </div>
           </div>
         </div>
       </div>
@@ -507,6 +527,10 @@
         </button>
       </div>
     </b-modal>
+
+    <!-- PETI MODAL END -->
+
+    <!-- SETSI MODAL  -->
 
     <b-modal v-if="meetingToRemove" ref="removeMeetingModal" id="removeMeetingModal">
       <div class="modal-body">
@@ -521,6 +545,10 @@
         </button>
       </div>
     </b-modal>
+
+    <!-- SESTI MODAL END -->
+
+    <!-- SEDMI MODAL  -->
 
     <b-modal v-if="selectedEvent" ref="meetingNotesModal" id="meetingNotesModal">
       <span slot="modal-title">{{ selectedEvent.title }}</span>
@@ -551,6 +579,8 @@
         <button type="button" class="btn btn-danger" v-text="$t('entity.action.close')" v-on:click="closeMeetingNotesModal()">Canel</button>
       </div>
     </b-modal>
+
+    <!-- SEDMI MODAL END  -->
   </div>
 </template>
 
@@ -625,29 +655,66 @@ h2 {
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  overflow-x: auto;
+  /* overflow-x: auto; */
+}
 
+.timePicker {
+  width: 30%;
+}
+
+.datePicker {
+  width: 70%;
+}
+
+.emailSection {
+  width: 100%;
+  white-space: normal;
+}
+
+.emailText {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+.closeButtonEmail:hover {
+  background-color: #fff;
+}
+
+@media (max-width: 992px) {
+  .timePicker {
+    width: 100%;
+  }
+
+  .datePicker {
+    width: 100%;
+  }
 }
 
 @media (max-width: 900px) {
+  .fc {
+    margin: 0;
+  }
 
-.fc {
-  margin: 0;
+  .fc .fc-toolbar {
+    flex-direction: column;
+    row-gap: 10px;
+    width: 100%;
+  }
 }
 
-.fc .fc-toolbar {
-  flex-direction: column;
-  row-gap: 10px;
-  width: 100%;
-}
+@media (max-width: 576px) {
+  .fc-h-event .fc-event-main-frame {
+    /* flex-direction: column; */
+    font-size: 8px;
+  }
 
-.fc-v-event .fc-event-time {
-  /* white-space: normal; */
-}
+  .fc-event-main {
+    font-size: 10px;
+  }
 
-  /* .fc .calendarMoja {
-    min-width: 900px;
-  } */
+  /* .fc-event-title-container {
+    display: none;
+  } VIDI SA VLADOM */
 }
 
 .company-logo-container {
@@ -678,9 +745,9 @@ h2 {
   text-align: center; /* Center text inside the div */
 }
 
-.fc-view-container {
-  width: 100%; 
-}
+/* .fc-view-container {
+  width: 100%;
+} */
 </style>
 
 <script lang="ts" src="./company-calendar.component.ts"></script>
