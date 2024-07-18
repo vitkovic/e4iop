@@ -13,6 +13,7 @@ import { IPortalUser } from '@/shared/model/portal-user.model';
 import { IMeetingParticipant } from '@/shared/model/meeting-participant.model';
 import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
 import { AdvertisementSupporterStatusOptions } from '@/shared/model/advertisement-supporter-status.model';
+import { IInquiryDTO } from '@/shared/model/dto/inquiry-dto.model';
 
 import ThreadService from './thread.service';
 import CompanyService from '@/entities/company.service';
@@ -21,6 +22,7 @@ import CollaborationService from '@/entities/collaboration.service';
 import MeetingParticipantService from '@/entities/meeting-participant/meeting-participant.service';
 import PortalUserService from '../../entities/portal-user/portal-user.service';
 import AdvertisementSupporterService from '@/entities/advertisement-supporter/advertisement-supporter.service';
+import InquiryService from './inquiry.service';
 
 enum ThreadsFilter {
   ALL = 'all',
@@ -77,6 +79,7 @@ export default class Thread extends mixins(AlertMixin) {
   @Inject('meetingParticipantService') private meetingParticipantService: () => MeetingParticipantService;
   @Inject('portalUserService') private portalUserService: () => PortalUserService;
   @Inject('advertisementSupporterService') private advertisementSupporterService: () => AdvertisementSupporterService;
+  @Inject('inquiryService') private inquiryService: () => InquiryService;
 
   private removeId: number = null;
   private removeThreadDTO: IThreadDTO = null;
@@ -95,7 +98,9 @@ export default class Thread extends mixins(AlertMixin) {
   public threadsDTO: IThreadDTO[] = [];
   public activeThreadDTO: IThreadDTO | null = null;
   public company: ICompany = null;
+  public companyReceiver: ICompany | null = null;
   public companyId: number | null = null;
+  public companies: ICompany[] = [];
   public messages: IMessage[] = [];
   public newMessage: IMessage = new Message();
   public meeting: IMeeting | null = null;
@@ -113,6 +118,21 @@ export default class Thread extends mixins(AlertMixin) {
 
   public openThreadId: string | null = null;
 
+  public inquiryDTO: IInquiryDTO | null = null;
+  public isModalFormIsValid: boolean = true;
+  public inputSubject = {
+    value: '',
+    isValid: true,
+  };
+  public textareaContent = {
+    value: '',
+    isValid: true,
+  };
+  public companyReceiverValidation = {
+    value: null,
+    isValid: true,
+  };
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.companyId) {
@@ -128,10 +148,6 @@ export default class Thread extends mixins(AlertMixin) {
       }
     });
   }
-
-  // public mounted(): void {
-  //   this.retrieveAllThreads();
-  // }
 
   public clear(): void {
     this.page = 1;
@@ -804,5 +820,75 @@ export default class Thread extends mixins(AlertMixin) {
     if (obj[endDateKey] < obj[startDateKey]) {
       obj[endDateKey] = obj[startDateKey];
     }
+  }
+
+  public prepareNewMessageModal(): void {
+    this.companyService()
+      .getAllAutocompleteByNameWithoutExlcuded(' ', [this.companyId])
+      .then(res => {
+        this.companies = res.data;
+      });
+
+    if (<any>this.$refs.newMessageModal) {
+      (<any>this.$refs.newMessageModal).show();
+    }
+  }
+
+  public sendNewMessage(): void {
+    this.validateModalForm();
+
+    if (!this.isModalFormIsValid) {
+      return;
+    }
+
+    this.inquiryDTO = {
+      advertisement: null,
+      datetime: new Date(),
+      subject: this.inputSubject.value,
+      content: this.textareaContent.value,
+      companySender: this.company,
+      companyReceiver: this.companyReceiver,
+      portalUserSender: this.portalUser,
+    };
+
+    if (this.inquiryDTO) {
+      this.inquiryService()
+        .create(this.inquiryDTO)
+        .then(res => {
+          const message = 'Vaša poruka je poslata kompaniji ' + this.companyReceiver.name;
+          this.$notify({
+            text: message,
+          });
+          this.retrieveThreads();
+        });
+    }
+
+    this.closeNewMessageModal();
+  }
+
+  public closeNewMessageModal(): void {
+    (<any>this.$refs.newMessageModal).hide();
+  }
+
+  public validateModalForm() {
+    this.isModalFormIsValid = true;
+    if (this.companyReceiver === null) {
+      this.companyReceiverValidation.isValid = false;
+      this.isModalFormIsValid = false;
+    }
+
+    if (this.inputSubject.value === '') {
+      this.inputSubject.isValid = false;
+      this.isModalFormIsValid = false;
+    }
+
+    if (this.textareaContent.value === '') {
+      this.textareaContent.isValid = false;
+      this.isModalFormIsValid = false;
+    }
+  }
+
+  public clearValidity(input) {
+    this[input].isValid = true;
   }
 }

@@ -98,6 +98,10 @@
         "confirmCollaboration1": "You have confirmed the collaboration request for the ad <b>{ADVERTISEMENT_TITLE}</b>.",
         "confirmCollaboration2": "You have confirmed the collaboration request for the ad <b>{ADVERTISEMENT_TITLE}</b>.<br><br>Other requests for collaboration on the ad <b>{ADVERTISEMENT_TITLE}</b> su odbijeni.",
         "cancelCollaboration": "Collaboration ad <b>{ADVERTISEMENT_TITLE}</b> has been declined"
+      },
+      "inquiry": {
+        "newMessageTitle": "New message",
+        "newMessageAction": "New message"
       }
     }
   }

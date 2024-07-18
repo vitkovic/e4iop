@@ -98,6 +98,10 @@
         "confirmCollaboration1": "Potvrdili ste zahtev za saradnju za oglas <b>{ADVERTISEMENT_TITLE}</b>.",
         "confirmCollaboration2": "Potvrdili ste zahtev za saradnju za oglas <b>{ADVERTISEMENT_TITLE}</b>.<br><br>Ostali zahtevi za saradnju na oglasu <b>{ADVERTISEMENT_TITLE}</b> su odbijeni.",
         "cancelCollaboration": "Saradnja za oglas <b>{ADVERTISEMENT_TITLE}</b> je odbijena."
+      },
+      "inquiry": {
+        "newMessageTitle": "Nova poruka",
+        "newMessageAction": "Nova poruka"
       }
     }
   }

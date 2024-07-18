@@ -20,36 +20,60 @@
     <div class="alert alert-warning" v-if="!isFetching && threadsDTO && threadsDTO.length === 0">
       <span v-text="$t('riportalApp.thread.home.notFound')">No threads found</span>
     </div>
-    <div class="ml-3 mb-3 d-flex flex-column flex-sm-row">
-      <h3
-        v-if="threadsDTO"
-        v-text="
-          threadsDTO.some(t => t.unreadExists)
-            ? $t('riportalApp.thread.messages') + ' (' + threadsDTO.filter(t => t.unreadExists).length + ')'
-            : $t('riportalApp.thread.messages')
-        "
-        class="mr-3 mb-3 mb-sm-0"
-      >
-        Poruke
-      </h3>
-      <h3 v-else v-text="'Poruke'"></h3>
-      <div>
-        <b-button :variant="filterAllButtonVariant" v-text="$t('riportalApp.thread.filter.allnquiries')" v-on:click="showAllThreads()"
-          >Svi upiti</b-button
-        >
-        <b-button
-          :variant="filterReceiverButtonVariant"
-          v-text="$t('riportalApp.thread.filter.receivedInquiries')"
-          v-on:click="showReceiverThreads()"
-          >Primljeni upiti</b-button
-        >
-        <b-button
-          :variant="filterSenderButtonVariant"
-          v-text="$t('riportalApp.thread.filter.sendInquiries')"
-          v-on:click="showSenderThreads()"
-          >Poslati upiti</b-button
-        >
-      </div>
+
+    <div class="container-fluid" >
+      <b-row class="d-flex align-items-center">
+        <b-col class="d-flex flex-column flex-sm-row" cols="4">
+          <h3
+            v-if="threadsDTO"
+            v-text="
+              threadsDTO.some(t => t.unreadExists)
+                ? $t('riportalApp.thread.messages') + ' (' + threadsDTO.filter(t => t.unreadExists).length + ')'
+                : $t('riportalApp.thread.messages')
+            "
+            class="mr-3 mb-3 mb-sm-0"
+          >
+            Poruke
+          </h3>
+          <h3 v-else v-text="'Poruke'"></h3>
+          <div>
+            <b-button :variant="filterAllButtonVariant" v-text="$t('riportalApp.thread.filter.allnquiries')" v-on:click="showAllThreads()"
+              >Svi upiti</b-button
+            >
+            <b-button
+              :variant="filterReceiverButtonVariant"
+              v-text="$t('riportalApp.thread.filter.receivedInquiries')"
+              v-on:click="showReceiverThreads()"
+              >Primljeni upiti</b-button
+            >
+            <b-button
+              :variant="filterSenderButtonVariant"
+              v-text="$t('riportalApp.thread.filter.sendInquiries')"
+              v-on:click="showSenderThreads()"
+              >Poslati upiti</b-button
+            >
+          </div>
+        </b-col>      
+        <b-col v-show="threadsDTO && threadsDTO.length > 0" cols="4">
+          <div class="row justify-content-center">
+            <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
+          </div>
+          <div class="row justify-content-center">
+            <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
+          </div>
+        </b-col>
+        <b-col cols="4" class="d-flex justify-content-end">
+          <b-button
+              v-on:click="prepareNewMessageModal()"
+              variant="primary"
+              class="btn btn-primary"
+              v-b-modal.newMessageModal
+            >
+            <font-awesome-icon icon="envelope"></font-awesome-icon>
+              <span v-text="$t('riportalApp.thread.inquiry.newMessageAction')">Nova poruka</span>
+            </b-button>
+        </b-col>
+      </b-row>
     </div>
 
     <div class="table-responsive" v-if="threadsDTO && threadsDTO.length > 0" style="font-size: 0.875rem;">
@@ -254,7 +278,7 @@
                       <span>{{ message.portalUserSender.company.name }}</span>
                       <span>{{ ' - ' + message.portalUserSender.user.firstName + ' ' + message.portalUserSender.user.lastName }}</span>
                     </p>
-                    <p class="d-block d-sm-none">
+                    <p v-if="thread.advertisement" class="d-block d-sm-none">
                       <b>{{ $t('riportalApp.thread.tableHeader.advertisement') }}: </b> <span></span>{{ thread.advertisement.title }}
                     </p>
                   </div>
@@ -313,15 +337,6 @@
         </button>
       </div>
     </b-modal>
-
-    <div v-show="threadsDTO && threadsDTO.length > 0">
-      <div class="row justify-content-center">
-        <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
-      </div>
-      <div class="row justify-content-center">
-        <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
-      </div>
-    </div>
 
     <b-modal v-if="meeting" ref="acceptMeetingModal" id="acceptMeetingModal">
       <div class="modal-body">
@@ -426,6 +441,61 @@
           v-text="$t('entity.action.cancel')"
           v-on:click="closeRejectAdvertisementSupporterModal()"
         ></button>
+      </div>
+    </b-modal>
+
+    <b-modal ref="newMessageModal" id="newMessageModal">
+      <span slot="modal-title">
+        <span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.inquiry.newMessageTitle')">
+        </span>  
+      </span>
+      <div class="modal-body">
+        <label name="inquiry-subject" v-text="$t('riportalApp.thread.tableHeader.receiver')">Primalac:</label>
+        <multiselect
+          v-model="companyReceiver"
+          :options="companies"
+          :close-on-select="true"
+          :clear-on-select="false"
+          placeholder=""
+          :selectLabel="$t('multiselect.selectLabel')"
+          :selectedLabel="$t('multiselect.selectedLabel')"
+          :deselectLabel="$t('multiselect.deselectLabel')"
+          label="name"
+          track-by="name"
+          @blur="clearValidity('inputSubject')"
+          class="mb-3"
+        >
+        </multiselect>
+        <p v-if="!companyReceiverValidation.isValid" class="text-danger small" v-text="$t('entity.form.validation.title')">
+          Naziv poruke ne može biti prazan.
+        </p>
+
+
+        <label name="inquiry-subject" v-text="$t('entity.form.messageTitle')">Naziv poruke:</label>
+        <b-input v-model.trim="inputSubject.value" @blur="clearValidity('inputSubject')"></b-input>
+        <p v-if="!inputSubject.isValid" class="text-danger small" v-text="$t('entity.form.validation.title')">
+          Naziv poruke ne može biti prazan.
+        </p>
+        <br />
+        <label name="inquiry-content" v-text="$t('entity.form.messageContent')">Sadržaj poruke:</label>
+        <b-textarea v-model.trim="textareaContent.value" @blur="clearValidity('textareaContent')" rows="5"></b-textarea>
+        <p v-if="!textareaContent.isValid" class="text-danger small" v-text="$t('entity.form.validation.content')">
+          Sadržaj poruke ne može biti prazan.
+        </p>
+      </div>
+      <div slot="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success"
+          id="jhi-confirm-delete-advertisement"
+          v-text="$t('entity.action.send')"
+          v-on:click="sendNewMessage()"
+        >
+          Pošalji
+        </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeNewMessageModal()">
+          Otkaži
+        </button>
       </div>
     </b-modal>
   </div>
