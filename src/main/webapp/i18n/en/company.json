@@ -47,7 +47,7 @@
       "kind": "Kind:",
       "data": "Data:",
       "activities": "List of activities:",
-      "registrationDateList": "Registration date:",
+      "registrationDateList": "Registration date",
       "portalUser": "Portal User",
       "advertisement": "Advertisement",
       "collaborationOffer": "Collaboration Offer",

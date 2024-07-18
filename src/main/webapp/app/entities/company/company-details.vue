@@ -44,75 +44,75 @@
             </div>
 
             <div>
-              <dl class="d-flex flex-wrap mb-1">
-                <dt class="mr-4">
+              <dl class="row d-flex flex-wrap mb-1">
+                <dt class=" col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.businessName')">Vrsta:</span>
                 </dt>
-                <dd>
+                <dd class="col-sm-7">
                   <span>{{ company.businessName }}</span>
                 </dd>
               </dl>
-              <dl class="d-flex flex-wrap mb-1">
-                <dt class="mr-4">
+              <dl class="row d-flex flex-wrap mb-1">
+                <dt class="col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.foundationDate')">Podaci:</span>
                 </dt>
-                <dd>
+                <dd class="col-sm-7">
                   <span>{{ company.foundationDate ? $d(Date.parse(company.foundationDate.toString()), { dateStyle: 'short' }) : '' }}</span>
                 </dd>
               </dl>
-              <dl class="d-flex flex-wrap mb-1">
-                <dt class="mr-4">
+              <dl class="row d-flex flex-wrap mb-1">
+                <dt class="col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.registrationDateList')">Datum registracije:</span>
                 </dt>
-                <dd>
+                <dd class="col-sm-7">
                   <span>{{ company.createdAt ? $d(Date.parse(company.createdAt.toString()), { dateStyle: 'short' }) : '' }}</span>
                 </dd>
               </dl>
-              <dl class="d-flex flex-wrap mb-1">
-                <dt class="mr-4">
+              <dl class="row d-flex flex-wrap mb-1">
+                <dt class=" col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.address')">Vrsta:</span>
                 </dt>
-                <dd>
+                <dd class="col-sm-7">
                   <span>{{ company.address }}</span>
                 </dd>
               </dl>
-              <dl class="d-flex flex-wrap mb-1">
-                <dt class="mr-4">
+              <dl class="row d-flex flex-wrap mb-1">
+                <dt class=" col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.primaryActivity')">Spisak delatnosti:</span>
                 </dt>
-                <dd>
+                <dd class="col-sm-7">
                   <span>{{ company.primaryActivity }}</span>
                 </dd>
               </dl>
-              <dl class="d-flex flex-wrap mb-1">
-                <dt class="mr-4">
+              <dl class="row d-flex flex-wrap mb-1">
+                <dt class="col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.pib')">Vrsta:</span>
                 </dt>
-                <dd>
+                <dd class="col-sm-7">
                   <span>{{ company.pib }}</span>
                 </dd>
               </dl>
-              <dl class="d-flex flex-wrap mb-1">
-                <dt class="mr-4">
+              <dl class="row d-flex flex-wrap mb-1">
+                <dt class="col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.registrationNumber')">Vrsta:</span>
                 </dt>
-                <dd>
+                <dd class="col-sm-7">
                   <span>{{ company.registrationNumber }}</span>
                 </dd>
               </dl>
-              <dl class="d-flex flex-wrap mb-1">
-                <dt class="mr-4">
+              <dl class="row d-flex flex-wrap mb-1">
+                <dt class="col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.website')">Vrsta:</span>
                 </dt>
-                <dd>
+                <dd class="col-sm-7">
                   <b-link v-if="company.website" :to="`//${company.website}`" target="_blank" class="text-body">{{company.website.replace(/^https?:\/\//, '') }}</b-link>
                 </dd>
               </dl>
-              <dl class="d-flex flex-wrap mb-1">
-                <dt class="mr-4">
+              <dl class="row d-flex flex-wrap mb-1">
+                <dt class="col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.email')">Vrsta:</span>
                 </dt>
-                <dd>
+                <dd class="col-sm-7">
                   <span>{{ company.email }}</span>
                 </dd>
               </dl>
