@@ -198,7 +198,7 @@
           </div>
         </b-row>
         <div class="col-xs-12 mb-4">
-          <p>{{ company.about }}</p>
+          <div v-html="company.about" class="conditionsText border rounded p-2"></div>
         </div>
 
         <hr />
@@ -931,6 +931,10 @@ h2 {
 
 .b-rating.disabled {
   color: rgb(40, 40, 56);
+}
+
+.conditionsText p {
+  margin-bottom: 8px;
 }
 </style>
 

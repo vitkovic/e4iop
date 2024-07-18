@@ -88,6 +88,15 @@ export default class CompanyUpdate extends Vue {
   public companyTitleHasID: boolean = false;
   public showDocumentsSection = false;
 
+  data() {
+    return {
+      customToolbar: [
+        ['bold', 'underline', 'link'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+      ],
+    };
+  }
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.companyId) {

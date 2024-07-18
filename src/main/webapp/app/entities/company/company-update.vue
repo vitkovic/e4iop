@@ -73,13 +73,18 @@
             </div>
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.company.about')" for="company-about">About</label>
-              <textarea
+              <!-- <textarea
                 type="text"
                 class="form-control"
                 name="about"
                 id="company-about"
                 :class="{ valid: !$v.company.about.$invalid, invalid: $v.company.about.$invalid }"
                 v-model="$v.company.about.$model"
+              /> -->
+              <vue-editor
+                v-model="$v.company.about.$model"
+                :editor-toolbar="customToolbar"
+                :class="{ valid: !$v.company.about.$invalid, invalid: $v.company.about.$invalid }"
               />
             </div>
             <div class="form-group mb-4">
@@ -243,24 +248,26 @@
         <hr />
 
         <div class="row mt-4 mb-4 justify-content-between">
-            <div class="col-xs-12 col-md-6 col-lg-5">
-                <FileUpload 
-                ref="imageUpload"
-                :parentRef="'imageUpload'"
-                :fileType="documentTypeOptions.IMAGE"
-                :includedFiles="companyImages"
-                @delete-file="deleteFile">
-                </FileUpload>
-            </div>
-            <div class="col-xs-12 col-md-6 col-lg-5">
-                <FileUpload 
-                ref="documentUpload"
-                :parentRef="'documentUpload'"
-                :fileType="documentTypeOptions.DOCUMENT"
-                :includedFiles="companyDocuments"
-                @delete-file="deleteFile">
-                </FileUpload>
-            </div>
+          <div class="col-xs-12 col-md-6 col-lg-5">
+            <FileUpload
+              ref="imageUpload"
+              :parentRef="'imageUpload'"
+              :fileType="documentTypeOptions.IMAGE"
+              :includedFiles="companyImages"
+              @delete-file="deleteFile"
+            >
+            </FileUpload>
+          </div>
+          <div class="col-xs-12 col-md-6 col-lg-5">
+            <FileUpload
+              ref="documentUpload"
+              :parentRef="'documentUpload'"
+              :fileType="documentTypeOptions.DOCUMENT"
+              :includedFiles="companyDocuments"
+              @delete-file="deleteFile"
+            >
+            </FileUpload>
+          </div>
         </div>
 
         <hr />
@@ -319,15 +326,15 @@
 
 .image-item {
   width: 70px;
-  margin-bottom: 10px; 
-  list-style-type: none; 
-  display: flex; 
+  margin-bottom: 10px;
+  list-style-type: none;
+  display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
 }
 
-.img-box{
+.img-box {
   width: 50px;
   height: 50px;
 }
@@ -338,7 +345,7 @@
   object-fit: cover;
 }
 
-.document-content{
+.document-content {
   font-size: 0.8rem;
 }
 </style>

@@ -64,6 +64,15 @@ export default class CmsNewsUpdate extends Vue {
   public documentFiles: DocumentBlob[] = [];
   public titleImage: ImageBlob | null = null;
 
+  data() {
+    return {
+      customToolbar: [
+        ['bold', 'underline', 'link'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+      ],
+    };
+  }
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.cmsNewsId) {

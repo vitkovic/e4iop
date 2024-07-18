@@ -6,7 +6,8 @@
           <h1 v-text="cmsNews.title"></h1>
         </div>
         <div class="col-md-12">
-          <p v-text="cmsNews.content" style="white-space: preserve;"></p>
+          <div v-html="cmsNews.content" class="conditionsText p-2"></div>
+
         </div>
       </div>
 
@@ -232,5 +233,9 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.conditionsText p {
+  margin-bottom: 8px;
 }
 </style>

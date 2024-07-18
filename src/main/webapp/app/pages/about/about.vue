@@ -6,7 +6,8 @@
           <h1 v-text="cmsPage.title"></h1>
         </div>
         <div class="col-md-12">
-          <p v-text="cmsPage.content" style="white-space: preserve;"></p>
+          <div v-html="cmsPage.content" class="conditionsText p-2" style="white-space: preserve;"></div>
+          <!-- <p v-text="cmsPage.content" style="white-space: preserve;"></p> -->
           <!-- <p class="lh-1">
             Portal B2B (<em>Business to Business</em>) predstavlja virtuelnu platformu za povezivanje velike i male privrede. Reč je o
             digitalnom rešenju koje omogućava preduzećima da međusobno oglašavaju potrebe, proizvode ili usluge po principu ponude i
@@ -285,4 +286,8 @@ h2 {
   align-items: center;
   justify-content: center;
 }
+
+/* .conditionsText p {
+  margin-bottom: 8px;
+} */
 </style>

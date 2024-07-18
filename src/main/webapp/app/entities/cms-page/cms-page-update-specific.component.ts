@@ -73,6 +73,15 @@ export default class CmsPageUpdate extends Vue {
   public isSaving = false;
   public currentLanguage = '';
 
+  data() {
+    return {
+      customToolbar: [
+        ['bold', 'underline', 'link'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+      ],
+    };
+  }
+
   @Watch('pageType')
   onPageTypeChange() {
     this.setTextHeading();

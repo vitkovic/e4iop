@@ -36,14 +36,15 @@
 
           <div class="form-group">
             <label class="form-control-label" :for="'cms-news-content'">{{ $t('riportalApp.cmsNews.content') }}</label>
-            <b-textarea
+            <!-- <b-textarea
               type="text"
               class="form-control"
               name="content"
               id="cms-news-content"
               :class="{ valid: !$v.cmsNews.content.$invalid, invalid: $v.cmsNews.content.$invalid }"
               v-model="$v.cmsNews.content.$model"
-            ></b-textarea>
+            ></b-textarea> -->
+              <vue-editor v-model="$v.cmsNews.content.$model" :editor-toolbar="customToolbar" :class="{ valid: !$v.cmsNews.content.$invalid, invalid: $v.cmsNews.content.$invalid }" />
           </div>
 
           <div class="form-group">
