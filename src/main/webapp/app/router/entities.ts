@@ -1388,7 +1388,7 @@ export default [
     path: '/b2b/company/:companyId/view',
     name: 'CompanyView',
     component: CompanyDetails,
-    meta: { authorities: [Authority.USER] },
+    // meta: { authorities: [Authority.USER] },
   },
   {
     path: '/b2b/company/:companyId/calendar',
