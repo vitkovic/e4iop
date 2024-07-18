@@ -37,11 +37,11 @@
           <span class="velikiTekst" v-text="$t('home.b2b.square.createDemandSmall')">Желиш да</span>
           <span class="maliTekst" v-text="$t('home.b2b.square.createDemandLarge')">огласиш потребу?</span>
         </b-link>
-        <b-link :to="{ name: 'AdvertisementBrowse' }" class="kvadrat kvThree">
+        <b-link :to="{ name: 'AdvertisementSearch', query:{type:'3451'} }" class="kvadrat kvThree">
           <span class="velikiTekst" v-text="$t('home.b2b.square.findAllOffersSmall')">Погледај све</span>
           <span class="maliTekst" v-text="$t('home.b2b.square.findAllOffersLarge')">понуде</span>
         </b-link>
-        <b-link :to="{ name: 'AdvertisementBrowse' }" class="kvadrat kvFour">
+        <b-link :to="{ name: 'AdvertisementSearch', query:{type:'3452'} }" class="kvadrat kvFour">
           <span class="velikiTekst" v-text="$t('home.b2b.square.findAllDemandsSmall')">Пoгледај све</span>
           <span class="maliTekst" v-text="$t('home.b2b.square.findAllDemandsLarge')">потребе</span>
         </b-link>
