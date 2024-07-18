@@ -11,6 +11,7 @@ const apiAcceptMeetingForCompany = 'api/meeting-participants/accept/meeting-comp
 const apiRejectMeetingForCompany = 'api/meeting-participants/reject/meeting-company';
 const apiCheckNoResponseForMeetingAndCompany = 'api/meeting-participants/check-no-response/meeting-company';
 const apiRemoveMeetingForCompany = 'api/meeting-participants/remove/meeting-company';
+const apiUpdateNotes = 'api/meeting-participants/update-notes';
 
 export default class MeetingParticipantService {
   public find(id: number): Promise<IMeetingParticipant> {
@@ -193,6 +194,23 @@ export default class MeetingParticipantService {
         .put(`${apiRemoveMeetingForCompany}/${meetingId}/${companyId}`)
         .then(res => {
           resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public updateNotes(formData: FormData): Promise<IMeetingParticipant> {
+    return new Promise<IMeetingParticipant>((resolve, reject) => {
+      axios
+        .put(apiUpdateNotes, formData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(res => {
+          resolve(res);
         })
         .catch(err => {
           reject(err);

@@ -280,6 +280,7 @@ public class MeetingResource {
 		} 
     }
     
+    @Deprecated
     @PutMapping("/meetings/update-notes")
     public ResponseEntity<Meeting> updateMeetingNotes(@RequestParam Long meetingId, @RequestParam String notes) {
         log.debug("REST request update notes for Meeting {}", meetingId);

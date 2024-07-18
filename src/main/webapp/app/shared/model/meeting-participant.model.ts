@@ -12,6 +12,7 @@ export interface IMeetingParticipant {
   company?: ICompany;
   portalUser?: IPortalUser;
   status?: IMeetingParticipantStatus;
+  notes?: string;
 }
 
 export class MeetingParticipant implements IMeetingParticipant {
@@ -23,7 +24,8 @@ export class MeetingParticipant implements IMeetingParticipant {
     public meeting?: IMeeting,
     public company?: IPortalUser,
     public portalUser?: IPortalUser,
-    public status?: IMeetingParticipantStatus
+    public status?: IMeetingParticipantStatus,
+    public notes?: string
   ) {
     this.hasAccepted = this.hasAccepted || false;
   }

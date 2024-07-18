@@ -253,7 +253,7 @@ export default class CompanyCalendar extends Vue {
             title: event.meeting.title,
             description: event.meeting.description,
             location: event.meeting.location,
-            notes: event.meeting.notes,
+            notes: event.meetingParticipant.notes,
             advertisement: event.meeting.advertisement,
             backgroundColor: event.color,
             borderColor: event.color,
@@ -587,10 +587,11 @@ export default class CompanyCalendar extends Vue {
   public updateMeetingNotes(): void {
     const formData = new FormData();
     formData.append('meetingId', '' + this.selectedEvent.id);
+    formData.append('companyId', '' + this.companyId);
     formData.append('notes', '' + this.meetingNotes);
 
-    this.meetingService()
-      .updateMeetingNotes(formData)
+    this.meetingParticipantService()
+      .updateNotes(formData)
       .then(res => {
         this.selectedEvent.notes = this.meetingNotes;
         this.isCalendarPopulated = false;

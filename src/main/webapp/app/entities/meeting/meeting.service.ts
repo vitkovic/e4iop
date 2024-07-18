@@ -150,6 +150,11 @@ export default class MeetingService {
     });
   }
 
+  /**
+   * @deprecated
+   * Notes are now personal for every MeetingParticipant, appropriate method
+   * can be found in component {@link meeting-participant.service}.
+   */
   public updateMeetingNotes(formData: FormData): Promise<IMeeting> {
     return new Promise<IMeeting>((resolve, reject) => {
       axios

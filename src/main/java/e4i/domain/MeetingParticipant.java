@@ -31,6 +31,9 @@ public class MeetingParticipant implements Serializable {
 
     @Column(name = "is_organizer")
     private Boolean isOrganizer;
+    
+    @Column(name = "notes")
+    private String notes;
 
     @ManyToOne
     @JsonIgnoreProperties(value = {"meetingParticipants", "meetingParticipantsNonB2B"}, allowSetters = true)
@@ -95,6 +98,20 @@ public class MeetingParticipant implements Serializable {
     public void setIsOrganizer(Boolean isOrganizer) {
         this.isOrganizer = isOrganizer;
     }
+    
+    public String getNotes() {
+        return notes;
+    }
+
+    public MeetingParticipant isOrganizer(String notes) {
+        this.notes = notes;
+        return this;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+    
     
     public Meeting getMeeting() {
         return meeting;
@@ -175,6 +192,7 @@ public class MeetingParticipant implements Serializable {
             ", hasAccepted='" + isHasAccepted() + "'" +
             ", hasRemoved='" + isHasRemoved() + "'" +
             ", isOrganizer='" + isIsOrganizer() + "'" +
+            ", notes='" + getNotes() + "'" +
             "}";
     }
 }

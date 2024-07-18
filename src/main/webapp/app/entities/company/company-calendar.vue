@@ -231,7 +231,7 @@
           <button
             type="button"
             class="btn btn-primary mr-2"
-            v-text="'Zapisnik'"
+            v-text="$t('riportalApp.meetingParticipant.notes')"
             v-on:click="prepareMeetingNotesModal()"
             style="width: 30%;"
           >
@@ -559,11 +559,12 @@
     <b-modal v-if="selectedEvent" ref="meetingNotesModal" id="meetingNotesModal">
       <span slot="modal-title">{{ selectedEvent.title }}</span>
       <div class="modal-body">
-        <h4 id="jhi-delete-thread-heading" class="mb-4">
-          <span v-text="'Zapisnik'"></span>
-        </h4>
+        <h5 id="jhi-delete-thread-heading" class="mb-4">
+          <span v-text="$t('riportalApp.meetingParticipant.notes')"></span>
+          <span class="text-info" v-b-tooltip.hover.v-info :title="$t('riportalApp.meetingParticipant.notesInfo')"
+          ><font-awesome-icon icon="question-circle"></font-awesome-icon></span>
+        </h5>
         <b-form-textarea
-          :plaintext="selectedEvent.organizer && company.id != selectedEvent.organizer.company.id"
           v-model="meetingNotes"
           class="mb-3"
           id=""
@@ -574,7 +575,6 @@
       </div>
       <div slot="modal-footer">
         <button
-          v-if="selectedEvent.organizer && company.id == selectedEvent.organizer.company.id"
           type="button"
           class="btn btn-success"
           v-text="$t('entity.action.save')"

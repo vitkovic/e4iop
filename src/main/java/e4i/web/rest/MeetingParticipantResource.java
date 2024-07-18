@@ -303,4 +303,25 @@ public class MeetingParticipantResource {
         
         return meetingParticipant;
     }
+    
+    @PutMapping("/meeting-participants/update-notes")
+    public ResponseEntity<MeetingParticipant> updateNotes(
+    		@RequestParam Long meetingId,
+    		@RequestParam Long companyId,
+    		@RequestParam String notes) {
+        log.debug("REST request update notes for Meeting {} and Company {}", meetingId, companyId);
+        
+        try {
+            MeetingParticipant meetingParticipant = meetingParticipantService.findOneByMeetingAndCompany(meetingId, companyId);
+            meetingParticipant.setNotes(notes);
+            MeetingParticipant result = meetingParticipantService.save(meetingParticipant);
+
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, meetingParticipant.toString()))
+                    .body(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.noContent().build();
+		} 
+    }
 }

@@ -19,7 +19,9 @@
       "hasAccepted": "Has Accepted",
       "meeting": "Meeting",
       "portalUser": "Portal User",
-      "status": "Status"
+      "status": "Status",
+      "notes": "Notes",
+      "notesInfo": "Here you can enter personal notes for the meeting. The notes are visible only to users from your company. Other users do not have access to the entered notes."
     }
   }
 }

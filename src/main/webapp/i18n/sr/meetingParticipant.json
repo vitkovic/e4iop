@@ -19,7 +19,9 @@
       "hasAccepted": "Prihvaćeno",
       "meeting": "Sastanak",
       "portalUser": "Korisnik portala",
-      "status": "Status"
+      "status": "Status",
+      "notes": "Zapisnik",
+      "notesInfo": "Ovde možete uneti lični zapisnik za sastanak. Zapisnik je vidljiv samo korisnicima iz Vaše kompanije. Ostali korisnici nemaju uvid u uneti zapisnik."
     }
   }
 }
