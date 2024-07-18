@@ -467,12 +467,6 @@
             :key="company.id"
             class="d-flex align-items-center justify-content-between mb-3"
           >
-            <div v-if="selectedEvent.organizer && company.id == selectedEvent.organizer.company.id">
-              <span  v-text="'Organizator'"></span>
-            </div>
-            <div v-else-if="selectedEvent.advertiser && company.id == selectedEvent.advertiser.company.id">
-              <span v-text="'Oglašivač'"></span>
-            </div>
             <div class="d-flex align-items-center">
               <div v-if="company.logo" class="company-logo-container position-relative">
                 <img
@@ -485,7 +479,13 @@
               <div v-else class="placeholder-logo">{{ getCompanyInitials(company) }}</div>
               <span>{{ company.name }}</span>
             </div>
-            <div>
+            <div v-if="selectedEvent.organizer && company.id == selectedEvent.organizer.company.id">
+              <span  v-text="'Organizator'"></span>
+            </div>
+            <div v-else-if="selectedEvent.advertiser && company.id == selectedEvent.advertiser.company.id">
+              <span v-text="'Oglašivač'"></span>
+            </div>
+            <div v-else>
               <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close removeButton"
                 >x</b-button
               >

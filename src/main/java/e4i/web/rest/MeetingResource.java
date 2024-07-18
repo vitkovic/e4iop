@@ -196,7 +196,7 @@ public class MeetingResource {
             }
             
             if (!nonB2BparticipantIds.isEmpty()) {
-            	ByteArrayResource attachment = calendarService.createICS(meeting);
+            	ByteArrayResource attachment = calendarService.createICS(newMeeting);
             	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingInvitationNonB2B(
             			newMeeting, companyOrganizer, nonB2BparticipantIds, attachment);
             	mailService.sendNotificationMail(mailDTO);
@@ -228,10 +228,24 @@ public class MeetingResource {
         
         try {
             Meeting editedMeeting = meetingService.editMeetingWithParticipants(meetingId, meetingWithUpdates);
+            Company companyOrganizer = meetingParticipantService.findCompanyByMeetingAndIsOrganizer(meetingId, true);
             
             for (Long id : participantIdsToAdd) {
             	Company companyParticipant = companyService.getOneById(id);
             	meetingParticipantService.addMeetingParticipant(editedMeeting, companyParticipant);
+            	
+
+                // send messages to participant companies
+            	Thread thread = threadService.createThreadForNewMeeting(editedMeeting, companyParticipant);
+            	Message message = messageService.createFirstMessageInThreadMeeting(thread, editedMeeting, companyOrganizer);
+            
+                // send email notifications participant companies
+            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingInvitation(
+            			editedMeeting, companyOrganizer, companyParticipant);
+            	if (!mailDTO.getEmails().isEmpty()) {
+            		mailService.sendNotificationMail(mailDTO);
+            	} 
+            	
             }
             
             for (Long id : participantIdsToRemove) {
@@ -241,6 +255,13 @@ public class MeetingResource {
             
             for (String email : nonB2BparticipantIdsToAdd) {
             	meetingParticipantNonB2BService.addMeetingParticipant(editedMeeting, email);
+            }
+            
+            if (!nonB2BparticipantIdsToAdd.isEmpty()) {
+            	ByteArrayResource attachment = calendarService.createICS(editedMeeting);
+            	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForMeetingInvitationNonB2B(
+            			editedMeeting, companyOrganizer, nonB2BparticipantIdsToAdd, attachment);
+            	mailService.sendNotificationMail(mailDTO);
             }
             
             for (String email : nonB2BparticipantIdsToRemove) {

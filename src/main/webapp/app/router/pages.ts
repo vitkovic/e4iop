@@ -6,7 +6,8 @@ const About = () => import('@/pages/about/about.vue');
 // prettier-ignore
 const Questions = () => import('@/pages/questions/questions.vue');
 // prettier-ignore
-const News = () => import('@/pages/news/news.vue');
+const News = () => import('@/entities/cms-news/cms-news-search.vue');
+const NewsView = () => import('@/pages/news/news.vue');
 const PrivacyPolicy = () => import('@/pages/footer/privacy-policy.vue');
 const TermsOfUse = () => import('@/pages/footer/terms.vue');
 const CookiePolicy = () => import('@/pages/footer/cookies.vue');
@@ -49,6 +50,18 @@ export default [
     path: '/b2b/contact-us',
     name: 'ContactUs',
     component: ContactUs,
+    // meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/b2b/news',
+    name: 'News',
+    component: News,
+    // meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/b2b/news/:cmsNewsId',
+    name: 'NewsView',
+    component: NewsView,
     // meta: { authorities: [Authority.USER] },
   },
 
