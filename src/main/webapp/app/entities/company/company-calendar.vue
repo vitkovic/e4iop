@@ -480,15 +480,13 @@
               <span>{{ company.name }}</span>
             </div>
             <div v-if="selectedEvent.organizer && company.id == selectedEvent.organizer.company.id">
-              <span  v-text="'Organizator'"></span>
+              <span v-text="'Organizator'"></span>
             </div>
             <div v-else-if="selectedEvent.advertiser && company.id == selectedEvent.advertiser.company.id">
               <span v-text="'Oglašivač'"></span>
             </div>
             <div v-else>
-              <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close removeButton"
-                >x</b-button
-              >
+              <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close removeButton">x</b-button>
             </div>
           </div>
 
@@ -562,24 +560,17 @@
         <h5 id="jhi-delete-thread-heading" class="mb-4">
           <span v-text="$t('riportalApp.meetingParticipant.notes')"></span>
           <span class="text-info" v-b-tooltip.hover.v-info :title="$t('riportalApp.meetingParticipant.notesInfo')"
-          ><font-awesome-icon icon="question-circle"></font-awesome-icon></span>
+            ><font-awesome-icon icon="question-circle"></font-awesome-icon
+          ></span>
         </h5>
-        <b-form-textarea
+        <!-- <b-form-textarea v-model="meetingNotes" class="mb-3" id="" cols="30" rows="10"> </b-form-textarea> -->
+        <vue-editor
           v-model="meetingNotes"
-          class="mb-3"
-          id=""
-          cols="30"
-          rows="10"
-        >
-        </b-form-textarea>
+          :editor-toolbar="customToolbar"
+        />
       </div>
       <div slot="modal-footer">
-        <button
-          type="button"
-          class="btn btn-success"
-          v-text="$t('entity.action.save')"
-          v-on:click="updateMeetingNotes()"
-        >
+        <button type="button" class="btn btn-success" v-text="$t('entity.action.save')" v-on:click="updateMeetingNotes()">
           Potvrdi
         </button>
         <button type="button" class="btn btn-danger" v-text="$t('entity.action.close')" v-on:click="closeMeetingNotesModal()">Canel</button>
