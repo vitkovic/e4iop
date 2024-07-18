@@ -58,7 +58,35 @@ export default class Advertisement extends mixins(AlertMixin) {
   public filterActiveButtonVariant = 'outline-secondary';
   public filterInactiveButtonVariant = 'outline-secondary';
   public filterSoftDeleteButtonVariant = 'outline-secondary';
+  private companyId: number = null;
 
+
+
+beforeRouteEnter(to, from, next) {
+    next(vm => {
+		console.log("fsdjfhfjkshkjfhjkfhfjkhfskjfhskjf" + to.params.companyId );
+      if (to.params.companyId) {
+        vm.companyId = to.params.companyId;
+        vm.companyService()
+          .find(vm.companyId)
+          .then(res => {
+            vm.company = res;
+            
+          //  vm.retrieveAllAdvertisements();
+          });
+      }
+    });
+  }
+
+  
+   data() {
+      return {
+       companyId:0,
+      }
+    }
+  
+  
+  
   public mounted(): void {
     
       const urlParams = new URLSearchParams(window.location.search);

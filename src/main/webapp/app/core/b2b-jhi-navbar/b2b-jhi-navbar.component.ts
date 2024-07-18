@@ -268,7 +268,7 @@ public logout(): void {
 	          // Ovo koristiti az originalno povucene rezultate pretrage
 	          this.advertisements = res.data;
 	          console.log(this.advertisements);
-	         
+	         console.log("hjghjsadgjdag");
 	          this.$emit('adv:change', this.advertisements);
 	          // Ovo koristiti za filtrirane rezultate pretrage
 	          

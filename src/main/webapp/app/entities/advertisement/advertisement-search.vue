@@ -1,6 +1,6 @@
 <template>
 
-   <div>
+   <div>{{companyId}}
 
 
   
@@ -116,23 +116,23 @@
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
                             </router-link>
-                            <router-link v-if="advertisement.status.status === 'Активан'" :to="{name: 'AdvertisementEdit', params: {advertisementId: advertisement.id}}"  tag="button" class="btn btn-primary btn-sm edit">
+                        <!--     <router-link v-if="advertisement.status.status === 'Активан'" :to="{name: 'AdvertisementEdit', params: {advertisementId: advertisement.id}}"  tag="button" class="btn btn-primary btn-sm edit">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>
-                            <b-button v-if="advertisement.status.status === 'Активан'" v-on:click="prepareDeactivate(advertisement)"
+                           <b-button v-if="advertisement.status.status === 'Активан'" v-on:click="prepareDeactivate(advertisement)"
                                    variant="dark"
                                    class="btn btn-sm"
                                    v-b-modal.deactivateEntity>
                                 <!-- <font-awesome-icon icon="times"></font-awesome-icon> -->
-                                <span class="d-none d-md-inline">Deaktiviraj</span>
+                       <!--         <span class="d-none d-md-inline">Deaktiviraj</span>
                             </b-button>
                             <b-button v-if="['Неактиван', 'Архивиран'].includes(advertisement.status.status)" v-on:click="prepareActivate(advertisement)"
                                    variant="success"
                                    class="btn btn-sm"
                                    v-b-modal.activateEntity>
                                    <!-- <font-awesome-icon icon="check"></font-awesome-icon> -->
-                                <span class="d-none d-md-inline">Aktiviraj</span>
+                       <!--         <span class="d-none d-md-inline">Aktiviraj</span>
                             </b-button>
                             <b-button v-if="advertisement.status.status === 'Неактиван'" v-on:click="prepareSoftDelete(advertisement)"
                                    variant="danger"
@@ -147,7 +147,7 @@
                                    v-b-modal.removeEntity>
                                 <font-awesome-icon icon="times"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="'Obriši iz baze'">Obriši iz baze</span>
-                            </b-button>
+                            </b-button>-->
                         </div>
                     </td>
                 </tr>

@@ -163,6 +163,13 @@ public class AdvertisementService {
     	   
        } else {
     	   
+    	   
+    	   if (category != 1) 
+              	return advertisementRepository.findAllBySearchAdminbyCategory(search,category ,pageable);
+              else
+              	return advertisementRepository.findAllBySearchAdmin(search, pageable);
+    	   
+    	/*   
     	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
        	    Optional<User> currentUser = userService.getUserWithAuthorities();
             User user = currentUser.get();
@@ -184,7 +191,7 @@ public class AdvertisementService {
 //           	 return researchInfrastructureRepository.findByManagerId(pUser.getId(), pageable);
 //            }else {
 //           	 return null;
-//            }
+//            }*/
        }   
    }
   
@@ -213,6 +220,15 @@ public class AdvertisementService {
           
    	   
       } else {
+    	  
+    	  
+
+      	   if (category != 1) 
+             	return advertisementRepository.findAllBySearchAdminbyCategoryStatus(search,status, category ,pageable);
+             else
+             	return advertisementRepository.findAllBySearchAdminStatus(search,status, pageable);
+      	   
+      	   /*
    	   
    	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
       	    Optional<User> currentUser = userService.getUserWithAuthorities();
@@ -235,7 +251,7 @@ public class AdvertisementService {
 //          	 return researchInfrastructureRepository.findByManagerId(pUser.getId(), pageable);
 //           }else {
 //          	 return null;
-//           }
+//           }*/
       }   
   }
   
@@ -261,6 +277,9 @@ public class AdvertisementService {
   	   
      } else {
   	   
+    	 
+    		return advertisementRepository.findAllBySearchAdminType(type ,pageable);
+    	/*	
   	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
      	    Optional<User> currentUser = userService.getUserWithAuthorities();
           User user = currentUser.get();
@@ -280,7 +299,7 @@ public class AdvertisementService {
 //         	 return researchInfrastructureRepository.findByManagerId(pUser.getId(), pageable);
 //          }else {
 //         	 return null;
-//          }
+//          }*/
      }   
  }
 
@@ -304,7 +323,7 @@ public Page<Advertisement> findAllBySearchTypeStatus(Long type, Long status, Pag
         
  	   
     } else {
- 	   
+ 	   /*
  	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     	    Optional<User> currentUser = userService.getUserWithAuthorities();
          User user = currentUser.get();
@@ -325,6 +344,10 @@ public Page<Advertisement> findAllBySearchTypeStatus(Long type, Long status, Pag
 //         }else {
 //        	 return null;
 //         }
+ */
+  
+    		return advertisementRepository.findAllBySearchAdminTypeStatus(type,status, pageable);
+ 
     }   
 }
 
