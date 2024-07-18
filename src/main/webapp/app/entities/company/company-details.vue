@@ -46,18 +46,18 @@
             <div>
               <dl class="d-flex flex-wrap mb-1">
                 <dt class="mr-4">
-                  <span v-text="$t('riportalApp.company.kind')">Vrsta:</span>
+                  <span v-text="$t('riportalApp.company.businessName')">Vrsta:</span>
                 </dt>
                 <dd>
-                  <span>Vrsta kompanije</span>
+                  <span>{{ company.businessName }}</span>
                 </dd>
               </dl>
               <dl class="d-flex flex-wrap mb-1">
                 <dt class="mr-4">
-                  <span v-text="$t('riportalApp.company.data')">Podaci:</span>
+                  <span v-text="$t('riportalApp.company.foundationDate')">Podaci:</span>
                 </dt>
                 <dd>
-                  <span>Dodatni podaci</span>
+                  <span>{{ company.foundationDate ? $d(Date.parse(company.foundationDate.toString()), { dateStyle: 'short' }) : '' }}</span>
                 </dd>
               </dl>
               <dl class="d-flex flex-wrap mb-1">
@@ -70,10 +70,50 @@
               </dl>
               <dl class="d-flex flex-wrap mb-1">
                 <dt class="mr-4">
-                  <span v-text="$t('riportalApp.company.activities')">Spisak delatnosti:</span>
+                  <span v-text="$t('riportalApp.company.address')">Vrsta:</span>
                 </dt>
                 <dd>
-                  <span>Delatnost 1, delatnost 2</span>
+                  <span>{{ company.address }}</span>
+                </dd>
+              </dl>
+              <dl class="d-flex flex-wrap mb-1">
+                <dt class="mr-4">
+                  <span v-text="$t('riportalApp.company.primaryActivity')">Spisak delatnosti:</span>
+                </dt>
+                <dd>
+                  <span>{{ company.primaryActivity }}</span>
+                </dd>
+              </dl>
+              <dl class="d-flex flex-wrap mb-1">
+                <dt class="mr-4">
+                  <span v-text="$t('riportalApp.company.pib')">Vrsta:</span>
+                </dt>
+                <dd>
+                  <span>{{ company.pib }}</span>
+                </dd>
+              </dl>
+              <dl class="d-flex flex-wrap mb-1">
+                <dt class="mr-4">
+                  <span v-text="$t('riportalApp.company.registrationNumber')">Vrsta:</span>
+                </dt>
+                <dd>
+                  <span>{{ company.registrationNumber }}</span>
+                </dd>
+              </dl>
+              <dl class="d-flex flex-wrap mb-1">
+                <dt class="mr-4">
+                  <span v-text="$t('riportalApp.company.website')">Vrsta:</span>
+                </dt>
+                <dd>
+                  <b-link v-if="company.website" :to="`//${company.website}`" target="_blank" class="text-body">{{company.website.replace(/^https?:\/\//, '') }}</b-link>
+                </dd>
+              </dl>
+              <dl class="d-flex flex-wrap mb-1">
+                <dt class="mr-4">
+                  <span v-text="$t('riportalApp.company.email')">Vrsta:</span>
+                </dt>
+                <dd>
+                  <span>{{ company.email }}</span>
                 </dd>
               </dl>
             </div>

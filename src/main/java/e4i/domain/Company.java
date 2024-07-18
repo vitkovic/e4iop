@@ -53,6 +53,30 @@ public class Company implements Serializable {
     
     @Column(name = "is_einovator")
     private Boolean isEinovator;
+    
+    @Column(name = "foundation_date")
+    private Instant foundationDate;
+
+    @Column(name = "pib", length = 9)
+    private String pib;
+
+    @Column(name = "registration_number", length = 8)
+    private String registrationNumber;
+
+    @Column(name = "business_name")
+    private String businessName;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "website")
+    private String website;
+
+    @Column(name = "email")
+    private String email;
+    
+    @Column(name = "primary_activity")
+    private String primaryActivity;
 
     @OneToMany(mappedBy = "company")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -226,6 +250,70 @@ public class Company implements Serializable {
 	public void setIsEinovator(Boolean isEinovator) {
 		this.isEinovator = isEinovator;
 	}
+	
+    public Instant getFoundationDate() {
+        return foundationDate;
+    }
+
+    public void setFoundationDate(Instant foundationDate) {
+        this.foundationDate = foundationDate;
+    }
+
+    public String getPib() {
+        return pib;
+    }
+
+    public void setPib(String pib) {
+        this.pib = pib;
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
+
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public String getPrimaryActivity() {
+        return primaryActivity;
+    }
+
+    public void setPrimaryActivity(String primaryActivity) {
+        this.primaryActivity = primaryActivity;
+    }
     
     public Set<PortalUser> getPortalUsers() {
         return portalUsers;
@@ -566,12 +654,20 @@ public class Company implements Serializable {
             "id=" + getId() +
             ", createdAt='" + getCreatedAt() + "'" +
             ", modifiedAt='" + getModifiedAt() + "'" +
-            ", rsnisId=" + getRsnisId() +
-            ", aprId=" + getAprId() +
+            ", rsnisId=" + getRsnisId() + "'" +
+            ", aprId=" + getAprId() + "'" +
             ", name='" + getName() + "'" +
             ", about='" + getAbout() + "'" +
             ", fields='" + getFields() + "'" +
-            ", isEinovator='" + isIsEinovator() + "'" +
-            "}";
+            ", isEinovator=" + isIsEinovator() + "'" +
+            ", foundationDate='" + getFoundationDate() + "'" +
+            ", pib='" + getPib() + "'" +
+            ", registrationNumber='" + getRegistrationNumber() + "'" +
+            ", businessName='" + getBusinessName() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", website='" + getWebsite() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", primaryActivity='" + getPrimaryActivity() + "'" +
+            '}';
     }
 }
