@@ -159,16 +159,35 @@ export default class B2BJhiNavbar extends Vue {
   public isActiveLanguage(key: string): boolean {
     return key === this.$store.getters.currentLanguage;
   }
-
+/*
   public logout(): void {
     localStorage.removeItem('jhi-authenticationToken');
     sessionStorage.removeItem('jhi-authenticationToken');
     this.$store.commit('logout');
     this.$router.push('/');
   }
-
-  public openLogin(): void {
-    this.loginService().openLogin((<any>this).$root);
+*/
+public logout(): void {
+    this.loginService()
+      .logout()
+      .then(response => {
+        this.$store.commit('logout');
+        this.$router.push('/');
+        const data = response.data;
+        let logoutUrl = data.logoutUrl;
+        // if Keycloak, uri has protocol/openid-connect/token
+        if (logoutUrl.indexOf('/protocol') > -1) {
+          logoutUrl = logoutUrl + '?redirect_uri=' + window.location.origin;
+        } else {
+          // Okta
+          logoutUrl = logoutUrl + '?id_token_hint=' + data.idToken + '&post_logout_redirect_uri=' + window.location.origin;
+        }
+        window.location.href = logoutUrl;
+      });
+  }
+ public openLogin(): void {
+    //this.loginService().openLogin((<any>this).$root); old for jwt auth.
+    this.loginService().login();
   }
 
   public get authenticated(): boolean {
