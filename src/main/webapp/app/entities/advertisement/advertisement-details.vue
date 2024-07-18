@@ -36,8 +36,7 @@
                 <dd>
                   <div v-if="advertisement.kinds" class="d-flex" style="flex-direction: row;">
                     <div v-for="(kind, index) in advertisement.kinds" :key="kind.id">
-                      <span style="white-space: pre;">{{ kind.kind }}<span v-if="index != advertisement.kinds.length -1">, </span>
-                      </span>
+                      <span style="white-space: pre;">{{ kind.kind }}<span v-if="index != advertisement.kinds.length - 1">, </span> </span>
                     </div>
                   </div>
                 </dd>
@@ -153,15 +152,17 @@
 
         <section class="description mb-4">
           <h5 v-text="$t('riportalApp.advertisement.description')">Opis</h5>
-          <b-card style="white-space: preserve-breaks;">
+          <!-- <div class="border rounded p-2">
             {{ advertisement.description }}
-          </b-card>
+          </div> -->
+          <div v-html="advertisement.description" class="conditionsText border rounded p-2"></div>
         </section>
         <section class="conditions mb-4">
           <h5 v-text="$t('riportalApp.advertisement.conditions')">Uslovi</h5>
-          <b-card style="white-space: preserve-breaks;">
+          <!-- <b-card style="white-space: preserve-breaks;">
             {{ advertisement.conditions }}
-          </b-card>
+          </b-card> -->
+          <div v-html="advertisement.conditions" class="conditionsText border rounded p-2"></div>
         </section>
         <section class="contact-share d-flex flex-column flex-md-row align-items-center justify-content-between mb-4">
           <div class="buttons d-flex flex-column flex-md-row mb-3 mb-md-0">
@@ -385,10 +386,26 @@
             </p>
           </div>
         </section>
-        
-        <hr v-if="advertisement.advertisementSupporters && advertisement.advertisementSupporters.some(supporter => supporter.status.nameEn === advertisementSupporterStatusOptions.ACCEPTED)" class="line" />
 
-        <section v-if="advertisement.advertisementSupporters && advertisement.advertisementSupporters.some(supporter => supporter.status.nameEn === advertisementSupporterStatusOptions.ACCEPTED)" class="supporters">
+        <hr
+          v-if="
+            advertisement.advertisementSupporters &&
+            advertisement.advertisementSupporters.some(
+              supporter => supporter.status.nameEn === advertisementSupporterStatusOptions.ACCEPTED
+            )
+          "
+          class="line"
+        />
+
+        <section
+          v-if="
+            advertisement.advertisementSupporters &&
+            advertisement.advertisementSupporters.some(
+              supporter => supporter.status.nameEn === advertisementSupporterStatusOptions.ACCEPTED
+            )
+          "
+          class="supporters"
+        >
           <h3 v-text="$t('riportalApp.advertisement.advertisementSupporters')" class="mb-4">Priključeni oglašivači</h3>
           <div v-for="supporter in advertisement.advertisementSupporters" :key="supporter.id">
             <div v-if="supporter.hasAccepted" class="d-flex align-items-center justify-content-between mb-2">
@@ -1003,6 +1020,10 @@ h2 {
 
 .b-rating.disabled {
   color: rgb(40, 40, 56);
+}
+
+.conditionsText p {
+  margin-bottom: 8px;
 }
 </style>
 

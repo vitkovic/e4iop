@@ -1,5 +1,8 @@
 <template>
   <div class="row justify-content-center">
+    <p>
+      
+    </p>
     <div class="col-10 col-md-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
         <h2
@@ -13,9 +16,7 @@
           Edit an Advertisement
         </h2>
 
-
-    
-          <div class="row justify-content-between">
+        <div class="row justify-content-between">
           <!-- <div class="form-group" v-if="advertisement.id">
                         <label for="id" v-text="$t('global.field.id')">ID</label>
                         <input type="text" class="form-control" id="id" name="id"
@@ -131,7 +132,7 @@
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.description')" for="advertisement-description"
                 >Description</label
               >
-              <textarea
+              <!-- <textarea
                 type="text"
                 class="form-control"
                 name="description"
@@ -140,7 +141,8 @@
                 v-model="$v.advertisement.description.$model"
                 @blur="$v.advertisement.description.$touch()"
                 required
-              />
+              /> -->
+              <vue-editor v-model="$v.advertisement.description.$model" :editor-toolbar="customToolbar" @blur="$v.advertisement.description.$touch()" />
               <div v-if="$v.advertisement.description.$anyDirty && $v.advertisement.description.$invalid">
                 <small
                   class="form-text text-danger"
@@ -153,7 +155,7 @@
             </div>
 
             <div class="form-group">
-              <label class="form-control-label"  for="advertisement-kind">
+              <label class="form-control-label" for="advertisement-kind">
                 <span v-text="$t('riportalApp.advertisement.kind')">Kind</span>
                 <span v-text="'(' + $t('entity.detail.multipleChoice') + ')'">(višestruki izbor)</span>
               </label>
@@ -164,7 +166,7 @@
                 :close-on-select="false"
                 :clear-on-select="false"
                 :custom-label="customKindLabel"
-                placeholder=''
+                placeholder=""
                 :selectLabel="$t('multiselect.selectLabel')"
                 :selectedLabel="$t('multiselect.selectedLabel')"
                 :deselectLabel="$t('multiselect.deselectLabel')"
@@ -234,7 +236,13 @@
                   "
                   v-for="advertisementSubsubcategoryOption in advertisementSubsubcategories"
                   :key="advertisementSubsubcategoryOption.id"
-                  >{{ advertisementSubsubcategoryOption.advertisementSubcategory.advertisementCategory.name + " / " + advertisementSubsubcategoryOption.advertisementSubcategory.name + " / " + advertisementSubsubcategoryOption.name }}</option
+                  >{{
+                    advertisementSubsubcategoryOption.advertisementSubcategory.advertisementCategory.name +
+                    ' / ' +
+                    advertisementSubsubcategoryOption.advertisementSubcategory.name +
+                    ' / ' +
+                    advertisementSubsubcategoryOption.name
+                  }}</option
                 >
               </select>
               <div v-if="$v.advertisement.subsubcategory.$anyDirty && $v.advertisement.subsubcategory.$invalid">
@@ -291,22 +299,24 @@
                 maxlength="16"
               />
             </div>
+
             <div class="form-group">
               <label class="form-control-label" for="advertisement-conditions"
                 >{{ $t('riportalApp.advertisement.conditions') }}
                 <span class="text-info" v-b-tooltip.hover.v-info :title="$t('riportalApp.advertisement.conditionsInfo')"
                   ><font-awesome-icon icon="question-circle"></font-awesome-icon></span
               ></label>
-              <textarea
+              <!-- <textarea
                 type="text"
                 class="form-control"
                 name="conditions"
                 id="advertisement-conditions"
                 :class="{ valid: !$v.advertisement.conditions.$invalid, invalid: $v.advertisement.conditions.$invalid }"
                 v-model="$v.advertisement.conditions.$model"
-              />
+              /> -->
+              <vue-editor v-model="advertisement.conditions" :editor-toolbar="customToolbar" />
             </div>
-            
+
           </div>
 
           <div class="col-xs-12 col-md-5 col-lg-4 col-xl-3 order-1 order-md-2 mb-4">
@@ -528,7 +538,7 @@
               </b-col>
             </b-row> -->
           </div>
-          
+
           <hr />
           <div class="col-xs-12 col-md-6 col-lg-5">
             <div class="form-group">
@@ -619,14 +629,14 @@
                         </select>
                     </div> -->
         </div>
-        
+
         <hr />
-          <div id="appc">
+        <div id="appc">
           <input v-model="inputCode" placeholder="Please Input Captcha" />
           <captcha-code @click="handleClick()" ref="code"></captcha-code>
-        <!--  <button @click="handleConfirm()"  class="btn btn-primary" style="margin-top:0px;padding-top:0px">Confirm</button>-->
-      </div>
-      
+          <!--  <button @click="handleConfirm()"  class="btn btn-primary" style="margin-top:0px;padding-top:0px">Confirm</button>-->
+        </div>
+
         <div class="mt-4">
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
             <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
@@ -636,7 +646,6 @@
           </button>
           <b-spinner v-if="isLoading" small label="Loading..." type="border" class="d-inline-block ml-2"></b-spinner>
         </div>
-        
       </form>
       <b-modal ref="deleteImageModal" id="deleteImageModal">
         <span slot="modal-title" v-text="$t('riportalApp.advertisement.upload.deleteImage.title')"></span>
@@ -663,7 +672,6 @@
         </div>
       </b-modal>
     </div>
-      
   </div>
 </template>
 <script lang="ts" src="./advertisement-update.component.ts"></script>
@@ -714,3 +722,4 @@
 
 
 </style>
+
