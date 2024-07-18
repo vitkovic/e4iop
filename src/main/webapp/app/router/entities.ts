@@ -242,9 +242,9 @@ const CompanyDetails = () => import('@/entities/company/company-details.vue');
 // prettier-ignore
 const CompanyCalendar = () => import('@/entities/company/company-calendar.vue');
 //
- const CompanySearch = () => import('@/entities/company/company-search.vue');
+const CompanySearch = () => import('@/entities/company/company-search.vue');
 
- const CmsNewsSearch = () => import('@/entities/cms-news/cms-news-search.vue');
+const CmsNewsSearch = () => import('@/entities/cms-news/cms-news-search.vue');
 
 // prettier-ignore
 const Message = () => import('@/entities/message/message.vue');
@@ -388,7 +388,7 @@ const CmsQuestionUpdate = () => import('@/entities/cms-question/cms-question-upd
 // prettier-ignore
 const CmsQuestionDetails = () => import('@/entities/cms-question/cms-question-details.vue');
 
- const CmsQuestionSearch = () => import('@/entities/cms-question/cms-question-search.vue');
+const CmsQuestionSearch = () => import('@/entities/cms-question/cms-question-search.vue');
 
 // prettier-ignore
 const CmsSlider = () => import('@/entities/cms-slider/cms-slider.vue');
@@ -1325,13 +1325,12 @@ export default [
     path: '/b2b/advertisement/:advertisementId/view',
     name: 'AdvertisementView',
     component: AdvertisementDetails,
-    meta: { authorities: [Authority.USER] },
+    // meta: { authorities: [Authority.USER] },
   },
-   {
+  {
     path: '/b2b/advertisement/viewan/:advertisementId',
     name: 'AdvertisementViewan',
     component: AdvertisementViewan,
-   
   },
   {
     path: '/b2b/advertisement-browse',
@@ -1344,7 +1343,7 @@ export default [
     name: 'AdvertisementSearch',
     component: AdvertisementSearch,
   },
-   {
+  {
     path: '/b2b/advertisement-get',
     name: 'AdvertisementGet',
     component: AdvertisementGet,
@@ -1368,12 +1367,11 @@ export default [
     component: Company,
     meta: { authorities: [Authority.USER] },
   },
-   {
-     path: '/b2b/company-search',
-     name: 'CompanySearch',
-     component: CompanySearch,
-
-   },
+  {
+    path: '/b2b/company-search',
+    name: 'CompanySearch',
+    component: CompanySearch,
+  },
   {
     path: '/b2b/company/new',
     name: 'CompanyCreate',
@@ -1865,12 +1863,11 @@ export default [
     component: MeetingTypeDetails,
     meta: { authorities: [Authority.USER] },
   },
-   {
-     path: '/b2b/cms-news/search',
-     name: 'CmsNewsSearch',
-     component: CmsNewsSearch,
-
-   },
+  {
+    path: '/b2b/cms-news/search',
+    name: 'CmsNewsSearch',
+    component: CmsNewsSearch,
+  },
   {
     path: '/b2b/cms-page',
     name: 'CmsPage',
@@ -1947,14 +1944,13 @@ export default [
     path: '/b2b/cms-question',
     name: 'CmsQuestion',
     component: CmsQuestion,
- //   meta: { authorities: [Authority.USER] },
+    //   meta: { authorities: [Authority.USER] },
   },
-   {
-     path: '/b2b/cms-questions/search',
-     name: 'CmsQuestionSearch',
-     component: CmsQuestionSearch,
-
-   },
+  {
+    path: '/b2b/cms-questions/search',
+    name: 'CmsQuestionSearch',
+    component: CmsQuestionSearch,
+  },
   {
     path: '/b2b/cms-question/new',
     name: 'CmsQuestionCreate',
