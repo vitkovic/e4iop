@@ -62,21 +62,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
 
 
-beforeRouteEnter(to, from, next) {
-    next(vm => {
-		console.log("fsdjfhfjkshkjfhjkfhfjkhfskjfhskjf" + to.params.companyId );
-      if (to.params.companyId) {
-        vm.companyId = to.params.companyId;
-        vm.companyService()
-          .find(vm.companyId)
-          .then(res => {
-            vm.company = res;
-            
-          //  vm.retrieveAllAdvertisements();
-          });
-      }
-    });
-  }
+
 
   
    data() {
@@ -102,14 +88,16 @@ beforeRouteEnter(to, from, next) {
      this.types = urlParams.get('type');
     }
     
-    if (this.types != null) 
+   
+    
+    if (this.types != null && this.types !== "undefined") 
     {
 		this.typesearch = true;
 	} else {
 		this.typesearch = false;
 	} 
 	
-    
+     console.log(this.txtsearch + this.types + this.typesearch);
     
     this.retrieveAllAdvertisements();
     
@@ -163,7 +151,7 @@ beforeRouteEnter(to, from, next) {
   public retrieveAllAdvertisements(): void {
     this.isFetching = true;
 
-    //console.log(this.types + "   TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+   console.log(this.types + "   TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
 
 
     const paginationQuery = {
@@ -211,17 +199,17 @@ beforeRouteEnter(to, from, next) {
 				  
 			  }
 		      
-		      
-		      
 		  }
+		      
+   } else {
 		
-		
-	 if (this.typesearch) return;
+	
     
 		    
-		    
+		   
 		
 		    if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
+				console.log("fsdkjfklfdjfsklfjlkfsdjklfsjfklfjsdklfjsdklfsdjfklsdjfdklsfjsdlkfsdjlfksdjflk");
 		      this.advertisementService()
 		       .retrieveSearch(this.txtsearch, this.category,paginationQuery)
 		        .then(
@@ -253,7 +241,7 @@ beforeRouteEnter(to, from, next) {
 		      }
 		    }
 		    
-    
+    }
     
   }
 
@@ -455,7 +443,7 @@ beforeRouteEnter(to, from, next) {
     
     
     this.activeAdStatus = {}
-	this.activeAdStatus.id = 3551
+	this.activeAdStatus.id = 3553
 
 	this.retrieveAllAdvertisements();
     

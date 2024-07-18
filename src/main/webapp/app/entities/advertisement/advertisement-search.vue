@@ -1,6 +1,6 @@
 <template>
 
-   <div>{{companyId}}
+   <div>
 
 
   
