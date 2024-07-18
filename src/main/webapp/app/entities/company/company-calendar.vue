@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <!-- PRVI MODAL --- RESPONSIVE JE -->
+    <!-- PRVI MODAL PRIHVATI POZIV ZA SASTANAK--- RESPONSIVE JE -->
 
     <b-modal v-if="selectedEvent" ref="acceptMeetingModal" id="acceptMeetingModal">
       <div class="modal-body">
@@ -42,7 +42,7 @@
 
     <!-- PRVI MODAL END  -->
 
-    <!-- DRUGI MODAL --- RESPONSIVE JE -->
+    <!-- DRUGI MODAL ODBIJ POZIV ZA SASTANAK --- RESPONSIVE JE -->
 
     <b-modal v-if="selectedEvent" ref="rejectMeetingModal" id="rejectMeetingModal">
       <div class="modal-body">
@@ -88,7 +88,7 @@
 
     <!-- DRUGI MODAL END -->
 
-    <!-- TRECI ---  OVAJ JE RESPONSIVE  -->
+    <!-- TRECI MODAL OVO JE PREGLED KREIRANOG SASTANKA---  RESPONSIVE JE -->
 
     <b-modal v-if="selectedEvent" ref="viewMeetingModal" id="viewMeetingModal">
       <span slot="modal-title">{{ selectedEvent.title }}</span>
@@ -248,7 +248,7 @@
 
     <!-- TRECI END -->
 
-    <!-- CETRVTI MODAL -  NIJE RESPONSIVE -->
+    <!-- CETRVTI MODAL KREIRAJ SASTANAK -  RESPONSIVE JE SKORO - SAMO ORGANIZATOR DEO-->
 
     <b-modal ref="createMeetingModal" id="createMeetingModal" size="lg">
       <span slot="modal-title"><span id="riportalApp.researchInfrastructure.calendar" v-text="'Novi sastanak'"></span></span>
@@ -345,7 +345,7 @@
               <div v-else class="placeholder-logo">{{ getCompanyInitials(company) }}</div>
               <span>{{ company.name }}</span>
             </div>
-            <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close">x</b-button>
+            <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close removeButton">x</b-button>
           </div>
 
           <hr />
@@ -377,7 +377,7 @@
           <div v-for="email in nonB2BParticipantsEmails" :key="email" class="d-flex align-items-center justify-content-between mb-3">
             <div class="emailSection">
               <span class="emailText">{{ email }}</span>
-              <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close closeButtonEmail">x</b-button>
+              <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close removeButton">x</b-button>
             </div>
           </div>
         </div>
@@ -390,7 +390,7 @@
       </div>
     </b-modal>
 
-    <!-- PETI MODAL -->
+    <!-- PETI MODAL IZMENI SASTANAK - RESPONSIVE JE SKORO - SAMO ORGANIZATOR OSTALO -->
 
     <b-modal v-if="selectedEvent" ref="editMeetingModal" id="editMeetingModal" size="lg">
       <div slot="modal-title" v-if="selectedEvent.advertisement">
@@ -407,25 +407,25 @@
             <b-input v-model="selectedEvent.title" placeholder="Unesite naslov..."></b-input>
           </div>
 
-          <div class="d-flex">
+          <div class="d-flex flex-column flex-lg-row mb-2 mb-lg-0">
             <b-form-datepicker
-              style="width: 70%;"
+              class="datePicker"
               v-model="selectedEvent.startStr"
               :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
               placeholder="Izaberite datum početka..."
               @input="updateBFormCalendarEndDate(selectedEvent, 'startStr', 'endStr')"
             ></b-form-datepicker>
-            <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="selectedEvent.startTime"></b-form-timepicker>
+            <b-form-timepicker class="timePicker" minutes-step="15" v-model="selectedEvent.startTime"></b-form-timepicker>
           </div>
 
-          <div class="d-flex mb-3">
+          <div class="d-flex flex-column flex-lg-row mb-3">
             <b-form-datepicker
-              style="width: 70%;"
+              class="datePicker"
               v-model="selectedEvent.endStr"
               :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
               :min="selectedEvent.startStr"
             ></b-form-datepicker>
-            <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="selectedEvent.endTime"></b-form-timepicker>
+            <b-form-timepicker class="timePicker" minutes-step="15" v-model="selectedEvent.endTime"></b-form-timepicker>
           </div>
 
           <b-input v-model="selectedEvent.location" class="mb-3" placeholder="Unesite lokaciju..."></b-input>
@@ -467,6 +467,12 @@
             :key="company.id"
             class="d-flex align-items-center justify-content-between mb-3"
           >
+            <div v-if="selectedEvent.organizer && company.id == selectedEvent.organizer.company.id">
+              <span  v-text="'Organizator'"></span>
+            </div>
+            <div v-else-if="selectedEvent.advertiser && company.id == selectedEvent.advertiser.company.id">
+              <span v-text="'Oglašivač'"></span>
+            </div>
             <div class="d-flex align-items-center">
               <div v-if="company.logo" class="company-logo-container position-relative">
                 <img
@@ -480,9 +486,9 @@
               <span>{{ company.name }}</span>
             </div>
             <div>
-              <span v-if="selectedEvent.organizer && company.id == selectedEvent.organizer.company.id" v-text="'Organizator'"></span>
-              <span v-else-if="selectedEvent.advertiser && company.id == selectedEvent.advertiser.company.id" v-text="'Oglašivač'"></span>
-              <b-button v-else @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close">x</b-button>
+              <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close removeButton"
+                >x</b-button
+              >
             </div>
           </div>
 
@@ -515,7 +521,7 @@
           <div v-for="email in nonB2BParticipantsEmails" :key="email" class="d-flex align-items-center justify-content-between mb-3">
             <div class="emailSection">
               <span class="emailText">{{ email }}</span>
-              <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close closeButtonEmail">x</b-button>
+              <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close removeButton">x</b-button>
             </div>
           </div>
         </div>
@@ -530,7 +536,7 @@
 
     <!-- PETI MODAL END -->
 
-    <!-- SETSI MODAL  -->
+    <!-- SETSI MODAL OBRISI KREIRAN SASTANAK DUGME OBRISI JE ZAKOMENTARISANO  - RESPONSIVE JE -->
 
     <b-modal v-if="meetingToRemove" ref="removeMeetingModal" id="removeMeetingModal">
       <div class="modal-body">
@@ -548,7 +554,7 @@
 
     <!-- SESTI MODAL END -->
 
-    <!-- SEDMI MODAL  -->
+    <!-- SEDMI MODAL ZA ZAPISNIK -  RESPONSIVE JE -->
 
     <b-modal v-if="selectedEvent" ref="meetingNotesModal" id="meetingNotesModal">
       <span slot="modal-title">{{ selectedEvent.title }}</span>
@@ -676,8 +682,12 @@ h2 {
   overflow-wrap: break-word;
 }
 
-.closeButtonEmail:hover {
+.removeButton:hover {
   background-color: #fff;
+}
+
+.timePicker button {
+  padding-right: 2px;
 }
 
 @media (max-width: 992px) {
