@@ -51,6 +51,7 @@ import AccountService from '@/account/account.service';
 import CompanySelect from '@/shared/components/company-select/company-select.vue';
 
 import NumericDataUtils from '@/shared/data/numeric-data-utils.service';
+import { co } from '@fullcalendar/core/internal-common';
 
 const validations: any = {
   advertisement: {
@@ -190,35 +191,38 @@ export default class AdvertisementUpdate extends Vue {
   public isLoading: boolean = false;
   public advertisementTypeOptions = AdvertisementTypeOptions;
   public componentInitialized = false;
-  public codetrue, inputCode;
+  public codetrue;
+  public inputCode;
 
   data() {
     return {
-      inputCode: "",
+      inputCode: '',
+      content: '',
+      customToolbar: [
+        ['bold', 'underline', 'link'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+      ],
     };
-  },
-
- public handleClick():void {
-      this.$refs.code.getCode();
   }
- public handleConfirm():any {
-	 var capcthacode =  this.$refs.code.getCode(); 
-	 
-      if (capcthacode == this.inputCode) {
-      
-      	this.codetrue = true;
-      	
-      } else {
-		
-        this.codetrue = false;
-      }
-      
-      return this.codetrue;
+
+  public handleClick(): void {
+    this.$refs.code.getCode();
+  }
+  public handleConfirm(): any {
+    var capcthacode = this.$refs.code.getCode();
+
+    if (capcthacode == this.inputCode) {
+      this.codetrue = true;
+    } else {
+      this.codetrue = false;
     }
 
- public refreshCaptcha(): any{
-	return (Math.floor(Math.random() * 90000) + 10000).toString();
- }
+    return this.codetrue;
+  }
+
+  public refreshCaptcha(): any {
+    return (Math.floor(Math.random() * 90000) + 10000).toString();
+  }
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -321,19 +325,17 @@ export default class AdvertisementUpdate extends Vue {
     this.isSaving = true;
     this.isLoading = true;
 
-	if (!this.handleConfirm()) {
-		const message = this.$t('riportalApp.advertisement.captchafalse');
-		this.$notify({ text: JSON.stringify(message).replace(/["]/g, ''), type: 'error', duration: 10000 });
-		this.isSaving = false;
-    	this.isLoading = false;
-		return;
-		
-	} 
-
+    if (!this.handleConfirm()) {
+      const message = this.$t('riportalApp.advertisement.captchafalse');
+      this.$notify({ text: JSON.stringify(message).replace(/["]/g, ''), type: 'error', duration: 10000 });
+      this.isSaving = false;
+      this.isLoading = false;
+      return;
+    }
 
     // Remove any dots that might be in budget input
     this.formatBudgetToRealNumber();
- 
+
     if (this.advertisement.id) {
       this.advertisement.expirationDatetime = new Date(this.advertisement.activationDatetime);
       const expirationMonth = this.advertisement.expirationDatetime.getMonth();
