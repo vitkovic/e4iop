@@ -33,6 +33,10 @@
         "newTitleImage": "New title image",
         "currentTitleImage": "Current title image",
         "noTitleImage": "There is no title image"
+      },
+      "search": {
+        "title": "Search news",
+        "buttonContent": "Read news"
       }
     }
   }

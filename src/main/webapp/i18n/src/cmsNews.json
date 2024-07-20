@@ -33,6 +33,10 @@
         "newTitleImage": "Нова насловна слика",
         "currentTitleImage": "Тренутна насловна слика",
         "noTitleImage": "Насловна слика није изабрана"
+      },
+      "search": {
+        "title": "Претражите вести",
+        "buttonContent": "Прочитај вест"
       }
     }
   }

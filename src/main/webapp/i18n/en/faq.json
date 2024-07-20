@@ -2,7 +2,7 @@
   "faq": {
     "title": "FREQUENTLY ASKED QUESTIONS",
     "searchQuestions": "Search questions",
-    "searchPlaceholder": "Unesite pojam za pretragu",
+    "searchPlaceholder": "Enter a search term",
     "pagginationPrev": "Previous",
     "pagginationNext": "Next"
   }
