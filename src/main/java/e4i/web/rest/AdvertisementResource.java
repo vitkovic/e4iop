@@ -39,6 +39,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -414,10 +415,16 @@ public class AdvertisementResource {
 	        
 	        advertisement.setStatus(advertisementStatus);
 	        
-	        if (advertisementStatus.getStatus().equals(AdvertisementStatus.ACTIVE)) {
+	        if (advertisementStatus.getStatusEn().equals(AdvertisementStatus.ACTIVE)) {
 	        	advertisement.setActivationDatetime(Instant.now());
+	        	advertisement.setExpirationDatetime(
+	        			ZonedDateTime
+	        			.now()
+	        			.plusMonths(advertisement.getDuration().getDuration())
+	        			.toInstant()
+	        			);
 	        	advertisement.setDeletionDatetime(null);
-	        } else if (advertisementStatus.getStatus().equals(AdvertisementStatus.ARCHIVED)) {
+	        } else if (advertisementStatus.getStatusEn().equals(AdvertisementStatus.ARCHIVED)) {
 	        	advertisement.setDeletionDatetime(Instant.now());
 	        }
 	        

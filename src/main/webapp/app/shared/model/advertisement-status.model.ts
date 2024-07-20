@@ -1,5 +1,11 @@
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 
+export enum AdvertisementStatusOptions {
+  ACTIVE = 'Active',
+  INACTIVE = 'Inactive',
+  ARCHIVED = 'Archived',
+}
+
 export interface IAdvertisementStatus {
   id?: number;
   status?: string;

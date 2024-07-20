@@ -186,6 +186,14 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     
 	Optional<Advertisement> findOneByThreads(Thread thread);
 	
-	Long countByCompanyIdAndStatus_statusNot(@Param("companyId") Long companyId, @Param("status") String status);
-	Long countByCompanyIdAndStatusStatus(@Param("companyId") Long companyId, @Param("status") String status);
+	@Query("SELECT COUNT(a) FROM Advertisement a JOIN a.status s "
+			+ "WHERE a.company.id = :companyId "
+			+ "AND (s.status != :status AND s.statusSrc != :status AND s.statusEn != :status)")
+	Long countByCompanyIdAndNotStatus(@Param("companyId") Long companyId, @Param("status") String status);
+
+	@Query("SELECT COUNT(a) FROM Advertisement a JOIN a.status s "
+	       + "WHERE a.company.id = :companyId "
+	       + "AND (s.status = :status OR s.statusSrc = :status OR s.statusEn = :status)")
+	Long countByCompanyIdAndStatus(@Param("companyId") Long companyId, @Param("status") String status);
+
 }

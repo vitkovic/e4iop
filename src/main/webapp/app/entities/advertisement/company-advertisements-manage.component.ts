@@ -4,19 +4,13 @@ import { mixins } from 'vue-class-component';
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { IAdvertisement } from '@/shared/model/advertisement.model';
-import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model';
+import { IAdvertisementStatus, AdvertisementStatusOptions } from '@/shared/model/advertisement-status.model';
 import { ICompany } from '@/shared/model/company.model';
 
 import AdvertisementService from './advertisement.service';
 import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
 import AccountService from '@/account/account.service';
 import CompanyService from '@/entities/company.service';
-
-enum AdvertisementStatus {
-  ACTIVE = 'Активан',
-  INACTIVE = 'Неактиван',
-  ARCHIVED = 'Архивиран',
-}
 
 enum AdvertisementStatusFilter {
   ALL = 'all',
@@ -59,6 +53,7 @@ export default class Advertisement extends mixins(AlertMixin) {
   public isFetching = false;
 
   public activeAdStatusFilter = AdvertisementStatusFilter.ALL;
+  public advertisementStatusOptions = AdvertisementStatusOptions;
   public filterAllButtonVariant = 'secondary';
   public filterActiveButtonVariant = 'outline-secondary';
   public filterInactiveButtonVariant = 'outline-secondary';
@@ -84,7 +79,7 @@ export default class Advertisement extends mixins(AlertMixin) {
       .retrieve()
       .then(res => {
         this.advertisementStatuses = res.data;
-        this.archivedAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.ARCHIVED);
+        this.archivedAdStatus = this.advertisementStatuses.find(status => status.statusEn === AdvertisementStatusOptions.ARCHIVED);
         this.retrieveAllAdvertisements();
       });
   }
@@ -211,7 +206,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public prepareDeactivate(instance: IAdvertisement): void {
     this.advertisementToSwitchStatus = instance;
-    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Неактиван')[0];
+    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.statusEn === AdvertisementStatusOptions.INACTIVE)[0];
 
     if (<any>this.$refs.deactivateEntity) {
       (<any>this.$refs.deactivateEntity).show();
@@ -236,7 +231,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public prepareActivate(instance: IAdvertisement): void {
     this.advertisementToSwitchStatus = instance;
-    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Активан')[0];
+    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.statusEn === AdvertisementStatusOptions.ACTIVE)[0];
 
     if (<any>this.$refs.activateEntity) {
       (<any>this.$refs.activateEntity).show();
@@ -262,7 +257,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public prepareSoftDelete(instance: IAdvertisement): void {
     this.advertisementToSwitchStatus = instance;
-    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Архивиран')[0];
+    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.statusEn === AdvertisementStatusOptions.ARCHIVED)[0];
 
     this.removeId = instance.id;
     if (<any>this.$refs.softDeleteEntity) {
@@ -298,7 +293,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public showActiveAdvertisements(): void {
     this.activeAdStatusFilter = AdvertisementStatusFilter.ACTIVE;
-    this.activeAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.ACTIVE);
+    this.activeAdStatus = this.advertisementStatuses.find(status => status.statusEn === AdvertisementStatusOptions.ACTIVE);
     this.retrieveAllAdvertisements();
 
     this.filterAllButtonVariant = 'outline-secondary';
@@ -309,7 +304,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public showInactiveAdvertisements(): void {
     this.activeAdStatusFilter = AdvertisementStatusFilter.INACTIVE;
-    this.activeAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.INACTIVE);
+    this.activeAdStatus = this.advertisementStatuses.find(status => status.statusEn === AdvertisementStatusOptions.INACTIVE);
     this.retrieveAllAdvertisements();
 
     this.filterAllButtonVariant = 'outline-secondary';
@@ -320,7 +315,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public showSoftDeleteAdvertisements(): void {
     this.activeAdStatusFilter = AdvertisementStatusFilter.ARCHIVED;
-    this.activeAdStatus = this.advertisementStatuses.find(status => status.status === AdvertisementStatus.ARCHIVED);
+    this.activeAdStatus = this.advertisementStatuses.find(status => status.statusEn === AdvertisementStatusOptions.ARCHIVED);
     this.retrieveAllAdvertisements();
 
     this.filterAllButtonVariant = 'outline-secondary';
@@ -349,5 +344,62 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   get countInactiveAdvertisements(): number {
     return this.countInactiveAdvertisementsValue;
+  }
+
+  public advertisementCategorizationBranch(advertisement: IAdvertisement): string {
+    let branch = '';
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    if (currentLanguage === 'sr') {
+      branch =
+        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name +
+        ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.name +
+        ' / ' +
+        advertisement.subsubcategory.name;
+
+      return branch;
+    }
+
+    if (currentLanguage === 'src') {
+      branch =
+        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameSrc +
+        ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.nameSrc +
+        ' / ' +
+        advertisement.subsubcategory.nameSrc;
+
+      return branch;
+    }
+
+    if (currentLanguage === 'en') {
+      branch =
+        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameEn +
+        ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.nameEn +
+        ' / ' +
+        advertisement.subsubcategory.nameEn;
+
+      return branch;
+    }
+
+    return branch;
+  }
+
+  public advertisementKindsString(advertisement: IAdvertisement) {
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    return advertisement.kinds
+      .map(kind => {
+        if (currentLanguage === 'sr') {
+          return kind.kind;
+        } else if (currentLanguage === 'src') {
+          return kind.kindSrc;
+        } else if (currentLanguage === 'en') {
+          return kind.kindEn;
+        }
+        return '';
+      })
+      .join(', ');
   }
 }

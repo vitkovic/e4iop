@@ -474,18 +474,18 @@ public Page<Advertisement> findAllBySearchTypeStatus(Long type, Long status, Pag
     @Transactional
 	public Long getCountAllForCompany(Long companyId) {
         log.debug("Request to get count for all Advertisments for Company : {}", companyId);
-        return advertisementRepository.countByCompanyIdAndStatus_statusNot(companyId, AdvertisementStatus.ARCHIVED);
+        return advertisementRepository.countByCompanyIdAndNotStatus(companyId, AdvertisementStatus.ARCHIVED);
 	}
     
     @Transactional
 	public Long getCountActiveForCompany(Long companyId) {        
         log.debug("Request to get count for active Advertisments for Company : {}", companyId);
-        return advertisementRepository.countByCompanyIdAndStatusStatus(companyId, AdvertisementStatus.ACTIVE);
+        return advertisementRepository.countByCompanyIdAndStatus(companyId, AdvertisementStatus.ACTIVE);
 	}
     
     @Transactional
 	public Long getCountInactiveForCompany(Long companyId) {        
         log.debug("Request to get count for inactive Advertisments for Company : {}", companyId);
-        return advertisementRepository.countByCompanyIdAndStatusStatus(companyId, AdvertisementStatus.INACTIVE);
+        return advertisementRepository.countByCompanyIdAndStatus(companyId, AdvertisementStatus.INACTIVE);
 	}
 }

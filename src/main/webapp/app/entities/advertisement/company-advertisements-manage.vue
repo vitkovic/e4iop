@@ -66,16 +66,12 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <!-- <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('createdAt')"><span v-text="$t('riportalApp.advertisement.createdAt')">Created At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdAt'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('modifiedAt')"><span v-text="$t('riportalApp.advertisement.modifiedAt')">Modified At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedAt'"></jhi-sort-indicator></th> -->
-
             <th v-on:click="changeOrder('title')">
               <span v-text="$t('riportalApp.advertisement.title')">Title</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator>
             </th>
-            <!-- <th v-on:click="changeOrder('description')"><span v-text="$t('riportalApp.advertisement.description')">Description</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'description'"></jhi-sort-indicator></th> -->
-            <!-- <th v-on:click="changeOrder('conditions')"><span v-text="$t('riportalApp.advertisement.conditions')">Conditions</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'conditions'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.advertisement.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.advertisement.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th> -->
             <th v-on:click="changeOrder('status.status')">
@@ -111,9 +107,6 @@
         </thead>
         <tbody>
           <tr v-for="advertisement in advertisements" :key="advertisement.id">
-            <!-- <td>
-                        <router-link :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}">{{advertisement.id}}</router-link>
-                    </td> -->
             <!-- <td>{{advertisement.createdAt ? $d(Date.parse(advertisement.createdAt), 'short') : ''}}</td> -->
             <!-- <td>{{advertisement.modifiedAt ? $d(Date.parse(advertisement.modifiedAt), 'short') : ''}}</td> -->
             <td class="title-column">
@@ -121,9 +114,6 @@
                 {{ advertisement.title }}      
               </router-link>
             </td>
-            <!-- <td>{{advertisement.description}}</td> -->
-
-            <!-- <td>{{advertisement.conditions}}</td> -->
             <!-- <td>
                         <div v-if="advertisement.createdBy">
                             <router-link :to="{name: 'PortalUserView', params: {portalUserId: advertisement.createdBy.id}}">{{advertisement.createdBy.firstname}}</router-link>
@@ -137,26 +127,26 @@
 
             <td>
               <div v-if="advertisement.status">
-                {{ advertisement.status.status }}
+                <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.status.status }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.status.statusSrc }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.status.statusEn }}</span>
               </div>
             </td>
             <td>
               <div v-if="advertisement.type">
-                {{ advertisement.type.type }}
+                <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.type.type }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.type.typeSrc }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.type.typeEn }}</span>
               </div>
             </td>
             <td>
               <div v-if="advertisement.kinds">
-                <!-- {{ advertisement.kind.kind }} -->
-                <div v-for="(kind, index) in advertisement.kinds" :key="kind.id">
-                  <span style="white-space: pre;">{{ kind.kind }}<span v-if="index != advertisement.kinds.length -1">, </span>
-                  </span>
-                </div>
+                {{ advertisementKindsString(advertisement) }}
               </div>
             </td>
             <td>
               <div v-if="advertisement.subsubcategory">
-                {{ advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name + " / " + advertisement.subsubcategory.advertisementSubcategory.name + " / " + advertisement.subsubcategory.name }}
+                {{ advertisementCategorizationBranch(advertisement) }}
               </div>
             </td>
             <td>{{ advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) }}</td>
@@ -172,16 +162,8 @@
             </td>
             <td class="text-right">
               <div class="btn-group">
-                <!-- <router-link
-                  :to="{ name: 'AdvertisementView', params: { advertisementId: advertisement.id } }"
-                  tag="button"
-                  class="btn btn-info btn-sm details"
-                >
-                  <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span v-text="$t('entity.action.view')">View</span>
-                </router-link> -->
                 <router-link
-                  v-if="advertisement.status.status === 'Активан'"
+                  v-if="advertisement.status.statusEn === advertisementStatusOptions.ACTIVE"
                   :to="{ name: 'AdvertisementEdit', params: { advertisementId: advertisement.id } }"
                   tag="button"
                   class="btn btn-primary btn-sm edit"
@@ -190,27 +172,25 @@
                   <span v-text="$t('entity.action.edit')">Edit</span>
                 </router-link>
                 <b-button
-                  v-if="advertisement.status.status === 'Активан'"
+                  v-if="advertisement.status.statusEn === advertisementStatusOptions.ACTIVE"
                   v-on:click="prepareDeactivate(advertisement)"
                   variant="dark"
                   class="btn btn-sm"
                   v-b-modal.deactivateEntity
                 >
-                  <!-- <font-awesome-icon icon="times"></font-awesome-icon> -->
                   <span v-text="$t('entity.action.deactivate')">Deaktiviraj</span>
                 </b-button>
                 <b-button
-                  v-if="['Неактиван', 'Архивиран'].includes(advertisement.status.status)"
+                  v-if="advertisement.status.statusEn === advertisementStatusOptions.INACTIVE || advertisement.status.statusEn === advertisementStatusOptions.ARCHIVED"
                   v-on:click="prepareActivate(advertisement)"
                   variant="success"
                   class="btn btn-sm"
                   v-b-modal.activateEntity
                 >
-                  <!-- <font-awesome-icon icon="check"></font-awesome-icon> -->
                   <span v-text="$t('entity.action.activate')">Aktiviraj</span>
                 </b-button>
                 <b-button
-                  v-if="advertisement.status.status === 'Неактиван'"
+                  v-if="advertisement.status.statusEn === advertisementStatusOptions.INACTIVE"
                   v-on:click="prepareSoftDelete(advertisement)"
                   variant="danger"
                   class="btn btn-sm"
