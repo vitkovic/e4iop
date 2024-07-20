@@ -1,5 +1,10 @@
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 
+export enum AdvertisementTypeOptions {
+  OFFER = 'Offer',
+  DEMAND = 'Demand',
+}
+
 export interface IAdvertisementType {
   id?: number;
   type?: string;

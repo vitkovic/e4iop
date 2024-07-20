@@ -6,17 +6,14 @@ import LoginService from '@/account/login.service';
 import { ICmsSlider } from '@/shared/model/cms-slider.model';
 import { IDocument } from '@/shared/model/document.model';
 import { DocumentTypeOptions } from '@/shared/model/document-type.model';
+import { AdvertisementTypeOptions } from '@/shared/model/advertisement-type.model';
 
 import CmsSliderService from '../cms-slider/cms-slider.service';
 import DocumentService from '../document/document.service';
 
 @Component
 export default class B2BHome extends Vue {
-
-   props: ['advs','news']
-
-
-
+  props: ['advs', 'news'];
 
   @Inject('cmsSliderService') private cmsSliderService: () => CmsSliderService;
   @Inject('documentService') private documentService: () => DocumentService;
@@ -67,6 +64,8 @@ export default class B2BHome extends Vue {
     },
   ];
 
+  public advertisementTypeOptions = AdvertisementTypeOptions;
+
   // -------- LOGIC FOR BANNER RESPONSIVE AND WHICH IMAGE SIZE TO SHOW -----------
 
   public slide = 0;
@@ -83,8 +82,8 @@ export default class B2BHome extends Vue {
         this.cmsSliders = res;
         console.log(this.cmsSliders);
       });
-      
-   //   alert(this.$t('riportalApp.researchInfrastructure.errors.deleteFailed') + this.currentLanguage);
+
+    //   alert(this.$t('riportalApp.researchInfrastructure.errors.deleteFailed') + this.currentLanguage);
   }
 
   mounted() {

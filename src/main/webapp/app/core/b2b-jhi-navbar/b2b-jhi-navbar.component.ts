@@ -7,6 +7,7 @@ import TranslationService from '@/locale/translation.service';
 import PortalUserService from '../../entities/portal-user/portal-user.service';
 import AdvertisementCategoryService from '../../entities/advertisement-category/advertisement-category.service';
 import AdvertisementCategory from '../../entities/advertisement/advertisement.service';
+import { AdvertisementTypeOptions } from '@/shared/model/advertisement-type.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import AdvertisementService from '../../entities/advertisement/advertisement.service';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
@@ -15,8 +16,6 @@ import SearchPageService from '../../core/b2b-jhi-navbar/searchpage.service';
 
 @Component
 export default class B2BJhiNavbar extends Vue {
-
- 
   @Inject('loginService')
   private loginService: () => LoginService;
   @Inject('translationService') private translationService: () => TranslationService;
@@ -24,11 +23,11 @@ export default class B2BJhiNavbar extends Vue {
   @Inject('accountService') private accountService: () => AccountService;
 
   @Inject('portalUserService') private portalUserService: () => PortalUserService;
-  
+
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
-  
+
   @Inject('advertisementCategoryService') private advertisementCategoryService: () => AdvertisementCategoryService;
-  
+
   @Inject('searchPageService') private searchPageService: () => SearchPageService;
 
   public version = VERSION ? 'v' + VERSION : '';
@@ -49,13 +48,14 @@ export default class B2BJhiNavbar extends Vue {
   public companies = null;
   public isActive: boolean = false;
   public valuetype;
-  
+  public advertisementTypeOptions = AdvertisementTypeOptions;
+
   public category;
-  
+
   private companies;
   private questions;
   private news;
-  
+
   public itemsPerPage = 20;
   public queryCount: number = null;
   public page = 1;
@@ -64,81 +64,65 @@ export default class B2BJhiNavbar extends Vue {
   public reverse = false;
   public totalItems = 0;
   public isFetching = false;
- beforeRouteEnter(to, from, next) {
+  beforeRouteEnter(to, from, next) {
     to(vm => {
       vm.initRelationships();
     });
   }
-  
+
   created() {
-	
-	
     this.translationService().refreshTranslation(this.currentLanguage);
     this.mainSearchCategory = 1;
-    
-    
-   
   }
-  
-  
- 
+
   data() {
-     return {
-       advertisements:[],
-       cmsnews:[],
-       cmsquestions:[],
-       companies:[],
-       txtsearchNav: '',
-       mainSearchCategory:1,
-       valuetype: [],
-       options: [
-        {name: 'Оглас', value: '0'},
-        {name: 'Вест', value: '1'},
-        {name: 'Компанија', value: '2'},
-        {name: 'Најчешћа питања', value: '3'},
-        ]
-      }
-    },
-  	  
-	  beforeMount () {
-	  // conosle.log('u beforemount')
-	    this.$emit('update', this.advertisements)
-	  }
-  
-  
-  
-  
+    return {
+      advertisements: [],
+      cmsnews: [],
+      cmsquestions: [],
+      companies: [],
+      txtsearchNav: '',
+      mainSearchCategory: 1,
+      valuetype: [],
+      options: [
+        { name: 'Оглас', value: '0' },
+        { name: 'Вест', value: '1' },
+        { name: 'Компанија', value: '2' },
+        { name: 'Најчешћа питања', value: '3' },
+      ],
+    };
+  }
+
+  beforeMount() {
+    // conosle.log('u beforemount')
+    this.$emit('update', this.advertisements);
+  }
+
   mounted() {
-	
-  
-	this.initRelationships();
+    this.initRelationships();
     // Call the function to check screen size and update isActive
     this.checkScreenSize();
     // Add event listener to track window resize
     window.addEventListener('resize', this.checkScreenSize);
-    
-     this.txtsearchNav = this.$route.query.search;
-     this.mainSearchCategory =  this.$route.query.category;
-     
-     //console.log( this.$route.query)
-    
+
+    this.txtsearchNav = this.$route.query.search;
+    this.mainSearchCategory = this.$route.query.category;
+
+    //console.log( this.$route.query)
+
     if (this.txtsearchNav == null) {
-     const urlParams = new URLSearchParams(window.location.search);
-	 this.txtsearchNav = urlParams.get('search');
-     this.mainSearchCategory =  urlParams.get('category');
+      const urlParams = new URLSearchParams(window.location.search);
+      this.txtsearchNav = urlParams.get('search');
+      this.mainSearchCategory = urlParams.get('category');
     }
-    
-     // this.advertisements = "hsdgadjhdgajdhg"
-    
-    
+
+    // this.advertisements = "hsdgadjhdgajdhg"
   }
 
   beforeDestroy() {
     // Remove event listener when component is destroyed
     window.removeEventListener('resize', this.checkScreenSize);
   }
-  
-  
 
   public checkScreenSize() {
     this.isActive = window.innerWidth < 786;
@@ -151,7 +135,6 @@ export default class B2BJhiNavbar extends Vue {
     });
   }
 
-  
   public changeLanguage(newLanguage: string): void {
     this.translationService().refreshTranslation(newLanguage);
   }
@@ -159,7 +142,7 @@ export default class B2BJhiNavbar extends Vue {
   public isActiveLanguage(key: string): boolean {
     return key === this.$store.getters.currentLanguage;
   }
-/*
+  /*
   public logout(): void {
     localStorage.removeItem('jhi-authenticationToken');
     sessionStorage.removeItem('jhi-authenticationToken');
@@ -167,7 +150,7 @@ export default class B2BJhiNavbar extends Vue {
     this.$router.push('/');
   }
 */
-public logout(): void {
+  public logout(): void {
     this.loginService()
       .logout()
       .then(response => {
@@ -185,7 +168,7 @@ public logout(): void {
         window.location.href = logoutUrl;
       });
   }
- public openLogin(): void {
+  public openLogin(): void {
     //this.loginService().openLogin((<any>this).$root); old for jwt auth.
     this.loginService().login();
   }
@@ -227,7 +210,7 @@ public logout(): void {
 
     return this.companyLink;
   }
-  
+
   private advList;
   public sort(): Array<any> {
     const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
@@ -238,108 +221,94 @@ public logout(): void {
   }
   public searchFound;
   public notifsearchshown = false;
-  
+
   public autoAdv(): any {
-    
     if (!this.notifsearchshown) {
-    this.$notify({
-            text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
-            type: 'info',
-            duration: 4000,
-          });
-   	this.notifsearchshown = true;
-   }
-   if (this.txtsearchNav.length >= 3) {
-	   this.isFetching = true;
-	    
-	    
-	    
-	    const paginationQuery = {
-	      page: this.page - 1,
-	      size: this.itemsPerPage,
-	      sort: this.sort()
-	    };
-	    
-	  	 
-	    this.advertisementService()
-	       .retrieveBaseSearch(this.txtsearchNav, this.mainSearchCategory,paginationQuery)
-	        .then(
-	        res => {
-	          // Ovo koristiti az originalno povucene rezultate pretrage
-	          this.advertisements = res.data;
-	          console.log(this.advertisements);
-	         console.log("hjghjsadgjdag");
-	          this.$emit('adv:change', this.advertisements);
-	          // Ovo koristiti za filtrirane rezultate pretrage
-	          
-	          this.totalItems = Number(res.headers['x-total-count']);
-	          this.queryCount = this.totalItems;
-	          this.isFetching = false;
-	        },
-	        err => {
-	          this.isFetching = false;
-	        }
-	      );
-	   }
+      this.$notify({
+        text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
+        type: 'info',
+        duration: 4000,
+      });
+      this.notifsearchshown = true;
+    }
+    if (this.txtsearchNav.length >= 3) {
+      this.isFetching = true;
+
+      const paginationQuery = {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      };
+
+      this.advertisementService()
+        .retrieveBaseSearch(this.txtsearchNav, this.mainSearchCategory, paginationQuery)
+        .then(
+          res => {
+            // Ovo koristiti az originalno povucene rezultate pretrage
+            this.advertisements = res.data;
+            console.log(this.advertisements);
+            console.log('hjghjsadgjdag');
+            this.$emit('adv:change', this.advertisements);
+            // Ovo koristiti za filtrirane rezultate pretrage
+
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+    }
   }
-  
-  
-  
+
   public searchAdv(): void {
-  
-  
-  
     //this.advertisements = ['kukuriku'];
-    
-    
-    
-   // console.log(this.advertisements);
-  
-	
-//	if (this.valuetype!= null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length == 1) {
-			//const searchtype = this.valuetype[0].value;
-			
-		   // console.log(this.valuetype[0].value);
-			
-			const searchtype = 0;
-			
-			const baseApiUrlSearchAdv = '/b2b/advertisement-search';
-			const baseApiUrlSearchCmp = '/b2b/company-search';
-			const baseApiUrlSearchQA = '/b2b/cms-questions/search';
-			const baseApiUrlSearchNews = '/b2b/cms-news/search';
-			
-			var ppathAdv = baseApiUrlSearchAdv + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-			var ppathCmp = baseApiUrlSearchCmp + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-			var ppathQa = baseApiUrlSearchQA + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-			var ppathNw = baseApiUrlSearchNews + `?search=${this.txtsearchNav}`+ `&category=${this.mainSearchCategory}`;
-			var ppath = '';
-			
-			switch (Number(searchtype)) {
-				case 0: 
-					ppath = ppathAdv;
-					break;
-				case 1: 
-					ppath = ppathNw;
-					break;
-				case 2: 
-					ppath = ppathCmp;
-					break;
-				case 3: 
-					ppath = ppathQa;
-					break;
-				default:
-					ppath = ppathAdv; 
-					break;
-					
-			}
-	
-	     window.location.href= ppath;
-	 //}
-	
-	
-//	console.log(this.valuetype);
-	
-/*	
+
+    // console.log(this.advertisements);
+
+    //	if (this.valuetype!= null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length == 1) {
+    //const searchtype = this.valuetype[0].value;
+
+    // console.log(this.valuetype[0].value);
+
+    const searchtype = 0;
+
+    const baseApiUrlSearchAdv = '/b2b/advertisement-search';
+    const baseApiUrlSearchCmp = '/b2b/company-search';
+    const baseApiUrlSearchQA = '/b2b/cms-questions/search';
+    const baseApiUrlSearchNews = '/b2b/cms-news/search';
+
+    var ppathAdv = baseApiUrlSearchAdv + `?search=${this.txtsearchNav}` + `&category=${this.mainSearchCategory}`;
+    var ppathCmp = baseApiUrlSearchCmp + `?search=${this.txtsearchNav}` + `&category=${this.mainSearchCategory}`;
+    var ppathQa = baseApiUrlSearchQA + `?search=${this.txtsearchNav}` + `&category=${this.mainSearchCategory}`;
+    var ppathNw = baseApiUrlSearchNews + `?search=${this.txtsearchNav}` + `&category=${this.mainSearchCategory}`;
+    var ppath = '';
+
+    switch (Number(searchtype)) {
+      case 0:
+        ppath = ppathAdv;
+        break;
+      case 1:
+        ppath = ppathNw;
+        break;
+      case 2:
+        ppath = ppathCmp;
+        break;
+      case 3:
+        ppath = ppathQa;
+        break;
+      default:
+        ppath = ppathAdv;
+        break;
+    }
+
+    window.location.href = ppath;
+    //}
+
+    //	console.log(this.valuetype);
+
+    /*	
 	if (this.valuetype != null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length > 1) {
 	
 	const num = this.valuetype.length;
@@ -406,30 +375,23 @@ public logout(): void {
 		  
 		}
 			
-		*/	
-     
-	//console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
+		*/
+
+    //console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
   }
 
   private searchinput;
-  
-  
+
   public initRelationships(): void {
     this.advertisementCategoryService()
       .retrieve()
       .then(res => {
-       console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaas");
-      
-	    console.log(res.data);
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaas');
+
+        console.log(res.data);
         this.advCategList = res.data;
         this.$refs.mainSearchCategory = this.advCategList;
-          this.mainSearchCategory = 1;
-        
+        this.mainSearchCategory = 1;
       });
-
-   
   }
-  
- 
-  
 }

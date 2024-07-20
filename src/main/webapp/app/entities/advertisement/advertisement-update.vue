@@ -43,7 +43,11 @@
                   "
                   v-for="advertisementTypeOption in advertisementTypes"
                   :key="advertisementTypeOption.id"
-                  >{{ advertisementTypeOption.type }}</option
+                  >
+                  <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisementTypeOption.type }}</span>
+                  <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisementTypeOption.typeSrc }}</span>
+                  <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisementTypeOption.typeEn }}</span>
+                </option
                 >
               </select>
               <div v-if="$v.advertisement.type.$anyDirty && $v.advertisement.type.$invalid">
@@ -236,13 +240,7 @@
                   "
                   v-for="advertisementSubsubcategoryOption in advertisementSubsubcategories"
                   :key="advertisementSubsubcategoryOption.id"
-                  >{{
-                    advertisementSubsubcategoryOption.advertisementSubcategory.advertisementCategory.name +
-                    ' / ' +
-                    advertisementSubsubcategoryOption.advertisementSubcategory.name +
-                    ' / ' +
-                    advertisementSubsubcategoryOption.name
-                  }}</option
+                  >{{ advertisementCategorizationBranch(advertisementSubsubcategoryOption) }}</option
                 >
               </select>
               <div v-if="$v.advertisement.subsubcategory.$anyDirty && $v.advertisement.subsubcategory.$invalid">

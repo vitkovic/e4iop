@@ -6,51 +6,32 @@ import parse from 'date-fns/parse';
 import parseISO from 'date-fns/parseISO';
 import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 
-import AdvertisementSupporterService from '../advertisement-supporter/advertisement-supporter.service';
+import { IAdvertisement, Advertisement } from '@/shared/model/advertisement.model';
+import { IAdvertisementType, AdvertisementTypeOptions } from '@/shared/model/advertisement-type.model';
+import { IAdvertisementKind } from '@/shared/model/advertisement-kind.model';
+import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model';
+import { IAdvertisementDuration } from '@/shared/model/advertisement-duration.model';
+import { IAdvertisementSubsubcategory } from '@/shared/model/advertisement-subsubcategory.model';
 import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
-
-import CollaborationService from '../collaboration/collaboration.service';
-import { ICollaboration } from '@/shared/model/collaboration.model';
-
-import MeetingService from '../meeting/meeting.service';
-import { IMeeting } from '@/shared/model/meeting.model';
-
-import DocumentService from '../document/document.service';
-import { IDocument } from '@/shared/model/document.model';
-
-import PortalUserService from '../portal-user/portal-user.service';
+import { ICompany } from '@/shared/model/company.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 
-import CompanyService from '../company/company.service';
-import { ICompany } from '@/shared/model/company.model';
-
-import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
-import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model';
-
-import AdvertisementDurationService from '../advertisement-duration/advertisement-duration.service';
-import { IAdvertisementDuration } from '@/shared/model/advertisement-duration.model';
-
+import AdvertisementService from './advertisement.service';
 import AdvertisementTypeService from '../advertisement-type/advertisement-type.service';
-import { IAdvertisementType } from '@/shared/model/advertisement-type.model';
-
 import AdvertisementKindService from '../advertisement-kind/advertisement-kind.service';
-import { IAdvertisementKind } from '@/shared/model/advertisement-kind.model';
-
+import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
+import AdvertisementDurationService from '../advertisement-duration/advertisement-duration.service';
 import AdvertisementSubsubcategoryService from '../advertisement-subsubcategory/advertisement-subsubcategory.service';
-import { IAdvertisementSubsubcategory } from '@/shared/model/advertisement-subsubcategory.model';
-
-import ThreadService from '../thread/thread.service';
-import { IThread } from '@/shared/model/thread.model';
+import AdvertisementSupporterService from '../advertisement-supporter/advertisement-supporter.service';
+import CompanyService from '../company/company.service';
+import PortalUserService from '../portal-user/portal-user.service';
 
 import AlertService from '@/shared/alert/alert.service';
-import { IAdvertisement, Advertisement } from '@/shared/model/advertisement.model';
-import AdvertisementService from './advertisement.service';
-
 import AccountService from '@/account/account.service';
+import NumericDataUtils from '@/shared/data/numeric-data-utils.service';
 
 import CompanySelect from '@/shared/components/company-select/company-select.vue';
 
-import NumericDataUtils from '@/shared/data/numeric-data-utils.service';
 import { co } from '@fullcalendar/core/internal-common';
 
 const validations: any = {
@@ -101,10 +82,10 @@ interface DocumentBlob extends Blob {
   type: 'application/pdf';
 }
 
-enum AdvertisementTypeOptions {
-  OFFER = 'Понуда',
-  DEMAND = 'Потражња',
-}
+// enum AdvertisementTypeOptions {
+//   OFFER = 'Понуда',
+//   DEMAND = 'Потражња',
+// }
 
 @Component({
   validations,
@@ -114,60 +95,29 @@ enum AdvertisementTypeOptions {
 })
 export default class AdvertisementUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
-  @Inject('advertisementService') private advertisementService: () => AdvertisementService;
-  public advertisement: IAdvertisement = new Advertisement();
-
-  @Inject('advertisementSupporterService') private advertisementSupporterService: () => AdvertisementSupporterService;
-
-  public advertisementSupporters: IAdvertisementSupporter[] = [];
-
-  @Inject('collaborationService') private collaborationService: () => CollaborationService;
-
-  public collaborations: ICollaboration[] = [];
-
-  @Inject('meetingService') private meetingService: () => MeetingService;
-
-  public meetings: IMeeting[] = [];
-
-  @Inject('documentService') private documentService: () => DocumentService;
-
-  public documents: IDocument[] = [];
-
-  @Inject('portalUserService') private portalUserService: () => PortalUserService;
-
-  public portalUsers: IPortalUser[] = [];
-
-  @Inject('companyService') private companyService: () => CompanyService;
-
-  public companies: ICompany[] = [];
-
-  @Inject('advertisementStatusService') private advertisementStatusService: () => AdvertisementStatusService;
-
-  public advertisementStatuses: IAdvertisementStatus[] = [];
-
-  @Inject('advertisementDurationService') private advertisementDurationService: () => AdvertisementDurationService;
-
-  public advertisementDurations: IAdvertisementDuration[] = [];
-
-  @Inject('advertisementTypeService') private advertisementTypeService: () => AdvertisementTypeService;
-
-  public advertisementTypes: IAdvertisementType[] = [];
-
-  @Inject('advertisementKindService') private advertisementKindService: () => AdvertisementKindService;
-
-  public advertisementKinds: IAdvertisementKind[] = [];
-
-  @Inject('advertisementSubsubcategoryService') private advertisementSubsubcategoryService: () => AdvertisementSubsubcategoryService;
-
-  public advertisementSubsubcategories: IAdvertisementSubsubcategory[] = [];
-
-  @Inject('threadService') private threadService: () => ThreadService;
-
   @Inject('accountService') private accountService: () => AccountService;
-
   @Inject('numericDataUtils') public numericDataUtils: () => NumericDataUtils;
 
-  public threads: IThread[] = [];
+  @Inject('advertisementService') private advertisementService: () => AdvertisementService;
+  @Inject('advertisementTypeService') private advertisementTypeService: () => AdvertisementTypeService;
+  @Inject('advertisementKindService') private advertisementKindService: () => AdvertisementKindService;
+  @Inject('advertisementStatusService') private advertisementStatusService: () => AdvertisementStatusService;
+  @Inject('advertisementDurationService') private advertisementDurationService: () => AdvertisementDurationService;
+  @Inject('advertisementSubsubcategoryService') private advertisementSubsubcategoryService: () => AdvertisementSubsubcategoryService;
+  @Inject('advertisementSupporterService') private advertisementSupporterService: () => AdvertisementSupporterService;
+  @Inject('companyService') private companyService: () => CompanyService;
+  @Inject('portalUserService') private portalUserService: () => PortalUserService;
+
+  public advertisement: IAdvertisement = new Advertisement();
+  public advertisementTypes: IAdvertisementType[] = [];
+  public advertisementKinds: IAdvertisementKind[] = [];
+  public advertisementStatuses: IAdvertisementStatus[] = [];
+  public advertisementDurations: IAdvertisementDuration[] = [];
+  public advertisementSubsubcategories: IAdvertisementSubsubcategory[] = [];
+  public advertisementSupporters: IAdvertisementSupporter[] = [];
+  public companies: ICompany[] = [];
+  public portalUsers: IPortalUser[] = [];
+
   public company: ICompany | null = null;
   public excludedCompaniesValue: ICompany[] = [];
   public includedCompaniesValue: ICompany[] = [];
@@ -189,7 +139,7 @@ export default class AdvertisementUpdate extends Vue {
   public showImageLimitError: { number: number; state: boolean } = { number: 0, state: false };
   public advertisementTitleHasID: boolean = false;
   public isLoading: boolean = false;
-  public advertisementTypeOptions = AdvertisementTypeOptions;
+  // public advertisementTypeOptions = AdvertisementTypeOptions;
   public componentInitialized = false;
   public codetrue;
   public inputCode;
@@ -257,22 +207,23 @@ export default class AdvertisementUpdate extends Vue {
     this.initializeComponent();
   }
 
-  public initializeComponent(): void {
+  public async initializeComponent(): Promise<void> {
     if (this.$route.params.advertisementId) {
       this.advertisementTitleHasID = false;
-      this.retrieveAdvertisement(this.$route.params.advertisementId);
-      this.retrieveAdvertisementSupporters(this.$route.params.advertisementId);
+      await this.retrieveAdvertisement(this.$route.params.advertisementId);
+      await this.retrieveAdvertisementSupporters(this.$route.params.advertisementId);
+      await this.setIncludedCompanies();
     } else {
       if (this.$route.query.type) {
-        if (this.$route.query.type == 'offer') {
+        if (this.$route.query.type == AdvertisementTypeOptions.OFFER) {
           this.advertisementTypeService()
-            .getAdvertisementTypeByType(this.advertisementTypeOptions.OFFER)
+            .getAdvertisementTypeByType(AdvertisementTypeOptions.OFFER)
             .then(res => {
               this.advertisement.type = res;
             });
-        } else if (this.$route.query.type == 'demand') {
+        } else if (this.$route.query.type == AdvertisementTypeOptions.DEMAND) {
           this.advertisementTypeService()
-            .getAdvertisementTypeByType(this.advertisementTypeOptions.DEMAND)
+            .getAdvertisementTypeByType(AdvertisementTypeOptions.DEMAND)
             .then(res => {
               this.advertisement.type = res;
             });
@@ -309,7 +260,7 @@ export default class AdvertisementUpdate extends Vue {
     return this.excludedCompaniesValue;
   }
 
-  public setIncludedCompanies(): void {
+  public async setIncludedCompanies(): Promise<void> {
     if (this.advertisement?.advertisementSupporters) {
       this.includedCompaniesValue = this.advertisement.advertisementSupporters.map(supporter => supporter.company);
     } else {
@@ -346,7 +297,7 @@ export default class AdvertisementUpdate extends Vue {
         this.isSaving = false;
         const message = this.$t('riportalApp.advertisement.updated', { param: param.id });
         this.alertService().showAlert(message, 'info');
-        this.manageAdvertisementSupporters();
+        await this.manageAdvertisementSupporters();
         await this.saveFiles(); // Wait for saveFiles to complete
         // this.isLoading = false;
         // this.$router.go(-1);     // Navigate after saveFiles() is done
@@ -383,7 +334,7 @@ export default class AdvertisementUpdate extends Vue {
         const message = this.$t('riportalApp.advertisement.created', { param: param.id });
         this.alertService().showAlert(message, 'success');
         this.advertisement = param;
-        this.manageAdvertisementSupporters();
+        await this.manageAdvertisementSupporters();
         await this.saveFiles(); // Wait for saveFiles to complete
         // this.isLoading = false;
         // this.$router.go(-1);     // Navigate after saveFiles() is done
@@ -433,8 +384,8 @@ export default class AdvertisementUpdate extends Vue {
     }
   }
 
-  public retrieveAdvertisement(advertisementId): void {
-    this.advertisementService()
+  public async retrieveAdvertisement(advertisementId): Promise<void> {
+    await this.advertisementService()
       .find(advertisementId)
       .then(res => {
         res.createdAt = new Date(res.createdAt);
@@ -447,12 +398,12 @@ export default class AdvertisementUpdate extends Vue {
       });
   }
 
-  public retrieveAdvertisementSupporters(advertisementId): void {
-    this.advertisementSupporterService()
+  public async retrieveAdvertisementSupporters(advertisementId): Promise<void> {
+    await this.advertisementSupporterService()
       .retrieveAdvertisementSupporters(advertisementId)
       .then(res => {
         this.advertisement.advertisementSupporters = res;
-        this.setIncludedCompanies();
+        // this.setIncludedCompanies();
       });
   }
 
@@ -461,36 +412,6 @@ export default class AdvertisementUpdate extends Vue {
   }
 
   public initRelationships(): void {
-    // this.advertisementSupporterService()
-    //   .retrieve()
-    //   .then(res => {
-    //     this.advertisementSupporters = res.data;
-    //   });
-    // this.collaborationService()
-    //   .retrieve()
-    //   .then(res => {
-    //     this.collaborations = res.data;
-    //   });
-    // this.meetingService()
-    //   .retrieve()
-    //   .then(res => {
-    //     this.meetings = res.data;
-    //   });
-    this.documentService()
-      .retrieve()
-      .then(res => {
-        this.documents = res.data;
-      });
-    // this.portalUserService()
-    //   .retrieve()
-    //   .then(res => {
-    //     this.portalUsers = res.data;
-    //   });
-    // this.portalUserService()
-    //   .retrieve()
-    //   .then(res => {
-    //     this.portalUsers = res.data;
-    //   });
     this.companyService()
       .retrieve()
       .then(res => {
@@ -521,11 +442,6 @@ export default class AdvertisementUpdate extends Vue {
       .then(res => {
         this.advertisementSubsubcategories = res.data;
       });
-    // this.threadService()
-    //   .retrieve()
-    //   .then(res => {
-    //     this.threads = res.data;
-    //   });
   }
 
   public get authenticated(): boolean {
@@ -804,17 +720,19 @@ export default class AdvertisementUpdate extends Vue {
     }
   }
 
-  public deleteImage(): void {
+  public async deleteImage(): Promise<void> {
     if (this.selectedImageId !== null) {
       const advertisementId = this.advertisement.id;
-      this.advertisementService()
+      await this.advertisementService()
         .deleteImage(advertisementId, this.selectedImageId)
         .then(res => {
           this.isSaving = false;
-          this.retrieveAdvertisement(this.advertisement.id);
-          // Close the modal after successful deletion
           this.closeDeleteImageDialog();
         });
+      // If we fetch only advertisement without supporters,
+      // supporters will be null, thus failing any updates on save.
+      await this.retrieveAdvertisement(this.advertisement.id);
+      await this.retrieveAdvertisementSupporters(this.advertisement.id);
     }
   }
 
@@ -828,16 +746,19 @@ export default class AdvertisementUpdate extends Vue {
     this.selectedDocumentId = documentId;
   }
 
-  public deleteDocument(documentId: number): void {
+  public async deleteDocument(): Promise<void> {
     if (this.selectedDocumentId !== null) {
       const advertisementId = this.advertisement.id;
-      this.advertisementService()
+      await this.advertisementService()
         .deleteDocument(advertisementId, this.selectedDocumentId)
         .then(res => {
           this.isSaving = false;
-          this.retrieveAdvertisement(this.advertisement.id);
           this.closeDeleteDocumentDialog();
         });
+      // If we fetch only advertisement without supporters,
+      // supporters will be null, thus failing any updates on save.
+      await this.retrieveAdvertisement(this.advertisement.id);
+      await this.retrieveAdvertisementSupporters(this.advertisement.id);
     }
   }
 
@@ -880,13 +801,18 @@ export default class AdvertisementUpdate extends Vue {
     }
   }
 
-  public manageAdvertisementSupporters(): void {
+  public async manageAdvertisementSupporters(): Promise<void> {
     let selectedCompanies = [];
     try {
       const companySelectComponent = this.$refs.companySelect as InstanceType<typeof CompanySelect>;
       selectedCompanies = companySelectComponent.selectedCompanies;
     } catch (err) {
       console.error('Nije moguće pristupiti izabranim kompanijama', err);
+      return;
+    }
+
+    if (this.advertisement?.advertisementSupporters === null) {
+      console.error('Nije moguće pristupiti prethodno izabranim kompanijama');
       return;
     }
 
@@ -937,7 +863,55 @@ export default class AdvertisementUpdate extends Vue {
     this.advertisement.budget = parseInt(this.advertisement.budget.replace(/\D/g, ''), 10);
   }
 
+  public advertisementCategorizationBranch(subsubcategory: IAdvertisementSubsubcategory): string {
+    let branch = '';
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    if (currentLanguage === 'sr') {
+      branch =
+        subsubcategory.advertisementSubcategory.advertisementCategory.name +
+        ' / ' +
+        subsubcategory.advertisementSubcategory.name +
+        ' / ' +
+        subsubcategory.name;
+
+      return branch;
+    }
+
+    if (currentLanguage === 'src') {
+      branch =
+        subsubcategory.advertisementSubcategory.advertisementCategory.nameSrc +
+        ' / ' +
+        subsubcategory.advertisementSubcategory.nameSrc +
+        ' / ' +
+        subsubcategory.nameSrc;
+
+      return branch;
+    }
+
+    if (currentLanguage === 'en') {
+      branch =
+        subsubcategory.advertisementSubcategory.advertisementCategory.nameEn +
+        ' / ' +
+        subsubcategory.advertisementSubcategory.nameEn +
+        ' / ' +
+        subsubcategory.nameEn;
+
+      return branch;
+    }
+
+    return branch;
+  }
+
   public customKindLabel(kind: IAdvertisementKind) {
-    return `${kind.kind}`;
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    if (currentLanguage === 'sr') {
+      return `${kind.kind}`;
+    } else if (currentLanguage === 'src') {
+      return `${kind.kindSrc}`;
+    } else if (currentLanguage === 'en') {
+      return `${kind.kindEn}`;
+    }
   }
 }

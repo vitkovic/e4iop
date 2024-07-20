@@ -74,6 +74,6 @@ public class AdvertisementTypeService {
 
 	public Optional<AdvertisementType> findOneByType(String type) {
 		log.debug("Request to get AdvertisementType : {}", type);
-        return advertisementTypeRepository.findByType(type);
+        return advertisementTypeRepository.findByAnyType(type);
 	}
 }

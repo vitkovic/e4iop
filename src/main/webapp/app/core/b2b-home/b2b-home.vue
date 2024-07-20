@@ -29,11 +29,11 @@
 
     <div class="div1">
       <div class="divZaA">
-        <b-link :to="{ name: 'AdvertisementCreate', query: { type: 'offer' } }" class="kvadrat kvOne">
+        <b-link :to="{ name: 'AdvertisementCreate', query: { type: advertisementTypeOptions.OFFER } }" class="kvadrat kvOne">
           <span class="velikiTekst" v-text="$t('home.b2b.square.createOfferSmall')">Желиш да</span>
           <span class="maliTekst" v-text="$t('home.b2b.square.createOfferLarge')">огласиш понуду?</span>
         </b-link>
-        <b-link :to="{ name: 'AdvertisementCreate', query: { type: 'demand' } }" class="kvadrat kvTwo">
+        <b-link :to="{ name: 'AdvertisementCreate', query: { type: advertisementTypeOptions.DEMAND } }" class="kvadrat kvTwo">
           <span class="velikiTekst" v-text="$t('home.b2b.square.createDemandSmall')">Желиш да</span>
           <span class="maliTekst" v-text="$t('home.b2b.square.createDemandLarge')">огласиш потребу?</span>
         </b-link>
