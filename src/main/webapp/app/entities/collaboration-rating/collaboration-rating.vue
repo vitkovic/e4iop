@@ -27,6 +27,8 @@
                     <th><span v-text="$t('global.field.id')">ID</span></th>
                     <th><span v-text="$t('riportalApp.collaborationRating.number')">Number</span></th>
                     <th><span v-text="$t('riportalApp.collaborationRating.description')">Description</span></th>
+                    <th><span v-text="$t('riportalApp.collaborationRating.descriptionSrc')">Description</span></th>
+                    <th><span v-text="$t('riportalApp.collaborationRating.descriptionEn')">Description</span></th>
                     <th><span v-text="$t('riportalApp.collaborationRating.isVisible')">Is Visible</span></th>
                     <th><span v-text="$t('riportalApp.collaborationRating.isDeleted')">Is Deleted</span></th>
                     <th></th>
@@ -40,6 +42,8 @@
                     </td>
                     <td>{{collaborationRating.number}}</td>
                     <td>{{collaborationRating.description}}</td>
+                    <td>{{collaborationRating.descriptionSrc}}</td>
+                    <td>{{collaborationRating.descriptionEn}}</td>
                     <td>{{collaborationRating.isVisible}}</td>
                     <td>{{collaborationRating.isDeleted}}</td>
                     <td class="text-right">

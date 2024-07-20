@@ -2,26 +2,28 @@
   "riportalApp": {
     "collaborationRating": {
       "home": {
-        "title": "Collaboration Ratings",
-        "createLabel": "Kreiraj novi Collaboration Rating",
-        "createOrEditLabel": "Kreirajte ili izmenite Collaboration Rating",
-        "notFound": "No Collaboration Ratings found"
+        "title": "Ocene saradnje",
+        "createLabel": "Kreiraj novu ocenu saradnje",
+        "createOrEditLabel": "Kreirajte ili izmenite ocenu saradnje",
+        "notFound": "Nema ocena saradnje"
       },
-      "created": "Kreiran je novi Collaboration Rating pod nazivom {{ param }}",
-      "updated": "Collaboration Rating pod nazivom {{ param }} je ažuriran",
-      "deleted": "Collaboration Rating pod nazivom {{ param }} je obrisan",
+      "created": "Kreirana je nova ocena saradnje pod nazivom {{ param }}",
+      "updated": "Ocena saradnje pod nazivom {{ param }} je ažurirana",
+      "deleted": "Ocena saradnje pod nazivom {{ param }} je obrisana",
       "delete": {
-        "question": "Da li ste sigurni da želite da obrišete Collaboration Rating pod nazivom {{ id }}?"
+        "question": "Da li ste sigurni da želite da obrišete ocenu saradnje pod nazivom {{ id }}?"
       },
       "detail": {
-        "title": "Collaboration Rating"
+        "title": "Ocena saradnje"
       },
-      "number": "Number",
-      "description": "Description",
-      "isVisible": "Is Visible",
-      "isDeleted": "Is Deleted",
-      "collaborationOffer": "Collaboration Offer",
-      "collaborationRequest": "Collaboration Request"
+      "number": "Broj",
+      "description": "Opis SR",
+      "descriptionSrc": "Opis SRC",
+      "descriptionEn": "Opis EN",
+      "isVisible": "Vidljivo",
+      "isDeleted": "Obrisano",
+      "collaborationOffer": "Ponuda saradnje",
+      "collaborationRequest": "Zahtev za saradnju"
     }
   }
 }

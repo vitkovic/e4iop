@@ -14,6 +14,12 @@ const validations: any = {
     status: {
       required,
     },
+    statusSrc: {
+      required,
+    },
+    statusEn: {
+      required,
+    },
     isVisible: {},
     isDeleted: {},
   },

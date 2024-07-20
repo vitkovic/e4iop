@@ -4,6 +4,8 @@ export interface ICollaborationRating {
   id?: number;
   number?: number;
   description?: string;
+  descriptionSrc?: string;
+  descriptionEn?: string;
   isVisible?: boolean;
   isDeleted?: boolean;
   collaborationOffers?: ICollaboration[];
@@ -15,6 +17,8 @@ export class CollaborationRating implements ICollaborationRating {
     public id?: number,
     public number?: number,
     public description?: string,
+    public descriptionSrc?: string,
+    public descriptionEn?: string,
     public isVisible?: boolean,
     public isDeleted?: boolean,
     public collaborationOffers?: ICollaboration[],

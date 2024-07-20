@@ -33,8 +33,10 @@
           <tr>
             <th><span v-text="$t('global.field.id')">ID</span></th>
             <th><span v-text="$t('riportalApp.advertisementCategory.name')">Name</span></th>
-            <th><span v-text="$t('riportalApp.advertisementCategory.isVisible')">Is Visible</span></th>
-            <th><span v-text="$t('riportalApp.advertisementCategory.isDeleted')">Is Deleted</span></th>
+            <th><span v-text="$t('riportalApp.advertisementCategory.nameSrc')">Name</span></th>
+            <th><span v-text="$t('riportalApp.advertisementCategory.nameEn')">Name</span></th>
+            <!-- <th><span v-text="$t('riportalApp.advertisementCategory.isVisible')">Is Visible</span></th>
+            <th><span v-text="$t('riportalApp.advertisementCategory.isDeleted')">Is Deleted</span></th> -->
             <th></th>
           </tr>
         </thead>
@@ -48,8 +50,10 @@
               >
             </td>
             <td>{{ advertisementCategory.name }}</td>
-            <td>{{ advertisementCategory.isVisible }}</td>
-            <td>{{ advertisementCategory.isDeleted }}</td>
+            <td>{{ advertisementCategory.nameSrc }}</td>
+            <td>{{ advertisementCategory.nameEn }}</td>
+            <!-- <td>{{ advertisementCategory.isVisible }}</td>
+            <td>{{ advertisementCategory.isDeleted }}</td> -->
             <td class="text-right">
               <div class="btn-group">
                 <router-link

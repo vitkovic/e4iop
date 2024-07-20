@@ -11,6 +11,18 @@
                         <span>{{advertisementType.type}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('riportalApp.advertisementType.typeSrc')">Type</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementType.typeSrc}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.advertisementType.typeEn')">Type</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementType.typeEn}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('riportalApp.advertisementType.isVisible')">Is Visible</span>
                     </dt>
                     <dd>

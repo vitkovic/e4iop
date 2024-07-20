@@ -28,6 +28,14 @@ public class AdvertisementCategory implements Serializable {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
+    
+    @NotNull
+    @Column(name = "name_src", nullable = false)
+    private String nameSrc;
+    
+    @NotNull
+    @Column(name = "name_en", nullable = false)
+    private String nameEn;
 
     @Column(name = "is_visible")
     private Boolean isVisible;
@@ -63,6 +71,32 @@ public class AdvertisementCategory implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public String getNameSrc() {
+        return nameSrc;
+    }
+
+    public AdvertisementCategory nameSrc(String nameSrc) {
+        this.nameSrc = nameSrc;
+        return this;
+    }
+
+    public void setNameSrc(String nameSrc) {
+        this.nameSrc = nameSrc;
+    }
+    
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public AdvertisementCategory nameEn(String nameEn) {
+        this.nameEn = nameEn;
+        return this;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
     public Boolean isIsVisible() {

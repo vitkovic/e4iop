@@ -21,6 +21,26 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.advertisementCategory.nameSrc')" for="advertisement-category-nameSrc">nameSrc</label>
+                        <input type="text" class="form-control" name="name" id="advertisement-category-nameSrc"
+                            :class="{'valid': !$v.advertisementCategory.nameSrc.$invalid, 'invalid': $v.advertisementCategory.nameSrc.$invalid }" v-model="$v.advertisementCategory.nameSrc.$model"  required/>
+                        <div v-if="$v.advertisementCategory.nameSrc.$anyDirty && $v.advertisementCategory.nameSrc.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.advertisementCategory.nameSrc.required" v-text="$t('entity.validation.required')">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.advertisementCategory.nameEn')" for="advertisement-category-nameEn">nameEn</label>
+                        <input type="text" class="form-control" name="nameEn" id="advertisement-category-nameEn"
+                            :class="{'valid': !$v.advertisementCategory.nameEn.$invalid, 'invalid': $v.advertisementCategory.nameEn.$invalid }" v-model="$v.advertisementCategory.nameEn.$model"  required/>
+                        <div v-if="$v.advertisementCategory.nameEn.$anyDirty && $v.advertisementCategory.nameEn.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.advertisementCategory.nameEn.required" v-text="$t('entity.validation.required')">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.advertisementCategory.isVisible')" for="advertisement-category-isVisible">Is Visible</label>
                         <input type="checkbox" class="form-check" name="isVisible" id="advertisement-category-isVisible"
                             :class="{'valid': !$v.advertisementCategory.isVisible.$invalid, 'invalid': $v.advertisementCategory.isVisible.$invalid }" v-model="$v.advertisementCategory.isVisible.$model" />
@@ -29,7 +49,7 @@
                         <label class="form-control-label" v-text="$t('riportalApp.advertisementCategory.isDeleted')" for="advertisement-category-isDeleted">Is Deleted</label>
                         <input type="checkbox" class="form-check" name="isDeleted" id="advertisement-category-isDeleted"
                             :class="{'valid': !$v.advertisementCategory.isDeleted.$invalid, 'invalid': $v.advertisementCategory.isDeleted.$invalid }" v-model="$v.advertisementCategory.isDeleted.$model" />
-                    </div>
+                    </div> -->
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

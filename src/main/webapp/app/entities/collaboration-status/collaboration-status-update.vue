@@ -20,6 +20,26 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.collaborationStatus.statusSrc')" for="collaboration-status-statusSrc">statusSrc</label>
+                        <input type="text" class="form-control" name="statusSrc" id="collaboration-status-statusSrc"
+                            :class="{'valid': !$v.collaborationStatus.statusSrc.$invalid, 'invalid': $v.collaborationStatus.statusSrc.$invalid }" v-model="$v.collaborationStatus.statusSrc.$model"  required/>
+                        <div v-if="$v.collaborationStatus.statusSrc.$anyDirty && $v.collaborationStatus.statusSrc.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.collaborationStatus.statusSrc.required" v-text="$t('entity.validation.required')">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.collaborationStatus.statusEn')" for="collaboration-status-statusEn">statusEn</label>
+                        <input type="text" class="form-control" name="statusEn" id="collaboration-status-statusEn"
+                            :class="{'valid': !$v.collaborationStatus.statusEn.$invalid, 'invalid': $v.collaborationStatus.statusEn.$invalid }" v-model="$v.collaborationStatus.statusEn.$model"  required/>
+                        <div v-if="$v.collaborationStatus.statusEn.$anyDirty && $v.collaborationStatus.statusEn.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.collaborationStatus.statusEn.required" v-text="$t('entity.validation.required')">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.collaborationStatus.isVisible')" for="collaboration-status-isVisible">Is Visible</label>
                         <input type="checkbox" class="form-check" name="isVisible" id="collaboration-status-isVisible"
                             :class="{'valid': !$v.collaborationStatus.isVisible.$invalid, 'invalid': $v.collaborationStatus.isVisible.$invalid }" v-model="$v.collaborationStatus.isVisible.$model" />

@@ -17,6 +17,12 @@ const validations: any = {
     name: {
       required,
     },
+    nameSrc: {
+      required,
+    },
+    nameEn: {
+      required,
+    },
     advertisementCategory: {
       required,
     },

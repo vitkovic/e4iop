@@ -26,6 +26,8 @@
                 <tr>
                     <th><span v-text="$t('global.field.id')">ID</span></th>
                     <th><span v-text="$t('riportalApp.advertisementStatus.status')">Status</span></th>
+                    <th><span v-text="$t('riportalApp.advertisementStatus.statusSrc')">Status</span></th>
+                    <th><span v-text="$t('riportalApp.advertisementStatus.statusEn')">Status</span></th>
                     <th><span v-text="$t('riportalApp.advertisementStatus.isVisible')">Is Visible</span></th>
                     <th><span v-text="$t('riportalApp.advertisementStatus.isDeleted')">Is Deleted</span></th>
                     <th></th>
@@ -38,6 +40,8 @@
                         <router-link :to="{name: 'AdvertisementStatusView', params: {advertisementStatusId: advertisementStatus.id}}">{{advertisementStatus.id}}</router-link>
                     </td>
                     <td>{{advertisementStatus.status}}</td>
+                    <td>{{advertisementStatus.statusSrc}}</td>
+                    <td>{{advertisementStatus.statusEn}}</td>
                     <td>{{advertisementStatus.isVisible}}</td>
                     <td>{{advertisementStatus.isDeleted}}</td>
                     <td class="text-right">

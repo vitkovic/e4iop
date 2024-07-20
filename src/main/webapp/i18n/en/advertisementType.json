@@ -18,7 +18,9 @@
       "detail": {
         "title": "Advertisement type"
       },
-      "type": "Type",
+      "type": "Type SR",
+      "typeSrc": "Type SRC",
+      "typeEn": "Type EN",
       "isVisible": "Is visible",
       "isDeleted": "Is deleted",
       "advertisement": "Advertisement"

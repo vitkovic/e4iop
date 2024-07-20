@@ -4,6 +4,8 @@ import { IAdvertisementCategory } from '@/shared/model/advertisement-category.mo
 export interface IAdvertisementSubcategory {
   id?: number;
   name?: string;
+  nameSrc?: string;
+  nameEn?: string;
   isVisible?: boolean;
   isDeleted?: boolean;
   advertisementSubsubcategories?: IAdvertisementSubsubcategory[];
@@ -14,6 +16,8 @@ export class AdvertisementSubcategory implements IAdvertisementSubcategory {
   constructor(
     public id?: number,
     public name?: string,
+    public nameSrc?: string,
+    public nameEn?: string,
     public isVisible?: boolean,
     public isDeleted?: boolean,
     public advertisementSubsubcategories?: IAdvertisementSubsubcategory[],

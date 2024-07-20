@@ -11,6 +11,18 @@
                         <span>{{advertisementKind.kind}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('riportalApp.advertisementKind.kindSrc')">Kind</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementKind.kindSrc}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.advertisementKind.kindEn')">Kind</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementKind.kindEn}}</span>
+                    </dd>
+                    <!-- <dt>
                         <span v-text="$t('riportalApp.advertisementKind.isVisible')">Is Visible</span>
                     </dt>
                     <dd>
@@ -21,7 +33,7 @@
                     </dt>
                     <dd>
                         <span>{{advertisementKind.isDeleted}}</span>
-                    </dd>
+                    </dd> -->
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

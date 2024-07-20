@@ -18,7 +18,9 @@
       "detail": {
         "title": "Vrsta oglasa"
       },
-      "kind": "Vrsta",
+      "kind": "Vrsta SR",
+      "kindSrc": "Vrsta SRC",
+      "kindEn": "Vrsta EN",
       "isVisible": "Vidljiva",
       "isDeleted": "Obrisana",
       "advertisement": "Oglas"

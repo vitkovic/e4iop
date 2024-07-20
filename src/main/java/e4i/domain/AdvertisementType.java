@@ -31,6 +31,14 @@ public class AdvertisementType implements Serializable {
     @NotNull
     @Column(name = "type", nullable = false)
     private String type;
+    
+    @NotNull
+    @Column(name = "type_src", nullable = false)
+    private String typeSrc;
+    
+    @NotNull
+    @Column(name = "type_en", nullable = false)
+    private String typeEn;
 
     @Column(name = "is_visible")
     private Boolean isVisible;
@@ -62,6 +70,32 @@ public class AdvertisementType implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+    
+    public String getTypeSrc() {
+        return typeSrc;
+    }
+
+    public AdvertisementType typeSrc(String typeSrc) {
+        this.typeSrc = typeSrc;
+        return this;
+    }
+
+    public void setTypeSrc(String typeSrc) {
+        this.typeSrc = typeSrc;
+    }
+    
+    public String getTypeEn() {
+        return typeEn;
+    }
+
+    public AdvertisementType typeEn(String typeEn) {
+        this.typeEn = typeEn;
+        return this;
+    }
+
+    public void setTypeEn(String typeEn) {
+        this.typeEn = typeEn;
     }
 
     public Boolean isIsVisible() {

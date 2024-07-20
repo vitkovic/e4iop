@@ -33,6 +33,8 @@
           <tr>
             <th><span v-text="$t('global.field.id')">ID</span></th>
             <th><span v-text="$t('riportalApp.advertisementType.type')">Type</span></th>
+            <th><span v-text="$t('riportalApp.advertisementType.typeSrc')">Type</span></th>
+            <th><span v-text="$t('riportalApp.advertisementType.typeEn')">Type</span></th>
             <th><span v-text="$t('riportalApp.advertisementType.isVisible')">Is Visible</span></th>
             <th><span v-text="$t('riportalApp.advertisementType.isDeleted')">Is Deleted</span></th>
             <th></th>
@@ -48,6 +50,8 @@
               >
             </td>
             <td>{{ advertisementType.type }}</td>
+            <td>{{ advertisementType.typeSrc }}</td>
+            <td>{{ advertisementType.typeEn }}</td>
             <td>{{ advertisementType.isVisible }}</td>
             <td>{{ advertisementType.isDeleted }}</td>
             <td class="text-right">

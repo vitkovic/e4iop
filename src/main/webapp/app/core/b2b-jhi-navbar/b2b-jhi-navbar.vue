@@ -181,6 +181,10 @@
                 <font-awesome-icon icon="asterisk" />
                 <span v-text="$t('global.menu.entities.collaborationRating')">CollaborationRating</span>
               </b-dropdown-item>
+              <b-dropdown-item to="/b2b/collaboration-status">
+                <font-awesome-icon icon="asterisk" />
+                <span v-text="$t('global.menu.entities.collaborationStatus')">CollaborationStatus</span>
+              </b-dropdown-item>
               <b-dropdown-item to="/b2b/thread">
                 <font-awesome-icon icon="asterisk" />
                 <span v-text="$t('global.menu.entities.thread')">Thread</span>

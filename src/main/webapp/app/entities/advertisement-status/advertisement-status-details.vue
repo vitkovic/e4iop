@@ -11,6 +11,18 @@
                         <span>{{advertisementStatus.status}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('riportalApp.advertisementStatus.statusSrc')">Status</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementStatus.statusSrc}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.advertisementStatus.statusEn')">Status</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementStatus.statusEn}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('riportalApp.advertisementStatus.isVisible')">Is Visible</span>
                     </dt>
                     <dd>

@@ -4,6 +4,8 @@ import { IAdvertisementSubcategory } from '@/shared/model/advertisement-subcateg
 export interface IAdvertisementSubsubcategory {
   id?: number;
   name?: string;
+  nameSrc?: string;
+  nameEn?: string;
   isVisible?: boolean;
   isDeleted?: boolean;
   advertisements?: IAdvertisement[];
@@ -14,6 +16,8 @@ export class AdvertisementSubsubcategory implements IAdvertisementSubsubcategory
   constructor(
     public id?: number,
     public name?: string,
+    public nameSrc?: string,
+    public nameEn?: string,
     public isVisible?: boolean,
     public isDeleted?: boolean,
     public advertisements?: IAdvertisement[],

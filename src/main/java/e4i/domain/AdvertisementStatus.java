@@ -32,6 +32,12 @@ public class AdvertisementStatus implements Serializable {
     @NotNull
     @Column(name = "status", nullable = false)
     private String status;
+    
+    @Column(name = "status_src", nullable = false)
+    private String statusSrc;
+
+    @Column(name = "status_en", nullable = false)
+    private String statusEn;
 
     @Column(name = "is_visible")
     private Boolean isVisible;
@@ -63,6 +69,32 @@ public class AdvertisementStatus implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+    public String getStatusSrc() {
+        return statusSrc;
+    }
+
+    public AdvertisementStatus statusSrc(String statusSrc) {
+    	this.statusSrc = statusSrc;
+    	return this;
+    }
+
+    public void setStatusSrc(String statusSrc) {
+        this.statusSrc = statusSrc;
+    }
+
+    public String getStatusEn() {
+        return statusEn;
+    }
+
+    public AdvertisementStatus statusEn(String statusEn) {
+    	this.statusEn = statusEn;
+    	return this;
+    }
+    
+    public void setStatusEn(String statusEn) {
+        this.statusEn = statusEn;
     }
 
     public Boolean isIsVisible() {

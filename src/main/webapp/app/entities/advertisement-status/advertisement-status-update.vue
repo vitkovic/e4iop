@@ -20,6 +20,26 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.advertisementStatus.statusSrc')" for="advertisement-status-statusSrc">statusSrc</label>
+                        <input type="text" class="form-control" name="statusSrc" id="advertisement-status-statusSrc"
+                            :class="{'valid': !$v.advertisementStatus.statusSrc.$invalid, 'invalid': $v.advertisementStatus.statusSrc.$invalid }" v-model="$v.advertisementStatus.statusSrc.$model"  required/>
+                        <div v-if="$v.advertisementStatus.statusSrc.$anyDirty && $v.advertisementStatus.statusSrc.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.advertisementStatus.statusSrc.required" v-text="$t('entity.validation.required')">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.advertisementStatus.statusEn')" for="advertisement-status-statusEn">Status</label>
+                        <input type="text" class="form-control" name="statusEn" id="advertisement-status-statusEn"
+                            :class="{'valid': !$v.advertisementStatus.statusEn.$invalid, 'invalid': $v.advertisementStatus.statusEn.$invalid }" v-model="$v.advertisementStatus.statusEn.$model"  required/>
+                        <div v-if="$v.advertisementStatus.statusEn.$anyDirty && $v.advertisementStatus.statusEn.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.advertisementStatus.statusEn.required" v-text="$t('entity.validation.required')">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="form-control-label" v-text="$t('riportalApp.advertisementStatus.isVisible')" for="advertisement-status-isVisible">Is Visible</label>
                         <input type="checkbox" class="form-check" name="isVisible" id="advertisement-status-isVisible"
                             :class="{'valid': !$v.advertisementStatus.isVisible.$invalid, 'invalid': $v.advertisementStatus.isVisible.$invalid }" v-model="$v.advertisementStatus.isVisible.$model" />

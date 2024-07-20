@@ -17,7 +17,9 @@
         "title": "Collaboration Rating"
       },
       "number": "Number",
-      "description": "Description",
+      "description": "Description SR",
+      "descriptionSrc": "Description SRC",
+      "descriptionEn": "Description EN",
       "isVisible": "Is Visible",
       "isDeleted": "Is Deleted",
       "collaborationOffer": "Collaboration Offer",

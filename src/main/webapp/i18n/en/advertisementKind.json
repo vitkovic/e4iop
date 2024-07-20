@@ -18,7 +18,9 @@
       "detail": {
         "title": "Advertisement kind"
       },
-      "kind": "Kind",
+      "kind": "Kind SR",
+      "kindSrc": "Kind SRC",
+      "kindEn": "Kind EN",
       "isVisible": "Is visible",
       "isDeleted": "Is deleted",
       "advertisement": "Advertisement"

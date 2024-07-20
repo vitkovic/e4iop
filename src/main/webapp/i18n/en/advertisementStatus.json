@@ -16,7 +16,9 @@
       "detail": {
         "title": "Advertisement Status"
       },
-      "status": "Status",
+      "status": "Status SR",
+      "statusSrc": "Status SRC",
+      "statusEn": "Status EN",
       "isVisible": "Is Visible",
       "isDeleted": "Is Deleted",
       "advertisement": "Advertisement"

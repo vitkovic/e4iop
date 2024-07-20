@@ -39,6 +39,40 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="form-control-label" v-text="$t('riportalApp.advertisementType.typeSrc')" for="advertisement-type-typeSrc">typeSrc</label>
+            <input
+              type="text"
+              class="form-control"
+              name="type"
+              id="advertisement-type-typeSrc"
+              :class="{ valid: !$v.advertisementType.typeSrc.$invalid, invalid: $v.advertisementType.typeSrc.$invalid }"
+              v-model="$v.advertisementType.typeSrc.$model"
+              required
+            />
+            <div v-if="$v.advertisementType.typeSrc.$anyDirty && $v.advertisementType.typeSrc.$invalid">
+              <small class="form-text text-danger" v-if="!$v.advertisementType.typeSrc.required" v-text="$t('entity.validation.required')">
+                This field is required.
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" v-text="$t('riportalApp.advertisementType.typeEn')" for="advertisement-type-typeEn">typeEn</label>
+            <input
+              type="text"
+              class="form-control"
+              name="type"
+              id="advertisement-type-typeEn"
+              :class="{ valid: !$v.advertisementType.typeEn.$invalid, invalid: $v.advertisementType.typeEn.$invalid }"
+              v-model="$v.advertisementType.typeEn.$model"
+              required
+            />
+            <div v-if="$v.advertisementType.typeEn.$anyDirty && $v.advertisementType.typeEn.$invalid">
+              <small class="form-text text-danger" v-if="!$v.advertisementType.typeEn.required" v-text="$t('entity.validation.required')">
+                This field is required.
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
             <label class="form-control-label" v-text="$t('riportalApp.advertisementType.isVisible')" for="advertisement-type-isVisible"
               >Is Visible</label
             >

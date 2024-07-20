@@ -11,6 +11,18 @@
                         <span>{{advertisementCategory.name}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('riportalApp.advertisementCategory.nameSrc')">Name</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementCategory.nameSrc}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.advertisementCategory.nameEn')">Name</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementCategory.nameEn}}</span>
+                    </dd>
+                    <!-- <dt>
                         <span v-text="$t('riportalApp.advertisementCategory.isVisible')">Is Visible</span>
                     </dt>
                     <dd>
@@ -21,7 +33,7 @@
                     </dt>
                     <dd>
                         <span>{{advertisementCategory.isDeleted}}</span>
-                    </dd>
+                    </dd> -->
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

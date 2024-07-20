@@ -18,7 +18,9 @@
       "detail": {
         "title": "Tip oglasa"
       },
-      "type": "Tip",
+      "type": "Tip SR",
+      "typeSrc": "Tip SRC",
+      "typeEn": "Tip EN",
       "isVisible": "Vidljiv",
       "isDeleted": "Obrisan",
       "advertisement": "Oglas"

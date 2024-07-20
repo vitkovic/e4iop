@@ -18,7 +18,9 @@
       "detail": {
         "title": "Поткатегорија огласа"
       },
-      "name": "Назив",
+      "name": "Назив SR",
+      "nameSrc": "Назив SRC",
+      "nameEn": "Назив EN",
       "isVisible": "Видљива",
       "isDeleted": "Обрисана",
       "advertisementSubcategory": "Поткатегорија огласа",

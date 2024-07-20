@@ -26,6 +26,8 @@
                 <tr>
                     <th><span v-text="$t('global.field.id')">ID</span></th>
                     <th><span v-text="$t('riportalApp.collaborationStatus.status')">Status</span></th>
+                    <th><span v-text="$t('riportalApp.collaborationStatus.statusSrc')">Status</span></th>
+                    <th><span v-text="$t('riportalApp.collaborationStatus.statusEn')">Status</span></th>
                     <th><span v-text="$t('riportalApp.collaborationStatus.isVisible')">Is Visible</span></th>
                     <th><span v-text="$t('riportalApp.collaborationStatus.isDeleted')">Is Deleted</span></th>
                     <th></th>
@@ -38,6 +40,8 @@
                         <router-link :to="{name: 'CollaborationStatusView', params: {collaborationStatusId: collaborationStatus.id}}">{{collaborationStatus.id}}</router-link>
                     </td>
                     <td>{{collaborationStatus.status}}</td>
+                    <td>{{collaborationStatus.statusSrc}}</td>
+                    <td>{{collaborationStatus.statusEn}}</td>
                     <td>{{collaborationStatus.isVisible}}</td>
                     <td>{{collaborationStatus.isDeleted}}</td>
                     <td class="text-right">

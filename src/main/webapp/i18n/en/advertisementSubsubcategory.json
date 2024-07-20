@@ -18,7 +18,9 @@
       "detail": {
         "title": "Advertisement subsubcategory"
       },
-      "name": "Name",
+      "name": "Name SR",
+      "nameSrc": "Name SRC",
+      "nameEn": "Name EN",
       "isVisible": "Is visible",
       "isDeleted": "Is deleted",
       "advertisement": "Advertisement",

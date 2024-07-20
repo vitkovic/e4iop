@@ -18,6 +18,12 @@ const validations: any = {
     description: {
       required,
     },
+    descriptionSrc: {
+      required,
+    },
+    descriptionEn: {
+      required,
+    },
     isVisible: {},
     isDeleted: {},
   },

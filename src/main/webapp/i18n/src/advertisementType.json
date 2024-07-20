@@ -18,7 +18,9 @@
       "detail": {
         "title": "Тип огласа"
       },
-      "type": "Тип",
+      "type": "Тип SR",
+      "typeSrc": "Тип SRC",
+      "typeEn": "Тип EN",
       "isVisible": "Видљив",
       "isDeleted": "Обрисан",
       "advertisement": "Оглас"

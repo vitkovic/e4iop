@@ -14,6 +14,12 @@ const validations: any = {
     kind: {
       required,
     },
+    kindSrc: {
+      required,
+    },
+    kindEn: {
+      required,
+    },
     isVisible: {},
     isDeleted: {},
   },

@@ -39,6 +39,40 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="form-control-label" v-text="$t('riportalApp.advertisementKind.kindSrc')" for="advertisement-kind-kindSrc">kindSrc</label>
+            <input
+              type="text"
+              class="form-control"
+              name="kind"
+              id="advertisement-kind-kindSrc"
+              :class="{ valid: !$v.advertisementKind.kindSrc.$invalid, invalid: $v.advertisementKind.kindSrc.$invalid }"
+              v-model="$v.advertisementKind.kindSrc.$model"
+              required
+            />
+            <div v-if="$v.advertisementKind.kindSrc.$anyDirty && $v.advertisementKind.kindSrc.$invalid">
+              <small class="form-text text-danger" v-if="!$v.advertisementKind.kindSrc.required" v-text="$t('entity.validation.required')">
+                This field is required.
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" v-text="$t('riportalApp.advertisementKind.kindEn')" for="advertisement-kind-kindEn">kindEn</label>
+            <input
+              type="text"
+              class="form-control"
+              name="kind"
+              id="advertisement-kind-kindEn"
+              :class="{ valid: !$v.advertisementKind.kindEn.$invalid, invalid: $v.advertisementKind.kindEn.$invalid }"
+              v-model="$v.advertisementKind.kindEn.$model"
+              required
+            />
+            <div v-if="$v.advertisementKind.kindEn.$anyDirty && $v.advertisementKind.kindEn.$invalid">
+              <small class="form-text text-danger" v-if="!$v.advertisementKind.kindEn.required" v-text="$t('entity.validation.required')">
+                This field is required.
+              </small>
+            </div>
+          </div>
+          <!-- <div class="form-group">
             <label class="form-control-label" v-text="$t('riportalApp.advertisementKind.isVisible')" for="advertisement-kind-isVisible"
               >Is Visible</label
             >
@@ -63,7 +97,7 @@
               :class="{ valid: !$v.advertisementKind.isDeleted.$invalid, invalid: $v.advertisementKind.isDeleted.$invalid }"
               v-model="$v.advertisementKind.isDeleted.$model"
             />
-          </div>
+          </div> -->
         </div>
         <div>
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

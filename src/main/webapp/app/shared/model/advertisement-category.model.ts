@@ -4,6 +4,8 @@ import { ICmsAdvertisementCategory } from '@/shared/model/cms-advertisement-cate
 export interface IAdvertisementCategory {
   id?: number;
   name?: string;
+  nameSrc?: string;
+  nameEn?: string;
   isVisible?: boolean;
   isDeleted?: boolean;
   advertisementSubcategories?: IAdvertisementSubcategory[];
@@ -14,6 +16,8 @@ export class AdvertisementCategory implements IAdvertisementCategory {
   constructor(
     public id?: number,
     public name?: string,
+    public nameSrc?: string,
+    public nameEn?: string,
     public isVisible?: boolean,
     public isDeleted?: boolean,
     public advertisementSubcategories?: IAdvertisementSubcategory[],

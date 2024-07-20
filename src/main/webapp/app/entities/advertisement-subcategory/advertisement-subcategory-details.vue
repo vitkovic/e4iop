@@ -11,6 +11,18 @@
                         <span>{{advertisementSubcategory.name}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('riportalApp.advertisementSubcategory.nameSrc')">Name</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementSubcategory.nameSrc}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.advertisementSubcategory.nameEn')">Name</span>
+                    </dt>
+                    <dd>
+                        <span>{{advertisementSubcategory.nameEn}}</span>
+                    </dd>
+                    <!-- <dt>
                         <span v-text="$t('riportalApp.advertisementSubcategory.isVisible')">Is Visible</span>
                     </dt>
                     <dd>
@@ -21,7 +33,7 @@
                     </dt>
                     <dd>
                         <span>{{advertisementSubcategory.isDeleted}}</span>
-                    </dd>
+                    </dd> -->
                     <dt>
                         <span v-text="$t('riportalApp.advertisementSubcategory.advertisementCategory')">Advertisement Category</span>
                     </dt>

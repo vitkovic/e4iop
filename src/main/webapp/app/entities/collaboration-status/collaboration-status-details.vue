@@ -11,6 +11,18 @@
                         <span>{{collaborationStatus.status}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('riportalApp.collaborationStatus.statusSrc')">Status</span>
+                    </dt>
+                    <dd>
+                        <span>{{collaborationStatus.statusSrc}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.collaborationStatus.statusEn')">Status</span>
+                    </dt>
+                    <dd>
+                        <span>{{collaborationStatus.statusEn}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('riportalApp.collaborationStatus.isVisible')">Is Visible</span>
                     </dt>
                     <dd>

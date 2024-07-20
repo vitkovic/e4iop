@@ -48,6 +48,26 @@
             </div>
           </div>
           <div class="form-group">
+              <label class="form-control-label" v-text="$t('riportalApp.advertisementSubsubcategory.nameSrc')" for="advertisement-category-nameSrc">nameSrc</label>
+              <input type="text" class="form-control" name="name" id="advertisement-category-nameSrc"
+                  :class="{'valid': !$v.advertisementSubsubcategory.nameSrc.$invalid, 'invalid': $v.advertisementSubsubcategory.nameSrc.$invalid }" v-model="$v.advertisementSubsubcategory.nameSrc.$model"  required/>
+              <div v-if="$v.advertisementSubsubcategory.nameSrc.$anyDirty && $v.advertisementSubsubcategory.nameSrc.$invalid">
+                  <small class="form-text text-danger" v-if="!$v.advertisementSubsubcategory.nameSrc.required" v-text="$t('entity.validation.required')">
+                      This field is required.
+                  </small>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="form-control-label" v-text="$t('riportalApp.advertisementSubsubcategory.nameEn')" for="advertisement-category-nameEn">nameEn</label>
+              <input type="text" class="form-control" name="nameEn" id="advertisement-category-nameEn"
+                  :class="{'valid': !$v.advertisementSubsubcategory.nameEn.$invalid, 'invalid': $v.advertisementSubsubcategory.nameEn.$invalid }" v-model="$v.advertisementSubsubcategory.nameEn.$model"  required/>
+              <div v-if="$v.advertisementSubsubcategory.nameEn.$anyDirty && $v.advertisementSubsubcategory.nameEn.$invalid">
+                  <small class="form-text text-danger" v-if="!$v.advertisementSubsubcategory.nameEn.required" v-text="$t('entity.validation.required')">
+                      This field is required.
+                  </small>
+              </div>
+          </div>
+          <!-- <div class="form-group">
             <label
               class="form-control-label"
               v-text="$t('riportalApp.advertisementSubsubcategory.isVisible')"
@@ -84,7 +104,7 @@
               }"
               v-model="$v.advertisementSubsubcategory.isDeleted.$model"
             />
-          </div>
+          </div> -->
           <div class="form-group">
             <label
               class="form-control-label"

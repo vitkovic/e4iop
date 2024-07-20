@@ -32,6 +32,14 @@ public class CollaborationRating implements Serializable {
     @NotNull
     @Column(name = "description", nullable = false)
     private String description;
+    
+    @NotNull
+    @Column(name = "description_src", nullable = false)
+    private String descriptionSrc;
+    
+    @NotNull
+    @Column(name = "description_en", nullable = false)
+    private String descriptionEn;
 
     @Column(name = "is_visible")
     private Boolean isVisible;
@@ -80,6 +88,32 @@ public class CollaborationRating implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getDescriptionSrc() {
+        return descriptionSrc;
+    }
+
+    public CollaborationRating descriptionSrc(String descriptionSrc) {
+        this.descriptionSrc = descriptionSrc;
+        return this;
+    }
+
+    public void setDescriptionSrc(String descriptionSrc) {
+        this.descriptionSrc = descriptionSrc;
+    }
+    
+    public String getDescriptionEn() {
+        return descriptionEn;
+    }
+
+    public CollaborationRating descriptionEn(String descriptionEn) {
+        this.descriptionEn = descriptionEn;
+        return this;
+    }
+
+    public void setDescriptionEn(String descriptionEn) {
+        this.descriptionEn = descriptionEn;
     }
 
     public Boolean isIsVisible() {

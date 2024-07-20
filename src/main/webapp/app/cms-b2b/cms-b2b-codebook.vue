@@ -40,7 +40,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-5 col-md-3">
             <p v-text="$t('riportalApp.cmsB2B.coders.type')"></p>
           </div>
@@ -50,7 +50,7 @@
               <span v-text="$t('entity.action.view')">View</span>
             </router-link>
           </div>
-        </div>
+        </div> -->
 
         <div class="row">
           <div class="col-5 col-md-3">

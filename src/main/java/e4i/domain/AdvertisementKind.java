@@ -30,6 +30,14 @@ public class AdvertisementKind implements Serializable {
     @NotNull
     @Column(name = "kind", nullable = false)
     private String kind;
+    
+    @NotNull
+    @Column(name = "kind_src", nullable = false)
+    private String kindSrc;
+    
+    @NotNull
+    @Column(name = "kind_en", nullable = false)
+    private String kindEn;
 
     @Column(name = "is_visible")
     private Boolean isVisible;
@@ -66,6 +74,32 @@ public class AdvertisementKind implements Serializable {
 
     public void setKind(String kind) {
         this.kind = kind;
+    }
+    
+    public String getKindSrc() {
+        return kindSrc;
+    }
+
+    public AdvertisementKind kindSrc(String kindSrc) {
+        this.kindSrc = kindSrc;
+        return this;
+    }
+
+    public void setKindSrc(String kindSrc) {
+        this.kindSrc = kindSrc;
+    }
+    
+    public String getKindEn() {
+        return kindEn;
+    }
+
+    public AdvertisementKind kindEn(String kindEn) {
+        this.kindEn = kindEn;
+        return this;
+    }
+
+    public void setKindEn(String kindEn) {
+        this.kindEn = kindEn;
     }
 
     public Boolean isIsVisible() {

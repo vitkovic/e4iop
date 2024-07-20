@@ -35,8 +35,10 @@
           <tr>
             <th><span v-text="$t('global.field.id')">ID</span></th>
             <th><span v-text="$t('riportalApp.advertisementSubsubcategory.name')">Name</span></th>
-            <th><span v-text="$t('riportalApp.advertisementSubsubcategory.isVisible')">Is Visible</span></th>
-            <th><span v-text="$t('riportalApp.advertisementSubsubcategory.isDeleted')">Is Deleted</span></th>
+            <th><span v-text="$t('riportalApp.advertisementSubsubcategory.nameSrc')">Name</span></th>
+            <th><span v-text="$t('riportalApp.advertisementSubsubcategory.nameEn')">Name</span></th>
+            <!-- <th><span v-text="$t('riportalApp.advertisementSubsubcategory.isVisible')">Is Visible</span></th>
+            <th><span v-text="$t('riportalApp.advertisementSubsubcategory.isDeleted')">Is Deleted</span></th> -->
             <th><span v-text="$t('riportalApp.advertisementSubsubcategory.advertisementSubcategory')">Advertisement Subcategory</span></th>
             <th></th>
           </tr>
@@ -51,8 +53,10 @@
               >
             </td>
             <td>{{ advertisementSubsubcategory.name }}</td>
-            <td>{{ advertisementSubsubcategory.isVisible }}</td>
-            <td>{{ advertisementSubsubcategory.isDeleted }}</td>
+            <td>{{ advertisementSubsubcategory.nameSrc }}</td>
+            <td>{{ advertisementSubsubcategory.nameEn }}</td>
+            <!-- <td>{{ advertisementSubsubcategory.isVisible }}</td>
+            <td>{{ advertisementSubsubcategory.isDeleted }}</td> -->
             <td>
               <div v-if="advertisementSubsubcategory.advertisementSubcategory">
                 <router-link

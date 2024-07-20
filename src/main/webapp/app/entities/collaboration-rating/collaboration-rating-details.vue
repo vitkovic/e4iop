@@ -17,6 +17,18 @@
                         <span>{{collaborationRating.description}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('riportalApp.collaborationRating.descriptionSrc')">Description</span>
+                    </dt>
+                    <dd>
+                        <span>{{collaborationRating.descriptionSrc}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('riportalApp.collaborationRating.descriptionEn')">Description</span>
+                    </dt>
+                    <dd>
+                        <span>{{collaborationRating.descriptionEn}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('riportalApp.collaborationRating.isVisible')">Is Visible</span>
                     </dt>
                     <dd>

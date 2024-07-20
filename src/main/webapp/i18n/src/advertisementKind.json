@@ -18,7 +18,9 @@
       "detail": {
         "title": "Врста огласа"
       },
-      "kind": "Врста",
+      "kind": "Врста SR",
+      "kindSrc": "Врста SRC",
+      "kindEn": "Врста EN",
       "isVisible": "Видљив",
       "isDeleted": "Обрисан",
       "advertisement": "Оглас"

@@ -18,7 +18,9 @@
       "detail": {
         "title": "Potkategorija oglasa"
       },
-      "name": "Naziv",
+      "name": "Naziv SR",
+      "nameSrc": "Naziv SRC",
+      "nameEn": "Naziv EN",
       "isVisible": "Vidljiva",
       "isDeleted": "Obrisana",
       "advertisementSubsubcategory": "Potpotkategorija oglasa",
