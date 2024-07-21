@@ -1,5 +1,11 @@
 import { ICollaboration } from '@/shared/model/collaboration.model';
 
+export enum CollaborationStatusOptions {
+  ACCEPTED = 'Accepted',
+  REJECTED = 'Rejected',
+  PENDING = 'Pending',
+}
+
 export interface ICollaborationStatus {
   id?: number;
   status?: string;

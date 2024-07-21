@@ -55,9 +55,11 @@
               name="flavour-2"
               stacked
             >
-              <b-form-checkbox v-for="option in collaborationsStatusChoices" :key="option.id" :value="option.id">{{
-                option.status
-              }}</b-form-checkbox>
+              <b-form-checkbox v-for="option in collaborationsStatusChoices" :key="option.id" :value="option.id">
+                <span v-if="$store.getters.currentLanguage === 'sr'">{{ option.status }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'src'">{{ option.statusSrc }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'en'">{{ option.statusEn }}</span>
+              </b-form-checkbox>
             </b-form-checkbox-group>
           </b-form-group>
         </b-row>
@@ -87,9 +89,9 @@
               <span v-text="$t('riportalApp.collaboration.companyRequest')">Company Request</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companyRequest.id'"></jhi-sort-indicator>
             </th>
-            <th v-on:click="changeOrder('advertisement.name')">
+            <th v-on:click="changeOrder('advertisement.title')">
               <span v-text="$t('riportalApp.collaboration.advertisement')">Advertisement</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.name'"></jhi-sort-indicator>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.title'"></jhi-sort-indicator>
             </th>
             <th v-on:click="changeOrder('advertisement.type.type')">
               <span v-text="$t('riportalApp.collaboration.advertisementType')">Advertisement</span>
@@ -99,13 +101,14 @@
                 :field-name="'advertisement.type.type'"
               ></jhi-sort-indicator>
             </th>
-            <th v-on:click="changeOrder('advertisement.kind.kind')">
+            <th>
+            <!-- <th v-on:click="changeOrder('advertisement.kind.kind')"> -->
               <span v-text="$t('riportalApp.collaboration.advertisementKind')">Advertisement</span>
-              <jhi-sort-indicator
+              <!-- <jhi-sort-indicator
                 :current-order="propOrder"
                 :reverse="reverse"
                 :field-name="'advertisement.kind.kind'"
-              ></jhi-sort-indicator>
+              ></jhi-sort-indicator> -->
             </th>
             <th v-on:click="changeOrder('advertisement.budget')">
               <span v-text="$t('riportalApp.collaboration.advertisementBudget')">Advertisement</span>
@@ -135,10 +138,12 @@
             <!-- <td>
                         <router-link :to="{name: 'CollaborationView', params: {collaborationId: collaboration.id}}">{{collaboration.id}}</router-link>
                     </td> -->
-            <td>{{ collaboration.datetime ? $d(Date.parse(collaboration.datetime), { dateStyle: 'short' }) : '' }}</td>
+            <td>{{ collaboration.datetime ? $d(Date.parse(collaboration.datetime.toString()), { dateStyle: 'short' }) : '' }}</td>
             <td>
               <div v-if="collaboration.status">
-                {{ collaboration.status.status }}
+                <span v-if="$store.getters.currentLanguage === 'sr'">{{ collaboration.status.status }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'src'">{{ collaboration.status.statusSrc }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'en'">{{ collaboration.status.statusEn }}</span>
               </div>
             </td>
             <!-- <td>{{collaboration.commentOffer}}</td>
@@ -172,12 +177,14 @@
             </td>
             <td>
               <div v-if="collaboration.advertisement.type">
-                {{ collaboration.advertisement.type.type }}
+                <span v-if="$store.getters.currentLanguage === 'sr'">{{ collaboration.advertisement.type.type }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'src'">{{ collaboration.advertisement.type.typeSrc }}</span>
+                <span v-else-if="$store.getters.currentLanguage === 'en'">{{ collaboration.advertisement.type.typeEn }}</span>
               </div>
             </td>
             <td>
-              <div v-if="collaboration.advertisement.kind">
-                {{ collaboration.advertisement.kind.kind }}
+              <div v-if="collaboration.advertisement.kinds">
+                {{ advertisementKindsString(collaboration.advertisement) }}
               </div>
             </td>
             <td>{{ collaboration.advertisement.budget }}</td>
@@ -198,7 +205,7 @@
                   v-if="
                     collaboration &&
                     collaboration.status &&
-                    collaboration.status.status === collaborationStatusOptions.PENDING &&
+                    collaboration.status.statusEn === collaborationStatusOptions.PENDING &&
                     collaboration.companyOffer.id === company.id
                   "
                   v-on:click.stop="prepareConfirmCollaboration(collaboration)"
@@ -212,7 +219,7 @@
                   v-if="
                     collaboration &&
                     collaboration.status &&
-                    collaboration.status.status === collaborationStatusOptions.PENDING &&
+                    collaboration.status.statusEn === collaborationStatusOptions.PENDING &&
                     collaboration.companyOffer.id === company.id
                   "
                   v-on:click.stop="prepareCancelCollaboration(collaboration)"
@@ -224,7 +231,7 @@
                 </b-button>
 
                 <b-button
-                  v-if="collaboration.status.status === collaborationStatusOptions.ACCEPTED && !ratingExists(collaboration)"
+                  v-if="collaboration.status.statusEn === collaborationStatusOptions.ACCEPTED && !ratingExists(collaboration)"
                   v-on:click="prepareRating(collaboration)"
                   variant="primary"
                   class="btn btn-sm mr-1"
@@ -235,7 +242,7 @@
                 <b-button
                   v-if="
                     company.id === collaboration.companyOffer.id &&
-                    collaboration.advertisement.status.status === advertisementStatusOptions.INACTIVE
+                    collaboration.advertisement.status.statusEn === advertisementStatusOptions.INACTIVE
                   "
                   v-on:click="prepareActivate(collaboration.advertisement)"
                   variant="primary"
@@ -347,7 +354,9 @@
           <b-dropdown :text="$t('riportalApp.collaboration.modal.ratingEntityModal.ratingButton')" class="mb-3">
             <b-dropdown-item v-for="rating in collaborationRatings" :key="rating.id" @click="selectRating(rating)">
               <b-form-rating disabled :value="rating.number" stars="4" inline size="sm"> </b-form-rating>
-              <span class="ml-2">{{ rating.description }}</span>
+              <span v-if="$store.getters.currentLanguage === 'sr'" class="ml-2">{{ rating.description }}</span>
+              <span v-else-if="$store.getters.currentLanguage === 'src'" class="ml-2">{{ rating.descriptionSrc }}</span>
+              <span v-else-if="$store.getters.currentLanguage === 'en'" class="ml-2">{{ rating.descriptionEn }}</span>
             </b-dropdown-item>
           </b-dropdown>
           <div v-if="selectedRating" class="mb-3">

@@ -73,8 +73,8 @@ public class AdvertisementStatusService {
     }
     
     @Transactional(readOnly = true)
-    public Optional<AdvertisementStatus> findOneByStatus(String status) {
+    public Optional<AdvertisementStatus> findOneByAnyStatus(String status) {
         log.debug("Request to get AdvertisementStatus by status: {}", status);
-        return advertisementStatusRepository.findByStatus(status);
+        return advertisementStatusRepository.findByAnyStatus(status);
     }
 }

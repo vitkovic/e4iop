@@ -32,8 +32,8 @@
       "filters": {
         "role": "Улога компаније",
         "status": "Статус сарадње",
-        "companyOffer": "оглашивач",
-        "companyRequest": "тражилац"
+        "companyOffer": "Оглашивач",
+        "companyRequest": "Тражилац"
       },
       "actions": {
         "rate": "Оцени",

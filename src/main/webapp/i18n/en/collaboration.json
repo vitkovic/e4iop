@@ -32,8 +32,8 @@
       "filters": {
         "role": "Company role",
         "status": "Collaboration status",
-        "companyOffer": "advertiser",
-        "companyRequest": "requester"
+        "companyOffer": "Advertiser",
+        "companyRequest": "Requester"
       },
       "actions": {
         "rate": "Rate",

@@ -408,7 +408,7 @@ public Page<Advertisement> findAllBySearchTypeStatus(Long type, Long status, Pag
     
     @Transactional
     public Advertisement changeStatus(Advertisement advertisement, String status) {
-    	Optional<AdvertisementStatus> advertisementStatusOptional = advertisementStatusService.findOneByStatus(status);
+    	Optional<AdvertisementStatus> advertisementStatusOptional = advertisementStatusService.findOneByAnyStatus(status);
         if (advertisementStatusOptional.isEmpty()) {
     		String errorMessage = String.format("AdvertisementStatus with status={} could not be found", status);
         	throw new EntityNotFoundException(errorMessage);

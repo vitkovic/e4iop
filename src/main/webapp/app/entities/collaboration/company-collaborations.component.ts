@@ -4,11 +4,11 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
 
 import { ICollaboration } from '@/shared/model/collaboration.model';
-import { ICollaborationStatus } from '@/shared/model/collaboration-status.model';
+import { ICollaborationStatus, CollaborationStatusOptions } from '@/shared/model/collaboration-status.model';
 import { ICollaborationRating } from '@/shared/model/collaboration-rating.model';
 import { ICompany } from '@/shared/model/company.model';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
-import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model';
+import { IAdvertisementStatus, AdvertisementStatusOptions } from '@/shared/model/advertisement-status.model';
 
 import CollaborationService from './collaboration.service';
 import CollaborationStatusService from '@/entities/collabooration-status.service';
@@ -16,18 +16,6 @@ import CollaborationRatingService from '@/entities/collabooration-rating.service
 import CompanyService from '@/entities/company.service';
 import AdvertisementService from '@/entities/advertisement.service';
 import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
-
-enum CollaborationStatusOptions {
-  ACCEPTED = 'прихваћена',
-  REJECTED = 'одбијена',
-  PENDING = 'на чекању',
-}
-
-enum AdvertisementStatusOptions {
-  ACTIVE = 'Активан',
-  INACTIVE = 'Неактиван',
-  ARCHIVED = 'Архивиран',
-}
 
 @Component({
   mixins: [Vue2Filters.mixin],
@@ -319,7 +307,7 @@ export default class Collaboration extends mixins(AlertMixin) {
 
   public prepareActivate(instance: IAdvertisement): void {
     this.advertisementToSwitchStatus = instance;
-    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Активан')[0];
+    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.statusEn === AdvertisementStatusOptions.ACTIVE)[0];
 
     if (<any>this.$refs.activateEntity) {
       (<any>this.$refs.activateEntity).show();
@@ -444,5 +432,22 @@ export default class Collaboration extends mixins(AlertMixin) {
       });
 
     this.closeConfirmCollaboration();
+  }
+
+  public advertisementKindsString(advertisement: IAdvertisement) {
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    return advertisement.kinds
+      .map(kind => {
+        if (currentLanguage === 'sr') {
+          return kind.kind;
+        } else if (currentLanguage === 'src') {
+          return kind.kindSrc;
+        } else if (currentLanguage === 'en') {
+          return kind.kindEn;
+        }
+        return '';
+      })
+      .join(', ');
   }
 }

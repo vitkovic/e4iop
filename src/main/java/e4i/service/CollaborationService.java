@@ -1,5 +1,6 @@
 package e4i.service;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +100,7 @@ public class CollaborationService {
         // "isAccepted" is not used anymore, instead, use "status"
 //        collaboration.setIsAccepted(false);
         
-        CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.PENDING); 
+        CollaborationStatus collaborationStatus = collaborationStatusService.getOneByAnyStatus(CollaborationStatus.PENDING); 
         collaboration.setStatus(collaborationStatus);
 
         Collaboration result = this.save(collaboration);
@@ -121,7 +122,7 @@ public class CollaborationService {
     	// "isAccepted" is not used anymore, instead, use "status"
 //    	collaboration.setIsAccepted(true);
 
-        CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
+        CollaborationStatus collaborationStatus = collaborationStatusService.getOneByAnyStatus(CollaborationStatus.ACCEPTED); 
         collaboration.setStatus(collaborationStatus);
     	collaboration.setDatetime(Instant.now());
     	
@@ -140,7 +141,7 @@ public class CollaborationService {
         }
     	
     	Collaboration collaboration = collaborationOptional.get();
-        CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.REJECTED); 
+        CollaborationStatus collaborationStatus = collaborationStatusService.getOneByAnyStatus(CollaborationStatus.REJECTED); 
         collaboration.setStatus(collaborationStatus);
     	collaboration.setDatetime(Instant.now());
     	
@@ -202,14 +203,23 @@ public class CollaborationService {
         	throw new IllegalArgumentException(errorMessage);
     	}
     	
-    	return collaborationRepository.findAllFilteredByCompanyAndStatus(companyId, statusIds, collaborationSideFlags.get(0), collaborationSideFlags.get(1), pageable);
+    	Page<Collaboration> collaborationsPage = collaborationRepository.findAllFilteredByCompanyAndStatus(
+    			companyId, statusIds, collaborationSideFlags.get(0), collaborationSideFlags.get(1), pageable
+    			);
+    	
+    	// Could this be done within a query???
+    	collaborationsPage.getContent().forEach(collaboration -> {
+    		Hibernate.initialize(collaboration.getAdvertisement().getKinds());
+        });
+    	
+    	return collaborationsPage;
     }
 
     
     @Deprecated
     @Transactional
     public Page<Collaboration> findAllAcceptedCollaborationsForCompany(Long companyId, Pageable pageable) {
-    	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
+    	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByAnyStatus(CollaborationStatus.ACCEPTED); 
     	
     	return collaborationRepository.findAllByCompanyAndStatus(companyId, collaborationStatus.getId(), pageable);
     }
@@ -217,7 +227,7 @@ public class CollaborationService {
     @Deprecated
     @Transactional
     public Page<Collaboration> findAllAcceptedCollaborationsForCompanyOffer(Long companyId, Pageable pageable) {
-    	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
+    	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByAnyStatus(CollaborationStatus.ACCEPTED); 
     	
     	return collaborationRepository.findAllByCompanyOfferAndStatus(companyId, collaborationStatus.getId(), pageable);
     }
@@ -225,7 +235,7 @@ public class CollaborationService {
     @Deprecated
     @Transactional
     public Page<Collaboration> findAllAcceptedCollaborationsForCompanyRequest(Long companyId, Pageable pageable) {
-    	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByStatus(CollaborationStatus.ACCEPTED); 
+    	CollaborationStatus collaborationStatus = collaborationStatusService.getOneByAnyStatus(CollaborationStatus.ACCEPTED); 
     	
     	return collaborationRepository.findAllByCompanyRequestAndStatus(companyId, collaborationStatus.getId(), pageable);
     }

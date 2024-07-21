@@ -81,12 +81,12 @@ public class CollaborationStatusService {
     }
     
     @Transactional(readOnly = true)
-    public CollaborationStatus getOneByStatus(String status) {
+    public CollaborationStatus getOneByAnyStatus(String status) {
         log.debug("Request to get CollaborationStatus by status: {}", status);
-        Optional<CollaborationStatus> collaborationStatusOptional = collaborationStatusRepository.findByStatus(status);
+        Optional<CollaborationStatus> collaborationStatusOptional = collaborationStatusRepository.findByAnyStatus(status);
         
         if (collaborationStatusOptional.isEmpty()) {
-    		String errorMessage = String.format("CollaborationStatus with stats={} could not be found", status);
+    		String errorMessage = String.format("CollaborationStatus with status={} could not be found", status);
         	throw new EntityNotFoundException(errorMessage);
         }
        
