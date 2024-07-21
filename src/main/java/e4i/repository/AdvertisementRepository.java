@@ -52,9 +52,9 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     @Query(value = "select distinct advertisement from Advertisement advertisement "
     		+ "left join fetch advertisement.subsubcategory "
     		+ "where advertisement.company.id = :companyId "
-    		+ "and advertisement.status.status = :status",
+    		+ "and (advertisement.status.status = :status or advertisement.status.statusSrc = :status or advertisement.status.statusEn = :status)",
             countQuery = "select count(distinct advertisement) from Advertisement advertisement")
-    Page<Advertisement> findAllByCompanyIdandStatus(@Param("companyId") Long companyId, @Param("status") String status, Pageable pageable);
+    Page<Advertisement> findAllByCompanyIdandAnyStatus(@Param("companyId") Long companyId, @Param("status") String status, Pageable pageable);
     
     @Query(value = "select distinct advertisement from Advertisement advertisement "
     		+ "left join advertisement.kinds "
@@ -195,5 +195,16 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
 	       + "WHERE a.company.id = :companyId "
 	       + "AND (s.status = :status OR s.statusSrc = :status OR s.statusEn = :status)")
 	Long countByCompanyIdAndStatus(@Param("companyId") Long companyId, @Param("status") String status);
+
+	
+    @Query(value = "SELECT DISTINCT advertisement FROM Advertisement advertisement "
+    		+ "WHERE advertisement.company.id = :companyId "
+    		+ "AND (advertisement.status.status = :status OR advertisement.status.statusSrc = :status OR advertisement.status.statusEn = :status) "
+    		+ "AND (advertisement.type.type = :type OR advertisement.type.typeSrc = :type OR advertisement.type.typeEn = :type)",
+        countQuery = "SELECT COUNT(DISTINCT advertisement) FROM Advertisement advertisement "
+        		+ "WHERE advertisement.company.id = :companyId "
+        		+ "AND (advertisement.status.status = :status OR advertisement.status.statusSrc = :status OR advertisement.status.statusEn = :status) "
+        		+ "AND (advertisement.type.type = :type OR advertisement.type.typeSrc = :type OR advertisement.type.typeEn = :type)")
+	Page<Advertisement> findAllByCompanyIdandStatusAndType(@Param("companyId") Long companyId,@Param("status") String status, @Param("type") String type, Pageable pageable);
 
 }

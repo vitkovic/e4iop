@@ -4,24 +4,14 @@ import { mixins } from 'vue-class-component';
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { IAdvertisement } from '@/shared/model/advertisement.model';
-import { IAdvertisementType } from '@/shared/model/advertisement-type.model';
+import { AdvertisementStatusOptions } from '@/shared/model/advertisement-status.model';
+import { IAdvertisementType, AdvertisementTypeOptions } from '@/shared/model/advertisement-type.model';
 import { ICompany } from '@/shared/model/company.model';
 
 import AdvertisementService from './advertisement.service';
 import AdvertisementTypeService from '../advertisement-status/advertisement-type.service';
 import AccountService from '@/account/account.service';
 import CompanyService from '@/entities/company.service';
-
-enum AdvertisementType {
-  OFFER = 'Понуда',
-  DEMAND = 'Потражња',
-}
-
-enum AdvertisementStatus {
-  ACTIVE = 'Активан',
-  INACTIVE = 'Неактиван',
-  ARCHIVED = 'Архивиран',
-}
 
 enum AdvertisementTypeFilter {
   ALL = 'all',
@@ -100,7 +90,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
     if (this.activeAdTypeFilter === AdvertisementTypeFilter.ALL) {
       this.advertisementService()
-        .retrieveForCompany(this.companyId, AdvertisementStatus.ACTIVE, paginationQuery)
+        .retrieveForCompany(this.companyId, AdvertisementStatusOptions.ACTIVE, paginationQuery)
         .then(
           res => {
             this.advertisements = res.data;
@@ -115,7 +105,7 @@ export default class Advertisement extends mixins(AlertMixin) {
     } else {
       if (this.activeAdType) {
         this.advertisementService()
-          .retrieveAllByCompanyAndTypeId(this.companyId, this.activeAdType.id, paginationQuery)
+          .findAllForCompanyByStatusAndType(this.companyId, AdvertisementStatusOptions.ACTIVE, this.activeAdType.typeEn, paginationQuery)
           .then(
             res => {
               this.advertisements = res.data;
@@ -188,7 +178,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public showOfferAdvertisements(): void {
     this.activeAdTypeFilter = AdvertisementTypeFilter.OFFER;
-    this.activeAdType = this.advertisementTypes.find(type => type.type === AdvertisementType.OFFER);
+    this.activeAdType = this.advertisementTypes.find(type => type.typeEn === AdvertisementTypeOptions.OFFER);
     this.retrieveAllAdvertisements();
 
     this.filterAllButtonVariant = 'outline-secondary';
@@ -198,11 +188,68 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public showDemandAdvertisements(): void {
     this.activeAdTypeFilter = AdvertisementTypeFilter.DEMAND;
-    this.activeAdType = this.advertisementTypes.find(type => type.type === AdvertisementType.DEMAND);
+    this.activeAdType = this.advertisementTypes.find(type => type.typeEn === AdvertisementTypeOptions.DEMAND);
     this.retrieveAllAdvertisements();
 
     this.filterAllButtonVariant = 'outline-secondary';
     this.filterOfferButtonVariant = 'outline-secondary';
     this.filterDemandButtonVariant = 'secondary';
+  }
+
+  public advertisementCategorizationBranch(advertisement: IAdvertisement): string {
+    let branch = '';
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    if (currentLanguage === 'sr') {
+      branch =
+        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name +
+        ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.name +
+        ' / ' +
+        advertisement.subsubcategory.name;
+
+      return branch;
+    }
+
+    if (currentLanguage === 'src') {
+      branch =
+        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameSrc +
+        ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.nameSrc +
+        ' / ' +
+        advertisement.subsubcategory.nameSrc;
+
+      return branch;
+    }
+
+    if (currentLanguage === 'en') {
+      branch =
+        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameEn +
+        ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.nameEn +
+        ' / ' +
+        advertisement.subsubcategory.nameEn;
+
+      return branch;
+    }
+
+    return branch;
+  }
+
+  public advertisementKindsString(advertisement: IAdvertisement) {
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    return advertisement.kinds
+      .map(kind => {
+        if (currentLanguage === 'sr') {
+          return kind.kind;
+        } else if (currentLanguage === 'src') {
+          return kind.kindSrc;
+        } else if (currentLanguage === 'en') {
+          return kind.kindEn;
+        }
+        return '';
+      })
+      .join(', ');
   }
 }

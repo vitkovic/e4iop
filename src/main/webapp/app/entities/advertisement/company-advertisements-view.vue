@@ -83,20 +83,18 @@
                 {{ advertisement.title }}
               </router-link>
             </td>
-            <td>{{ advertisement.type.type }}</td>
             <td>
-              <div v-if="advertisement.kinds">
-                <!-- {{ advertisement.kind.kind }} -->
-                <div v-for="(kind, index) in advertisement.kinds" :key="kind.id">
-                  <span style="white-space: pre;">{{ kind.kind }}<span v-if="index != advertisement.kinds.length -1">, </span>
-                  </span>
-                </div>
-              </div>
+              <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.type.type }}</span>
+              <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.type.typeSrc }}</span>
+              <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.type.typeEn }}</span>
             </td>
             <td>
-              <div v-if="advertisement.subsubcategory">
-                {{ advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name + " / " + advertisement.subsubcategory.advertisementSubcategory.name + " / " + advertisement.subsubcategory.name }}
+              <div v-if="advertisement.kinds">
+                {{ advertisementKindsString(advertisement) }}
               </div>
+            </td>
+            <td v-if="advertisement.subsubcategory">
+              {{ advertisementCategorizationBranch(advertisement) }}
             </td>
             <td>{{ advertisement.budget }}</td>
             <td>{{ advertisement.activationDatetime ? $d(Date.parse(advertisement.activationDatetime.toString()), { dateStyle: 'short' }) : '' }}

@@ -5,6 +5,7 @@ import { IPortalUser } from '@/shared/model/portal-user.model';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 import { ICollaboration } from '@/shared/model/collaboration.model';
 import { ICompanyRatingsDTO } from '@/shared/model/dto/company-ratings-dto';
+import { IInquiryDTO } from '@/shared/model/dto/inquiry-dto.model';
 
 import AccountService from '@/account/account.service';
 import InquiryService from './inquiry.service';
@@ -13,16 +14,6 @@ import PortalUserService from '../../entities/portal-user/portal-user.service';
 import CollaborationService from '../../entities/collaboration/collaboration.service';
 
 import RatingBadge from './company-badge.vue';
-
-interface InquiryDTO {
-  advertisement: IAdvertisement;
-  datetime: Date;
-  subject: '';
-  content: '';
-  companySender: ICompany;
-  companyReceiver: ICompany;
-  portalUserSender: IPortalUser;
-}
 
 // import VueViewer from 'v-viewer';
 
@@ -44,7 +35,7 @@ export default class CompanyDetails extends Vue {
 
   public companyId: number | null = null;
   public company: ICompany = {};
-  public inquiryDTO: InquiryDTO | null = null;
+  public inquiryDTO: IInquiryDTO | null = null;
   public collaborations: ICollaboration[] = [];
   public companyRatingsDTO: ICompanyRatingsDTO | null = null;
 

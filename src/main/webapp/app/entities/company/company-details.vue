@@ -556,17 +556,17 @@
             </p>
           </div>
           <div slot="modal-footer">
-            <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeAdInquiry()">
-              Otkaži
-            </button>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-success"
               id="jhi-confirm-delete-advertisement"
               v-text="$t('entity.action.send')"
               v-on:click="sendInquiry()"
             >
               Pošalji
+            </button>
+            <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeAdInquiry()">
+              Otkaži
             </button>
           </div>
         </b-modal>

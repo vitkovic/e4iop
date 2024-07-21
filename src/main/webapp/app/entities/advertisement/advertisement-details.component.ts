@@ -7,6 +7,7 @@ import { ICompany } from '@/shared/model/company.model';
 import { ICollaboration } from '@/shared/model/collaboration.model';
 import { IMeeting } from '@/shared/model/meeting.model';
 import { ICompanyRatingsDTO } from '@/shared/model/dto/company-ratings-dto';
+import { IInquiryDTO } from '@/shared/model/dto/inquiry-dto.model';
 import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
 import { AdvertisementSupporterStatusOptions } from '@/shared/model/advertisement-supporter-status.model';
 
@@ -18,16 +19,6 @@ import PortalUserService from '../../entities/portal-user/portal-user.service';
 import MeetingService from '../../entities/meeting/meeting.service';
 import CompanyService from '../../entities/company/company.service';
 import AdvertisementSupporterService from '../advertisement-supporter/advertisement-supporter.service';
-
-interface InquiryDTO {
-  advertisement: IAdvertisement;
-  datetime: Date;
-  subject: '';
-  content: '';
-  companySender: ICompany;
-  companyReceiver: ICompany;
-  portalUserSender: IPortalUser;
-}
 
 interface MeetingEvent {
   id: number;
@@ -77,7 +68,7 @@ export default class AdvertisementDetails extends Vue {
   private isCompanyOwnerValue = false;
 
   public advertisement: IAdvertisement = {};
-  public inquiryDTO: InquiryDTO | null = null;
+  public inquiryDTO: IInquiryDTO | null = null;
   public newMeeting: IMeeting | null = null;
   public meetingEvent = { ...DEFAULT_MEETING_EVENT };
   public companiesSearch: ICompany[] = [];
@@ -320,10 +311,6 @@ export default class AdvertisementDetails extends Vue {
         console.error('Error fetching company details or images:', error);
       });
   }
-
-
-	
-
 
   public retrieveAdvertisementSupporters(advertisementId): void {
     this.advertisementSupporterService()
@@ -672,5 +659,22 @@ export default class AdvertisementDetails extends Vue {
     if (index !== -1) {
       this.nonB2BParticipantsEmails.splice(index, 1);
     }
+  }
+
+  public advertisementKindsString(advertisement: IAdvertisement) {
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    return advertisement.kinds
+      .map(kind => {
+        if (currentLanguage === 'sr') {
+          return kind.kind;
+        } else if (currentLanguage === 'src') {
+          return kind.kindSrc;
+        } else if (currentLanguage === 'en') {
+          return kind.kindEn;
+        }
+        return '';
+      })
+      .join(', ');
   }
 }

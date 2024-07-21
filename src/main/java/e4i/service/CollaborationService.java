@@ -244,7 +244,7 @@ public class CollaborationService {
 	public List<Collaboration> findAllAcceptedCollaborationsForCompany(Long companyId) {
     	String status = CollaborationStatus.ACCEPTED;
     	
-		return collaborationRepository.findByCompanyOfferIdOrCompanyRequestIdAndStatusStatus(companyId, companyId, status);
+		return collaborationRepository.findByCompanyOfferIdOrCompanyRequestIdAndStatusStatusEn(companyId, companyId, status);
 	}
 
     @Transactional

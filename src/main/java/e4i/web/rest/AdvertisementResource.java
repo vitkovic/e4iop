@@ -539,7 +539,7 @@ public class AdvertisementResource {
 	    public ResponseEntity<List<Advertisement>> getAllAdvertisementsForCompany(
 	    		Pageable pageable, 
 	    		@RequestParam Long companyId,
-	    		@RequestParam(required = false, defaultValue = "Активан") String status) {
+	    		@RequestParam(required = false, defaultValue = AdvertisementStatus.ACTIVE) String status) {
 	    	log.debug("REST request to get a page of Advertisements for company: {} and status: {}", companyId, status);
 	    	
 	    	// Odraditi proveru da li status sa zadatim nazivom postoji u bazi
@@ -595,6 +595,20 @@ public class AdvertisementResource {
 	    	log.debug("REST request to get a page of Advertisements for company: {} and type: {}", companyId, typeId);
 	    	
 	        Page<Advertisement> page = advertisementService.findAllByCompanyIdAndTypeId(companyId, typeId, pageable);
+	        	        
+	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+	        return ResponseEntity.ok().headers(headers).body(page.getContent());
+	    }
+	    
+	    @GetMapping("/advertisements/company/status-type")
+	    public ResponseEntity<List<Advertisement>> findAllForCompanyByStatusAndType(
+	    		Pageable pageable, 
+	    		@RequestParam Long companyId,
+	    		@RequestParam String status,
+	    		@RequestParam String type) {
+	    	log.debug("REST request to get a page of Advertisements for company: {} by status {} and type: {}", companyId, status, type);
+	    	
+	        Page<Advertisement> page = advertisementService.findAllForCompanyByStatusAndType(companyId, status, type, pageable);
 	        	        
 	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 	        return ResponseEntity.ok().headers(headers).body(page.getContent());

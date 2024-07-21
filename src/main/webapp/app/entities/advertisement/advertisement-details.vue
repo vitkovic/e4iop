@@ -25,7 +25,9 @@
                 </dt>
                 <dd>
                   <div v-if="advertisement.type">
-                    {{ advertisement.type.type }}
+                    <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.type.type }}</span>
+                    <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.type.typeSrc }}</span>
+                    <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.type.typeEn }}</span>
                   </div>
                 </dd>
               </dl>
@@ -35,9 +37,7 @@
                 </dt>
                 <dd>
                   <div v-if="advertisement.kinds" class="d-flex" style="flex-direction: row;">
-                    <div v-for="(kind, index) in advertisement.kinds" :key="kind.id">
-                      <span style="white-space: pre;">{{ kind.kind }}<span v-if="index != advertisement.kinds.length - 1">, </span> </span>
-                    </div>
+                    {{ advertisementKindsString(advertisement) }}
                   </div>
                 </dd>
               </dl>
@@ -456,17 +456,17 @@
             </p>
           </div>
           <div slot="modal-footer">
-            <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeAdInquiry()">
-              Otkaži
-            </button>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-success"
               id="jhi-confirm-delete-advertisement"
-              v-text="$t('entity.action.save')"
+              v-text="$t('entity.action.send')"
               v-on:click="sendInquiry()"
             >
               Pošalji
+            </button>
+            <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeAdInquiry()">
+              Otkaži
             </button>
           </div>
         </b-modal>

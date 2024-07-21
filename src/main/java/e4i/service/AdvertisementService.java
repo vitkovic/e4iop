@@ -453,16 +453,30 @@ public Page<Advertisement> findAllBySearchTypeStatus(Long type, Long status, Pag
     public Page<Advertisement> findAllByCompanyIdAndTypeId(Long companyId, Long typeId, Pageable pageable) {
     	Page<Advertisement> advertisements = advertisementRepository.findAllByCompanyIdandTypeId(companyId, typeId, pageable);
     	
+    	// Could this be done within a query???
     	advertisements.getContent().forEach(advertisement -> {
     		Hibernate.initialize(advertisement.getKinds());
         });
     	
     	return advertisements;
     }
+    
+
+	public Page<Advertisement> findAllForCompanyByStatusAndType(Long companyId, String status, String type,
+			Pageable pageable) {
+    	Page<Advertisement> advertisements = advertisementRepository.findAllByCompanyIdandStatusAndType(companyId, status, type, pageable);
+    	
+    	// Could this be done within a query???
+    	advertisements.getContent().forEach(advertisement -> {
+    		Hibernate.initialize(advertisement.getKinds());
+        });
+    	
+    	return advertisements;
+	}
 
     @Transactional
 	public Page<Advertisement> findAllByCompanyIdandStatus(Long companyId, String status, Pageable pageable) {
-    	Page<Advertisement> advertisements = advertisementRepository.findAllByCompanyIdandStatus(companyId, status, pageable);
+    	Page<Advertisement> advertisements = advertisementRepository.findAllByCompanyIdandAnyStatus(companyId, status, pageable);
     	
     	advertisements.getContent().forEach(advertisement -> {
     		Hibernate.initialize(advertisement.getKinds());

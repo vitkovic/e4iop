@@ -25,6 +25,7 @@ const apiFindAllByCompanyIdAndStatusId = 'api/advertisements/company-status';
 const apiFindAllByCompanyIdAndNotStatusId = 'api/advertisements/company-not-status';
 const apiFindAllByStatusId = 'api/advertisements/status';
 const apiFindAllByCompanyIdAndTypeId = 'api/advertisements/company-type';
+const apifindAllForCompanyByStatusAndType = 'api/advertisements/company/status-type';
 const apiGetCountAllForCompany = 'api/advertisements/company-count-all';
 const apiGetCountActiveForCompany = 'api/advertisements/company-count-active';
 const apiGetCountInactiveForCompany = 'api/advertisements/company-count-inactive';
@@ -120,33 +121,9 @@ export default class AdvertisementService {
     });
   }
 
- public retrieveSearchType(type:number, paginationQuery?: any): Promise<any> {
-  
-	
-	const  urlgo = baseApiUrlSearchType + `?type=${type}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`
-	
-	
-	
-    return new Promise<any>((resolve, reject) => {
-      axios
-        .get(urlgo)
-        .then(res => {
-          resolve(res);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  }
-  
-   public retrieveSearchTypeStatus(type:number, status:number, paginationQuery?: any): Promise<any> {
-  
-	
-	const  urlgo = baseApiUrlSearchTypeStatus + `?type=${type}`+  `&` + `status=${status}`  + `&` + `${buildPaginationQueryOpts(paginationQuery)}`
-	
-	
-	//console.log("STATUS");	
-	
+  public retrieveSearchType(type: number, paginationQuery?: any): Promise<any> {
+    const urlgo = baseApiUrlSearchType + `?type=${type}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
+
     return new Promise<any>((resolve, reject) => {
       axios
         .get(urlgo)
@@ -159,9 +136,23 @@ export default class AdvertisementService {
     });
   }
 
+  public retrieveSearchTypeStatus(type: number, status: number, paginationQuery?: any): Promise<any> {
+    const urlgo =
+      baseApiUrlSearchTypeStatus + `?type=${type}` + `&` + `status=${status}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
 
+    //console.log("STATUS");
 
-
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
   public retrieveSearchByStatusId(search: string, category: number, paginationQuery?: any): Promise<any> {
     const urlgo =
@@ -273,6 +264,28 @@ export default class AdvertisementService {
             `?companyId=${companyId}` +
             `&` +
             `typeId=${typeId}` +
+            `&` +
+            `${buildPaginationQueryOpts(paginationQuery)}`
+        )
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public findAllForCompanyByStatusAndType(companyId: number, status: string, type: string, paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(
+          apifindAllForCompanyByStatusAndType +
+            `?companyId=${companyId}` +
+            `&` +
+            `status=${status}` +
+            `&` +
+            `type=${type}` +
             `&` +
             `${buildPaginationQueryOpts(paginationQuery)}`
         )
