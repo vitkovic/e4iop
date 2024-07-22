@@ -87,7 +87,7 @@
                 :class="{ valid: !$v.company.about.$invalid, invalid: $v.company.about.$invalid }"
               />
             </div>
-            <div class="form-group mb-4">
+            <!-- <div class="form-group mb-4">
               <label class="form-control-label" v-text="$t('riportalApp.company.fields')" for="company-fields">Fields</label>
               <input
                 type="text"
@@ -97,7 +97,7 @@
                 :class="{ valid: !$v.company.fields.$invalid, invalid: $v.company.fields.$invalid }"
                 v-model="$v.company.fields.$model"
               />
-            </div>
+            </div> -->
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.company.isOnEinovations')" for="company-isEinovator"
                 >Is registered on portal eInovations</label

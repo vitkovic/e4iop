@@ -35,7 +35,7 @@ const validations: any = {
       required,
     },
     about: {},
-    fields: {},
+    // fields: {},
     isEinovator: {},
   },
 };
