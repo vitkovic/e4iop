@@ -39,6 +39,13 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 	
 	Long countByThreadIdAndIsDeletedReceiver(Long threadId, Boolean isDeletedReceiver);
 	
+	@Query("SELECT COUNT(m) " +
+	       "FROM Message m " +
+	       "JOIN m.thread t " +
+	       "WHERE ((t.companySender.id = :companyId AND m.isReadSender = false AND m.isDeletedSender = false) " +
+	       "OR (t.companyReceiver.id = :companyId AND m.isReadReceiver = false AND m.isDeletedReceiver = false))")
+	Long countNotReadAndNotDeletedForCompany(@Param("companyId") Long companyId);
+
 	
 	
 	Optional<Message> findFirstByThreadIdOrderByDatetimeDesc(Long threadId);
@@ -47,12 +54,20 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 	
 	Optional<Message> findFirstByThreadIdAndIsDeletedReceiverOrderByDatetimeDesc(Long threadId, Boolean isDeletedReceiver);
 	
-	Optional<Message> findFirstByThreadIdAndPortalUserSenderCompanyIdNotAndIsReadAndIsDeletedSender(
-			Long threadId, Long companyId, Boolean isRead, Boolean isDeletedSender
+//	Optional<Message> findFirstByThreadIdAndPortalUserSenderCompanyIdNotAndIsReadAndIsDeletedSender(
+//			Long threadId, Long companyId, Boolean isRead, Boolean isDeletedSender
+//			);
+//	
+//	Optional<Message> findFirstByThreadIdAndPortalUserSenderCompanyIdNotAndIsReadAndIsDeletedReceiver(
+//			Long threadId, Long companyId, Boolean isRead, Boolean isDeletedReceiver
+//			);
+	
+	Optional<Message> findFirstByThreadIdAndIsReadSenderAndIsDeletedSender(
+			Long threadId, Boolean isReadSender, Boolean isDeletedSender
 			);
 	
-	Optional<Message> findFirstByThreadIdAndPortalUserSenderCompanyIdNotAndIsReadAndIsDeletedReceiver(
-			Long threadId, Long companyId, Boolean isRead, Boolean isDeletedReceiver
+	Optional<Message> findFirstByThreadIdAndIsReadReceiverAndIsDeletedReceiver(
+			Long threadId, Boolean isReadReceiver, Boolean isDeletedReceiver
 			);
 	
 	@Query("SELECT m.portalUserSender FROM Message m WHERE m.id = :messageId")

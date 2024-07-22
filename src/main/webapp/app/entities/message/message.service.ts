@@ -9,6 +9,7 @@ const apiGetAllByThreadId = 'api/messages/thread';
 const apiGetAllByThreadAndCompany = 'api/messages/thread-company';
 const apiPostByThreadId = 'api/messages/thread';
 const apiGetCountByThreadId = 'api/messages/thread/count';
+const apiGetCountUnreadForCompany = 'api/messages/count/company-unread';
 
 export default class MessageService {
   public find(id: number): Promise<IMessage> {
@@ -123,6 +124,19 @@ export default class MessageService {
     return new Promise<Number>((resolve, reject) => {
       axios
         .get(`${apiGetCountByThreadId}/${threadId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getCountUnreadForCompany(companyId: number): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      axios
+        .get(`${apiGetCountUnreadForCompany}/${companyId}`)
         .then(res => {
           resolve(res.data);
         })

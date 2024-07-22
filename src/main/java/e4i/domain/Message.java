@@ -33,8 +33,11 @@ public class Message implements Serializable {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "is_read")
-    private Boolean isRead;
+    @Column(name = "is_read_sender")
+    private Boolean isReadSender;
+    
+    @Column(name = "is_read_receiver")
+    private Boolean isReadReceiver;
 
     @Column(name = "is_deleted_sender")
     private Boolean isDeletedSender;
@@ -89,17 +92,30 @@ public class Message implements Serializable {
         this.content = content;
     }
 
-    public Boolean isIsRead() {
-        return isRead;
+    public Boolean isIsReadSender() {
+        return isReadSender;
     }
 
-    public Message isRead(Boolean isRead) {
-        this.isRead = isRead;
+    public Message isReadSender(Boolean isReadSender) {
+        this.isReadSender = isReadSender;
         return this;
     }
 
-    public void setIsRead(Boolean isRead) {
-        this.isRead = isRead;
+    public void setIsReadSender(Boolean isReadSender) {
+        this.isReadSender = isReadSender;
+    }
+    
+    public Boolean isIsReadReceiver() {
+        return isReadReceiver;
+    }
+
+    public Message isReadReceiver(Boolean isReadReceiver) {
+        this.isReadReceiver = isReadReceiver;
+        return this;
+    }
+
+    public void setIsReadReceiver(Boolean isReadReceiver) {
+        this.isReadReceiver = isReadReceiver;
     }
 
     public Boolean isIsDeletedSender() {
@@ -191,7 +207,8 @@ public class Message implements Serializable {
             "id=" + getId() +
             ", datetime='" + getDatetime() + "'" +
             ", content='" + getContent() + "'" +
-            ", isRead='" + isIsRead() + "'" +
+            ", isReadSender='" + isIsReadSender() + "'" +
+            ", isReadReceiver='" + isIsReadReceiver() + "'" +
             ", isDeletedSender='" + isIsDeletedSender() + "'" +
             ", isDeletedReceiver='" + isIsDeletedReceiver() + "'" +
             "}";

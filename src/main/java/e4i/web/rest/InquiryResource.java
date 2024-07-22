@@ -67,7 +67,8 @@ public class InquiryResource {
         message.setDatetime(inquiryDTO.getDatetime());
         message.setContent(inquiryDTO.getContent());
         message.setPortalUserSender(inquiryDTO.getPortalUserSender());
-        message.setIsRead(false);
+        message.setIsReadSender(true);
+        message.setIsReadReceiver(false);
         message.setIsDeletedSender(false);
         message.setIsDeletedReceiver(false);
         

@@ -300,16 +300,14 @@ public class ThreadResource {
 		
 		Optional<Message> latestMessageOptional = Optional.empty();
 		Optional<Message> unreadMessageOptional = Optional.empty();
-		if (threadDTO.getCompanySender() !=null && threadDTO.getCompanySender().getId() == company.getId()) {
+		if (threadDTO.getCompanySender() !=null && threadDTO.getCompanySender().getId().equals(company.getId())) {
 			threadDTO.setMessageCount(messageRepository.countByThreadIdAndIsDeletedSender(id, false));
 			latestMessageOptional = messageRepository.findFirstByThreadIdAndIsDeletedSenderOrderByDatetimeDesc(id, false);
-	        unreadMessageOptional = messageRepository
-	        		.findFirstByThreadIdAndPortalUserSenderCompanyIdNotAndIsReadAndIsDeletedSender(id, company.getId(), false, false);
-		} else if (threadDTO.getCompanyReceiver() !=null && threadDTO.getCompanyReceiver().getId() == company.getId()) {
+	        unreadMessageOptional = messageRepository.findFirstByThreadIdAndIsReadSenderAndIsDeletedSender(id, false, false);
+		} else if (threadDTO.getCompanyReceiver() !=null && threadDTO.getCompanyReceiver().getId().equals(company.getId())) {
 			threadDTO.setMessageCount(messageRepository.countByThreadIdAndIsDeletedReceiver(id, false));
 			latestMessageOptional = messageRepository.findFirstByThreadIdAndIsDeletedReceiverOrderByDatetimeDesc(id, false);
-	        unreadMessageOptional = messageRepository
-	        		.findFirstByThreadIdAndPortalUserSenderCompanyIdNotAndIsReadAndIsDeletedReceiver(id, company.getId(), false, false);
+	        unreadMessageOptional = messageRepository.findFirstByThreadIdAndIsReadReceiverAndIsDeletedReceiver(id, false, false);
 		}
         if (latestMessageOptional.isPresent()) {
             Message latestMessage = latestMessageOptional.get();

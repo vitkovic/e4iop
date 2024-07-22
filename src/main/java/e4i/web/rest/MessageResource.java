@@ -9,6 +9,8 @@ import e4i.repository.PortalUserRepository;
 import e4i.repository.ThreadRepository;
 import e4i.service.MailService;
 import e4i.service.MessageService;
+import e4i.service.PortalUserService;
+import e4i.service.ThreadService;
 import e4i.service.UserService;
 import e4i.web.rest.dto.NotificationMailDTO;
 import e4i.web.rest.errors.BadRequestAlertException;
@@ -64,6 +66,12 @@ public class MessageResource {
     
     @Autowired
     UserService userService;
+
+    @Autowired
+    PortalUserService portalUserService;
+    
+    @Autowired
+    ThreadService threadService;
     
 //    @Autowired
     private final MailService mailService;
@@ -172,12 +180,12 @@ public class MessageResource {
         	messages = messageRepository.findAllByThreadIdAndIsDeletedSenderOrderByDatetimeAsc(threadId, false);	
         }
         
-        for (Message message : messages) {
-        	if ((message.getPortalUserSender().getId() != currentPortalUser.getId()) && !message.isIsRead()) {
-        		message.setIsRead(true);
-        		messageRepository.save(message);
-        	}
-        }
+//        for (Message message : messages) {
+//        	if ((message.getPortalUserSender().getId() != currentPortalUser.getId()) && !message.isIsRead()) {
+//        		message.setIsRead(true);
+//        		messageRepository.save(message);
+//        	}
+//        }
 
 //        List<Message> messages = messageRepository.findAllByThreadIdOrderByDatetimeDesc(threadId);
         
@@ -193,21 +201,35 @@ public class MessageResource {
     		) {
         log.debug("REST request to get all Messages for Thread {} and Company {}", threadId, companyId);
         Thread thread = threadRepository.getOne(threadId);
-
+        
         List<Message> messages = new ArrayList<>();
         if ((thread.getCompanyReceiver() != null) && (thread.getCompanyReceiver().getId().equals(companyId))) {
         	messages = messageRepository.findAllByThreadIdAndIsDeletedReceiverOrderByDatetimeAsc(threadId, false);
         
             for (Message message : messages) {
-            	if (!message.isIsRead()) {
-            		message.setIsRead(true);
+            	if (!message.isIsReadReceiver()) {
+            		message.setIsReadReceiver(true);
             		messageRepository.save(message);
             	}
             }
         	
         } else if ((thread.getCompanySender() != null) && (thread.getCompanySender().getId().equals(companyId))) {
-        	messages = messageRepository.findAllByThreadIdAndIsDeletedSenderOrderByDatetimeAsc(threadId, false);	
+        	messages = messageRepository.findAllByThreadIdAndIsDeletedSenderOrderByDatetimeAsc(threadId, false);
+        	
+            for (Message message : messages) {
+            	if (!message.isIsReadSender()) {
+            		message.setIsReadSender(true);
+            		messageRepository.save(message);
+            	}
+            }
         }
+        
+//        for (Message message : messages) {
+//        	if ((message.getPortalUserSender().getCompany().getId() != currentPortalUser.getCompany().getId()) && !message.isIsRead()) {
+//        		message.setIsRead(true);
+//        		messageRepository.save(message);
+//        	}
+//        }
         return ResponseEntity.ok().body(messages);
     }
     
@@ -224,13 +246,28 @@ public class MessageResource {
     @PostMapping("/messages/thread")
     public ResponseEntity<Message> createMessageInThread(
 		@RequestParam String content, 
-		@RequestParam String senderId, 
+		@RequestParam Long companyId, 
+		@RequestParam String portalUserId, 
 		@RequestParam("threadId") Long threadId
     ) throws URISyntaxException {
         log.debug("REST request to create Message in thread: {}",  threadId);
           
         try {
-            Message message = messageService.createNewMessageInThread(content, threadId, senderId);
+        	Optional<PortalUser> portalUserOptional = portalUserService.findOne(portalUserId);
+        	if (portalUserOptional.isEmpty()) {
+        		log.debug("PortalUser with id={} could not be found", portalUserId);
+        		return ResponseEntity.badRequest().build();
+        	}
+        	PortalUser portalUserSender = portalUserOptional.get();
+        	
+        	Optional<Thread> threadOptional = threadService.findOne(threadId);
+        	if (threadOptional.isEmpty()) {
+        		log.debug("Thread with id={} could not be found", threadId);
+        		return ResponseEntity.badRequest().build();
+        	}
+        	Thread thread = threadOptional.get();
+        	
+            Message message = messageService.createNewMessageInThread(thread, content, portalUserSender, companyId);
         	
         	NotificationMailDTO mailDTO = mailService.createNotificationMailDTOForNewMessage(message);
         	
@@ -246,7 +283,14 @@ public class MessageResource {
         	e.printStackTrace();
         	return ResponseEntity.noContent().build();
 		}
+    }
+    
+    @GetMapping("/messages/count/company-unread/{companyId}")
+    public ResponseEntity<Long> getCountUnreadForCompany(@PathVariable Long companyId) {
+        log.debug("REST request to get count of unread Messages for Company {}", companyId);
+                
+        Long count = messageRepository.countNotReadAndNotDeletedForCompany(companyId);
         
-
+        return ResponseEntity.ok(count);
     }
 }

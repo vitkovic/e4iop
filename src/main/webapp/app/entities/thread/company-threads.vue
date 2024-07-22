@@ -27,8 +27,8 @@
           <h3
             v-if="threadsDTO"
             v-text="
-              threadsDTO.some(t => t.unreadExists)
-                ? $t('riportalApp.thread.messages') + ' (' + threadsDTO.filter(t => t.unreadExists).length + ')'
+              unreadMessagesCount
+                ? $t('riportalApp.thread.messages') + ' (' + unreadMessagesCount + ')'
                 : $t('riportalApp.thread.messages')
             "
             class="mr-3 mb-3 mb-sm-0"

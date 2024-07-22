@@ -5,7 +5,8 @@ export interface IMessage {
   id?: number;
   datetime?: Date;
   content?: string;
-  isRead?: boolean;
+  isReadSender?: boolean;
+  isReadReceiver?: boolean;
   isDeletedSender?: boolean;
   isDeletedReceiver?: boolean;
   thread?: IThread;
@@ -18,14 +19,16 @@ export class Message implements IMessage {
     public id?: number,
     public datetime?: Date,
     public content?: string,
-    public isRead?: boolean,
+    public isReadSender?: boolean,
+    public isReadReceiver?: boolean,
     public isDeletedSender?: boolean,
     public isDeletedReceiver?: boolean,
     public thread?: IThread,
     public portalUserSender?: IPortalUser,
     public portalUserReceiver?: IPortalUser
   ) {
-    this.isRead = this.isRead || false;
+    this.isReadSender = this.isReadSender || false;
+    this.isReadReceiver = this.isReadReceiver || false;
     this.isDeletedSender = this.isDeletedSender || false;
     this.isDeletedReceiver = this.isDeletedReceiver || false;
   }

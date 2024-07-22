@@ -122,9 +122,9 @@ public class PortalUserService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<PortalUser> findOne(Long id) {
+    public Optional<PortalUser> findOne(String id) {
         log.debug("Request to get PortalUser : {}", id);
-        return portalUserRepository.findOneWithEagerRelationships(id);
+        return portalUserRepository.findById(id);
     }
 
     /**

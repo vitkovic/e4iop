@@ -91,18 +91,27 @@ public class MessageService {
     }
     
     @Transactional
-    public Message createNewMessageInThread(String content, Long threadId, String portalUserSenderId) {
-        Thread thread = threadRepository.getOne(threadId);
-        PortalUser portalUserSender = portalUserRepository.getOne(portalUserSenderId);
-        
+    public Message createNewMessageInThread(Thread thread, String content, PortalUser portalUserSender, Long companyId) {
+    	log.debug("Request to create new message in Thread {} from PortalUser {}", thread.getId(), portalUserSender.getId());
+    	  
         Message message = new Message();        
         message.setThread(thread);
         message.setPortalUserSender(portalUserSender);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
         message.setIsDeletedSender(false);
         message.setIsDeletedReceiver(false);
+        
+        if (thread.getCompanyReceiver() != null && thread.getCompanyReceiver().getId().equals(companyId)) {
+        	message.setIsReadReceiver(true);
+            message.setIsReadSender(false);
+        } else if (thread.getCompanySender() != null && thread.getCompanySender().getId().equals(companyId)) {
+        	message.setIsReadReceiver(false);
+            message.setIsReadSender(true);
+        } else {
+        	message.setIsReadReceiver(false);
+            message.setIsReadSender(false);
+        }
         
         Message result = this.save(message);
         
@@ -124,7 +133,8 @@ public class MessageService {
         message.setPortalUserSender(portalUser);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
+        message.setIsReadReceiver(false);
+        message.setIsReadSender(false);
         message.setIsDeletedSender(false);
         message.setIsDeletedReceiver(false);
     	
@@ -145,7 +155,8 @@ public class MessageService {
         message.setPortalUserSender(portalUser);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
+        message.setIsReadReceiver(false);
+        message.setIsReadSender(false);
         message.setIsDeletedSender(false);
         message.setIsDeletedReceiver(false);
     	
@@ -166,7 +177,8 @@ public class MessageService {
         message.setPortalUserSender(portalUser);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
+        message.setIsReadReceiver(false);
+        message.setIsReadSender(false);
         message.setIsDeletedSender(false);
         message.setIsDeletedReceiver(false);
     	
@@ -218,7 +230,8 @@ public class MessageService {
 //        message.setPortalUserSender(portalUser);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
+        message.setIsReadReceiver(false);
+        message.setIsReadSender(true);
         message.setIsDeletedSender(true);
         message.setIsDeletedReceiver(false);
     	
@@ -239,7 +252,8 @@ public class MessageService {
 //        message.setPortalUserSender(portalUser);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
+        message.setIsReadReceiver(false);
+        message.setIsReadSender(true);
         message.setIsDeletedSender(true);
         message.setIsDeletedReceiver(false);
     	
@@ -265,7 +279,8 @@ public class MessageService {
 //        message.setPortalUserSender(portalUser);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
+        message.setIsReadReceiver(false);
+        message.setIsReadSender(true);
         message.setIsDeletedSender(true);
         message.setIsDeletedReceiver(false);
     	
@@ -286,7 +301,8 @@ public class MessageService {
 //        message.setPortalUserSender(portalUser);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
+        message.setIsReadReceiver(false);
+        message.setIsReadSender(true);
         message.setIsDeletedSender(true);
         message.setIsDeletedReceiver(false);
     	
@@ -308,7 +324,8 @@ public class MessageService {
 //        message.setPortalUserSender(portalUser);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
+        message.setIsReadReceiver(false);
+        message.setIsReadSender(true);
         message.setIsDeletedSender(true);
         message.setIsDeletedReceiver(false);
     	
@@ -330,7 +347,8 @@ public class MessageService {
 //        message.setPortalUserSender(portalUser);
         message.setContent(content);
         message.setDatetime(Instant.now());
-        message.setIsRead(false);
+        message.setIsReadReceiver(false);
+        message.setIsReadSender(true);
         message.setIsDeletedSender(true);
         message.setIsDeletedReceiver(false);
     	

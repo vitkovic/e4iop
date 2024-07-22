@@ -139,7 +139,7 @@ public class PortalUserResource {
     @GetMapping("/portal-users/{id}")
     public ResponseEntity<PortalUser> getPortalUser(@PathVariable Long id) {
         log.debug("REST request to get PortalUser : {}", id);
-        Optional<PortalUser> portalUser = portalUserService.findOne(id);
+        Optional<PortalUser> portalUser = portalUserService.findOne(id.toString());
         return ResponseUtil.wrapOrNotFound(portalUser);
     }
 

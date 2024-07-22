@@ -14,6 +14,7 @@ import { IMeetingParticipant } from '@/shared/model/meeting-participant.model';
 import { IAdvertisementSupporter } from '@/shared/model/advertisement-supporter.model';
 import { AdvertisementSupporterStatusOptions } from '@/shared/model/advertisement-supporter-status.model';
 import { IInquiryDTO } from '@/shared/model/dto/inquiry-dto.model';
+import { IThreadDTO } from '@/shared/model/dto/thread-dto.model';
 
 import ThreadService from './thread.service';
 import CompanyService from '@/entities/company.service';
@@ -34,22 +35,6 @@ enum MeetingParticipantStatusOptions {
   INVITATION_ACCEPTED = 'Invitation accepted',
   INVITATION_REJECTED = 'Invitation rejected',
   NO_RESPONSE = 'No response',
-}
-
-interface IThreadDTO {
-  id: number;
-  subject: string;
-  isFromAdministration: boolean;
-  companySender: ICompany;
-  companyReceiver: ICompany;
-  advertisement: IAdvertisement;
-  collaboration: ICollaboration;
-  meeting: IMeeting;
-  advertisementSupporter: IAdvertisementSupporter;
-  messageCount: number;
-  lastMessageDatetime: Date;
-  lastMessageContent: string;
-  unreadExists: boolean;
 }
 
 interface RejectMeetingComment {
@@ -82,7 +67,7 @@ export default class Thread extends mixins(AlertMixin) {
   @Inject('inquiryService') private inquiryService: () => InquiryService;
 
   private removeId: number = null;
-  private removeThreadDTO: IThreadDTO = null;
+  private removeThreadDTO: IThreadDTO | null = null;
   public itemsPerPage = 20;
   public queryCount: number = null;
   public page = 1;
@@ -106,6 +91,7 @@ export default class Thread extends mixins(AlertMixin) {
   public meeting: IMeeting | null = null;
   public meetingParticipant: IMeetingParticipant | null = null;
   public advertisementSupporter: IAdvertisementSupporter | null = null;
+  public countUnreadMessagesValue = 0;
 
   public isFetching = false;
 
@@ -117,6 +103,7 @@ export default class Thread extends mixins(AlertMixin) {
   public filterReceiverButtonVariant = 'outline-secondary';
 
   public openThreadId: string | null = null;
+  public isAccordionOpened = false;
 
   public inquiryDTO: IInquiryDTO | null = null;
   public isModalFormIsValid: boolean = true;
@@ -145,6 +132,8 @@ export default class Thread extends mixins(AlertMixin) {
             vm.getPortalUser();
             vm.retrieveThreads();
           });
+
+        vm.getUnreadMessagesCount();
       }
     });
   }
@@ -233,16 +222,21 @@ export default class Thread extends mixins(AlertMixin) {
       return;
     }
 
-    const companySenderId = this.removeThreadDTO.companySender.id;
-    const companyReceiverId = this.removeThreadDTO.companyReceiver.id;
-    const portalUserCompanyId = this.portalUser.company.id;
-
-    // Odredjivanje za koga treba da se sakrije poruka.
     let isDeletedSender = true;
-    if (portalUserCompanyId === companySenderId) {
-      isDeletedSender = true;
-    } else if (portalUserCompanyId === companyReceiverId) {
+
+    if (this.removeThreadDTO.isFromAdministration) {
       isDeletedSender = false;
+    } else {
+      const companySenderId = this.removeThreadDTO.companySender.id;
+      const companyReceiverId = this.removeThreadDTO.companyReceiver.id;
+      const portalUserCompanyId = this.portalUser.company.id;
+
+      // Odredjivanje za koga treba da se sakrije poruka.
+      if (portalUserCompanyId === companySenderId) {
+        isDeletedSender = true;
+      } else if (portalUserCompanyId === companyReceiverId) {
+        isDeletedSender = false;
+      }
     }
 
     this.threadService()
@@ -294,8 +288,9 @@ export default class Thread extends mixins(AlertMixin) {
 
   public showAllThreads(): void {
     this.activeThreadFilter = ThreadsFilter.ALL;
-    this.retrieveThreads();
     this.collapseAllThreads(this.openThreadId);
+    this.retrieveThreads();
+    this.getUnreadMessagesCount();
 
     this.filterAllButtonVariant = 'secondary';
     this.filterSenderButtonVariant = 'outline-secondary';
@@ -304,8 +299,9 @@ export default class Thread extends mixins(AlertMixin) {
 
   public showSenderThreads(): void {
     this.activeThreadFilter = ThreadsFilter.SENDER;
-    this.retrieveThreads();
     this.collapseAllThreads(this.openThreadId);
+    this.retrieveThreads();
+    this.getUnreadMessagesCount();
 
     this.filterAllButtonVariant = 'outline-secondary';
     this.filterSenderButtonVariant = 'secondary';
@@ -314,8 +310,9 @@ export default class Thread extends mixins(AlertMixin) {
 
   public showReceiverThreads(): void {
     this.activeThreadFilter = ThreadsFilter.RECEIVER;
-    this.retrieveThreads();
     this.collapseAllThreads(this.openThreadId);
+    this.retrieveThreads();
+    this.getUnreadMessagesCount();
 
     this.filterAllButtonVariant = 'outline-secondary';
     this.filterSenderButtonVariant = 'outline-secondary';
@@ -350,7 +347,8 @@ export default class Thread extends mixins(AlertMixin) {
       this.messageService()
         .getAllByThreadAndCompany(thread.id, this.companyId)
         .then(res => {
-          // this.retrieveThreads();
+          this.retrieveThreads();
+          this.getUnreadMessagesCount();
           this.messages = res;
         });
     }
@@ -377,7 +375,8 @@ export default class Thread extends mixins(AlertMixin) {
   public sendMessage(thread: IThreadDTO) {
     const formData = new FormData();
     formData.append('content', '' + this.newMessageText);
-    formData.append('senderId', '' + this.portalUser.id);
+    formData.append('companyId', '' + this.companyId);
+    formData.append('portalUserId', '' + this.portalUser.id);
     formData.append('threadId', '' + thread.id);
 
     this.messageService()
@@ -446,13 +445,21 @@ export default class Thread extends mixins(AlertMixin) {
   }
 
   public toggleThreadCollapse(threadId) {
-    this.openThreadId = threadId;
+    if (this.openThreadId === threadId) {
+      this.isAccordionOpened = !this.isAccordionOpened;
+    } else {
+      this.openThreadId = threadId;
+      this.isAccordionOpened = true;
+    }
   }
 
   private collapseAllThreads(string): void {
-    const threadId = string;
-    this.$root.$emit('bv::toggle::collapse', threadId);
-    this.openThreadId = null;
+    if (this.isAccordionOpened) {
+      const threadId = string;
+      this.$root.$emit('bv::toggle::collapse', threadId);
+      this.isAccordionOpened = false;
+      this.openThreadId = null;
+    }
   }
 
   get placeholderText(): string {
@@ -890,5 +897,17 @@ export default class Thread extends mixins(AlertMixin) {
 
   public clearValidity(input) {
     this[input].isValid = true;
+  }
+
+  public async getUnreadMessagesCount() {
+    try {
+      this.countUnreadMessagesValue = await this.messageService().getCountUnreadForCompany(this.companyId);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  get unreadMessagesCount(): number {
+    return this.countUnreadMessagesValue;
   }
 }
