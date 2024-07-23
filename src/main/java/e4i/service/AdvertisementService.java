@@ -39,6 +39,9 @@ public class AdvertisementService {
 
     private final AdvertisementRepository advertisementRepository;
     
+   
+    //private final AdvertisementStatus advertisementStatus = null; 
+    
     @Autowired
     UserService userService;
     
@@ -48,8 +51,11 @@ public class AdvertisementService {
     @Autowired
     AdvertisementStatusService advertisementStatusService; 
     
-       public AdvertisementService(AdvertisementRepository advertisementRepository) {
+   
+
+    public AdvertisementService(AdvertisementRepository advertisementRepository) {
         this.advertisementRepository = advertisementRepository;
+       
     }
 
     /**
@@ -84,11 +90,14 @@ public class AdvertisementService {
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
         advertisementRepository
-            .findAllByActivatedLater(Calendar.getInstance().getTimeInMillis())
+            .findAllByActivatedLater(Calendar.getInstance().getTime())
             .forEach(adv -> {
                 log.debug("Activating advertisement {}", adv);
-             //   advertisementStatus.setId(Long.getLong("3551"));
-            //    adv.setStatus(advertisementStatus);
+                Optional<AdvertisementStatus> advertisementStatusOptional = advertisementStatusService.findOne(Long.getLong("3551"));
+                AdvertisementStatus advertisementStatus = advertisementStatusOptional.get();
+                adv.setStatus(advertisementStatus);
+                Advertisement result = this.save(adv);
+         
             });
     }				
     
