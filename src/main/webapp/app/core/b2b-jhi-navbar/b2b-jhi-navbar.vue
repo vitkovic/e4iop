@@ -84,25 +84,25 @@
                 <span v-text="'CMS'">CMS</span>
               </span>
               <b-dropdown-item to="#" active-class="active">
-                <span v-text="'Upravljanje administratorima'">Upravljanje administratorima</span>
+                <span v-text="$t('global.menu.cms.admins')">Upravljanje administratorima</span>
               </b-dropdown-item>
               <b-dropdown-item :to="{ name: 'CMSJhiUser' }" active-class="active">
-                <span v-text="'Upravljanje korisnicima'">Upravljanje korisnicima</span>
+                <span v-text="$t('global.menu.cms.users')">Upravljanje korisnicima</span>
               </b-dropdown-item>
               <b-dropdown-item :to="{ name: 'CMSAdvertsement' }" active-class="active">
-                <span v-text="'Upravljanje oglasima'">Upravljanje oglasima</span>
+                <span v-text="$t('global.menu.cms.advertisements')">Upravljanje oglasima</span>
               </b-dropdown-item>
               <b-dropdown-item :to="{ name: 'CMSPages' }" active-class="active">
-                <span v-text="'Upravljanje stranicama'">Upravljanje stranicama</span>
+                <span v-text="$t('global.menu.cms.pages')">Upravljanje stranicama</span>
               </b-dropdown-item>
               <b-dropdown-item :to="{ name: 'CMSCodebook' }" active-class="active">
-                <span v-text="'Šifarnici'">Šifarnici</span>
+                <span v-text="$t('global.menu.cms.codebooks')">Šifarnici</span>
               </b-dropdown-item>
               <b-dropdown-item :to="{ name: 'CMSNews' }" active-class="active">
-                <span v-text="'Vesti'">Vesti</span>
+                <span v-text="$t('global.menu.cms.news')">Vesti</span>
               </b-dropdown-item>
               <b-dropdown-item to="#" active-class="active">
-                <span v-text="'Izveštaji'">Izveštaji</span>
+                <span v-text="$t('global.menu.cms.reports')">Izveštaji</span>
               </b-dropdown-item>
             </b-nav-item-dropdown>
 

@@ -170,11 +170,20 @@
       "advertisements": {
         "id": "ID",
         "main": "Oglasi",
-        "advertisesearch": "Svi Oglasi",
+        "advertisesearch": "Svi oglasi",
         "advertiseOffer": "Oglasi ponudu",
         "advertiseDemand": "Oglasi potražnju",
         "findAllOffers": "Pogledaj sve ponude",
         "findAllDemands": "Pogledaj sve potražnje"
+      },
+      "cms": {
+        "admins": "Upravljanje administratorima",
+        "users": "Upravljanje korisnicima",
+        "advertisements": "Upravljanje oglasima",
+        "pages": "Upravljanje stranicama",
+        "codebooks": "Šifarnici",
+        "news": "Vesti",
+        "reports": "Izveštaji"
       },
       "language": "Jezik"
     },

@@ -170,11 +170,20 @@
       "advertisements": {
         "id": "ID",
         "main": "Advertisements",
-        "advertisesearch": "All Advertises",
+        "advertisesearch": "All advertisements",
         "advertiseOffer": "Advertise offer",
         "advertiseDemand": "Advertise demand",
         "findAllOffers": "Browse all offers",
         "findAllDemands": "Browse all demands"
+      },
+      "cms": {
+        "admins": "Admin management",
+        "users": "User management",
+        "advertisements": "Advertisement management",
+        "pages": "Page management",
+        "codebooks": "Code books",
+        "news": "News",
+        "reports": "Reports"
       },
       "language": "Language"
     },
