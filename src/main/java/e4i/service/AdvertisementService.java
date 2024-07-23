@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,9 @@ import e4i.repository.PortalUserRepository;
 import e4i.security.AuthoritiesConstants;
 import e4i.security.SecurityUtils;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -43,6 +47,9 @@ public class AdvertisementService {
     
     @Autowired
     AdvertisementStatusService advertisementStatusService; 
+    
+    @Autowired
+    AdvertisementStatus advertisementStatus; 
 
     public AdvertisementService(AdvertisementRepository advertisementRepository) {
         this.advertisementRepository = advertisementRepository;
@@ -70,6 +77,26 @@ public class AdvertisementService {
         }
     }
 
+    
+    
+    /**
+     * Not activated users should be automatically deleted after 3 days.
+     * <p>
+     * This is scheduled to get fired everyday, at 01:00 (am).
+     */
+    @Scheduled(cron = "0 0 1 * * ?")
+    public void removeNotActivatedUsers() {
+        advertisementRepository
+            .findAllByActivatedLater(Calendar.getInstance().getTimeInMillis())
+            .forEach(adv -> {
+                log.debug("Activating advertisement {}", adv);
+                advertisementStatus.setId(Long.getLong("3551"));
+                adv.setStatus(advertisementStatus);
+            });
+    }				
+    
+     
+    
     /**
      * Get all the advertisements.
      *

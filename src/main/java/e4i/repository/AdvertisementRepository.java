@@ -17,7 +17,12 @@ import java.util.Optional;
  */
 @Repository
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
-
+     int status_id = 3552;
+	
+	 @Query("select distinct advertisement from Advertisement advertisement "
+	   		+ " where CAST('activation_datetime' AS TIMESTAMP) >= :date::timestamp and advertisement.status_id =" +  status_id)
+	    List<Advertisement> findAllByActivatedLater(Long date);
+	
     @Query(value = "select distinct advertisement from Advertisement advertisement "
     		+ "left join fetch advertisement.documents "
     		+ "left join fetch advertisement.kinds",
@@ -207,4 +212,11 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
         		+ "AND (advertisement.type.type = :type OR advertisement.type.typeSrc = :type OR advertisement.type.typeEn = :type)")
 	Page<Advertisement> findAllByCompanyIdandStatusAndType(@Param("companyId") Long companyId,@Param("status") String status, @Param("type") String type, Pageable pageable);
 
+    
+    
+    
+    
+    
+    
+    
 }
