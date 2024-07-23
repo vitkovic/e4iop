@@ -94,7 +94,7 @@
                   :class="{ valid: !$v.advertisement.activationDatetime.$invalid, invalid: $v.advertisement.activationDatetime.$invalid }"
                   :value="convertDateTimeFromServer($v.advertisement.activationDatetime.$model)"
                   @change="updateInstantField('activationDatetime', $event)"
-                  readonly
+                  
                 />
               </div>
               <div v-if="$v.advertisement.activationDatetime.$anyDirty && $v.advertisement.activationDatetime.$invalid">
@@ -332,7 +332,7 @@
                     :class="{ valid: !$v.advertisement.createdAt.$invalid, invalid: $v.advertisement.createdAt.$invalid }"
                     :value="convertDateTimeFromServer($v.advertisement.createdAt.$model)"
                     @change="updateInstantField('createdAt', $event)"
-                    disabled="true"
+                    disabled="diabled"
                   />
                 </div>
               </div>
@@ -349,7 +349,7 @@
                     :class="{ valid: !$v.advertisement.modifiedAt.$invalid, invalid: $v.advertisement.modifiedAt.$invalid }"
                     :value="convertDateTimeFromServer($v.advertisement.modifiedAt.$model)"
                     @change="updateInstantField('modifiedAt', $event)"
-                    disabled="true"
+                    disabled="disabled"
                   />
                 </div>
               </div>
