@@ -21,7 +21,7 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
      int status_id = 3552;
 	
 	 @Query("select distinct advertisement from Advertisement advertisement "
-	  		+ " where TO_CHAR(activation_datetime, 'dd/mm/yyyy') >= TO_CHAR(:date, 'dd/mm/yyyy') and advertisement.status.id =" +  status_id)
+	  		+ " where activation_datetime >= :date and advertisement.status.id =" +  status_id)
 	 List<Advertisement> findAllByActivatedLater(@Param("date") Date date);
 	
     @Query(value = "select distinct advertisement from Advertisement advertisement "
