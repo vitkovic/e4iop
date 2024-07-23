@@ -5,7 +5,7 @@ import { mixins } from 'vue-class-component';
 import { Component, Vue, Inject } from 'vue-property-decorator';
 import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
-
+import PortalUserService from '../../entities/portal-user/portal-user.service';
 import AdvertisementService from './advertisement.service';
 import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
 import AccountService from '@/account/account.service';

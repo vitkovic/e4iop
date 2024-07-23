@@ -154,7 +154,7 @@ export default class AdvertisementService {
     });
   }
 
-  public retrieveSearchByStatusId(search: string, category: number, paginationQuery?: any): Promise<any> {
+  public retrieveSearchByStatusId(search: string, statusId:number, category: number, paginationQuery?: any): Promise<any> {
     const urlgo =
       baseApiUrlSearchStatus +
       `?search=${search}` +

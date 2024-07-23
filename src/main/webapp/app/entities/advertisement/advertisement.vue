@@ -185,7 +185,7 @@
                   <span v-text="$t('entity.action.view')">View</span>
                 </router-link>
                 <router-link
-                  v-if="advertisement.status.status === 'Активан'"
+                  v-if="advertisement.status.status === 'Активан' && this.companyId == advertisement.company.id"
                   :to="{ name: 'AdvertisementEdit', params: { advertisementId: advertisement.id } }"
                   tag="button"
                   class="btn btn-primary btn-sm edit"
@@ -194,7 +194,7 @@
                   <span v-text="$t('entity.action.edit')">Edit</span>
                 </router-link>
                 <b-button
-                  v-if="advertisement.status.status === 'Активан'"
+                  v-if="advertisement.status.status === 'Активан' && this.companyId == advertisement.company.id"
                   v-on:click="prepareDeactivate(advertisement)"
                   variant="dark"
                   class="btn btn-sm"
@@ -204,7 +204,7 @@
                   <span v-text="$t('entity.action.deactivate')">Deaktiviraj</span>
                 </b-button>
                 <b-button
-                  v-if="['Неактиван', 'Архивиран'].includes(advertisement.status.status)"
+                  v-if="['Неактиван', 'Архивиран'].includes(advertisement.status.status) && this.companyId == advertisement.company.id"
                   v-on:click="prepareActivate(advertisement)"
                   variant="success"
                   class="btn btn-sm"
@@ -214,7 +214,7 @@
                   <span v-text="$t('entity.action.activate')">Aktiviraj</span>
                 </b-button>
                 <b-button
-                  v-if="advertisement.status.status === 'Неактиван'"
+                  v-if="advertisement.status.status === 'Неактиван' && this.companyId == advertisement.company.id"
                   v-on:click="prepareSoftDelete(advertisement)"
                   variant="danger"
                   class="btn btn-sm"

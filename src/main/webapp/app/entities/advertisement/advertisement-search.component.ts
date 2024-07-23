@@ -5,10 +5,12 @@ import { mixins } from 'vue-class-component';
 import { Component, Vue, Inject } from 'vue-property-decorator';
 import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
-
+import { IPortalUser } from '@/shared/model/portal-user.model';
 import AdvertisementService from './advertisement.service';
 import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
 import AccountService from '@/account/account.service';
+import PortalUserService from '../../entities/portal-user/portal-user.service';
+
 
 enum AdvertisementStatus {
   ACTIVE = 'Активан',
@@ -27,10 +29,11 @@ enum AdvertisementStatusFilter {
   mixins: [Vue2Filters.mixin],
 })
 export default class Advertisement extends mixins(AlertMixin) {
+	
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
   @Inject('advertisementStatusService') private advertisementStatusService: () => AdvertisementStatusService;
   @Inject('accountService') private accountService: () => AccountService;
-
+  @Inject('portalUserService') private portalUserService: () => PortalUserService;
   public advertisements: IAdvertisement[] = [];
   public advertisementStatuses: IAdvertisementStatus[] = [];
   public activeAdStatus: IAdvertisementStatus  = null;
@@ -47,8 +50,8 @@ export default class Advertisement extends mixins(AlertMixin) {
   public propOrder = 'id';
   public reverse = false;
   public totalItems = 0;
-  public isFetching = false;
-  
+  public isFetching = false;	
+  public portalUser: IPortalUser = null;
   public txtsearch=null;
   public category = null;
   public types;
@@ -58,12 +61,25 @@ export default class Advertisement extends mixins(AlertMixin) {
   public filterActiveButtonVariant = 'outline-secondary';
   public filterInactiveButtonVariant = 'outline-secondary';
   public filterSoftDeleteButtonVariant = 'outline-secondary';
-  private companyId: number = null;
+  public companyId: number = 0;
+  
 
+  public getCompany(): any {
+    let user = this.$store.getters.account;
+    if (user) {
+      this.portalUserService()
+        .findByUserId(user.id)
+        .then(res => {
+          this.portalUser = res;
+          console.log(this.portalUser);
+          if (this.portalUser?.company) {
+            this.companyId = this.portalUser.company.id;
+          }
+        });
+    }
+  }
 
-
-
-
+    
   
    data() {
       return {
@@ -101,7 +117,7 @@ export default class Advertisement extends mixins(AlertMixin) {
     
     this.retrieveAllAdvertisements();
     
-   
+   // this.getCompany();
     
     
     
@@ -136,6 +152,7 @@ export default class Advertisement extends mixins(AlertMixin) {
     
     this.retrieveAllAdvertisements();
      
+    //this.getCompany();
     
     this.advertisementStatusService()
       .retrieve()
@@ -151,10 +168,7 @@ export default class Advertisement extends mixins(AlertMixin) {
   public retrieveAllAdvertisements(): void {
     this.isFetching = true;
 
-   console.log(this.types + "   TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
-
-
-    const paginationQuery = {
+      const paginationQuery = {
       page: this.page - 1,
       size: this.itemsPerPage,
       sort: this.sort(),
@@ -246,7 +260,12 @@ export default class Advertisement extends mixins(AlertMixin) {
   }
 
   public get authenticated(): boolean {
+	this.getCompany();
     return this.$store.getters.authenticated;
+  }
+  
+  public get account(): boolean {
+    return this.$store.getters.account;
   }
 
   public hasAnyAuthority(authorities: any): boolean {
