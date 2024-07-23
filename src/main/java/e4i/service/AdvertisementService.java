@@ -48,10 +48,7 @@ public class AdvertisementService {
     @Autowired
     AdvertisementStatusService advertisementStatusService; 
     
-    @Autowired
-    AdvertisementStatus advertisementStatus; 
-
-    public AdvertisementService(AdvertisementRepository advertisementRepository) {
+       public AdvertisementService(AdvertisementRepository advertisementRepository) {
         this.advertisementRepository = advertisementRepository;
     }
 
@@ -90,8 +87,8 @@ public class AdvertisementService {
             .findAllByActivatedLater(Calendar.getInstance().getTimeInMillis())
             .forEach(adv -> {
                 log.debug("Activating advertisement {}", adv);
-                advertisementStatus.setId(Long.getLong("3551"));
-                adv.setStatus(advertisementStatus);
+             //   advertisementStatus.setId(Long.getLong("3551"));
+            //    adv.setStatus(advertisementStatus);
             });
     }				
     

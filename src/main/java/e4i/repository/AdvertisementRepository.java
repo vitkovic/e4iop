@@ -19,9 +19,9 @@ import java.util.Optional;
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
      int status_id = 3552;
 	
-	 @Query("select distinct advertisement from Advertisement advertisement "
-	   		+ " where CAST('activation_datetime' AS TIMESTAMP) >= :date::timestamp and advertisement.status_id =" +  status_id)
-	    List<Advertisement> findAllByActivatedLater(Long date);
+	 @Query("select distinct advertisement from Advertisement advertisement ")
+	  // 		+ " where CAST('activation_datetime' AS TIMESTAMP) >= :date::timestamp and advertisement.status_id =" +  status_id)
+	 List<Advertisement> findAllByActivatedLater(Long date);
 	
     @Query(value = "select distinct advertisement from Advertisement advertisement "
     		+ "left join fetch advertisement.documents "
