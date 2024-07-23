@@ -62,39 +62,6 @@ export default class CompanyDetails extends Vue {
   public reverse = false;
   public totalItems = 0;
 
-  // public companies = [
-  //   {
-  //     name: 'QCDS Consulting',
-  //     description: 'Analiza faktora zastoja masina',
-  //     rating: 4,
-  //     role: 'Oglasivac',
-  //     details:
-  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  //     logo:
-  //       'https://img.freepik.com/free-vector/figure-folded-logo_1043-97.jpg?t=st=1718883173~exp=1718886773~hmac=7c8cd29466a18c1ebdaae8b23571e13aa301c9c9852d4f64ba16c0b760437159&w=740',
-  //   },
-  //   {
-  //     name: 'B.2.B Company',
-  //     description: 'Ispitivanje kostrukcija',
-  //     rating: 2,
-  //     role: 'Trazilac',
-  //     details:
-  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  //     logo:
-  //       'https://img.freepik.com/free-vector/creative-flat-design-glass-logo-template_23-2149003613.jpg?t=st=1718883175~exp=1718886775~hmac=fddbc3d489a77a55d0886a8c93d6193299c11a9c037eef8a9daf149e7fe961c9&w=740',
-  //   },
-  //   {
-  //     name: 'Mehanika D.O.O.',
-  //     description: 'Ispitivanje trzista',
-  //     rating: 3,
-  //     role: 'Oglasivac',
-  //     details:
-  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  //     logo:
-  //       'https://img.freepik.com/free-vector/universal-logo-geometric-abstract-shape-design-template_126523-489.jpg?t=st=1718918200~exp=1718921800~hmac=e23663886f900edf8e9b5ab4e25b0349399e147655975ce458e746d318aad20d&w=900',
-  //   },
-  // ];
-
   private viewerOptions: any = {
     movable: false,
     toolbar: {
@@ -113,39 +80,13 @@ export default class CompanyDetails extends Vue {
     title: false,
   };
 
-  // public imagesGall = [
-  //   '/content/images/img-1.jpg',
-  //   '/content/images/img-2.jpg',
-  //   '/content/images/img-3.jpg',
-  //   // "/content/images/img-4.jpg",
-  //   // "/content/images/img-5.jpg",
-  //   // "/content/images/img-6.jpg",
-  //   // "/content/images/img-7.jpg",
-  //   // "/content/images/img-8.jpg",
-  //   // "/content/images/img-9.jpg",
-  //   '/content/images/2.jpg',
-  //   '/content/images/3.jpg',
-  //   '/content/images/4.jpg',
-  //   '/content/images/5.jpg',
-  //   '/content/images/6.jpg',
-  //   '/content/images/7.jpg',
-  //   '/content/images/8.jpg',
-  //   '/content/images/10gal.jpg',
-  //   '/content/images/3gal.jpg',
-  //   '/content/images/4gal.jpg',
-  // ];
-
-  // public currentLightboxImage = this.imagesGall[0];
-  // public currentIndex = 0;
-  // public showMask = false;
-  // public previewImage = false;
-  // public totalImagesCount = 0;
   public companyImagesArray: string[] = [];
   public currentLightboxImage: string = '';
   public currentIndex = 0;
   public showMask = false;
   public previewImage = false;
   public totalImagesCount = 0;
+  public showFullComment: { [key: number]: boolean } = {};
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -166,6 +107,10 @@ export default class CompanyDetails extends Vue {
       this.retrieveCollaborations();
       this.getCompanyRatings(this.companyId);
     }
+
+    this.collaborations.forEach((_, index) => {
+      this.$set(this.showFullComment, index, false);
+    });
 
     // this.totalImagesCount = this.imagesGall.length;
   }
@@ -534,5 +479,24 @@ export default class CompanyDetails extends Vue {
       .map(word => word[0])
       .join('')
       .toUpperCase();
+  }
+
+  public getCommentText(collaboration: any): string {
+    return collaboration.companyOffer.id === this.company.id ? collaboration.commentRequest : collaboration.commentOffer;
+  }
+
+  public shortenedComment(index: number): string {
+    const collaboration = this.collaborations[index];
+    const comment = this.getCommentText(collaboration);
+
+    if (comment) {
+      return comment.length <= 90 || this.showFullComment[index] ? comment : comment.slice(0, 90) + '...';
+    } else {
+      return '';
+    }
+  }
+
+  public toggleComment(index: number): void {
+    this.$set(this.showFullComment, index, !this.showFullComment[index]);
   }
 }

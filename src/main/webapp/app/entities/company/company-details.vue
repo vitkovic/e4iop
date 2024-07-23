@@ -45,7 +45,7 @@
 
             <div>
               <dl class="row d-flex flex-wrap mb-1">
-                <dt class=" col-sm-4 col-lg-3 mr-4">
+                <dt class="col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.businessName')">Vrsta:</span>
                 </dt>
                 <dd class="col-sm-7">
@@ -69,7 +69,7 @@
                 </dd>
               </dl>
               <dl class="row d-flex flex-wrap mb-1">
-                <dt class=" col-sm-4 col-lg-3 mr-4">
+                <dt class="col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.address')">Vrsta:</span>
                 </dt>
                 <dd class="col-sm-7">
@@ -77,7 +77,7 @@
                 </dd>
               </dl>
               <dl class="row d-flex flex-wrap mb-1">
-                <dt class=" col-sm-4 col-lg-3 mr-4">
+                <dt class="col-sm-4 col-lg-3 mr-4">
                   <span v-text="$t('riportalApp.company.primaryActivity')">Spisak delatnosti:</span>
                 </dt>
                 <dd class="col-sm-7">
@@ -105,7 +105,9 @@
                   <span v-text="$t('riportalApp.company.website')">Vrsta:</span>
                 </dt>
                 <dd class="col-sm-7">
-                  <b-link v-if="company.website" :to="`//${company.website}`" target="_blank" class="text-body">{{company.website.replace(/^https?:\/\//, '') }}</b-link>
+                  <b-link v-if="company.website" :to="`//${company.website}`" target="_blank" class="text-body">{{
+                    company.website.replace(/^https?:\/\//, '')
+                  }}</b-link>
                 </dd>
               </dl>
               <dl class="row d-flex flex-wrap mb-1">
@@ -453,7 +455,7 @@
             </div>
             <div class="col-xs-12 col-lg-10 wrapper-collaboration">
               <div class="carousel-collaboration" ref="carouselCollaboration">
-                <b-card v-for="collaboration in collaborations" :key="collaboration.id" class="card-box">
+                <b-card v-for="(collaboration, index) in collaborations" :key="collaboration.id" class="card-box">
                   <div class="d-flex align-items-center">
                     <div class="d-flex mb-2">
                       <div
@@ -515,7 +517,12 @@
                   </div>
                   <hr />
                   <div>
-                    <p>{{ collaboration.companyOffer.id == company.id ? collaboration.commentRequest : collaboration.commentOffer }}</p>
+                    {{ shortenedComment(index) }}
+                    <span v-if="getCommentText(collaboration).length > 90">
+                      <a href="#" @click.prevent="toggleComment(index)">
+                        {{ showFullComment[index] ? $t('entity.action.readLess') : $t('entity.action.readMore') }}
+                      </a>
+                    </span>
                   </div>
                 </b-card>
               </div>
