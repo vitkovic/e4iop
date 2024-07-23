@@ -2,8 +2,10 @@
   "userManagement": {
     "home": {
       "title": "Users",
+      "accountTitle": "Account users",
       "createLabel": "Create new user",
-      "createOrEditLabel": "Create or edit user"
+      "createOrEditLabel": "Create or edit user",
+      "addLabel": "Add new user"
     },
     "created": "A new user is created with identifier {{ param }}",
     "updated": "A user is updated with identifier {{ param }}",
@@ -21,10 +23,16 @@
     "activated": "Activated",
     "deactivated": "Deactivated",
     "profiles": "Profiles",
+    "roles": "Roles",
     "langKey": "Language",
     "createdBy": "Created by",
     "createdDate": "Created date",
     "lastModifiedBy": "Modified by",
-    "lastModifiedDate": "Modified date"
+    "lastModifiedDate": "Modified date",
+    "addUser": {
+      "title": "Add a New User",
+      "info": "You can add a new user by entering the desired user's email address in the field below, after which a registration link will be sent to the specified email.",
+      "enterEmail": "Enter email address:"
+    }
   }
 }

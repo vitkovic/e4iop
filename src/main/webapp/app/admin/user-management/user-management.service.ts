@@ -3,6 +3,8 @@ import Vue from 'vue';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { Authority } from '@/shared/security/authority';
 
+const apiFindAllForCompany = 'api/users/company';
+
 export default class UserManagementService {
   public get(userId: number): Promise<any> {
     return axios.get(`api/users/${userId}`);
@@ -26,5 +28,18 @@ export default class UserManagementService {
 
   public retrieveAuthorities(): Promise<any> {
     return axios.get('api/users/authorities');
+  }
+
+  public findAllForCompany(companyId: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${apiFindAllForCompany}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   }
 }

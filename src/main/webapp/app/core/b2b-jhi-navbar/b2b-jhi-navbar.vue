@@ -324,7 +324,11 @@
               <!-- <b-dropdown-item to="#" tag="b-dropdown-item" v-if="authenticated" active-class="active">
                   <span v-text="$t('global.menu.account.rsnisData')">RSNIS podaci</span>
                 </b-dropdown-item> -->
-              <b-dropdown-item to="#" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+              <b-dropdown-item v-if="hasAnyAuthority('ROLE_COMPANY_ADMIN') && authenticated"
+                :to="{ name: 'CompanyPortalUsers', params: { companyId: portalUser.company.id } }"
+                tag="b-dropdown-item"
+                active-class="active"
+              >
                 <span v-text="$t('global.menu.account.additionalusers')">Unos dodatnih korisnika</span>
               </b-dropdown-item>
               <b-dropdown-item

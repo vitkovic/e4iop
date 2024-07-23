@@ -16,6 +16,7 @@ import e4i.domain.PortalUser;
 import e4i.domain.User;
 import e4i.repository.PortalUserRepository;
 import e4i.repository.UserRepository;
+import e4i.security.AuthoritiesConstants;
 import e4i.service.MailService;
 import e4i.service.PortalUserService;
 import e4i.service.UserService;
@@ -249,5 +250,15 @@ public class PortalUserResource {
         
 //        Optional<PortalUser> portalUser = portalUserService.findOne(id);
         return ResponseEntity.ok().body(portalUser);
+    }
+    
+    @PutMapping("/portal-users/remove-company-user/{userId}")
+    public ResponseEntity<Void> removeCompanyUser(@PathVariable String userId) throws URISyntaxException {
+        log.debug("REST request to remove User {} from Company {}", userId);
+
+        PortalUser portalUser = portalUserService.removeUserFromCompany(userId);
+        User user = userService.addUserAuthority(userId, AuthoritiesConstants.ARCHIVED);
+
+        return ResponseEntity.ok().build();
     }
 }

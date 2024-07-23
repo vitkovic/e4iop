@@ -32,6 +32,8 @@ const PortalUserOrganizationUpdate = () => import('@/entities/portal-user-organi
 // prettier-ignore
 const PortalUserOrganizationDetails = () => import('@/entities/portal-user-organization/portal-user-organization-details.vue');
 // prettier-ignore
+const CompanyPortalUsers = () => import('@/entities/portal-user/company-portal-users.vue');
+// prettier-ignore
 const PuoLegalStatus = () => import('@/entities/puo-legal-status/puo-legal-status.vue');
 // prettier-ignore
 const PuoLegalStatusUpdate = () => import('@/entities/puo-legal-status/puo-legal-status-update.vue');
@@ -544,6 +546,12 @@ export default [
     name: 'PortalUserOrganizationView',
     component: PortalUserOrganizationDetails,
     meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/b2b/company/:companyId/users',
+    name: 'CompanyPortalUsers',
+    component: CompanyPortalUsers,
+    meta: { authorities: [Authority.COMPANY_ADMIN] },
   },
   {
     path: '/puo-legal-status',

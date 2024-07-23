@@ -607,6 +607,47 @@ public class UserService {
     	
     	return email;
     }
-    														
+    
+    @Transactional
+    public List<UserDTO> findAllByPortalUserCompanyId(Long companyId) {
+    	log.debug("Request to find all Users from Company {}", companyId);
+    	
+    	return userRepository.findAllByPortalUserCompanyId(companyId)
+    			.stream()
+                .map(UserDTO::new)
+                .collect(Collectors.toList());
+    }
+    
+    
+    @Transactional
+    public User addUserAuthority(String userId,String authorityName) {
+		log.debug("Request to add Authority {} to User {} ", authorityName, userId);
+    	
+    	Optional<User> userOptional = userRepository.findById(userId);
+    	
+    	if (userOptional.isEmpty()) {
+    		String errorMessage = String.format("User with id {} could not be found", userId);
+        	throw new EntityNotFoundException(errorMessage);
+    	}
+
+        Optional<Authority> authorityOptional = authorityRepository.findById(authorityName);
+    	
+    	if (userOptional.isEmpty()) {
+    		String errorMessage = String.format("Authority with name {} could not be found", authorityName);
+        	throw new EntityNotFoundException(errorMessage);
+    	}
+        
+    	User user = userOptional.get();
+    	Authority authority = authorityOptional.get();
+    	
+        Set<Authority> authorities = user.getAuthorities();
+    	authorities.add(authority);
+    	user.setAuthorities(authorities);
+    	User result = userRepository.save(user);
+    	    	
+    	return result;
+    	
+    	
+    }													
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
 }

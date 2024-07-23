@@ -3,6 +3,8 @@ import { Store } from 'vuex';
 import VueRouter from 'vue-router';
 import TranslationService from '@/locale/translation.service';
 
+const apiInviteB2BUser = 'api/account/invite';
+
 export default class AccountService {
   constructor(private store: Store<any>, private cookie: any, private translationService: TranslationService, private router: VueRouter) {
     this.init();
@@ -22,21 +24,26 @@ export default class AccountService {
   }
 
   public retrieveAccount(): Promise<boolean> {
-	console.log("JS U retrieveAccount ULAZ*****************************************************************************************************");
+    console.log(
+      'JS U retrieveAccount ULAZ*****************************************************************************************************'
+    );
     return new Promise(resolve => {
       axios
         .get('api/account')
         .then(response => {
           this.store.commit('authenticate');
           const account = response.data;
-          console.log("JS  U retrieveAccount U METODI *****************************************************************************************************");
+          console.log(
+            'JS  U retrieveAccount U METODI *****************************************************************************************************'
+          );
           console.log(account);
           if (account) {
-			this.store.commit('authenticated', account);
-			
-			   console.log("JS  U retrieveAccount U METODI - AUTHENTICATED *****************************************************************************************************");
-			
-			
+            this.store.commit('authenticated', account);
+
+            console.log(
+              'JS  U retrieveAccount U METODI - AUTHENTICATED *****************************************************************************************************'
+            );
+
             if (this.store.getters.currentLanguage !== account.langKey) {
               this.store.commit('currentLanguage', account.langKey);
             }
@@ -65,8 +72,8 @@ export default class AccountService {
     }
 
     if (!this.authenticated || !this.userAuthorities) {
-     const token = this.cookie.get('JSESSIONID') || this.cookie.get('XSRF-TOKEN');
-    //  const token = localStorage.getItem('jhi-authenticationToken') || sessionStorage.getItem('jhi-authenticationToken');
+      const token = this.cookie.get('JSESSIONID') || this.cookie.get('XSRF-TOKEN');
+      //  const token = localStorage.getItem('jhi-authenticationToken') || sessionStorage.getItem('jhi-authenticationToken');
       if (!this.store.getters.account && !this.store.getters.logon && token) {
         return this.retrieveAccount();
       } else {
@@ -95,5 +102,22 @@ export default class AccountService {
 
   public get userAuthorities(): any {
     return this.store.getters.account.authorities;
+  }
+
+  public inviteB2BUser(entity: FormData): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .post(apiInviteB2BUser, entity, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   }
 }

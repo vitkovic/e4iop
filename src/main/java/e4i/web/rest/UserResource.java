@@ -198,4 +198,13 @@ public class UserResource {
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "userManagement.deleted", login)).build();
     }
+    
+    @GetMapping("/users/company/{companyId}")
+    public ResponseEntity<List<UserDTO>> findAllForCompany(@PathVariable Long companyId) {
+        log.debug("REST request to find all Users for Company {}", companyId);
+
+        List<UserDTO> users = userService.findAllByPortalUserCompanyId(companyId);
+        
+        return ResponseEntity.ok().body(users);
+    }
 }

@@ -8,11 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import e4i.domain.Advertisement;
 import e4i.domain.Company;
 import e4i.domain.PortalUser;
 import e4i.domain.Thread;
-import e4i.domain.User;
 import e4i.repository.CompanyRepository;
 import e4i.security.AuthoritiesConstants;
 import e4i.security.SecurityUtils;

@@ -1,0 +1,8 @@
+{
+  "authority": {
+    "company": {
+      "ROLE_COMPANY_ADMIN": "Administrator",
+      "ROLE_COMPANY_USER": "User"
+    }
+  }
+}

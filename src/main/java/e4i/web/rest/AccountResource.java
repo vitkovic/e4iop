@@ -3,9 +3,12 @@ package e4i.web.rest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import e4i.domain.Company;
 import e4i.domain.PortalUser;
 import e4i.domain.PortalUserOrganization;
 import e4i.domain.ResearchInstitution;
@@ -14,15 +17,18 @@ import e4i.repository.PortalUserOrganizationRepository;
 import e4i.repository.PortalUserRepository;
 import e4i.repository.UserRepository;
 import e4i.security.SecurityUtils;
+import e4i.service.CompanyService;
 import e4i.service.MailService;
 import e4i.service.UserService;
 import e4i.service.dto.PasswordChangeDTO;
 import e4i.service.dto.UserDTO;
+import e4i.web.rest.dto.NotificationMailDTO;
 import e4i.web.rest.errors.*;
 import e4i.web.rest.vm.KeyAndPasswordVM;
 import e4i.web.rest.vm.ManagedUserVM;
 import e4i.web.rest.vm.PortalUserRegisterDTO;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
@@ -50,6 +56,9 @@ public class AccountResource {
     
     private final PortalUserRepository portalUserRepository;
     private final PortalUserOrganizationRepository portalUserOrganizationRepository;
+    
+    @Autowired
+    CompanyService companyService;
 
 	public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,
 			PortalUserRepository portalUserRepository,
@@ -249,5 +258,25 @@ public class AccountResource {
         return !StringUtils.isEmpty(password) &&
             password.length() >= ManagedUserVM.PASSWORD_MIN_LENGTH &&
             password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH;
+    }
+    
+    @PostMapping("/account/invite")
+    public ResponseEntity<Void> inviteB2BUser(
+    		@RequestParam Long companyId,
+    		@RequestParam String email) {
+        log.warn("REST request to send invitation from Company {} to email {}", companyId, email);
+        
+        Optional<Company> companyOptional = companyService.findOne(companyId);
+        
+        if (companyOptional.isEmpty()) {
+    		String errorMessage = String.format("Company with id={} could not be found.", companyId);
+        	throw new EntityNotFoundException(errorMessage);
+        }
+        
+        Company company = companyOptional.get();
+    	NotificationMailDTO mailDTO = mailService.createB2BInvitationMail(company, email);
+    	mailService.sendNotificationMail(mailDTO);
+    	
+    	return ResponseEntity.ok().build();
     }
 }

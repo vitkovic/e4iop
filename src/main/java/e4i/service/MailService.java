@@ -405,6 +405,7 @@ public class MailService {
         return mailDTO;
 	}
     
+    @Transactional
 	public NotificationMailDTO createNotificationMailDTOForMeetingInvitationNonB2B(
 			Meeting meeting,
 			Company companyOrganizer, 
@@ -465,7 +466,7 @@ public class MailService {
         return mailDTO;
 	}
     
-
+    @Transactional
 	public NotificationMailDTO createNotificationMailDTOForSupporterRejection(
 			AdvertisementSupporter advertisementSupporter) {
         List<PortalUser> companyPortalUsers = portalUserRepository.findAllByCompanyAndDoNotify(advertisementSupporter.getAdvertisement().getCompany(), true); 
@@ -482,6 +483,23 @@ public class MailService {
         mailDTO.setContent(mailContent);
         
         return mailDTO;
+	}
+	
+    @Transactional
+	public NotificationMailDTO createB2BInvitationMail(Company company, String email) {
+        List<String> emails = new ArrayList<>();
+        emails.add(email);
+	
+        String mailSubject = "B2B portal - Poziv za zajedničko upravljanje nalogom kompanije " + company.getName();
+        String mailContent = this.prepareNotificationContentForB2BInvitation(company);
+
+        NotificationMailDTO mailDTO = new NotificationMailDTO();
+        mailDTO.setEmails(emails);
+        mailDTO.setSubject(mailSubject);
+        mailDTO.setContent(mailContent);
+        
+        return mailDTO;
+		
 	}
 
 	public String prepareContentForNewMessageNotification(Message message, Thread thread, Company company, PortalUser portalUser) {
@@ -910,4 +928,32 @@ public class MailService {
 	      
 	  	return content;
 	}
+	
+
+	private String prepareNotificationContentForB2BInvitation(Company company) {
+	  	String homeURL = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+	  	
+	  	String portalLink = homeURL + "/b2b";
+	  	String portalText = "<a href='" + portalLink + "'>" + "ovaj link" + "<a>";
+	  	
+	
+	  	String companyLink = homeURL + "/b2b/company/" + company.getId() + "/view";
+	  	String companyText = "<a href='" + companyLink + "'>" + company.getName() + "<a>";
+	  	
+	      
+	      
+	      String content = "<div>"
+	      		+ "<p>Kompanija " + companyText + " sa B2B portala Vam je uputila poziv za zajedničko korišćenje i uredjivanje naloga."
+	      		+ "<br>"
+	      		+ "<br>"
+	      		+ "<p>Registraciju na B2B portalu možete izvršiti klikom na " + portalText + "."
+	      		+ "<hr>"
+	      		+ "<br>"
+	      		+ "<br>"
+	      		+ "<p>Ovo je automatski poslata poruka, ne odgovarati na ovaj mail.</p>";
+	      
+	  	return content;
+	}
+
+
 }

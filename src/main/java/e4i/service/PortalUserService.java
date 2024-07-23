@@ -278,4 +278,22 @@ public class PortalUserService {
     	
     	return portalUser;
     }
+
+    @Transactional
+	public PortalUser removeUserFromCompany(String userId) {
+        log.debug("Request to remove User {} from Company", userId);
+    	
+    	PortalUser portalUser = this.findByUserId(userId);
+    	
+    	if (portalUser == null) {
+    		log.debug("PortalUser with User id {} could not be found", userId);
+    		throw new EntityNotFoundException();
+    	}
+    	
+    	portalUser.setCompany(null);
+    	
+    	PortalUser result = this.save(portalUser);
+
+		return result;
+	}
 }

@@ -9,6 +9,7 @@ import { IPortalUser } from '@/shared/model/portal-user.model';
 const baseApiUrl = 'api/portal-users';
 const baseApiUrlActivation = 'api/portal-users/for-activation';
 const userApiUrl = 'api/portal-users/user';
+const apiRemoveCompanyUser = 'api/portal-users/remove-company-user';
 
 export default class PortalUserService {
   constructor(private store: Store<any>) {}
@@ -184,6 +185,19 @@ export default class PortalUserService {
     return new Promise<IPortalUser>((resolve, reject) => {
       axios
         .get(`${userApiUrl}/${id}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public removeCompanyUser(userId: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      axios
+        .put(`${apiRemoveCompanyUser}/${userId}`)
         .then(res => {
           resolve(res.data);
         })

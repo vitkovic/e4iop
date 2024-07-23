@@ -2,8 +2,10 @@
   "userManagement": {
     "home": {
       "title": "Korisnici",
+      "accountTitle": "Korisnici naloga",
       "createLabel": "Kreiraj novog korisnika",
-      "createOrEditLabel": "Kreiraj ili izmeni korisnika"
+      "createOrEditLabel": "Kreiraj ili izmeni korisnika",
+      "addLabel": "Dodaj novog korisnika"
     },
     "created": "Kreiran je novi korisnik {{ param }}",
     "updated": "Korisnik {{ param }} je izmenjen",
@@ -21,10 +23,16 @@
     "activated": "Aktiviran",
     "deactivated": "Deaktiviran",
     "profiles": "Profili",
+    "roles": "Uloge",
     "langKey": "Jezik",
     "createdBy": "Korisnika kreirao",
     "createdDate": "Datum kreiranja",
     "lastModifiedBy": "Korisnika izmenio",
-    "lastModifiedDate": "Datum izmene"
+    "lastModifiedDate": "Datum izmene",
+    "addUser": {
+      "title": "Dodaj novog korisnika",
+      "info": "Novog korisnika možete dodati tako što ćete u polje ispod uneti imejl adresu željenog korisnika, nakon čega će na navedeni imejl biti poslat link za registraciju.",
+      "enterEmail": "Unesite imejl adresu:"
+    }
   }
 }
