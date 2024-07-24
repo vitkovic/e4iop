@@ -90,7 +90,7 @@ public class AdvertisementService {
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
         advertisementRepository
-            .findAllByActivatedLater(Calendar.getInstance().getTime())
+            .findAllByActivatedLater(Calendar.getInstance().getTime().toString())
             .forEach(adv -> {
                 log.debug("Activating advertisement {}", adv);
                 Optional<AdvertisementStatus> advertisementStatusOptional = advertisementStatusService.findOne(Long.getLong("3551"));
