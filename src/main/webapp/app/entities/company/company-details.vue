@@ -447,7 +447,8 @@
         </section> -->
         <section v-if="totalItems > 0">
           <h3 v-text="$t('riportalApp.company.collaborationTestimonials')" class="mb-4">Saradnje</h3>
-          <b-row class="align-items-center justify-content-center">
+
+          <b-row class="align-items-center justify-content-center testimonial-box mb-3">
             <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
               <b-button variant="none" class="prevButtonColl" @click="previousPage()">
                 <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
@@ -457,7 +458,7 @@
               <div class="carousel-collaboration" ref="carouselCollaboration">
                 <b-card v-for="(collaboration, index) in collaborations" :key="collaboration.id" class="card-box">
                   <div class="d-flex align-items-center">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-2" style="height: 65px;">
                       <div
                         v-if="collaboration.companyOffer.id == company.id && collaboration.companyRequest.logo"
                         class="img-logo-test mr-2"
@@ -492,7 +493,7 @@
                       </h3>
                     </div>
                   </div>
-                  <h4 class="mb-4">{{ collaboration.advertisement.title }}</h4>
+                  <h4 class="mb-1" style="align-self: center; height: 60px;">{{ collaboration.advertisement.title }}</h4>
                   <div class="d-flex" style="flex-direction: column;">
                     <div class="mb-2">
                       {{ collaboration.datetime ? $d(Date.parse(collaboration.datetime.toString()), 'short') : '' }}
@@ -516,13 +517,17 @@
                     </div>
                   </div>
                   <hr />
-                  <div>
-                    {{ shortenedComment(index) }}
-                    <span v-if="getCommentText(collaboration).length > 90">
-                      <a href="#" @click.prevent="toggleComment(index)">
-                        {{ showFullComment[index] ? $t('entity.action.readLess') : $t('entity.action.readMore') }}
-                      </a>
-                    </span>
+                  <div style="height: 75px;">
+                    {{
+                      collaboration.companyOffer.id == company.id
+                        ? shortenedComment(collaboration.commentRequest)
+                        : shortenedComment(collaboration.commentOffer)
+                    }}
+                  </div>
+                  <div class="mt-1 d-flex justify-content-end" style="height: 32px;">
+                    <b-button size="sm" v-if="getCommentText(collaboration).length > 90" @click="showModal(collaboration)">
+                      {{ $t('entity.action.readMore') }}
+                    </b-button>
                   </div>
                 </b-card>
               </div>
@@ -533,6 +538,18 @@
               </b-button>
             </div>
           </b-row>
+          <div class="responsivePaginationButtons d-block d-lg-none d-flex align-items-center justify-content-around">
+            <div>
+              <b-button variant="none" class="prevButtonColl" @click="previousPage()">
+                <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
+              </b-button>
+            </div>
+            <div>
+              <b-button variant="none" class="nextButtonColl" @click="nextPage()">
+                <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
+              </b-button>
+            </div>
+          </div>
         </section>
         <br />
         <!-- <section>
@@ -575,6 +592,28 @@
             <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeAdInquiry()">
               Otkaži
             </button>
+          </div>
+        </b-modal>
+
+        <b-modal id="testimonial" ok-only :ok-title="$t('entity.action.close')" @hide="resetModalData" ref="testimonial">
+          <div class="modal-body">
+            <div class="d-flex flex-column mb-2">
+              <b class="p-0 mb-1">Ocena:</b>
+              <b-form-rating
+                id="rating-inline"
+                inline
+                :value="modalRating"
+                variant="primary"
+                size="sm"
+                stars="4"
+                disabled
+                style="width: fit-content;"
+              ></b-form-rating>
+            </div>
+            <div>
+              <b class="p-0 mb-1">Komentar:</b>
+              <p>{{ modalComment }}</p>
+            </div>
           </div>
         </b-modal>
 
@@ -813,10 +852,48 @@ h2 {
   padding-left: 1px;
 }
 
+.testimonial-box {
+  width: 800px;
+}
+
 @media (max-width: 980px) {
   .contact-button-section {
     flex-direction: row;
     gap: 10px;
+  }
+
+  .testimonial-box {
+    width: 600px;
+  }
+}
+
+@media (max-width: 800px) {
+  .testimonial-box {
+    width: 480px;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonial-box {
+    width: 690px;
+  }
+}
+
+@media (max-width: 700px) {
+  .testimonial-box {
+    width: 600px;
+  }
+}
+
+@media (max-width: 622px) {
+  .testimonial-box {
+    width: 520px;
+  }
+}
+
+@media (max-width: 520px) {
+  .testimonial-box {
+    width: 380px;
   }
 }
 

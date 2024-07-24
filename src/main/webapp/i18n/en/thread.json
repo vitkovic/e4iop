@@ -17,6 +17,7 @@
       "detail": {
         "title": "Thread"
       },
+      "administration": "ADMINISTRATION",
       "systemError": "System error, you do not have an invitation for the selected meeting",
       "meetingCancellation": "You canceled the meeting invitation - ",
       "meetingCancellationError": "You have already declined an invitation to this meeting",

@@ -86,7 +86,9 @@ export default class CompanyDetails extends Vue {
   public showMask = false;
   public previewImage = false;
   public totalImagesCount = 0;
-  public showFullComment: { [key: number]: boolean } = {};
+
+  public modalComment: string = '';
+  public modalRating: number = 0;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -485,18 +487,27 @@ export default class CompanyDetails extends Vue {
     return collaboration.companyOffer.id === this.company.id ? collaboration.commentRequest : collaboration.commentOffer;
   }
 
-  public shortenedComment(index: number): string {
-    const collaboration = this.collaborations[index];
-    const comment = this.getCommentText(collaboration);
-
+  public shortenedComment(comment: string): string {
     if (comment) {
-      return comment.length <= 90 || this.showFullComment[index] ? comment : comment.slice(0, 90) + '...';
+      return comment.length <= 90 ? comment : comment.slice(0, 90) + '...';
     } else {
       return '';
     }
   }
 
-  public toggleComment(index: number): void {
-    this.$set(this.showFullComment, index, !this.showFullComment[index]);
+  // public toggleComment(index: number): void {
+  //   this.$set(this.showFullComment, index, !this.showFullComment[index]);
+  // }
+
+  public showModal(collaboration: any): void {
+    this.modalComment = this.getCommentText(collaboration);
+    this.modalRating =
+      collaboration.companyOffer.id == this.company.id ? collaboration.ratingRequest.number : collaboration.ratingOffer.number;
+    (this.$refs.testimonial as any).show();
+  }
+
+  public resetModalData(): void {
+    this.modalComment = '';
+    this.modalRating = 0;
   }
 }

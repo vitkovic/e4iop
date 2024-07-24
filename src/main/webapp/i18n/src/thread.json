@@ -16,6 +16,7 @@
       "detail": {
         "title": "Thread"
       },
+      "administration": "АДМИНИСТРАЦИЈА",
       "systemError": "Системска грешка, немате позив за изабрани састанак",
       "meetingCancellation": "Отказали сте позив за састанак - ",
       "meetingCancellationError": "Већ сте одбили позив на овај састанак",
@@ -29,7 +30,7 @@
       "subject": "Subject",
       "isFromAdministration": "Od administracije",
       "message": "Message",
-      "advertisement": "Advertisement",
+      "advertisement": "Оглас",
       "company": "Company",
       "messages": "Поруке",
       "filter": {

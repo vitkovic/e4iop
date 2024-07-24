@@ -290,7 +290,8 @@
       "activate": "Aktiviraj",
       "deactivate": "Deaktiviraj",
       "deleteDatabase": "Obriši iz baze",
-      "accept": "Prihvati"
+      "accept": "Prihvati",
+      "add": "Dodaj"
     },
     "detail": {
       "field": "Polje",

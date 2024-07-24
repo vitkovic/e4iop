@@ -287,13 +287,14 @@
       "vote": "Vote",
       "summaryView": "Summary view",
       "zbirniPrikaz": "Service request overview",
-      "readLess": "Read Less",
-      "readMore": "Read More",
+      "readLess": "Read less",
+      "readMore": "Read more",
       "saveDocuments": "Save documents",
       "activate": "Activate",
       "deactivate": "Deactivate",
       "deleteDatabase": "Delete from database",
-      "accept": "Accept"
+      "accept": "Accept",
+      "add": "Add"
     },
     "detail": {
       "field": "Field",

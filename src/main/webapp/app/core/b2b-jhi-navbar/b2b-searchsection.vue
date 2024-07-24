@@ -3,7 +3,7 @@
  
    <div v-if="advertisements && advertisements.length > 0" style="overflow-y: scroll; height:500px;">
   
-   <div class="table-responsive">
+   <div class="custom-table-responsive">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -75,7 +75,7 @@
                     <td>{{advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' })}}</td>
                     <td>
                         <div v-if="advertisement.company">
-                            <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}">{{advertisement.company.name}}</router-link>
+                            <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}" class="text-body">{{advertisement.company.name}}</router-link>
                         </div>
                     </td>             
                     <td>{{ advertisement.activationDatetime ? $d(Date.parse(advertisement.activationDatetime.toString()), { dateStyle: 'short' }) : ''}}</td>
@@ -88,7 +88,7 @@
                         <div class="btn-group">
                             <router-link :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}" tag="button" class="btn btn-info btn-sm details">
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                                <span v-text="$t('entity.action.view')">View</span>
                             </router-link>
                     <!--        <router-link v-if="advertisement.status.status === 'Активан'" :to="{name: 'AdvertisementEdit', params: {advertisementId: advertisement.id}}"  tag="button" class="btn btn-primary btn-sm edit">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
@@ -171,6 +171,16 @@
     ========================================================================== */
 .navbar-brand.logo {
   padding: 5px 15px;
+}
+
+.custom-table-responsive {
+  overflow-x: auto;
+}
+
+@media (max-width: 1280px) {
+  .custom-table-responsive table {
+    min-width: 1280px;
+  }
 }
 
 .divZaDugme {

@@ -23,7 +23,7 @@
       		
       		
    	  </div>
-      <b-button v-if="checkB2Bdomain() && showbutt" @click='toggle = !toggle' style="float:right"> Show/Hide </b-button>
+      <b-button v-if="checkB2Bdomain() && showbutt" @click='toggle = !toggle' style="float:right">{{ $t('home.showHideButton') }}</b-button>
       
       
       

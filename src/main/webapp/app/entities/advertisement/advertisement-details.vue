@@ -506,43 +506,51 @@
 
         <b-modal ref="createMeetingModal" id="createMeetingModal" size="lg">
           <span slot="modal-title"
-            ><span id="riportalApp.researchInfrastructure.calendar" v-text="'Novi sastanak za oglas - '"></span
+            ><span id="riportalApp.researchInfrastructure.calendar" v-text="$t('riportalApp.advertisement.calendar.titleModal')"></span
             ><span>{{ advertisement.title }}</span></span
           >
           <div class="d-flex">
             <div class="modal-body" style="border-right: 1px solid #ccc; width: 45%; padding-right: 5%;">
               <div class="mb-3">
-                <b-input v-model="meetingEvent.title" placeholder="Unesite naslov..."></b-input>
+                <b-input v-model="meetingEvent.title" :placeholder="$t('riportalApp.advertisement.calendar.placeholderTitle')"></b-input>
               </div>
 
-              <div class="d-flex">
+              <div class="d-flex flex-column flex-lg-row mb-2 mb-lg-0">
                 <b-form-datepicker
-                  style="width: 70%;"
+                  class="datePicker"
                   v-model="meetingEvent.startDate"
                   :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                   placeholder="Izaberite datum početka..."
                   @input="updateMeetingEndDate()"
                 ></b-form-datepicker>
-                <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="meetingEvent.startTime"></b-form-timepicker>
+                <b-form-timepicker class="timePicker" minutes-step="15" v-model="meetingEvent.startTime"></b-form-timepicker>
               </div>
 
-              <div class="d-flex mb-3">
+              <div class="d-flex flex-column flex-lg-row mb-3">
                 <b-form-datepicker
-                  style="width: 70%;"
+                  class="datePicker"
                   v-model="meetingEvent.endDate"
                   :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                   :min="meetingEvent.startDate"
                 ></b-form-datepicker>
-                <b-form-timepicker style="width: 30%;" minutes-step="15" v-model="meetingEvent.endTime"></b-form-timepicker>
+                <b-form-timepicker class="timePicker" minutes-step="15" v-model="meetingEvent.endTime"></b-form-timepicker>
               </div>
 
-              <b-input v-model="meetingEvent.location" class="mb-3" placeholder="Unesite lokaciju..."></b-input>
+              <b-input
+                v-model="meetingEvent.location"
+                class="mb-3"
+                :placeholder="$t('riportalApp.advertisement.calendar.placeholderLocation')"
+              ></b-input>
 
-              <b-form-textarea v-model="meetingEvent.description" class="mb-3" placeholder="Unesite opis..."></b-form-textarea>
+              <b-form-textarea
+                v-model="meetingEvent.description"
+                class="mb-3"
+                :placeholder="$t('riportalApp.advertisement.calendar.placeholderDescription')"
+              ></b-form-textarea>
             </div>
 
             <div class="modal-body" style="width: 45%; padding-left: 5%;">
-              <label for="" v-text="'Organizator'">Organizator</label>
+              <label for="" v-text="$t('riportalApp.advertisement.calendar.organizer')">Organizator</label>
               <div v-if="portalUser" class="d-flex align-items-center">
                 <div v-if="portalUser.company.logo" class="company-logo-container position-relative">
                   <img
@@ -557,7 +565,7 @@
               </div>
               <hr />
 
-              <label for="" v-text="'Oglašivač'">Oglašivač</label>
+              <label for="" v-text="$t('riportalApp.advertisement.calendar.advertiser')">Oglašivač</label>
               <div v-if="advertisement && advertisement.company" class="d-flex align-items-center">
                 <div v-if="advertisement.company.logo" class="company-logo-container position-relative">
                   <img
@@ -572,14 +580,14 @@
               </div>
               <hr />
 
-              <label for="" v-text="'Dodajte druge učesnike'">Dodajte druge učesnike</label>
+              <label for="" v-text="$t('riportalApp.advertisement.calendar.participants')">Dodajte druge učesnike</label>
               <input
                 type="text"
                 ref="company-name"
                 class="form-control mb-3"
                 name="company-name"
                 id="company-name"
-                placeholder="Potražite kompaniju..."
+                :placeholder="$t('riportalApp.advertisement.calendar.placeholderCompany')"
                 @keyup="getCompaniesBySearchText()"
                 @click="toggleSearchList($event, 'showCompaniesSearch')"
                 @focusout="toggleSearchList($event, 'showCompaniesSearch')"
@@ -618,11 +626,13 @@
                   <div v-else class="placeholder-logo">{{ getCompanyInitials(company) }}</div>
                   <span>{{ company.name }}</span>
                 </div>
-                <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close">x</b-button>
+                <b-button @click="removeFromCompaniesMeetingParticipants(company)" variant="primary" class="close removeButton">x</b-button>
               </div>
 
               <hr />
-              <label for="" v-text="'Pozovite učesnike koji nisu na B2B portalu'">Pozovite učesnike koji nisu na B2B portalu</label>
+              <label for="" v-text="$t('riportalApp.advertisement.calendar.noB2BParticipants')"
+                >Pozovite učesnike koji nisu na B2B portalu</label
+              >
               <b-input-group>
                 <b-form-input
                   type="email"
@@ -630,7 +640,7 @@
                   class="form-control mb-3"
                   name="email-address"
                   id="email-address"
-                  placeholder="Unesite email adresu..."
+                  :placeholder="$t('riportalApp.advertisement.calendar.placeholderNoB2BParcitipants')"
                   v-model="nonB2BMeetingParticipantEmail"
                   @keyup.enter="addNonB2BMeetingParticipant()"
                 ></b-form-input>
@@ -638,23 +648,25 @@
                   <b-button
                     @click="addNonB2BMeetingParticipant()"
                     variant="primary"
-                    v-text="'Dodaj'"
                     :disabled="!$v.nonB2BMeetingParticipantEmail.email || !$v.nonB2BMeetingParticipantEmail.required"
-                    >Dodaj
+                    ><span class="d-inline d-sm-none"><font-awesome-icon icon="plus"></font-awesome-icon></span
+                    ><span class="d-none d-sm-inline">{{ $t('entity.action.add') }}</span>
                   </b-button>
                 </div>
               </b-input-group>
-              <small class="form-text text-danger" v-if="!isEmailValid" v-text="'Email adresa nije ispravna'"
+              <small class="form-text text-danger" v-if="!isEmailValid" v-text="$t('riportalApp.advertisement.calendar.errorEmail')"
                 >Email adresa nije ispravna.
               </small>
               <div v-for="email in nonB2BParticipantsEmails" :key="email" class="d-flex align-items-center justify-content-between mb-3">
-                <span>{{ email }}</span>
-                <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close">x</b-button>
+                <div class="emailSection">
+                  <span class="emailText">{{ email }}</span>
+                  <b-button @click="removeNonB2BMeetingParticipant(email)" variant="primary" class="close removeButton">x</b-button>
+                </div>
               </div>
             </div>
           </div>
           <div slot="modal-footer">
-            <button type="button" class="btn btn-success" v-text="'Zakaži sastanak'" v-on:click="createMeeting()">Zakaži sastanak</button>
+            <button type="button" class="btn btn-success" v-text="$t('riportalApp.advertisement.calendar.makeAppointment')" v-on:click="createMeeting()">Zakaži sastanak</button>
             <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeCreateMeetingModal()">
               Cancel
             </button>
@@ -1024,6 +1036,42 @@ h2 {
 
 .conditionsText p {
   margin-bottom: 8px;
+}
+
+.timePicker {
+  width: 30%;
+}
+
+.datePicker {
+  width: 70%;
+}
+
+.removeButton:hover {
+  background-color: #fff;
+}
+
+.timePicker button {
+  padding-right: 2px;
+}
+
+.emailSection {
+  width: 100%;
+  white-space: normal;
+}
+
+.emailText {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 992px) {
+  .timePicker {
+    width: 100%;
+  }
+
+  .datePicker {
+    width: 100%;
+  }
 }
 </style>
 

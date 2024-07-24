@@ -290,7 +290,8 @@
       "activate": "Активирај",
       "deactivate": "Деактивирај",
       "deleteDatabase": "Обриши из базе",
-      "accept": "Прихвати"
+      "accept": "Прихвати",
+      "add": "Додај"
     },
     "detail": {
       "field": "Поље",

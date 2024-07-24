@@ -10,7 +10,7 @@
         "editTitleLabel": "Измените оглас",
         "notFound": "Није пронађен ниједан оглас"
       },
-      "captchafalse":"Captcha погрешан! Унесите исправам captcha",
+      "captchafalse": "Captcha погрешан! Унесите исправам captcha",
       "created": "Kreiran je novi Advertisement pod nazivom {{ param }}",
       "updated": "Advertisement pod nazivom {{ param }} je ažuriran",
       "deleted": "Advertisement pod nazivom {{ param }} je obrisan",
@@ -125,6 +125,20 @@
         "advertisementActivation": "Оглас је активиран!",
         "advertisementDeactivation": "Оглас је деактивиран!",
         "advertisementDeleted": "Оглас је обрисан!"
+      },
+      "calendar": {
+        "titleModal": "Нови састанак за оглас - ",
+        "placeholderTitle": "Унесите наслов...",
+        "placeholderLocation": "Унесите локацију...",
+        "placeholderDescription": "Унесите опис...",
+        "organizer": "Организатор",
+        "advertiser": "Оглашивач",
+        "participants": "Додајте друге учеснике",
+        "placeholderCompany": "Потражите компанију...",
+        "noB2BParticipants": "Позовите учеснике који нису на B2B порталу",
+        "placeholderNoB2BParcitipants": "Унесите email адресу...",
+        "errorEmail": "Email адреса није исправна",
+        "makeAppointment": "Закажи састанак"
       },
 
       "content": "Content",

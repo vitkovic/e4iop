@@ -1,0 +1,43 @@
+{
+  "riportalApp": {
+    "calendar": {
+      "ics": "Download ICS",
+      "createModal": {
+        "titleModal": "New appointment",
+        "placeholderTitle": "Enter title...",
+        "placeholderLocation": "Enter location...",
+        "placeholderDescription": "Enter description...",
+        "organizer": "Organizer",
+        "advertiser": "Advertiser",
+        "participants": "Add other participants",
+        "placeholderCompany": "Search for a company...",
+        "noB2BParticipants": "Invite participants who are not on the B2B portal",
+        "placeholderNoB2BParcitipants": "Enter email...",
+        "errorEmail": "Email address is not valid",
+        "makeAppointment": "Make an appointment"
+      },
+      "acceptMeetingModal": {
+        "question": "Do you want to accept the meeting invitation - "
+      },
+      "rejectMeetingModal": {
+        "question": "Do you want to cancel the meeting invitation - ",
+        "cancelationReason": "Reason for cancellation",
+        "newAppointment": "Suggest a new appointment"
+      },
+      "viewMeetingModal": {
+        "advertisement": "Advertisement:",
+        "location": "Location:",
+        "description": "Description:",
+        "otherCompanies": "Other invited companies",
+        "outsideB2BPortal": "Invited participants outside the B2B portal"
+      },
+      "editMeetingModal": {
+        "titleModal": "Edit an appointment for an advertisement - ",
+        "titleModalSimple": "Edit an appointment"
+      },
+      "removeMeetingModal": {
+        "question": "Do you want to remove the meeting from calendar?"
+      }
+    }
+  }
+}

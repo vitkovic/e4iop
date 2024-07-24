@@ -393,7 +393,7 @@
     <b-navbar-nav class="prviNav all d-flex justify-content-center align-items-center">
       <div class="container">
         <div class="row">
-          <div class="col-sm-8 col-md-8">
+          <div class="col-sm-8 col-md-8 mb-2 mb-sm-0">
             <!-- Širina 70% na većim ekranima -->
             <div class="selInp">
               <b-input-group class="input-grupaC">

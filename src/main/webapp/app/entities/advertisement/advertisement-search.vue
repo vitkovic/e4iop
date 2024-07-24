@@ -25,16 +25,16 @@
         <div class="alert alert-warning" v-if="!isFetching && advertisements && advertisements.length === 0">
             <span v-text="$t('riportalApp.advertisement.home.notFound')">No advertisements found</span>
         </div>
-        <div class="ml-3 mb-3" style="display: flex; align-items: center;">
-            <h3 v-text="'Oglasi'" class="mr-3">Oglasi</h3>
+        <div class="ml-3 mb-3 d-flex flex-column flex-sm-row mt-5">
+            <h3 v-text="$t('riportalApp.advertisement.home.title')" class="mr-3 mb-3 mb-sm-0">Oglasi</h3>
             <div>
-                <b-button :variant="filterAllButtonVariant" v-text="'Svi'" v-on:click="showAllAdvertisements()">Cancel</b-button>
-                <b-button :variant="filterActiveButtonVariant" v-text="'Aktivni'" v-on:click="showActiveAdvertisements()">Cancel</b-button>
-                <b-button :variant="filterInactiveButtonVariant" v-text="'Neaktivni'" v-on:click="showInactiveAdvertisements()">Cancel</b-button>
-                <b-button v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')" :variant="filterSoftDeleteButtonVariant" v-text="'Arhivirani'" v-on:click="showSoftDeleteAdvertisements()">Cancel</b-button>
+                <b-button :variant="filterAllButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.all')" v-on:click="showAllAdvertisements()">Cancel</b-button>
+                <b-button :variant="filterActiveButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.active')" v-on:click="showActiveAdvertisements()">Cancel</b-button>
+                <b-button :variant="filterInactiveButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.inactive')" v-on:click="showInactiveAdvertisements()">Cancel</b-button>
+                <b-button v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')" :variant="filterSoftDeleteButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.archived')" v-on:click="showSoftDeleteAdvertisements()">Cancel</b-button>
             </div>
         </div>
-        <div class="table-responsive" v-if="advertisements && advertisements.length > 0">
+        <div class="custom-table-responsive" v-if="advertisements && advertisements.length > 0">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -104,7 +104,7 @@
                     <td>{{advertisement.budget.toLocaleString('us-US', { style: 'currency', currency: 'RSD' })}}</script></td>
                     <td>
                         <div v-if="advertisement.company">
-                            <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}">{{advertisement.company.name}}</router-link>
+                            <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}" class="text-body">{{advertisement.company.name}}</router-link>
                         </div>
                     </td>             
                     <td>{{ advertisement.activationDatetime ? $d(Date.parse(advertisement.activationDatetime.toString()), { dateStyle: 'short' }) : ''}}</td>
@@ -114,39 +114,39 @@
                         <div class="btn-group">
                             <router-link  :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}" tag="button" class="btn btn-info btn-sm details">
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                                <span  v-text="$t('entity.action.view')">View</span>
                             </router-link>
                            <router-link v-if="(advertisement.status.id === 3551 &&  companyId === advertisement.company.id) || (authenticated && hasAnyAuthority('ROLE_ADMIN'))" :to="{name: 'AdvertisementEdit', params: {advertisementId: advertisement.id}}"  tag="button" class="btn btn-primary btn-sm edit">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                                <span  v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>	
                            <b-button v-if="(advertisement.status.id === 3551 && companyId === advertisement.company.id) || (authenticated && hasAnyAuthority('ROLE_ADMIN'))" v-on:click="prepareDeactivate(advertisement)"
                                    variant="dark"
                                    class="btn btn-sm"
                                    v-b-modal.deactivateEntity>
                                  <font-awesome-icon icon="times"></font-awesome-icon> 
-                              <span class="d-none d-md-inline">Deaktiviraj</span>
+                              <span v-text="$t('entity.action.deactivate')" >Deaktiviraj</span>
                             </b-button>
                             <b-button v-if="([3552, 3553].includes(advertisement.status.id) && companyId === advertisement.company.id) || (authenticated && hasAnyAuthority('ROLE_ADMIN'))" v-on:click="prepareActivate(advertisement)"
                                    variant="success"
                                    class="btn btn-sm"
                                    v-b-modal.activateEntity>
                                    <font-awesome-icon icon="check"></font-awesome-icon> 
-                               <span class="d-none d-md-inline">Aktiviraj</span>
+                               <span v-text="$t('entity.action.activate')" >Aktiviraj</span>
                             </b-button>
                             <b-button v-if="(advertisement.status.id === 3552 && companyId === advertisement.company.id) || (authenticated && hasAnyAuthority('ROLE_ADMIN'))" v-on:click="prepareSoftDelete(advertisement)"
                                    variant="danger"
                                    class="btn btn-sm"
                                    v-b-modal.softDeleteEntity>
                                 <font-awesome-icon icon="times"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                                <span  v-text="$t('entity.action.delete')">Delete</span>
                             </b-button>
                             <b-button v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')" v-on:click="prepareRemove(advertisement)"
                                    variant="outline-danger"
                                    class="btn btn-sm"
                                    v-b-modal.removeEntity>
                                 <font-awesome-icon icon="times"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="'Obriši iz baze'">Obriši iz baze</span>
+                                <span v-text="$t('entity.action.deleteDatabase')">Obriši iz baze</span>
                             </b-button>
                         </div>
                     </td>
@@ -155,23 +155,23 @@
             </table>
         </div>
         <b-modal ref="deactivateEntity" id="deactivateEntity" >
-            <span slot="modal-title"><span id="riportalApp.advertisement.delete.question">Potvrdite deaktiviranje oglasa</span></span>
+            <span slot="modal-title"><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.advertisement.modal.deactivateModal.title')">Potvrdite deaktiviranje oglasa</span></span>
             <div class="modal-body">
-                <p id="jhi-delete-advertisement-heading">Da li ste sigurni da zelite da deaktivirate oglas?</p>
+                <p id="jhi-delete-advertisement-heading" v-text="$t('riportalApp.advertisement.modal.deactivateModal.question')">Da li ste sigurni da zelite da deaktivirate oglas?</p>
             </div>
             <div slot="modal-footer">
                 <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDeactivateDialog()">Cancel</button>
-                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-on:click="deactivateAdvertisement()">Deaktiviraj</button>
+                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-text="$t('entity.action.deactivate')" v-on:click="deactivateAdvertisement()">Deaktiviraj</button>
             </div>
         </b-modal>
         <b-modal ref="activateEntity" id="activateEntity" >
-            <span slot="modal-title"><span id="riportalApp.advertisement.delete.question">Potvrdite aktiviranje oglasa</span></span>
+            <span slot="modal-title"><span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.advertisement.modal.activateModal.title')">Potvrdite aktiviranje oglasa</span></span>
             <div class="modal-body">
-                <p id="jhi-delete-advertisement-heading">Da li ste sigurni da zelite da aktivirate oglas?</p>
+                <p id="jhi-delete-advertisement-heading" v-text="$t('riportalApp.advertisement.modal.activateModal.question')">Da li ste sigurni da zelite da aktivirate oglas?</p>
             </div>
             <div slot="modal-footer">
                 <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeActivateDialog()">Cancel</button>
-                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-on:click="activateAdvertisement()">Aktiviraj</button>
+                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-on:click="activateAdvertisement()" v-text="$t('entity.action.activate')">Aktiviraj</button>
             </div>
         </b-modal>
         <b-modal ref="softDeleteEntity" id="softDeleteEntity" >
@@ -187,11 +187,11 @@
         <b-modal ref="removeEntity" id="removeEntity" >
             <span slot="modal-title"><span id="riportalApp.advertisement.delete.question" v-text="$t('entity.delete.title')">Confirm delete operation</span></span>
             <div class="modal-body">
-                <p id="jhi-delete-advertisement-heading" v-text="$t('riportalApp.advertisement.delete.question', {'id': removeId})">Are you sure you want to delete this Advertisement from Database?</p>
+                <p id="jhi-delete-advertisement-heading" v-text="$t('riportalApp.advertisement.modal.deleteDatabaseModal.question', {'id': removeId})">Are you sure you want to delete this Advertisement from Database?</p>
             </div>
             <div slot="modal-footer">
                 <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
-                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-text="'Obriši iz baze'" v-on:click="removeAdvertisement()">Delete</button>
+                <button type="button" class="btn btn-primary" id="jhi-confirm-delete-advertisement" v-text="$t('entity.action.deleteDatabase')" v-on:click="removeAdvertisement()">Delete</button>
             </div>
         </b-modal>
         <div v-show="advertisements && advertisements.length > 0">
@@ -207,3 +207,15 @@
 
 <script lang="ts" src="./advertisement-search.component.ts">
 </script>
+
+<style scoped>
+.custom-table-responsive {
+  overflow-x: auto;
+}
+
+@media (max-width: 1280px) {
+  .custom-table-responsive table {
+    min-width: 1280px;
+  }
+}
+</style>

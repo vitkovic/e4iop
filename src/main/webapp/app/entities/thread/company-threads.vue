@@ -21,58 +21,69 @@
       <span v-text="$t('riportalApp.thread.home.notFound')">No threads found</span>
     </div>
 
-    <div class="container-fluid" >
+    <div class="container-fluid">
+      <b-row class="d-flex justify-content-between mb-3">
+        <h3
+          v-if="threadsDTO"
+          v-text="
+            unreadMessagesCount ? $t('riportalApp.thread.messages') + ' (' + unreadMessagesCount + ')' : $t('riportalApp.thread.messages')
+          "
+          class="mr-3 mb-3 mb-sm-0"
+        >
+          Poruke
+        </h3>
+        <h3 v-else v-text="'Poruke'"></h3>
+        <b-button v-on:click="prepareNewMessageModal()" variant="primary" class="btn btn-primary" size="sm" v-b-modal.newMessageModal>
+          <font-awesome-icon icon="envelope"></font-awesome-icon>
+          <span v-text="$t('riportalApp.thread.inquiry.newMessageAction')">Nova poruka</span>
+        </b-button>
+      </b-row>
       <b-row class="d-flex align-items-center">
-        <b-col class="d-flex flex-column flex-sm-row" cols="4">
-          <h3
-            v-if="threadsDTO"
-            v-text="
-              unreadMessagesCount
-                ? $t('riportalApp.thread.messages') + ' (' + unreadMessagesCount + ')'
-                : $t('riportalApp.thread.messages')
-            "
-            class="mr-3 mb-3 mb-sm-0"
-          >
-            Poruke
-          </h3>
-          <h3 v-else v-text="'Poruke'"></h3>
-          <div>
-            <b-button :variant="filterAllButtonVariant" v-text="$t('riportalApp.thread.filter.allnquiries')" v-on:click="showAllThreads()"
+        <b-col class="d-flex" cols="12" sm="6" lg="4">
+          <div class="mb-2 mt-2 mb-sm-0 mt-sm-0">
+            <b-button
+              class="mb-2 mb-sm-0 mr-sm-1 btn-responsive "
+              size="sm"
+              :variant="filterAllButtonVariant"
+              v-text="$t('riportalApp.thread.filter.allnquiries')"
+              v-on:click="showAllThreads()"
               >Svi upiti</b-button
             >
             <b-button
+              class="mb-2 mb-sm-0 mr-sm-1 btn-responsive "
+              size="sm"
               :variant="filterReceiverButtonVariant"
               v-text="$t('riportalApp.thread.filter.receivedInquiries')"
               v-on:click="showReceiverThreads()"
               >Primljeni upiti</b-button
             >
             <b-button
+              class="mb-2 mb-sm-0 btn-responsive "
+              size="sm"
               :variant="filterSenderButtonVariant"
               v-text="$t('riportalApp.thread.filter.sendInquiries')"
               v-on:click="showSenderThreads()"
               >Poslati upiti</b-button
             >
           </div>
-        </b-col>      
-        <b-col v-show="threadsDTO && threadsDTO.length > 0" cols="4">
+        </b-col>
+        <b-col v-show="threadsDTO && threadsDTO.length > 0" cols="12" sm="6">
           <div class="row justify-content-center">
             <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
           </div>
           <div class="row justify-content-center">
-            <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
+            <b-pagination
+              size="md"
+              :total-rows="totalItems"
+              v-model="page"
+              :per-page="itemsPerPage"
+              :change="loadPage(page)"
+            ></b-pagination>
           </div>
         </b-col>
-        <b-col cols="4" class="d-flex justify-content-end">
-          <b-button
-              v-on:click="prepareNewMessageModal()"
-              variant="primary"
-              class="btn btn-primary"
-              v-b-modal.newMessageModal
-            >
-            <font-awesome-icon icon="envelope"></font-awesome-icon>
-              <span v-text="$t('riportalApp.thread.inquiry.newMessageAction')">Nova poruka</span>
-            </b-button>
-        </b-col>
+        <!-- <b-col cols="4" class="d-flex justify-content-end">
+          
+        </b-col> -->
       </b-row>
     </div>
 
@@ -133,7 +144,7 @@
                 </b-col>
                 <b-col class="h-100 d-none d-sm-flex">
                   <div v-if="thread.isFromAdministration" class="spacing-subject h-100 d-flex align-items-center">
-                    <span v-text="'ADMINISTRACIJA'" class="text-body">ADMINISTRACIJA</span>
+                    <span v-text="$t('riportalApp.thread.administration')" class="text-body">ADMINISTRACIJA</span>
                   </div>
                   <div v-else-if="thread.companySender" class="spacing-subject h-100 d-flex align-items-center">
                     <router-link :to="{ name: 'CompanyView', params: { companyId: thread.companySender.id } }" class="text-body">{{
@@ -199,11 +210,11 @@
 
                       <div v-if="meetingParticipant != null && !meetingParticipant.isOrganizer">
                         <div v-if="meetingParticipant.status.statusEn === meetingParticipantStatusOptions.NO_RESPONSE">
-                          <button type="button" class="btn btn-secondary" v-on:click="prepareAcceptMeetingModal(thread)">
+                          <button type="button" class="btn btn-secondary btn-sm mb-2" v-on:click="prepareAcceptMeetingModal(thread)">
                             <span><font-awesome-icon icon="check" style="color: green;" /></span>
                             <span v-text="$t('riportalApp.thread.messageSection.acceptMeeting')"></span>
                           </button>
-                          <button type="button" class="btn btn-secondary" v-on:click="prepareRejectMeetingModal(thread)">
+                          <button type="button" class="btn btn-secondary btn-sm mb-2" v-on:click="prepareRejectMeetingModal(thread)">
                             <span><font-awesome-icon icon="times" style="color: red;" /></span>
                             <span v-text="$t('riportalApp.thread.messageSection.cancelMeeting')"></span>
                           </button>
@@ -233,11 +244,19 @@
 
                       <div v-if="company.id === thread.advertisementSupporter.company.id">
                         <div v-if="thread.advertisementSupporter.status.nameEn === advertisementSupporterStatusOptions.NO_RESPONSE">
-                          <button type="button" class="btn btn-secondary" v-on:click="prepareAcceptAdvertisementSupporterModal(thread)">
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm mb-2 mb-2"
+                            v-on:click="prepareAcceptAdvertisementSupporterModal(thread)"
+                          >
                             <span><font-awesome-icon icon="check" style="color: green;" /></span>
                             <span v-text="$t('entity.action.accept')"></span>
                           </button>
-                          <button type="button" class="btn btn-secondary" v-on:click="prepareRejectAdvertisementSupporterModal(thread)">
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm mb-2"
+                            v-on:click="prepareRejectAdvertisementSupporterModal(thread)"
+                          >
                             <span><font-awesome-icon icon="times" style="color: red;" /></span>
                             <span v-text="$t('entity.action.cancel')"></span>
                           </button>
@@ -403,7 +422,7 @@
             >Da li želite da prihvatite poziv za za zajedničko oglašavanje?</span
           >
           <br />
-          <span v-text="'Oglas: '"></span>
+          <b>{{ $t('riportalApp.thread.advertisement') }}: </b>
           <span>{{ advertisementSupporter.advertisement.title }}</span>
         </p>
       </div>
@@ -446,8 +465,7 @@
 
     <b-modal ref="newMessageModal" id="newMessageModal">
       <span slot="modal-title">
-        <span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.inquiry.newMessageTitle')">
-        </span>  
+        <span id="riportalApp.advertisement.delete.question" v-text="$t('riportalApp.thread.inquiry.newMessageTitle')"> </span>
       </span>
       <div class="modal-body">
         <label name="inquiry-subject" v-text="$t('riportalApp.thread.tableHeader.receiver')">Primalac:</label>
@@ -469,7 +487,6 @@
         <p v-if="!companyReceiverValidation.isValid" class="text-danger small" v-text="$t('entity.form.validation.title')">
           Naziv poruke ne može biti prazan.
         </p>
-
 
         <label name="inquiry-subject" v-text="$t('entity.form.messageTitle')">Naziv poruke:</label>
         <b-input v-model.trim="inputSubject.value" @blur="clearValidity('inputSubject')"></b-input>
@@ -550,6 +567,14 @@
     font-size: 2rem;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .btn-responsive {
+    font-size: 1rem;
+    padding: .375rem .75rem;
+  }
+}
+
 </style>
 
 <script lang="ts" src="./company-threads.component.ts"></script>

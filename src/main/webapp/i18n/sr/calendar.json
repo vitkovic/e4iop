@@ -1,0 +1,43 @@
+{
+  "riportalApp": {
+    "calendar": {
+      "ics": "Preuzmi ICS",
+      "createModal": {
+        "titleModal": "Novi sastanak",
+        "placeholderTitle": "Unesite naslov...",
+        "placeholderLocation": "Unesite lokaciju...",
+        "placeholderDescription": "Unesite opis...",
+        "organizer": "Organizator",
+        "advertiser": "Oglašivač",
+        "participants": "Dodajte druge učesnike",
+        "placeholderCompany": "Potražite kompaniju...",
+        "noB2BParticipants": "Pozovite učesnike koji nisu na B2B portalu",
+        "placeholderNoB2BParcitipants": "Unesite email adresu...",
+        "errorEmail": "Email adresa nije ispravna",
+        "makeAppointment": "Zakaži sastanak"
+      },
+      "acceptMeetingModal": {
+        "question": "Da li želite da prihvatite poziv za sastanak - "
+      },
+      "rejectMeetingModal": {
+        "question": "Da li želite da otkažete poziv za sastanak - ",
+        "cancelationReason": "Razlog otazivanja",
+        "newAppointment": "Predložite novi termin"
+      },
+      "viewMeetingModal": {
+        "advertisement": "Oglas:",
+        "location": "Lokacija:",
+        "description": "Opis:",
+        "otherCompanies": "Ostale pozvane kompanije",
+        "outsideB2BPortal": "Pozvani učesnici van B2B portala"
+      },
+      "editMeetingModal": {
+        "titleModal": "Izmeni sastanak za oglas - ",
+        "titleModalSimple": "Izmeni sastanak"
+      },
+      "removeMeetingModal": {
+        "question": "Da li želite da uklonite sastanak iz kalendara?"
+      }
+    }
+  }
+}
