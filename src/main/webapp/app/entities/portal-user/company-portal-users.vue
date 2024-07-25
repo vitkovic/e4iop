@@ -55,7 +55,7 @@
                                    class="btn btn-sm"
                                    v-b-modal.deleteUserModal>
                                 <font-awesome-icon icon="times"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                                <span v-text="$t('entity.action.delete')">Delete</span>
                             </b-button>
                         </div>
                     </td>
