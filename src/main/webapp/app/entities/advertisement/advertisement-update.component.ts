@@ -61,6 +61,9 @@ const validations: any = {
     kinds: {
       required,
     },
+     status: {
+      required,
+    },
     subsubcategory: {
       required,
     },
@@ -196,6 +199,7 @@ export default class AdvertisementUpdate extends Vue {
       }
     );
     this.advertisement.documents = [];
+    
   }
 
   mounted(): void {
@@ -384,6 +388,19 @@ export default class AdvertisementUpdate extends Vue {
     } else {
       this.advertisement[field] = null;
     }
+    
+     
+      var dtm = new Date();
+      if (this.advertisement.activationDatetime > dtm) {
+		this.advertisement.status.id = 3552;
+	  } else if (this.advertisement.activationDatetime.toLocaleDateString("en-US") == dtm.toLocaleDateString("en-US")) {
+		this.advertisement.status.id = 3551;
+	  } else {
+		this.advertisement.activationDatetime = dtm;
+	  }
+    
+    
+    
   }
 
   public updateZonedDateTimeField(field, event) {
@@ -431,6 +448,7 @@ export default class AdvertisementUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.advertisementStatuses = res.data;
+        this.advertisement.status = this.advertisementStatuses[0];
       });
     this.advertisementDurationService()
       .retrieve()
@@ -870,7 +888,9 @@ export default class AdvertisementUpdate extends Vue {
   }
 
   public formatBudgetToRealNumber(): void {
-    this.advertisement.budget = parseInt(this.advertisement.budget.replace(/\D/g, ''), 10);
+    if (this.advertisement.budget) {
+      this.advertisement.budget = parseInt(this.advertisement.budget.replace(/\D/g, ''), 10);
+    }
   }
 
   public advertisementCategorizationBranch(subsubcategory: IAdvertisementSubsubcategory): string {

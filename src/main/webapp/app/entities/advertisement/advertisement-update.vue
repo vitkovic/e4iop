@@ -255,7 +255,9 @@
             </div>
             <div class="form-group">
                 <label class="form-control-label" v-text="$t('riportalApp.advertisement.status')" for="advertisement-status">Status</label>
-                <select class="form-control" id="advertisement-status" name="status" v-model="advertisement.status" >
+                <select class="form-control" id="advertisement-status" name="status" v-model="advertisement.status" 
+                  :class="{ valid: !$v.advertisement.status.$invalid, invalid: $v.advertisement.status.$invalid }"
+                >
                   <option v-bind:value="null"></option>
                   <option
                     v-bind:value="
@@ -264,10 +266,19 @@
                         : advertisementStatusOption
                     "
                     v-for="advertisementStatusOption in advertisementStatuses"
-                    :key="advertisementStatusOption.id"
+                    :key="advertisementStatusOption.id" 
                     >{{ advertisementStatusOption.status }}</option
                   >
                 </select>
+                <div v-if="$v.advertisement.status.$anyDirty && $v.advertisement.status.$invalid">
+                <small
+                  class="form-text text-danger"
+                  v-if="!$v.advertisement.status.required"
+                  v-text="$t('entity.validation.required')"
+                >
+                  This field is required.
+                </small>
+              </div>
               </div>
             <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.duration')" for="advertisement-duration"
