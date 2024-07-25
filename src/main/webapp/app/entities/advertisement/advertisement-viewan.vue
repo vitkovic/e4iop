@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-center container-box">
-    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8">
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8">sdhfjkdfhdjkfhdsfjkdhfdjkfhdjkfhdskfjshfjkdfhsdkfhdsk
       <div v-if="advertisement">
         <b-breadcrumb v-if="advertisement.subsubcategory" class="breadcrumb-box p-2">
           <b-breadcrumb-item href="/b2b">

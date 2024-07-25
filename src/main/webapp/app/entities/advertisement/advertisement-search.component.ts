@@ -181,23 +181,24 @@ export default class Advertisement extends mixins(AlertMixin) {
 				       .retrieveSearchType(this.types,paginationQuery)
 				        .then(
 				          res => {
-				            this.advertisements = res.data;
+							this.advertisements = res.data;
 				            this.totalItems = Number(res.headers['x-total-count']);
 				            this.queryCount = this.totalItems;
 				            this.isFetching = false;
-				            return;
 				          },
 				          err => {
 				            this.isFetching = false;
 				          }
 				        );
 		  } else {
+			
 		      if (this.activeAdStatus) {
 				  console.log(this.activeAdStatus);
 				   this.advertisementService()
 				       .retrieveSearchTypeStatus(this.types,this.activeAdStatus.id, paginationQuery)
 				        .then(
 				          res => {
+							
 				            this.advertisements = res.data;
 				            this.totalItems = Number(res.headers['x-total-count']);
 				            this.queryCount = this.totalItems;
@@ -217,13 +218,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 		      
    } else {
 		
-	
-    
-		    
-		   
-		
-		    if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
-				console.log("fsdkjfklfdjfsklfjlkfsdjklfsjfklfjsdklfjsdklfsdjfklsdjfdklsfjsdlkfsdjlfksdjflk");
+	    if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
 		      this.advertisementService()
 		       .retrieveSearch(this.txtsearch, this.category,paginationQuery)
 		        .then(

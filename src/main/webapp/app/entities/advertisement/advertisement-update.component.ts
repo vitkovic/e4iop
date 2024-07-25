@@ -17,7 +17,7 @@ import { ICompany } from '@/shared/model/company.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 
 import AdvertisementService from './advertisement.service';
-import AdvertisementTypeService from '../advertisement-type/advertisement-type.service';
+import AdvertisementTypeServdice from '../advertisement-type/advertisement-type.service';
 import AdvertisementKindService from '../advertisement-kind/advertisement-kind.service';
 import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
 import AdvertisementDurationService from '../advertisement-duration/advertisement-duration.service';
@@ -321,12 +321,22 @@ export default class AdvertisementUpdate extends Vue {
       //     this.saveFiles();
       //   });
     } else {
-      this.advertisement.activationDatetime = new Date();
-      this.advertisement.expirationDatetime = new Date();
+	 
+ 	  if (this.advertisement.activationDatetime == null ||  this.advertisement.activationDatetime.toDateString() == "") {
+ 	    this.advertisement.activationDatetime = new Date();
+ 	    this.advertisement.expirationDatetime = new Date();
+ 	  } else {
+		this.advertisement.expirationDatetime = this.advertisement.activationDatetime;
+	  }
+ 	 
       const expirationMonth = this.advertisement.expirationDatetime.getMonth();
       this.advertisement.expirationDatetime.setMonth(expirationMonth + this.advertisement.duration.duration);
-
-      this.advertisement.status = this.advertisementStatuses.filter(status => status.status === 'Активан')[0];
+     // console.log(this.advertisement.status)
+      var dtm = new Date();
+      if (this.advertisement.activationDatetime > dtm) {
+		this.advertisement.status.id = 3552;
+	  }
+      //this.advertisement.status = this.advertisementStatuses.filter(status => status.status === 'Активан')[0];
 
       try {
         const param = await this.advertisementService().create(this.advertisement);

@@ -27,7 +27,7 @@
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.type')" for="advertisement-type">Type</label>
               <select
                 class="form-control"
-                id="advertisement-type"
+                id="adve	rtisement-type"
                 name="type"
                 v-model="advertisement.type"
                 :class="{ valid: !$v.advertisement.type.$invalid, invalid: $v.advertisement.type.$invalid }"
@@ -78,7 +78,7 @@
                 >
               </select>
             </div>
-            <div v-if="!advertisementTitleHasID" class="form-group">
+            <div  class="form-group">
               <label
                 class="form-control-label"
                 v-text="$t('riportalApp.advertisement.activationDatetime')"
@@ -254,6 +254,22 @@
               </div>
             </div>
             <div class="form-group">
+                <label class="form-control-label" v-text="$t('riportalApp.advertisement.status')" for="advertisement-status">Status</label>
+                <select class="form-control" id="advertisement-status" name="status" v-model="advertisement.status" >
+                  <option v-bind:value="null"></option>
+                  <option
+                    v-bind:value="
+                      advertisement.status && advertisementStatusOption.id === advertisement.status.id
+                        ? advertisement.status
+                        : advertisementStatusOption
+                    "
+                    v-for="advertisementStatusOption in advertisementStatuses"
+                    :key="advertisementStatusOption.id"
+                    >{{ advertisementStatusOption.status }}</option
+                  >
+                </select>
+              </div>
+            <div class="form-group">
               <label class="form-control-label" v-text="$t('riportalApp.advertisement.duration')" for="advertisement-duration"
                 >Duration</label
               >
@@ -427,22 +443,7 @@
                   </small>
                 </div>
               </div> -->
-              <div class="form-group">
-                <label class="form-control-label" v-text="$t('riportalApp.advertisement.status')" for="advertisement-status">Status</label>
-                <select class="form-control" id="advertisement-status" name="status" v-model="advertisement.status" disabled="true">
-                  <option v-bind:value="null"></option>
-                  <option
-                    v-bind:value="
-                      advertisement.status && advertisementStatusOption.id === advertisement.status.id
-                        ? advertisement.status
-                        : advertisementStatusOption
-                    "
-                    v-for="advertisementStatusOption in advertisementStatuses"
-                    :key="advertisementStatusOption.id"
-                    >{{ advertisementStatusOption.status }}</option
-                  >
-                </select>
-              </div>
+              
             </div>
           </div>
         </div>
