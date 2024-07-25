@@ -698,6 +698,19 @@ h2 {
   padding-right: 2px;
 }
 
+.fc-event-main-frame {
+  flex-direction: column;
+  }
+   
+.fc-event-time {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.fc-event-title {
+  font-size: 12px;
+}
+
 .company-logo-container {
   width: 40px;
   height: 40px;

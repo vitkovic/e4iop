@@ -15,9 +15,6 @@ import AccountService from '@/account/account.service';
 
 import { ICellRendererParams } from '@ag-grid-community/core';
 
-
-
-
 @Component({
   mixins: [Vue2Filters.mixin],
 })
@@ -44,45 +41,42 @@ export default class Advertisement extends mixins(AlertMixin) {
   public txtsearch;
   public category;
   public tlang = this.$t;
-   public columnDefs = [];
-   public rowData = [];
-  
-   data() {
-      return {
-       columnDefs: [
-	        { headerName: this.$t('riportalApp.advertisement.title'), field: "title",filter:'true', sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.status'), field: "status",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.type'), field: "type",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.kind'), field: "kind",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.subsubcategory'), field: "subsubcategory",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.budget'), field: "budget",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.company'), field: "company",filter:'true',filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.activationDatetime'), field: "datetime",filter:'true',sortable: true },
-	        { headerName: this.$t('riportalApp.advertisement.id'), field: "id",filter:'true', cellRenderer: this.IdRenderer },
-	      
-	      ],
-       rowData: [],
-      }
-    }
-  
- public IdRenderer(params: ICellRendererParams):any {
+  public columnDefs = [];
+  public rowData = [];
+
+  data() {
+    return {
+      columnDefs: [
+        { headerName: this.$t('riportalApp.advertisement.title'), field: 'title', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.status'), field: 'status', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.type'), field: 'type', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.kind'), field: 'kind', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.subsubcategory'), field: 'subsubcategory', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.budget'), field: 'budget', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.company'), field: 'company', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.activationDatetime'), field: 'datetime', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.id'), field: 'id', filter: 'true', cellRenderer: this.IdRenderer },
+      ],
+      rowData: [],
+    };
+  }
+
+  public IdRenderer(params: ICellRendererParams): any {
     const lnktxt = this.$t('entity.action.view');
-    const link = `<a href="/b2b/advertisement/viewan/${params.value}" target="_blank">`+this.$t('entity.action.view')+`</a>`;
-    
-   
+    const link = `<a href="/b2b/advertisement/viewan/${params.value}" target="_blank">` + this.$t('entity.action.view') + `</a>`;
+
     return link;
-}
+  }
   public mounted(): void {
-	 this.txtsearch = this.$route.query.search;
-     this.category =  this.$route.query.category;
-     
-     if (this.txtsearch == null) {
-     const urlParams = new URLSearchParams(window.location.search);
-	 this.txtsearch = urlParams.get('search');
-     this.category =  urlParams.get('category');
+    this.txtsearch = this.$route.query.search;
+    this.category = this.$route.query.category;
+
+    if (this.txtsearch == null) {
+      const urlParams = new URLSearchParams(window.location.search);
+      this.txtsearch = urlParams.get('search');
+      this.category = urlParams.get('category');
     }
-    
-	  
+
     this.retrieveAllAdvertisements();
   }
 
@@ -97,21 +91,19 @@ export default class Advertisement extends mixins(AlertMixin) {
     const paginationQuery = {
       page: this.page - 1,
       size: this.itemsPerPage,
-      sort: this.sort()
+      sort: this.sort(),
     };
-    
-	 
+
     this.advertisementService()
-       .retrieveSearch(this.txtsearch, Number(this.category),paginationQuery)
-        .then(
+      .retrieveSearch(this.txtsearch, Number(this.category), paginationQuery)
+      .then(
         res => {
           // Ovo koristiti az originalno povucene rezultate pretrage
           this.advertisements = res.data;
           console.log(this.advertisements);
-         
-          
-          this.rowData =  this.createRows(this.advertisements)
-          
+
+          this.rowData = this.createRows(this.advertisements);
+
           console.log(this.rowData);
           // Ovo koristiti za filtrirane rezultate pretrage
           this.selectedAdvertisements = this.advertisements;
@@ -124,50 +116,42 @@ export default class Advertisement extends mixins(AlertMixin) {
           this.isFetching = false;
         }
       );
-     
   }
 
   public createRows(advs): any {
-   
-   var i = 0;
-   var rows = [];
-  	while (i < advs.length) {
-	   	
-	    var subobj = {};
-	    
-	    subobj['title'] = (advs[i].title != null) ? advs[i].title: '';
-	    subobj['status'] = (advs[i].status != null) ? advs[i].status.status: ''; 
-	    subobj['type'] = (advs[i].type != null) ? advs[i].type.type : '';
-	    subobj['kind'] = (advs[i].kind != null) ? advs[i].kind.kind: '';
-	    subobj['subsubcategory'] = (advs[i].subsubcategory.name != null) ? advs[i].subsubcategory.name: '';
-	    subobj['budget']=(advs[i].budget != null) ? advs[i].budget: '';
-	    subobj['company'] = (advs[i].company != null) ? advs[i].company.name: '';
-	    var dtm = new Date(advs[i].activationDatetime)
-	    subobj['datetime'] = dtm.toUTCString();
-	    subobj['id'] = advs[i].id;
-	   
-	    
-	   
-     	rows.push(subobj);
-	    console.log(rows);
-	    i++;
-	}
+    var i = 0;
+    var rows = [];
+    while (i < advs.length) {
+      var subobj = {};
+
+      subobj['title'] = advs[i].title != null ? advs[i].title : '';
+      subobj['status'] = advs[i].status != null ? advs[i].status.status : '';
+      subobj['type'] = advs[i].type != null ? advs[i].type.type : '';
+      subobj['kind'] = advs[i].kind != null ? advs[i].kind.kind : '';
+      subobj['subsubcategory'] = advs[i].subsubcategory.name != null ? advs[i].subsubcategory.name : '';
+      subobj['budget'] = advs[i].budget != null ? advs[i].budget : '';
+      subobj['company'] = advs[i].company != null ? advs[i].company.name : '';
+      var dtm = new Date(advs[i].activationDatetime);
+      subobj['datetime'] = dtm.toUTCString();
+      subobj['id'] = advs[i].id;
+
+      rows.push(subobj);
+      console.log(rows);
+      i++;
+    }
     console.log(rows);
-  	return rows;
-  
-  
-  [
-    "Analiza faktora zastoja mašine",
-    "Активан",
-    "Потражња",
-    "Експертиза",
-    "статистичка обрада",
-    42000,
-    "B2B Kompanija",
-    "2024-05-29T10:58:05.408Z"
-]
-  
-  
+    return rows;
+
+    [
+      'Analiza faktora zastoja mašine',
+      'Активан',
+      'Потражња',
+      'Експертиза',
+      'статистичка обрада',
+      42000,
+      'B2B Kompanija',
+      '2024-05-29T10:58:05.408Z',
+    ];
   }
 
   public get authenticated(): boolean {
@@ -203,7 +187,7 @@ export default class Advertisement extends mixins(AlertMixin) {
   }
 
   public changeOrder(propOrder): void {
-	//  console.log("change order klfjsdkfldjlfdjfsdlfjsdlfj");
+    //  console.log("change order klfjsdkfldjlfdjfsdlfjsdlfj");
     this.propOrder = propOrder;
     this.reverse = !this.reverse;
     this.transition();

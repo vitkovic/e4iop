@@ -854,6 +854,13 @@ h2 {
 
 .testimonial-box {
   width: 800px;
+  margin-left: 70px;
+}
+
+@media (max-width: 1090px) {
+  .testimonial-box {
+    margin-left: 0px;
+  }
 }
 
 @media (max-width: 980px) {
