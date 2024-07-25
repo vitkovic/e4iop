@@ -63,7 +63,9 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public IdRenderer(params: ICellRendererParams): any {
     const lnktxt = this.$t('entity.action.view');
-    const link = `<a href="/b2b/advertisement/viewan/${params.value}" target="_blank">` + this.$t('entity.action.view') + `</a>`;
+    // const link = `<a href="/b2b/advertisement/viewan/${params.value}" target="_blank">` + this.$t('entity.action.view') + `</a>`;
+
+    const link = `<a href="/b2b/advertisement/${params.value}/view" target="_blank">` + this.$t('entity.action.view') + `</a>`;
 
     return link;
   }
@@ -127,7 +129,7 @@ export default class Advertisement extends mixins(AlertMixin) {
       subobj['title'] = advs[i].title != null ? advs[i].title : '';
       subobj['status'] = advs[i].status != null ? advs[i].status.status : '';
       subobj['type'] = advs[i].type != null ? advs[i].type.type : '';
-      subobj['kind'] = advs[i].kind != null ? advs[i].kind.kind : '';
+      subobj['kind'] = advs[i].kinds != null ? this.advertisementKindsString(advs[i]) : '';
       subobj['subsubcategory'] = advs[i].subsubcategory.name != null ? advs[i].subsubcategory.name : '';
       subobj['budget'] = advs[i].budget != null ? advs[i].budget : '';
       subobj['company'] = advs[i].company != null ? advs[i].company.name : '';
@@ -198,5 +200,22 @@ export default class Advertisement extends mixins(AlertMixin) {
     expirationDate.setMonth(expirationDate.getMonth() + Number(advertisement.duration.duration));
 
     return expirationDate;
+  }
+
+  public advertisementKindsString(advertisement: IAdvertisement) {
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    return advertisement.kinds
+      .map(kind => {
+        if (currentLanguage === 'sr') {
+          return kind.kind;
+        } else if (currentLanguage === 'src') {
+          return kind.kindSrc;
+        } else if (currentLanguage === 'en') {
+          return kind.kindEn;
+        }
+        return '';
+      })
+      .join(', ');
   }
 }

@@ -144,8 +144,17 @@ public class AdvertisementService {
     @Transactional(readOnly = true)
     public Page<Advertisement> findAllFree(Pageable pageable) {
         log.debug("Request to get all Advertisements");
+        
         //if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){              
-        	return advertisementRepository.findAll(pageable);
+        Page<Advertisement> advertisements = advertisementRepository.findAll(pageable);
+        
+    	// Could this be done within a query???
+    	advertisements.getContent().forEach(advertisement -> {
+    		Hibernate.initialize(advertisement.getKinds());
+        });
+    
+    	return advertisements;
+        
       //  } else {
        /*
         	 Optional<User> currentUser = userService.getUserWithAuthorities();
@@ -179,27 +188,30 @@ public class AdvertisementService {
    public Page<Advertisement> findAllBySearch(String search, Long category, Pageable pageable) {
 	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
        log.debug("Request to get all Advertisements");
+       
+       Page<Advertisement> advertisements = null;
+
        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
     	  System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
       	  if (category != 1) 
-    		  return advertisementRepository.findAllBySearchAdmin(search,pageable);
+      		advertisements = advertisementRepository.findAllBySearchAdmin(search,pageable);
     	  else 
-    		  return advertisementRepository.findAllBySearchAdminbyCategory(search,category,pageable);
+    		  advertisements = advertisementRepository.findAllBySearchAdminbyCategory(search,category,pageable);
        } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
     	 
     	   if (category != 1) 
-           	return advertisementRepository.findAllBySearchAdminbyCategory(search,category ,pageable);
+    		   advertisements = advertisementRepository.findAllBySearchAdminbyCategory(search,category ,pageable);
            else
-           	return advertisementRepository.findAllBySearchAdmin(search, pageable);
+        	   advertisements = advertisementRepository.findAllBySearchAdmin(search, pageable);
            
     	   
        } else {
     	   
     	   
     	   if (category != 1) 
-              	return advertisementRepository.findAllBySearchAdminbyCategory(search,category ,pageable);
+    		   advertisements = advertisementRepository.findAllBySearchAdminbyCategory(search,category ,pageable);
               else
-              	return advertisementRepository.findAllBySearchAdmin(search, pageable);
+            	  advertisements = advertisementRepository.findAllBySearchAdmin(search, pageable);
     	   
     	/*   
     	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
@@ -224,7 +236,14 @@ public class AdvertisementService {
 //            }else {
 //           	 return null;
 //            }*/
-       }   
+       }
+       
+   	// Could this be done within a query???
+   	advertisements.getContent().forEach(advertisement -> {
+   		Hibernate.initialize(advertisement.getKinds());
+       });
+   
+   	return advertisements;
    }
   
    
