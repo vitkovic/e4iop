@@ -154,7 +154,7 @@ export default class AdvertisementService {
     });
   }
 
-  public retrieveSearchByStatusId(search: string, statusId:number, category: number, paginationQuery?: any): Promise<any> {
+  public retrieveSearchByStatusId(search: string, statusId: number, category: number, paginationQuery?: any): Promise<any> {
     const urlgo =
       baseApiUrlSearchStatus +
       `?search=${search}` +
@@ -498,5 +498,62 @@ export default class AdvertisementService {
           reject(err);
         });
     });
+  }
+
+  public advertisementCategorizationBranch(advertisement: IAdvertisement, language = 'sr'): string {
+    let branch = '';
+    const currentLanguage = language;
+
+    if (currentLanguage === 'sr') {
+      branch =
+        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name +
+        ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.name +
+        ' / ' +
+        advertisement.subsubcategory.name;
+
+      return branch;
+    }
+
+    if (currentLanguage === 'src') {
+      branch =
+        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameSrc +
+        ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.nameSrc +
+        ' / ' +
+        advertisement.subsubcategory.nameSrc;
+
+      return branch;
+    }
+
+    if (currentLanguage === 'en') {
+      branch =
+        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameEn +
+        ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.nameEn +
+        ' / ' +
+        advertisement.subsubcategory.nameEn;
+
+      return branch;
+    }
+
+    return branch;
+  }
+
+  public advertisementKindsString(advertisement: IAdvertisement, language = 'sr'): string {
+    const currentLanguage = language;
+
+    return advertisement.kinds
+      .map(kind => {
+        if (currentLanguage === 'sr') {
+          return kind.kind;
+        } else if (currentLanguage === 'src') {
+          return kind.kindSrc;
+        } else if (currentLanguage === 'en') {
+          return kind.kindEn;
+        }
+        return '';
+      })
+      .join(', ');
   }
 }

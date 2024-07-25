@@ -96,7 +96,11 @@
             <td v-if="advertisement.subsubcategory">
               {{ advertisementCategorizationBranch(advertisement) }}
             </td>
-            <td>{{ advertisement.budget }}</td>
+            <td>
+              <div v-if="advertisement.budget">
+                {{ advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) }}
+              </div>
+            </td>
             <td>{{ advertisement.activationDatetime ? $d(Date.parse(advertisement.activationDatetime.toString()), { dateStyle: 'short' }) : '' }}
             </td>
             <td>
