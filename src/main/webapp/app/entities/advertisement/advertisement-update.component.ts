@@ -337,7 +337,7 @@ export default class AdvertisementUpdate extends Vue {
       // console.log(this.advertisement.status)
       var dtm = new Date();
       if (this.advertisement.activationDatetime > dtm) {
-        this.advertisement.status.id = 3552;
+        this.advertisement.status = this.advertisementStatuses[1];
       }
       //this.advertisement.status = this.advertisementStatuses.filter(status => status.status === 'Активан')[0];
 
@@ -391,9 +391,9 @@ export default class AdvertisementUpdate extends Vue {
      
       var dtm = new Date();
       if (this.advertisement.activationDatetime > dtm) {
-		this.advertisement.status.id = 3552;
+		this.advertisement.status = this.advertisementStatuses[1];
 	  } else if (this.advertisement.activationDatetime.toLocaleDateString("en-US") == dtm.toLocaleDateString("en-US")) {
-		this.advertisement.status.id = 3551;
+		this.advertisement.status = this.advertisementStatuses[0];
 	  } else {
 		this.advertisement.activationDatetime = dtm;
 	  }
