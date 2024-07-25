@@ -363,14 +363,17 @@ public class AdvertisementService {
 public Page<Advertisement> findAllBySearchTypeStatus(Long type, Long status, Pageable pageable) {
 	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     log.debug("Request to get all Advertisements");
+
+    Page<Advertisement> advertisements = null;
+    
     if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
  	  System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
    	
- 		  return advertisementRepository.findAllBySearchAdminTypeStatus(type,status, pageable);
+ 	 advertisements = advertisementRepository.findAllBySearchAdminTypeStatus(type,status, pageable);
  	
     } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
  	 
-    	 return advertisementRepository.findAllBySearchAdminTypeStatus(type,status, pageable);
+    	advertisements = advertisementRepository.findAllBySearchAdminTypeStatus(type,status, pageable);
         
  	   
     } else {
@@ -397,9 +400,16 @@ public Page<Advertisement> findAllBySearchTypeStatus(Long type, Long status, Pag
 //         }
  */
   
-    		return advertisementRepository.findAllBySearchAdminTypeStatus(type,status, pageable);
+    	advertisements = advertisementRepository.findAllBySearchAdminTypeStatus(type,status, pageable);
  
     }   
+    
+   	// Could this be done within a query???
+   	advertisements.getContent().forEach(advertisement -> {
+   		Hibernate.initialize(advertisement.getKinds());
+       });
+   
+   	return advertisements;
 }
 
     /**

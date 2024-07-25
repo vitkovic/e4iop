@@ -1,18 +1,12 @@
 <template>
-
    <div>
-
-
-  
-
-
         <h2 id="page-heading">
-            <router-link :to="{name: 'AdvertisementCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-advertisement">
+            <!-- <router-link :to="{name: 'AdvertisementCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-advertisement">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('riportalApp.advertisement.home.createLabel')">
                     Create a new Advertisement
                 </span>
-            </router-link>
+            </router-link> -->
         </h2>
         <b-alert :show="dismissCountDown"
             dismissible
@@ -26,13 +20,16 @@
             <span v-text="$t('riportalApp.advertisement.home.notFound')">No advertisements found</span>
         </div>
         <div class="ml-3 mb-3 d-flex flex-column flex-sm-row mt-5">
-            <h3 v-text="$t('riportalApp.advertisement.home.title')" class="mr-3 mb-3 mb-sm-0">Oglasi</h3>
-            <div>
+            <h3 class="mr-3 mb-3 mb-sm-0">
+                <span v-text="$t('riportalApp.advertisement.home.title')"></span>
+                <span v-if="typeName" v-text="' / ' + $t('riportalApp.advertisement.filterButtons.' + typeName)"></span>
+            </h3>
+            <!-- <div>
                 <b-button :variant="filterAllButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.all')" v-on:click="showAllAdvertisements()">Cancel</b-button>
                 <b-button :variant="filterActiveButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.active')" v-on:click="showActiveAdvertisements()">Cancel</b-button>
                 <b-button :variant="filterInactiveButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.inactive')" v-on:click="showInactiveAdvertisements()">Cancel</b-button>
                 <b-button v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')" :variant="filterSoftDeleteButtonVariant" v-text="$t('riportalApp.advertisement.filterButtons.archived')" v-on:click="showSoftDeleteAdvertisements()">Cancel</b-button>
-            </div>
+            </div> -->
         </div>
         <div class="custom-table-responsive" v-if="advertisements && advertisements.length > 0">
             <table class="table table-striped">
@@ -47,12 +44,12 @@
                     <!-- <th v-on:click="changeOrder('conditions')"><span v-text="$t('riportalApp.advertisement.conditions')">Conditions</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'conditions'"></jhi-sort-indicator></th> -->
                     <!-- <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.advertisement.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th> -->
                     <!-- <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.advertisement.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th> -->
-                    <th v-on:click="changeOrder('status')"><span v-text="$t('riportalApp.advertisement.status')">Status</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'status'"></jhi-sort-indicator></th></th>
-                    <th v-on:click="changeOrder('type')"><span v-text="$t('riportalApp.advertisement.type')">Type</span> </th>
-                    <th v-on:click="changeOrder('kind')"><span v-text="$t('riportalApp.advertisement.kind')">Kind</span></th> 
-                    <th v-on:click="changeOrder('subsubcategory')"><span v-text="$t('riportalApp.advertisement.subsubcategory')">Subsubcategory</span><jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subsubcategory'"></jhi-sort-indicator></th></th>
+                    <!-- <th v-on:click="changeOrder('status')"><span v-text="$t('riportalApp.advertisement.status')">Status</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'status'"></jhi-sort-indicator></th> -->
+                    <th v-on:click="changeOrder('type')"><span v-text="$t('riportalApp.advertisement.type')">Type</span></th>
+                    <th><span v-text="$t('riportalApp.advertisement.kind')">Kind</span></th> 
+                    <th v-on:click="changeOrder('subsubcategory')"><span v-text="$t('riportalApp.advertisement.categorization')">Subsubcategory</span><jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'subsubcategory'"></jhi-sort-indicator></th></th>
                     <th v-on:click="changeOrder('budget')"><span v-text="$t('riportalApp.advertisement.budget')">Budget</span> </th>
-                    <th v-on:click="changeOrder('company')"><span v-text="$t('riportalApp.advertisement.company')">Company</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'sompany'"></jhi-sort-indicator></th></th>
+                    <th v-on:click="changeOrder('company')"><span v-text="$t('riportalApp.advertisement.company')">Company</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'sompany'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('activationDatetime')"><span v-text="$t('riportalApp.advertisement.activationDatetime')">Activation Datetime</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'activationDatetime'"></jhi-sort-indicator></th></th>
                     <th v-on:click="changeOrder('expirationDatetime')"><span v-text="$t('riportalApp.advertisement.expirationDatetime')">Expiration Date</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'expirationDatetime'"></jhi-sort-indicator></th></th>
                     <th></th>
@@ -66,7 +63,11 @@
                     </td> -->
                     <!-- <td>{{advertisement.createdAt ? $d(Date.parse(advertisement.createdAt), 'short') : ''}}</td> -->
                     <!-- <td>{{advertisement.modifiedAt ? $d(Date.parse(advertisement.modifiedAt), 'short') : ''}}</td> -->
-                    <td>{{advertisement.title}}</td>
+                    <td>
+                        <router-link :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}" class="text-body">
+                            <span>{{ advertisement.title }}</span>
+                        </router-link>
+                    </td>
                     <!-- <td>{{advertisement.description}}</td> -->
 
                     <!-- <td>{{advertisement.conditions}}</td> -->
@@ -81,27 +82,35 @@
                         </div>
                     </td> -->
 
-                    <td>
+                    <!-- <td>
                         <div v-if="advertisement.status">
-                            {{advertisement.status.status}}
+                            <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.status.status }}</span>
+                            <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.status.statusSrc }}</span>
+                            <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.status.statusEn }}</span>
                         </div>
-                    </td>
+                    </td> -->
                     <td>
                         <div v-if="advertisement.type">
-                            {{advertisement.type.type}}
+                            <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.type.type }}</span>
+                            <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.type.typeSrc }}</span>
+                            <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.type.typeEn }}</span>
                         </div>
                     </td>
                     <td>
-                        <div v-if="advertisement.kind">
-                            {{advertisement.kind.kind}}
+                        <div v-if="advertisement.kinds">
+                            {{ advertisementKindsString(advertisement) }}
                         </div>
                     </td>
                     <td>
                         <div v-if="advertisement.subsubcategory">
-                            {{advertisement.subsubcategory.name}}
+                            {{ advertisementCategorizationBranch(advertisement) }}
                         </div>
                     </td>
-                    <td>{{advertisement.budget.toLocaleString('us-US', { style: 'currency', currency: 'RSD' })}}</script></td>
+                    <td>
+                        <div v-if="advertisement.budget">
+                            {{ advertisement.budget.toLocaleString('us-US', { style: 'currency', currency: 'RSD' }) }}
+                        </div>
+                    </td>
                     <td>
                         <div v-if="advertisement.company">
                             <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}" class="text-body">{{advertisement.company.name}}</router-link>
@@ -109,9 +118,9 @@
                     </td>             
                     <td>{{ advertisement.activationDatetime ? $d(Date.parse(advertisement.activationDatetime.toString()), { dateStyle: 'short' }) : ''}}</td>
                     <td>{{ advertisement.expirationDatetime ? $d(Date.parse(advertisement.expirationDatetime.toString()), { dateStyle: 'short' }) : '' }}</td>
-                    <td>{{ advertisement.deletionDatetime ? $d(Date.parse(advertisement.deletionDatetime.toString()), { dateStyle: 'short' }) : '' }}</td>
+                    <!-- <td>{{ advertisement.deletionDatetime ? $d(Date.parse(advertisement.deletionDatetime.toString()), { dateStyle: 'short' }) : '' }}</td> -->
                     <td class="text-right">
-                        <div class="btn-group">
+                        <!-- <div class="btn-group">
                             <router-link  :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}" tag="button" class="btn btn-info btn-sm details">
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
                                 <span  v-text="$t('entity.action.view')">View</span>
@@ -148,7 +157,7 @@
                                 <font-awesome-icon icon="times"></font-awesome-icon>
                                 <span v-text="$t('entity.action.deleteDatabase')">Obriši iz baze</span>
                             </b-button>
-                        </div>
+                        </div> -->
                     </td>
                 </tr>
                 </tbody>
