@@ -137,4 +137,16 @@ export default class CompanyPortalUsers extends mixins(AlertMixin) {
 
     return this.$t('authority.company.' + authority);
   }
+
+  public isAdmin(user): boolean {
+    if (user.authorities.includes(Authority.ADMIN)) {
+      return true;
+    }
+
+    if (user.authorities.includes(Authority.COMPANY_ADMIN)) {
+      return true;
+    }
+
+    return false;
+  }
 }

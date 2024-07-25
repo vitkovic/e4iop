@@ -49,7 +49,7 @@
                     </td>
 
                     <td class="text-right">
-                        <div v-if="!user.authorities.includes(authority.ADMIN)" class="btn-group">
+                        <div v-if="!isAdmin(user)" class="btn-group">
                             <b-button v-on:click="prepareDeleteUserModal(user)"
                                    variant="danger"
                                    class="btn btn-sm"
