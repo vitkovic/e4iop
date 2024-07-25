@@ -21,7 +21,7 @@
             <span v-text="$t('userManagement.home.addLabel')">Add a new User</span>
         </b-button>
       </div>
-        <div class="table-responsive" v-if="users && users.length > 0">
+        <div class="custom-table-responsive" v-if="users && users.length > 0">
             <table class="table table-striped">
                 <thead>
                 <tr>
