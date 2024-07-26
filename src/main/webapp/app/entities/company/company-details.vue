@@ -345,118 +345,22 @@
           </div>
         </section>
         <br />
-        <!-- <section>
-          <h3 v-text="$t('riportalApp.company.collaborations')" class="mb-4">Saradnje</h3>
-          <b-row class="align-items-center justify-content-center">
-            <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
-              <b-button variant="none" class="prevButtonColl" @click="scrollPrevColl">
-                <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
-              </b-button>
-            </div>
-            <div class="col-xs-12 col-lg-10 wrapper-collaboration">
-              <div class="carousel-collaboration" ref="carouselCollaboration">
-                <b-card class="card-box">
-                  <div class="d-flex align-items-center">
-                    <div class="image-box-test mr-2">
-                      <img
-                        v-if="company.logo"
-                        :src="companyService().retrieveImage(company.logo.filename)"
-                        alt="company logo"
-                        class="img-logo-test"
-                      />
-                    </div>
-                    <h3 class="company-title" style="align-self: center;">
-                      {{ company.name }}
-                    </h3>
-                  </div>
-                  <h4>Analiza faktora zastoja masina</h4>
-                  <div>
-                    <b-form-rating id="rating-inline" inline value="4" class="mr-4" variant="primary" size="sm" stars="4"></b-form-rating>
-                    <label for="rating-inline">Oglasivac</label>
-                  </div>
-                  <hr />
-                  <div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. !
-                    </p>
-                  </div>
-                </b-card>
-                <b-card class="card-box">
-                  <div class="d-flex align-items-center">
-                    <div class="image-box-test mr-2">
-                      <img
-                        v-if="company.logo"
-                        :src="companyService().retrieveImage(company.logo.filename)"
-                        alt="company logo"
-                        class="img-logo-test"
-                      />
-                    </div>
-                    <h3 class="company-title" style="align-self: center;">
-                      B.2.B Company
-                    </h3>
-                  </div>
-                  <h4>Ispitivanje kostrukcija</h4>
-                  <div>
-                    <b-form-rating id="rating-inline" inline value="2" class="mr-4" variant="primary" size="sm" stars="4"></b-form-rating>
-                    <label for="rating-inline">Trazilac</label>
-                  </div>
-                  <hr />
-                  <div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. !
-                    </p>
-                  </div>
-                </b-card>
-                <b-card class="card-box">
-                  <div class="d-flex align-items-center">
-                    <div class="image-box-test mr-2">
-                      <img
-                        v-if="company.logo"
-                        :src="companyService().retrieveImage(company.logo.filename)"
-                        alt="company logo"
-                        class="img-logo-test"
-                      />
-                    </div>
-                    <h3 class="company-title" style="align-self: center;">
-                      Mehanika D.O.O.
-                    </h3>
-                  </div>
-                  <h4>Ispitivanje trzista</h4>
-                  <div>
-                    <b-form-rating id="rating-inline" inline value="3" class="mr-4" variant="primary" size="sm" stars="4"></b-form-rating>
-                    <label for="rating-inline">Oglasivac</label>
-                  </div>
-                  <hr />
-                  <div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. !
-                    </p>
-                  </div>
-                </b-card>
-              </div>
-            </div>
-            <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
-              <b-button variant="none" class="nextButtonColl" @click="scrollNextColl">
-                <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
-              </b-button>
-            </div>
-          </b-row>
-        </section> -->
-        <section v-if="totalItems > 0">
+
+        <section v-if="totalItems > 0" class="w-100">
           <h3 v-text="$t('riportalApp.company.collaborationTestimonials')" class="mb-4">Saradnje</h3>
-          <div class="d-flex align-items-center justify-content-center">
-            <b-row class="align-items-center justify-content-center testimonial-box mb-3">
-              <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
-                <b-button variant="none" class="prevButtonColl" @click="previousPage()">
+          <div class="d-flex align-items-center justify-content-center w-100">
+            <b-row class="d-flex align-items-center justify-content-center testimonial-box mb-3">
+              <div class="d-none d-lg-flex align-items-center justify-content-start col-lg-1">
+                <b-button variant="none" class="prevButtonColl p-0" @click="previousPage()">
                   <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
                 </b-button>
               </div>
-              <div class="col-xs-12 col-lg-10 wrapper-collaboration">
-                <div class="carousel-collaboration" ref="carouselCollaboration">
-                  <b-card v-for="(collaboration, index) in collaborations" :key="collaboration.id" class="card-box">
+              <div class="col-xs-12 col-lg-10 w-100 wrapper-collaboration">
+                <div
+                  class="carousel-collaboration w-100 d-flex flex-column flex-md-row justify-content-between"
+                  ref="carouselCollaboration"
+                >
+                  <b-card v-for="collaboration in collaborations" :key="collaboration.id" class="card-box">
                     <div class="d-flex align-items-center">
                       <div class="d-flex mb-2" style="height: 65px;">
                         <div
@@ -534,8 +438,8 @@
                   </b-card>
                 </div>
               </div>
-              <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
-                <b-button variant="none" class="nextButtonColl" @click="nextPage()">
+              <div class="d-none d-lg-flex align-items-center justify-content-end col-lg-1">
+                <b-button variant="none" class="nextButtonColl p-0" @click="nextPage()">
                   <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
                 </b-button>
               </div>
@@ -554,6 +458,7 @@
             </div>
           </div>
         </section>
+
         <br />
         <!-- <section>
                     <h3 v-text="'RSNIS podaci'">RSNIS podaci</h3>
@@ -847,12 +752,39 @@ h2 {
   color: #23384b;
 }
 
+.dropdown-item a {
+  color: #23384b;
+  text-decoration: none;
+}
+
+.dropdown-item:hover {
+  background-color: #fff;
+  border: solid 1px #23384b;
+}
+
+.dropdown-menu {
+  padding: 0px;
+}
+
 .icon-contact {
   color: #23384b;
 }
 
 .icon-dropdown {
   padding-left: 1px;
+}
+
+.card-box {
+  width: calc(100% / 2);
+  margin: 5px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: initial;
+  white-space: normal;
+}
+
+.testimonial-box {
+  width: 100%;
 }
 
 @media (max-width: 992px) {
@@ -862,59 +794,12 @@ h2 {
   }
 }
 
-/* .testimonial-box {
-  width: 800px;
-  margin-left: 70px;
-}
-
-@media (max-width: 1090px) {
-  .testimonial-box {
-    margin-left: 0px;
-  }
-}
-
-@media (max-width: 980px) {
-  .contact-button-section {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .testimonial-box {
-    width: 600px;
-  }
-}
-
-@media (max-width: 800px) {
-  .testimonial-box {
-    width: 480px;
-  }
-}
-
 @media (max-width: 768px) {
-  .testimonial-box {
-    width: 690px;
+  .carousel-collaboration .card-box {
+    display: block;
+    width: 100%;
   }
 }
-
-@media (max-width: 700px) {
-  .testimonial-box {
-    width: 600px;
-  }
-}
-
-@media (max-width: 622px) {
-  .testimonial-box {
-    width: 520px;
-  }
-}
-
-@media (max-width: 520px) {
-  .testimonial-box {
-    width: 380px;
-  }
-} */
-
-/* ------------------- */
 
 .section-gallery {
   display: flex;
@@ -930,30 +815,25 @@ h2 {
   justify-content: center;
 }
 
-.wrapper-collaboration {
+/* .wrapper-collaboration {
   max-width: 100%;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   overflow: hidden;
 }
 
 .wrapper-collaboration .carousel-collaboration {
   font-size: 0px;
-  /* width: 100%; */
-  /* overflow: hidden; */
   white-space: nowrap;
   padding: 10px;
-}
+} */
 
-.carousel-collaboration .card-box {
+/* .carousel-collaboration .card-box {
   width: calc(100% / 2);
   margin: 5px;
   display: inline-block;
-  vertical-align: top; /* Align cards at the top */
-  font-size: initial; /* Reset font size for card content */
+  vertical-align: top;
+  font-size: initial; 
   white-space: normal;
-}
+} */
 
 .wrapper .carousel {
   font-size: 0px;
@@ -975,9 +855,9 @@ h2 {
   margin-left: 0px;
 }
 
-.carousel-collaboration .card-box:first-child {
+/* .carousel-collaboration .card-box:first-child {
   margin-left: 5px;
-}
+} */
 
 .prev-box {
   width: 10px;
@@ -1001,19 +881,19 @@ h2 {
   display: none;
 }
 
-@media (max-width: 991.98px) {
+/* @media (max-width: 991.98px) {
   .carousel-collaboration {
-    white-space: normal; /* Allow cards to wrap in column layout on smaller screens */
-    overflow-x: hidden; /* Hide horizontal scrolling on smaller screens */
-    /* display: block;  */
-    transition: none; /* Disable transition effect */
+    white-space: normal; 
+    overflow-x: hidden;
+
+    transition: none; 
   }
 
   .carousel-collaboration .card-box {
-    display: block; /* Display cards in a block layout */
+    display: block; 
     width: 100%;
   }
-}
+} */
 
 .placeholder-logo {
   /* width: 40px; */
