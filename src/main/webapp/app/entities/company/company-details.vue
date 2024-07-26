@@ -1,9 +1,9 @@
 <template>
   <div class="row justify-content-center container-box">
-    <div class="col-xs-12 col-md-8">
+    <div class="col-12 col-md-10 col-xl-8">
       <div v-if="company">
         <b-row class="mb-4">
-          <div class="col-xs-12 col-lg-9 d-flex flex-column">
+          <div class="col-12 col-lg-9 d-flex flex-column">
             <div class="d-flex align-items-center mb-5">
               <div class="image-box mr-4">
                 <img v-if="company.logo" :src="companyService().retrieveImage(company.logo.filename)" alt="company logo" class="img-logo" />
@@ -447,97 +447,100 @@
         </section> -->
         <section v-if="totalItems > 0">
           <h3 v-text="$t('riportalApp.company.collaborationTestimonials')" class="mb-4">Saradnje</h3>
-
-          <b-row class="align-items-center justify-content-center testimonial-box mb-3">
-            <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
-              <b-button variant="none" class="prevButtonColl" @click="previousPage()">
-                <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
-              </b-button>
-            </div>
-            <div class="col-xs-12 col-lg-10 wrapper-collaboration">
-              <div class="carousel-collaboration" ref="carouselCollaboration">
-                <b-card v-for="(collaboration, index) in collaborations" :key="collaboration.id" class="card-box">
-                  <div class="d-flex align-items-center">
-                    <div class="d-flex mb-2" style="height: 65px;">
-                      <div
-                        v-if="collaboration.companyOffer.id == company.id && collaboration.companyRequest.logo"
-                        class="img-logo-test mr-2"
-                      >
-                        <img
-                          :src="companyService().retrieveImage(collaboration.companyRequest.logo.filename)"
-                          alt="company logo"
-                          class="img-logo"
-                        />
-                      </div>
-                      <div
-                        v-else-if="collaboration.companyRequest.id == company.id && collaboration.companyOffer.logo"
-                        class="img-logo-test mr-2"
-                      >
-                        <img
-                          :src="companyService().retrieveImage(collaboration.companyOffer.logo.filename)"
-                          alt="company logo"
-                          class="img-logo"
-                        />
-                      </div>
-                      <div v-else class="img-box mr-2 placeholder-logo">
-                        {{
-                          collaboration.companyOffer.id == company.id
-                            ? getCompanyInitials(collaboration.companyRequest)
-                            : getCompanyInitials(collaboration.companyOffer)
-                        }}
-                      </div>
-                      <h3 class="company-title mb-0" style="align-self: center;">
-                        {{
-                          collaboration.companyOffer.id == company.id ? collaboration.companyRequest.name : collaboration.companyOffer.name
-                        }}
-                      </h3>
-                    </div>
-                  </div>
-                  <h4 class="mb-1" style="align-self: center; height: 60px;">{{ collaboration.advertisement.title }}</h4>
-                  <div class="d-flex" style="flex-direction: column;">
-                    <div class="mb-2">
-                      {{ collaboration.datetime ? $d(Date.parse(collaboration.datetime.toString()), 'short') : '' }}
-                    </div>
-                    <div class="align-items-center">
-                      <b-form-rating
-                        id="rating-inline"
-                        inline
-                        :value="
-                          collaboration.companyOffer.id == company.id
-                            ? collaboration.ratingRequest.number
-                            : collaboration.ratingOffer.number
-                        "
-                        class="mr-4"
-                        variant="primary"
-                        size="sm"
-                        stars="4"
-                        disabled
-                      ></b-form-rating>
-                      <label for="rating-inline">{{ collaboration.companyOffer.id == company.id ? 'Tražilac' : 'Oglašivač' }}</label>
-                    </div>
-                  </div>
-                  <hr />
-                  <div style="height: 75px;">
-                    {{
-                      collaboration.companyOffer.id == company.id
-                        ? shortenedComment(collaboration.commentRequest)
-                        : shortenedComment(collaboration.commentOffer)
-                    }}
-                  </div>
-                  <div class="mt-1 d-flex justify-content-end" style="height: 32px;">
-                    <b-button size="sm" v-if="getCommentText(collaboration).length > 90" @click="showModal(collaboration)">
-                      {{ $t('entity.action.readMore') }}
-                    </b-button>
-                  </div>
-                </b-card>
+          <div class="d-flex align-items-center justify-content-center">
+            <b-row class="align-items-center justify-content-center testimonial-box mb-3">
+              <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
+                <b-button variant="none" class="prevButtonColl" @click="previousPage()">
+                  <font-awesome-icon icon="caret-left" class="fa-lg"></font-awesome-icon>
+                </b-button>
               </div>
-            </div>
-            <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
-              <b-button variant="none" class="nextButtonColl" @click="nextPage()">
-                <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
-              </b-button>
-            </div>
-          </b-row>
+              <div class="col-xs-12 col-lg-10 wrapper-collaboration">
+                <div class="carousel-collaboration" ref="carouselCollaboration">
+                  <b-card v-for="(collaboration, index) in collaborations" :key="collaboration.id" class="card-box">
+                    <div class="d-flex align-items-center">
+                      <div class="d-flex mb-2" style="height: 65px;">
+                        <div
+                          v-if="collaboration.companyOffer.id == company.id && collaboration.companyRequest.logo"
+                          class="img-logo-test mr-2"
+                        >
+                          <img
+                            :src="companyService().retrieveImage(collaboration.companyRequest.logo.filename)"
+                            alt="company logo"
+                            class="img-logo"
+                          />
+                        </div>
+                        <div
+                          v-else-if="collaboration.companyRequest.id == company.id && collaboration.companyOffer.logo"
+                          class="img-logo-test mr-2"
+                        >
+                          <img
+                            :src="companyService().retrieveImage(collaboration.companyOffer.logo.filename)"
+                            alt="company logo"
+                            class="img-logo"
+                          />
+                        </div>
+                        <div v-else class="img-box mr-2 placeholder-logo">
+                          {{
+                            collaboration.companyOffer.id == company.id
+                              ? getCompanyInitials(collaboration.companyRequest)
+                              : getCompanyInitials(collaboration.companyOffer)
+                          }}
+                        </div>
+                        <h3 class="company-title mb-0" style="align-self: center;">
+                          {{
+                            collaboration.companyOffer.id == company.id
+                              ? collaboration.companyRequest.name
+                              : collaboration.companyOffer.name
+                          }}
+                        </h3>
+                      </div>
+                    </div>
+                    <h4 class="mb-1" style="align-self: center; height: 60px;">{{ collaboration.advertisement.title }}</h4>
+                    <div class="d-flex" style="flex-direction: column;">
+                      <div class="mb-2">
+                        {{ collaboration.datetime ? $d(Date.parse(collaboration.datetime.toString()), 'short') : '' }}
+                      </div>
+                      <div class="align-items-center">
+                        <b-form-rating
+                          id="rating-inline"
+                          inline
+                          :value="
+                            collaboration.companyOffer.id == company.id
+                              ? collaboration.ratingRequest.number
+                              : collaboration.ratingOffer.number
+                          "
+                          class="mr-4"
+                          variant="primary"
+                          size="sm"
+                          stars="4"
+                          disabled
+                        ></b-form-rating>
+                        <label for="rating-inline">{{ collaboration.companyOffer.id == company.id ? 'Tražilac' : 'Oglašivač' }}</label>
+                      </div>
+                    </div>
+                    <hr />
+                    <div style="height: 75px;">
+                      {{
+                        collaboration.companyOffer.id == company.id
+                          ? shortenedComment(collaboration.commentRequest)
+                          : shortenedComment(collaboration.commentOffer)
+                      }}
+                    </div>
+                    <div class="mt-1 d-flex justify-content-end" style="height: 32px;">
+                      <b-button size="sm" v-if="getCommentText(collaboration).length > 90" @click="showModal(collaboration)">
+                        {{ $t('entity.action.readMore') }}
+                      </b-button>
+                    </div>
+                  </b-card>
+                </div>
+              </div>
+              <div class="d-none d-lg-flex align-items-center justify-content-center col-lg-1">
+                <b-button variant="none" class="nextButtonColl" @click="nextPage()">
+                  <font-awesome-icon icon="caret-right" class="fa-lg"></font-awesome-icon>
+                </b-button>
+              </div>
+            </b-row>
+          </div>
           <div class="responsivePaginationButtons d-block d-lg-none d-flex align-items-center justify-content-around">
             <div>
               <b-button variant="none" class="prevButtonColl" @click="previousPage()">
@@ -852,7 +855,14 @@ h2 {
   padding-left: 1px;
 }
 
-.testimonial-box {
+@media (max-width: 992px) {
+  .contact-button-section {
+    flex-direction: row;
+    gap: 5px;
+  }
+}
+
+/* .testimonial-box {
   width: 800px;
   margin-left: 70px;
 }
@@ -902,7 +912,7 @@ h2 {
   .testimonial-box {
     width: 380px;
   }
-}
+} */
 
 /* ------------------- */
 
