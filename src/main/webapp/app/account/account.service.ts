@@ -66,7 +66,7 @@ export default class AccountService {
     });
   }
 
-  public hasAnyAuthorityAndCheckAuth(authorities: any): Promise<boolean> {
+  public async hasAnyAuthorityAndCheckAuth(authorities: any): Promise<boolean> {
     if (typeof authorities === 'string') {
       authorities = [authorities];
     }
@@ -75,7 +75,22 @@ export default class AccountService {
       const token = this.cookie.get('JSESSIONID') || this.cookie.get('XSRF-TOKEN');
       //  const token = localStorage.getItem('jhi-authenticationToken') || sessionStorage.getItem('jhi-authenticationToken');
       if (!this.store.getters.account && !this.store.getters.logon && token) {
-        return this.retrieveAccount();
+        // THE FOLLOWING CHANGE ADDRESSES THE DEFAULT JHIPSTER CODE!!!
+
+        // The return statement bellow can return "true", thus granting any authority
+        // that is being checked, even if the user doesn't have that authority.
+        // This is especially the problem if we check for ROLE_ADMIN authority.
+
+        // To avoid this, we first wait for the the "retrieveAccount" method.
+        // If the account is not retrieved, "false" is returned for authority check.
+        // If the account is retrieved we simply continue with authority check.
+        // To be able to await for "retrieveAccount", this method is signed with "async";
+
+        // return this.retrieveAccount();
+        const accountRetrieved = await this.retrieveAccount();
+        if (!accountRetrieved) {
+          return false;
+        }
       } else {
         return new Promise(resolve => {
           resolve(false);

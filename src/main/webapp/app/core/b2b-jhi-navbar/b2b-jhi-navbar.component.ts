@@ -49,6 +49,8 @@ export default class B2BJhiNavbar extends Vue {
   public isActive: boolean = false;
   public valuetype;
   public advertisementTypeOptions = AdvertisementTypeOptions;
+  public isAdminValue = false;
+  public isCompanyAdminValue = false;
 
   public category;
 
@@ -73,6 +75,8 @@ export default class B2BJhiNavbar extends Vue {
   created() {
     this.translationService().refreshTranslation(this.currentLanguage);
     this.mainSearchCategory = 1;
+    this.setIsAdmin();
+    this.setIsCompanyAdmin();
   }
 
   data() {
@@ -178,13 +182,30 @@ export default class B2BJhiNavbar extends Vue {
     return this.$store.getters.authenticated;
   }
 
-  public hasAnyAuthority(authorities: any): boolean {
-    this.accountService()
-      .hasAnyAuthorityAndCheckAuth(authorities)
-      .then(value => {
-        this.hasAnyAuthorityValue = value;
-      });
-    return this.hasAnyAuthorityValue;
+  public async hasAnyAuthority(authorities: any): Promise<boolean> {
+    return await this.accountService().hasAnyAuthorityAndCheckAuth(authorities);
+    // this.accountService()
+    // .hasAnyAuthorityAndCheckAuth(authorities)
+    // .then(value => {
+    //     this.hasAnyAuthorityValue = value;
+    //   });
+    // return this.hasAnyAuthorityValue;
+  }
+
+  public async setIsAdmin(): Promise<void> {
+    this.isAdminValue = await this.hasAnyAuthority('ROLE_ADMIN');
+  }
+
+  public async setIsCompanyAdmin(): Promise<void> {
+    this.isCompanyAdminValue = await this.hasAnyAuthority('ROLE_COMPANY_ADMIN');
+  }
+
+  get isAdmin(): boolean {
+    return this.isAdminValue;
+  }
+
+  get isCompanyAdmin(): boolean {
+    return this.isCompanyAdminValue;
   }
 
   public get swaggerEnabled(): boolean {

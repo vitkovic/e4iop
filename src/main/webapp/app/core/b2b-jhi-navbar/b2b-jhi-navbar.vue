@@ -75,7 +75,7 @@
             <b-nav-item-dropdown
               right
               id="cms-admin-menu"
-              v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated"
+              v-if="isAdmin && authenticated"
               :class="{ 'router-link-active': subIsActive('/admin') }"
               active-class="active"
             >
@@ -106,7 +106,7 @@
               </b-dropdown-item>
             </b-nav-item-dropdown>
 
-            <b-nav-item-dropdown right id="entity-menu" v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated" active-class="active">
+            <b-nav-item-dropdown right id="entity-menu" v-if="isAdmin && authenticated" active-class="active">
               <span slot="button-content" class="boja">
                 <font-awesome-icon icon="th-list" />
                 <span v-text="$t('global.menu.entities.main')">Entities</span>
@@ -246,7 +246,7 @@
             <b-nav-item-dropdown
               right
               id="admin-menu"
-              v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated"
+              v-if="isAdmin && authenticated"
               :class="{ 'router-link-active': subIsActive('/admin') }"
               active-class="active"
             >
@@ -324,7 +324,7 @@
               <!-- <b-dropdown-item to="#" tag="b-dropdown-item" v-if="authenticated" active-class="active">
                   <span v-text="$t('global.menu.account.rsnisData')">RSNIS podaci</span>
                 </b-dropdown-item> -->
-              <b-dropdown-item v-if="hasAnyAuthority('ROLE_COMPANY_ADMIN') && authenticated"
+              <b-dropdown-item v-if="isCompanyAdmin && authenticated && portalUser && portalUser.company"
                 :to="{ name: 'CompanyPortalUsers', params: { companyId: portalUser.company.id } }"
                 tag="b-dropdown-item"
                 active-class="active"
