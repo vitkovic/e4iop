@@ -54,25 +54,33 @@
 
                     <td>
                         <div v-if="advertisement.status">
-                            {{advertisement.status.status}}
+                          <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.status.status }}</span>
+                          <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.status.statusSrc }}</span>
+                          <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.status.statusEn }}</span>
                         </div>
                     </td>
                     <td>
                         <div v-if="advertisement.type">
-                            {{advertisement.type.type}}
+                          <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.type.type }}</span>
+                          <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.type.typeSrc }}</span>
+                          <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.type.typeEn }}</span>
                         </div>
                     </td>
                     <td>
-                        <div v-if="advertisement.kind">
-                            {{advertisement.kind.kind}}
+                        <div v-if="advertisement.kinds">
+                          {{ advertisementKindsString(advertisement) }}
                         </div>
                     </td>
                     <td>
                         <div v-if="advertisement.subsubcategory">
-                            {{advertisement.subsubcategory.name}}
+                          {{ advertisementCategorizationBranch(advertisement) }}
                         </div>
                     </td>
-                    <td>{{advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' })}}</td>
+                    <td>
+                      <div v-if="advertisement.budget">
+                        {{advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' })}}
+                      </div>
+                    </td>
                     <td>
                         <div v-if="advertisement.company">
                             <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}" class="text-body">{{advertisement.company.name}}</router-link>
