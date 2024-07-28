@@ -830,6 +830,10 @@ export default class Thread extends mixins(AlertMixin) {
   }
 
   public prepareNewMessageModal(): void {
+    this.companyReceiver = null;
+    this.inputSubject.value = '';
+    this.textareaContent.value = '';
+
     this.companyService()
       .getAllAutocompleteByNameWithoutExlcuded(' ', [this.companyId])
       .then(res => {
