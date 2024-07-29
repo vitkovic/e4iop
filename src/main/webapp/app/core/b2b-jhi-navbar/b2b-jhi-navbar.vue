@@ -101,7 +101,7 @@
               <b-dropdown-item :to="{ name: 'CMSNews' }" active-class="active">
                 <span v-text="$t('global.menu.cms.news')">Vesti</span>
               </b-dropdown-item>
-              <b-dropdown-item to="#" active-class="active">
+              <b-dropdown-item :to="{ name: 'CMSReports' }" active-class="active">
                 <span v-text="$t('global.menu.cms.reports')">Izveštaji</span>
               </b-dropdown-item>
             </b-nav-item-dropdown>

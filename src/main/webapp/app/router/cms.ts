@@ -3,6 +3,7 @@ import { Authority } from '@/shared/security/authority';
 /* tslint:disable */
 // prettier-ignore
 const CMSB2B = () => import('@/cms-b2b/cms-b2b.vue');
+const CMSReports = () => import('@/cms-b2b/cms-b2b-reports.vue');
 const CMSAdvertsement = () => import('@/entities/advertisement/advertisement.vue');
 const CMSCodebook = () => import('@/cms-b2b/cms-b2b-codebook.vue');
 const CMSPages = () => import('@/cms-b2b/cms-b2b-pages.vue');
@@ -17,6 +18,12 @@ export default [
     path: '/b2b/cms',
     name: 'CMSB2B',
     component: CMSB2B,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+   {
+    path: '/b2b/cms/reports',
+    name: 'CMSReports',
+    component: CMSReports,
     meta: { authorities: [Authority.ADMIN] },
   },
   {

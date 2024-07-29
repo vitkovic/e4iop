@@ -9,6 +9,8 @@ import 'vue2-datepicker/locale/sr';
 import 'vue2-datepicker/index.css';
 import Notifications from 'vue-notification';
 
+import  CMSB2BService from './cms-b2b/cms-b2b.service';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import App from './app.vue';
 import Vue2Filters from 'vue2-filters';
@@ -317,6 +319,7 @@ new Vue({
     inquiryService: () => new InquiryService(),
     searchPageService: () => new SearchPageService(),
     numericDataUtils: () => new NumericDataUtils(),
+    cmsB2BService: () => new CMSB2BService(),
   },
   i18n,
   store,

@@ -118,6 +118,7 @@ public class AdvertisementService {
              User user = currentUser.get();
              
              PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
+             System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   " + pUser);
              return advertisementRepository.findByCompanyId(pUser.getCompany().getId() ,pageable);
              
 //             List<String> userRoles = pUser.pronadjiPortalUserRolesAbbreviations();
