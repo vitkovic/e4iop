@@ -224,8 +224,9 @@
 							    </div>
 							  
 						</b-tab>
-				    <b-tab title="Second"><p>I'm the second tab</p></b-tab>
-				    <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>
+				    <b-tab title="Notifications"><p>Notifications</p></b-tab>
+				    <b-tab title="Users"><p>Users</p></b-tab>
+				    <b-tab title="Grades"><p>Grades</p></b-tab>
 				  </b-tabs>
 				</div>
   

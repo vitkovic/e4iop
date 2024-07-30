@@ -340,10 +340,14 @@ public loadPage(page: number): void {
   public exportCSVFile(items, fileTitle): any {
 	  
   var headers;
+  var type;
   
-  
-  if (fileTitle == 'advertisements') headers = { id: 'ID', active: 'Datum aktivacije', state:'Status', type:'Tip', kind:'Vrsta'};
-  
+  if (fileTitle == 'advertisements') { 
+	  headers = { 
+  		id: 'ID', createdAt: 'Kreiran', modifiedAt:'Modifikovan', activationD:'Datum aktivacije', expirationD:'Datum isteka',
+  		delD:'Datum brisanja', title:'Naslov', desc:'Opis', budget:'Budžet'};
+  	  type = 0;	
+  }
   
   
   items = this[items];
@@ -351,10 +355,13 @@ public loadPage(page: number): void {
   if (headers) {
     items.unshift(headers);
   }
-  const jsonObject = JSON.stringify(items);
-  const csv = this.convertToCSV(jsonObject);
+  
+ 
+  
+ // const jsonObject = JSON.stringify(items);
+  const csv = this.convertToCSV(items,type);
   const exportedFilename = fileTitle + '.csv' || 'export.csv'; // eslint-disable-line
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const blob = new Blob(["\ufeff",csv], { type: 'text/csv;charset=utf-8;' });
    if ((window.navigator as any).msSaveBlob) {
         (window.navigator as any).msSaveBlob(blob, exportedFilename);
       
@@ -371,16 +378,23 @@ public loadPage(page: number): void {
     }
   }
 }
-public convertToCSV(objArray): any {
+public convertToCSV(objArray, type): any {
   const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
   let str = '';
   for (let i = 0; i < array.length; i++) { // eslint-disable-line
     let line = '';
-    for (const index in array[i]) { // eslint-disable-line
-      if (line !== '') line += ',';
-      line += array[i][index];
-    }
-    str += line + '\r\n'; // eslint-disable-line
+    console.log(array[i]);
+    let j = 0;
+	for (const index in array[i]) {
+		if (j==9 && type == 0) break;
+  		//console.log(`${index}: ${array[i][index]}`);
+  		let div = document.createElement("div");
+		div.innerHTML = array[i][index];
+		let text = div.textContent || div.innerText || "";
+  		str += text + ",";
+  		j++;
+	}
+    str += '\r\n'; // eslint-disable-line
   }
   return str;
 }
