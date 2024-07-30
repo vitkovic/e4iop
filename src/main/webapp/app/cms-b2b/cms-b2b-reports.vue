@@ -9,8 +9,93 @@
 				    <b-tab title="Advertisements" active>
 						
 						
-						
-						
+					 <div class="d-flex">
+						    
+			                <div class="form-group">
+			                <input
+			                  id="advCountId"
+			                  type="text"
+			                  class="form-control"
+			                  name="advCountName"
+			                  v-model="advCount"
+			                />
+			                </div>
+			                <div>&nbsp;</div>
+			                <div class="form-group">
+					              <label class="form-control-label" v-text="$t('riportalApp.reports.category')" for="kat">Category</label>
+					                <select class="form-control" style="width:100%;max-width:100%" v-model="mainSearchCategory" id="kat" name="kat" @change="retrieveAdvertisementsByCategory()" >
+                    					<option  v-for="element in advCategList" :key="element.id" :value="element.id" >{{element.name}}</option>
+                					</select>
+            			</div> 
+            			 
+            			  <div>&nbsp;</div>
+			                <div class="form-group">
+					              <label class="form-control-label" v-text="$t('riportalApp.reports.type')" for="typ">Type</label>
+					                <select class="form-control" style="width:100%;max-width:100%" v-model="advType" id="typ" name="typ" @change="retrieveAdvertisementsByType()" >
+                    					<option  v-for="element in advTypeList" :key="element.id" :value="element.id" >{{element.type}}</option>
+                					</select>
+            			</div> 
+            			  <div>&nbsp;</div>
+			                <div class="form-group">
+					              <label class="form-control-label" v-text="$t('riportalApp.reports.kind')" for="kin">Kind</label>
+					                <select class="form-control" style="width:100%;max-width:100%" v-model="advKind" id="kin" name="kin" @change="retrieveAdvertisementsByKind()" >
+                    					<option  v-for="element in advKindList" :key="element.id" :value="element.id" >{{element.kind}}</option>
+                					</select>
+            			</div>
+            			 <div>&nbsp;</div>
+			                <div class="form-group">
+					              <label class="form-control-label" v-text="$t('riportalApp.reports.company')" for="comp">Company</label>
+					                <select class="form-control" style="width:100%;max-width:100%" v-model="advCompany" id="comp" name="comp" @change="retrieveAdvertisementsByCompany()" >
+                    					<option  v-for="element in advCompanyList" :key="element.id" :value="element.id" >{{element.name}}</option>
+                					</select>
+            			</div>
+            			   <div  class="form-group">
+				              <label
+				                class="form-control-label"
+				                v-text="$t('riportalApp.reports.activationDatetimeFrom')"
+				                for="activationDatetimeFrom"
+				                >Activation Datetime From</label
+				              >
+				              <div class="d-flex">
+				                <input
+				                  id="activationDatetimeFrom"
+				                  v-model="activationDatetimeFrom"
+				                  type="datetime-local"
+				                  class="form-control"
+				                  name="activationDatetimeFrom"
+				                  @change="updateInstantFieldFrom($event)"
+				                />
+				              </div>
+            			  
+              				</div>
+              				 <div  class="form-group">
+				              <label
+				                class="form-control-label"
+				                v-text="$t('riportalApp.reports.activationDatetimeТо')"
+				                for="activationDatetimeTo"
+				                >Activation Datetime To</label
+				              >
+				              <div class="d-flex">
+				                <input
+				                  id="activationDatetimeTo"
+				                  type="datetime-local"
+				                  v-model="activationDatetimeTo"
+				                  class="form-control"
+				                  name="activationDatetimeTo"
+				                  @change="updateInstantFieldTo($event)"
+				                />
+				              </div>
+            			  
+              				</div>
+              			</div>
+						<div>
+							
+							  <b-button
+							          v-text="$t('riportalApp.reports.exportcsv')"
+							          v-on:click="exportCSVFile('advertisements', 'advertisements')"
+							          >Cancel</b-button>
+							
+						</div>
 					<div class="custom-table-responsive" v-if="advertisements && advertisements.length > 0">
 					  <table class="table table-striped">
 					    <thead>
@@ -59,11 +144,7 @@
 					          <span v-text="$t('riportalApp.advertisement.expirationDatetime')">Expiration Date</span>
 					          <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'expirationDatetime'"></jhi-sort-indicator>
 					        </th>
-					        <th v-on:click="changeOrder('deletionDatetime')">
-					          <span v-text="$t('riportalApp.advertisement.deletionDatetime')">Deletion Date</span>
-					          <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'deletionDatetime'"></jhi-sort-indicator>
-					        </th>
-					        <th></th>
+					      
 					      </tr>
 					    </thead>
 					    <tbody>
@@ -128,14 +209,20 @@
 					            advertisement.expirationDatetime ? $d(Date.parse(advertisement.expirationDatetime.toString()), { dateStyle: 'short' }) : ''
 					          }}
 					        </td>
-					        <td>
-					          {{ advertisement.deletionDatetime ? $d(Date.parse(advertisement.deletionDatetime.toString()), { dateStyle: 'short' }) : '' }}
-					        </td>
+					     
 						  </tr>
 						  </tbody>
 						 </table>
 					   </div>			
-						
+								<div v-show="advertisements && advertisements.length > 0">
+							      <div class="row justify-content-center">
+							        <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
+							      </div>
+							      <div class="row justify-content-center">
+							        <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
+							      </div>
+							    </div>
+							  
 						</b-tab>
 				    <b-tab title="Second"><p>I'm the second tab</p></b-tab>
 				    <b-tab title="Disabled" disabled><p>I'm a disabled tab!</p></b-tab>

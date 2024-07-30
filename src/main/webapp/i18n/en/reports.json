@@ -1,6 +1,12 @@
 {
   "riportalApp": {
     "reports": {
+	  "category":"Category",	
+	  "kind":"Kind",
+	  "company":"Company",	
+	  "activationDatetimeFrom": "activation Datetime From",
+	  "activationDatetimeТо": "activation Datetime То",
+	  "exportcsv": "CSV Export",
       "statisticForOrganizationsOnPortal": "Statistics for organizations on the portal",
       "searchOrganizations": "Search organization",
       "naziv": "Name",

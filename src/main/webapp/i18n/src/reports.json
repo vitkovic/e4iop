@@ -1,6 +1,12 @@
 {
   "riportalApp": {
     "reports": {
+	  "category":"Категорија",	
+	  "kind":"Врста",
+	  "company":"Компанија",
+	  "activationDatetimeFrom": "Датум Активације Од",
+	  "activationDatetimeTo": "Датум Активације До",
+	  "exportcsv": "CSV Експорт",
       "statisticForOrganizationsOnPortal": "Статистика везана за организације на порталу",
       "searchOrganizations": "Потражите организацију",
       "naziv": "Назив",

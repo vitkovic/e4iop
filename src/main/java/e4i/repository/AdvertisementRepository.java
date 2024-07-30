@@ -18,10 +18,10 @@ import java.util.Optional;
  */
 @Repository
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
-     int status_id = 3552;
+     int status_id_active = 3551;
 	
 	 @Query("select distinct advertisement from Advertisement advertisement "
-	  		+ " where activation_datetime >= TO_TIMESTAMP(:date, 'YYYY-MM-DD HH24:MI:SS') and advertisement.status.id =" +  status_id)
+	  		+ " where activation_datetime >= TO_TIMESTAMP(:date, 'YYYY-MM-DD HH24:MI:SS') and advertisement.status.id =" +  status_id_active)
 	 List<Advertisement> findAllByActivatedLater(@Param("date") String date);
 	
     @Query(value = "select distinct advertisement from Advertisement advertisement "
@@ -166,6 +166,22 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
         countQuery = "select count(distinct advertisement) from Advertisement advertisement "
         		+ " where advertisement.type.id=:type")
     Page<Advertisement> findAllBySearchAdminType(@Param("type") Long type, Pageable pageable);
+    
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ " where advertisement.kind.id=:kind",
+        countQuery = "select count(distinct advertisement) from Advertisement advertisement "
+        		+ " where advertisement.kind.id=:kind")
+    Page<Advertisement> findAllBySearchAdminKind(@Param("kind") Long kind, Pageable pageable);
+    
+    
+    
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+	  		+ " where activation_datetime >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') and activation_datetime <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS')"
+	  		+ " and advertisement.status.id =" +  status_id_active,
+	  		 countQuery = "select distinct advertisement from Advertisement advertisement "
+	  		+ " where activation_datetime >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') and activation_datetime <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS')"
+	  		+ " and advertisement.status.id =" +  status_id_active)
+	 Page<Advertisement> findAllBySearchAdminDates(@Param("from") String from, @Param("to") String to,Pageable pageable);
     
     
     @Query(value = "select distinct advertisement from Advertisement advertisement "

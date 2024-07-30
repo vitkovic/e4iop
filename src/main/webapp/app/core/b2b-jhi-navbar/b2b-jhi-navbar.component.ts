@@ -407,9 +407,6 @@ export default class B2BJhiNavbar extends Vue {
     this.advertisementCategoryService()
       .retrieve()
       .then(res => {
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaas');
-
-        console.log(res.data);
         this.advCategList = res.data;
         this.$refs.mainSearchCategory = this.advCategList;
         this.mainSearchCategory = 1;
