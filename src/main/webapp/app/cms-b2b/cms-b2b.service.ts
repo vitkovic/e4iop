@@ -14,8 +14,21 @@ const baseApiUrlSearchDates = 'api/advertisements/searchdates';
 const baseApiUrlCollab = 'api/collaborations/status';
 const baseApiUrlInquiry = 'api/inquiry';
 const baseApiUrlSearchCollabDates = 'api/collaborations/searchdates';
-
+const baseApiUrlUsers = 'api/portal-users/get';
 export default class CMSB2BService {
+
+public retrieveUsers(paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrlUsers + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
 public retrieveInquiries(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {

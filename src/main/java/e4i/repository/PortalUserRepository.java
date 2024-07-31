@@ -24,6 +24,14 @@ public interface PortalUserRepository extends JpaRepository<PortalUser, String> 
     		+ " left join fetch portalUser.portalUserRoles",
         countQuery = "select count(distinct portalUser) from PortalUser portalUser")
     Page<PortalUser> findAllWithEagerRelationships(Pageable pageable);
+    
+    
+    
+    @Query(value = "select distinct portalUser from PortalUser portalUser ",
+        countQuery = "select count(distinct portalUser) from PortalUser portalUser")
+    Page<PortalUser> findAllWithEagerRelationshipsAll(Pageable pageable);
+    
+    
 
     @Query("select distinct portalUser from PortalUser portalUser left join fetch portalUser.portalUserRoles")
     List<PortalUser> findAllWithEagerRelationships();

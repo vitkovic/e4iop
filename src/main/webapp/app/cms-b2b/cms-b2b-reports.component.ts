@@ -3,7 +3,8 @@ import { Vue, Inject } from 'vue-property-decorator';
 import  CMSB2BService from './cms-b2b.service';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 import { ICollaboration } from '@/shared/model/collaboration.model';
-import { IInquiry } from '@/shared/model/inquiry.model';
+//import { IInquiry } from '@/shared/model/inquiry.model';
+import { IPortalUser } from '@/shared/model/portal-user.model';
 import AccountService from '@/account/account.service';
 import Vue2Filters from 'vue2-filters';
 import AlertMixin from '@/shared/alert/alert.mixin';
@@ -34,7 +35,8 @@ export default class CMSB2BReports extends Vue {
    
  public advertisements: IAdvertisement[] = [];
  public collaborations: ICollaboration[] = [];
- 
+ public portalUsers: IPortalUser[] = [];
+  
  public itemsPerPage = 20;
   public queryCount: number = null;
   public page = 1;
@@ -60,7 +62,7 @@ export default class CMSB2BReports extends Vue {
   public inqStatus = 1;
   public inqCount = 0;
   public inqStatusList = null;
-  
+  public usersCount = 0;
   data() {
     return {
       advcount: 0,
@@ -71,6 +73,7 @@ export default class CMSB2BReports extends Vue {
       collabStatus: 1,
       inqCount: 0,
       inqStatus: 1,
+      usersCount:0,
       activationDatetimeTo: null,
       activationDatetimeFrom: null
     }
@@ -354,7 +357,34 @@ public updateInstantFieldFromCollab(event) {
    
        
     }
+public retrieveUsers(): void {
+    this.isFetching = true;
 
+    const paginationQuery = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
+
+    this.cmsB2BService()
+        .retrieveUsers(paginationQuery)
+        .then(
+          res => {
+            this.portalUsers = res.data;
+            console.log("Users uuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+            console.log(res.data);
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.usersCount = this.queryCount;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+   
+       
+    }
 
 
  public sort(): Array<any> {
@@ -367,6 +397,7 @@ public updateInstantFieldFromCollab(event) {
 
  public mounted(): void {
     this.retrieveAdvertisements();
+    this.retrieveUsers();
     this.initRelationships();
  }
 
@@ -411,7 +442,7 @@ public loadPage(page: number): void {
       .retrieve()
       .then(res => {
         this.advTypeList = res.data;
-        console.log(res.data);
+       // console.log(res.data);
         this.advType = 1;
       });
   
@@ -419,7 +450,7 @@ public loadPage(page: number): void {
       .retrieve()
       .then(res => {
         this.advKindList = res.data;
-        console.log(res.data);
+      //  console.log(res.data);
         this.advKind = 1;
       });
   
@@ -427,7 +458,7 @@ public loadPage(page: number): void {
       .retrieve()
       .then(res => {
         this.advCompanyList = res.data;
-        console.log(res.data);
+     //   console.log(res.data);
         this.advCompany = 1;
       });
       
@@ -435,7 +466,7 @@ public loadPage(page: number): void {
       .retrieve()
       .then(res => {
         this.collabStatusList = res.data;
-        console.log(res.data);
+      //  console.log(res.data);
         this.collabStatus = 1;
       });  
     

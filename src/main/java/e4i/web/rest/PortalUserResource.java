@@ -132,6 +132,28 @@ public class PortalUserResource {
     }
 
     /**
+     * {@code GET  /portal-users} : get all the portalUsers.
+     *
+     * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of portalUsers in body.
+     */
+    @GetMapping("/portal-users/get")
+    public ResponseEntity<List<PortalUser>> getAllPortalUsersView(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+        log.debug("REST request to get a page of PortalUsers");
+        Page<PortalUser> page;
+        if (eagerload) {
+            page = portalUserService.findAllWithEagerRelationshipsView(pageable);
+        } else {
+            page = portalUserService.findAllView(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    
+    
+    /**
      * {@code GET  /portal-users/:id} : get the "id" portalUser.
      *
      * @param id the id of the portalUser to retrieve.

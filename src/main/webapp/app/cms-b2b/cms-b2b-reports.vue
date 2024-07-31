@@ -214,14 +214,7 @@
 						  </tbody>
 						 </table>
 					   </div>			
-								<div v-show="advertisements && advertisements.length > 0">
-							      <div class="row justify-content-center">
-							        <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
-							      </div>
-							      <div class="row justify-content-center">
-							        <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
-							      </div>
-							    </div>
+								
 							  
 						</b-tab>
 				    <b-tab title="Collaborations"><p>Collaborations</p>
@@ -314,7 +307,7 @@
 				                    <th v-on:click="changeOrderCollab('ratingOffer.id')"><span v-text="$t('riportalApp.collaboration.ratingOffer')">Rating Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ratingOffer.id'"></jhi-sort-indicator></th>
 				                    <th v-on:click="changeOrderCollab('ratingRequest.id')"><span v-text="$t('riportalApp.collaboration.ratingRequest')">Rating Request</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ratingRequest.id'"></jhi-sort-indicator></th>
 				                    <th v-on:click="changeOrderCollab('status.id')"><span v-text="'Status'">Status</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'status.id'"></jhi-sort-indicator></th>
-				                    <th></th>
+				                   
 				                </tr>
 				                </thead>
 				                <tbody>
@@ -356,25 +349,7 @@
 				                            {{collaboration.status.status}}
 				                        </div>
 				                    </td>
-				                    <td class="text-right">
-				                        <div class="btn-group">
-				                            <router-link :to="{name: 'CollaborationView', params: {collaborationId: collaboration.id}}" tag="button" class="btn btn-info btn-sm details">
-				                                <font-awesome-icon icon="eye"></font-awesome-icon>
-				                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
-				                            </router-link>
-				                            <router-link :to="{name: 'CollaborationEdit', params: {collaborationId: collaboration.id}}"  tag="button" class="btn btn-primary btn-sm edit">
-				                                <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-				                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
-				                            </router-link>
-				                            <b-button v-on:click="prepareRemove(collaboration)"
-				                                   variant="danger"
-				                                   class="btn btn-sm"
-				                                   v-b-modal.removeEntity>
-				                                <font-awesome-icon icon="times"></font-awesome-icon>
-				                                <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
-				                            </b-button>
-				                        </div>
-				                    </td>
+				                   
 				                </tr>
 				                </tbody>
 				            </table>
@@ -382,7 +357,79 @@
             	    				
            	    
 				    </b-tab>
-				    <b-tab title="Users"><p>Users</p></b-tab>
+				    <b-tab title="Users">
+						  <div class="d-flex">
+						    
+			                <div class="form-group">
+			                <input
+			                  id="collabCountId"
+			                  type="text"
+			                  class="form-control"
+			                  name="collabCountId"
+			                  v-model="usersCount"
+			                />
+			                </div>
+		  		
+            		</div>
+						
+            			
+            			
+            			  <b-button
+							          v-text="$t('riportalApp.reports.exportcsv')"
+							          v-on:click="exportCSVFile('users', 'users')"
+							          >Export</b-button>
+							
+											
+						 <div class="table-responsive" v-if="portalUsers && portalUsers.length > 0">
+					            <table class="table table-striped">
+					                <thead>
+					                <tr>
+					                    <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrder('userFirstName')"><span v-text="$t('riportalApp.portalUser.firstName')">First Name</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'firstName'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrder('user.lastName')"><span v-text="$t('riportalApp.portalUser.familyName')">Family Name</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'familyName'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrder('phone')"><span v-text="$t('riportalApp.portalUser.phone')">Phone</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'phone'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrder('position')"><span v-text="$t('riportalApp.portalUser.position')">Position</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'position'"></jhi-sort-indicator></th>
+					                    <!--
+					                    <th v-on:click="changeOrder('researcher.id')"><span v-text="$t('riportalApp.portalUser.researcher')">Researcher</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'researcher.id'"></jhi-sort-indicator></th>
+					                    -->
+					                    <th v-on:click="changeOrder('userOrganization.legalNameSr')"><span v-text="$t('riportalApp.portalUser.userOrganization')">User Organization</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'userOrganization.id'"></jhi-sort-indicator></th>
+					                    <th></th>
+					                </tr>
+					                </thead>
+					                <tbody>
+					                <tr v-for="portalUser in portalUsers"
+					                    :key="portalUser.id">
+					                    <td>
+					                        <router-link class="link-style" :to="{name: 'PortalUserView', params: {portalUserId: portalUser.id}}">{{portalUser.id}}</router-link>
+					                    </td>
+					                    <td>{{portalUser.user.firstName}}</td>
+					                    <td>{{portalUser.user.lastName}}</td>
+					                    <td>{{portalUser.phone}}</td>
+					                    <td>{{portalUser.position}}</td>
+					                    <!--
+					                    <td>
+					                        <div v-if="portalUser.researcher">
+					                            <router-link :to="{name: 'ResearcherView', params: {researcherId: portalUser.researcher.id}}">{{portalUser.researcher.id}}</router-link>
+					                        </div>
+					                    </td>
+					                    -->
+					                    <td>
+					                        <div v-if="portalUser.userOrganization">
+					                            <router-link class="link-style" :to="{name: 'PortalUserOrganizationView', params: {portalUserOrganizationId: portalUser.userOrganization.id}}">
+					                                <span v-if="currentLanguage == 'sr'">{{portalUser.userOrganization.legalNameSr}}</span>
+					                                <span v-if="currentLanguage == 'en'">{{portalUser.userOrganization.legalNameEn}}</span>
+					                                <span v-if="currentLanguage == 'src'">{{portalUser.userOrganization.legalNameSrCyr}}</span>
+					                            </router-link>
+					                        </div>
+					                    </td>
+					                  
+					                </tr>
+					                </tbody>
+					            </table>
+					        </div>
+											
+						
+					</b-tab>
 				    <b-tab title="Grades"><p>Grades</p></b-tab>
 				  </b-tabs>
 				</div>
