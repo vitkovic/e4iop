@@ -135,7 +135,38 @@ public class CollaborationResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+    
+    /**
+     * {@code GET  /collaborations/:status} : get all the collaborations.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of collaborations in body.
+     */
+    @GetMapping("/collaborations/status")
+    public ResponseEntity<List<Collaboration>> getAllCollaborationsByStatus(@RequestParam Long status, Pageable pageable) {
+        log.debug("REST request to get a page of Collaborations");
+        Page<Collaboration> page = collaborationService.findAllByStatus(status, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
 
+    
+    
+    /**
+     * {@code GET  /collaborations/:status} : get all the collaborations.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of collaborations in body.
+     */
+    @GetMapping("/collaborations/searchdates")
+    public ResponseEntity<List<Collaboration>> getAllCollaborationsByStatusAndDates(@RequestParam String from,@RequestParam String to,@RequestParam Long status, Pageable pageable) {
+        log.debug("REST request to get a page of Collaborations");
+        Page<Collaboration> page = collaborationService.findAllByStatusandDates(from, to, status, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+    
+    
     /**
      * {@code GET  /collaborations/:id} : get the "id" collaboration.
      *

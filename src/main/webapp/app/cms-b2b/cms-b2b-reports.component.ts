@@ -2,6 +2,8 @@ import Component from 'vue-class-component';
 import { Vue, Inject } from 'vue-property-decorator';
 import  CMSB2BService from './cms-b2b.service';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
+import { ICollaboration } from '@/shared/model/collaboration.model';
+import { IInquiry } from '@/shared/model/inquiry.model';
 import AccountService from '@/account/account.service';
 import Vue2Filters from 'vue2-filters';
 import AlertMixin from '@/shared/alert/alert.mixin';
@@ -9,6 +11,7 @@ import { mixins } from 'vue-class-component';
 import AdvertisementCategoryService from '@/entities/advertisement-category/advertisement-category.service';
 import AdvertisementTypeService from '@/entities/advertisement-type/advertisement-type.service';
 import AdvertisementKindService from '@/entities/advertisement-kind/advertisement-kind.service';
+import CollaborationStatusService from '@/entities/collaboration-status/collaboration-status.service';
 import CompanyService from '@/entities/company/company.service';
 import { numeric, required, minLength, maxLength, minValue, maxValue, requiredIf } from 'vuelidate/lib/validators';
 import format from 'date-fns/format';
@@ -27,8 +30,11 @@ export default class CMSB2BReports extends Vue {
  @Inject('advertisementTypeService') private advertisementTypeService: () => AdvertisementTypeService;
  @Inject('advertisementKindService') private advertisementKindService: () => AdvertisementKindService;
  @Inject('companyService') private companyService: () => CompanyService;
+ @Inject('collaborationStatusService') private collaborationStatusService: () => CollaborationStatusService;
    
  public advertisements: IAdvertisement[] = [];
+ public collaborations: ICollaboration[] = [];
+ 
  public itemsPerPage = 20;
   public queryCount: number = null;
   public page = 1;
@@ -48,6 +54,12 @@ export default class CMSB2BReports extends Vue {
   public advCompanyList = null;
   public activationDatetimeTo = null;
   public activationDatetimeFrom = null;
+  public collabStatusList = null;
+  public collabStatus = 1;
+  public collabCount = 0;
+  public inqStatus = 1;
+  public inqCount = 0;
+  public inqStatusList = null;
   
   data() {
     return {
@@ -55,6 +67,10 @@ export default class CMSB2BReports extends Vue {
       mainSearchCategory: 1,
       advType:1,
       advKind:1,
+      collabCount: 0,
+      collabStatus: 1,
+      inqCount: 0,
+      inqStatus: 1,
       activationDatetimeTo: null,
       activationDatetimeFrom: null
     }
@@ -63,6 +79,38 @@ export default class CMSB2BReports extends Vue {
  
    
  private hasAnyAuthorityValue = false;
+
+
+public retrieveCollaborations(): void {
+    this.isFetching = true;
+
+    const paginationQuery = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
+   
+    this.cmsB2BService()
+        .retrieveCoolaborationsByStatus(this.collabStatus, paginationQuery)
+        .then(
+          res => {
+            this.collaborations = res.data;
+            console.log(res.data);
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.collabCount = this.queryCount;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+   
+       
+    }
+  
+
+
   
 public retrieveAdvertisements(): void {
     this.isFetching = true;
@@ -208,7 +256,33 @@ public retrieveAdvertisements(): void {
    
        
     }
+  public retrieveCollaborationsByDateInterval(): void {
+    this.isFetching = true;
 
+    const paginationQuery = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
+    
+    this.cmsB2BService()
+        .retrieveSearchCollabDates(this.activationDatetimeFrom.toString(), this.activationDatetimeTo.toString(),this.collabStatus, paginationQuery)
+        .then(
+          res => {
+            this.collaborations = res.data;
+            console.log(res.data);
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.collabCount = this.queryCount;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+   
+       
+    }
  public updateInstantFieldFrom(event) {
     if (event.target.value) {
       this.activationDatetimeFrom= event.target.value;
@@ -230,6 +304,26 @@ public retrieveAdvertisements(): void {
     
  }
 
+public updateInstantFieldFromCollab(event) {
+    if (event.target.value) {
+      this.activationDatetimeFrom= event.target.value;
+      console.log( this.activationDatetimeFrom);
+      if (this.activationDatetimeTo != null) this.retrieveCollaborationsByDateInterval();
+    } else {
+      this.activationDatetimeFrom = null;
+    }
+    
+ }
+ 
+ public updateInstantFieldToCollab(event) {
+    if (event.target.value) {
+      this.activationDatetimeTo= event.target.value
+      if (this.activationDatetimeFrom != null) this.retrieveCollaborationsByDateInterval();
+    } else {
+      this.activationDatetimeTo = null;
+    }
+    
+ }
 
 
  
@@ -336,6 +430,15 @@ public loadPage(page: number): void {
         console.log(res.data);
         this.advCompany = 1;
       });
+      
+    this.collaborationStatusService()
+      .retrieve()
+      .then(res => {
+        this.collabStatusList = res.data;
+        console.log(res.data);
+        this.collabStatus = 1;
+      });  
+    
   }
   public exportCSVFile(items, fileTitle): any {
 	  
@@ -347,6 +450,11 @@ public loadPage(page: number): void {
   		id: 'ID', createdAt: 'Kreiran', modifiedAt:'Modifikovan', activationD:'Datum aktivacije', expirationD:'Datum isteka',
   		delD:'Datum brisanja', title:'Naslov', desc:'Opis', budget:'Budžet'};
   	  type = 0;	
+  } else if (fileTitle == 'collaborations') { 
+	    headers = { 
+  		id: 'ID', createdAt: 'Datum', isa:'Prihvacen',commentO:'Komentar oglašivača', commentT:'Komentar Tražioca', advC1:'Oglašivač',
+  		advC2:'Tražilac', adv:'Naslov oglasa', mark1:'Ocena Oglašivača', mark2:'Ocena tražioca', state:'Status'};
+  	  type = 1;	
   }
   
   
@@ -387,7 +495,8 @@ public convertToCSV(objArray, type): any {
     let j = 0;
 	for (const index in array[i]) {
 		if (j==9 && type == 0) break;
-  		//console.log(`${index}: ${array[i][index]}`);
+		if (j==11 && type == 1) break;
+  		console.log(`${index}: ${array[i][index]}`);
   		let div = document.createElement("div");
 		div.innerHTML = array[i][index];
 		let text = div.textContent || div.innerText || "";
@@ -398,5 +507,17 @@ public convertToCSV(objArray, type): any {
   }
   return str;
 }
+
+ public changeOrderCollab(propOrder): void {
+    this.propOrder = propOrder;
+    this.reverse = !this.reverse;
+    this.transitionCollab();
+  }
+  
+  public transitionCollab(): void {
+    this.retrieveCollaborations();
+  }
+
+ 
 
 }

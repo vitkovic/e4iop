@@ -67,6 +67,31 @@ public class CollaborationService {
 
 
     /**
+     * Get all the collaborations.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Collaboration> findAllByStatus(Long status, Pageable pageable) {
+        log.debug("Request to get all Collaborations");
+        return collaborationRepository.findAllByStatusQ(status, pageable);
+    }
+
+    /**
+     * Get all the collaborations.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Collaboration> findAllByStatusandDates(String from, String to, Long status, Pageable pageable) {
+        log.debug("Request to get all Collaborations");
+        return collaborationRepository.findAllByStatusQandDates(from, to, status, pageable);
+    }
+    
+    
+    /**
      * Get one collaboration by id.
      *
      * @param id the id of the entity.

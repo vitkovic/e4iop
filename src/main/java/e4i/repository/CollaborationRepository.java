@@ -36,7 +36,23 @@ public interface CollaborationRepository extends JpaRepository<Collaboration, Lo
 	        "AND (collaboration.status.id = :statusId))")
 	Page<Collaboration> findAllByCompanyAndStatus(@Param("companyId") Long companyId, @Param("statusId") Long statusId, Pageable pageable);
     
-    @Query("SELECT collaboration FROM Collaboration collaboration " +
+	
+	@Query(value = "SELECT collaboration FROM Collaboration collaboration " +
+	        "WHERE collaboration.status.id = :statusId",
+	        countQuery ="SELECT collaboration FROM Collaboration collaboration " +
+	        "WHERE collaboration.status.id = :statusId" )
+	Page<Collaboration> findAllByStatusQ(@Param("statusId") Long status, Pageable pageable);
+	
+	
+	@Query(value = "SELECT collaboration FROM Collaboration collaboration " +
+	        "WHERE collaboration.status.id = :statusId and (datetime >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') and datetime <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS'))",
+	        countQuery ="SELECT collaboration FROM Collaboration collaboration " +
+	        "WHERE collaboration.status.id = :statusId and (datetime >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') and datetime <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS'))" )
+	Page<Collaboration> findAllByStatusQandDates(@Param("from") String from, @Param("to") String to, @Param("statusId") Long status, Pageable pageable);
+	
+	
+	
+	@Query("SELECT collaboration FROM Collaboration collaboration " +
             "WHERE ((collaboration.companyOffer.id = :companyId) " +
 			"AND (collaboration.status.id = :statusId))")
 	Page<Collaboration> findAllByCompanyOfferAndStatus(@Param("companyId") Long companyId, @Param("statusId") Long statusId, Pageable pageable);

@@ -11,9 +11,38 @@ const baseApiUrlView = 'api/advertisements/view';
 const baseApiUrlSearchType = 'api/advertisements/searchtype';
 const baseApiUrlSearchKind = 'api/advertisements/searchkind';
 const baseApiUrlSearchDates = 'api/advertisements/searchdates';
-
+const baseApiUrlCollab = 'api/collaborations/status';
+const baseApiUrlInquiry = 'api/inquiry';
+const baseApiUrlSearchCollabDates = 'api/collaborations/searchdates';
 
 export default class CMSB2BService {
+
+public retrieveInquiries(paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrlInquiry + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Promise<any> {
+	
+	//console.log(status + " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrlCollab +   `?status=${status}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
   public find(id: number): Promise<IAdvertisement> {
     return new Promise<IAdvertisement>((resolve, reject) => {
@@ -66,6 +95,27 @@ export default class CMSB2BService {
 
     
       urlgo = baseApiUrlSearchDates + `?from=${from}` + `&to=${to}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
+    
+   
+
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+  
+  
+   public retrieveSearchCollabDates(from: string, to: string, status:number,paginationQuery?: any): Promise<any> {
+    var urlgo = '';
+
+    
+      urlgo = baseApiUrlSearchCollabDates + `?from=${from}` + `&to=${to}` + `&` + `status=${status}`+  `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
     
    
 
