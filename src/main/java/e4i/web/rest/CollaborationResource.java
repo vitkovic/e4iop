@@ -145,7 +145,7 @@ public class CollaborationResource {
     @GetMapping("/collaborations/status")
     public ResponseEntity<List<Collaboration>> getAllCollaborationsByStatus(@RequestParam Long status, Pageable pageable) {
         log.debug("REST request to get a page of Collaborations");
-        Page<Collaboration> page = collaborationService.findAllByStatus(status, pageable);
+        Page<Collaboration> page = collaborationService.findAllByStatusQ(status, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

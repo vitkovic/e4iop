@@ -37,7 +37,7 @@ export default class CMSB2BReports extends Vue {
  public collaborations: ICollaboration[] = [];
  public portalUsers: IPortalUser[] = [];
   
- public itemsPerPage = 20;
+ public itemsPerPage = 500000;
   public queryCount: number = null;
   public page = 1;
   public previousPage = 1;
@@ -63,6 +63,10 @@ export default class CMSB2BReports extends Vue {
   public inqCount = 0;
   public inqStatusList = null;
   public usersCount = 0;
+  public currentLanguage = '';
+  public propOrderCollab = 'id';
+  public reverseCollab = false;
+  
   data() {
     return {
       advcount: 0,
@@ -90,7 +94,7 @@ public retrieveCollaborations(): void {
     const paginationQuery = {
       page: this.page - 1,
       size: this.itemsPerPage,
-      sort: this.sort(),
+      sort: this.sortCollab(),
     };
    
     this.cmsB2BService()
@@ -395,7 +399,15 @@ public retrieveUsers(): void {
     return result;
   }
 
+ public sortCollab(): Array<any> {
+    const result = [this.propOrderCollab + ',' + (this.reverseCollab ? 'asc' : 'desc')];
+    if (this.propOrderCollab !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
  public mounted(): void {
+	this.currentLanguage = this.$store.getters.currentLanguage;
     this.retrieveAdvertisements();
     this.retrieveUsers();
     this.initRelationships();
@@ -539,9 +551,9 @@ public convertToCSV(objArray, type): any {
   return str;
 }
 
- public changeOrderCollab(propOrder): void {
-    this.propOrder = propOrder;
-    this.reverse = !this.reverse;
+ public changeOrderCollab(propOrderCollab): void {
+    this.propOrderCollab =propOrderCollab;
+    this.reverseCollab = !this.reverseCollab;
     this.transitionCollab();
   }
   

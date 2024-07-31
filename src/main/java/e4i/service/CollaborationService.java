@@ -73,7 +73,7 @@ public class CollaborationService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public Page<Collaboration> findAllByStatus(Long status, Pageable pageable) {
+    public Page<Collaboration> findAllByStatusQ(Long status, Pageable pageable) {
         log.debug("Request to get all Collaborations");
         return collaborationRepository.findAllByStatusQ(status, pageable);
     }
