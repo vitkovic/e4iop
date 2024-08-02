@@ -388,7 +388,7 @@
             			
             			  <b-button
 							          v-text="$t('riportalApp.reports.exportcsv')"
-							          v-on:click="exportCSVFile('users', 'users')"
+							          v-on:click="exportCSVFile('portalUsers', 'users')"
 							          >Export</b-button>
 							
 											

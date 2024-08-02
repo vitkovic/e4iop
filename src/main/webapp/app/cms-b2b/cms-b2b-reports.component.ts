@@ -426,7 +426,7 @@ public retrieveUsers(): void {
         .then(
           res => {
             this.portalUsers = res.data;
-            console.log("Users uuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+           // console.log("Users uuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
             console.log(res.data);
             this.totalItems = Number(res.headers['x-total-count']);
             this.queryCount = this.totalItems;
@@ -688,6 +688,79 @@ public loadPage(page: number): void {
 	  return newitems;
   }
   
+   public formArrayForUsers(items): any 
+    {
+	  let newitems = [];
+	  console.log(items);
+   	  for (let i = 0; i < items.length; i++) { // eslint-disable-line
+	    let line = '';
+	  //  console.log(items[i]);
+		let newitemssub = [];
+		for (const index in items[i]) {
+			
+	  		console.log(`${index}: ${items[i][index]}`);
+	  		
+	  		if (index == 'id')
+	  			newitemssub[index] = items[i][index];
+	  			
+	  			
+	  		if (index == 'user' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+				if (items[i][index].firstName !== 'undefined')
+				newitemssub['firstName'] = items[i][index].firstName;
+			} else if (index == 'user') {
+				newitemssub['firstName'] = 'Nije definisano';
+			}
+		
+			
+			if (index == 'user' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+					if (items[i][index].lastName !== 'undefined')
+					newitemssub['lastName'] = items[i][index].lastName;
+				} else if (index == 'user') {
+					newitemssub['lastName'] = 'Nije definisano';
+				}
+			
+		
+		
+			if (index == 'user' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+					if (items[i][index].email !== 'undefined')
+					newitemssub['email'] = items[i][index].email;
+					console.log("email" + newitemssub[index]);
+				} else if (index == 'user') {
+					newitemssub['email'] = 'Nije definisano';
+				}
+			
+		
+			if (index == 'company' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+				if (items[i][index].name !== 'undefined')
+					newitemssub[index] = items[i][index].name;
+				} else if (index == 'company') {
+					newitemssub[index] = 'Nije definisano';
+				}
+		
+			if (index == 'userOrganization' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+					if (items[i][index].legalNameSr !== 'undefined')
+					newitemssub[index] = items[i][index].legalNameSr;
+				} else if (index == 'userOrganization') {
+					newitemssub[index] = 'Nije definisano';
+				}
+		
+			if (index == 'phone')
+	  			newitemssub[index] = items[i][index];	
+	  		
+			if (index == 'createdAt')
+	  			newitemssub[index] = items[i][index];	
+	  		
+	  		if (index == 'advertisementCreateds')
+	  			newitemssub[index] = items[i][index];	
+	  			
+	  		
+		}
+		
+		newitems[i] = newitemssub;
+	    console.log(newitems[i]);
+	  }
+	  return newitems;
+  }
   
   
   
@@ -711,6 +784,15 @@ public loadPage(page: number): void {
   		advC2:'Tražilac', adv:'Naslov oglasa', mark1:'Ocena Oglašivača', mark2:'Ocena tražioca', state:'Status'};
   	  type = 1;	
   	  items = this.formArrayForCollab(items);	
+  }
+  
+  else if (fileTitle == 'users') { 
+	    headers = { 
+  		id: 'ID',  createdat:"Datum kreiranja",phone:'Telefon',name: 'Ime', last:'Prezime' 
+  		,email:'E-mail', ads:'Broj kreiranih oglasa', company:'Kompanija', organisation:'Organizacija'};
+  	  type = 2;	
+  	  console.log("users");
+  	  items = this.formArrayForUsers(items);	
   }
   
   
@@ -752,6 +834,7 @@ public convertToCSV(objArray, type): any {
 	for (const index in array[i]) {
 		if (j==9 && type == 0) break;
 		if (j==11 && type == 1) break;
+		if (j==9 && type == 2) break;
   	//	console.log(`${index}: ${array[i][index]}`);
   		let div = document.createElement("div");
 		div.innerHTML = array[i][index];
