@@ -19,8 +19,8 @@
 			                  name="advCountName"
 			                  v-model="advCount"
 			                />
-			                </div>
-			                <div>&nbsp;</div>
+			                </div></div>
+			                
 			                <div class="form-group">
 					              <label class="form-control-label" v-text="$t('riportalApp.reports.category')" for="kat">Category</label>
 					                <select class="form-control" style="width:100%;max-width:100%" v-model="mainSearchCategory" id="kat" name="kat" @change="retrieveAdvertisementsByCategory()" >
@@ -28,21 +28,21 @@
                 					</select>
             			</div> 
             			 
-            			  <div>&nbsp;</div>
+            			  
 			                <div class="form-group">
 					              <label class="form-control-label" v-text="$t('riportalApp.reports.type')" for="typ">Type</label>
 					                <select class="form-control" style="width:100%;max-width:100%" v-model="advType" id="typ" name="typ" @change="retrieveAdvertisementsByType()" >
                     					<option  v-for="element in advTypeList" :key="element.id" :value="element.id" >{{element.type}}</option>
                 					</select>
             			</div> 
-            			  <div>&nbsp;</div>
+            			
 			                <div class="form-group">
 					              <label class="form-control-label" v-text="$t('riportalApp.reports.kind')" for="kin">Kind</label>
 					                <select class="form-control" style="width:100%;max-width:100%" v-model="advKind" id="kin" name="kin" @change="retrieveAdvertisementsByKind()" >
                     					<option  v-for="element in advKindList" :key="element.id" :value="element.id" >{{element.kind}}</option>
                 					</select>
             			</div>
-            			 <div>&nbsp;</div>
+            			 
 			                <div class="form-group">
 					              <label class="form-control-label" v-text="$t('riportalApp.reports.company')" for="comp">Company</label>
 					                <select class="form-control" style="width:100%;max-width:100%" v-model="advCompany" id="comp" name="comp" @change="retrieveAdvertisementsByCompany()" >
@@ -87,7 +87,7 @@
 				              </div>
             			  
               				</div>
-              			</div>
+              			
 						<div>
 							
 							  <b-button
@@ -204,7 +204,7 @@
 			                  v-model="collabCount"
 			                />
 			                </div>
-			              
+			           	</div>   
 			                
 			                <div>&nbsp;</div>
 			                <div class="form-group">
@@ -213,7 +213,7 @@
                     					<option  v-for="element in collabStatusList" :key="element.id" :value="element.id" >{{element.status}}</option>
                 					</select>
             				</div>
-			                
+			                <div>&nbsp;</div>
 			                 <div  class="form-group">
 				              <label
 				                class="form-control-label"
@@ -256,7 +256,7 @@
             			  
             			
             		
-            		</div>
+            	
 						
             			
             			
@@ -345,7 +345,46 @@
 		  		
             		</div>
 						
-            			
+            			<div>&nbsp;</div>
+			                 <div  class="form-group">
+				              <label
+				                class="form-control-label"
+				                v-text="$t('riportalApp.reports.creationCollabDatetimeFrom')"
+				                for="activationDatetimeFrom"
+				                >Activation Datetime From</label
+				              >
+				              <div class="d-flex">
+				                <input
+				                  id="activationDatetimeFrom"
+				                  v-model="activationDatetimeFrom"
+				                  type="datetime-local"
+				                  class="form-control"
+				                  name="activationDatetimeFrom"
+				                  @change="updateInstantFieldFromUsers($event)"
+				                />
+				              </div>
+            			  
+              				</div>
+              				 <div  class="form-group">
+				              <label
+				                class="form-control-label"
+				                v-text="$t('riportalApp.reports.creationCollabDatetimeТо')"
+				                for="activationDatetimeTo"
+				                >Activation Datetime To</label
+				              >
+				              <div class="d-flex">
+				                <input
+				                  id="activationDatetimeTo"
+				                  type="datetime-local"
+				                  v-model="activationDatetimeTo"
+				                  class="form-control"
+				                  name="activationDatetimeTo"
+				                  @change="updateInstantFieldToUsers($event)"
+				                />
+				              </div>
+            			  
+              				</div>
+              			
             			
             			  <b-button
 							          v-text="$t('riportalApp.reports.exportcsv')"
@@ -357,16 +396,17 @@
 					            <table class="table table-striped">
 					                <thead>
 					                <tr>
-					                    <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
-					                    <th v-on:click="changeOrder('userFirstName')"><span v-text="$t('riportalApp.portalUser.firstName')">First Name</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'firstName'"></jhi-sort-indicator></th>
-					                    <th v-on:click="changeOrder('user.lastName')"><span v-text="$t('riportalApp.portalUser.familyName')">Family Name</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'familyName'"></jhi-sort-indicator></th>
-					                    <th v-on:click="changeOrder('phone')"><span v-text="$t('riportalApp.portalUser.phone')">Phone</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'phone'"></jhi-sort-indicator></th>
-					                    <th v-on:click="changeOrder('position')"><span v-text="$t('riportalApp.portalUser.position')">Position</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'position'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrderUsers('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrderUsers('userFirstName')"><span v-text="$t('riportalApp.portalUser.firstName')">First Name</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'firstName'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrderUsers('user.lastName')"><span v-text="$t('riportalApp.portalUser.familyName')">Family Name</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'familyName'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrderUsers('phone')"><span v-text="$t('riportalApp.portalUser.phone')">Phone</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'phone'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrderUsers('position')"><span v-text="$t('riportalApp.portalUser.position')">Position</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'position'"></jhi-sort-indicator></th>
 					                    <!--
 					                    <th v-on:click="changeOrder('researcher.id')"><span v-text="$t('riportalApp.portalUser.researcher')">Researcher</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'researcher.id'"></jhi-sort-indicator></th>
 					                    -->
-					                    <th v-on:click="changeOrder('userOrganization.legalNameSr')"><span v-text="$t('riportalApp.portalUser.userOrganization')">User Organization</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'userOrganization.id'"></jhi-sort-indicator></th>
-					                    <th></th>
+					                    <th v-on:click="changeOrderUsers('userOrganization.legalNameSr')"><span v-text="$t('riportalApp.portalUser.userOrganization')">User Organization</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'userOrganization.id'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrderUsers('createdAt')"><span v-text="$t('riportalApp.portalUser.createdat')">Position</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdAt'"></jhi-sort-indicator></th>
+					                    <th v-on:click="changeOrderUsers('company.id')"><span v-text="$t('riportalApp.advertisement.company')">Company</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'company.id'"></jhi-sort-indicator></th>
 					                </tr>
 					                </thead>
 					                <tbody>
@@ -395,7 +435,13 @@
 					                            </router-link>
 					                        </div>
 					                    </td>
-					                  
+					                    <td>{{portalUser.createdAt}}</td>
+					                    <td>
+					                        <div v-if="portalUser.company">
+					                           <router-link :to="{name: 'CompanyView', params: {companyId: portalUser.company.id}}">{{portalUser.company.name}}</router-link>
+					                        </div>
+					                    </td>
+					                 
 					                </tr>
 					                </tbody>
 					            </table>
@@ -403,7 +449,7 @@
 											
 						
 					</b-tab>
-				    <b-tab title="Grades"><p>Grades</p></b-tab>
+				  
 				  </b-tabs>
 				</div>
   

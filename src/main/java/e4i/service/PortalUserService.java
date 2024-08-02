@@ -143,10 +143,46 @@ public class PortalUserService {
      *
      * @return the list of entities.
      */
+    public Page<PortalUser> findAllWithEagerRelationshipsViewDates(Pageable pageable, String from, String to) {
+        return portalUserRepository.findAllWithEagerRelationshipsAllDates(pageable, from, to);
+    }
+
+    
+    /**
+     * Get all the portalUsers.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<PortalUser> findAllViewDates(Pageable pageable, String from, String to) {
+        log.debug("Request to get all PortalUsers");
+     //  if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){     
+        	System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Pronadjen je user");
+        	Page<PortalUser> out = portalUserRepository.findAllWithEagerRelationshipsAllDates(pageable, from, to);
+        	return out;
+       // }else {
+        	
+        
+         //   	Page<PortalUser> out = null;
+           // 	return out;
+        
+       // }
+    }
+
+
+    /**
+     * Get all the portalUsers with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
     public Page<PortalUser> findAllWithEagerRelationshipsView(Pageable pageable) {
         return portalUserRepository.findAllWithEagerRelationshipsAll(pageable);
     }
 
+    
+    
+    
     /**
      * Get one portalUser by id.
      *

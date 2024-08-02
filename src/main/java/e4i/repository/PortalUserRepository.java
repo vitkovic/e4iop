@@ -32,6 +32,15 @@ public interface PortalUserRepository extends JpaRepository<PortalUser, String> 
     Page<PortalUser> findAllWithEagerRelationshipsAll(Pageable pageable);
     
     
+    
+    @Query(value = "select distinct portalUser from PortalUser portalUser where  (createdAt >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') and createdAt <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS')) ",
+            countQuery = "select distinct portalUser from PortalUser portalUser where  (createdAt >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') and createdAt <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS')) ")
+        Page<PortalUser> findAllWithEagerRelationshipsAllDates(Pageable pageable, @Param("from") String from, @Param("to") String to);
+    
+    
+    
+    
+    
 
     @Query("select distinct portalUser from PortalUser portalUser left join fetch portalUser.portalUserRoles")
     List<PortalUser> findAllWithEagerRelationships();

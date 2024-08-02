@@ -14,6 +14,7 @@ const baseApiUrlSearchDates = 'api/advertisements/searchdates';
 const baseApiUrlCollab = 'api/collaborations/status';
 const baseApiUrlInquiry = 'api/inquiry';
 const baseApiUrlSearchCollabDates = 'api/collaborations/searchdates';
+const baseApiUrlSearchUsersDates = 'api/portal-users/searchdates';
 const baseApiUrlUsers = 'api/portal-users/get';
 export default class CMSB2BService {
 
@@ -143,6 +144,28 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
+  
+  
+  public retrieveSearchUsersDates(fetching:boolean, from: string, to: string, paginationQuery?: any): Promise<any> {
+    var urlgo = '';
+
+    
+      urlgo = baseApiUrlSearchUsersDates + `?from=${from}` + `&to=${to}` + `&` + `eagerload=${fetching}`+  `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
+    
+   
+
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+  
   
    public retrieveSearchType(type: number, paginationQuery?: any): Promise<any> {
     const urlgo = baseApiUrlSearchType + `?type=${type}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;

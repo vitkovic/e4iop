@@ -290,6 +290,34 @@ public retrieveAdvertisements(): void {
    
        
     }
+    
+     public retrieveUsersByDateInterval(): void {
+    this.isFetching = true;
+
+    const paginationQuery = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort(),
+    };
+    
+    this.cmsB2BService()
+        .retrieveSearchUsersDates( this.isFetching, this.activationDatetimeFrom.toString(), this.activationDatetimeTo.toString(), paginationQuery)
+        .then(
+          res => {
+            this.portalUsers = res.data;
+            console.log(res.data);
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.usersCount = this.queryCount;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+   
+       
+    }
  public updateInstantFieldFrom(event) {
     if (event.target.value) {
       this.activationDatetimeFrom= event.target.value;
@@ -331,6 +359,29 @@ public updateInstantFieldFromCollab(event) {
     }
     
  }
+
+
+public updateInstantFieldFromUsers(event) {
+    if (event.target.value) {
+      this.activationDatetimeFrom= event.target.value;
+      console.log( this.activationDatetimeFrom);
+      if (this.activationDatetimeTo != null) this.retrieveUsersByDateInterval();
+    } else {
+      this.activationDatetimeFrom = null;
+    }
+    
+ }
+ 
+ public updateInstantFieldToUsers(event) {
+    if (event.target.value) {
+      this.activationDatetimeTo= event.target.value
+      if (this.activationDatetimeFrom != null) this.retrieveUsersByDateInterval();
+    } else {
+      this.activationDatetimeTo = null;
+    }
+    
+ }
+
 
 
  
@@ -409,6 +460,7 @@ public retrieveUsers(): void {
  public mounted(): void {
 	this.currentLanguage = this.$store.getters.currentLanguage;
     this.retrieveAdvertisements();
+    this.retrieveCollaborations();
     this.retrieveUsers();
     this.initRelationships();
  }
@@ -441,6 +493,18 @@ public loadPage(page: number): void {
     this.reverse = !this.reverse;
     this.transition();
   }
+  
+  
+   public transitionUsers(): void {
+    this.retrieveUsers();
+  }
+
+  public changeOrderUsers(propOrder): void {
+    this.propOrder = propOrder;
+    this.reverse = !this.reverse;
+    this.transitionUsers();
+  }
+  
   
   public initRelationships(): void {
     this.advertisementCategoryService()
@@ -483,31 +547,180 @@ public loadPage(page: number): void {
       });  
     
   }
+  
+  
+  public formArrayForAdv(items): any 
+  {
+	  let newitems = [];
+	  
+   	  for (let i = 0; i < items.length; i++) { // eslint-disable-line
+	    let line = '';
+	  //  console.log(items[i]);
+		let newitemssub = [];
+		for (const index in items[i]) {
+			
+	  		//console.log(`${index}: ${items[i][index]}`);
+	  		
+	  		if (index == 'id')
+	  			newitemssub[index] = items[i][index];
+	  			
+	  		if (index == 'title')
+	  			newitemssub[index] = items[i][index];		
+	  		
+	  		if (index == 'description')
+	  			newitemssub[index] = items[i][index];	
+	  			
+	  		if (index == 'activationDatetime')
+	  			newitemssub[index] = items[i][index];
+	  			
+	  			
+	  		if (index == 'createdAt')
+	  			newitemssub[index] = items[i][index];	
+	  			
+	  		if (index == 'expirationDatetime')
+	  			newitemssub[index] = items[i][index];		
+	  			
+	  		if (index == 'budget')
+	  			newitemssub[index] = items[i][index];
+	  			
+	  		if (index == 'company') {
+				if (items[i][index].name !== 'undefined')
+				newitemssub[index] = items[i][index].name;
+			}
+	  		
+	  		if (index == 'kinds') {
+				  if (items[i][index].length >0)
+				  newitemssub[index]  = items[i][index][0].kind;
+				  else  newitemssub[index] = 'Nije na raspolganju';
+			}
+	  		
+		}
+		
+		newitems[i] = newitemssub;
+	    console.log(newitems[i]);
+	  }
+	  return newitems;
+  }
+ 
+ public formArrayForCollab(items): any 
+  {
+	  let newitems = [];
+	  
+   	  for (let i = 0; i < items.length; i++) { // eslint-disable-line
+	    let line = '';
+	  //  console.log(items[i]);
+		let newitemssub = [];
+		for (const index in items[i]) {
+			
+	  		console.log(`${index}: ${items[i][index]}`);
+	  		
+	  		if (index == 'id')
+	  			newitemssub[index] = items[i][index];
+	  			
+	  			
+	  		if (index == 'ratingOffer' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+				if (items[i][index].description !== 'undefined')
+				newitemssub[index] = items[i][index].description;
+			} else if (index == 'ratingOffer') {
+				newitemssub[index] = 'Nije definisano';
+			}
+			
+			if (index == 'ratingRequest' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+				if (items[i][index].description !== 'undefined')
+				newitemssub[index] = items[i][index].description;
+			} else if (index == 'ratingRequest') {
+				newitemssub[index] = 'Nije definisano';
+			}
+			
+			if (index == 'companyOffer' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+				if (items[i][index].name !== 'undefined')
+				newitemssub[index] = items[i][index].name;
+			} else if (index == 'companyOffer') {
+				newitemssub[index] = 'Nije definisano';
+			}
+			
+			if (index == 'companyRequest' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+				if (items[i][index].name !== 'undefined')
+				newitemssub[index] = items[i][index].name;
+			} else if (index == 'companyRequest') {
+				newitemssub[index] = 'Nije definisano';
+			}
+			
+			if (index == 'status' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+				if (items[i][index].status !== 'undefined')
+				newitemssub[index] = items[i][index].status;
+			} else if (index == 'status') {
+				newitemssub[index] = 'Nije definisano';
+			}
+			
+			if (index == 'commentOffer') {
+				newitemssub[index] = items[i][index];
+			}
+			
+			if (index == 'commentRequest') {
+				newitemssub[index] = items[i][index];
+			}
+			
+			
+			if (index == 'advertisement' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+				if (items[i][index].title !== 'undefined')
+				newitemssub[index] = items[i][index].title;
+			} else if (index == 'advertisement') {
+				newitemssub[index] = 'Nije definisano';
+			}
+			
+			if (index == 'advertisement' && items[i][index] != null && items[i][index] !== 'undefined' ) {
+				if (items[i][index].description !== 'undefined')
+				newitemssub[index] = items[i][index].description;
+			} else if (index == 'advertisement') {
+				newitemssub[index] = 'Nije definisano';
+			}
+			
+				
+	  		if (index == 'datetime')
+	  			newitemssub[index] = items[i][index];	
+	  		
+		}
+		
+		newitems[i] = newitemssub;
+	    console.log(newitems[i]);
+	  }
+	  return newitems;
+  }
+  
+  
+  
+  
   public exportCSVFile(items, fileTitle): any {
 	  
   var headers;
   var type;
   
+  items = this[items];
+  
+  
   if (fileTitle == 'advertisements') { 
 	  headers = { 
-  		id: 'ID', createdAt: 'Kreiran', modifiedAt:'Modifikovan', activationD:'Datum aktivacije', expirationD:'Datum isteka',
-  		delD:'Datum brisanja', title:'Naslov', desc:'Opis', budget:'Budžet'};
-  	  type = 0;	
+  		id: 'ID', createdAt: 'Kreiran',activationD:'Datum aktivacije',  expirationD:'Datum isteka', title:'Naslov', desc:'Opis',budget:'Budžet' , kinds:'Kategorija',  company:'Kompanija'};
+  	  type = 0;
+  	  items = this.formArrayForAdv(items);	
+  	  
   } else if (fileTitle == 'collaborations') { 
 	    headers = { 
-  		id: 'ID', createdAt: 'Datum', isa:'Prihvacen',commentO:'Komentar oglašivača', commentT:'Komentar Tražioca', advC1:'Oglašivač',
+  		id: 'ID', createdAt: 'Datum', commentO:'Komentar oglašivača', commentT:'Komentar Tražioca', advC1:'Oglašivač',
   		advC2:'Tražilac', adv:'Naslov oglasa', mark1:'Ocena Oglašivača', mark2:'Ocena tražioca', state:'Status'};
   	  type = 1;	
+  	  items = this.formArrayForCollab(items);	
   }
   
   
-  items = this[items];
+  
   
   if (headers) {
     items.unshift(headers);
   }
   
- 
+  console.log(items);
   
  // const jsonObject = JSON.stringify(items);
   const csv = this.convertToCSV(items,type);
@@ -534,12 +747,12 @@ public convertToCSV(objArray, type): any {
   let str = '';
   for (let i = 0; i < array.length; i++) { // eslint-disable-line
     let line = '';
-    console.log(array[i]);
+   // console.log(array[i]);
     let j = 0;
 	for (const index in array[i]) {
 		if (j==9 && type == 0) break;
 		if (j==11 && type == 1) break;
-  		console.log(`${index}: ${array[i][index]}`);
+  	//	console.log(`${index}: ${array[i][index]}`);
   		let div = document.createElement("div");
 		div.innerHTML = array[i][index];
 		let text = div.textContent || div.innerText || "";

@@ -19,6 +19,7 @@
         "title": "Корисник портала"
       },
       "firstName": "Име",
+      "createdat": "Kреиран",
       "familyName": "Презиме",
       "phone": "Телефон",
       "position": "Позиција",

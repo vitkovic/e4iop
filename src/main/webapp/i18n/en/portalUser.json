@@ -19,6 +19,7 @@
         "title": "Portal User"
       },
       "firstName": "First Name",
+       "createdat": "Created At",
       "familyName": "Family Name",
       "phone": "Phone",
       "position": "Position",
