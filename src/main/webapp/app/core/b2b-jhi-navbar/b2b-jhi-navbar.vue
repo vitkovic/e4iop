@@ -7,7 +7,7 @@
             <router-link to="/b2b">
               <div class="logoiZalet">
                 <img src="/content/images/b2b1.png" alt="B2B logo" class="divZaLogo" />
-                <span class="zalet">Залет иновација</span>
+                <span class="zalet" v-text="$t('global.menu.innovationBoost')">Залет иновација</span>
               </div>
             </router-link>
           </div>
