@@ -46,7 +46,7 @@
                 <tr v-for="portalUserOrganization in portalUserOrganizations"
                     :key="portalUserOrganization.id">
                     <td>
-                        <router-link :to="{name: 'PortalUserOrganizationView', params: {portalUserOrganizationId: portalUserOrganization.id}}">{{portalUserOrganization.id}}</router-link>
+                        <router-link :to="{name: 'PortalUserOrganizationView', params: {portalUserOrganizationId: portalUserOrganization.id}}" class="link-style">{{portalUserOrganization.id}}</router-link>
                     </td>
                     <td  v-if="currentLanguage==='sr'" >{{portalUserOrganization.legalNameSr}}</td>
                     <td  v-if="currentLanguage==='en'" >{{portalUserOrganization.legalNameEn}}</td>
@@ -72,7 +72,7 @@
                         <div class="btn-group">
                             <router-link :to="{name: 'PortalUserOrganizationPregledDetails', params: {portalUserOrganizationId: portalUserOrganization.id}}" tag="button" class="btn btn-info btn-sm details">
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                                <span v-text="$t('entity.action.view')">View</span>
                             </router-link>                                                        
                         </div>
                     </td>
@@ -94,3 +94,9 @@
 
 <script lang="ts" src="./portal-user-organization-pregled.component.ts">
 </script>
+
+<style scoped>
+ .link-style:hover{
+    color: blue;
+ }
+</style>
