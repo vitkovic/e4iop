@@ -17,12 +17,12 @@
         <b-card title="Pretraga" class="border border-primary rounded shadow mb-4 class-for-card-title">
             
             <b-row>
-                <b-col sm="3">                        
+                <b-col md="4" class="mb-3 mb-md-0">                        
                     <label class="form-control-label" v-text="$t('riportalApp.riService.enterKeywords')" for="ri-service-keywords">Keywords</label>
                     <input type="text" class="form-control" name="search" id="search"
                         v-model="search.searchTerms" v-on:keyup.enter="searchRiService()" />
                 </b-col>               
-                <b-col sm="4">
+                <b-col md="5">
                     <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.enterScientificDomain')" for="ri-service-keywords">Keywords</label>
                     <div class="scrollable-div">
                         <ul style="list-style: none;" v-for="domain in scientificDomains" :key="domain.id" >
@@ -208,7 +208,7 @@
                     </td>
                     <td>
                         <div v-if="riService.researchInfrastructure">
-                            <router-link :to="{name: 'ResearchInfrastructurePregled', params: {researchInfrastructureId: riService.researchInfrastructure.id}}">                                
+                            <router-link :to="{name: 'ResearchInfrastructurePregled', params: {researchInfrastructureId: riService.researchInfrastructure.id}}" class="link-style">                                
                                 <span v-if="currentLanguage == 'sr'">{{riService.researchInfrastructure.nameSr}}</span>
                                 <span v-if="currentLanguage == 'en'">{{riService.researchInfrastructure.nameEn}}</span>
                                 <span v-if="currentLanguage == 'src'">{{riService.researchInfrastructure.nameSrCyr}}</span>
@@ -218,7 +218,7 @@
                     <td nowrap class="text-right">
                         
                             <router-link :to="{name: 'RiServicePregledDetails', params: {riServiceId: riService.id}}" tag="button" class="btn btn-info">
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                                <span v-text="$t('entity.action.view')">View</span>
                             </router-link>  
                             <button type="button" id="cancel-save" class="btn btn-primary" 
                             v-on:click="checkOpenedForGivenService(riService.id)"
@@ -245,3 +245,9 @@
 
 <script lang="ts" src="./ri-service-pregled.component.ts">
 </script>
+
+<style scoped>
+    .link-style:hover{
+        color: blue;
+    }
+</style>
