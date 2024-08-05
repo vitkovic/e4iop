@@ -20,12 +20,12 @@
         <b-card v-bind:title="$t('global.menu.pregled.search')" class="border border-primary rounded shadow mb-4 class-for-card-title">
             
             <b-row>
-                <b-col sm="3">                        
+                <b-col md="4" class="mb-3 mb-md-0">                        
                     <label class="form-control-label" v-text="$t('riportalApp.riService.enterKeywords')" for="ri-service-keywords">Keywords</label>
                     <input type="text" class="form-control" name="search" id="search"
                         v-model="search.searchTerms" v-on:keyup.enter="searchRI()" />
                 </b-col>               
-                <b-col sm="4">
+                <b-col md="5">
                     <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.enterScientificDomain')" for="ri-service-keywords">Keywords</label>
                     <div class="scrollable-div">
                         <ul style="list-style: none;" v-for="domain in scientificDomains" :key="domain.id" >
@@ -128,7 +128,7 @@
                     <td>{{researchInfrastructure.riLogo}}</td>
                     -->
                     <td>
-                        <b-link :href="'http://' + researchInfrastructure.riWebsite" >Link</b-link>
+                        <b-link :href="'http://' + researchInfrastructure.riWebsite" class="link-style" >Link</b-link>
                         
                     </td>
                     <!--
@@ -212,7 +212,7 @@
                         
                             <router-link :to="{name: 'ResearchInfrastructurePregledDetails', params: {researchInfrastructureId: researchInfrastructure.id}}" tag="button" class="btn btn-info btn-sm details">
                                 
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                                <span v-text="$t('entity.action.view')">View</span>
                             </router-link>                            
                             
                         
@@ -235,3 +235,9 @@
 
 <script lang="ts" src="./research-infrastructure-pregled.component.ts">
 </script>
+
+<style scoped>
+.link-style:hover {
+    color: blue;
+}
+</style>
