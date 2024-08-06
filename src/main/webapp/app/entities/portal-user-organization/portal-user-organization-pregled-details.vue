@@ -1,8 +1,8 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-11 col-md-10">
             <div v-if="portalUserOrganization">
-                <h2 class="jh-entity-heading"><span v-text="$t('riportalApp.portalUserOrganization.detail.title')">PortalUserOrganization</span> {{portalUserOrganization.id}}</h2>
+                <h2 class="jh-entity-heading mb-5"><span v-text="$t('riportalApp.portalUserOrganization.detail.title')">PortalUserOrganization</span> {{portalUserOrganization.id}}</h2>
                 <b-container>
                     <b-row class="mt-4">
                         <b-col sm="3">
