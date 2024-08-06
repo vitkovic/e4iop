@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div v-if="riService">
-                <h2 class="jh-entity-heading"><span v-text="$t('riportalApp.riService.detail.title')">RiService</span> {{riService.id}}</h2>
+                <h2 class="jh-entity-heading mb-5"><span v-text="$t('riportalApp.riService.detail.title')">RiService</span> {{riService.id}}</h2>
                 
                 <b-form-row class="mt-2 row-background">
                     <b-col sm="2"  class="border-table">
@@ -107,10 +107,10 @@
                     </b-col>
                     <b-col sm="4" class="border-table">
                         <span v-if="riService.id != null && riService.termsOfUseSr != null">
-                            <b-button v-if="currentLanguage === 'sr' || currentLanguage === 'src'" variant="link" class="link-style" @click="formLink(riService.termsOfUseSr)">
+                            <b-button v-if="currentLanguage === 'sr' || currentLanguage === 'src'" variant="link" class="link-style linkStyle p-0" @click="formLink(riService.termsOfUseSr)">
                                 {{riService.termsOfUseSr}}
                             </b-button>
-                            <b-button v-if="currentLanguage === 'en'" variant="link" class="link-style" @click="formLink(riService.termsOfUseEn)">
+                            <b-button v-if="currentLanguage === 'en'" variant="link" class="link-style linkStyle p-0" @click="formLink(riService.termsOfUseEn)">
                                 {{riService.termsOfUseEn}}
                             </b-button>
                         </span>
@@ -120,10 +120,10 @@
                     </b-col>
                     <b-col sm="4" class="border-table">
                         <span v-if="riService.id != null && riService.privacyPolicySr != null">
-                            <b-button v-if="currentLanguage === 'sr' || currentLanguage === 'src'" variant="link" class="link-style" @click="formLink(riService.privacyPolicySr)">
+                            <b-button v-if="currentLanguage === 'sr' || currentLanguage === 'src'" variant="link" class="link-style linkStyle p-0" @click="formLink(riService.privacyPolicySr)">
                                 {{riService.privacyPolicySr}}
                             </b-button>
-                            <b-button v-if="currentLanguage === 'en'" variant="link" class="link-style" @click="formLink(riService.privacyPolicyEn)">
+                            <b-button v-if="currentLanguage === 'en'" variant="link" class="link-style linkStyle p-0" @click="formLink(riService.privacyPolicyEn)">
                                 {{riService.privacyPolicyEn}}
                             </b-button>
                         </span>
@@ -135,10 +135,10 @@
                     </b-col>
                     <b-col sm="4">
                         <span v-if="riService.id != null && riService.accessPolicySr != null">
-                            <b-button v-if="currentLanguage === 'sr' || currentLanguage === 'src'" variant="link" class="link-style" @click="formLink(riService.accessPolicySr)">
+                            <b-button v-if="currentLanguage === 'sr' || currentLanguage === 'src'" variant="link" class="link-style linkStyle p-0" @click="formLink(riService.accessPolicySr)">
                                 {{riService.accessPolicySr}}
                             </b-button>                        
-                            <b-button v-if="currentLanguage === 'en'" variant="link" class="link-style" @click="formLink(riService.accessPolicyEn)">
+                            <b-button v-if="currentLanguage === 'en'" variant="link" class="link-style linkStyle p-0" @click="formLink(riService.accessPolicyEn)">
                                 {{riService.accessPolicyEn}}
                             </b-button>
                         </span>
@@ -148,10 +148,10 @@
                     </b-col>
                     <b-col sm="4" class="border-table">
                         <span v-if="riService.id != null && riService.pricingPolicySr != null">
-                            <b-button v-if="currentLanguage === 'sr' || currentLanguage === 'src'" variant="link" class="link-style" @click="formLink(riService.accessPolicySr)">
+                            <b-button v-if="currentLanguage === 'sr' || currentLanguage === 'src'" variant="link" class="link-style linkStyle p-0" @click="formLink(riService.accessPolicySr)">
                                 {{riService.pricingPolicySr}}
                             </b-button>                        
-                            <b-button v-if="currentLanguage === 'en'" variant="link" class="link-style" @click="formLink(riService.accessPolicyEn)">
+                            <b-button v-if="currentLanguage === 'en'" variant="link" class="link-style linkStyle p-0" @click="formLink(riService.accessPolicyEn)">
                                 {{riService.pricingPolicyEn}}
                             </b-button>
                         </span>
@@ -172,3 +172,10 @@
 </template>
 <script lang="ts" src="./ri-service-pregled-details.component.ts">
 </script>
+
+<style scoped>
+    .linkStyle{
+    word-break: break-all;
+    text-align: left;
+}
+</style>

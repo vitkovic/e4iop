@@ -1,8 +1,8 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-11 col-sm-10">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
-                <h2 id="riportalApp.requestForService.home.createOrEditLabel" v-text="$t('riportalApp.requestForService.home.createOrEditLabel')">Create or edit a RequestForService</h2>
+                <h2 id="riportalApp.requestForService.home.createOrEditLabel" class="mb-3" v-text="$t('riportalApp.requestForService.home.createOrEditLabel')">Create or edit a RequestForService</h2>
                 <div>
                     <!--
                     <div class="form-group" v-if="requestForService.id">
@@ -150,7 +150,7 @@
                     </button>
                     <router-link  
                         :to="{name: 'RequestForServiceZbirno', params: {requestForServiceId: requestForService.id}}"  tag="button" class="btn btn-info btn-md edit">
-                        <span class="d-none d-md-inline" v-text="$t('entity.action.zbirniPrikaz')">Edit</span>
+                        <span v-text="$t('entity.action.zbirniPrikaz')">Edit</span>
                     </router-link>
                 </div>
             </form>

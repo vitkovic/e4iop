@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-center">
         <b-container class="border border-primary rounded shadow">
-        <div class="col-10">
+        <div class="col-11 col-sm-10">
             <div v-if="requestForService">
                 <h2 class="jh-entity-heading"><span v-text="$t('riportalApp.requestForService.detail.title')">RequestForService</span> {{requestForService.id}}</h2>
                 <b-row class="mt-2">
@@ -116,7 +116,7 @@
                     </b-col>
                     <b-col sm="2">
                         <div v-if="requestRespond.requestForService" >
-                            <router-link style="color:blue" :to="{name: 'RequestForServiceView', params: {requestForServiceId: requestRespond.requestForService.id}}">{{requestRespond.requestForService.description}}</router-link>
+                            <router-link style="link-style" :to="{name: 'RequestForServiceView', params: {requestForServiceId: requestRespond.requestForService.id}}">{{requestRespond.requestForService.description}}</router-link>
                         </div>
                     </b-col>
                     <b-col sm="2">
