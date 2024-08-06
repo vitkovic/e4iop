@@ -1,8 +1,8 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-10 col-md-8">
             <div v-if="riResearchOrganization">
-                <h2 class="jh-entity-heading"><span v-text="$t('riportalApp.riResearchOrganization.detail.title')">RiResearchOrganization</span> {{riResearchOrganization.id}}</h2>
+                <h2 class="jh-entity-heading mb-5"><span v-text="$t('riportalApp.riResearchOrganization.detail.title')">RiResearchOrganization</span> {{riResearchOrganization.id}}</h2>
                 <dl class="row jh-entity-details">
                     <dt>
                         <span v-text="$t('riportalApp.riResearchOrganization.name')">Name</span>
@@ -39,7 +39,7 @@
                     </dt>
                     <dd>
                         <div v-if="riResearchOrganization.puOrganization">
-                            <router-link :to="{name: 'PortalUserOrganizationView', params: {portalUserOrganizationId: riResearchOrganization.puOrganization.id}}">{{riResearchOrganization.puOrganization.id}}</router-link>
+                            <router-link class="link-style" :to="{name: 'PortalUserOrganizationView', params: {portalUserOrganizationId: riResearchOrganization.puOrganization.id}}">{{riResearchOrganization.puOrganization.id}}</router-link>
                         </div>
                     </dd>
                     <dt>
@@ -47,7 +47,7 @@
                     </dt>
                     <dd>
                         <div v-if="riResearchOrganization.researchInstitution">
-                            <router-link :to="{name: 'ResearchInstitutionView', params: {researchInstitutionId: riResearchOrganization.researchInstitution.id}}">{{riResearchOrganization.researchInstitution.id}}</router-link>
+                            <router-link class="link-style" :to="{name: 'ResearchInstitutionView', params: {researchInstitutionId: riResearchOrganization.researchInstitution.id}}">{{riResearchOrganization.researchInstitution.id}}</router-link>
                         </div>
                     </dd>
                     <dt>
@@ -55,7 +55,7 @@
                     </dt>
                     <dd>
                         <div v-if="riResearchOrganization.activityStatus">
-                            <router-link :to="{name: 'RipoActivityStatusView', params: {ripoActivityStatusId: riResearchOrganization.activityStatus.id}}">{{riResearchOrganization.activityStatus.id}}</router-link>
+                            <router-link class="link-style" :to="{name: 'RipoActivityStatusView', params: {ripoActivityStatusId: riResearchOrganization.activityStatus.id}}">{{riResearchOrganization.activityStatus.id}}</router-link>
                         </div>
                     </dd>
                     <dt>
@@ -63,7 +63,7 @@
                     </dt>
                     <dd>
                         <span v-for="(subdomains, i) in riResearchOrganization.subdomains" :key="subdomains.id">{{i > 0 ? ', ' : ''}}
-                            <router-link :to="{name: 'ScientificSubdomainView', params: {scientificSubdomainId: subdomains.id}}">{{subdomains.id}}</router-link>
+                            <router-link class="link-style" :to="{name: 'ScientificSubdomainView', params: {scientificSubdomainId: subdomains.id}}">{{subdomains.id}}</router-link>
                         </span>
                     </dd>
                     <dt>
@@ -71,7 +71,7 @@
                     </dt>
                     <dd>
                         <div v-if="riResearchOrganization.manager">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: riResearchOrganization.manager.id}}">{{riResearchOrganization.manager.id}}</router-link>
+                            <router-link class="link-style" :to="{name: 'PortalUserView', params: {portalUserId: riResearchOrganization.manager.id}}">{{riResearchOrganization.manager.id}}</router-link>
                         </div>
                     </dd>
                     <dt>
@@ -79,7 +79,7 @@
                     </dt>
                     <dd>
                         <div v-if="riResearchOrganization.contactPerson">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: riResearchOrganization.contactPerson.id}}">{{riResearchOrganization.contactPerson.id}}</router-link>
+                            <router-link class="link-style" :to="{name: 'PortalUserView', params: {portalUserId: riResearchOrganization.contactPerson.id}}">{{riResearchOrganization.contactPerson.id}}</router-link>
                         </div>
                     </dd>
                 </dl>

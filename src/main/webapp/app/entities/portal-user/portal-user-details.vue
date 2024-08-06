@@ -1,8 +1,8 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-11 col-md-10">
             <div v-if="portalUser">
-                <h2 class="jh-entity-heading"><span v-text="$t('riportalApp.portalUser.detail.title')">PortalUser</span> {{portalUser.id}}</h2>
+                <h2 class="jh-entity-heading mb-5"><span v-text="$t('riportalApp.portalUser.detail.title')">PortalUser</span> {{portalUser.id}}</h2>
                 <b-row>
                     <b-col sm="2">
                         <span class="span-display" v-text="$t('riportalApp.portalUser.firstName')">First Name</span>
@@ -43,7 +43,7 @@
                     </b-col>
                     <b-col sm="4">
                         <div v-if="portalUser.researcher">
-                            <router-link :to="{name: 'ResearcherView', params: {researcherId: portalUser.researcher.id}}">{{portalUser.researcher.id}}</router-link>
+                            <router-link class="link-style" :to="{name: 'ResearcherView', params: {researcherId: portalUser.researcher.id}}">{{portalUser.researcher.id}}</router-link>
                         </div>
                     </b-col>
                 </b-row>
@@ -61,7 +61,7 @@
                     </b-col>
                     <b-col sm="4">
                         <div v-if="portalUser.userOrganization">
-                            <router-link :to="{name: 'PortalUserOrganizationView', params: {portalUserOrganizationId: portalUser.userOrganization.id}}">
+                            <router-link :to="{name: 'PortalUserOrganizationView', params: {portalUserOrganizationId: portalUser.userOrganization.id}}" class="link-style">
                                 <span v-if="currentLanguage == 'sr'">{{portalUser.userOrganization.legalNameSr}}</span>
                                 <span v-if="currentLanguage == 'en'">{{portalUser.userOrganization.legalNameEn}}</span>
                                 <span v-if="currentLanguage == 'src'">{{portalUser.userOrganization.legalNameSrCyr}}</span>
