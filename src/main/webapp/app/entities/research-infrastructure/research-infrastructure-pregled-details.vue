@@ -53,7 +53,7 @@
                         <span class="span-display" v-text="$t('riportalApp.researchInfrastructure.riWebsite')">Ri Website</span>
                     </b-col>
                     <b-col sm="4" class="border-table">
-                        <b-link v-if="researchInfrastructure.riWebsite" :to="`//${researchInfrastructure.riWebsite}`" target="_blank">{{researchInfrastructure.riWebsite}}</b-link>
+                        <b-link v-if="researchInfrastructure.riWebsite" :to="`//${researchInfrastructure.riWebsite}`" target="_blank" class="link-style">{{researchInfrastructure.riWebsite}}</b-link>
                     </b-col>
                 </b-form-row>
                 <b-form-row class="mt-2 row-background">
@@ -106,12 +106,12 @@
                     </b-col>
                     <b-col sm="4" class="border-table">
                          <span class="link-style" v-if="researchInfrastructure.id != null && researchInfrastructure.technicalSpecificationLinkSr != null && (currentLanguage === 'sr' || currentLanguage === 'src')">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.technicalSpecificationLinkSr)">
+                            <b-button variant="link" class="link-style linkStyle p-0" @click="formLink(researchInfrastructure.technicalSpecificationLinkSr)">
                                 {{researchInfrastructure.technicalSpecificationLinkSr}}
                             </b-button>
                         </span>
                         <span class="link-style" v-if="researchInfrastructure.id != null && researchInfrastructure.technicalSpecificationLinkEn != null && currentLanguage === 'en'">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.technicalSpecificationLinkEn)">
+                            <b-button variant="link" class="link-style linkStyle p-0" @click="formLink(researchInfrastructure.technicalSpecificationLinkEn)">
                                 {{researchInfrastructure.technicalSpecificationLinkEn}}
                             </b-button>
                         </span>
@@ -121,12 +121,12 @@
                     </b-col>                        
                     <b-col sm="4" class="border-table">
                         <span class="link-style" v-if="researchInfrastructure.id != null && researchInfrastructure.userManualLinkSr != null && (currentLanguage === 'sr' || currentLanguage === 'src')">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.userManualLinkSr)">
+                            <b-button variant="link" class="link-style linkStyle p-0" @click="formLink(researchInfrastructure.userManualLinkSr)">
                                 {{researchInfrastructure.userManualLinkSr}}
                             </b-button>
                         </span>
                         <span class="link-style" v-if="researchInfrastructure.id != null && researchInfrastructure.userManualLinkEn != null && currentLanguage === 'en'">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.userManualLinkEn)">
+                            <b-button variant="link" class="link-style linkStyle p-0" @click="formLink(researchInfrastructure.userManualLinkEn)">
                                 {{researchInfrastructure.userManualLinkEn}}
                             </b-button>
                         </span>
@@ -157,12 +157,12 @@
                     </b-col>
                     <b-col sm="4" class="border-table">
                          <span class="link-style" v-if="researchInfrastructure.id != null && researchInfrastructure.termsOfUseSr != null && (currentLanguage === 'sr' || currentLanguage === 'src')">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.termsOfUseSr)">
+                            <b-button variant="link" class="link-style linkStyle p-0" @click="formLink(researchInfrastructure.termsOfUseSr)">
                                 {{researchInfrastructure.termsOfUseSr}}
                             </b-button>
                         </span>
                         <span class="link-style" v-if="researchInfrastructure.id != null && researchInfrastructure.termsOfUseEn != null && currentLanguage === 'en'">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.termsOfUseEn)">
+                            <b-button variant="link" class="link-style linkStyle p-0" @click="formLink(researchInfrastructure.termsOfUseEn)">
                                 {{researchInfrastructure.termsOfUseEn}}
                             </b-button>
                         </span>
@@ -248,11 +248,11 @@
 
 
                 <b-form-row class="mt-2 mb-4 ">
-                   <b-col sm="2" class="border-table">
+                   <b-col class="col-12 col-sm-2 border-table">
                         <span class="span-display" v-text="$t('riportalApp.researchInfrastructure.images')" >Owner</span>
                     </b-col>
-                   <b-col sm="3" v-for="image in researchInfrastructure.images" :key="image.id">
-                        <img :src="loadImage(image.filename)" width="100" height="auto"/>
+                   <b-col v-for="image in researchInfrastructure.images" :key="image.id" class="col-12 col-sm-3 mb-3 mb-sm-0 border-tabled-flex align-items-center justify-content-center img-container">
+                        <img :src="loadImage(image.filename)" class="img-box"/>
                    </b-col>
 
                 </b-form-row>
@@ -337,5 +337,21 @@
     height: 50vh;
     display: flex;
     z-index: 110000;
+}
+
+.linkStyle{
+    word-break: break-all;
+    text-align: left;
+}
+
+.img-container{
+    width: 100px;
+    height: 150px;
+}
+
+.img-box{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 </style>
