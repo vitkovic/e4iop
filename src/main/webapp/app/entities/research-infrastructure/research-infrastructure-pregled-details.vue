@@ -354,4 +354,12 @@
     height: 100%;
     object-fit: contain;
 }
+
+@media (max-width: 900px) {
+  .fc .fc-toolbar {
+    flex-direction: column;
+    row-gap: 10px;
+    width: 100%;
+  }
+}
 </style>
