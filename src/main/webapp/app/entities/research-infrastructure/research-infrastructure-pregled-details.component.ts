@@ -213,4 +213,35 @@ export default class ResearchInfrastructurePregledDetails extends Vue {
 
     return calendarLanguage;
   }
+
+  public getDescriptionByLanguage(researchInfrastructure: IResearchInfrastructure): string {
+    switch (this.currentLanguage) {
+      case 'sr':
+        return researchInfrastructure.descriptionSr ? researchInfrastructure.descriptionSr : '';
+      case 'en':
+        return researchInfrastructure.descriptionEn ? researchInfrastructure.descriptionEn : '';
+      case 'src':
+        return researchInfrastructure.descriptionSrCyr ? researchInfrastructure.descriptionSrCyr : '';
+      default:
+        return researchInfrastructure.descriptionSr ? researchInfrastructure.descriptionSr : '';
+    }
+  }
+
+  public shortenedDescription(): string {
+    const description = this.getDescriptionByLanguage(this.researchInfrastructure);
+
+    if (description.length <= 90 || this.researchInfrastructure.showFullDescription) {
+      return description;
+    } else {
+      return description.slice(0, 90) + '...';
+    }
+  }
+
+  // Method to toggle the showFullDescription flag
+  public toggleDescription(): void {
+    this.researchInfrastructure = {
+      ...this.researchInfrastructure,
+      showFullDescription: !this.researchInfrastructure.showFullDescription,
+    };
+  }
 }

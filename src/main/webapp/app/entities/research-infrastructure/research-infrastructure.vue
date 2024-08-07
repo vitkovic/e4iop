@@ -1,14 +1,14 @@
 <template>
     <div>
-        <h2 id="page-heading">
-            <span v-text="$t('riportalApp.researchInfrastructure.home.title')" id="research-infrastructure-heading">Research Infrastructures</span>
+        <div id="page-heading" class="w-100 mb-4 mb-md-0">
+            
             <router-link :to="{name: 'ResearchInfrastructureCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-research-infrastructure">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('riportalApp.researchInfrastructure.home.createLabel')">
                     Create a new Research Infrastructure
                 </span>
             </router-link>
-        </h2>
+        </div>
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
@@ -17,6 +17,9 @@
             {{alertMessage}}
         </b-alert>
         <br/>
+        <div class="mb-3">
+            <h2><span v-text="$t('riportalApp.researchInfrastructure.home.title')" id="research-infrastructure-heading">Research Infrastructures</span></h2>
+        </div>
         <div class="alert alert-warning" v-if="!isFetching && researchInfrastructures && researchInfrastructures.length === 0">
             <span v-text="$t('riportalApp.researchInfrastructure.home.notFound')">No researchInfrastructures found</span>
         </div>
@@ -142,14 +145,14 @@
                     </td>
                     <td>
                         <div v-if="researchInfrastructure.owner">
-                            <router-link :to="{name: 'RiResearchOrganizationView', params: {riResearchOrganizationId: researchInfrastructure.owner.id}}">
+                            <router-link class="link-style" :to="{name: 'RiResearchOrganizationView', params: {riResearchOrganizationId: researchInfrastructure.owner.id}}">
                                 {{researchInfrastructure.owner.name}}
                             </router-link>
                         </div>
                     </td>
                     <td>
                         <div v-if="researchInfrastructure.manager">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: researchInfrastructure.manager.id}}">{{researchInfrastructure.manager.user.lastName}} {{researchInfrastructure.manager.user.firstName}}</router-link>
+                            <router-link class="link-style" :to="{name: 'PortalUserView', params: {portalUserId: researchInfrastructure.manager.id}}">{{researchInfrastructure.manager.user.lastName}} {{researchInfrastructure.manager.user.firstName}}</router-link>
                         </div>
                     </td>
                     <!--
@@ -162,12 +165,12 @@
                     <td nowrap class="text-right">
                         
                             <router-link :to="{name: 'ResearchInfrastructureView', params: {researchInfrastructureId: researchInfrastructure.id}}" tag="button" class="btn btn-info btn-sm details">
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                                <span v-text="$t('entity.action.view')">View</span>
                             </router-link>
                             <router-link :to="{name: 'ResearchInfrastructureEdit', params: {researchInfrastructureId: researchInfrastructure.id}}"  tag="button" class="btn btn-primary btn-sm edit"
                             v-if="authenticated && (hasAnyRole(['PA', 'RPRI']) || hasAnyAuthority('ROLE_ADMIN'))"
                             >
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                                <span  v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>
                             <b-button v-on:click="prepareRemove(researchInfrastructure)"
                                    variant="danger"
@@ -176,7 +179,7 @@
                                    v-if="authenticated && (hasAnyRole(['PA', 'RPRI']) || hasAnyAuthority('ROLE_ADMIN'))"
                                    >
                         
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                                <span v-text="$t('entity.action.delete')">Delete</span>
                             </b-button>
                         
                     </td>
@@ -207,3 +210,9 @@
 
 <script lang="ts" src="./research-infrastructure.component.ts">
 </script>
+
+<style scoped>
+    .marg {
+        margin: 0;
+    }
+</style>

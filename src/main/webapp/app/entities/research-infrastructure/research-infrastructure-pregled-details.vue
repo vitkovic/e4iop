@@ -16,9 +16,17 @@
                         <span class="span-display" v-text="$t('riportalApp.researchInfrastructure.description')">Description Sr</span>
                     </b-col>
                     <b-col sm="4" class="border-table">
-                        <span v-if="currentLanguage === 'sr'">{{researchInfrastructure.descriptionSr}}</span>
+                        <div>
+                            {{ shortenedDescription() }}
+                            <span v-if="getDescriptionByLanguage(researchInfrastructure).length > 90">
+                                <a href="#" @click.prevent="toggleDescription">
+                                    {{ researchInfrastructure.showFullDescription ? $t('entity.action.readLess') : $t('entity.action.readMore') }}
+                                </a>
+                            </span>
+                        </div>
+                        <!-- <span v-if="currentLanguage === 'sr'">{{researchInfrastructure.descriptionSr}}</span>
                         <span v-if="currentLanguage === 'src'">{{researchInfrastructure.descriptionSrCyr}}</span>
-                        <span v-if="currentLanguage === 'en'">{{researchInfrastructure.descriptionEn}}</span>
+                        <span v-if="currentLanguage === 'en'">{{researchInfrastructure.descriptionEn}}</span> -->
                     </b-col>
                 </b-form-row>
                 <b-form-row class="mt-2 row-background">
@@ -342,6 +350,10 @@
 .linkStyle{
     word-break: break-all;
     text-align: left;
+}
+
+.link-style:hover {
+    color: blue;
 }
 
 .img-container{

@@ -168,3 +168,9 @@
 </template>
 <script lang="ts" src="./ri-service-details.component.ts">
 </script>
+
+<style scoped>
+    .link-style:hover{
+        color: blue;
+    }
+</style>

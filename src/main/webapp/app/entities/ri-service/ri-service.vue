@@ -1,14 +1,13 @@
 <template>
     <div>
-        <h2 id="page-heading">
-            <span v-text="$t('riportalApp.riService.home.title')" id="ri-service-heading">Ri Services</span>
+        <div id="page-heading" class="w-100 mb-4 mb-md-0">
             <router-link :to="{name: 'RiServiceCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-ri-service">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('riportalApp.riService.home.createLabel')">
                     Create a new Ri Service
                 </span>
             </router-link>
-        </h2>
+        </div>
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
@@ -17,6 +16,9 @@
             {{alertMessage}}
         </b-alert>
         <br/>
+        <div class="mb-3">
+            <h2><span v-text="$t('riportalApp.riService.home.title')" id="ri-service-heading">Ri Services</span></h2>
+        </div>
         <div class="alert alert-warning" v-if="!isFetching && riServices && riServices.length === 0">
             <span v-text="$t('riportalApp.riService.home.notFound')">No riServices found</span>
         </div>
@@ -179,7 +181,7 @@
                     </td>
                     <td>
                         <div v-if="riService.researchInfrastructure">
-                            <router-link :to="{name: 'ResearchInfrastructureView', params: {researchInfrastructureId: riService.researchInfrastructure.id}}">                                
+                            <router-link :to="{name: 'ResearchInfrastructureView', params: {researchInfrastructureId: riService.researchInfrastructure.id}}" class="link-style">                                
                                 <span v-if="currentLanguage == 'sr'">{{riService.researchInfrastructure.nameSr}}</span>
                                 <span v-if="currentLanguage == 'en'">{{riService.researchInfrastructure.nameEn}}</span>
                                 <span v-if="currentLanguage == 'src'">{{riService.researchInfrastructure.nameSrCyr}}</span>
@@ -235,3 +237,9 @@
 
 <script lang="ts" src="./ri-service.component.ts">
 </script>
+
+<style scoped>
+    .link-style:hover{
+        color: blue;
+    }
+</style>
