@@ -3,14 +3,14 @@
         <div class="col-12">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
                 <h2 id="riportalApp.researchInfrastructure.home.createOrEditLabel" v-text="$t('riportalApp.researchInfrastructure.home.createOrEditLabel')">Create or edit a ResearchInfrastructure</h2>
-                <div class="border border-primary" style="padding:35px;margin:20px;">
+                <div class="border border-primary basic-card">
 					<h3 v-text="$t('riportalApp.researchInfrastructure.titlebasic')">Osnovni podaci</h3>
 					<br>
                 <b-form-row>
-					<b-col sm="3">
+					<b-col cols="12" md="6" lg="3">
                         <div class="form-group" v-if="currentLanguage === 'sr' || currentLanguage === 'en'">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.nameSr')" for="research-infrastructure-nameSr">Name Sr</label>
-                            <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('nameSr')" @mouseout="hideTooltip('nameSr')"  class="question-icon-class"></font-awesome-icon>
+                            <span><font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('nameSr')" @mouseout="hideTooltip('nameSr')"  class="question-icon-class"></font-awesome-icon></span>
                             <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'nameSr'" v-html="$t('riportalApp.help.nameSr_desc')"></div>
                             <input type="text" ref="nameSr" class="form-control" name="nameSr" id="research-infrastructure-nameSr" :class="{'valid': !$v.researchInfrastructure.nameSr.$invalid, 'invalid': $v.researchInfrastructure.nameSr.$invalid }" v-model="$v.researchInfrastructure.nameSr.$model" required/>
 
@@ -31,7 +31,7 @@
                         </div>
                        
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.nameEn')" for="research-infrastructure-nameEn">Name En</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('nameEn')" @mouseout="hideTooltip('nameEn')"  class="question-icon-class"></font-awesome-icon>
@@ -49,7 +49,7 @@
                     </b-col>                      
                 </b-form-row>
                 <b-form-row>                    
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                          <div class="form-group" v-if="currentLanguage === 'sr' || currentLanguage === 'en'">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.keywords')" for="research-infrastructure-keywords">Keywords</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('keywords')" @mouseout="hideTooltip('keywords')"  class="question-icon-class"></font-awesome-icon>
@@ -67,7 +67,7 @@
                                 :class="{'valid': !$v.researchInfrastructure.keywordsCyr.$invalid, 'invalid': $v.researchInfrastructure.keywordsCyr.$invalid }" v-model="$v.researchInfrastructure.keywordsCyr.$model" />
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.keywordsEn')" for="research-infrastructure-keywords">Keywords</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('keywordsEn')" @mouseout="hideTooltip('keywordsEn')"  class="question-icon-class"></font-awesome-icon>
@@ -76,7 +76,7 @@
                                 :class="{'valid': !$v.researchInfrastructure.keywordsEn.$invalid, 'invalid': $v.researchInfrastructure.keywordsEn.$invalid }" v-model="$v.researchInfrastructure.keywordsEn.$model" />                       
                         </div>
                     </b-col>
-                    <b-col sm="3">                        
+                    <b-col cols="12" md="6" lg="3">                        
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.accessType')" for="research-infrastructure-accessType">Access Type</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('accessType')" @mouseout="hideTooltip('accessType')"  class="question-icon-class"></font-awesome-icon>
@@ -91,7 +91,7 @@
                             </select>
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.accessMode')" for="research-infrastructure-accessMode">Access Mode</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('accessMode')" @mouseout="hideTooltip('accessMode')"  class="question-icon-class"></font-awesome-icon>
@@ -108,7 +108,7 @@
                     </b-col>  
                 </b-form-row>
                   <b-form-row>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.riWebsite')" for="research-infrastructure-riWebsite">Ri Website</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('riWebsite')" @mouseout="hideTooltip('riWebsite')"  class="question-icon-class"></font-awesome-icon>
@@ -117,7 +117,7 @@
                                 :class="{'valid': !$v.researchInfrastructure.riWebsite.$invalid, 'invalid': $v.researchInfrastructure.riWebsite.$invalid }" v-model="$v.researchInfrastructure.riWebsite.$model" />
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.status')" for="research-infrastructure-status">Status</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('status')" @mouseout="hideTooltip('status')"  class="question-icon-class"></font-awesome-icon>
@@ -132,7 +132,7 @@
                             </select>
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.departmentName')" for="research-infrastructure-departmentName">Department Name</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('departmentName')" @mouseout="hideTooltip('departmentName')"  class="question-icon-class"></font-awesome-icon>
@@ -142,7 +142,7 @@
                         </div>
                     </b-col>
 
-                    <b-col sm="3">                        
+                    <b-col cols="12" md="6" lg="3">                        
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.category')" for="research-infrastructure-category">Category</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('category')" @mouseout="hideTooltip('category')"  class="question-icon-class"></font-awesome-icon>
@@ -160,7 +160,7 @@
                       
                 </b-form-row>
                 <b-form-row>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group position-relative">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.descriptionSr')" for="research-infrastructure-descriptionSr">Description Sr</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('descriptionSr')" @mouseout="hideTooltip('descriptionSr')"  class="question-icon-class"></font-awesome-icon>
@@ -171,7 +171,7 @@
                             ></b-form-textarea>
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group position-relative">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.descriptionEn')" for="research-infrastructure-descriptionEn">Description En</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('descriptionEn')" @mouseout="hideTooltip('descriptionEn')"  class="question-icon-class"></font-awesome-icon>
@@ -182,7 +182,7 @@
                             ></b-form-textarea>
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group position-relative">
                             <label v-text="$t('riportalApp.researchInfrastructure.subdomains')" for="research-infrastructure-subdomains">Subdomains</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('subdomains')" @mouseout="hideTooltip('subdomains')"  class="question-icon-class"></font-awesome-icon>
@@ -196,7 +196,7 @@
                             </select>
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group position-relative">
                             <label v-text="$t('riportalApp.researchInfrastructure.subcategories')" for="research-infrastructure-subcategories">Subcategories</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('subcategories')" @mouseout="hideTooltip('subcategories')"  class="question-icon-class"></font-awesome-icon>
@@ -212,7 +212,7 @@
                     </b-col>                        
                 </b-form-row>
                 <b-form-row>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group" v-if="authenticated && (hasAnyRole(['PA']) || hasAnyAuthority('ROLE_ADMIN'))">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.owner')" for="research-infrastructure-owner">Owner</label>
                             <span style="color:red">*</span>
@@ -222,7 +222,7 @@
                             </select>
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group" v-if="authenticated && (hasAnyRole(['PA', 'RPRIPO']) || hasAnyAuthority('ROLE_ADMIN'))">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.manager')" for="research-infrastructure-manager">Manager</label>
                             <select class="form-control" id="research-infrastructure-manager" name="manager" v-model="researchInfrastructure.manager">
@@ -231,7 +231,7 @@
                             </select>
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <!--
                         <div class="form-group">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.contactPerson')" for="research-infrastructure-contactPerson">Contact Person</label>
@@ -242,12 +242,12 @@
                         </div>
                         -->
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         
                     </b-col>                        
                 </b-form-row>
                 <b-form-row>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.acquisitionYear')" for="research-infrastructure-acquisition-year"></label>
                             <input type="number" class="form-control" name="riWebsite" id="research-infrastructure-acquisition-year"
@@ -255,14 +255,14 @@
 
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.purchaseValueEuro')" for="research-infrastructure-purchaseValueEuro"></label>
                             <input type="number" class="form-control" name="purchaseValueEuro" id="research-infrastructure-purchaseValueEuro"
                                 :class="{'valid': !$v.researchInfrastructure.purchaseValueEuro.$invalid, 'invalid': $v.researchInfrastructure.purchaseValueEuro.$invalid }" v-model="$v.researchInfrastructure.purchaseValueEuro.$model" />
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.purchaseValueDin')" for="research-infrastructure-purchaseValueDin"></label>
                             <input type="number" class="form-control" name="purchaseValueDin" id="research-infrastructure-purchaseValueDin"
@@ -270,7 +270,7 @@
                         </div>
                     </b-col>
 
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.financeSource')" for="research-infrastructure-financeSource">Access Mode</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('financeSource')" @mouseout="hideTooltip('financeSource')"  class="question-icon-class"></font-awesome-icon>
@@ -599,4 +599,14 @@
   display: block;
 }
 
+.basic-card {
+    padding: 35px;
+    margin: 20px;
+}
+
+@media (max-width: 768px) {
+  .basic-card{
+    padding: 15px;
+  }
+}
 </style>

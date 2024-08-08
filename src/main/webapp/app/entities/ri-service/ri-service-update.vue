@@ -3,11 +3,11 @@
         <div class="col-12">
 	        <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
                 <h2 id="riportalApp.riService.home.createOrEditLabel" v-text="$t('riportalApp.riService.home.createOrEditLabel')">Create or edit a RiService</h2>
-                 <div class="border border-primary" style="padding:35px;margin:20px;">
+                 <div class="border border-primary basic-card">
 					<h3 v-text="$t('riportalApp.researchInfrastructure.titlebasic')">Osnovni podaci</h3>
 					<br>
                     <b-form-row class="mt-4">
-                        <b-col sm="3">
+                        <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.researchInfrastructure')" for="ri-service-researchInfrastructure">Research Infrastructure</label>
                         <!-- <span style="color:red">*</span> -->
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('researchInfrastructure')" @mouseout="hideTooltip('researchInfrastructure')"  class="question-icon-class"></font-awesome-icon>
@@ -24,7 +24,7 @@
                     </b-form-row>
                 
                     <b-form-row class="mt-4">
-                    <b-col sm="3"  v-if="currentLanguage === 'sr' || currentLanguage === 'en'">
+                    <b-col cols="12" md="6" lg="3"  v-if="currentLanguage === 'sr' || currentLanguage === 'en'">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.nameSr')" for="ri-service-nameSr">Name Sr</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('nameSr')" @mouseout="hideTooltip('nameSr')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'nameSr'" v-html="$t('riportalApp.help-service.nameSr_desc')"></div>
@@ -37,14 +37,14 @@
         						</ul>
       						</div> -->
                     </b-col>
-                    <b-col sm="3"  v-if="currentLanguage === 'src'">
+                    <b-col cols="12" md="6" lg="3"  v-if="currentLanguage === 'src'">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.nameSr')" for="ri-service-nameSrCyr">Name Sr</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('nameSr')" @mouseout="hideTooltip('nameSr')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'nameSr'" v-html="$t('riportalApp.help-service.nameSr_desc')"></div>
                         <input type="text" class="form-control" name="nameSrCyr" id="ri-service-nameSrCyr"
                             :class="{'valid': !$v.riService.nameSrCyr.$invalid, 'invalid': $v.riService.nameSrCyr.$invalid }" v-model="$v.riService.nameSrCyr.$model" />
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.nameEn')" for="ri-service-nameEn">Name En</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('nameEn')" @mouseout="hideTooltip('nameEn')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'nameEn'" v-html="$t('riportalApp.help-service.nameEn_desc')"></div>
@@ -56,21 +56,21 @@
         						</ul>
       						</div> -->
                     </b-col>
-                    <b-col sm="3" v-if="currentLanguage === 'sr' || currentLanguage === 'en'">
+                    <b-col cols="12" md="6" lg="3" v-if="currentLanguage === 'sr' || currentLanguage === 'en'">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.keywords')" for="ri-service-keywords">Keywords</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('keywords')" @mouseout="hideTooltip('keywords')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'keywords'" v-html="$t('riportalApp.help-service.keywords_desc')"></div>
                         <input type="text" class="form-control" name="keywords" id="ri-service-keywords"
                             :class="{'valid': !$v.riService.keywords.$invalid, 'invalid': $v.riService.keywords.$invalid }" v-model="$v.riService.keywords.$model" />
                     </b-col>
-                    <b-col sm="3" v-if="currentLanguage === 'src'">
+                    <b-col cols="12" md="6" lg="3" v-if="currentLanguage === 'src'">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.keywords')" for="ri-service-keywords">Keywords</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('keywords')" @mouseout="hideTooltip('keywords')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'keywords'" v-html="$t('riportalApp.help-service.keywords_desc')"></div>
                         <input type="text" class="form-control" name="keywordsCyr" id="ri-service-keywordsCyr"
                             :class="{'valid': !$v.riService.keywordsCyr.$invalid, 'invalid': $v.riService.keywordsCyr.$invalid }" v-model="$v.riService.keywordsCyr.$model" />
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.keywordsEn')" for="ri-service-keywords">Keywords</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('keywordsEn')" @mouseout="hideTooltip('keywordsEn')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'keywordsEn'" v-html="$t('riportalApp.help-service.keywordsEn_desc')"></div>
@@ -80,14 +80,14 @@
                     
                 </b-form-row>
                 <b-form-row class="mt-4">
-                    <b-col sm="2">
+                    <b-col cols="8" md="4" lg="2">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.price')" for="ri-service-price"></label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('price')" @mouseout="hideTooltip('price')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'price'" v-html="$t('riportalApp.help-service.price_desc')"></div>
                         <input type="text" class="form-control" name="price" id="ri-service-price"
                         v-model="$v.riService.price.$model" @input="validateNumeric($event)" required >
                     </b-col>
-                    <b-col sm="1">
+                    <b-col cols="4" md="2" lg="1">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.currency')" for="ri-service-currency"></label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('currency')" @mouseout="hideTooltip('currency')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'currency'" v-html="$t('riportalApp.help-service.currency_desc')"></div>                        
@@ -111,7 +111,7 @@
                             </small>
                         </div>
                     </b-col>               
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.subtypes')" for="ri-service-subtypes">Subtypes</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('subtypes')" @mouseout="hideTooltip('subtypes')"  class="question-icon-class"></font-awesome-icon>
@@ -126,7 +126,7 @@
                             </select>
                         </div>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.availability')" for="ri-service-availability">Availability</label>
                             <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('availability')" @mouseout="hideTooltip('availability')"  class="question-icon-class"></font-awesome-icon>
@@ -141,7 +141,7 @@
                             </select>
                         </div>
                     </b-col>   
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.accredation')" for="ri-service-accredation">Accredation</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('accredation')" @mouseout="hideTooltip('accredation')"  class="question-icon-class"></font-awesome-icon>
@@ -354,5 +354,16 @@
 }
 .question-icon-class:hover + .tooltip-hover  {
   display: block;
+}
+
+.basic-card {
+    padding: 35px;
+    margin: 20px;
+}
+
+@media (max-width: 768px) {
+  .basic-card{
+    padding: 15px;
+  }
 }
 </style>
