@@ -169,7 +169,7 @@
                     
                 </b-form-row>
                 <b-form-row class="mb-4 mt-4">
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.descriptionSr')" for="ri-service-descriptionSr">Description Sr</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('descriptionSr')" @mouseout="hideTooltip('descriptionSr')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'descriptionSr'" v-html="$t('riportalApp.help-service.descriptionSr_desc')"></div>
@@ -178,7 +178,7 @@
                             :class="{'valid': !$v.riService.descriptionSr.$invalid, 'invalid': $v.riService.descriptionSr.$invalid }"
                         ></b-form-textarea>                    
                     </b-col>
-               			<b-col sm="3">
+               			<b-col cols="12" md="6" lg="3">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.descriptionEn')" for="ri-service-descriptionEn">Description En</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('descriptionEn')" @mouseout="hideTooltip('descriptionEn')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'descriptionEn'" v-html="$t('riportalApp.help-service.descriptionEn_desc')"></div>
@@ -187,7 +187,7 @@
                             :class="{'valid': !$v.riService.descriptionEn.$invalid, 'invalid': $v.riService.descriptionEn.$invalid }"
                         ></b-form-textarea>    
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6">
                         <label class="position-relative" v-text="$t('riportalApp.riService.subdomains')" for="ri-service-subdomains">Subdomains</label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('subdomains')" @mouseout="hideTooltip('subdomains')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'subdomains'" v-html="$t('riportalApp.help-service.subdomains_desc')"></div>
@@ -211,23 +211,23 @@
                 </div>
                 </div>
 
-               <div class="border border-primary" style="padding:35px;margin:20px;">
+               <div class="border border-primary basic-card">
 	 			<h3 v-text="$t('riportalApp.researchInfrastructure.titleadditional')">Osnovni podaci</h3>
 	 			<h5 v-if="!riService.id" style="color: red;"v-text="$t('riportalApp.researchInfrastructure.titleadditionalcomment')">Osnovni podaci</h5>
-                <b-form-row>
-					<b-col sm="3">
+                <b-form-row class="mb-4">
+					<b-col cols="12" md="6" lg="3">
                         <label class="form-control-label" v-text="$t('riportalApp.riService.termsOfUseSr')" for="ri-service-termsOfUseSr">Terms Of Use Sr</label>
                         <input type="text" readonly ref="termsOfUseSr" class="form-control" name="termsOfUseSr" id="ri-service-termsOfUseSr"
                             :class="{'valid': !$v.riService.termsOfUseSr.$invalid, 'invalid': $v.riService.termsOfUseSr.$invalid }" v-model="$v.riService.termsOfUseSr.$model" /><br>
                          <div v-if="riService.id != null && riService.termsOfUseSr != null && this.linked0 !=null">
                             <b-button variant="link" class="link-style" @click="formLink(riService.termsOfUseSr)">{{riService.termsOfUseSr}}</b-button>
-                            <button type="button" id="save-entity"  class="btn btn-danger  mt-1" v-on:click="deleteDocument('termsOfUseSr', riService.termsOfUseSr, 'linked0')">
+                            <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('termsOfUseSr', riService.termsOfUseSr, 'linked0')">
                                 <span v-text="$t('entity.action.delete')"></span>
                             </button>
                         </div>
                         <upload-files ref="upload_0_M" v-if="riService.id != null" shortname='ri' :pageObj='riService'  :formn="this" text_field="termsOfUseSr" rid="$t('riportalApp.riService.id')"></upload-files>
                     </b-col>
-                    <b-col sm="3">	
+                    <b-col cols="12" md="6" lg="3">	
                         <label class="form-control-label" v-text="$t('riportalApp.riService.termsOfUseEn')" for="ri-service-termsOfUseEn">Terms Of Use En</label>
                         <input type="text" readonly ref="termsOfUseEn" class="form-control" name="termsOfUseEn" id="ri-service-termsOfUseEn"
                             :class="{'valid': !$v.riService.termsOfUseEn.$invalid, 'invalid': $v.riService.termsOfUseEn.$invalid }" v-model="$v.riService.termsOfUseEn.$model" /><br>
@@ -240,14 +240,14 @@
                         <upload-files ref="upload_0_M" v-if="riService.id != null" shortname='ri' :pageObj='riService'  :formn="this" text_field="termsOfUseEn" rid="$t('riportalApp.riService.id')"></upload-files>
                     </b-col>
                     <!--
-					<b-col sm="3">
+					<b-col cols="12" md="6" lg="3">
                         <label class="form-control-label" v-text="$t('riportalApp.riService.privacyPolicySr')" for="ri-service-privacyPolicySr">Privacy Policy Sr</label>
                         <input type="text" readonly ref="privacyPolicySr" class="form-control" name="privacyPolicySr" id="ri-service-privacyPolicySr"
                             :class="{'valid': !$v.riService.privacyPolicySr.$invalid, 'invalid': $v.riService.privacyPolicySr.$invalid }" v-model="$v.riService.privacyPolicySr.$model" /><br>
                                <div v-if="riService.id != null && riService.privacyPolicySr != null && this.linked2 !=null"><b-button variant="link" class="link-style" @click="formLink(riService.privacyPolicySr)">{{riService.privacyPolicySr}}</b-button></div>
                         <upload-files ref="upload_0_M" v-if="riService.id != null" shortname='ri' :pageObj='riService'  :formn="this" text_field="privacyPolicySr" rid="$t('riportalApp.riService.id')"></upload-files>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label" v-text="$t('riportalApp.riService.privacyPolicyEn')" for="ri-service-privacyPolicyEn">Privacy Policy En</label>
                         <input type="text" readonly ref="privacyPolicyEn" class="form-control" name="privacyPolicyEn" id="ri-service-privacyPolicyEn"
                             :class="{'valid': !$v.riService.privacyPolicyEn.$invalid, 'invalid': $v.riService.privacyPolicyEn.$invalid }" v-model="$v.riService.privacyPolicyEn.$model" /><br>
@@ -255,7 +255,7 @@
                         <upload-files ref="upload_0_M" v-if="riService.id != null" shortname='ri' :pageObj='riService'  :formn="this" text_field="privacyPolicyEn" rid="$t('riportalApp.riService.id')"></upload-files>
                     </b-col>
                     -->
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label" v-text="$t('riportalApp.riService.accessPolicySr')" for="ri-service-accessPolicySr">Access Policy Sr</label>
                         <input type="text" readonly ref="accessPolicySr" class="form-control" name="accessPolicySr" id="ri-service-accessPolicySr"
                             :class="{'valid': !$v.riService.accessPolicySr.$invalid, 'invalid': $v.riService.accessPolicySr.$invalid }" v-model="$v.riService.accessPolicySr.$model" /><br>
@@ -267,7 +267,7 @@
                             </div>
                         <upload-files ref="upload_0_M" v-if="riService.id != null" shortname='ri' :pageObj='riService'  :formn="this" text_field="accessPolicySr" rid="$t('riportalApp.riService.id')"></upload-files>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label" v-text="$t('riportalApp.riService.accessPolicyEn')" for="ri-service-accessPolicyEn">Access Policy En</label>
                         <input type="text" readonly ref="accessPolicyEn" class="form-control" name="accessPolicyEn" id="ri-service-accessPolicyEn"
                             :class="{'valid': !$v.riService.accessPolicyEn.$invalid, 'invalid': $v.riService.accessPolicyEn.$invalid }" v-model="$v.riService.accessPolicyEn.$model" /><br>
@@ -282,7 +282,7 @@
                 </b-form-row>
                 <b-form-row>    
                     
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.pricingPolicySr')" for="ri-service-pricingPolicySr"></label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('pricingPolicySr')" @mouseout="hideTooltip('pricingPolicySr')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'pricingPolicySr'" v-html="$t('riportalApp.help-service.pricingPolicySr_desc')"></div>
@@ -297,7 +297,7 @@
                             </div>
                         <upload-files ref="upload_0_M" v-if="riService.id != null" shortname='ri' :pageObj='riService'  :formn="this" text_field="pricingPolicySr" rid="$t('riportalApp.riService.id')"></upload-files>
                     </b-col>
-                    <b-col sm="3">
+                    <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.pricingPolicyEn')" for="ri-service-pricingPolicyEn"></label>
                         <font-awesome-icon :icon="['fas', 'question-circle']" @mouseover="showTooltip('pricingPolicyEn')" @mouseout="hideTooltip('pricingPolicyEn')"  class="question-icon-class"></font-awesome-icon>
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'pricingPolicyEn'" v-html="$t('riportalApp.help-service.pricingPolicyEn_desc')"></div>
