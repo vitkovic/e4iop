@@ -646,6 +646,15 @@
     height: 40px;
 }
 
+@media (max-width: 900px) {
+  .fc .fc-toolbar {
+    flex-direction: column;
+    row-gap: 10px;
+    width: 100%;
+  }
+}
+</
+
 @media (max-width: 768px) {
   .basic-card{
     padding: 15px;

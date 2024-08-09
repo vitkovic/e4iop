@@ -14,8 +14,8 @@
             </b-col>
         </b-row>
 
-        <b-row class="mt-4">
-            <b-col sm="6">
+        <b-row class="mt-4 d-flex justify-content-between">
+            <b-col md="6">
                 <b-row>
                     <b-col sm="12">
                         <span v-text="$t('riportalApp.reports.searchOrganizations')"></span>
@@ -34,7 +34,7 @@
                     </b-col>
                 </b-row>
                 <b-row class="mt-2">
-                    <b-col sm="4">
+                    <b-col cols="6" lg="4">
                         <div class="form-group">
                             <label class="form-control-label" v-text="$t('riportalApp.reports.fromDate')" for="datepicker-dateformat1"></label>
                             <b-form-datepicker
@@ -45,7 +45,7 @@
                             ></b-form-datepicker>                               
                         </div>
                     </b-col>
-                    <b-col sm="4">
+                    <b-col cols="6" lg="4">
                         <div class="form-group">
                             <label class="form-control-label" v-text="$t('riportalApp.reports.toDate')" for="datepicker-dateformat2"></label>
                             <b-form-datepicker
@@ -58,7 +58,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col sm="3" offset="3">
+            <b-col cols="8" sm="6" md="4">
                 <b-card 
                     header-class="filter-class"
                     align="left"
