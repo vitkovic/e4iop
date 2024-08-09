@@ -219,8 +219,11 @@
                         <label class="form-control-label" v-text="$t('riportalApp.riService.termsOfUseSr')" for="ri-service-termsOfUseSr">Terms Of Use Sr</label>
                         <input type="text" readonly ref="termsOfUseSr" class="form-control" name="termsOfUseSr" id="ri-service-termsOfUseSr"
                             :class="{'valid': !$v.riService.termsOfUseSr.$invalid, 'invalid': $v.riService.termsOfUseSr.$invalid }" v-model="$v.riService.termsOfUseSr.$model" /><br>
-                         <div v-if="riService.id != null && riService.termsOfUseSr != null && this.linked0 !=null">
-                            <b-button variant="link" class="link-style" @click="formLink(riService.termsOfUseSr)">{{riService.termsOfUseSr}}</b-button>
+                         <div v-if="riService.id != null && riService.termsOfUseSr != null && this.linked0 !=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                            <div class="d-flex align-items-center">
+
+                            <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(riService.termsOfUseSr)">{{riService.termsOfUseSr}}</b-button>
+                            </div>
                             <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('termsOfUseSr', riService.termsOfUseSr, 'linked0')">
                                 <span v-text="$t('entity.action.delete')"></span>
                             </button>
@@ -231,9 +234,12 @@
                         <label class="form-control-label" v-text="$t('riportalApp.riService.termsOfUseEn')" for="ri-service-termsOfUseEn">Terms Of Use En</label>
                         <input type="text" readonly ref="termsOfUseEn" class="form-control" name="termsOfUseEn" id="ri-service-termsOfUseEn"
                             :class="{'valid': !$v.riService.termsOfUseEn.$invalid, 'invalid': $v.riService.termsOfUseEn.$invalid }" v-model="$v.riService.termsOfUseEn.$model" /><br>
-                               <div v-if="riService.id != null && riService.termsOfUseEn != null && this.linked1 !=null">
-                                <b-button variant="link" class="link-style" @click="formLink(riService.termsOfUseEn)">{{riService.termsOfUseEn}}</b-button>
-                                <button type="button" id="save-entity"  class="btn btn-danger  mt-1" v-on:click="deleteDocument('termsOfUseEn', riService.termsOfUseEn, 'linked1')">
+                               <div v-if="riService.id != null && riService.termsOfUseEn != null && this.linked1 !=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                                <div class="d-flex align-items-center">
+
+                                <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(riService.termsOfUseEn)">{{riService.termsOfUseEn}}</b-button>
+                                </div>
+                                <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('termsOfUseEn', riService.termsOfUseEn, 'linked1')">
                                     <span v-text="$t('entity.action.delete')"></span>
                                 </button>
                             </div>
@@ -259,9 +265,12 @@
                         <label class="form-control-label" v-text="$t('riportalApp.riService.accessPolicySr')" for="ri-service-accessPolicySr">Access Policy Sr</label>
                         <input type="text" readonly ref="accessPolicySr" class="form-control" name="accessPolicySr" id="ri-service-accessPolicySr"
                             :class="{'valid': !$v.riService.accessPolicySr.$invalid, 'invalid': $v.riService.accessPolicySr.$invalid }" v-model="$v.riService.accessPolicySr.$model" /><br>
-                            <div v-if="riService.id != null && riService.accessPolicySr != null && this.linked4 !=null">
-                                <b-button variant="link" class="link-style" @click="formLink(riService.accessPolicySr)">{{riService.accessPolicySr}}</b-button>
-                                <button type="button" id="save-entity"  class="btn btn-danger  mt-1" v-on:click="deleteDocument('accessPolicySr', riService.accessPolicySr, 'linked4')">
+                            <div v-if="riService.id != null && riService.accessPolicySr != null && this.linked4 !=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                                <div class="d-flex align-items-center">
+
+                                <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(riService.accessPolicySr)">{{riService.accessPolicySr}}</b-button>
+                                </div>
+                                <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('accessPolicySr', riService.accessPolicySr, 'linked4')">
                                     <span v-text="$t('entity.action.delete')"></span>
                                 </button>
                             </div>
@@ -271,16 +280,19 @@
                         <label class="form-control-label" v-text="$t('riportalApp.riService.accessPolicyEn')" for="ri-service-accessPolicyEn">Access Policy En</label>
                         <input type="text" readonly ref="accessPolicyEn" class="form-control" name="accessPolicyEn" id="ri-service-accessPolicyEn"
                             :class="{'valid': !$v.riService.accessPolicyEn.$invalid, 'invalid': $v.riService.accessPolicyEn.$invalid }" v-model="$v.riService.accessPolicyEn.$model" /><br>
-                            <div v-if="riService.id != null && riService.accessPolicyEn != null && this.linked5 !=null">
-                                <b-button variant="link" class="link-style" @click="formLink(riService.accessPolicyEn)">{{riService.accessPolicyEn}}</b-button>
-                                <button type="button" id="save-entity"  class="btn btn-danger  mt-1" v-on:click="deleteDocument('accessPolicyEn', riService.accessPolicyEn, 'linked5')">
+                            <div v-if="riService.id != null && riService.accessPolicyEn != null && this.linked5 !=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                                <div class="d-flex align-items-center">
+
+                                <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(riService.accessPolicyEn)">{{riService.accessPolicyEn}}</b-button>
+                                </div>
+                                <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('accessPolicyEn', riService.accessPolicyEn, 'linked5')">
                                     <span v-text="$t('entity.action.delete')"></span>
                                 </button>
                             </div>
                         <upload-files ref="upload_0_M" v-if="riService.id != null"  shortname='ri' :pageObj='riService'  :formn="this" text_field="accessPolicyEn" rid="$t('riportalApp.riService.id')"></upload-files>
                     </b-col>
                 </b-form-row>
-                <b-form-row>    
+                <b-form-row class="mb-4">    
                     
                     <b-col cols="12" md="6" lg="3">
                         <label class="form-control-label position-relative" v-text="$t('riportalApp.riService.pricingPolicySr')" for="ri-service-pricingPolicySr"></label>
@@ -289,9 +301,12 @@
                         <input type="text" readonly ref="pricingPolicySr" class="form-control" name="pricingPolicySr" id="ri-service-pricingPolicySr"
                             :class="{'valid': !$v.riService.pricingPolicySr.$invalid, 'invalid': $v.riService.pricingPolicySr.$invalid }" v-model="$v.riService.pricingPolicySr.$model" /><br>
                                
-                            <div v-if="riService.id != null && riService.pricingPolicySr != null && this.linked6 !=null">
-                                <b-button variant="link" class="link-style" @click="formLink(riService.pricingPolicySr)">{{riService.pricingPolicySr}}</b-button>
-                                <button type="button" id="save-entity"  class="btn btn-danger  mt-1" v-on:click="deleteDocument('pricingPolicySr', riService.pricingPolicySr, 'linked6')">
+                            <div v-if="riService.id != null && riService.pricingPolicySr != null && this.linked6 !=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                                <div class="d-flex align-items-center">
+
+                                <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(riService.pricingPolicySr)">{{riService.pricingPolicySr}}</b-button>
+                                </div>
+                                <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('pricingPolicySr', riService.pricingPolicySr, 'linked6')">
                                     <span v-text="$t('entity.action.delete')"></span>
                                 </button>
                             </div>
@@ -303,9 +318,12 @@
                         <div class="tooltip-hover bg-info text-white p-2 border-0 text-1 w-80 rounded" v-if="currentTooltip === 'pricingPolicyEn'" v-html="$t('riportalApp.help-service.pricingPolicyEn_desc')"></div>
                         <input type="text" readonly ref="pricingPolicyEn" class="form-control" name="pricingPolicyEn" id="ri-service-pricingPolicyEn"
                             :class="{'valid': !$v.riService.pricingPolicyEn.$invalid, 'invalid': $v.riService.pricingPolicyEn.$invalid }" v-model="$v.riService.pricingPolicyEn.$model" /><br>
-                            <div v-if="riService.id != null && riService.pricingPolicyEn != null && this.linked7 !=null">
-                                <b-button variant="link" class="link-style" @click="formLink(riService.pricingPolicyEn)">{{riService.pricingPolicyEn}}</b-button>
-                                <button type="button" id="save-entity"  class="btn btn-danger  mt-1" v-on:click="deleteDocument('pricingPolicyEn', riService.pricingPolicyEn, 'linked7')">
+                            <div v-if="riService.id != null && riService.pricingPolicyEn != null && this.linked7 !=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                                <div class="d-flex align-items-center">
+
+                                <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(riService.pricingPolicyEn)">{{riService.pricingPolicyEn}}</b-button>
+                                </div>
+                                <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('pricingPolicyEn', riService.pricingPolicyEn, 'linked7')">
                                     <span v-text="$t('entity.action.delete')"></span>
                                 </button>
                             </div>
@@ -359,6 +377,19 @@
 .basic-card {
     padding: 35px;
     margin: 20px;
+}
+
+.link-break{
+    word-break: break-all;
+    text-align: left;
+}
+
+.buttonsLink-container{
+    height: 40px;
+}
+
+.link-style:hover {
+    color: blue;
 }
 
 @media (max-width: 768px) {

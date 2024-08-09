@@ -246,7 +246,7 @@
                         
                     </b-col>                        
                 </b-form-row>
-                <b-form-row>
+                <b-form-row class="mb-4">
                     <b-col cols="12" md="6" lg="3">
                         <div class="form-group">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.acquisitionYear')" for="research-infrastructure-acquisition-year"></label>
@@ -358,15 +358,15 @@
                             <input type="text" readonly ref="userManualLinkEn" class="form-control" name="userManualLinkEn" id="research-infrastructure-userManualLinkEn"
                                 :class="{'valid': !$v.researchInfrastructure.userManualLinkEn.$invalid, 'invalid': $v.researchInfrastructure.userManualLinkEn.$invalid }" v-model="$v.researchInfrastructure.userManualLinkEn.$model" />        
                         </div>
-                         <div v-if="researchInfrastructure.id != null && researchInfrastructure.userManualLinkEn != null && this.linked3!=null">
-                            <span>
+                         <div v-if="researchInfrastructure.id != null && researchInfrastructure.userManualLinkEn != null && this.linked3!=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-container">
+                            <div class="d-flex align-items-center">
 
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.userManualLinkEn)">{{researchInfrastructure.userManualLinkEn}}
+                            <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(researchInfrastructure.userManualLinkEn)">{{researchInfrastructure.userManualLinkEn}}
                             </b-button>    
+                            </div>
                             <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('userManualLinkEn', researchInfrastructure.userManualLinkEn, 'linked3')">
                                 <span v-text="$t('entity.action.delete')"></span>
                             </button>
-                            </span>
                         </div>
                         <upload-files ref="upload_3_M" v-if="researchInfrastructure.id != null" shortname='ri' :pageObj="researchInfrastructure" :formn="this" text_field="userManualLinkEn" rid="$t('riportalApp.researchInfrastructure.id')"></upload-files>
                     </b-col>
@@ -378,9 +378,12 @@
                             <input type="text" readonly ref="userManualLinkSr" class="form-control" name="userManualLinkSr" id="research-infrastructure-userManualLinkSr"
                                 :class="{'valid': !$v.researchInfrastructure.userManualLinkSr.$invalid, 'invalid': $v.researchInfrastructure.userManualLinkSr.$invalid }" v-model="$v.researchInfrastructure.userManualLinkSr.$model" />     
                         </div>
-                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.userManualLinkSr != null && this.linked4!=null">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.userManualLinkSr)">{{researchInfrastructure.userManualLinkSr}}
+                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.userManualLinkSr != null && this.linked4!=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                            <div class="d-flex align-items-center">
+
+                            <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(researchInfrastructure.userManualLinkSr)">{{researchInfrastructure.userManualLinkSr}}
                             </b-button>
+                            </div>
                             <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('userManualLinkSr', researchInfrastructure.userManualLinkSr, 'linked4')">
                                 <span v-text="$t('entity.action.delete')"></span>
                             </button>
@@ -397,9 +400,12 @@
                                 :class="{'valid': !$v.researchInfrastructure.technicalSpecificationLinkSr.$invalid, 'invalid': $v.researchInfrastructure.technicalSpecificationLinkSr.$invalid }" v-model="$v.researchInfrastructure.technicalSpecificationLinkSr.$model" />  
                         </div>
                         
-                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.technicalSpecificationLinkSr != null && this.linked0!=null">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.technicalSpecificationLinkSr)">{{researchInfrastructure.technicalSpecificationLinkSr}}
+                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.technicalSpecificationLinkSr != null && this.linked0!=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                            <div class="d-flex align-items-center">
+
+                            <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(researchInfrastructure.technicalSpecificationLinkSr)">{{researchInfrastructure.technicalSpecificationLinkSr}}
                             </b-button>
+                            </div>
                             <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('technicalSpecificationLinkSr', researchInfrastructure.technicalSpecificationLinkSr, 'linked0')">
                                 <span v-text="$t('entity.action.delete')"></span>
                             </button>
@@ -415,9 +421,12 @@
                                 :class="{'valid': !$v.researchInfrastructure.technicalSpecificationLinkEn.$invalid, 'invalid': $v.researchInfrastructure.technicalSpecificationLinkEn.$invalid }" v-model="$v.researchInfrastructure.technicalSpecificationLinkEn.$model" />
                         </div>
                         
-                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.technicalSpecificationLinkEn != null && this.linked1!=null" class="d-flex align-items-start flex-wrap">
-                            <b-button variant="link" class="link-style p-0 link-break" @click="formLink(researchInfrastructure.technicalSpecificationLinkEn)">{{researchInfrastructure.technicalSpecificationLinkEn}}
+                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.technicalSpecificationLinkEn != null && this.linked1!=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                            <div class="d-flex align-items-center">
+
+                            <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(researchInfrastructure.technicalSpecificationLinkEn)">{{researchInfrastructure.technicalSpecificationLinkEn}}
                             </b-button>
+                            </div>
                             <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('technicalSpecificationLinkEn', researchInfrastructure.technicalSpecificationLinkEn, 'linked1')">
                                 <span v-text="$t('entity.action.delete')"></span>
                             </button>
@@ -425,7 +434,7 @@
                         <upload-files ref="upload_1_M" v-if="researchInfrastructure.id != null" shortname='ri' :pageObj="researchInfrastructure"  :formn="this" text_field="technicalSpecificationLinkEn" rid="$t('riportalApp.researchInfrastructure.id')"></upload-files>
                     </b-col>                        
                 </b-form-row>
-                <b-form-row>
+                <b-form-row class="mb-4">
                  <b-col cols="12" md="6" lg="3">
                         <div class="form-group position-relative">
                             <label class="form-control-label" v-text="$t('riportalApp.researchInfrastructure.termsOfUseLinkSr')" for="research-infrastructure-termsOfUseSr">Tearm of Use Sr</label>
@@ -435,8 +444,11 @@
                                 :class="{'valid': !$v.researchInfrastructure.termsOfUseSr.$invalid, 'invalid': $v.researchInfrastructure.termsOfUseSr.$invalid }" v-model="$v.researchInfrastructure.termsOfUseSr.$model" />
                         </div>
                         
-                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.termsOfUseSr != null && this.linked5!=null">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.termsOfUseSr)">{{researchInfrastructure.termsOfUseSr}}</b-button>
+                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.termsOfUseSr != null && this.linked5!=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                            <div class="d-flex align-items-center">
+
+                            <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(researchInfrastructure.termsOfUseSr)">{{researchInfrastructure.termsOfUseSr}}</b-button>
+                            </div>
                             <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('termsOfUseSr', researchInfrastructure.termsOfUseSr, 'linked5')">
                                 <span v-text="$t('entity.action.delete')"></span>
                             </button>
@@ -452,16 +464,19 @@
                                 :class="{'valid': !$v.researchInfrastructure.termsOfUseEn.$invalid, 'invalid': $v.researchInfrastructure.termsOfUseEn.$invalid }" v-model="$v.researchInfrastructure.termsOfUseEn.$model" /> 
                         </div>
                         
-                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.termsOfUseEn != null && this.linked6!=null">
-                            <b-button variant="link" class="link-style" @click="formLink(researchInfrastructure.termsOfUseEn)">{{researchInfrastructure.termsOfUseEn}}
-                            </b-button>
+                        <div v-if="researchInfrastructure.id != null && researchInfrastructure.termsOfUseEn != null && this.linked6!=null" class="d-flex align-items-center justify-content-between mb-4 buttonsLink-contain">
+                            <div class="d-flex align-items-center">
+
+                            <b-button variant="link" class="link-style link-break pt-0 pb-0" @click="formLink(researchInfrastructure.termsOfUseEn)">{{researchInfrastructure.termsOfUseEn}}</b-button>
+                            </div>
+                            
                             <button type="button" id="save-entity"  class="btn btn-danger btn-sm mt-1" v-on:click="deleteDocument('termsOfUseEn', researchInfrastructure.termsOfUseEn, 'linked6')">
                                 <span v-text="$t('entity.action.delete')"></span>
                             </button>
                         </div>
                         <upload-files ref="upload_1_M" v-if="researchInfrastructure.id != null" shortname='ri' :pageObj="researchInfrastructure"  :formn="this" text_field="termsOfUseEn" rid="$t('riportalApp.researchInfrastructure.id')"></upload-files>
                     </b-col>
-                    <b-col md="6">
+                    <b-col cols="12" md="6">
                         <b-row>
                             <b-col sm="12">
                                 <label class="form-control-label position-relative" v-text="$t('riportalApp.researchInfrastructure.images')"></label>   
@@ -489,11 +504,11 @@
                                 <h5 v-text="$t('riportalApp.researchInfrastructure.existingImages')"></h5>
                             </b-col>
                         </b-row>
-                        <b-row v-for="image in researchInfrastructure.images" :key="image.id" class="mt-4">
-                            <b-col sm="3" class="text-right">
-                                <img :src="loadImage(image.filename)" width="50"/>
+                        <b-row v-for="image in researchInfrastructure.images" :key="image.id" class="mt-4 d-flex align-items-center">
+                            <b-col cols="6" lg="3" class="text-right img-container">
+                                <img :src="loadImage(image.filename)" class="img-box"/>
                             </b-col>
-                            <b-col sm="3">
+                            <b-col cols="3">
                                 <button type="button" id="save-entity"  class="btn btn-danger btn-sm" v-on:click="deleteImage(image.id)">
                                     <span v-text="$t('entity.action.delete')"></span>
                                 </button>
@@ -610,6 +625,25 @@
 .link-break{
     word-break: break-all;
     text-align: left;
+}
+
+.img-container{
+    width: 100px;
+    height: 75px;
+}
+
+.img-box{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.link-style:hover {
+    color: blue;
+}
+
+.buttonsLink-container{
+    height: 40px;
 }
 
 @media (max-width: 768px) {
