@@ -6,7 +6,7 @@
                     <span v-text="$t('riportalApp.reports.serviceStatistic')" id="ri-service-heading"></span>
                 </h2>
             </b-col>
-            <b-col sm="4"  class="text-right">
+            <b-col sm="4"  class="text-right mt-4 mt-sm-0">
                 <button  type="button" id="stampanje" class="btn btn-primary" 
                     v-on:click="stampanje()">
                     <span v-text="$t('riportalApp.reports.downloadExcel')"></span>
@@ -23,12 +23,17 @@
         <br/>                     
         <b-row style="margin-top:10px">
             <b-col>
+
+
                 <b-table striped 
                     :items="services" 
                     :filter="filter" 
                     :per-page="perPage" 
                     :fields="fields"
-                    :current-page="currentPage" >
+                    :current-page="currentPage"
+                    responsive
+                     >
+                    
 
                      <template #cell(requestRating)="data">                        
                         <b-form-rating  
@@ -38,7 +43,11 @@
                     </template>
 
                 </b-table>
+                <div class="row justify-content-center">
+
                 <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"></b-pagination>
+                </div>
+
             </b-col>
         </b-row>
        

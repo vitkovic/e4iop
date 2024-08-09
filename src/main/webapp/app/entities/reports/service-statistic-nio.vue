@@ -3,8 +3,8 @@
         <h2 id="page-heading">
             <span v-text="$t('riportalApp.reports.serviceStatisticNioTitle')" ></span>
         </h2>
-        <b-row class="mt-4">
-            <b-col sm="6">
+        <b-row class="mt-4 d-flex justify-content-between">
+            <b-col md="6" class="mb-4 mb-md-0">
                 <b-input-group>
                     <b-form-input type="text" v-model="search.searchTerms"></b-form-input>
                     <b-input-group-append>                        
@@ -14,7 +14,7 @@
                     </b-input-group-append>
                 </b-input-group>                         
             </b-col>
-            <b-col sm="3" offset="3">
+            <b-col cols="8" sm="6" md="4">
                 <b-card 
                     header-class="filter-class"
                     align="left"
