@@ -208,7 +208,7 @@
                     </td>
                     <td>
                         <div v-if="riService.researchInfrastructure">
-                            <router-link :to="{name: 'ResearchInfrastructurePregled', params: {researchInfrastructureId: riService.researchInfrastructure.id}}" class="link-style">                                
+                            <router-link :to="{name: 'ResearchInfrastructurePregledDetails', params: {researchInfrastructureId: riService.researchInfrastructure.id}}" class="link-style">                                
                                 <span v-if="currentLanguage == 'sr'">{{riService.researchInfrastructure.nameSr}}</span>
                                 <span v-if="currentLanguage == 'en'">{{riService.researchInfrastructure.nameEn}}</span>
                                 <span v-if="currentLanguage == 'src'">{{riService.researchInfrastructure.nameSrCyr}}</span>
