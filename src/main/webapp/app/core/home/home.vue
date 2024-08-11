@@ -333,6 +333,10 @@
   background-color: #f39c12;
 }
 
+.link-style:hover{
+  color: blue;
+}
+
 /* MIDDLE PART END */
 
 @media screen and (max-width: 576px) {
