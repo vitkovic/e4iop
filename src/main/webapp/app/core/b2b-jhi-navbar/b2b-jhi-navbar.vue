@@ -409,6 +409,7 @@
                   type="text"
                   @keyup.enter="searchAdv()"
                   @keyup = "autoAdv()"
+                  @click = "autoAdv()"
                   :placeholder="$t('global.menu.searchAd')"
                 ></b-form-input>
                 <div class="input-group-append">

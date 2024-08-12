@@ -244,6 +244,7 @@ export default class B2BJhiNavbar extends Vue {
   public notifsearchshown = false;
 
   public autoAdv(): any {
+	  console.log('kuku');
     if (!this.notifsearchshown) {
       this.$notify({
         text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
@@ -252,7 +253,7 @@ export default class B2BJhiNavbar extends Vue {
       });
       this.notifsearchshown = true;
     }
-    if (this.txtsearchNav.length >= 3) {
+    if (this.txtsearchNav != null && this.txtsearchNav.length >= 3) {
       this.isFetching = true;
 
       const paginationQuery = {
@@ -267,11 +268,8 @@ export default class B2BJhiNavbar extends Vue {
           res => {
             // Ovo koristiti az originalno povucene rezultate pretrage
             this.advertisements = res.data;
-            console.log(this.advertisements);
-            console.log('hjghjsadgjdag');
             this.$emit('adv:change', this.advertisements);
             // Ovo koristiti za filtrirane rezultate pretrage
-
             this.totalItems = Number(res.headers['x-total-count']);
             this.queryCount = this.totalItems;
             this.isFetching = false;

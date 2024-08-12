@@ -85,15 +85,23 @@ export default class App extends Vue {
    //   console.log(this.showbutt);
       this.advertisements = value;
   //    console.log(value);
-      if (value != null && typeof(value)!='undefined' && this.advertisements.length > 0 )
+      if (value != null && typeof(value)!='undefined' && this.advertisements.length > 0 ) {
       	this.showbutt = true;
-      else
+      	this.toggle = true;
+      } else {
       	this.showbutt = false;
-      	
+      	this.toggle = false;
+      }
     //  	console.log(this.showbutt);
       
-      console.log(this.advertisements)
+  //    console.log(this.advertisements)
       
+  }
+  
+  public hideAll(): void {
+	   this.toggle = false;
+	  if (this.advertisements !=null) this.$emit('adv:change', null);
+	  
   }
   
   public changeNews(value,event): void {

@@ -22,7 +22,7 @@ export default class SearchPageService {
  
  
  public retrieveSearch(): any {
-	 console.log("klik");
+	// console.log("klik");
   }
   
   public retrieveSearchAdv(search:string): Promise<any> {
@@ -34,7 +34,7 @@ export default class SearchPageService {
     };
 	  
 	  
-	 console.log(baseApiUrlSearchAdv + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+	// console.log(baseApiUrlSearchAdv + `?search=${search}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
     return new Promise<any>((resolve, reject) => {
       axios
         .get(baseApiUrlSearchAdv + `?search=${search}`+ `&category=1` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
