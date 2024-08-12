@@ -2,7 +2,7 @@
   "riportalApp": {
     "riService": {
       "home": {
-        "title": "Research inrastructure services",
+        "title": "Research infrastructure services",
         "createLabel": "Create new service",
         "createOrEditLabel": "Create or edit service",
         "notFound": "No research infrastructure services found"

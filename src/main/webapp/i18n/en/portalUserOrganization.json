@@ -2,16 +2,16 @@
   "riportalApp": {
     "portalUserOrganization": {
       "home": {
-        "title": "Portal User Organizations",
-        "createLabel": "Create new Portal User Organization",
-        "createOrEditLabel": "Create or edit Portal User Organization",
-        "notFound": "No Portal User Organizations found"
+        "title": "Portal user organizations",
+        "createLabel": "Create new portal user organization",
+        "createOrEditLabel": "Create or edit portal user organization",
+        "notFound": "No portal user organizations found"
       },
-      "created": "A new Portal User Organization is created with identifier {{ param }}",
-      "updated": "A Portal User Organization is updated with identifier {{ param }}",
-      "deleted": "A Portal User Organization is deleted with identifier {{ param }}",
+      "created": "A new portal user organization is created with identifier {{ param }}",
+      "updated": "A portal user organization is updated with identifier {{ param }}",
+      "deleted": "A portal user organization is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Portal User Organization with identifier {{ id }}?"
+        "question": "Are you sure you want to delete portal user organization with identifier {{ id }}?"
       },
       "detail": {
         "title": "Portal User Organization"

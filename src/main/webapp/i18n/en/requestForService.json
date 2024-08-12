@@ -2,19 +2,19 @@
   "riportalApp": {
     "requestForService": {
       "home": {
-        "title": "Request For Services",
-        "createLabel": "Create new Request For Service",
-        "createOrEditLabel": "Create or edit Request For Service",
-        "notFound": "No Request For Services found"
+        "title": "Request for services",
+        "createLabel": "Create new request for service",
+        "createOrEditLabel": "Create or edit request for service",
+        "notFound": "No request for services found"
       },
-      "created": "A new Request For Service is created with identifier {{ param }}",
-      "updated": "A Request For Service is updated with identifier {{ param }}",
-      "deleted": "A Request For Service is deleted with identifier {{ param }}",
+      "created": "A new request for service is created with identifier {{ param }}",
+      "updated": "A request for service is updated with identifier {{ param }}",
+      "deleted": "A request for service is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Request For Service with identifier {{ id }}?"
+        "question": "Are you sure you want to delete request for service with identifier {{ id }}?"
       },
       "detail": {
-        "title": "Request For Service"
+        "title": "Request for service"
       },
       "date": "Date",
       "request": "Request",

@@ -2,19 +2,19 @@
   "riportalApp": {
     "researchInfrastructure": {
       "home": {
-        "title": "Research Infrastructures",
-        "createLabel": "Create a new Research Infrastructure",
-        "createOrEditLabel": "Create or edit a Research Infrastructure",
-        "notFound": "No Research Infrastructures found"
+        "title": "Research infrastructures",
+        "createLabel": "Create a new research infrastructure",
+        "createOrEditLabel": "Create or edit a research infrastructure",
+        "notFound": "No research infrastructures found"
       },
-      "created": "A new Research Infrastructure is created with identifier {{ param }}",
-      "updated": "A Research Infrastructure is updated with identifier {{ param }}",
-      "deleted": "A Research Infrastructure is deleted with identifier {{ param }}",
+      "created": "A new research infrastructure is created with identifier {{ param }}",
+      "updated": "A research infrastructure is updated with identifier {{ param }}",
+      "deleted": "A research infrastructure is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Research Infrastructure {{ id }}?"
+        "question": "Are you sure you want to delete research infrastructure {{ id }}?"
       },
       "detail": {
-        "title": "Research Infrastructure"
+        "title": "Research infrastructure"
       },
       "nameSr": "Infrastrucure name (Serbian)",
       "nameEn": "Infrastrucure name (English)",

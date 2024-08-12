@@ -2,19 +2,19 @@
   "riportalApp": {
     "serviceProposal": {
       "home": {
-        "title": "Service Proposals",
-        "createLabel": "Create new Service Proposal",
-        "createOrEditLabel": "Create or edit Service Proposal",
-        "notFound": "No Service Proposals found"
+        "title": "Service proposals",
+        "createLabel": "Create new service proposal",
+        "createOrEditLabel": "Create or edit service proposal",
+        "notFound": "No service proposals found"
       },
-      "created": "A new Service Proposal is created with identifier {{ param }}",
-      "updated": "A Service Proposal is updated with identifier {{ param }}",
-      "deleted": "A Service Proposal is deleted with identifier {{ param }}",
+      "created": "A new service proposal is created with identifier {{ param }}",
+      "updated": "A service proposal is updated with identifier {{ param }}",
+      "deleted": "A service proposal is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Service Proposal with identifier {{ id }}?"
+        "question": "Are you sure you want to delete service proposal with identifier {{ id }}?"
       },
       "detail": {
-        "title": "Service Proposal"
+        "title": "Service proposal"
       },
       "date": "Date",
       "name": "Name",
