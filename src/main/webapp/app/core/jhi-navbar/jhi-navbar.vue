@@ -571,5 +571,9 @@
   	
 }
 
+nav li.router-link-active .navbar-dropdown-menu {
+	color: rgba(0, 0, 0, 0.5);
+}
+
 
 </style>
