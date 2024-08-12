@@ -396,9 +396,9 @@
           <div class="col-sm-8 col-md-8 mb-2 mb-sm-0">
             <!-- Širina 70% na većim ekranima -->
             <div class="selInp">
-              <b-input-group class="input-grupaC">
+              <b-input-group >
                 <b-input-group-prepend is-text>
-                  <font-awesome-icon icon="search" scale="1.3"></font-awesome-icon>
+                  <font-awesome-icon icon="search" scale="1.4"></font-awesome-icon>
                 </b-input-group-prepend>
                 <b-form-input
                   class="inputPoljeC"
@@ -406,27 +406,23 @@
                   ref="searchadv"
                   id="searchadv"
                   name="searchadv"
-                  type="text"
+                  type="search"
                   @keyup.enter="searchAdv()"
                   @keyup = "autoAdv()"
                   @click = "autoAdv()"
                   :placeholder="$t('global.menu.searchAd')"
                 ></b-form-input>
-                <div class="input-group-append">
+                 <b-input-group-append>
                   <b-button class="primary btn btn-dark" @click="searchAdv()">{{ $t('entity.action.searchBar') }}</b-button>
-                </div>
+                </b-input-group-append>
               </b-input-group>
             </div>
           </div>
           <div class="col-sm-4 col-md-4" style="max-width:100%">
-              <b-input-group  class="w-100" style="max-width:100%">
-                <b-input-group-prepend is-text>
-                  <font-awesome-icon icon="search" scale="1.3"></font-awesome-icon>
-                </b-input-group-prepend>
                 <select class="form-control" style="width:100%;max-width:100%" v-model="mainSearchCategory" id="kat" name="kat" @click="" >
                     <option  v-for="element in advCategList" :key="element.id" :value="element.id" >{{element.name}}</option>
                 </select>
-                </b-input-group>
+            
               </div>
          <!-- <div class="col-sm-2 col-md-4" style="max-width: 100%;">
             <multiselect
@@ -521,7 +517,7 @@
 }
 
 .form-control {
-  height: 2.2em !important;
+  height: 2.3em !important;
 }
 
 .all {
@@ -663,6 +659,7 @@
 
 .input-group {
   flex-wrap: nowrap;
+  align-items:center;
 }
 
 .klasa {
