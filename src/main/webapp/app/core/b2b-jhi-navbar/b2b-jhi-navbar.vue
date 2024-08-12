@@ -476,7 +476,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 1150px) {
   span span {
-    display: none;
+    /* display: none; */
   }
 }
 

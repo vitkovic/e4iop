@@ -1,5 +1,5 @@
 <template>
-			    <b-navbar toggleable="sm" type="light">
+			    <b-navbar toggleable="lg" type="light">
 			        <b-navbar-brand class="logo" b-link to="/" style="margin-bottom:-10px;" >
 			           <b-img :src="'/content/images/OII_sm_sm_2.png'"></b-img>
 			        </b-navbar-brand>      
@@ -520,7 +520,7 @@
 }
 
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
   .jh-navbar-toggler {
     display: none;
   }
@@ -528,7 +528,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 1150px) {
   span span{
-    display:none;
+    /* display:none; */
   }
 }
 
