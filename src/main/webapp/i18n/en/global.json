@@ -271,6 +271,7 @@
       "cancel": "Cancel",
       "close": "Close",
       "delete": "Delete",
+      "archive": "Archive",
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
@@ -305,6 +306,9 @@
     "delete": {
       "title": "Confirm delete operation",
       "deleteMessage": "Delete message"
+    },
+    "archive": {
+      "title": "Confirm archive operation"
     },
     "validation": {
       "required": "This field is required.",

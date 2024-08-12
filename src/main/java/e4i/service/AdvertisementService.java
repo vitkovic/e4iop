@@ -111,29 +111,41 @@ public class AdvertisementService {
     @Transactional(readOnly = true)
     public Page<Advertisement> findAll(Pageable pageable) {
         log.debug("Request to get all Advertisements");
-        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){              
-        	return advertisementRepository.findAll(pageable);
-        } else {
+        
+        Page<Advertisement> advertisements;
+        if (userService.isCurrentUserInRole(AuthoritiesConstants.ADMIN, AuthoritiesConstants.CMS_ADMIN)) {              
+        	advertisements = advertisementRepository.findAllAdvertisements(pageable);
+        	
+        	// Could this be done within a query???
+        	advertisements.getContent().forEach(advertisement -> {
+        		Hibernate.initialize(advertisement.getKinds());
+            });
+        	
+        	return advertisements;
+        } else if (userService.isCurrentUserInRole(AuthoritiesConstants.COMPANY_ADMIN, AuthoritiesConstants.COMPANY_USER)) {
         	 Optional<User> currentUser = userService.getUserWithAuthorities();
              User user = currentUser.get();
              
              PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
              System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   " + pUser);
-             return advertisementRepository.findByCompanyId(pUser.getCompany().getId() ,pageable);
              
-//             List<String> userRoles = pUser.pronadjiPortalUserRolesAbbreviations();
-//             if(userRoles.contains("RPRIPO")) {
-//            	 RiResearchOrganization rio = riResearchOrganizationRepository.findByPuOrganizationId(pUser.getUserOrganization().getId());
-//            	 Page<ResearchInfrastructure> out = researchInfrastructureRepository.findByOwnerId(rio.getId(), pageable);
-//            	 return out;
-//             }else if(userRoles.contains("PA")) {
-//            	 return researchInfrastructureRepository.findAll(pageable);
-//             }else if(userRoles.contains("RPRI")) {
-//            	 return researchInfrastructureRepository.findByManagerId(pUser.getId(), pageable);
-//             }else {
-//            	 return null;
-//             }
-        }   
+             if (pUser.getCompany() != null) {
+            	 advertisements = advertisementRepository.findByCompanyId(pUser.getCompany().getId() ,pageable);
+                 
+             	// Could this be done within a query???
+             	advertisements.getContent().forEach(advertisement -> {
+             		Hibernate.initialize(advertisement.getKinds());
+                 });
+             	
+             	return advertisements;
+             } else {
+                 String errorMessage = String.format("Current PortalUser with ID {} is not associated with any Company!", pUser.getId());
+                 throw new IllegalStateException(errorMessage);
+             }
+        } else {
+            String errorMessage = "Current User has no required authorities!";
+            throw new IllegalStateException(errorMessage);
+        }
     }
     
     /**
@@ -601,7 +613,13 @@ public Page<Advertisement> findAllBySearchTypeStatus(Long type, Long status, Pag
     
     @Transactional
     public Page<Advertisement> findAllByStatusId(Long statusId, Pageable pageable) {
-    	return advertisementRepository.findAllByStatusId(statusId, pageable);
+    	Page<Advertisement> advertisements = advertisementRepository.findAllByStatusId(statusId, pageable);
+    	
+    	advertisements.getContent().forEach(advertisement -> {
+    		Hibernate.initialize(advertisement.getKinds());
+        });
+    	
+    	return advertisements;
     }
     
     @Transactional

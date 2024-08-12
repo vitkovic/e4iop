@@ -17,6 +17,9 @@
       "delete": {
         "question": "Are you sure you want to delete advertisement?"
       },
+      "archive": {
+        "question": "Are you sure you want to archive advertisement?"
+      },
       "detail": {
         "title": "Advertisement"
       },

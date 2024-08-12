@@ -17,6 +17,9 @@
       "delete": {
         "question": "Da li ste sigurni da želite da obrišete oglas?"
       },
+      "archive": {
+        "question": "Da li ste sigurni da želite da arhivirate oglas?"
+      },
       "detail": {
         "title": "Advertisement"
       },

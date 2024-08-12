@@ -48,7 +48,6 @@
           >Cancel</b-button
         >
         <b-button
-          v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')"
           :variant="filterSoftDeleteButtonVariant"
           v-text="$t('riportalApp.advertisement.filterButtons.archived')"
           v-on:click="showSoftDeleteAdvertisements()"
@@ -68,8 +67,6 @@
               <span v-text="$t('riportalApp.advertisement.title')">Title</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator>
             </th>
-            <!-- <th v-on:click="changeOrder('description')"><span v-text="$t('riportalApp.advertisement.description')">Description</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'description'"></jhi-sort-indicator></th> -->
-            <!-- <th v-on:click="changeOrder('conditions')"><span v-text="$t('riportalApp.advertisement.conditions')">Conditions</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'conditions'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.advertisement.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.advertisement.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th> -->
             <th v-on:click="changeOrder('status.id')">
@@ -80,9 +77,9 @@
               <span v-text="$t('riportalApp.advertisement.type')">Type</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'type.id'"></jhi-sort-indicator>
             </th>
-            <th v-on:click="changeOrder('kind.id')">
+            <th>
               <span v-text="$t('riportalApp.advertisement.kind')">Kind</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind.id'"></jhi-sort-indicator>
+              <!-- <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'kind.id'"></jhi-sort-indicator> -->
             </th>
             <th v-on:click="changeOrder('subsubcategory.name')">
               <span v-text="$t('riportalApp.advertisement.subsubcategory')">Subsubcategory</span>
@@ -113,47 +110,47 @@
         </thead>
         <tbody>
           <tr v-for="advertisement in advertisements" :key="advertisement.id">
-            <!-- <td>
-                        <router-link :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}">{{advertisement.id}}</router-link>
-                    </td> -->
+            <td class="title-column">
+              <router-link :to="{ name: 'AdvertisementView', params: { advertisementId: advertisement.id } }" class="text-body">
+                {{ advertisement.title }}      
+              </router-link>
+            </td>
             <!-- <td>{{advertisement.createdAt ? $d(Date.parse(advertisement.createdAt), 'short') : ''}}</td> -->
             <!-- <td>{{advertisement.modifiedAt ? $d(Date.parse(advertisement.modifiedAt), 'short') : ''}}</td> -->
-            <td>{{ advertisement.title }}</td>
-            <!-- <td>{{advertisement.description}}</td> -->
-
-            <!-- <td>{{advertisement.conditions}}</td> -->
             <!-- <td>
-                        <div v-if="advertisement.createdBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: advertisement.createdBy.id}}">{{advertisement.createdBy.firstname}}</router-link>
-                        </div>
-                    </td> -->
-            <!-- <td>
-                        <div v-if="advertisement.modifiedBy">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: advertisement.modifiedBy.id}}">{{advertisement.modifiedBy.firstname}}</router-link>
-                        </div>
-                    </td> -->
-
+                <div v-if="advertisement.modifiedBy">
+                    <router-link :to="{name: 'PortalUserView', params: {portalUserId: advertisement.modifiedBy.id}}">{{advertisement.modifiedBy.firstname}}</router-link>
+                </div>
+            </td> -->
             <td>
               <div v-if="advertisement.status">
-                {{ advertisement.status.status }}
+                  <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.status.status }}</span>
+                  <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.status.statusSrc }}</span>
+                  <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.status.statusEn }}</span>
               </div>
             </td>
             <td>
-              <div v-if="advertisement.type">
-                {{ advertisement.type.type }}
-              </div>
+                <div v-if="advertisement.type">
+                    <span v-if="$store.getters.currentLanguage === 'sr'">{{ advertisement.type.type }}</span>
+                    <span v-else-if="$store.getters.currentLanguage === 'src'">{{ advertisement.type.typeSrc }}</span>
+                    <span v-else-if="$store.getters.currentLanguage === 'en'">{{ advertisement.type.typeEn }}</span>
+                </div>
             </td>
             <td>
-              <div v-if="advertisement.kind">
-                {{ advertisement.kind.kind }}
-              </div>
+                <div v-if="advertisement.kinds">
+                    {{ advertisementKindsString(advertisement) }}
+                </div>
             </td>
             <td>
-              <div v-if="advertisement.subsubcategory">
-                {{ advertisement.subsubcategory.name }}
-              </div>
+                <div v-if="advertisement.subsubcategory">
+                    {{ advertisementCategorizationBranch(advertisement) }}
+                </div>
             </td>
-            <td>{{ advertisement.budget }}</td>
+            <td>
+                <div v-if="advertisement.budget">
+                    {{ advertisement.budget.toLocaleString('us-US', { style: 'currency', currency: 'RSD' }) }}
+                </div>
+            </td>
             <td>
               <div v-if="advertisement.company">
                 <router-link :to="{ name: 'CompanyView', params: { companyId: advertisement.company.id } }" class="text-body">{{
@@ -177,15 +174,6 @@
             <td class="text-right">
               <div class="btn-group">
                 <router-link
-                  :to="{ name: 'AdvertisementView', params: { advertisementId: advertisement.id } }"
-                  tag="button"
-                  class="btn btn-info btn-sm details"
-                >
-                  <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span v-text="$t('entity.action.view')">View</span>
-                </router-link>
-                <router-link
-                  v-if="advertisement.status.status === 'Активан' && this.companyId == advertisement.company.id"
                   :to="{ name: 'AdvertisementEdit', params: { advertisementId: advertisement.id } }"
                   tag="button"
                   class="btn btn-primary btn-sm edit"
@@ -194,7 +182,7 @@
                   <span v-text="$t('entity.action.edit')">Edit</span>
                 </router-link>
                 <b-button
-                  v-if="advertisement.status.status === 'Активан' && this.companyId == advertisement.company.id"
+                  v-if="advertisement.status.statusEn === advertisementStatusOptions.ACTIVE"
                   v-on:click="prepareDeactivate(advertisement)"
                   variant="dark"
                   class="btn btn-sm"
@@ -204,7 +192,7 @@
                   <span v-text="$t('entity.action.deactivate')">Deaktiviraj</span>
                 </b-button>
                 <b-button
-                  v-if="['Неактиван', 'Архивиран'].includes(advertisement.status.status) && this.companyId == advertisement.company.id"
+                  v-if="(advertisement.status.statusEn === advertisementStatusOptions.INACTIVE || advertisement.status.statusEn === advertisementStatusOptions.ARCHIVED)"
                   v-on:click="prepareActivate(advertisement)"
                   variant="success"
                   class="btn btn-sm"
@@ -214,24 +202,22 @@
                   <span v-text="$t('entity.action.activate')">Aktiviraj</span>
                 </b-button>
                 <b-button
-                  v-if="advertisement.status.status === 'Неактиван' && this.companyId == advertisement.company.id"
+                  v-if="advertisement.status.statusEn != advertisementStatusOptions.ARCHIVED"
                   v-on:click="prepareSoftDelete(advertisement)"
-                  variant="danger"
+                  variant="outline-danger"
                   class="btn btn-sm"
                   v-b-modal.softDeleteEntity
                 >
-                  <font-awesome-icon icon="times"></font-awesome-icon>
-                  <span v-text="$t('entity.action.delete')">Delete</span>
+                  <span v-text="$t('entity.action.archive')">Archive</span>
                 </b-button>
                 <b-button
-                  v-if="authenticated && hasAnyAuthority('ROLE_ADMIN')"
                   v-on:click="prepareRemove(advertisement)"
-                  variant="outline-danger"
+                  variant="danger"
                   class="btn btn-sm"
                   v-b-modal.removeEntity
                 >
                   <font-awesome-icon icon="times"></font-awesome-icon>
-                  <span v-text="$t('entity.action.deleteDatabase')">Obriši iz baze</span>
+                  <span v-text="$t('entity.action.delete')">Obriši iz baze</span>
                 </b-button>
               </div>
             </td>
@@ -251,17 +237,17 @@
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDeactivateDialog()">
-          Cancel
-        </button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-advertisement"
           v-on:click="deactivateAdvertisement()"
-          v-text="$t('entity.action.deactivate')"
+          v-text="$t('entity.action.confirm')"
         >
           Deaktiviraj
+        </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeDeactivateDialog()">
+          Cancel
         </button>
       </div>
     </b-modal>
@@ -277,41 +263,41 @@
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeActivateDialog()">
-          Cancel
-        </button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-advertisement"
           v-on:click="activateAdvertisement()"
-          v-text="$t('entity.action.activate')"
+          v-text="$t('entity.action.confirm')"
         >
           Aktiviraj
+        </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeActivateDialog()">
+          Cancel
         </button>
       </div>
     </b-modal>
     <b-modal ref="softDeleteEntity" id="softDeleteEntity">
       <span slot="modal-title"
-        ><span id="riportalApp.advertisement.delete.question" v-text="$t('entity.delete.title')">Confirm delete operation</span></span
+        ><span id="riportalApp.advertisement.delete.question" v-text="$t('entity.archive.title')">Confirm delete operation</span></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-advertisement-heading" v-text="$t('riportalApp.advertisement.delete.question', { id: removeId })">
-          Are you sure you want to delete this Advertisement?
+        <p id="jhi-delete-advertisement-heading" v-text="$t('riportalApp.advertisement.archive.question', { id: removeId })">
+          Are you sure you want to archive this Advertisement?
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeSoftDeleteDialog()">
-          Cancel
-        </button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-advertisement"
-          v-text="$t('entity.action.delete')"
+          v-text="$t('entity.action.confirm')"
           v-on:click="softDeleteAdvertisement()"
         >
           Delete
+        </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeSoftDeleteDialog()">
+          Cancel
         </button>
       </div>
     </b-modal>
@@ -325,16 +311,16 @@
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-advertisement"
-          v-text="$t('entity.action.deleteDatabase')"
+          v-text="$t('entity.action.confirm')"
           v-on:click="removeAdvertisement()"
         >
           Delete
         </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
       </div>
     </b-modal>
     <div v-show="advertisements && advertisements.length > 0">

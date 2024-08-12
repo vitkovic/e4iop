@@ -269,6 +269,7 @@
       "cancel": "Otkaži",
       "close": "Zatvori",
       "delete": "Obriši",
+      "archive": "Arhiviraj",
       "edit": "Izmeni",
       "open": "Otvori",
       "save": "Sačuvaj",
@@ -302,6 +303,9 @@
     "delete": {
       "title": "Potvrdi brisanje",
       "deleteMessage": "Obriši poruku"
+    },
+    "archive": {
+      "title": "Potvrdi arhiviranje"
     },
     "validation": {
       "required": "Polje je obavezno.",
