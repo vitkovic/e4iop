@@ -17,7 +17,7 @@
 			        <b-collapse class="justify-content-start" is-nav id="header-tabs">
 			            <b-navbar-nav class="md-auto align-items-center">
 			                <b-nav-item-dropdown
-			                    right
+			                    left
 			                    id="entity-menu"                    
 			                    active-class="active" class="pointer">
 			                    <span slot="button-content" class="navbar-dropdown-menu">                        

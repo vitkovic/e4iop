@@ -170,27 +170,27 @@
                 <template #button-content>
                   <font-awesome-icon icon="share-alt" class="fa-lg mr-2 icon-contact"></font-awesome-icon>
                 </template>
-                <b-dropdown-item @click="shareOnNewTwitter($event)">
+                <b-dropdown-item class="link-hover" @click="shareOnNewTwitter($event)">
                   <a href="#" @click="shareOnNewTwitter($event)">
                     <img class="mb-1 icon-contact mr-2" src="/content/images/x-twitter.svg" alt="X-twitter icon" /><span>X</span>
                   </a>
                 </b-dropdown-item>
-                <b-dropdown-item @click="shareOnLinkedIn($event)">
+                <b-dropdown-item class="link-hover" @click="shareOnLinkedIn($event)">
                   <a href="#" @click="shareOnLinkedIn($event)">
                     <img class="mb-1 icon-contact mr-2" src="/content/images/linkedin.svg" alt="Linkedin icon" /><span>Linkedin</span>
                   </a>
                 </b-dropdown-item>
-                <b-dropdown-item @click="shareOnFacebook($event)">
+                <b-dropdown-item class="link-hover" @click="shareOnFacebook($event)">
                   <a href="#" @click="shareOnFacebook($event)">
                     <img class="mb-1 mr-2" src="/content/images/facebook-square.svg" alt="Facebook icon" /><span>Facebook</span>
                   </a>
                 </b-dropdown-item>
-                <b-dropdown-item>
+                <b-dropdown-item class="link-hover">
                   <b-link href="mailto:info@example.com" target="_blank" type="button">
                     <font-awesome-icon icon="envelope" class="icon-contact fa-lg mr-2"></font-awesome-icon><span>Email</span>
                   </b-link>
                 </b-dropdown-item>
-                <b-dropdown-item>
+                <b-dropdown-item class="link-hover">
                   <b-link @click="copyToClipboard" type="button">
                     <font-awesome-icon icon="copy" class="icon-contact fa-lg mr-2"></font-awesome-icon><span>Copy company</span>
                   </b-link>
@@ -757,13 +757,18 @@ h2 {
   text-decoration: none;
 }
 
-.dropdown-item:hover {
+
+.dropdown-menu {
+  padding: 0px;
+}
+
+.link-hover:hover{
   background-color: #fff;
   border: solid 1px #23384b;
 }
 
-.dropdown-menu {
-  padding: 0px;
+.link-hover a:hover{
+  background-color: #fff;
 }
 
 .icon-contact {
