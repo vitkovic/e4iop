@@ -11,7 +11,7 @@
       {{ alertMessage }}
     </b-alert>
     <div v-if="company" class="d-flex mb-3 mt-5">
-      <img v-if="company.logo" :src="companyService().retrieveImage(company.logo.filename)" alt="company logo" class="company-logo" />
+      <img v-if="company.logo" :src="companyService().retrieveImage(company.logo.filename)" alt="company logo" class="company-logo mr-3" />
       <h2 id="page-heading" class="jh-entity-heading company-title" style="align-self: center;">
         {{ company.name }}
       </h2>
