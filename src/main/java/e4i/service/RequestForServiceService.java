@@ -117,7 +117,7 @@ public class RequestForServiceService {
     @Transactional(readOnly = true)
     public Page<RequestForService> findAll(Pageable pageable) {
         log.debug("Request to get all RequestForServices");
-        
+      
         if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){              
         	return requestForServiceRepository.findAll(pageable);
         }else {
@@ -152,6 +152,24 @@ public class RequestForServiceService {
             	 return requestForServiceRepository.findByUsersId(pUser.getId(), pageable);
              }
         }
+        
+        
+        
+    }
+    
+    /**
+     * Get all the requestForServices.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<RequestForService> findAllNew(Pageable pageable) {
+        log.debug("Request to get all RequestForServices");
+      
+                   
+        	return requestForServiceRepository.findAll(pageable);
+      
         
         
         

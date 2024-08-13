@@ -88,6 +88,18 @@ export default class PortalUserOrganizationService {
     });
   }
 
+public retrieveWOP(paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrl + '/get')
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
   public retrievePregled(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

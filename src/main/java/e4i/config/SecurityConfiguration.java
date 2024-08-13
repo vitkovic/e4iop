@@ -117,6 +117,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/logout*").permitAll()
             .antMatchers("/api/advertisements/searchnopag/search*").permitAll()
             .antMatchers("/api/portal-user/get*").permitAll()
+            .antMatchers("/api/portal-users/get*").permitAll()
+            .antMatchers("/api/portal-user-organizations/get*").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/info").permitAll()

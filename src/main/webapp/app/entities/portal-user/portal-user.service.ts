@@ -52,6 +52,19 @@ export default class PortalUserService {
         });
     });
   }
+  
+   public retrieveWOP(paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrl + '/get')
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
   public hasAnyRole(roles: any): Promise<boolean> {
     if (this.userRoles) {

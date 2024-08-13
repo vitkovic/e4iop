@@ -143,6 +143,23 @@ public class PortalUserOrganizationResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
     
+    /**
+     * {@code GET  /portal-user-organizations} : get all the portalUserOrganizations.
+     *
+     * @param pageable the pagination information.
+     * @param filter the filter of the request.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of portalUserOrganizations in body.
+     */
+    @GetMapping("/portal-user-organizations/get")
+    public ResponseEntity<List<PortalUserOrganization>> getAllPortalUserOrganizationsGet(Pageable pageable, @RequestParam(required = false) String filter) {
+      
+        log.debug("REST request to get a page of PortalUserOrganizations");
+        Page<PortalUserOrganization> page = portalUserOrganizationService.findAllFilter(pageable,"1");
+        //Page<PortalUserOrganization> page = portalUserOrganizationRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+    
     
     /**
      * {@code GET  /portal-user-organizations/:instid} : get the "instid" ResearchInstitution.

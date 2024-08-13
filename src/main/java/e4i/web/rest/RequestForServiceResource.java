@@ -101,7 +101,7 @@ public class RequestForServiceResource {
                     HttpStatus.OK);
         }
         log.debug("REST request to get a page of RequestForServices");
-        Page<RequestForService> page = requestForServiceService.findAll(pageable);
+        Page<RequestForService> page = requestForServiceService.findAllNew(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

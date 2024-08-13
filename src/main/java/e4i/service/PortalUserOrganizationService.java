@@ -81,6 +81,24 @@ public class PortalUserOrganizationService {
         }
     }
     
+    public Page<PortalUserOrganization> findAllFilter(Pageable pageable, String fl) {
+    	if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)|| fl == "1"){              
+        	return  portalUserOrganizationRepository.findAll(pageable);
+        }else {
+        	 Optional<User> currentUser = userService.getUserWithAuthorities();
+             User user = currentUser.get();             
+             PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
+             List<String> userRoles = pUser.pronadjiPortalUserRolesAbbreviations();
+             
+             if(userRoles.contains("RPRIPO")) {
+            	 return portalUserOrganizationRepository.findPage(pUser.getUserOrganization().getId(), pageable);
+             }else if(userRoles.contains("PA")) {
+            	 return  portalUserOrganizationRepository.findAll(pageable);
+             }else {            	
+            	 return null;
+             }
+        }
+    }
     
     public OrganizationDetailsReportDTO getDetailsForRiOrganization(SearchDTO search) {    	
     	

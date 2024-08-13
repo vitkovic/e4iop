@@ -183,12 +183,14 @@ export default class RequestForServiceUpdate extends Vue {
         this.riServices = res.data;
       });
     this.portalUserService()
-      .retrieve()
+      .retrieveWOP()
       .then(res => {
+		console.log('portal users');
         this.portalUsers = res.data;
+        console.log(res.data);
       });
     this.portalUserOrganizationService()
-      .retrieve()
+      .retrieveWOP()
       .then(res => {
         this.portalUserOrganizations = res.data;
       });
