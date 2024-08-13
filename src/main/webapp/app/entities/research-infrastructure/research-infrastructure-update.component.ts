@@ -239,6 +239,10 @@ export default class ResearchInfrastructureUpdate extends Vue {
     eventClick: this.handleEventClick,
     eventsSet: this.handleEvents,
     events: this.calevents,
+    longPressDelay: 0,
+
+    selectLongPressDelay: 0,
+    // eventLongPressDelay: 0,
     /*
     eventAdd: this.addCalendarEvent,
     eventChange: this.updateCalendarEvent,
