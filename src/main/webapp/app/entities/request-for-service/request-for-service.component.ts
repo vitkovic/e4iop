@@ -88,6 +88,7 @@ export default class RequestForService extends mixins(AlertMixin) {
       size: this.itemsPerPage,
       sort: this.sort(),
     };
+   
     this.requestForServiceService()
       .retrieve(paginationQuery)
       .then(

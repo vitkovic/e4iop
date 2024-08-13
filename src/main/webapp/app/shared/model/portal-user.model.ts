@@ -11,7 +11,7 @@ import { IUser } from './user.model';
 import { ICompany } from '@/shared/model/company.model';
 
 export interface IPortalUser {
-  id?: number;
+  id?: string;
   firstName?: string;
   familyName?: string;
   phone?: string;
@@ -33,7 +33,7 @@ export interface IPortalUser {
 
 export class PortalUser implements IPortalUser {
   constructor(
-    public id?: number,
+    public id?: string,
     public firstName?: string,
     public familyName?: string,
     public phone?: string,

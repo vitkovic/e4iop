@@ -25,7 +25,7 @@ public interface RequestForServiceRepository extends JpaRepository<RequestForSer
 	
     //Page<RequestForService> findByServicesIn(List<RiService> lista, Pageable pageable);
     
-	@Query("select r from RequestForService r")
+	@Query(value = "SELECT * FROM request_for_service",nativeQuery = true)
     Page<RequestForService> findAllNew(Pageable pageable);
     
     Page<RequestForService> findByServicesIn(List<RiService> lista, Pageable pageable);

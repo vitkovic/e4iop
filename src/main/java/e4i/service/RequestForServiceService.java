@@ -167,8 +167,8 @@ public class RequestForServiceService {
     public Page<RequestForService> findAllNew(Pageable pageable) {
         log.debug("Request to get all RequestForServices");
       
-                   
-        	return requestForServiceRepository.findAll(pageable);
+                    
+        	return requestForServiceRepository.findAllNew(pageable);
       
         
         

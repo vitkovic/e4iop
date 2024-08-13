@@ -70,7 +70,7 @@ public class ServiceOfferRespondResource {
         	requestForService.setState(requestStateClosed);
         }else {
         	RequestForService requestForService = serviceOfferRespond.getRequestRespond().getRequestForService();
-        	requestForService.setState(requestStateOpened);
+         	requestForService.setState(requestStateOpened);
         }
         
         ServiceOfferRespond result = serviceOfferRespondRepository.save(serviceOfferRespond);

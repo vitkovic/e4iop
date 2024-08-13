@@ -55,7 +55,7 @@ public class RequestForServiceResource {
      */
     @PostMapping("/request-for-services")
     public ResponseEntity<RequestForService> createRequestForService(@RequestBody RequestForService requestForService) throws URISyntaxException {
-        log.debug("REST request to save RequestForService : {}", requestForService);
+    	log.debug("REST request to save RequestForService : {}", requestForService);
         if (requestForService.getId() != null) {
             throw new BadRequestAlertException("A new requestForService cannot already have an ID", ENTITY_NAME, "idexists");
         }
