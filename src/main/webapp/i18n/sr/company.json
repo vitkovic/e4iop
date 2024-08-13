@@ -16,7 +16,7 @@
         "question": "Da li ste sigurni da želite da obrišete Company pod nazivom {{ id }}?"
       },
       "detail": {
-        "title": "Company"
+        "title": "Kompanija"
       },
       "view": {
         "type": "Tip kompanije",
