@@ -249,7 +249,7 @@ export default class B2BJhiNavbar extends Vue {
       this.$notify({
         text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
         type: 'info',
-        duration: 4000,
+        duration: 3000,
       });
       this.notifsearchshown = true;
     }

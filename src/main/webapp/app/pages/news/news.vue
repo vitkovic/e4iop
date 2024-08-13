@@ -10,7 +10,7 @@
 
         </div>
       </div>
-
+       
       <section v-if="cmsNewsImages.length > 0" class="section-gallery mb-4">
         <div class="prev-box mr-2">
           <b-button variant="none" class="prevButton" @click="scrollPrev">

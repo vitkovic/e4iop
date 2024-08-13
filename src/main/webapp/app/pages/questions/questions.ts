@@ -66,7 +66,7 @@ export default class QuestionsComponent extends Vue {
     this.$notify({
             text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
             type: 'info',
-            duration: 4000,
+            duration: 3000,
           });
    	this.notifsearchshown = true;
    }
@@ -95,6 +95,32 @@ export default class QuestionsComponent extends Vue {
 	          this.isFetching = false;
 	        }
 	      );
+	   } else if (this.txtsearchNav.length ==null || this.txtsearchNav.trim() == '') {
+			 this.isFetching = true;
+	    
+	    this.txtsearch = '';
+	    
+	    const paginationQuery = {
+	      page: this.page - 1,
+	      size: this.itemsPerPage,
+	      sort: this.sort()
+	    };
+	    
+	  	 
+	     this.cmsQuestionService()
+	      .retrieveSearch(this.txtsearch,paginationQuery)
+	      .then(
+	        res => {
+	          this.cmsQuestions = res.data;
+	          this.totalItems = Number(res.headers['x-total-count']);
+	          this.queryCount = this.totalItems;
+	          this.isFetching = false;
+	        },
+	        err => {
+	          this.isFetching = false;
+	        }
+	      );
+		
 	   }
   }
   
