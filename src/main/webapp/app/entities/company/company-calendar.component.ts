@@ -177,6 +177,10 @@ export default class CompanyCalendar extends Vue {
     eventDisplay: 'block',
     select: this.handleDateSelect,
     eventClick: this.handleEventClick,
+    longPressDelay: 0,
+
+    selectLongPressDelay: 0,
+    // eventLongPressDelay: 0,
     // eventsSet: this.handleEvents,
     events: this.calevents,
     /*

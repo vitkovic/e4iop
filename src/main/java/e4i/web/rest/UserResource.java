@@ -26,10 +26,12 @@ import e4i.security.AuthoritiesConstants;
 import e4i.service.MailService;
 import e4i.service.UserService;
 import e4i.service.dto.UserDTO;
+import e4i.web.rest.dto.B2BUserDTO;
 import e4i.web.rest.errors.BadRequestAlertException;
 import e4i.web.rest.errors.EmailAlreadyUsedException;
 import e4i.web.rest.errors.LoginAlreadyUsedException;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -160,6 +162,25 @@ public class UserResource {
     private boolean onlyContainsAllowedProperties(Pageable pageable) {
         return pageable.getSort().stream().map(Sort.Order::getProperty).allMatch(ALLOWED_ORDERED_PROPERTIES::contains);
     }
+    
+    @GetMapping("/users/company/{companyId}")
+    public ResponseEntity<List<UserDTO>> findAllForCompany(@PathVariable Long companyId) {
+        log.debug("REST request to find all Users for Company {}", companyId);
+
+        List<UserDTO> users = userService.findAllByPortalUserCompanyId(companyId);
+        
+        return ResponseEntity.ok().body(users);
+    }
+    
+    @GetMapping("/users/b2b")
+    public ResponseEntity<List<B2BUserDTO>> findAllB2BUsers(Pageable pageable) {
+        log.debug("REST request to find all B2B Users for Company {}");
+
+        Page<B2BUserDTO> users = userService.findAllB2BUsers(pageable);
+        
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), users);
+        return new ResponseEntity<>(users.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * Gets a list of all roles.
@@ -199,12 +220,29 @@ public class UserResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "userManagement.deleted", login)).build();
     }
     
-    @GetMapping("/users/company/{companyId}")
-    public ResponseEntity<List<UserDTO>> findAllForCompany(@PathVariable Long companyId) {
-        log.debug("REST request to find all Users for Company {}", companyId);
-
-        List<UserDTO> users = userService.findAllByPortalUserCompanyId(companyId);
+    @PutMapping("/users/activate/{login:" + Constants.LOGIN_REGEX + "}/{activate}")
+//    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<?> activateUser(@PathVariable String login, @PathVariable Boolean activate) {
+        log.debug("REST request to change activation state of User : {}", login);
         
-        return ResponseEntity.ok().body(users);
+
+        if (!userService.isCurrentUserInRole(AuthoritiesConstants.ADMIN, AuthoritiesConstants.CMS_ADMIN)) {
+        	String message = String.format("Action forbidden: You do not have the required permissions.");
+        	return ResponseEntity.badRequest().body(message);
+        }
+        
+        Optional<User> userOptional = userRepository.findOneWithAuthoritiesByLogin(login);
+        
+        if (userOptional.isEmpty()) {
+        	String message = String.format("User with login {} could not be found", login);
+            throw new EntityNotFoundException(message);
+        }
+        
+        User user = userOptional.get();
+        user.setActivated(activate);
+        
+        User result = userRepository.save(user);
+
+        return ResponseEntity.ok().body(new UserDTO(result));
     }
 }

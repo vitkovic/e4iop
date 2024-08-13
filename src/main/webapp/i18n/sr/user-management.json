@@ -3,6 +3,7 @@
     "home": {
       "title": "Korisnici",
       "accountTitle": "Korisnici naloga",
+      "userManagementTitle": "Upravljanje korisnicima",
       "createLabel": "Kreiraj novog korisnika",
       "createOrEditLabel": "Kreiraj ili izmeni korisnika",
       "addLabel": "Dodaj novog korisnika"
@@ -29,10 +30,15 @@
     "createdDate": "Datum kreiranja",
     "lastModifiedBy": "Korisnika izmenio",
     "lastModifiedDate": "Datum izmene",
+    "status": "Status",
     "addUser": {
       "title": "Dodaj novog korisnika",
       "info": "Novog korisnika možete dodati tako što ćete u polje ispod uneti imejl adresu željenog korisnika, nakon čega će na navedeni imejl biti poslat link za registraciju.",
       "enterEmail": "Unesite imejl adresu:"
+    },
+    "action": {
+      "activate": "Aktiviraj",
+      "deactivate": "Deaktiviraj"
     }
   }
 }

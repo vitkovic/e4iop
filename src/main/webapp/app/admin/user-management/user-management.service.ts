@@ -4,6 +4,8 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { Authority } from '@/shared/security/authority';
 
 const apiFindAllForCompany = 'api/users/company';
+const apiFindAllB2BUsers = 'api/users/b2b';
+const apiActivateUser = 'api/users/activate';
 
 export default class UserManagementService {
   public get(userId: number): Promise<any> {
@@ -34,6 +36,32 @@ export default class UserManagementService {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(`${apiFindAllForCompany}/${companyId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public findAllB2BUsers(paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(apiFindAllB2BUsers + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public activateUser(login: string, activate: boolean): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .put(`${apiActivateUser}/${login}/${activate}`)
         .then(res => {
           resolve(res.data);
         })

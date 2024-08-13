@@ -29,7 +29,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import e4i.domain.PortalUser;					   
 import e4i.repository.PortalUserRepository;
 import e4i.repository.UserRepository;
-import e4i.security.AuthoritiesConstants;										  
+import e4i.security.AuthoritiesConstants;
+import e4i.web.rest.dto.B2BUserDTO;
 import e4i.web.rest.vm.ManagedUserVM;										   
 import java.time.temporal.ChronoUnit;									 
 import e4i.web.rest.vm.ManagedUserVM;
@@ -618,6 +619,13 @@ public class UserService {
                 .collect(Collectors.toList());
     }
     
+    @Transactional
+    public Page<B2BUserDTO> findAllB2BUsers(Pageable pageable) {
+    	log.debug("Request to find all B2B Users");
+    	
+    	return userRepository.findAllB2BUsers(pageable)
+                .map(B2BUserDTO::new);
+    }
     
     @Transactional
     public User addUserAuthority(String userId,String authorityName) {

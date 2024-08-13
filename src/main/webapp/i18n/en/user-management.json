@@ -3,6 +3,7 @@
     "home": {
       "title": "Users",
       "accountTitle": "Account users",
+      "userManagementTitle": "User management",
       "createLabel": "Create new user",
       "createOrEditLabel": "Create or edit user",
       "addLabel": "Add new user"
@@ -29,10 +30,15 @@
     "createdDate": "Created date",
     "lastModifiedBy": "Modified by",
     "lastModifiedDate": "Modified date",
+    "status": "Status",
     "addUser": {
       "title": "Add a New User",
       "info": "You can add a new user by entering the desired user's email address in the field below, after which a registration link will be sent to the specified email.",
       "enterEmail": "Enter email address:"
+    },
+    "action": {
+      "activate": "Activate",
+      "deactivate": "Deactivate"
     }
   }
 }
