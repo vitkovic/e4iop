@@ -10,7 +10,7 @@
      
       <jhi-navbar v-else></jhi-navbar> 
       <div id="hide" v-show='toggle'>
-      		<b2b-searchsection v-bind:advertisements="advertisements" @click.native='hideAll()'
+      		<b2b-searchsection v-bind:advertisements="advertisements" @click.native=''
       		v-bind:cmsnews="cmsnews" v-bind:cmsquestions="cmsquestions" v-bind:companies="companies"></b2b-searchsection>
       		
    <!--    <ag-grid-vue 
@@ -24,7 +24,7 @@
       		
    	  </div>
       
-     <!-- <b-button v-if="checkB2Bdomain() && showbutt" @click='toggle = !toggle' style="float:right">{{ $t('home.showHideButton') }}</b-button>-->
+    <b-button v-if="checkB2Bdomain() && showbutt" @click='hideAll()' style="float:right">{{ $t('home.showHideButton') }}</b-button>
       
       
       

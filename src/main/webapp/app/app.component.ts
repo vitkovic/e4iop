@@ -101,6 +101,7 @@ export default class App extends Vue {
   public hideAll(): void {
 	   this.toggle = false;
 	  if (this.advertisements !=null) this.$emit('adv:change', null);
+	  this.showbutt = false;
 	  
   }
   
