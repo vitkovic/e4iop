@@ -707,6 +707,11 @@ h2 {
   font-size: 12px;
 }
 
+.fc-timegrid-event .fc-event-time{
+  white-space: normal;
+
+}
+
 .fc-event-title {
   font-size: 12px;
 }

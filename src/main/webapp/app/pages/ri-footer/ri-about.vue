@@ -1,7 +1,7 @@
 <template>
   <section class="row justify-content-center about">
     <div class="col-11 col-md-8">
-      <h2 v-text="$t('footer.about')" class="mb-4">O projektu</h2>
+      <h2 v-text="$t('footer.about')" class="mb-4 about-title">O projektu</h2>
       <div>
         <p id="jhi-delete-advertisement-heading">
           Portal otvorene istraživačke infrastrukture Srbije je zamišljen kao jedinstveno mesto za nalaženje infrastruktura i njihovih
