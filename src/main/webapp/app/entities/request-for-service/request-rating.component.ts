@@ -85,6 +85,7 @@ export default class RequestRating extends mixins(AlertMixin) {
       .then(
         res => {
           this.requestForServices = res.data;
+          console.log(res.data);
           this.totalItems = Number(res.headers['x-total-count']);
           this.queryCount = this.totalItems;
           this.isFetching = false;
@@ -157,6 +158,9 @@ export default class RequestRating extends mixins(AlertMixin) {
   }
 
   public previewRespond(instance: IRequestForService): any {
+	
+	return true;
+	/*
     this.requestRespondService()
       .findForRequestService(instance.id)
       .then(res => {
@@ -167,5 +171,6 @@ export default class RequestRating extends mixins(AlertMixin) {
       .catch(() => {
         return false;
       });
+      */
   }
 }

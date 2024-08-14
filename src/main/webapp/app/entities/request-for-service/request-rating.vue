@@ -17,7 +17,7 @@
         <div class="table-responsive" v-if="requestForServices && requestForServices.length > 0">
             <table class="table table-striped">
                 <thead>
-                <tr v-if="previewRespond(requestForService)">
+                <tr>
                     <!--
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
                     -->
@@ -37,7 +37,7 @@
                 </thead>
                 <tbody>
                 <tr v-for="(requestForService, index) in requestForServices"
-                    :key="requestForService.id">
+                    :key="requestForService.id" v-if="previewRespond(requestForService)">
                     <!--
                     <td>
                         <router-link :to="{name: 'RequestForServiceView', params: {requestForServiceId: requestForService.id}}">{{requestForService.id}}</router-link>

@@ -115,7 +115,7 @@ public class RequestForServiceResource {
     @GetMapping("/request-for-services-rating")
     public ResponseEntity<List<RequestForService>> getAllRequestForServicesRating(Pageable pageable) {        
         log.debug("REST request to get a page of RequestForServices");
-        Page<RequestForService> page = requestForServiceService.findAllRating(pageable);
+        Page<RequestForService> page = requestForServiceService.findAllRatingNew(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

@@ -200,7 +200,19 @@ public class RequestForServiceService {
         }                        
     }
 
-
+    /**
+     * Vraca zahteve koji su zavrseni i za koje moze da se glasa
+     * @param pageable
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Page<RequestForService> findAllRatingNew(Pageable pageable) {
+        log.debug("Request to get all RequestForServices");
+        
+            
+        	return requestForServiceRepository.findByEndTimeBefore(ZonedDateTime.now(), pageable);
+                        
+    }
 
     /**
      *  Get all the requestForServices where Respond is {@code null}.
