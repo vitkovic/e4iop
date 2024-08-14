@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-11 col-md-10">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
                 <h2 id="riportalApp.riProcurementProposal.home.createOrEditLabel" v-text="$t('riportalApp.riProcurementProposal.home.createOrEditLabel')">Create or edit a RiProcurementProposal</h2>
                 <div>

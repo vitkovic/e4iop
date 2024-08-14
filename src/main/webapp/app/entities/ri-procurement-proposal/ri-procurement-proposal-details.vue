@@ -1,9 +1,9 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-11 col-md-8">
             <div v-if="riProcurementProposal">
                 <h2 class="jh-entity-heading"><span v-text="$t('riportalApp.riProcurementProposal.detail.title')">RiProcurementProposal</span> {{riProcurementProposal.id}}</h2>
-                <dl class="row jh-entity-details">
+                <dl class="row jh-entity-details pl-3 pr-3">
                     <dt>
                         <span v-text="$t('riportalApp.riProcurementProposal.date')">Date</span>
                     </dt>

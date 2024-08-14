@@ -3,7 +3,7 @@
     "riProcurementProposal": {
       "home": {
         "title": "Predlozi za nabavku nove infrastrukture",
-        "createLabel": "Kreiranje Predloga za nabavku infrastrukture",
+        "createLabel": "Kreiranje predloga za nabavku infrastrukture",
         "createOrEditLabel": "Kreiranje i izmena predloga za nabavku nove infrastrukture",
         "notFound": "Nije pronađen ni jedan predlog za nabavku nove infrastrukture"
       },
