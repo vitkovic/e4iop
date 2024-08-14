@@ -144,8 +144,10 @@ export default class Collaboration extends mixins(AlertMixin) {
       selectedStatusIds = this.selectedStatusIds;
     }
 
+    const ratingSideFlags = [false, false];
+
     this.collaborationService()
-      .retrieveByCompany(this.company.id, selectedStatusIds, this.collaborationSideFlags, paginationQuery)
+      .retrieveByCompany(this.company.id, selectedStatusIds, this.collaborationSideFlags, ratingSideFlags, paginationQuery)
       .then(
         res => {
           this.collaborations = res.data;
