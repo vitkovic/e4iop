@@ -83,7 +83,7 @@
                     </td>
                     <td>
                         <div v-if="advertisement.company">
-                            <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}" class="text-body">{{advertisement.company.name}}</router-link>
+                            <router-link :to="{name: 'CompanyView', params: {companyId: advertisement.company.id}}" class="text-body" @click.native="emitHideAllEvent">{{advertisement.company.name}}</router-link>
                         </div>
                     </td>             
                     <td>{{ advertisement.activationDatetime ? $d(Date.parse(advertisement.activationDatetime.toString()), { dateStyle: 'short' }) : ''}}</td>
@@ -94,7 +94,7 @@
                     </td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <router-link :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}" tag="button" class="btn btn-info btn-sm details">
+                            <router-link :to="{name: 'AdvertisementView', params: {advertisementId: advertisement.id}}" tag="button" class="btn btn-info btn-sm details" @click.native="emitHideAllEvent">
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
                                 <span v-text="$t('entity.action.view')">View</span>
                             </router-link>

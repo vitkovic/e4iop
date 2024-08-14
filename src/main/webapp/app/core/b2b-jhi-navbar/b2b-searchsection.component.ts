@@ -75,4 +75,8 @@ export default class SearchSection extends advProps {
     const currentLanguage = this.$store.getters.currentLanguage;
     return this.advertisementService().advertisementKindsString(advertisement, currentLanguage);
   }
+
+  emitHideAllEvent(): void {
+    this.$emit('hide-all');
+  }
 }
