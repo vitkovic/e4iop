@@ -51,7 +51,7 @@
                     
                     <td>
                         <div v-if="requestForService.services">
-                            <router-link :to="{name: 'RiServiceView', params: {riServiceId: requestForService.services.id}}">
+                            <router-link class="link-style" :to="{name: 'RiServiceView', params: {riServiceId: requestForService.services.id}}">
                                 <span v-if="currentLanguage === 'sr'">{{requestForService.services.nameSr}}</span>
                                 <span v-if="currentLanguage === 'en'">{{requestForService.services.nameEn}}</span>
                                 <span v-if="currentLanguage === 'src'">{{requestForService.services.nameSrCyr}}</span>
@@ -74,16 +74,16 @@
                     </td>
                     <td v-if="previewRespond(requestForService)">
                         <b-form-rating v-if="account.id == requestForService.users.user.id" 
-                            v-model="requestForService.rating" inline no-border show-clear variant="warning" class="mb-2">
+                            v-model="requestForService.rating" inline no-border show-clear variant="warning" class="pt-0 pb-2">
                         </b-form-rating>
                         <b-form-rating v-if="account.id != requestForService.users.user.id" 
-                            v-model="requestForService.rating" inline no-border readonly variant="warning" class="mb-2">
+                            v-model="requestForService.rating" inline no-border readonly variant="warning" class="pt-0 pb-2">
                         </b-form-rating>
                     </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'RequestForServiceView', params: {requestForServiceId: requestForService.id}}" tag="button" class="btn btn-info btn-sm details">
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                                <span v-text="$t('entity.action.view')">View</span>
                             </router-link>
                             <button type="button" id="save-entity" v-if="account.id == requestForService.users.user.id" 
                             @click="save(index)" class="btn btn-primary">
@@ -110,3 +110,9 @@
 
 <script lang="ts" src="./request-rating.component.ts">
 </script>
+
+<style scoped>
+    .link-style{
+        color: blue;
+    }
+</style>
