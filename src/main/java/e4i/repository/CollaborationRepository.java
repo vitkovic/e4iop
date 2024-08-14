@@ -22,14 +22,21 @@ public interface CollaborationRepository extends JpaRepository<Collaboration, Lo
 	
 	@Query("SELECT collaboration FROM Collaboration collaboration " +
 	       "WHERE ((:companyOfferFlag = true AND collaboration.companyOffer.id = :companyId) " +
-	       "OR (:companyRequestFlag = true AND collaboration.companyRequest.id = :companyId)) " +
+	       		"OR (:companyRequestFlag = true AND collaboration.companyRequest.id = :companyId)) " +
+	       "AND ((:ratingGivenFlag = true AND collaboration.companyOffer.id = :companyId AND collaboration.ratingOffer IS NOT NULL) " + 
+	       		"OR (:ratingGivenFlag = true AND collaboration.companyRequest.id = :companyId AND collaboration.ratingRequest IS NOT NULL) " + 
+	       		"OR (:ratingReceivedFlag = true AND collaboration.companyOffer.id = :companyId AND collaboration.ratingRequest IS NOT NULL) " + 
+	       		"OR (:ratingReceivedFlag = true AND collaboration.companyRequest.id = :companyId AND collaboration.ratingOffer IS NOT NULL) " + 
+	       		"OR (:ratingGivenFlag = false AND :ratingReceivedFlag = false))" +
 	       "AND collaboration.status.id IN :statusIds")
-	Page<Collaboration> findAllFilteredByCompanyAndStatus(@Param("companyId") Long companyId,
+	Page<Collaboration> findAllFilteredForCompany(@Param("companyId") Long companyId,
 														  @Param("statusIds") List<Long> statusIds,
-					                                      @Param("companyOfferFlag") boolean offerFlag,
-					                                      @Param("companyRequestFlag") boolean requestFlag,
+					                                      @Param("companyOfferFlag") boolean companyOfferFlag,
+					                                      @Param("companyRequestFlag") boolean companyRequestFlag,
+					                                      @Param("ratingGivenFlag") boolean ratingGivenFlag,
+					                                      @Param("ratingReceivedFlag") boolean ratingReceivedFlag,
 					                                      Pageable pageable);
-
+	
 	@Query("SELECT collaboration FROM Collaboration collaboration " +
 	        "WHERE ((collaboration.companyOffer.id = :companyId " +
 	        "OR (collaboration.companyRequest.id = :companyId)) " + 
@@ -103,5 +110,4 @@ public interface CollaborationRepository extends JpaRepository<Collaboration, Lo
     	       "AND (collaboration.status.status = :status OR collaboration.status.statusSrc = :status OR collaboration.status.statusEn = :status) " +
     	       "ORDER BY collaboration.datetime DESC")
     Page<Collaboration> findPageByCompanyAndRatingAndStatus(@Param("companyId") Long companyId, @Param("status") String status, Pageable pageable);
-
 }

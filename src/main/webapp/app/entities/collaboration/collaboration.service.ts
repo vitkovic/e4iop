@@ -87,7 +87,13 @@ export default class CollaborationService {
     });
   }
 
-  public retrieveByCompany(companyId: number, statusIds: number[], collaborationSideFlags: boolean[], paginationQuery?: any): Promise<any> {
+  public retrieveByCompany(
+    companyId: number,
+    statusIds: number[],
+    collaborationSideFlags: boolean[],
+    ratingSideFlags: boolean[],
+    paginationQuery?: any
+  ): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(
@@ -97,6 +103,8 @@ export default class CollaborationService {
             `statusIds=${statusIds}` +
             `&` +
             `collaborationSideFlags=${collaborationSideFlags}` +
+            `&` +
+            `ratingSideFlags=${ratingSideFlags}` +
             `&` +
             `${buildPaginationQueryOpts(paginationQuery)}`
         )

@@ -32,8 +32,11 @@
       "filters": {
         "role": "Company role",
         "status": "Collaboration status",
+        "rating": "Collaboration rating",
         "companyOffer": "Advertiser",
-        "companyRequest": "Requester"
+        "companyRequest": "Requester",
+        "ratingGiven": "Given",
+        "ratingReceived": "Received"
       },
       "actions": {
         "rate": "Rate",

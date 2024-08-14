@@ -222,14 +222,25 @@ public class CollaborationService {
     }
     
     @Transactional
-    public Page<Collaboration> findAllFilteredByCompanyAndStatus(Long companyId, List<Long> statusIds, List<Boolean> collaborationSideFlags,  Pageable pageable) {    	
+    public Page<Collaboration> findAllFilteredForCompany(
+    		Long companyId,
+    		List<Long> statusIds,
+    		List<Boolean> collaborationSideFlags,
+    		List<Boolean> ratingSideFlags,
+    		Pageable pageable) {    	
     	if (collaborationSideFlags.size() != 2) {
     		String errorMessage = String.format("List 'collaborationSideflags' must be of length 2, but is {}", collaborationSideFlags.size());
         	throw new IllegalArgumentException(errorMessage);
     	}
     	
-    	Page<Collaboration> collaborationsPage = collaborationRepository.findAllFilteredByCompanyAndStatus(
-    			companyId, statusIds, collaborationSideFlags.get(0), collaborationSideFlags.get(1), pageable
+    	if (ratingSideFlags.size() != 2) {
+    		String errorMessage = String.format("List 'ratingSideFlags' must be of length 2, but is {}", ratingSideFlags.size());
+        	throw new IllegalArgumentException(errorMessage);
+    	}
+    	
+    	Page<Collaboration> collaborationsPage = collaborationRepository.findAllFilteredForCompany(
+    			companyId, statusIds, collaborationSideFlags.get(0), collaborationSideFlags.get(1),
+    			ratingSideFlags.get(0), ratingSideFlags.get(1), pageable
     			);
     	
     	// Could this be done within a query???
@@ -239,7 +250,6 @@ public class CollaborationService {
     	
     	return collaborationsPage;
     }
-
     
     @Deprecated
     @Transactional

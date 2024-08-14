@@ -2,7 +2,7 @@
   "riportalApp": {
     "company": {
       "home": {
-        "title": "Companies",
+        "title": "Компаније",
         "createLabel": "Kreiraj novi Company",
         "createOrEditLabel": "Креирајте или измените компанију",
         "createTitleLabel": "Креирајте компанију",
@@ -113,7 +113,8 @@
       },
       "interactionButtons": {
         "message": "Пошаљи поруку",
-        "advertisements": "Погледај огласе"
+        "advertisements": "Погледај огласе",
+        "collaborations": "Преглед сарадње"
       },
       "badges": {
         "collaborations": "Број успешних сарадњи.",

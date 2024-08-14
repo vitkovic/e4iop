@@ -19,6 +19,11 @@
         "subsubcategory": "Advertisement subsubcategories",
         "type": "Advertisement type",
         "kind": "Advertisement kinds"
+      },
+      "titleUserManagement": "User management",
+      "userManagement": {
+        "users": "Users",
+        "companies": "Companies"
       }
     }
   }

@@ -198,11 +198,12 @@ public class CollaborationResource {
     		Pageable pageable,
     		@RequestParam Long companyId,
     		@RequestParam List<Long> statusIds,
-    		@RequestParam List<Boolean>collaborationSideFlags) {
+    		@RequestParam(name = "collaborationSideFlags", defaultValue = "true,true") List<Boolean> collaborationSideFlags,
+    		@RequestParam(name = "ratingSideFlags", defaultValue = "false,false") List<Boolean> ratingSideFlags) {
         log.debug("REST request to get a page of Collaborations for company");
 
         try {
-        	Page<Collaboration> page = collaborationService.findAllFilteredByCompanyAndStatus(companyId, statusIds, collaborationSideFlags, pageable);
+        	Page<Collaboration> page = collaborationService.findAllFilteredForCompany(companyId, statusIds, collaborationSideFlags, ratingSideFlags, pageable);
         	
             HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
             return ResponseEntity.ok().headers(headers).body(page.getContent());

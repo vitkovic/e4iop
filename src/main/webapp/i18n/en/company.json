@@ -114,7 +114,8 @@
       },
       "interactionButtons": {
         "message": "Send a message",
-        "advertisements": "View advertisements"
+        "advertisements": "View advertisements",
+        "collaborations": "View collaborations"
       },
       "badges": {
         "collaborations": "Number of successful collaborations.",

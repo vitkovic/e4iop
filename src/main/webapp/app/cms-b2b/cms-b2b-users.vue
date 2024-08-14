@@ -11,7 +11,7 @@
         <span v-text="$t('riportalApp.portalUser.notFound')">No Users found</span>
       </div>
       <div class="ml-3 mb-3 d-flex flex-column flex-sm-row justify-content-between">
-        <h3 v-text="$t('userManagement.home.userManagementTitle')" class="mr-3 mb-3 mb-sm-0">Users</h3>
+        <h3 v-text="$t('userManagement.home.title')" class="mr-3 mb-3 mb-sm-0">Users</h3>
         <b-button 
             variant="primary"
             class="btn btn-sm"

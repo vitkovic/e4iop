@@ -19,6 +19,11 @@
         "subsubcategory": "Потпоткатегорије огласа",
         "type": "Тип огласа",
         "kind": "Врсте огласа"
+      },
+      "titleUserManagement": "Управљање корисницима",
+      "userManagement": {
+        "users": "Корисници",
+        "companies": "Компаније"
       }
     }
   }

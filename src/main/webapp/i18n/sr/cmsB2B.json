@@ -19,6 +19,11 @@
         "subsubcategory": "Potpotkategorije oglasa",
         "type": "Tip oglasa",
         "kind": "Vrste oglasa"
+      },
+      "titleUserManagement": "Upravljanje korisnicima",
+      "userManagement": {
+        "users": "Korisnici",
+        "companies": "Kompanije"
       }
     }
   }

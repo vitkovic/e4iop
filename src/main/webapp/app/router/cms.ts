@@ -11,7 +11,10 @@ const CMSPageUpdateSpecific = () => import('@/entities/cms-page/cms-page-update-
 const CMSNews = () => import('@/entities/cms-news/cms-news.vue');
 const CMSNewsUpdate = () => import('@/entities/cms-news/cms-news-update.vue');
 const CMSNewsDetails = () => import('@/entities/cms-news/cms-news-details.vue');
+const CMSUserManagement = () => import('@/cms-b2b/cms-b2b-user-management.vue');
 const CMSUsers = () => import('@/cms-b2b/cms-b2b-users.vue');
+const CMSCompanies = () => import('@/cms-b2b/cms-b2b-companies.vue');
+const CMSCompanyCollaborations = () => import('@/cms-b2b/cms-b2b-company-collaborations.vue');
 
 export default [
   {
@@ -27,9 +30,27 @@ export default [
     meta: { authorities: [Authority.ADMIN] },
   },
   {
-    path: '/b2b/cms/users',
+    path: '/b2b/cms/user-management',
+    name: 'CMSUserManagement',
+    component: CMSUserManagement,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/b2b/cms/user-management/users',
     name: 'CMSUsers',
     component: CMSUsers,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/b2b/cms/user-management/companies',
+    name: 'CMSCompanies',
+    component: CMSCompanies,
+    meta: { authorities: [Authority.ADMIN] },
+  },
+  {
+    path: '/b2b/cms/user-management/companies/:companyId/collaborations',
+    name: 'CMSCompanyCollaborations',
+    component: CMSCompanyCollaborations,
     meta: { authorities: [Authority.ADMIN] },
   },
   {

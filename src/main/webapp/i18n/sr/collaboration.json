@@ -32,8 +32,11 @@
       "filters": {
         "role": "Uloga kompanije",
         "status": "Status saradnje",
+        "rating": "Ocena saradnje",
         "companyOffer": "Oglašivač",
-        "companyRequest": "Tražilac"
+        "companyRequest": "Tražilac",
+        "ratingGiven": "Data",
+        "ratingReceived": "Dobijena"
       },
       "actions": {
         "rate": "Oceni",

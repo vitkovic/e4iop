@@ -3,7 +3,6 @@
     "home": {
       "title": "Корисници",
       "accountTitle": "Корисници налога",
-      "userManagementTitle": "Управљање корисницима",
       "createLabel": "Креирај новог корисника",
       "createOrEditLabel": "Креирај или измени корисника",
       "addLabel": "Додај новог корисника"

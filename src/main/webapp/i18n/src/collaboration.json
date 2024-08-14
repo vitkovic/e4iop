@@ -32,8 +32,11 @@
       "filters": {
         "role": "Улога компаније",
         "status": "Статус сарадње",
+        "rating": "Оцена сарадње",
         "companyOffer": "Оглашивач",
-        "companyRequest": "Тражилац"
+        "companyRequest": "Тражилац",
+        "ratingGiven": "Дата",
+        "ratingReceived": "Добијена"
       },
       "actions": {
         "rate": "Оцени",

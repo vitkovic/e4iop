@@ -3,7 +3,6 @@
     "home": {
       "title": "Users",
       "accountTitle": "Account users",
-      "userManagementTitle": "User management",
       "createLabel": "Create new user",
       "createOrEditLabel": "Create or edit user",
       "addLabel": "Add new user"

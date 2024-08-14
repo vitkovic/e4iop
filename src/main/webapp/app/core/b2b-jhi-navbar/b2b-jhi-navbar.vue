@@ -86,7 +86,7 @@
               <b-dropdown-item to="#" active-class="active">
                 <span v-text="$t('global.menu.cms.admins')">Upravljanje administratorima</span>
               </b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'CMSUsers' }" active-class="active">
+              <b-dropdown-item :to="{ name: 'CMSUserManagement' }" active-class="active">
                 <span v-text="$t('global.menu.cms.users')">Upravljanje korisnicima</span>
               </b-dropdown-item>
               <b-dropdown-item :to="{ name: 'CMSAdvertsement' }" active-class="active">
