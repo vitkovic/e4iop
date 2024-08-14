@@ -1,14 +1,17 @@
 <template>
     <div>
-        <h2 id="page-heading">
-            <span v-text="$t('riportalApp.requestForService.home.title')" id="request-for-service-heading">Request For Services</span>
-            <router-link :to="{name: 'RequestForServiceCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-request-for-service">
+        <div class="mb-4 mb-sm-3">
+            <h2><span v-text="$t('riportalApp.requestForService.home.title')" id="request-for-service-heading">Request For Services</span></h2>
+        </div>
+        <div id="page-heading">
+            
+            <router-link :to="{name: 'RequestForServiceCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-request-for-service mb-3">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('riportalApp.requestForService.home.createLabel')">
                     Create a new Request For Service
                 </span>
             </router-link>
-        </h2>
+        </div>
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
@@ -61,7 +64,7 @@
                     <td>{{requestForService.deadline ? $d(Date.parse(requestForService.deadline), 'shortWithoutMinutes', 'sr') : ''}}</td>
                     <td>
                         <div v-if="requestForService.services">
-                            <router-link :to="{name: 'RiServiceView', params: {riServiceId: requestForService.services.id}}">
+                            <router-link class="link-style" :to="{name: 'RiServiceView', params: {riServiceId: requestForService.services.id}}">
                                 <span v-if="currentLanguage === 'sr'">{{requestForService.services.nameSr}}</span>
                                 <span v-if="currentLanguage === 'en'">{{requestForService.services.nameEn}}</span>
                                 <span v-if="currentLanguage === 'src'">{{requestForService.services.nameSrCyr}}</span>
@@ -85,29 +88,29 @@
                     <td nowrap class="text-right">
                         
                             <router-link :to="{name: 'RequestForServiceView', params: {requestForServiceId: requestForService.id}}" tag="button" class="btn btn-info btn-sm details">
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                                <span v-text="$t('entity.action.view')">View</span>
                             </router-link>
                             <router-link  v-if="account.id == requestForService.users.user.id || (hasAnyRole(['PA' ]) || hasAnyAuthority('ROLE_ADMIN'))"
                                 :to="{name: 'RequestForServiceEdit', params: {requestForServiceId: requestForService.id}}"  tag="button" class="btn btn-primary btn-sm edit">
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                                <span v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>
                             <b-button v-on:click="prepareRemove(requestForService)" v-if="account.id == requestForService.users.user.id || (hasAnyRole(['PA']) || hasAnyAuthority('ROLE_ADMIN'))"
                                    variant="danger"
                                    class="btn btn-sm"
                                    v-b-modal.removeEntity>                                
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                                <span v-text="$t('entity.action.delete')">Delete</span>
                             </b-button>
                             <b-button v-on:click="sendToRespond(requestForService)" v-if="(hasAnyRole(['PA','RPRI']) || hasAnyAuthority('ROLE_ADMIN'))"
                                    variant="primary"
                                    class="btn btn-sm"
                                    >                                
-                                <span class="d-none d-md-inline" v-text="$t('riportalApp.requestForService.respond')"></span>
+                                <span v-text="$t('riportalApp.requestForService.respond')"></span>
                             </b-button>
                             <b-button v-on:click="previewRespond(requestForService)" v-if="account.id == requestForService.users.user.id"
                                    variant="info"
                                    class="btn btn-sm"
                                    >                                
-                                <span class="d-none d-md-inline" v-text="$t('riportalApp.requestForService.offer')"></span>
+                                <span v-text="$t('riportalApp.requestForService.offer')"></span>
                             </b-button>
                         
                     </td>
@@ -138,3 +141,9 @@
 
 <script lang="ts" src="./request-for-service.component.ts">
 </script>
+
+<style scoped>
+    .link-style:hover{
+        color: blue;
+    }
+</style>

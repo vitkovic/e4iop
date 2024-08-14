@@ -1,8 +1,11 @@
 <template>
     <div>
-        <div id="page-heading" class="w-100 mb-4 mb-md-0">
+        <div class="mb-4 mb-sm-3">
+            <h2><span v-text="$t('riportalApp.researchInfrastructure.home.title')" id="research-infrastructure-heading">Research Infrastructures</span></h2>
+        </div>
+        <div id="page-heading">
             
-            <router-link :to="{name: 'ResearchInfrastructureCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-research-infrastructure">
+            <router-link :to="{name: 'ResearchInfrastructureCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-research-infrastructure mb-3">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('riportalApp.researchInfrastructure.home.createLabel')">
                     Create a new Research Infrastructure
@@ -17,9 +20,6 @@
             {{alertMessage}}
         </b-alert>
         <br/>
-        <div class="mb-3">
-            <h2><span v-text="$t('riportalApp.researchInfrastructure.home.title')" id="research-infrastructure-heading">Research Infrastructures</span></h2>
-        </div>
         <div class="alert alert-warning" v-if="!isFetching && researchInfrastructures && researchInfrastructures.length === 0">
             <span v-text="$t('riportalApp.researchInfrastructure.home.notFound')">No researchInfrastructures found</span>
         </div>

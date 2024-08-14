@@ -1,7 +1,10 @@
 <template>
     <div>
-        <div id="page-heading" class="w-100 mb-4 mb-md-0">
-            <router-link :to="{name: 'RiServiceCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-ri-service">
+        <div class="mb-4 mb-sm-3">
+            <h2><span v-text="$t('riportalApp.riService.home.title')" id="ri-service-heading">Ri Services</span></h2>
+        </div>
+        <div id="page-heading">
+            <router-link :to="{name: 'RiServiceCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-ri-service mb-3">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('riportalApp.riService.home.createLabel')">
                     Create a new Ri Service
@@ -16,9 +19,6 @@
             {{alertMessage}}
         </b-alert>
         <br/>
-        <div class="mb-3">
-            <h2><span v-text="$t('riportalApp.riService.home.title')" id="ri-service-heading">Ri Services</span></h2>
-        </div>
         <div class="alert alert-warning" v-if="!isFetching && riServices && riServices.length === 0">
             <span v-text="$t('riportalApp.riService.home.notFound')">No riServices found</span>
         </div>
