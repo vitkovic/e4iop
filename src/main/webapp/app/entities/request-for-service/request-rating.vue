@@ -60,12 +60,12 @@
                     </td>
                     <td v-if="hasAnyRole(['PA']) || hasAnyAuthority('ROLE_ADMIN')">
                         <div v-if="requestForService.users">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: requestForService.users.id}}">{{requestForService.users.user.lastName}} {{requestForService.users.user.firstName}}</router-link>
+                            <router-link class="link-style" :to="{name: 'PortalUserView', params: {portalUserId: requestForService.users.id}}">{{requestForService.users.user.lastName}} {{requestForService.users.user.firstName}}</router-link>
                         </div>
                     </td>
                     <td v-if="hasAnyRole(['PA']) || hasAnyAuthority('ROLE_ADMIN')">
                         <div v-if="requestForService.organizations">
-                            <router-link :to="{name: 'PortalUserOrganizationView', params: {portalUserOrganizationId: requestForService.organizations.id}}">
+                            <router-link class="link-style" :to="{name: 'PortalUserOrganizationView', params: {portalUserOrganizationId: requestForService.organizations.id}}">
                                 <span v-if="currentLanguage === 'sr'">{{requestForService.organizations.legalNameSr}}</span>
                                 <span v-if="currentLanguage === 'en'">{{requestForService.organizations.legalNameEn}}</span>
                                 <span v-if="currentLanguage === 'src'">{{requestForService.organizations.legalNameSrCyr}}</span>

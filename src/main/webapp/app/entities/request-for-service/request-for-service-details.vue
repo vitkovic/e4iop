@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-11 col-md-8">
             <div v-if="requestForService">
                 <h2 class="jh-entity-heading"><span v-text="$t('riportalApp.requestForService.detail.title')">RequestForService</span> {{requestForService.id}}</h2>
                 <b-row class="mt-4">

@@ -64,7 +64,7 @@
             <td>
               <div v-if="riProcurementProposal.portalUser">
                 <div v-if="authenticated && (hasAnyRole(['PA']) || hasAnyAuthority('ROLE_ADMIN'))">
-                  <router-link :to="{ name: 'PortalUserView', params: { portalUserId: riProcurementProposal.portalUser.id } }">
+                  <router-link class="link-style" :to="{ name: 'PortalUserView', params: { portalUserId: riProcurementProposal.portalUser.id } }">
                     <span v-if="riProcurementProposal.portalUser.user"
                       >{{ riProcurementProposal.portalUser.user.lastName }} {{ riProcurementProposal.portalUser.user.firstName }}</span
                     >

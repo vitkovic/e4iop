@@ -20,7 +20,7 @@
       "name": "Name",
       "description": "Description",
       "purpose": "Purpose",
-      "portalUser": "Portal User",
+      "portalUser": "Portal user",
       "help": {
         "date": "Proposal submission date and time",
         "name": "Name of new service",

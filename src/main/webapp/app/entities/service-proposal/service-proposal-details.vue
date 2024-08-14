@@ -1,9 +1,9 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-11 col-md-8">
             <div v-if="serviceProposal">
                 <h2 class="jh-entity-heading"><span v-text="$t('riportalApp.serviceProposal.detail.title')">ServiceProposal</span> {{serviceProposal.id}}</h2>
-                <dl class="row jh-entity-details">
+                <dl class="row jh-entity-details pl-3 pr-3">
                     <dt>
                         <span v-text="$t('riportalApp.serviceProposal.date')">Date</span>
                     </dt>
@@ -33,7 +33,7 @@
                     </dt>
                     <dd>
                         <div v-if="serviceProposal.portalUser">
-                            <router-link :to="{name: 'PortalUserView', params: {portalUserId: serviceProposal.portalUser.id}}">{{serviceProposal.portalUser.id}}</router-link>
+                            <router-link class="link-style" :to="{name: 'PortalUserView', params: {portalUserId: serviceProposal.portalUser.id}}">{{serviceProposal.portalUser.id}}</router-link>
                         </div>
                     </dd>
                 </dl>
@@ -52,3 +52,9 @@
 
 <script lang="ts" src="./service-proposal-details.component.ts">
 </script>
+
+<style scoped>
+    .link-style:hover{
+        color: blue;
+    }
+</style>
