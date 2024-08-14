@@ -20,6 +20,7 @@ const apiCancelPendingCollaborationsForAdvertisement = 'api/collaborations/cance
 const apiGetCompanyRatings = 'api/collaborations/company-ratings';
 const apiGetRatedCollaborationsForCompany = 'api/collaborations/company-rated';
 const apiGetPageOfRatedCollaborationsForCompany = 'api/collaborations/company-rated-page';
+const apiDeleteRating = 'api/collaborations/delete-rating';
 
 export default class CollaborationService {
   public find(id: number): Promise<ICollaboration> {
@@ -280,6 +281,19 @@ export default class CollaborationService {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(apiGetPageOfRatedCollaborationsForCompany + `?companyId=${companyId}` + `&${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public deleteRating(collaborationId: number, ratingSide: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .put(apiDeleteRating + `?collaborationId=${collaborationId}` + `&ratingSide=${ratingSide}`)
         .then(res => {
           resolve(res);
         })

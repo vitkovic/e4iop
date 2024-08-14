@@ -160,21 +160,22 @@
                 <div class="d-flex mb-2">
                   <b-form-rating disabled :value="collaboration.ratingOffer.number" stars="4" inline size="sm"> </b-form-rating>
                   <div class="ml-2">
-                    {{ collaboration.commentOffer.slice(0, 30) }}
+                    <span v-if="collaboration.commentOffer.length > 30"> {{ collaboration.commentOffer.slice(0, 30) + '...' }}</span>
+                    <span v-else>{{ collaboration.commentOffer }}</span>
                   </div>
                 </div>
                 <div class="btn-group">
                   <b-button
-                      v-on:click="prepareRating(collaboration)"
+                      v-on:click="showCommentModal(collaboration, ratingSideOptions.OFFER)"
                       variant="info"
                       class="btn btn-sm"
-                      v-b-modal.ratingEntity
+                      v-b-modal.testimonial
                     >
                     <font-awesome-icon icon="eye"></font-awesome-icon>
                     <span v-text="$t('entity.action.view')">Oceni</span>
                   </b-button>
                   <b-button
-                      v-on:click="prepareRating(collaboration)"
+                      v-on:click="prepareEditRating(collaboration, ratingSideOptions.OFFER)"
                       variant="primary"
                       class="btn btn-sm"
                       v-b-modal.ratingEntity
@@ -183,10 +184,10 @@
                     <span v-text="$t('entity.action.edit')">Oceni</span>
                   </b-button>
                   <b-button
-                      v-on:click="prepareRating(collaboration)"
+                      v-on:click="preareDeleteRatingModal(collaboration, ratingSideOptions.OFFER)"
                       variant="danger"
                       class="btn btn-sm"
-                      v-b-modal.ratingEntity
+                      v-b-modal.deleteRatingModal
                     >
                     <font-awesome-icon icon="times"></font-awesome-icon>
                     <span v-text="$t('entity.action.delete')">Oceni</span>
@@ -195,7 +196,7 @@
               </div>
               <div v-else>
                 <b-button
-                    v-on:click="prepareRating(collaboration)"
+                    v-on:click="prepareRating(collaboration, ratingSideOptions.OFFER)"
                     variant="secondary"
                     class="btn btn-sm"
                     v-b-modal.ratingEntity
@@ -210,21 +211,22 @@
                 <div class="d-flex mb-2">
                   <b-form-rating disabled :value="collaboration.ratingRequest.number" stars="4" inline size="sm"> </b-form-rating>
                   <div class="ml-2">
-                    {{ collaboration.commentRequest.slice(0, 30) }}
+                    <span v-if="collaboration.commentRequest.length > 30"> {{ collaboration.commentRequest.slice(0, 30) + '...' }}</span>
+                    <span v-else>{{ collaboration.commentRequest }}</span>
                   </div>
                 </div>
                 <div class="btn-group">
                   <b-button
-                      v-on:click="prepareRating(collaboration)"
+                      v-on:click="showCommentModal(collaboration, ratingSideOptions.REQUEST)"
                       variant="info"
                       class="btn btn-sm"
-                      v-b-modal.ratingEntity
+                      v-b-modal.testimonial
                     >
                     <font-awesome-icon icon="eye"></font-awesome-icon>
                     <span v-text="$t('entity.action.view')">Oceni</span>
                   </b-button>
                   <b-button
-                      v-on:click="prepareRating(collaboration)"
+                      v-on:click="prepareEditRating(collaboration, ratingSideOptions.REQUEST)"
                       variant="primary"
                       class="btn btn-sm"
                       v-b-modal.ratingEntity
@@ -233,10 +235,10 @@
                     <span v-text="$t('entity.action.edit')">Oceni</span>
                   </b-button>
                   <b-button
-                      v-on:click="prepareRating(collaboration)"
+                      v-on:click="preareDeleteRatingModal(collaboration, ratingSideOptions.REQUEST)"
                       variant="danger"
                       class="btn btn-sm"
-                      v-b-modal.ratingEntity
+                      v-b-modal.deleteRatingModal
                     >
                     <font-awesome-icon icon="times"></font-awesome-icon>
                     <span v-text="$t('entity.action.delete')">Oceni</span>
@@ -245,7 +247,7 @@
               </div>
               <div v-else>
                 <b-button
-                    v-on:click="prepareRating(collaboration)"
+                    v-on:click="prepareRating(collaboration, ratingSideOptions.REQUEST)"
                     variant="secondary"
                     class="btn btn-sm"
                     v-b-modal.ratingEntity
@@ -265,14 +267,14 @@
     <b-modal v-if="collaborationToRate" ref="ratingEntity" id="ratingEntity">
       <span slot="modal-title"><span v-text="$t('riportalApp.collaboration.modal.ratingEntityModal.title')">Ocenite saradnju</span></span>
       <div class="modal-body">
-        <p v-if="company.id != collaborationToRate.companyOffer.id">
-          <b>{{ $t('riportalApp.collaboration.companyOffer') }}: </b>{{ collaborationToRate.companyOffer.name }}
-        </p>
-        <p v-if="company.id != collaborationToRate.companyRequest.id">
-          <b>{{ $t('riportalApp.collaboration.companyRequest') }}: </b>{{ collaborationToRate.companyRequest.name }}
-        </p>
         <p>
           <b>{{ $t('riportalApp.collaboration.advertisement') }}: </b>{{ collaborationToRate.advertisement.title }}
+        </p>
+        <p v-if="ratingSide && ratingSide === ratingSideOptions.OFFER">
+          <b>{{ $t('riportalApp.collaboration.companyOffer') }}: </b>{{ collaborationToRate.companyOffer.name }}
+        </p>
+        <p v-if="ratingSide && ratingSide === ratingSideOptions.REQUEST">
+          <b>{{ $t('riportalApp.collaboration.companyRequest') }}: </b>{{ collaborationToRate.companyRequest.name }}
         </p>
         <div>
           <b-dropdown :text="$t('riportalApp.collaboration.modal.ratingEntityModal.ratingButton')" class="mb-3">
@@ -321,6 +323,50 @@
       </div>
     </b-modal>
 
+    <b-modal ref="deleteRatingModal" id="deleteRatingModal">
+      <span slot="modal-title"
+        ><span id="riportalApp.advertisement.delete.question" v-text="$t('entity.delete.title')">Confirm delete operation</span></span
+      >
+      <div class="modal-body">
+        <p id="jhi-delete-advertisement-heading" v-text="$t('riportalApp.collaboration.modal.deleteRatingModal.question')">
+          Are you sure you want to delete this Advertisement from Database?
+        </p>
+      </div>
+      <div slot="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success"
+          id="jhi-confirm-delete-advertisement"
+          v-text="$t('entity.action.confirm')"
+          v-on:click="deleteRating()"
+        >
+          Delete
+        </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeDeleteRatingModal()">Cancel</button>
+      </div>
+    </b-modal>
+
+    <b-modal id="testimonial" ok-only :ok-title="$t('entity.action.close')" @hide="resetModalData" ref="testimonial">
+        <div class="modal-body">
+          <div class="d-flex flex-column mb-2">
+            <b class="p-0 mb-1">Ocena:</b>
+            <b-form-rating
+              id="rating-inline"
+              inline
+              :value="modalRating"
+              variant="primary"
+              size="sm"
+              stars="4"
+              disabled
+              style="width: fit-content;"
+            ></b-form-rating>
+          </div>
+          <div>
+            <b class="p-0 mb-1">Komentar:</b>
+            <p>{{ modalComment }}</p>
+          </div>
+        </div>
+      </b-modal>
 
     <div v-show="collaborations && collaborations.length > 0">
       <div class="row justify-content-center">

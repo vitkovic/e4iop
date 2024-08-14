@@ -349,5 +349,32 @@ public class CollaborationService {
 	public Page<Collaboration> findPageOfRatedCollaborationsForCompany(Long companyId, Pageable pageable) {
 		return collaborationRepository.findPageByCompanyAndRatingAndStatus(companyId, CollaborationStatus.ACCEPTED, pageable);
 	}
+
+    @Transactional
+	public Collaboration deleteRating(Long id, String ratingSide) {
+    	Optional<Collaboration> collaborationOptional = collaborationRepository.findById(id);
+        
+    	if (collaborationOptional.isEmpty()) {
+    		String errorMessage = String.format("Collaboration with id={} could not be found", id);
+        	throw new EntityNotFoundException(errorMessage);
+        }
+    	
+    	Collaboration collaboration = collaborationOptional.get();
+    	
+    	if (ratingSide.equals(Collaboration.COLLABORATION_ROLE_OFFER)) {
+    		collaboration.setRatingOffer(null);
+    		collaboration.setCommentOffer(null);
+    		
+    		return this.save(collaboration);
+    	} else if (ratingSide.equals(Collaboration.COLLABORATION_ROLE_REQUEST)) {
+    		collaboration.setRatingRequest(null);
+    		collaboration.setCommentRequest(null);
+    		
+    		return this.save(collaboration);
+    	} else {
+    		String errorMessage = String.format("Collaboration role {} is not vaild", ratingSide);
+        	throw new IllegalArgumentException(errorMessage);
+    	}
+	}
     
 }

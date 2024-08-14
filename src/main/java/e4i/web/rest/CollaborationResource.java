@@ -444,4 +444,16 @@ public class CollaborationResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+    
+    @PutMapping("/collaborations/delete-rating")
+    public ResponseEntity<Collaboration> deleteRating(
+    		@RequestParam Long collaborationId,
+    		@RequestParam String ratingSide
+    ) throws URISyntaxException  {
+        log.debug("REST request to delete rating for Collaboration: {} for the role: {}", collaborationId, ratingSide);
+        
+    	Collaboration collaboration = collaborationService.deleteRating(collaborationId, ratingSide);
+    	
+    	return ResponseEntity.ok().body(collaboration);        
+    }
 }

@@ -17,6 +17,11 @@ import CompanyService from '@/entities/company.service';
 import AdvertisementService from '@/entities/advertisement.service';
 import AdvertisementStatusService from '../advertisement-status/advertisement-status.service';
 
+enum RatingSideOptions {
+  OFFER = 'offer',
+  REQUEST = 'request',
+}
+
 @Component({
   mixins: [Vue2Filters.mixin],
 })
@@ -42,6 +47,11 @@ export default class Collaboration extends mixins(AlertMixin) {
   public collaborationToRate: ICollaboration | null = null;
   public collaborationRatings: ICollaborationRating[] = [];
   public selectedRating: ICollaborationRating | null = null;
+  public ratingSideOptions = RatingSideOptions;
+  public ratingSide: string | null = null;
+  public modalComment: string = '';
+  public modalRating: number = 0;
+
   public company: ICompany = null;
   public advertisement: IAdvertisement = null;
   public advertisementToSwitchStatus: IAdvertisement = null;
@@ -150,13 +160,11 @@ export default class Collaboration extends mixins(AlertMixin) {
     }
 
     // Check if default rating side flags should be set
-
     if (!this.rartingGivenFlag && !this.ratingReceviedFlag) {
       this.ratingSideFlags = [false, false];
     } else {
       this.ratingSideFlags = [this.rartingGivenFlag, this.ratingReceviedFlag];
     }
-    console.log(this.ratingSideFlags);
 
     // Check if default selected status options should be set
     let selectedStatusIds: number[] = [];
@@ -210,8 +218,9 @@ export default class Collaboration extends mixins(AlertMixin) {
     this.transition();
   }
 
-  public prepareRating(instance: ICollaboration): void {
+  public prepareRating(instance: ICollaboration, ratingSide: string): void {
     this.collaborationToRate = instance;
+    this.ratingSide = ratingSide;
 
     if (this.collaborationRatings.length == 0) {
       this.collaborationRatingService()
@@ -236,26 +245,22 @@ export default class Collaboration extends mixins(AlertMixin) {
     formData.append('ratingId', '' + this.selectedRating.id);
     formData.append('comment', '' + this.ratingComment);
 
-    if (this.company.id === this.collaborationToRate.companyOffer.id) {
-      const companyName = this.collaborationToRate.companyRequest.name;
-
+    if (this.ratingSide === this.ratingSideOptions.OFFER) {
       this.collaborationService()
         .rateCollaborationForCompanyOffer(formData)
         .then(res => {
           this.retrieveAllCollaborations();
-          const notificatonMessage = 'Ocenili ste saradnju sa kompanijom ' + companyName;
+          const notificatonMessage = 'Uspešno ste ocenili saradnju';
           this.$notify({
             text: notificatonMessage,
           });
         });
-    } else if (this.company.id === this.collaborationToRate.companyRequest.id) {
-      const companyName = this.collaborationToRate.companyOffer.name;
-
+    } else if (this.ratingSide === this.ratingSideOptions.REQUEST) {
       this.collaborationService()
         .rateCollaborationForCompanyRequest(formData)
         .then(res => {
           this.retrieveAllCollaborations();
-          const notificatonMessage = 'Ocenili ste saradnju sa kompanijom ' + companyName;
+          const notificatonMessage = 'Uspešno ste ocenili saradnju';
           this.$notify({
             text: notificatonMessage,
           });
@@ -277,5 +282,78 @@ export default class Collaboration extends mixins(AlertMixin) {
       (collaboration.companyOffer.id === this.company.id && collaboration.ratingOffer) ||
       (collaboration.companyRequest.id === this.company.id && collaboration.ratingRequest)
     );
+  }
+
+  public prepareEditRating(collaboration: ICollaboration, ratingSide: string) {
+    this.collaborationToRate = collaboration;
+    this.ratingSide = ratingSide;
+
+    if (this.ratingSide === null) {
+      return;
+    } else if (this.ratingSide === this.ratingSideOptions.OFFER) {
+      this.selectRating(this.collaborationToRate.ratingOffer);
+      this.ratingComment = this.collaborationToRate.commentOffer;
+    } else if (this.ratingSide === this.ratingSideOptions.REQUEST) {
+      this.selectRating(this.collaborationToRate.ratingRequest);
+      this.ratingComment = this.collaborationToRate.commentRequest;
+    }
+
+    if (this.collaborationRatings.length == 0) {
+      this.collaborationRatingService()
+        .retrieve()
+        .then(res => {
+          this.collaborationRatings = res.data;
+        });
+    }
+
+    if (<any>this.$refs.ratingEntity) {
+      (<any>this.$refs.ratingEntity).show();
+    }
+  }
+
+  public preareDeleteRatingModal(collaboration: ICollaboration, ratingSide: string) {
+    this.collaborationToRate = collaboration;
+    this.ratingSide = ratingSide;
+
+    if (<any>this.$refs.deleteRatingModal) {
+      (<any>this.$refs.deleteRatingModal).show();
+    }
+  }
+
+  public closeDeleteRatingModal(): void {
+    (<any>this.$refs.deleteRatingModal).hide();
+  }
+
+  public deleteRating() {
+    this.collaborationService()
+      .deleteRating(this.collaborationToRate.id, this.ratingSide)
+      .then(res => {
+        this.retrieveAllCollaborations();
+        const notificatonMessage = 'Ocena je obrisana';
+        this.$notify({
+          text: notificatonMessage,
+        });
+      });
+
+    this.closeDeleteRatingModal();
+  }
+
+  public showCommentModal(collaboration: ICollaboration, ratingSide: string): void {
+    if (ratingSide === null) {
+      return;
+    } else if (ratingSide === this.ratingSideOptions.OFFER) {
+      this.modalComment = collaboration.commentOffer;
+      this.modalRating = collaboration.ratingOffer.number;
+    } else if (ratingSide === this.ratingSideOptions.REQUEST) {
+      this.modalComment = collaboration.commentRequest;
+      this.modalRating = collaboration.ratingRequest.number;
+    }
+
+    (this.$refs.testimonial as any).show();
+  }
+
+  public resetModalData(): void {
+    this.modalComment = '';
+    this.modalRating = 0;
   }
 }

@@ -54,6 +54,10 @@
         "renewAdModal": {
           "title": "Potvrdite obnovu oglasa",
           "question": "Da li ste sigurni da želite da obnovite oglas"
+        },
+        "deleteRatingModal": {
+          "title": "Potvrdite brisanje ocene",
+          "question": "Da li ste sigurni da želite da obrišete ocenu?"
         }
       }
     }

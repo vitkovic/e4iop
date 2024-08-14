@@ -23,6 +23,9 @@ import java.util.Set;
 public class Collaboration implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    public static final String COLLABORATION_ROLE_OFFER = "offer";
+    public static final String COLLABORATION_ROLE_REQUEST = "request";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
