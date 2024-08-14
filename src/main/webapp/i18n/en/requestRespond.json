@@ -2,28 +2,28 @@
   "riportalApp": {
     "requestRespond": {
       "home": {
-        "title": "Request Responds",
-        "createLabel": "Create new Request Respond",
-        "createOrEditLabel": "Create or edit Request Respond",
-        "notFound": "No Request Responds found"
+        "title": "Request responds",
+        "createLabel": "Create new request respond",
+        "createOrEditLabel": "Create or edit request respond:",
+        "notFound": "No request responds found"
       },
-      "created": "A new Request Respond is created with identifier {{ param }}",
-      "updated": "A Request Respond is updated with identifier {{ param }}",
-      "deleted": "A Request Respond is deleted with identifier {{ param }}",
+      "created": "A new request respond is created with identifier {{ param }}",
+      "updated": "A request respond is updated with identifier {{ param }}",
+      "deleted": "A request respond is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Request Respond with identifier {{ id }}?"
+        "question": "Are you sure you want to delete request respond with identifier {{ id }}?"
       },
       "detail": {
-        "title": "Request Respond"
+        "title": "Request respond"
       },
       "date": "Date",
-      "startTime": "Start Time",
-      "endTime": "End Time",
+      "startTime": "Start time",
+      "endTime": "End time",
       "price": "Price",
       "message": "Message",
-      "requestForService": "Request For Service",
-      "respondsToOffer": "Responds To Offer",
-      "requestAnswer": "Request Answer",
+      "requestForService": "Request for service",
+      "respondsToOffer": "Responds to offer",
+      "requestAnswer": "Request answer",
       "calendar": "Calendar",
       "help": {
         "date": "Date and time of submission of respond to request for RI service",
