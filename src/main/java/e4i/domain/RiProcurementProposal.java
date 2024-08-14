@@ -12,6 +12,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.ZonedDateTime;
 
 /**
@@ -28,16 +29,16 @@ import java.time.ZonedDateTime;
 			     targetClass=RiProcurementProposalDTO.class,	
 			       columns={
 			          @ColumnResult(name="rId", type=Long.class),
-			          @ColumnResult(name="rDate", type=ZonedDateTime.class),
+			          @ColumnResult(name="rDate", type=Instant.class),
 			          @ColumnResult(name="rName", type=String.class),
 			          @ColumnResult(name="rTp", type=String.class),
 			          @ColumnResult(name="rP", type=String.class),
 			          @ColumnResult(name="firstName", type=String.class),
 			          @ColumnResult(name="lastName", type=String.class),
-			          @ColumnResult(name="pId", type=Long.class),
+			          @ColumnResult(name="pId", type=String.class),
 			          @ColumnResult(name="editable", type=Boolean.class),
-			          @ColumnResult(name="likes", type=Integer.class),
-			          @ColumnResult(name="dislikes", type=Integer.class),
+			          @ColumnResult(name="likes", type=Long.class),
+			          @ColumnResult(name="dislikes", type=Long.class),
 			          }
 			   )
 			}
@@ -87,7 +88,7 @@ public class RiProcurementProposal implements Serializable {
      */
     @ApiModelProperty(value = "Proposal submission date and time")
     @Column(name = "date")
-    private ZonedDateTime date;
+    private Instant date;
 
     /**
      * Name of the RI to be procured
@@ -123,16 +124,16 @@ public class RiProcurementProposal implements Serializable {
         this.id = id;
     }
 
-    public ZonedDateTime getDate() {
+    public Instant getDate() {
         return date;
     }
 
-    public RiProcurementProposal date(ZonedDateTime date) {
+    public RiProcurementProposal date(Instant date) {
         this.date = date;
         return this;
     }
 
-    public void setDate(ZonedDateTime date) {
+    public void setDate(Instant date) {
         this.date = date;
     }
 

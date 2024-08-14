@@ -34,7 +34,7 @@ import java.time.ZonedDateTime;
 			          @ColumnResult(name="rP", type=String.class),
 			          @ColumnResult(name="firstName", type=String.class),
 			          @ColumnResult(name="lastName", type=String.class),
-			          @ColumnResult(name="pId", type=Long.class),
+			          @ColumnResult(name="pId", type=String.class),
 			          @ColumnResult(name="editable", type=Boolean.class),
 			          @ColumnResult(name="likes", type=Integer.class),
 			          @ColumnResult(name="dislikes", type=Integer.class),

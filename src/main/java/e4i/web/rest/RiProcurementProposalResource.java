@@ -3,6 +3,8 @@ package e4i.web.rest;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+
+import java.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -85,7 +87,7 @@ public class RiProcurementProposalResource {
         
         PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
         riProcurementProposal.setPortalUser(pUser);
-        riProcurementProposal.setDate(ZonedDateTime.now());
+        riProcurementProposal.setDate(Instant.now());
         
         RiProcurementProposal result = riProcurementProposalRepository.save(riProcurementProposal);
         return ResponseEntity.created(new URI("/api/ri-procurement-proposals/" + result.getId()))
@@ -122,20 +124,12 @@ public class RiProcurementProposalResource {
      */
     @GetMapping("/ri-procurement-proposals")
     public ResponseEntity<List<RiProcurementProposalDTO>> getAllRiProcurementProposals(Pageable pageable) {
-        log.debug("REST request to get a page of RiProcurementProposals");
-        
-        Optional<User> currentUser = userService.getUserWithAuthorities();
-        User user = currentUser.get();        
-        PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
+      
         Page<RiProcurementProposalDTO> page = null;
-        if(pUser != null)
-        	page = riProcurementProposalRepository.pronadjiAllEditableForUser(pUser.getId(), pageable);
-        else {
-            if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
+       
+           
             	page = riProcurementProposalRepository.findAllEditableForAdmin(pageable);
-            }
-
-        }
+          
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
