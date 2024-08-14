@@ -1,5 +1,5 @@
 <template>
-  <div id="footer" class="footer">
+  <div id="footer" class="footer mt-5">
     <b-container fluid="md">
       <b-row class="mt-4 mb-4">
         <b-col sm="12" class="d-flex align-items-center justify-content-center">
@@ -11,36 +11,36 @@
       <b-row> </b-row>
       <b-row class="d-flex align-items-center justify-content-around mb-3 pt-3 pb-3 footerLinks">
         <div class="col-3">
-          <a href="#" class="text-body link">
+          <router-link to="/about" class="text-body link">
             <span
               ><b-icon icon="caret-right" scale="1"></b-icon
               ><span class="font-weight-normal" v-text="$t('home.oProjektu')"> O projektu</span></span
             >
-          </a>
+          </router-link>
         </div>
         <div class="col-3">
-          <a href="#" class="text-body link">
+          <router-link to="/privacy-policy" class="text-body link">
             <span
               ><b-icon icon="caret-right" scale="1"></b-icon
               ><span class="font-weight-normal" v-text="$t('home.politikaPrivatnosti')"> O projektu</span></span
             >
-          </a>
+          </router-link>
         </div>
         <div class="col-3">
-          <a href="#" class="text-body link">
+          <router-link to="/instructions" class="text-body link">
             <span
               ><b-icon icon="caret-right" scale="1"></b-icon
               ><span class="font-weight-normal" v-text="$t('home.uputstvoZaUpotrebu')"> O projektu</span></span
             >
-          </a>
+          </router-link>
         </div>
         <div class="col-3">
-          <a href="#" class="text-body link">
+          <router-link to="/contact" class="text-body link">
             <span
               ><b-icon icon="caret-right" scale="1"></b-icon
               ><span class="font-weight-normal" v-text="$t('home.kontaktIPodsrka')"> O projektu</span></span
             >
-          </a>
+          </router-link>
         </div>
       </b-row>
       <!-- <b-row style="background-color: #f7efde;">

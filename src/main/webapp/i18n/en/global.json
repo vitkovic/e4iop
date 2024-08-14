@@ -352,7 +352,9 @@
     "contact": "Contact us",
     "terms": "Terms of use",
     "privacy": "Privacy policy",
-    "cookie": "Cookie policy"
+    "cookie": "Cookie policy",
+    "about": "About",
+    "instructions": "User guide"
   },
   "home": {
     "infrastructures": "Infrastructures",

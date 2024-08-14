@@ -12,10 +12,38 @@ const PrivacyPolicy = () => import('@/pages/footer/privacy-policy.vue');
 const TermsOfUse = () => import('@/pages/footer/terms.vue');
 const CookiePolicy = () => import('@/pages/footer/cookies.vue');
 const ContactUs = () => import('@/pages/footer/contact.vue');
+const RiPrivacyPolicy = () => import('@/pages/ri-footer/ri-privacy-policy.vue');
+const RiContact = () => import('@/pages/ri-footer/ri-contact.vue');
+const RiAbout = () => import('@/pages/ri-footer/ri-about.vue');
+const RiInstructions = () => import('@/pages/ri-footer/ri-instructions.vue');
 
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 export default [
+  {
+    path: '/privacy-policy',
+    name: 'Privacy policy',
+    component: RiPrivacyPolicy,
+    // meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: RiAbout,
+    // meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: RiContact,
+    // meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/instructions',
+    name: 'Instructions',
+    component: RiInstructions,
+    // meta: { authorities: [Authority.USER] },
+  },
   {
     path: '/b2b/about',
     name: 'About',

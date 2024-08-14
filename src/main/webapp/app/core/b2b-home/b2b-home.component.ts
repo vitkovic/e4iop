@@ -10,6 +10,7 @@ import { AdvertisementTypeOptions } from '@/shared/model/advertisement-type.mode
 
 import CmsSliderService from '../cms-slider/cms-slider.service';
 import DocumentService from '../document/document.service';
+import CompanyService from '@/entities/company/company.service';
 
 @Component
 export default class B2BHome extends Vue {
@@ -17,8 +18,10 @@ export default class B2BHome extends Vue {
 
   @Inject('cmsSliderService') private cmsSliderService: () => CmsSliderService;
   @Inject('documentService') private documentService: () => DocumentService;
+  @Inject('companyService') private companyService: () => CompanyService;
 
   public cmsSliders: ICmsSlider[] = [];
+  public companies: any[] = [];
 
   private advertisements;
   data() {
@@ -81,6 +84,16 @@ export default class B2BHome extends Vue {
       .then(res => {
         this.cmsSliders = res;
         console.log(this.cmsSliders);
+      });
+
+    this.companyService()
+      .retrieve()
+      .then(res => {
+        this.companies = res.data;
+        console.log(this.companies); // Log the fetched companies
+      })
+      .catch(err => {
+        console.error('Error fetching companies:', err);
       });
 
     //   alert(this.$t('riportalApp.researchInfrastructure.errors.deleteFailed') + this.currentLanguage);
