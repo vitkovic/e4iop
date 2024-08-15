@@ -11,6 +11,7 @@ const baseApiUrlView = 'api/advertisements/view';
 const baseApiUrlSearchType = 'api/advertisements/searchtype';
 const baseApiUrlSearchKind = 'api/advertisements/searchkind';
 const baseApiUrlSearchDates = 'api/advertisements/searchdates';
+const baseApiUrlSearchCompany = 'api/advertisements/searchcompany';
 const baseApiUrlCollab = 'api/collaborations/status';
 const baseApiUrlInquiry = 'api/inquiry';
 const baseApiUrlSearchCollabDates = 'api/collaborations/searchdates';
@@ -196,10 +197,10 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  public retrieveSearchCompany(paginationQuery?: any): Promise<any> {
+  public retrieveSearchCompany(company:number, paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
-        .get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .get(baseApiUrlSearchCompany + `?company=${company}` + `&${buildPaginationQueryOpts(paginationQuery)}`)
         .then(res => {
           resolve(res);
         })

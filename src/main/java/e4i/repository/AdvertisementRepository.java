@@ -179,6 +179,12 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     Page<Advertisement> findAllBySearchAdminType(@Param("type") Long type, Pageable pageable);
     
     @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ " where advertisement.company.id=:company",
+        countQuery = "select count(distinct advertisement) from Advertisement advertisement "
+        		+ " where advertisement.company.id=:company")
+    Page<Advertisement> findAllBySearchAdminCompany(@Param("company") Long company, Pageable pageable);
+    
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
     		+ " where advertisement.kind.id=:kind",
         countQuery = "select count(distinct advertisement) from Advertisement advertisement "
         		+ " where advertisement.kind.id=:kind")

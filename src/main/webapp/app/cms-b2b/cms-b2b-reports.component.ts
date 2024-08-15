@@ -395,7 +395,7 @@ public updateInstantFieldFromUsers(event) {
     };
 
     this.cmsB2BService()
-        .retrieveSearchCompany(paginationQuery)
+        .retrieveSearchCompany(this.advCompany, paginationQuery)
         .then(
           res => {
             this.advertisements = res.data;
@@ -589,9 +589,9 @@ public loadPage(page: number): void {
 			}
 	  		
 	  		if (index == 'kinds') {
-				  if (items[i][index].length >0)
+				  if (items[i][index] !== 'undefined' && items[i][index] !== null && items[i][index].length >0)
 				  newitemssub[index]  = items[i][index][0].kind;
-				  else  newitemssub[index] = 'Nije na raspolganju';
+				  else  newitemssub[index] = 'Nije na raspolaganju';
 			}
 	  		
 		}
