@@ -14,7 +14,7 @@
         <div class="alert alert-warning" v-if="!isFetching && companies && companies.length === 0">
             <span v-text="$t('riportalApp.company.home.notFound')">No companies found</span>
         </div>
-        <div class="table-responsive" v-if="companies && companies.length > 0">
+        <div class="custom-table-responsive" v-if="companies && companies.length > 0">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -44,11 +44,11 @@
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'CMSCompanyCollaborations', params: {companyId: company.id}}" tag="button" class="btn btn-info btn-sm details">
-                                <span class="d-none d-md-inline" v-text="$t('riportalApp.company.interactionButtons.collaborations')">View</span>
+                                <span v-text="$t('riportalApp.company.interactionButtons.collaborations')">View</span>
                             </router-link>
                             <router-link :to="{name: 'CompanyEdit', params: {companyId: company.id}}"  tag="button" class="btn btn-primary btn-sm edit">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                                <span v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>
                         </div>
                     </td>
@@ -69,3 +69,15 @@
 
 <script lang="ts" src="./cms-b2b-companies.component.ts">
 </script>
+
+<style scoped>
+    .custom-table-responsive {
+  overflow-x: auto;
+}
+
+@media (max-width: 1280px) {
+  .custom-table-responsive table {
+    min-width: 1280px;
+  }
+}
+</style>
