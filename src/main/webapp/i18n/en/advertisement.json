@@ -50,6 +50,8 @@
       "kind": "Kind",
       "advertisementSupporters": "Supporting advertisers",
       "additionalSupporters": "Additional advertisers",
+      "category": "Category",
+      "subcategory": "Subcategory",
       "subsubcategory": "Subsubcategory",
       "thread": "Thread",
       "categorization": "Categorization",

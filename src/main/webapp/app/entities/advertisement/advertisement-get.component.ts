@@ -47,13 +47,14 @@ export default class Advertisement extends mixins(AlertMixin) {
   data() {
     return {
       columnDefs: [
-        { headerName: this.$t('riportalApp.advertisement.title'), field: 'title', filter: 'true', sortable: true },
-        { headerName: this.$t('riportalApp.advertisement.status'), field: 'status', filter: 'true', sortable: true },
         { headerName: this.$t('riportalApp.advertisement.type'), field: 'type', filter: 'true', sortable: true },
         { headerName: this.$t('riportalApp.advertisement.kind'), field: 'kind', filter: 'true', sortable: true },
-        { headerName: this.$t('riportalApp.advertisement.subsubcategory'), field: 'subsubcategory', filter: 'true', sortable: true },
-        { headerName: this.$t('riportalApp.advertisement.budget'), field: 'budget', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.title'), field: 'title', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.status'), field: 'status', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.category'), field: 'category', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.subcategory'), field: 'subcategory', filter: 'true', sortable: true },
         { headerName: this.$t('riportalApp.advertisement.company'), field: 'company', filter: 'true', sortable: true },
+        { headerName: this.$t('riportalApp.advertisement.budget'), field: 'budget', filter: 'true', sortable: true },
         { headerName: this.$t('riportalApp.advertisement.activationDatetime'), field: 'datetime', filter: 'true', sortable: true },
         { headerName: this.$t('riportalApp.advertisement.id'), field: 'id', filter: 'true', cellRenderer: this.IdRenderer },
       ],
@@ -65,7 +66,7 @@ export default class Advertisement extends mixins(AlertMixin) {
     const lnktxt = this.$t('entity.action.view');
     // const link = `<a href="/b2b/advertisement/viewan/${params.value}" target="_blank">` + this.$t('entity.action.view') + `</a>`;
 
-    const link = `<a href="/b2b/advertisement/${params.value}/view" target="_blank">` + this.$t('entity.action.view') + `</a>`;
+    const link = `<a href="/b2b/advertisement/${params.value}/view" class="text-body">` + this.$t('entity.action.view') + `</a>`;
 
     return link;
   }
@@ -130,7 +131,12 @@ export default class Advertisement extends mixins(AlertMixin) {
       subobj['status'] = advs[i].status != null ? advs[i].status.status : '';
       subobj['type'] = advs[i].type != null ? advs[i].type.type : '';
       subobj['kind'] = advs[i].kinds != null ? this.advertisementKindsString(advs[i]) : '';
-      subobj['subsubcategory'] = advs[i].subsubcategory.name != null ? advs[i].subsubcategory.name : '';
+      subobj['category'] =
+        advs[i].subsubcategory.advertisementSubcategory.advertisementCategory.name != null
+          ? advs[i].subsubcategory.advertisementSubcategory.advertisementCategory.name
+          : '';
+      subobj['subcategory'] =
+        advs[i].subsubcategory.advertisementSubcategory.name != null ? advs[i].subsubcategory.advertisementSubcategory.name : '';
       subobj['budget'] = advs[i].budget != null ? advs[i].budget : '';
       subobj['company'] = advs[i].company != null ? advs[i].company.name : '';
       var dtm = new Date(advs[i].activationDatetime);

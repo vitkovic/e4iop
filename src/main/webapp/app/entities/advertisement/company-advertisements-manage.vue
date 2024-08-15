@@ -172,7 +172,7 @@
                   tag="button"
                   class="btn btn-primary btn-sm edit"
                 >
-                  <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                  <!-- <font-awesome-icon icon="pencil-alt"></font-awesome-icon> -->
                   <span v-text="$t('entity.action.edit')">Edit</span>
                 </router-link>
                 <b-button
@@ -200,7 +200,7 @@
                   class="btn btn-sm"
                   v-b-modal.softDeleteEntity
                 >
-                  <font-awesome-icon icon="times"></font-awesome-icon>
+                  <!-- <font-awesome-icon icon="times"></font-awesome-icon> -->
                   <span v-text="$t('entity.action.delete')">Delete</span>
                 </b-button>
                 <b-button
