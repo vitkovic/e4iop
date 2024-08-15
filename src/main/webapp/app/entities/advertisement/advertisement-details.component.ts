@@ -211,23 +211,56 @@ export default class AdvertisementDetails extends Vue {
     window.open(shareUrl, 'twitter-share-dialog', 'width=800,height=600');
   }
 
+  // copyToClipboard() {
+  //   const url = window.location.href;
+
+  //   navigator.clipboard
+  //     .writeText(url)
+  //     .then(() => {
+  //       const errorText = this.$t('riportalApp.company.copyLink');
+  //       this.$notify({
+  //         text: errorText,
+  //         type: 'info',
+  //         duration: 1000,
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.error('Failed to copy URL to clipboard: ', error);
+  //       alert('Failed to copy URL to clipboard');
+  //     });
+  // }
+
   copyToClipboard() {
     const url = window.location.href;
 
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        const errorText = this.$t('riportalApp.company.copyLink');
+    // Create a temporary textarea element to hold the URL
+    const textArea = document.createElement('textarea');
+    textArea.value = url;
+    document.body.appendChild(textArea);
+
+    // Select the text in the textarea
+    textArea.select();
+
+    try {
+      // Execute the copy command
+      const successful = document.execCommand('copy');
+      if (successful) {
+        const successText = this.$t('riportalApp.company.copyLink');
         this.$notify({
-          text: errorText,
+          text: successText,
           type: 'info',
           duration: 1000,
         });
-      })
-      .catch(error => {
-        console.error('Failed to copy URL to clipboard: ', error);
-        alert('Failed to copy URL to clipboard');
-      });
+      } else {
+        throw new Error('Copy command failed');
+      }
+    } catch (error) {
+      console.error('Failed to copy URL to clipboard: ', error);
+      alert('Failed to copy URL to clipboard');
+    }
+
+    // Remove the temporary textarea element
+    document.body.removeChild(textArea);
   }
 
   // ---  SHARE END ---
