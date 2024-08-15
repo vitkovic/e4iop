@@ -395,6 +395,7 @@
 @media (max-width: 768px) {
   .basic-card{
     padding: 15px;
+    margin: 10px;
   }
 }
 </style>
