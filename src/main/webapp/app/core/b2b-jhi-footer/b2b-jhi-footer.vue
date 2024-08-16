@@ -2,19 +2,19 @@
   <div id="footer" class="footer">
     <div class="mainFooter">
       <a href="https://www.srbija.gov.rs/" target="_blank">
-        <img src="/content/images/vlada_republike_srbijeE.jpg" alt="Vlada Republike Srbije logo" />
+        <img src="/content/images/vlada_republike_srbijeE.jpg" class="biggerLogo" alt="Vlada Republike Srbije logo" />
       </a>
       <a href="https://nitra.gov.rs/cir" target="_blank">
-        <img src="/content/images/NITRA logo.png" alt="Ministarstvo nauke, tehnoološkog razvoja i inovacija logo" />
+        <img src="/content/images/NITRA logo.png" class="nitraLogo" alt="Ministarstvo nauke, tehnoološkog razvoja i inovacija logo" />
       </a>
       <a href="https://www.pmi.com/markets/serbia/rs/about-us/overview" target="_blank">
-        <img src="/content/images/Philip-Morris-LogoO.png" alt="Philip Morris logo" />
+        <img src="/content/images/Philip-Morris-LogoO.png" class="smallerLogo" alt="Philip Morris logo" />
       </a>
       <a href="https://www.startech.org.rs/" target="_blank">
-        <img src="/content/images/StarTech logoO.jpg" alt="STARTECH logo" class="startech"/>
+        <img src="/content/images/StarTech logoO.jpg" class="biggerLogo" alt="STARTECH logo" />
       </a>
       <a href="https://naled.rs/" target="_blank">
-        <img src="/content/images/naledLogo.png" alt="Naled logo" />
+        <img src="/content/images/naledLogo.png" class="smallerLogo" alt="Naled logo" />
       </a>
     </div>
     <!-- <div class="logoi">
@@ -60,12 +60,21 @@
   width: 100%;
   display: flex;
   /* height: 40px; */
+  align-items: center;
   justify-content: space-around;
   padding: 24px 0;
 }
 
-.mainFooter a img {
+.mainFooter a .biggerLogo {
   height: 5rem;
+}
+
+.mainFooter a .smallerLogo {
+  height: 3.6rem;
+}
+
+.mainFooter a .nitraLogo {
+  height: 4.6rem;
 }
 
 .logoi {
@@ -215,13 +224,49 @@
   }
 
   @media screen and (max-width: 1100px) {
-    .mainFooter a img {
+    .mainFooter a .biggerLogo {
+      height: 3rem;
+    }
+
+    .mainFooter a .smallerLogo {
+      height: 2.6rem;
+    }
+
+    .mainFooter a .nitraLogo {
       height: 3rem;
     }
   }
 
-  @media screen and (max-width: 835px) {
+  /* @media screen and (max-width: 835px) {
     .mainFooter a img {
+      height: 2rem;
+    }
+  } */
+
+  @media screen and (max-width: 770px) {
+    .mainFooter a .biggerLogo {
+      height: 2.4rem;
+    }
+
+    .mainFooter a .smallerLogo {
+      height: 2.4rem;
+    }
+
+    .mainFooter a .nitraLogo {
+      height: 2.4rem;
+    }
+  }
+
+  @media screen and (max-width: 695px) {
+    .mainFooter a .biggerLogo {
+      height: 2rem;
+    }
+
+    .mainFooter a .smallerLogo {
+      height: 2rem;
+    }
+
+    .mainFooter a .nitraLogo {
       height: 2rem;
     }
   }
@@ -231,14 +276,23 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 10px
     }
 
-    .mainFooter a img {
+    /* .mainFooter a img {
       height: 4rem;
+    } */
+
+    .mainFooter a .biggerLogo {
+      height: 4.2rem;
     }
 
-    .startech {
-      /* width: 250px; */
+    .mainFooter a .smallerLogo {
+      height: 3rem;
+    }
+
+    .mainFooter a .nitraLogo {
+      height: 4rem;
     }
   }
 
