@@ -174,7 +174,7 @@
                     <font-awesome-icon icon="eye"></font-awesome-icon>
                     <span v-text="$t('entity.action.view')">Oceni</span>
                   </b-button>
-                  <b-button
+                  <!-- <b-button
                       v-on:click="prepareEditRating(collaboration, ratingSideOptions.OFFER)"
                       variant="primary"
                       class="btn btn-sm"
@@ -182,7 +182,7 @@
                     >
                     <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                     <span v-text="$t('entity.action.edit')">Oceni</span>
-                  </b-button>
+                  </b-button> -->
                   <b-button
                       v-on:click="preareDeleteRatingModal(collaboration, ratingSideOptions.OFFER)"
                       variant="danger"
@@ -195,7 +195,7 @@
                 </div>
               </div>
               <div v-else>
-                <b-button
+                <!-- <b-button
                     v-on:click="prepareRating(collaboration, ratingSideOptions.OFFER)"
                     variant="secondary"
                     class="btn btn-sm"
@@ -203,7 +203,7 @@
                   >
                     <font-awesome-icon icon="star"></font-awesome-icon>
                     <span v-text="$t('riportalApp.collaboration.actions.rate')">Oceni</span>
-                  </b-button>
+                  </b-button> -->
               </div>
             </td>
             <td>
@@ -225,7 +225,7 @@
                     <font-awesome-icon icon="eye"></font-awesome-icon>
                     <span v-text="$t('entity.action.view')">Oceni</span>
                   </b-button>
-                  <b-button
+                  <!-- <b-button
                       v-on:click="prepareEditRating(collaboration, ratingSideOptions.REQUEST)"
                       variant="primary"
                       class="btn btn-sm"
@@ -233,7 +233,7 @@
                     >
                     <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                     <span v-text="$t('entity.action.edit')">Oceni</span>
-                  </b-button>
+                  </b-button> -->
                   <b-button
                       v-on:click="preareDeleteRatingModal(collaboration, ratingSideOptions.REQUEST)"
                       variant="danger"
@@ -246,7 +246,7 @@
                 </div>
               </div>
               <div v-else>
-                <b-button
+                <!-- <b-button
                     v-on:click="prepareRating(collaboration, ratingSideOptions.REQUEST)"
                     variant="secondary"
                     class="btn btn-sm"
@@ -254,7 +254,7 @@
                   >
                     <font-awesome-icon icon="star"></font-awesome-icon>
                     <span v-text="$t('riportalApp.collaboration.actions.rate')">Oceni</span>
-                  </b-button>
+                  </b-button> -->
               </div>
             </td>
             <!-- <td>{{collaboration.commentOffer}}</td> -->
