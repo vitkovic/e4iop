@@ -56,7 +56,7 @@
                             </small>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="form-control-label" for="email" v-text="$t('global.form[\'email.label\']')">Email</label>
                         <input type="email" class="form-control" id="email" name="email" v-bind:placeholder="$t('global.form[\'email.placeholder\']')"
                                :class="{'valid': !$v.settingsAccount.email.$invalid, 'invalid': $v.settingsAccount.email.$invalid }"
@@ -79,6 +79,18 @@
                                 Your email cannot be longer than 100 characters.
                             </small>
                         </div>
+                    </div> -->
+                    <div v-if="portalUser" class="form-group">
+                        <label class="form-control-label" v-text="$t('riportalApp.portalUser.doNotify.question')" for="notifications"
+                            >Is registered on portal eInovations</label
+                        >
+                        <input
+                            type="checkbox"
+                            class="form-check"
+                            name="notifications"
+                            id="notifications"
+                            v-model="doNotify"
+                        />
                     </div>
                     <div class="form-group" v-if="languages && Object.keys(languages).length > 1">
                         <label for="langKey" v-text="$t('settings.form.language')">Language</label>

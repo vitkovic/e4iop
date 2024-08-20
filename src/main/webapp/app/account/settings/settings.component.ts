@@ -3,6 +3,10 @@ import axios from 'axios';
 import { EMAIL_ALREADY_USED_TYPE } from '@/constants';
 import { Vue, Component, Inject } from 'vue-property-decorator';
 
+import { IPortalUser } from '@/shared/model/portal-user.model';
+
+import PortalUserService from '../portal-user/portal-user.service';
+
 const validations = {
   settingsAccount: {
     firstName: {
@@ -15,12 +19,12 @@ const validations = {
       minLength: minLength(1),
       maxLength: maxLength(50),
     },
-    email: {
-      required,
-      email,
-      minLength: minLength(5),
-      maxLength: maxLength(254),
-    },
+    // email: {
+    //   required,
+    //   email,
+    //   minLength: minLength(5),
+    //   maxLength: maxLength(254),
+    // },
   },
 };
 
@@ -28,14 +32,28 @@ const validations = {
   validations,
 })
 export default class Settings extends Vue {
+  @Inject('portalUserService') private portalUserService: () => PortalUserService;
+
+  public portalUser: IPortalUser | null = null;
+  public doNotify = false;
+
   public success: string = null;
   public error: string = null;
   public errorEmailExists: string = null;
   public languages: any = this.$store.getters.languages || [];
 
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.retrievePortalUser();
+    });
+  }
+
   public save(): void {
     this.error = null;
     this.errorEmailExists = null;
+
+    this.updateDoNotify();
+
     axios
       .post('api/account', this.settingsAccount)
       .then(() => {
@@ -59,5 +77,27 @@ export default class Settings extends Vue {
 
   public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
+  public retrievePortalUser(): void {
+    this.portalUserService()
+      .findByUserId(this.settingsAccount.id)
+      .then(res => {
+        this.portalUser = res;
+        this.doNotify = this.portalUser.doNotify;
+      });
+  }
+
+  public updateDoNotify(): void {
+    if (this.portalUser == null) {
+      return;
+    }
+
+    this.portalUserService()
+      .updateDoNotify(this.portalUser.id, this.doNotify)
+      .then(res => {
+        this.portalUser = res;
+        this.doNotify = this.portalUser.doNotify;
+      });
   }
 }

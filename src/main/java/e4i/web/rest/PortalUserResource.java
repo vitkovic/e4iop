@@ -305,4 +305,15 @@ public class PortalUserResource {
 
         return ResponseEntity.ok().build();
     }
+    
+    @PutMapping("/portal-users/update-notify/{id}/{doNotify}")
+    public ResponseEntity<PortalUser> updateDoNotify(@PathVariable String id, @PathVariable Boolean doNotify) throws URISyntaxException {
+        log.debug("REST request to update doNotify to {} for PortalUser {}", doNotify, id);
+     
+        PortalUser result = portalUserService.updateDoNotify(id, doNotify);
+
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .body(result);
+    }
 }

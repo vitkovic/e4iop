@@ -10,6 +10,7 @@ const baseApiUrl = 'api/portal-users';
 const baseApiUrlActivation = 'api/portal-users/for-activation';
 const userApiUrl = 'api/portal-users/user';
 const apiRemoveCompanyUser = 'api/portal-users/remove-company-user';
+const apiUpdateDoNotify = 'api/portal-users/update-notify';
 
 export default class PortalUserService {
   constructor(private store: Store<any>) {}
@@ -52,8 +53,8 @@ export default class PortalUserService {
         });
     });
   }
-  
-   public retrieveWOP(paginationQuery?: any): Promise<any> {
+
+  public retrieveWOP(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(baseApiUrl + '/get')
@@ -211,6 +212,19 @@ export default class PortalUserService {
     return new Promise<void>((resolve, reject) => {
       axios
         .put(`${apiRemoveCompanyUser}/${userId}`)
+        .then(res => {
+          resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public updateDoNotify(id: string, doNotify: boolean): Promise<IPortalUser> {
+    return new Promise<IPortalUser>((resolve, reject) => {
+      axios
+        .put(`${apiUpdateDoNotify}/${id}/${doNotify}`)
         .then(res => {
           resolve(res.data);
         })

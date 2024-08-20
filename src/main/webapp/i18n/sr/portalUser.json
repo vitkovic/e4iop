@@ -18,8 +18,12 @@
       "detail": {
         "title": "Korisnik portala"
       },
+      "doNotify": {
+        "title": "Obavštenja",
+        "question": "Želim da primam email obaveštenja?"
+      },
       "firstName": "Ime",
-       "createdat": "Kreiran",
+      "createdat": "Kreiran",
       "familyName": "Prezime",
       "phone": "Telefon",
       "position": "Pozicija",

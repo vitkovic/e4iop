@@ -364,4 +364,22 @@ public class PortalUserService {
 
 		return result;
 	}
+    
+    
+    @Transactional
+	public PortalUser updateDoNotify(String id, Boolean doNotify) {
+        log.debug("Request to update doNotify to {} for PortalUser {}", doNotify, id);
+        
+        Optional<PortalUser> portalUserOptional = portalUserRepository.findById(id);
+        
+    	if (portalUserOptional.isEmpty()) {
+    		String errorMessage = String.format("PortalUser with id={} could not be found.", id);
+        	throw new EntityNotFoundException(errorMessage);
+    	}
+    	
+    	PortalUser portalUser = portalUserOptional.get();
+    	portalUser.setDoNotify(doNotify);
+        
+		return portalUserRepository.save(portalUser);
+	}
 }
