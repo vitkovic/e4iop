@@ -26,6 +26,7 @@ import e4i.security.AuthoritiesConstants;
 import e4i.service.MailService;
 import e4i.service.UserService;
 import e4i.service.dto.UserDTO;
+import e4i.web.rest.dto.B2BCMSUserDTO;
 import e4i.web.rest.dto.B2BUserDTO;
 import e4i.web.rest.errors.BadRequestAlertException;
 import e4i.web.rest.errors.EmailAlreadyUsedException;
@@ -181,6 +182,16 @@ public class UserResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), users);
         return new ResponseEntity<>(users.getContent(), headers, HttpStatus.OK);
     }
+    
+    @GetMapping("/users/b2b-cms")
+    public ResponseEntity<List<B2BCMSUserDTO>> findAllB2BCMSUsers(Pageable pageable) {
+        log.debug("REST request to find all B2B CMS Users");
+
+        Page<B2BCMSUserDTO> users = userService.findAllB2BCMSUsers(pageable);
+        
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), users);
+        return new ResponseEntity<>(users.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * Gets a list of all roles.
@@ -213,9 +224,18 @@ public class UserResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<Void> deleteUser(@PathVariable String login) {
+//    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<?> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
+        
+        if (!userService.isCurrentUserInRole(
+        		AuthoritiesConstants.ADMIN, 
+        		AuthoritiesConstants.CMS_SUPER_ADMIN)
+        		) {
+        	String message = String.format("Action forbidden: You do not have the required permissions.");
+        	return ResponseEntity.badRequest().body(message);
+        }
+        
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "userManagement.deleted", login)).build();
     }
@@ -226,7 +246,11 @@ public class UserResource {
         log.debug("REST request to change activation state of User : {}", login);
         
 
-        if (!userService.isCurrentUserInRole(AuthoritiesConstants.ADMIN, AuthoritiesConstants.CMS_ADMIN)) {
+        if (!userService.isCurrentUserInRole(
+        		AuthoritiesConstants.ADMIN, 
+        		AuthoritiesConstants.CMS_SUPER_ADMIN, 
+        		AuthoritiesConstants.CMS_ADMIN)
+        		) {
         	String message = String.format("Action forbidden: You do not have the required permissions.");
         	return ResponseEntity.badRequest().body(message);
         }

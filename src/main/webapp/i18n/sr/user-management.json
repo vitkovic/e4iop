@@ -2,16 +2,21 @@
   "userManagement": {
     "home": {
       "title": "Korisnici",
+      "adminTitle": "Administratori",
       "accountTitle": "Korisnici naloga",
       "createLabel": "Kreiraj novog korisnika",
       "createOrEditLabel": "Kreiraj ili izmeni korisnika",
-      "addLabel": "Dodaj novog korisnika"
+      "addLabel": "Dodaj novog korisnika",
+      "addAdminLabel": "Dodaj novog administratora"
     },
     "created": "Kreiran je novi korisnik {{ param }}",
     "updated": "Korisnik {{ param }} je izmenjen",
     "deleted": "Korisnik {{ param }} je obrisan",
     "delete": {
       "question": "Da li ste sigurni da želite da obrišite korisnika {{ login }}?"
+    },
+    "deleteAdmin": {
+      "question": "Da li ste sigurni da želite da obrišite administratora {{ login }}?"
     },
     "detail": {
       "title": "Korisnik"

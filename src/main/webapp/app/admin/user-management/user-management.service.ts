@@ -5,6 +5,7 @@ import { Authority } from '@/shared/security/authority';
 
 const apiFindAllForCompany = 'api/users/company';
 const apiFindAllB2BUsers = 'api/users/b2b';
+const apiFindAllB2BCMSUsers = 'api/users/b2b-cms';
 const apiActivateUser = 'api/users/activate';
 
 export default class UserManagementService {
@@ -49,6 +50,19 @@ export default class UserManagementService {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(apiFindAllB2BUsers + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public findAllB2BCMSUsers(paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(apiFindAllB2BCMSUsers + `?${buildPaginationQueryOpts(paginationQuery)}`)
         .then(res => {
           resolve(res);
         })

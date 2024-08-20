@@ -57,4 +57,9 @@ public interface UserRepository extends JpaRepository<User, String> {
 			+ "JOIN u.portalUser pu "
 		    + "WHERE pu.company IS NOT NULL")
 	Page<User> findAllB2BUsers(Pageable pageable);
+	
+	@Query("SELECT u FROM User u "
+	       + "JOIN u.authorities a "
+	       + "WHERE a.name IN :authorities")
+	Page<User> findAllUsersByAuthorities(Pageable pageable, @Param("authorities") List<String> authorities);
 }

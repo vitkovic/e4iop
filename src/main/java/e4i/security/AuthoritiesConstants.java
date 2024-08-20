@@ -17,6 +17,8 @@ public final class AuthoritiesConstants {
     
     public static final String COMPANY_USER = "ROLE_COMPANY_USER";
     
+    public static final String CMS_SUPER_ADMIN = "ROLE_CMS_SUPER_ADMIN";
+    
     public static final String CMS_ADMIN = "ROLE_CMS_ADMIN";
 
 

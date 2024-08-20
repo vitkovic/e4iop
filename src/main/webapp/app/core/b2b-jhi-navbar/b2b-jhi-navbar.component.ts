@@ -51,6 +51,8 @@ export default class B2BJhiNavbar extends Vue {
   public advertisementTypeOptions = AdvertisementTypeOptions;
   public isAdminValue = false;
   public isCompanyAdminValue = false;
+  public isCMSSuperAdminValue = false;
+  public isCMSAdminValue = false;
 
   public category;
 
@@ -75,8 +77,11 @@ export default class B2BJhiNavbar extends Vue {
   created() {
     this.translationService().refreshTranslation(this.currentLanguage);
     this.mainSearchCategory = 1;
+
     this.setIsAdmin();
     this.setIsCompanyAdmin();
+    this.setIsCMSSuperAdmin();
+    this.setIsCMSAdmin();
   }
 
   data() {
@@ -200,12 +205,28 @@ export default class B2BJhiNavbar extends Vue {
     this.isCompanyAdminValue = await this.hasAnyAuthority('ROLE_COMPANY_ADMIN');
   }
 
+  public async setIsCMSSuperAdmin(): Promise<void> {
+    this.isCMSSuperAdminValue = await this.hasAnyAuthority('ROLE_CMS_SUPER_ADMIN');
+  }
+
+  public async setIsCMSAdmin(): Promise<void> {
+    this.isCMSAdminValue = await this.hasAnyAuthority('ROLE_CMS_ADMIN');
+  }
+
   get isAdmin(): boolean {
     return this.isAdminValue;
   }
 
   get isCompanyAdmin(): boolean {
     return this.isCompanyAdminValue;
+  }
+
+  get isCMSSuperAdmin(): boolean {
+    return this.isCMSSuperAdminValue;
+  }
+
+  get isCMSAdmin(): boolean {
+    return this.isCMSAdminValue;
   }
 
   public get swaggerEnabled(): boolean {
@@ -244,7 +265,7 @@ export default class B2BJhiNavbar extends Vue {
   public notifsearchshown = false;
 
   public autoAdv(): any {
-	  console.log('kuku');
+    console.log('kuku');
     if (!this.notifsearchshown) {
       this.$notify({
         text: JSON.stringify(this.$t('global.navbar.autosearchnote')),

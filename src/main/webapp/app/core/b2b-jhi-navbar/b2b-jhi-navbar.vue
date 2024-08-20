@@ -75,7 +75,7 @@
             <b-nav-item-dropdown
               right
               id="cms-admin-menu"
-              v-if="isAdmin && authenticated"
+              v-if="(isAdmin || isCMSAdmin || isCMSSuperAdmin) && authenticated"
               :class="{ 'router-link-active': subIsActive('/admin') }"
               active-class="active"
             >
@@ -83,13 +83,13 @@
                 <font-awesome-icon icon="cogs" />
                 <span v-text="'CMS'">CMS</span>
               </span>
-              <b-dropdown-item to="#" active-class="active">
+              <b-dropdown-item v-if="(isAdmin || isCMSSuperAdmin) && authenticated" :to="{ name: 'CMSAdministrators' }" active-class="active">
                 <span v-text="$t('global.menu.cms.admins')">Upravljanje administratorima</span>
               </b-dropdown-item>
               <b-dropdown-item :to="{ name: 'CMSUserManagement' }" active-class="active">
                 <span v-text="$t('global.menu.cms.users')">Upravljanje korisnicima</span>
               </b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'CMSAdvertsement' }" active-class="active">
+              <b-dropdown-item :to="{ name: 'CMSAdvertisements' }" active-class="active">
                 <span v-text="$t('global.menu.cms.advertisements')">Upravljanje oglasima</span>
               </b-dropdown-item>
               <b-dropdown-item :to="{ name: 'CMSPages' }" active-class="active">

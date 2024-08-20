@@ -2,16 +2,21 @@
   "userManagement": {
     "home": {
       "title": "Users",
+      "adminTitle": "Administrators",
       "accountTitle": "Account users",
       "createLabel": "Create new user",
       "createOrEditLabel": "Create or edit user",
-      "addLabel": "Add new user"
+      "addLabel": "Add new user",
+      "addAdminLabel": "Add new administrator"
     },
     "created": "A new user is created with identifier {{ param }}",
     "updated": "A user is updated with identifier {{ param }}",
     "deleted": "A user is deleted with identifier {{ param }}",
     "delete": {
       "question": "Are you sure you want to delete user with identifier {{ login }}?"
+    },
+    "deleteAdmin": {
+      "question": "Are you sure you want to delete administrator {{ login }}?"
     },
     "detail": {
       "title": "User"

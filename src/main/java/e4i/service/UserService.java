@@ -30,6 +30,7 @@ import e4i.domain.PortalUser;
 import e4i.repository.PortalUserRepository;
 import e4i.repository.UserRepository;
 import e4i.security.AuthoritiesConstants;
+import e4i.web.rest.dto.B2BCMSUserDTO;
 import e4i.web.rest.dto.B2BUserDTO;
 import e4i.web.rest.vm.ManagedUserVM;										   
 import java.time.temporal.ChronoUnit;									 
@@ -625,6 +626,18 @@ public class UserService {
     	
     	return userRepository.findAllB2BUsers(pageable)
                 .map(B2BUserDTO::new);
+    }
+    
+    @Transactional
+    public Page<B2BCMSUserDTO> findAllB2BCMSUsers(Pageable pageable) {
+    	log.debug("Request to find all B2B CMS Users");
+    	
+    	List<String> authorities = new ArrayList<>();
+    	authorities.add(AuthoritiesConstants.CMS_SUPER_ADMIN);
+    	authorities.add(AuthoritiesConstants.CMS_ADMIN);
+    	
+    	return userRepository.findAllUsersByAuthorities(pageable, authorities)
+                .map(B2BCMSUserDTO::new);
     }
     
     @Transactional

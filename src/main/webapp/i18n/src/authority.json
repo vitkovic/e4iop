@@ -3,6 +3,10 @@
     "company": {
       "ROLE_COMPANY_ADMIN": "Администратор",
       "ROLE_COMPANY_USER": "Корисник"
+    },
+    "cms": {
+      "ROLE_CMS_SUPER_ADMIN": "Супер администратор",
+      "ROLE_CMS_ADMIN": "Администратор"
     }
   }
 }
