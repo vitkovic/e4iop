@@ -18,8 +18,7 @@ const baseApiUrlSearchCollabDates = 'api/collaborations/searchdates';
 const baseApiUrlSearchUsersDates = 'api/portal-users/searchdates';
 const baseApiUrlUsers = 'api/portal-users/get';
 export default class CMSB2BService {
-
-public retrieveUsers(paginationQuery?: any): Promise<any> {
+  public retrieveUsers(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(baseApiUrlUsers + `?${buildPaginationQueryOpts(paginationQuery)}`)
@@ -32,7 +31,7 @@ public retrieveUsers(paginationQuery?: any): Promise<any> {
     });
   }
 
-public retrieveInquiries(paginationQuery?: any): Promise<any> {
+  public retrieveInquiries(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(baseApiUrlInquiry + `?${buildPaginationQueryOpts(paginationQuery)}`)
@@ -44,12 +43,11 @@ public retrieveInquiries(paginationQuery?: any): Promise<any> {
         });
     });
   }
-public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Promise<any> {
-	
-	//console.log(status + " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+  public retrieveCoolaborationsByStatus(status: number, paginationQuery?: any): Promise<any> {
+    //console.log(status + " aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     return new Promise<any>((resolve, reject) => {
       axios
-        .get(baseApiUrlCollab +   `?status=${status}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
+        .get(baseApiUrlCollab + `?status=${status}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`)
         .then(res => {
           resolve(res);
         })
@@ -71,7 +69,7 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  
+
   public retrieve(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
@@ -84,14 +82,11 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  
-   public retrieveSearch(search: string, category: number, paginationQuery?: any): Promise<any> {
+
+  public retrieveSearch(search: string, category: number, paginationQuery?: any): Promise<any> {
     var urlgo = '';
 
-    
-      urlgo = baseApiUrlSearch + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
-    
-   
+    urlgo = baseApiUrlSearch + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
 
     return new Promise<any>((resolve, reject) => {
       axios
@@ -104,14 +99,11 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  
-   public retrieveSearchDates(from: string, to: string, paginationQuery?: any): Promise<any> {
+
+  public retrieveSearchDates(from: string, to: string, paginationQuery?: any): Promise<any> {
     var urlgo = '';
 
-    
-      urlgo = baseApiUrlSearchDates + `?from=${from}` + `&to=${to}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
-    
-   
+    urlgo = baseApiUrlSearchDates + `?from=${from}` + `&to=${to}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
 
     return new Promise<any>((resolve, reject) => {
       axios
@@ -124,15 +116,32 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  
-  
-   public retrieveSearchCollabDates(from: string, to: string, status:number,paginationQuery?: any): Promise<any> {
+
+  public retrieveSearchCollabDates(
+    from: string,
+    to: string,
+    statusId: number,
+    typeId: number,
+    subsubcategoryId: number,
+    kindId: number,
+    paginationQuery?: any
+  ): Promise<any> {
     var urlgo = '';
 
-    
-      urlgo = baseApiUrlSearchCollabDates + `?from=${from}` + `&to=${to}` + `&` + `status=${status}`+  `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
-    
-   
+    urlgo =
+      baseApiUrlSearchCollabDates +
+      `?from=${from}` +
+      `&to=${to}` +
+      `&` +
+      `statusId=${statusId}` +
+      `&` +
+      `typeId=${typeId}` +
+      `&` +
+      `subsubcategoryId=${subsubcategoryId}` +
+      `&` +
+      `kindId=${kindId}` +
+      `&` +
+      `${buildPaginationQueryOpts(paginationQuery)}`;
 
     return new Promise<any>((resolve, reject) => {
       axios
@@ -145,15 +154,18 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  
-  
-  public retrieveSearchUsersDates(fetching:boolean, from: string, to: string, paginationQuery?: any): Promise<any> {
+
+  public retrieveSearchUsersDates(fetching: boolean, from: string, to: string, paginationQuery?: any): Promise<any> {
     var urlgo = '';
 
-    
-      urlgo = baseApiUrlSearchUsersDates + `?from=${from}` + `&to=${to}` + `&` + `eagerload=${fetching}`+  `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
-    
-   
+    urlgo =
+      baseApiUrlSearchUsersDates +
+      `?from=${from}` +
+      `&to=${to}` +
+      `&` +
+      `eagerload=${fetching}` +
+      `&` +
+      `${buildPaginationQueryOpts(paginationQuery)}`;
 
     return new Promise<any>((resolve, reject) => {
       axios
@@ -166,9 +178,8 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  
-  
-   public retrieveSearchType(type: number, paginationQuery?: any): Promise<any> {
+
+  public retrieveSearchType(type: number, paginationQuery?: any): Promise<any> {
     const urlgo = baseApiUrlSearchType + `?type=${type}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
 
     return new Promise<any>((resolve, reject) => {
@@ -182,8 +193,8 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  
-   public retrieveSearchKind(kind: number, paginationQuery?: any): Promise<any> {
+
+  public retrieveSearchKind(kind: number, paginationQuery?: any): Promise<any> {
     const urlgo = baseApiUrlSearchKind + `?kind=${kind}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
 
     return new Promise<any>((resolve, reject) => {
@@ -197,7 +208,7 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  public retrieveSearchCompany(company:number, paginationQuery?: any): Promise<any> {
+  public retrieveSearchCompany(company: number, paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(baseApiUrlSearchCompany + `?company=${company}` + `&${buildPaginationQueryOpts(paginationQuery)}`)
@@ -209,5 +220,4 @@ public retrieveCoolaborationsByStatus(status:number,paginationQuery?: any): Prom
         });
     });
   }
-  
 }

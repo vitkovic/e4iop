@@ -51,11 +51,30 @@ public interface CollaborationRepository extends JpaRepository<Collaboration, Lo
 	Page<Collaboration> findAllByStatusQ(@Param("statusId") Long status, Pageable pageable);
 	
 	
-	@Query(value = "SELECT collaboration FROM Collaboration collaboration " +
-	        "WHERE collaboration.status.id = :statusId and (datetime >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') and datetime <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS'))",
-	        countQuery ="SELECT collaboration FROM Collaboration collaboration " +
-	        "WHERE collaboration.status.id = :statusId and (datetime >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') and datetime <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS'))" )
-	Page<Collaboration> findAllByStatusQandDates(@Param("from") String from, @Param("to") String to, @Param("statusId") Long status, Pageable pageable);
+	@Query(value = "SELECT collaboration FROM Collaboration collaboration "
+			+ "JOIN collaboration.advertisement.kinds k "
+	        + "WHERE collaboration.status.id = :statusId "
+	        + "AND (datetime >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') "
+	        + "AND datetime <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS') "
+	        + "AND collaboration.advertisement.type.id = :typeId "
+	        + "AND collaboration.advertisement.subsubcategory.id = :subsubcategoryId "
+	        + "AND k.id = :kindId)",
+	        countQuery ="SELECT collaboration FROM Collaboration collaboration "
+        		+ "JOIN collaboration.advertisement.kinds k "
+    	        + "WHERE collaboration.status.id = :statusId "
+    	        + "AND (datetime >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') "
+    	        + "AND datetime <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS') "
+    	        + "AND collaboration.advertisement.type.id = :typeId "
+    	        + "AND collaboration.advertisement.subsubcategory.id = :subsubcategoryId "
+    	        + "AND k.id = :kindId)")
+	Page<Collaboration> findAllByStatusQandDates(
+			@Param("from") String from,
+			@Param("to") String to,
+			@Param("statusId") Long statusId,
+			@Param("typeId") Long typeId,
+			@Param("subsubcategoryId") Long subsubcategoryId,
+			@Param("kindId") Long kindId,
+			Pageable pageable);
 	
 	
 	

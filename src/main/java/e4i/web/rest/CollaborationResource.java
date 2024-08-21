@@ -159,9 +159,16 @@ public class CollaborationResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of collaborations in body.
      */
     @GetMapping("/collaborations/searchdates")
-    public ResponseEntity<List<Collaboration>> getAllCollaborationsByStatusAndDates(@RequestParam String from,@RequestParam String to,@RequestParam Long status, Pageable pageable) {
+    public ResponseEntity<List<Collaboration>> getAllCollaborationsByStatusAndDates(
+    		@RequestParam String from,
+    		@RequestParam String to,
+    		@RequestParam Long statusId,
+    		@RequestParam Long typeId,
+    		@RequestParam Long subsubcategoryId,
+    		@RequestParam Long kindId,
+    		Pageable pageable) {
         log.debug("REST request to get a page of Collaborations");
-        Page<Collaboration> page = collaborationService.findAllByStatusandDates(from, to, status, pageable);
+        Page<Collaboration> page = collaborationService.findAllByStatusandDates(from, to, statusId, typeId, subsubcategoryId, kindId, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

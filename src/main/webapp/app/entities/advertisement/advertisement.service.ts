@@ -3,6 +3,7 @@ import axios from 'axios';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
 import { IAdvertisement } from '@/shared/model/advertisement.model';
+import { IAdvertisementSubsubcategory } from '@/shared/model/advertisement-subsubcategory.model';
 
 const baseApiUrl = 'api/advertisements';
 const baseApiUrlView = 'api/advertisements/view';
@@ -500,39 +501,44 @@ export default class AdvertisementService {
     });
   }
 
-  public advertisementCategorizationBranch(advertisement: IAdvertisement, language = 'sr'): string {
+  public advertisementCategorizationBranch(instance: IAdvertisement | IAdvertisementSubsubcategory, language = 'sr'): string {
     let branch = '';
     const currentLanguage = language;
 
+    let option: IAdvertisementSubsubcategory;
+
+    if ('subsubcategory' in instance) {
+      const advertisement = instance as IAdvertisement;
+      option = advertisement.subsubcategory;
+    } else {
+      option = instance as IAdvertisementSubsubcategory;
+    }
+
     if (currentLanguage === 'sr') {
       branch =
-        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name +
-        ' / ' +
-        advertisement.subsubcategory.advertisementSubcategory.name +
-        ' / ' +
-        advertisement.subsubcategory.name;
+        option.advertisementSubcategory.advertisementCategory.name + ' / ' + option.advertisementSubcategory.name + ' / ' + option.name;
 
       return branch;
     }
 
     if (currentLanguage === 'src') {
       branch =
-        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameSrc +
+        option.advertisementSubcategory.advertisementCategory.nameSrc +
         ' / ' +
-        advertisement.subsubcategory.advertisementSubcategory.nameSrc +
+        option.advertisementSubcategory.nameSrc +
         ' / ' +
-        advertisement.subsubcategory.nameSrc;
+        option.nameSrc;
 
       return branch;
     }
 
     if (currentLanguage === 'en') {
       branch =
-        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameEn +
+        option.advertisementSubcategory.advertisementCategory.nameEn +
         ' / ' +
-        advertisement.subsubcategory.advertisementSubcategory.nameEn +
+        option.advertisementSubcategory.nameEn +
         ' / ' +
-        advertisement.subsubcategory.nameEn;
+        option.nameEn;
 
       return branch;
     }

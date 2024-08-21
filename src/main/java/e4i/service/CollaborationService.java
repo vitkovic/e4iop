@@ -85,9 +85,16 @@ public class CollaborationService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public Page<Collaboration> findAllByStatusandDates(String from, String to, Long status, Pageable pageable) {
+    public Page<Collaboration> findAllByStatusandDates(String from, String to, Long statusId, Long typeId, Long subsubcategoryId, Long kindId, Pageable pageable) {
         log.debug("Request to get all Collaborations");
-        return collaborationRepository.findAllByStatusQandDates(from, to, status, pageable);
+        
+        Page<Collaboration> collaborationsPage = collaborationRepository.findAllByStatusQandDates(from, to, statusId, typeId, subsubcategoryId, kindId, pageable);
+    	// Could this be done within a query???
+    	collaborationsPage.getContent().forEach(collaboration -> {
+    		Hibernate.initialize(collaboration.getAdvertisement().getKinds());
+        });
+        
+        return collaborationsPage;
     }
     
     

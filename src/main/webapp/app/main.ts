@@ -9,7 +9,7 @@ import 'vue2-datepicker/locale/sr';
 import 'vue2-datepicker/index.css';
 import Notifications from 'vue-notification';
 
-import  CMSB2BService from './cms-b2b/cms-b2b.service';
+import CMSB2BService from './cms-b2b/cms-b2b.service';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import App from './app.vue';
@@ -39,6 +39,7 @@ import AlertService from '@/shared/alert/alert.service';
 import TranslationService from '@/locale/translation.service';
 import ConfigurationService from '@/admin/configuration/configuration.service';
 import NumericDataUtils from '@/shared/data/numeric-data-utils.service';
+import DateTimeUtils from '@/shared/data/datetime-utils.service';
 
 /* tslint:disable */
 
@@ -177,13 +178,12 @@ Vue.component('FullCalendar', FullCalendar);
 
 //Vue.use(FullCalendar);
 
-import Vue2Editor from "vue2-editor";
+import Vue2Editor from 'vue2-editor';
 
 Vue.use(Vue2Editor);
 
-import VueCaptchaCode from '@johnnyguan/vue-captcha-code'
-Vue.use(VueCaptchaCode)
-
+import VueCaptchaCode from '@johnnyguan/vue-captcha-code';
+Vue.use(VueCaptchaCode);
 
 const i18n = config.initI18N(Vue);
 const store = config.initVueXStore(Vue);
@@ -193,13 +193,6 @@ const translationService = new TranslationService(store, i18n);
 const loginService = new LoginService();
 const accountService = new AccountService(store, (<any>Vue).cookie, translationService, router);
 const portalUserService = new PortalUserService(store);
-
-
-
-
-
-
-
 
 Vue.prototype.$testGlobal = 'test';
 
@@ -319,6 +312,7 @@ new Vue({
     inquiryService: () => new InquiryService(),
     searchPageService: () => new SearchPageService(),
     numericDataUtils: () => new NumericDataUtils(),
+    dateTimeUtils: () => new DateTimeUtils(),
     cmsB2BService: () => new CMSB2BService(),
   },
   i18n,

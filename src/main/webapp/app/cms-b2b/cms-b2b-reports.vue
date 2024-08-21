@@ -207,14 +207,7 @@
 			           	</div>   
 			                
 			                <div>&nbsp;</div>
-			                <div class="form-group">
-					              <label class="form-control-label" v-text="$t('riportalApp.reports.collaborations')" for="kat">Coolaborations</label>
-					                <select class="form-control" style="width:100%;max-width:100%" v-model="collabStatus" id="collab" name="collab" @change="retrieveCollaborations()" >
-                    					<option  v-for="element in collabStatusList" :key="element.id" :value="element.id" >{{element.status}}</option>
-                					</select>
-            				</div>
-			                <div>&nbsp;</div>
-			                 <div  class="form-group">
+							<div  class="form-group">
 				              <label
 				                class="form-control-label"
 				                v-text="$t('riportalApp.reports.creationCollabDatetimeFrom')"
@@ -250,16 +243,45 @@
 				                  @change="updateInstantFieldToCollab($event)"
 				                />
 				              </div>
-            			  
-              				</div>
-              			
-            			  
-            			
-            		
-            	
-						
-            			
-            			
+							</div>
+			                <div class="form-group">
+								<label class="form-control-label" v-text="$t('riportalApp.collaboration.status')" for="kat">Coolaborations</label>
+								<select class="form-control" style="width:100%;max-width:100%" v-model="collabStatus" id="collab" name="collab" @change="retrieveFilteredCollaborations()" >
+									<option  v-for="element in collabStatusList" :key="element.id" :value="element.id" >
+										<span v-if="$store.getters.currentLanguage === 'sr'">{{ element.status }}</span>
+										<span v-else-if="$store.getters.currentLanguage === 'src'">{{ element.statusSrc }}</span>
+										<span v-else-if="$store.getters.currentLanguage === 'en'">{{ element.statusEn }}</span>
+									</option>
+								</select>
+            				</div>
+							<div class="form-group">
+								<label class="form-control-label" v-text="$t('riportalApp.advertisement.categorization')" for="kat">Category</label>
+								<select class="form-control" style="width:100%;max-width:100%" v-model="advSubsubcategory" id="kat" name="kat" @change="retrieveFilteredCollaborations()" >
+									<option  v-for="element in advSubsubcategoryList" :key="element.id" :value="element" >{{ advertisementCategorizationBranch(element) }}</option>
+								</select>
+            				</div> 
+			                <div class="form-group">
+								<label class="form-control-label" v-text="$t('riportalApp.reports.type')" for="typ">Type</label>
+								<select class="form-control" style="width:100%;max-width:100%" v-model="advType" id="typ" name="typ" @change="retrieveFilteredCollaborations()" >
+									<option  v-for="element in advTypeList" :key="element.id" :value="element.id" >										
+										<span v-if="$store.getters.currentLanguage === 'sr'">{{ element.type }}</span>
+										<span v-else-if="$store.getters.currentLanguage === 'src'">{{ element.typeSrc }}</span>
+										<span v-else-if="$store.getters.currentLanguage === 'en'">{{ element.typeEn }}</span>
+									</option>
+								</select>
+            				</div> 
+			                <div class="form-group">
+								<label class="form-control-label" v-text="$t('riportalApp.reports.kind')" for="kin">Kind</label>
+								<select class="form-control" style="width:100%;max-width:100%" v-model="advKind" id="kin" name="kin" @change="retrieveFilteredCollaborations()" >
+									<option  v-for="element in advKindList" :key="element.id" :value="element.id" >
+										<span v-if="$store.getters.currentLanguage === 'sr'">{{ element.kind }}</span>
+										<span v-else-if="$store.getters.currentLanguage === 'src'">{{ element.kindSrc }}</span>
+										<span v-else-if="$store.getters.currentLanguage === 'en'">{{ element.kindEn }}</span>
+									</option>
+								</select>
+            				</div>
+			                <div>&nbsp;</div>
+
             			  <b-button
 							          v-text="$t('riportalApp.reports.exportcsv')"
 							          v-on:click="exportCSVFile('collaborations', 'collaborations')"
@@ -272,13 +294,18 @@
 				                <tr>
 				                    <th v-on:click="changeOrderCollab('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
 				                    <th v-on:click="changeOrderCollab('datetime')"><span v-text="$t('riportalApp.collaboration.datetime')">Datetime</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'datetime'"></jhi-sort-indicator></th>
-				                    <th v-on:click="changeOrderCollab('commentOffer')"><span v-text="$t('riportalApp.collaboration.commentOffer')">Comment Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'commentOffer'"></jhi-sort-indicator></th>
-				                    <th v-on:click="changeOrderCollab('commentRequest')"><span v-text="$t('riportalApp.collaboration.commentRequest')">Comment Request</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'commentRequest'"></jhi-sort-indicator></th>
+				                    <!-- <th v-on:click="changeOrderCollab('commentOffer')"><span v-text="$t('riportalApp.collaboration.commentOffer')">Comment Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'commentOffer'"></jhi-sort-indicator></th>
+				                    <th v-on:click="changeOrderCollab('commentRequest')"><span v-text="$t('riportalApp.collaboration.commentRequest')">Comment Request</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'commentRequest'"></jhi-sort-indicator></th> -->
 				                    <th v-on:click="changeOrderCollab('companyOffer.id')"><span v-text="$t('riportalApp.collaboration.companyOffer')">Company Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companyOffer.id'"></jhi-sort-indicator></th>
 				                    <th v-on:click="changeOrderCollab('companyRequest.id')"><span v-text="$t('riportalApp.collaboration.companyRequest')">Company Request</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'companyRequest.id'"></jhi-sort-indicator></th>
 				                    <th v-on:click="changeOrderCollab('advertisement.id')"><span v-text="$t('riportalApp.collaboration.advertisement')">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.id'"></jhi-sort-indicator></th>
-				                    <th v-on:click="changeOrderCollab('ratingOffer.id')"><span v-text="$t('riportalApp.collaboration.ratingOffer')">Rating Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ratingOffer.id'"></jhi-sort-indicator></th>
-				                    <th v-on:click="changeOrderCollab('ratingRequest.id')"><span v-text="$t('riportalApp.collaboration.ratingRequest')">Rating Request</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ratingRequest.id'"></jhi-sort-indicator></th>
+									<th v-on:click="changeOrderCollab('advertisement.type.type')"><span v-text="$t('riportalApp.collaboration.advertisementType')">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.type.type'"></jhi-sort-indicator></th>
+									<th>
+										<span v-text="$t('riportalApp.collaboration.advertisementKind')">Advertisement</span>
+									</th>
+									<th v-on:click="changeOrderCollab('advertisement.subsubcategory.name')"><span v-text="$t('riportalApp.advertisement.categorization')">Advertisement</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'advertisement.subsubcategory.name'"></jhi-sort-indicator></th>
+				                    <!-- <th v-on:click="changeOrderCollab('ratingOffer.id')"><span v-text="$t('riportalApp.collaboration.ratingOffer')">Rating Offer</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ratingOffer.id'"></jhi-sort-indicator></th>
+				                    <th v-on:click="changeOrderCollab('ratingRequest.id')"><span v-text="$t('riportalApp.collaboration.ratingRequest')">Rating Request</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'ratingRequest.id'"></jhi-sort-indicator></th> -->
 				                    <th v-on:click="changeOrderCollab('status.id')"><span v-text="'Status'">Status</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'status.id'"></jhi-sort-indicator></th>
 				                   
 				                </tr>
@@ -290,8 +317,8 @@
 				                        <router-link :to="{name: 'CollaborationView', params: {collaborationId: collaboration.id}}">{{collaboration.id}}</router-link>
 				                    </td>
 				                    <td>{{collaboration.datetime ? $d(Date.parse(collaboration.datetime), 'short') : ''}}</td>
-				                    <td>{{collaboration.commentOffer}}</td>
-				                    <td>{{collaboration.commentRequest}}</td>
+				                    <!-- <td>{{collaboration.commentOffer}}</td>
+				                    <td>{{collaboration.commentRequest}}</td> -->
 				                    <td>
 				                        <div v-if="collaboration.companyOffer">
 				                            <router-link :to="{name: 'CompanyView', params: {companyId: collaboration.companyOffer.id}}">{{collaboration.companyOffer.name}}</router-link>
@@ -307,7 +334,24 @@
 				                            <router-link :to="{name: 'AdvertisementView', params: {advertisementId: collaboration.advertisement.id}}">{{collaboration.advertisement.title}}</router-link>
 				                        </div>
 				                    </td>
-				                    <td>
+									<td>
+										<div v-if="collaboration.advertisement.type">
+											<span v-if="$store.getters.currentLanguage === 'sr'">{{ collaboration.advertisement.type.type }}</span>
+											<span v-else-if="$store.getters.currentLanguage === 'src'">{{ collaboration.advertisement.type.typeSrc }}</span>
+											<span v-else-if="$store.getters.currentLanguage === 'en'">{{ collaboration.advertisement.type.typeEn }}</span>
+										</div>
+									</td>
+									<td>
+										<div v-if="collaboration.advertisement.kinds">
+											{{ advertisementKindsString(collaboration.advertisement) }}
+										</div>
+									</td>
+									<td>
+										<div v-if="collaboration.advertisement.subsubcategory">
+											{{ advertisementCategorizationBranch(collaboration.advertisement) }}
+										</div>
+									</td>
+				                    <!-- <td>
 				                        <div v-if="collaboration.ratingOffer">
 				                            <router-link :to="{name: 'CollaborationRatingView', params: {collaborationRatingId: collaboration.ratingOffer.id}}">{{collaboration.ratingOffer.number}}</router-link>
 				                        </div>
@@ -316,12 +360,14 @@
 				                        <div v-if="collaboration.ratingRequest">
 				                            <router-link :to="{name: 'CollaborationRatingView', params: {collaborationRatingId: collaboration.ratingRequest.id}}">{{collaboration.ratingRequest.number}}</router-link>
 				                        </div>
-				                    </td>
-				                    <td>
-				                        <div v-if="collaboration.status">
-				                            {{collaboration.status.status}}
-				                        </div>
-				                    </td>
+				                    </td> -->
+									<td>
+									<div v-if="collaboration.status">
+										<span v-if="$store.getters.currentLanguage === 'sr'">{{ collaboration.status.status }}</span>
+										<span v-else-if="$store.getters.currentLanguage === 'src'">{{ collaboration.status.statusSrc }}</span>
+										<span v-else-if="$store.getters.currentLanguage === 'en'">{{ collaboration.status.statusEn }}</span>
+									</div>
+									</td>
 				                   
 				                </tr>
 				                </tbody>
