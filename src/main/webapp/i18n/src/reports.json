@@ -1,16 +1,16 @@
 {
   "riportalApp": {
     "reports": {
-	  "category":"Категорија",	
-	  "kind":"Врста",
-	  "company":"Компанија",
-	  "activationDatetimeFrom": "Датум Активације Од",
-	  "activationDatetimeTo": "Датум Активације До",
-	  "exportcsv": "CSV Експорт",
-	  "collaborations":"Сарадње",
-	  "creationCollabDatetimeFrom":"Датум креирања од",
-	  "creationCollabDatetimeТо":"Датум креиранја до",
-	  "inquiries":"Упити за сарадњу",
+      "category": "Категорија",
+      "kind": "Врста",
+      "company": "Компанија",
+      "activationDatetimeFrom": "Датум Активације Од",
+      "activationDatetimeTo": "Датум Активације До",
+      "exportcsv": "CSV Експорт",
+      "collaborations": "Сарадње",
+      "creationCollabDatetimeFrom": "Датум креирања од",
+      "creationCollabDatetimeТо": "Датум креиранја до",
+      "inquiries": "Упити за сарадњу",
       "statisticForOrganizationsOnPortal": "Статистика везана за организације на порталу",
       "searchOrganizations": "Потражите организацију",
       "naziv": "Назив",
@@ -52,7 +52,12 @@
       "downloadExcel": "Преузми у MS Excel формату",
       "detaljnije": "Детаљније",
       "realizedNumberOfRequests": "Реализовани захтеви",
-      "organizationDoesntOfferServices": "Изабрана организација не нуди ни једну услугу на порталу."
+      "organizationDoesntOfferServices": "Изабрана организација не нуди ни једну услугу на порталу.",
+      "filters": {
+        "all": "Све опције",
+        "dateFrom": "Датум од",
+        "dateTo": "Датум до"
+      }
     }
   }
 }

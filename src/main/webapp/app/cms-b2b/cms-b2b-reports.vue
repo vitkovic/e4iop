@@ -2,11 +2,11 @@
     <div>
       <div class="row justify-content-center">
           <div class="col-md-8">
-            <h3 class="mb-5" v-text="'B2B CMS Reports'"></h3>
+            <h3 class="mb-5" v-text="$t('riportalApp.cmsB2B.pages.reports')"></h3>
   
 				  <div>
 				  <b-tabs content-class="mt-3">
-				    <b-tab title="Advertisements" active>
+				    <b-tab :title="$t('riportalApp.advertisement.home.title')" active>
 						
 						
 					 <div class="d-flex">
@@ -190,7 +190,7 @@
 								
 							  
 						</b-tab>
-				    <b-tab title="Collaborations"><p>Collaborations</p>
+				    <b-tab :title="$t('riportalApp.collaboration.home.title')"><p>Collaborations</p>
 				    
 				    
 				     <div class="d-flex">
@@ -254,12 +254,6 @@
 									</option>
 								</select>
             				</div>
-							<div class="form-group">
-								<label class="form-control-label" v-text="$t('riportalApp.advertisement.categorization')" for="kat">Category</label>
-								<select class="form-control" style="width:100%;max-width:100%" v-model="advSubsubcategory" id="kat" name="kat" @change="retrieveFilteredCollaborations()" >
-									<option  v-for="element in advSubsubcategoryList" :key="element.id" :value="element" >{{ advertisementCategorizationBranch(element) }}</option>
-								</select>
-            				</div> 
 			                <div class="form-group">
 								<label class="form-control-label" v-text="$t('riportalApp.reports.type')" for="typ">Type</label>
 								<select class="form-control" style="width:100%;max-width:100%" v-model="advType" id="typ" name="typ" @change="retrieveFilteredCollaborations()" >
@@ -280,6 +274,12 @@
 									</option>
 								</select>
             				</div>
+							<div class="form-group">
+								<label class="form-control-label" v-text="$t('riportalApp.advertisement.categorization')" for="kat">Category</label>
+								<select class="form-control" style="width:100%;max-width:100%" v-model="advSubsubcategory" id="kat" name="kat" @change="retrieveFilteredCollaborations()" >
+									<option  v-for="element in advSubsubcategoryList" :key="element.id" :value="element" >{{ advertisementCategorizationBranch(element) }}</option>
+								</select>
+            				</div> 
 			                <div>&nbsp;</div>
 
             			  <b-button
@@ -376,7 +376,7 @@
             	    				
            	    
 				    </b-tab>
-				    <b-tab title="Users">
+				    <b-tab :title="$t('userManagement.home.title')">
 						  <div class="d-flex">
 						    
 			                <div class="form-group">
@@ -494,6 +494,200 @@
 					        </div>
 											
 						
+					</b-tab>
+
+					<b-tab :title="$t('riportalApp.collaborationRating.home.reportsTitle')" @click="retrieveFilteredRatings()">
+						<div  class="form-group">
+							<label
+							class="form-control-label"
+							v-text="$t('riportalApp.reports.creationCollabDatetimeFrom')"
+							for="activationDatetimeFrom"
+							>Activation Datetime From</label
+							>
+							<div class="d-flex">
+							<input
+								id="activationDatetimeFrom"
+								v-model="activationDatetimeFrom"
+								type="datetime-local"
+								class="form-control"
+								name="activationDatetimeFrom"
+								@change="updateInstantFieldFromRatings($event)"
+							/>
+							</div>
+						
+						</div>
+							<div  class="form-group">
+							<label
+							class="form-control-label"
+							v-text="$t('riportalApp.reports.creationCollabDatetimeТо')"
+							for="activationDatetimeTo"
+							>Activation Datetime To</label
+							>
+							<div class="d-flex">
+							<input
+								id="activationDatetimeTo"
+								type="datetime-local"
+								v-model="activationDatetimeTo"
+								class="form-control"
+								name="activationDatetimeTo"
+								@change="updateInstantFieldToRatings($event)"
+							/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="form-control-label" for="advertisement-type">
+								<span v-text="$t('riportalApp.advertisement.type')">Type</span>
+							</label>
+							<multiselect 
+								v-if="advTypeList"
+								v-model="ratingFilters.types"
+								:options="advTypeList"
+								:multiple="true"
+								:close-on-select="false"
+								:clear-on-select="false"
+								:custom-label="advertisementTypeTranslation"
+								placeholder=""
+								:selectLabel="$t('multiselect.selectLabel')"
+								:selectedLabel="$t('multiselect.selectedLabel')"
+								:deselectLabel="$t('multiselect.deselectLabel')"
+								label="type"
+								track-by="type"
+								@input="retrieveFilteredRatings()"
+							>
+							</multiselect>
+						</div>
+
+						<div class="form-group">
+							<label class="form-control-label" for="advertisement-kind">
+								<span v-text="$t('riportalApp.advertisement.kind')">Kind</span>
+							</label>
+							<multiselect 
+								v-if="advKindList"
+								v-model="ratingFilters.kinds"
+								:options="advKindList"
+								:multiple="true"
+								:close-on-select="false"
+								:clear-on-select="false"
+								:custom-label="advertisementKindTranslation"
+								placeholder=""
+								:selectLabel="$t('multiselect.selectLabel')"
+								:selectedLabel="$t('multiselect.selectedLabel')"
+								:deselectLabel="$t('multiselect.deselectLabel')"
+								label="kind"
+								track-by="kind"
+								@input="retrieveFilteredRatings()"
+							>
+							</multiselect>
+						</div>
+
+						<div class="form-group">
+							<label class="form-control-label" for="advertisement-subsubcategory">
+								<span v-text="$t('riportalApp.advertisement.categorization')">Subsubcategory</span>
+							</label>
+							<multiselect 
+								v-if="advSubsubcategoryList"
+								v-model="ratingFilters.subsubcategories"
+								:options="advSubsubcategoryList"
+								:multiple="true"
+								:close-on-select="false"
+								:clear-on-select="false"
+								:custom-label="advertisementCategorizationBranch"
+								placeholder=""
+								:selectLabel="$t('multiselect.selectLabel')"
+								:selectedLabel="$t('multiselect.selectedLabel')"
+								:deselectLabel="$t('multiselect.deselectLabel')"
+								label="name"
+								track-by="name"
+								@input="retrieveFilteredRatings()"
+							>
+							</multiselect>
+						</div>
+						
+						<div>&nbsp;</div>
+						<b-button 
+						v-text="$t('riportalApp.reports.exportcsv')" 
+						v-on:click="exportCSVFile('companyRatings', 'ratings')">Export
+						</b-button>
+
+						<div class="table-responsive" v-if="companyRatings && companyRatings.length > 0">
+				            <table class="table table-striped">
+				                <thead>
+									<tr>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.company')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.totalRatings')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.averageRating')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.totalRatings1')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.percentageRating1')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.totalRatings2')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.percentageRating2')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.totalRatings3')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.percentageRating3')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.totalRatings4')"></th>
+										<th v-text="$t('riportalApp.collaborationRating.ratings.percentageRating4')"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="rating in companyRatings" :key="rating.companyId">
+										<td>
+											<div v-if="rating.companyName">
+												<router-link v-if="rating.companyId" :to="{name: 'CompanyView', params: {companyId: rating.companyId}}" class="text-body">{{ rating.companyName }}</router-link>
+												<span v-else class="text-body">{{ rating.companyName }}</span>
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.totalRatings !== null">
+												{{ rating.totalRatings }}
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.averageRating !== null">
+												{{ rating.averageRating }}
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.totalRatings1 !== null">
+												{{ rating.totalRatings1 }}
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.percentageRating1 !== null">
+												{{ rating.percentageRating1 }}
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.totalRatings2 !== null">
+												{{ rating.totalRatings2 }}
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.percentageRating2 !== null">
+												{{ rating.percentageRating2 }}
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.totalRatings3 !== null">
+												{{ rating.totalRatings3 }}
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.percentageRating3 !== null">
+												{{ rating.percentageRating3 }}
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.totalRatings4 !== null">
+												{{ rating.totalRatings4 }}
+											</div>
+										</td>
+										<td>
+											<div v-if="rating.percentageRating4 !== null">
+												{{ rating.percentageRating4 }}
+											</div>
+										</td>
+									</tr>
+				                </tbody>
+				            </table>
+				        </div>		
 					</b-tab>
 				  
 				  </b-tabs>

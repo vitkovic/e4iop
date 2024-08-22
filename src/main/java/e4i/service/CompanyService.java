@@ -15,6 +15,7 @@ import e4i.repository.CompanyRepository;
 import e4i.security.AuthoritiesConstants;
 import e4i.security.SecurityUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -158,4 +159,11 @@ public class CompanyService {
         	throw new EntityNotFoundException(errorMessage);
     	}
     }
+
+    @Transactional
+	public List<Company> getAll() {
+        log.debug("Request to get list of all Companies");
+        
+		return companyRepository.findAll();
+	}
 }

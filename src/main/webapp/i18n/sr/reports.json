@@ -1,16 +1,16 @@
 {
   "riportalApp": {
     "reports": {
-	  "category":"Kategorija",	
-	  "kind":"Vrsta",
-	  "company":"Kompanija",
-	  "activationDatetimeFrom": "Datum aktivacije Od",
-	  "activationDatetimeТо": "Datum aktivacije Do",
-	  "exportcsv": "CSV Eksport",
-	  "collaborations":"Saradnje",
-	  "creationCollabDatetimeFrom":"Datum kreiranja od",
-	  "creationCollabDatetimeТо":"Datum kreiranja do",
-	  "inquiries":"Upiti za sardanju",
+      "category": "Kategorija",
+      "kind": "Vrsta",
+      "company": "Kompanija",
+      "activationDatetimeFrom": "Datum aktivacije Od",
+      "activationDatetimeТо": "Datum aktivacije Do",
+      "exportcsv": "CSV Eksport",
+      "collaborations": "Saradnje",
+      "creationCollabDatetimeFrom": "Datum kreiranja od",
+      "creationCollabDatetimeТо": "Datum kreiranja do",
+      "inquiries": "Upiti za sardanju",
       "statisticForOrganizationsOnPortal": "Statistika vezana za organizacije na portalu",
       "searchOrganizations": "Potražite organizaciju",
       "naziv": "Naziv",
@@ -52,7 +52,12 @@
       "downloadExcel": "Preuzmi u MS Excel formatu",
       "detaljnije": "Detaljnije",
       "realizedNumberOfRequests": "Realizovani zahtevi",
-      "organizationDoesntOfferServices": "Izabrana organizacija ne nudi ni jednu uslugu na portalu."
+      "organizationDoesntOfferServices": "Izabrana organizacija ne nudi ni jednu uslugu na portalu.",
+      "filters": {
+        "all": "Sve opcije",
+        "dateFrom": "Datum od",
+        "dateTo": "Datum do"
+      }
     }
   }
 }

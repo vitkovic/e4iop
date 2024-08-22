@@ -17,11 +17,13 @@ import e4i.domain.Advertisement;
 import e4i.domain.AdvertisementStatus;
 import e4i.domain.Collaboration;
 import e4i.domain.CollaborationRating;
+import e4i.domain.Company;
 import e4i.domain.PortalUser;
 import e4i.repository.CollaborationRepository;
 import e4i.service.AdvertisementService;
 import e4i.service.CollaborationRatingService;
 import e4i.service.CollaborationService;
+import e4i.service.CompanyService;
 import e4i.service.MailService;
 import e4i.service.MessageService;
 import e4i.service.PortalUserService;
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +76,9 @@ public class CollaborationResource {
     
     @Autowired
     CollaborationRatingService collaborationRatingService;
+    
+    @Autowired
+    CompanyService companyService;
     
 //    @Autowired
     private final MailService mailService;
@@ -423,8 +429,10 @@ public class CollaborationResource {
 
         List<Collaboration> collaborations = collaborationService.findAllAcceptedCollaborationsForCompany(companyId);
         
+        Company company = companyService.getOneById(companyId);
+        
         if (!collaborations.isEmpty()) {
-        	CompanyRatingsDTO companyRatingsDTO = collaborationService.getCompanyRatings(collaborations, companyId);
+        	CompanyRatingsDTO companyRatingsDTO = collaborationService.getCompanyRatings(collaborations, company.getName(), companyId);
             return ResponseEntity.ok(companyRatingsDTO);
         } else {
             return ResponseEntity.noContent().build(); // Or another appropriate response
@@ -450,6 +458,43 @@ public class CollaborationResource {
         
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+    
+    @GetMapping("/collaborations/ratings-report")
+    public ResponseEntity<List<CompanyRatingsDTO>> getRatingsReport(    		
+    		@RequestParam String from,
+    		@RequestParam String to,
+    		@RequestParam List<Long> types,
+    		@RequestParam List<Long> kinds,
+    		@RequestParam List<Long> subsubcategories
+    		) {
+        log.debug("REST request to get all rating report for all Companies {}");
+        
+        List<Company> companies = companyService.getAll();
+        List<CompanyRatingsDTO> companyRatings = new ArrayList<>();
+        
+        for (Company company : companies) {
+        	List<Collaboration> collaborations = new ArrayList<>(collaborationService.findAllAcceptedByCompanyAndTimeAndAdvertisementFilters(
+        			company.getId(),
+        			from, 
+        			to,
+        			types,
+        			kinds,
+        			subsubcategories
+        			));
+        	
+        	CompanyRatingsDTO companyRatingsDTO = collaborationService.getCompanyRatings(collaborations, company.getName(), company.getId());
+        	companyRatings.add(companyRatingsDTO);
+        	
+        	System.out.println("RATINGS!!!!!!!");
+        	
+        	System.out.println(company.getName());
+        	System.out.println(collaborations.size());
+        	System.out.println(companyRatingsDTO.getAverageRating());
+        	System.out.println(companyRatingsDTO.getTotalRatings());
+        }
+   
+        return ResponseEntity.ok().body(companyRatings);
     }
     
     @PutMapping("/collaborations/delete-rating")

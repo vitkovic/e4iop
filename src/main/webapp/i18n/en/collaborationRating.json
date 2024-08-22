@@ -3,6 +3,7 @@
     "collaborationRating": {
       "home": {
         "title": "Collaboration Ratings",
+        "reportsTitle": "Ratings",
         "createLabel": "Create a new Collaboration Rating",
         "createOrEditLabel": "Create or edit a Collaboration Rating",
         "notFound": "No Collaboration Ratings found"
@@ -23,7 +24,20 @@
       "isVisible": "Is Visible",
       "isDeleted": "Is Deleted",
       "collaborationOffer": "Collaboration Offer",
-      "collaborationRequest": "Collaboration Request"
+      "collaborationRequest": "Collaboration Request",
+      "ratings": {
+        "company": "Company",
+        "totalRatings": "Total ratings",
+        "averageRating": "Average rating",
+        "totalRatings1": "Total *",
+        "percentageRating1": "Percentage [%] *",
+        "totalRatings2": "Total **",
+        "percentageRating2": "Percentage [%] **",
+        "totalRatings3": "Total ***",
+        "percentageRating3": "Percentage [%] ***",
+        "totalRatings4": "Total ****",
+        "percentageRating4": "Percentage [%] ****"
+      }
     }
   }
 }

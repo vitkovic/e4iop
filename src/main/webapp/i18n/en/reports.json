@@ -1,16 +1,16 @@
 {
   "riportalApp": {
     "reports": {
-	  "category":"Category",	
-	  "kind":"Kind",
-	  "company":"Company",	
-	  "activationDatetimeFrom": "activation Datetime From",
-	  "activationDatetimeТо": "activation Datetime То",
-	  "exportcsv": "CSV Export",
-	  "collaborations":"Cooperations",
-	  "creationCollabDatetimeFrom":"Creation Date from",
-	  "creationCollabDatetimeТо":"Creation Date to",
-	  "inquiries":"Inquiries for cooperation",
+      "category": "Category",
+      "kind": "Kind",
+      "company": "Company",
+      "activationDatetimeFrom": "activation Datetime From",
+      "activationDatetimeТо": "activation Datetime То",
+      "exportcsv": "CSV Export",
+      "collaborations": "Cooperations",
+      "creationCollabDatetimeFrom": "Creation Date from",
+      "creationCollabDatetimeТо": "Creation Date to",
+      "inquiries": "Inquiries for cooperation",
       "statisticForOrganizationsOnPortal": "Statistics for organizations on the portal",
       "searchOrganizations": "Search organization",
       "naziv": "Name",
@@ -52,7 +52,12 @@
       "downloadExcel": "Download in MS Excel format",
       "detaljnije": "More details",
       "realizedNumberOfRequests": "Realized requests",
-      "organizationDoesntOfferServices": "The selected organization does not offer any services on the portal."
+      "organizationDoesntOfferServices": "The selected organization does not offer any services on the portal.",
+      "filters": {
+        "all": "All options",
+        "dateFrom": "Date from",
+        "dateTo": "Date to"
+      }
     }
   }
 }

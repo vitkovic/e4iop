@@ -290,7 +290,7 @@ public class CollaborationService {
 	}
 
     @Transactional
-	public CompanyRatingsDTO getCompanyRatings(List<Collaboration> collaborations, Long companyId) {
+	public CompanyRatingsDTO getCompanyRatings(List<Collaboration> collaborations, String companyName, Long companyId) {
 		Long totalRatings = 0L;
 		Long totalRatings1 = 0L;
 		Long totalRatings2 = 0L;
@@ -333,6 +333,8 @@ public class CollaborationService {
 		Double percentageRating4 = totalRatings > 0 ? Double.valueOf(df.format(((double)  totalRatings4 / totalRatings) * 100)) : 0;
 
 		CompanyRatingsDTO companyRatingsDTO = new CompanyRatingsDTO();
+		companyRatingsDTO.setCompanyName(companyName);
+		companyRatingsDTO.setCompanyId(companyId);
 		companyRatingsDTO.setTotalRatings(totalRatings);
 		companyRatingsDTO.setTotalRatings1(totalRatings1);
 		companyRatingsDTO.setTotalRatings2(totalRatings2);
@@ -383,5 +385,34 @@ public class CollaborationService {
         	throw new IllegalArgumentException(errorMessage);
     	}
 	}
-    
+
+    @Transactional
+	public List<Collaboration> findAllAcceptedByCompanyAndTimeAndAdvertisementFilters(
+			Long companyId,
+			String from, 
+			String to, 
+			List<Long> types, 
+			List<Long> kinds,
+			List<Long> subsubcategories
+			) {
+        
+		log.debug("Request to get all accepted Collaborations for Company {} filtered by time and Advertisement filters", companyId);
+        
+        List<Collaboration> collaborations = collaborationRepository.findAllByCompanyAndStatusAndTimeAndAdvertisementFilters(
+        		companyId,
+        		from, 
+        		to, 
+        		CollaborationStatus.ACCEPTED, 
+        		types,
+        		kinds,
+        		subsubcategories
+        		);
+
+//        // Could this be done within a query???
+//        collaborations.getContent().forEach(collaboration -> {
+//    		Hibernate.initialize(collaboration.getAdvertisement().getKinds());
+//        });
+        
+        return collaborations;
+    }
 }

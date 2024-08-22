@@ -4,6 +4,8 @@ import VueRouter from 'vue-router';
 import TranslationService from '@/locale/translation.service';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
+import { ICompanyRatingsDTO } from '@/shared/model/dto/company-ratings-dto.model';
+
 const baseApiUrlSearch = 'api/advertisements/search';
 const baseApiUrlSearchAll = 'api/advertisements/get';
 const baseApiUrl = 'api/advertisements';
@@ -17,6 +19,8 @@ const baseApiUrlInquiry = 'api/inquiry';
 const baseApiUrlSearchCollabDates = 'api/collaborations/searchdates';
 const baseApiUrlSearchUsersDates = 'api/portal-users/searchdates';
 const baseApiUrlUsers = 'api/portal-users/get';
+const apiGetRatingsReport = 'api/collaborations/ratings-report';
+
 export default class CMSB2BService {
   public retrieveUsers(paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
@@ -212,6 +216,38 @@ export default class CMSB2BService {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(baseApiUrlSearchCompany + `?company=${company}` + `&${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getRatingsReport(
+    from: string,
+    to: string,
+    types: number[],
+    kinds: number[],
+    subsubcategories: number[]
+  ): Promise<ICompanyRatingsDTO> {
+    var urlgo = '';
+
+    urlgo =
+      apiGetRatingsReport +
+      `?from=${from}` +
+      `&to=${to}` +
+      `&` +
+      `types=${types}` +
+      `&` +
+      `kinds=${kinds}` +
+      `&` +
+      `subsubcategories=${subsubcategories}`;
+
+    return new Promise<ICompanyRatingsDTO>((resolve, reject) => {
+      axios
+        .get(urlgo)
         .then(res => {
           resolve(res);
         })

@@ -1,4 +1,6 @@
 export interface ICompanyRatingsDTO {
+  companyName?: string;
+  companyId?: number;
   averageRating?: number;
   averageRatingAdvertiser?: number;
   averageRatingRequester?: number;
@@ -33,6 +35,8 @@ export interface ICompanyRatingsDTO {
 
 export class CompanyRatingsDTO implements ICompanyRatingsDTO {
   constructor(
+    public companyName?: string,
+    public companyId?: number,
     public averageRating?: number,
     public averageRatingAdvertiser?: number,
     public averageRatingRequester?: number,

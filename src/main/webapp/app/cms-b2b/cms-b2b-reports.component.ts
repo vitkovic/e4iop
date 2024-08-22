@@ -3,8 +3,11 @@ import { Vue, Inject } from 'vue-property-decorator';
 import CMSB2BService from './cms-b2b.service';
 import { IAdvertisement } from '@/shared/model/advertisement.model';
 import { ICollaboration } from '@/shared/model/collaboration.model';
+import { IAdvertisementType } from '@/shared/model/advertisement-type.model';
+import { IAdvertisementKind } from '@/shared/model/advertisement-kind.model';
 import { IAdvertisementSubsubcategory } from '@/shared/model/advertisement-subsubcategory.model';
 //import { IInquiry } from '@/shared/model/inquiry.model';
+import { ICompanyRatingsDTO } from '@/shared/model/dto/company-ratings-dto.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import AccountService from '@/account/account.service';
 import Vue2Filters from 'vue2-filters';
@@ -24,6 +27,12 @@ import parse from 'date-fns/parse';
 import parseISO from 'date-fns/parseISO';
 import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 
+interface RatingFilters {
+  types: IAdvertisementType[];
+  kinds: IAdvertisementKind[];
+  subsubcategories: IAdvertisementSubsubcategory[];
+}
+
 @Component({
   mixins: [Vue2Filters.mixin],
 })
@@ -42,6 +51,7 @@ export default class CMSB2BReports extends Vue {
   public advertisements: IAdvertisement[] = [];
   public collaborations: ICollaboration[] = [];
   public portalUsers: IPortalUser[] = [];
+  public companyRatings: ICompanyRatingsDTO[] = [];
 
   public itemsPerPage = 500000;
   public queryCount: number = null;
@@ -62,7 +72,7 @@ export default class CMSB2BReports extends Vue {
   public advKindList = null;
   public advCompany = 1;
   public advCompanyList = null;
-  public advSubsubcategoryList = [];
+  public advSubsubcategoryList: IAdvertisementSubsubcategory[] = [];
   public activationDatetimeTo = null;
   public activationDatetimeFrom = null;
   public collabStatusList = null;
@@ -75,6 +85,12 @@ export default class CMSB2BReports extends Vue {
   public currentLanguage = '';
   public propOrderCollab = 'id';
   public reverseCollab = false;
+
+  public ratingFilters: RatingFilters = {
+    types: [],
+    kinds: [],
+    subsubcategories: [],
+  };
 
   data() {
     return {
@@ -314,6 +330,40 @@ export default class CMSB2BReports extends Vue {
         }
       );
   }
+
+  public retrieveFilteredRatings() {
+    // If no type is selected include all types
+    let types: number[] = [];
+    if (this.ratingFilters.types.length > 0) {
+      types = this.ratingFilters.types.map(type => type.id);
+    } else {
+      types = this.advTypeList.map(type => type.id);
+    }
+
+    // If no kind is selected include all kinds
+    let kinds: number[] = [];
+    if (this.ratingFilters.kinds.length > 0) {
+      kinds = this.ratingFilters.kinds.map(kind => kind.id);
+    } else {
+      kinds = this.advKindList.map(kind => kind.id);
+    }
+
+    // If no subsubcategory is selected include all subsubcategories
+    let subsubcategories: number[] = [];
+    if (this.ratingFilters.subsubcategories.length > 0) {
+      subsubcategories = this.ratingFilters.subsubcategories.map(subsubcategory => subsubcategory.id);
+    } else {
+      subsubcategories = this.advSubsubcategoryList.map(subsubcategory => subsubcategory.id);
+    }
+
+    this.cmsB2BService()
+      .getRatingsReport(this.activationDatetimeFrom.toString(), this.activationDatetimeTo.toString(), types, kinds, subsubcategories)
+      .then(res => {
+        this.companyRatings = res.data;
+        console.log(res.data);
+      });
+  }
+
   public updateInstantFieldFrom(event) {
     if (event.target.value) {
       this.activationDatetimeFrom = event.target.value;
@@ -366,6 +416,25 @@ export default class CMSB2BReports extends Vue {
     if (event.target.value) {
       this.activationDatetimeTo = event.target.value;
       if (this.activationDatetimeFrom != null) this.retrieveUsersByDateInterval();
+    } else {
+      this.activationDatetimeTo = null;
+    }
+  }
+
+  public updateInstantFieldFromRatings(event) {
+    if (event.target.value) {
+      this.activationDatetimeFrom = event.target.value;
+      console.log(this.activationDatetimeFrom);
+      if (this.activationDatetimeTo != null) this.retrieveFilteredRatings();
+    } else {
+      this.activationDatetimeFrom = null;
+    }
+  }
+
+  public updateInstantFieldToRatings(event) {
+    if (event.target.value) {
+      this.activationDatetimeTo = event.target.value;
+      if (this.activationDatetimeFrom != null) this.retrieveFilteredRatings();
     } else {
       this.activationDatetimeTo = null;
     }
@@ -582,8 +651,6 @@ export default class CMSB2BReports extends Vue {
   }
 
   public formArrayForCollab(items: ICollaboration): any {
-    console.log('HELLLOO!');
-    console.log(items);
     let newitems = [];
 
     for (let i = 0; i < items.length; i++) {
@@ -745,6 +812,43 @@ export default class CMSB2BReports extends Vue {
     return newitems;
   }
 
+  public formArrayForRatings(items): any {
+    let newitems = [];
+    console.log(items);
+
+    let dateFrom = this.activationDatetimeFrom;
+    let dateTo = this.activationDatetimeTo;
+    let typesText = this.selectedTypeFiltersText();
+    let kindsText = this.selectedKindFiltersText();
+    let subsubcategoriesText = this.selectedSubsubcategoryFiltersText();
+
+    for (let i = 0; i < items.length; i++) {
+      let newitemssub = [];
+
+      newitemssub['company'] = items[i]['companyName'];
+      newitemssub['dateFrom'] = dateFrom;
+      newitemssub['dateTo'] = dateTo;
+      newitemssub['type'] = typesText;
+      newitemssub['kind'] = kindsText;
+      newitemssub['subsubcategory'] = subsubcategoriesText;
+      newitemssub['totalRatings'] = items[i]['totalRatings'];
+      newitemssub['averageRating'] = items[i]['averageRating'];
+      newitemssub['totalRatings1'] = items[i]['totalRatings1'];
+      newitemssub['percentageRating1'] = items[i]['percentageRating1'];
+      newitemssub['totalRatings2'] = items[i]['totalRatings2'];
+      newitemssub['percentageRating2'] = items[i]['percentageRating2'];
+      newitemssub['totalRatings3'] = items[i]['totalRatings3'];
+      newitemssub['percentageRating3'] = items[i]['percentageRating3'];
+      newitemssub['totalRatings4'] = items[i]['totalRatings4'];
+      newitemssub['percentageRating4'] = items[i]['percentageRating4'];
+
+      newitems[i] = newitemssub;
+      console.log(newitems[i]);
+    }
+
+    return newitems;
+  }
+
   public exportCSVFile(items, fileTitle): any {
     var headers;
     var type;
@@ -798,6 +902,27 @@ export default class CMSB2BReports extends Vue {
       type = 2;
       console.log('users');
       items = this.formArrayForUsers(items);
+    } else if (fileTitle == 'ratings') {
+      headers = {
+        company: this.$t('riportalApp.collaborationRating.ratings.company'),
+        dateFrom: this.$t('riportalApp.reports.filters.dateFrom'),
+        dateTo: this.$t('riportalApp.reports.filters.dateTo'),
+        type: this.$t('riportalApp.advertisement.type'),
+        kind: this.$t('riportalApp.advertisement.kind'),
+        subsubcategory: this.$t('riportalApp.advertisement.categorization'),
+        totalRatings: this.$t('riportalApp.collaborationRating.ratings.totalRatings'),
+        averageRating: this.$t('riportalApp.collaborationRating.ratings.averageRating'),
+        totalRatings1: this.$t('riportalApp.collaborationRating.ratings.totalRatings1'),
+        percentageRating1: this.$t('riportalApp.collaborationRating.ratings.percentageRating1'),
+        totalRatings2: this.$t('riportalApp.collaborationRating.ratings.totalRatings2'),
+        percentageRating2: this.$t('riportalApp.collaborationRating.ratings.percentageRating2'),
+        totalRatings3: this.$t('riportalApp.collaborationRating.ratings.totalRatings3'),
+        percentageRating3: this.$t('riportalApp.collaborationRating.ratings.percentageRating3'),
+        totalRatings4: this.$t('riportalApp.collaborationRating.ratings.totalRatings4'),
+        percentageRating4: this.$t('riportalApp.collaborationRating.ratings.percentageRating4'),
+      };
+      type = 3;
+      items = this.formArrayForRatings(items);
     }
 
     if (headers) {
@@ -867,5 +992,44 @@ export default class CMSB2BReports extends Vue {
   public advertisementKindsString(advertisement: IAdvertisement): string {
     const currentLanguage = this.$store.getters.currentLanguage;
     return this.advertisementService().advertisementKindsString(advertisement, currentLanguage);
+  }
+
+  public advertisementKindTranslation(kind: IAdvertisementKind): string {
+    const currentLanguage = this.$store.getters.currentLanguage;
+    return this.advertisementService().advertisementKindTranslation(kind, currentLanguage);
+  }
+
+  public advertisementTypeTranslation(type: IAdvertisementType): string {
+    const currentLanguage = this.$store.getters.currentLanguage;
+    return this.advertisementService().advertisementTypeTranslation(type, currentLanguage);
+  }
+
+  public selectedTypeFiltersText(): string {
+    if (this.ratingFilters.types.length > 0) {
+      let types = this.ratingFilters.types.map(type => this.advertisementTypeTranslation(type));
+      return types.join(' - ');
+    } else {
+      return this.$t('riportalApp.reports.filters.all');
+    }
+  }
+
+  public selectedKindFiltersText(): string {
+    if (this.ratingFilters.kinds.length > 0) {
+      let kinds = this.ratingFilters.kinds.map(kind => this.advertisementKindTranslation(kind));
+      return kinds.join(' - ');
+    } else {
+      return this.$t('riportalApp.reports.filters.all');
+    }
+  }
+
+  public selectedSubsubcategoryFiltersText(): string {
+    if (this.ratingFilters.subsubcategories.length > 0) {
+      let subsubcategories = this.ratingFilters.subsubcategories.map(subsubcategory =>
+        this.advertisementCategorizationBranch(subsubcategory)
+      );
+      return subsubcategories.join(' - ');
+    } else {
+      return this.$t('riportalApp.reports.filters.all');
+    }
   }
 }

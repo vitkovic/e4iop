@@ -3,6 +3,7 @@
     "collaborationRating": {
       "home": {
         "title": "Ocene saradnje",
+        "reportsTitle": "Ocene",
         "createLabel": "Kreiraj novu ocenu saradnje",
         "createOrEditLabel": "Kreirajte ili izmenite ocenu saradnje",
         "notFound": "Nema ocena saradnje"
@@ -23,7 +24,20 @@
       "isVisible": "Vidljivo",
       "isDeleted": "Obrisano",
       "collaborationOffer": "Ponuda saradnje",
-      "collaborationRequest": "Zahtev za saradnju"
+      "collaborationRequest": "Zahtev za saradnju",
+      "ratings": {
+        "company": "Kompanija",
+        "totalRatings": "Broj ocena",
+        "averageRating": "Prosečna ocena",
+        "totalRatings1": "Broj *",
+        "percentageRating1": "Procenat [%] *",
+        "totalRatings2": "Broj **",
+        "percentageRating2": "Procenat [%] **",
+        "totalRatings3": "Broj ***",
+        "percentageRating3": "Procenat [%] ***",
+        "totalRatings4": "Broj ****",
+        "percentageRating4": "Procenat [%] ****"
+      }
     }
   }
 }

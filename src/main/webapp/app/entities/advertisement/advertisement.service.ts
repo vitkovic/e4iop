@@ -3,6 +3,8 @@ import axios from 'axios';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
 import { IAdvertisement } from '@/shared/model/advertisement.model';
+import { IAdvertisementType } from '@/shared/model/advertisement-type.model';
+import { IAdvertisementKind } from '@/shared/model/advertisement-kind.model';
 import { IAdvertisementSubsubcategory } from '@/shared/model/advertisement-subsubcategory.model';
 
 const baseApiUrl = 'api/advertisements';
@@ -561,5 +563,33 @@ export default class AdvertisementService {
         return '';
       })
       .join(', ');
+  }
+
+  public advertisementKindTranslation(kind: IAdvertisementKind, language = 'sr'): string {
+    const currentLanguage = language;
+
+    if (currentLanguage === 'sr') {
+      return `${kind.kind}`;
+    } else if (currentLanguage === 'src') {
+      return `${kind.kindSrc}`;
+    } else if (currentLanguage === 'en') {
+      return `${kind.kindEn}`;
+    }
+
+    return '';
+  }
+
+  public advertisementTypeTranslation(type: IAdvertisementType, language = 'sr'): string {
+    const currentLanguage = language;
+
+    if (currentLanguage === 'sr') {
+      return `${type.type}`;
+    } else if (currentLanguage === 'src') {
+      return `${type.typeSrc}`;
+    } else if (currentLanguage === 'en') {
+      return `${type.typeEn}`;
+    }
+
+    return '';
   }
 }

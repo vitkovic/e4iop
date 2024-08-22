@@ -77,6 +77,24 @@ public interface CollaborationRepository extends JpaRepository<Collaboration, Lo
 			Pageable pageable);
 	
 	
+	@Query("SELECT DISTINCT collaboration FROM Collaboration collaboration "
+			+ "JOIN collaboration.advertisement.kinds k "
+	        + "WHERE (collaboration.companyOffer.id = :companyId OR collaboration.companyRequest.id = :companyId) "
+	        + "AND collaboration.status.statusEn = :status "
+	        + "AND datetime >= TO_TIMESTAMP(:from, 'YYYY-MM-DD T24:MI:SS') "
+	        + "AND datetime <= TO_TIMESTAMP(:to, 'YYYY-MM-DD T24:MI:SS') "
+	        + "AND collaboration.advertisement.type.id IN :types "
+	        + "AND collaboration.advertisement.subsubcategory.id IN :subsubcategories "
+	        + "AND k.id IN :kinds")
+	List<Collaboration> findAllByCompanyAndStatusAndTimeAndAdvertisementFilters(
+			@Param("companyId") Long companyId,
+			@Param("from") String from,
+			@Param("to") String to,
+			@Param("status") String status,
+			@Param("types") List<Long> types,
+			@Param("kinds") List<Long> kinds,
+			@Param("subsubcategories") List<Long> subsubcategories);
+	
 	
 	@Query("SELECT collaboration FROM Collaboration collaboration " +
             "WHERE ((collaboration.companyOffer.id = :companyId) " +

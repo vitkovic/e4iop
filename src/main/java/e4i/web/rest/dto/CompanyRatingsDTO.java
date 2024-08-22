@@ -2,6 +2,9 @@ package e4i.web.rest.dto;
 
 public class CompanyRatingsDTO {
 
+	private String companyName;
+	private Long companyId;
+	
 	private Double averageRating;
 	private Double averageRatingAdvertiser;
 	private Double averageRatingRequester;
@@ -45,16 +48,22 @@ public class CompanyRatingsDTO {
 	public CompanyRatingsDTO() {
 	}
 
-	public CompanyRatingsDTO(Double averageRating, Double averageRatingAdvertiser, Double averageRatingRequester,
-			Long totalRatings, Long totalRatingsAdvertiser, Long totalRatingsRequester, Long totalRatings1,
-			Long totalRatings1Advertiser, Long totalRatings1Requester, Long totalRatings2, Long totalRatings2Advertiser,
-			Long totalRatings2Requester, Long totalRatings3, Long totalRatings3Advertiser, Long totalRatings3Requester,
-			Long totalRatings4, Long totalRatings4Advertiser, Long totalRatings4Requester, Double percentageRating1,
-			Double percentageRating1Advertiser, Double percentageRating1Requester, Double percentageRating2,
-			Double percentageRating2Advertiser, Double percentageRating2Requester, Double percentageRating3,
-			Double percentageRating3Advertiser, Double percentageRating3Requester, Double percentageRating4,
-			Double percentageRating4Advertiser, Double percentageRating4Requester) {
+	public CompanyRatingsDTO(
+			String companyName, Long companyId,
+			Long totalRatings, Long totalRatingsAdvertiser, Long totalRatingsRequester,
+			Double averageRating, Double averageRatingAdvertiser, Double averageRatingRequester,
+			Long totalRatings1, Long totalRatings1Advertiser, Long totalRatings1Requester,
+			Long totalRatings2, Long totalRatings2Advertiser, Long totalRatings2Requester,
+			Long totalRatings3, Long totalRatings3Advertiser, Long totalRatings3Requester,
+			Long totalRatings4, Long totalRatings4Advertiser, Long totalRatings4Requester,
+			Double percentageRating1, Double percentageRating1Advertiser, Double percentageRating1Requester,
+			Double percentageRating2, Double percentageRating2Advertiser, Double percentageRating2Requester,
+			Double percentageRating3, Double percentageRating3Advertiser, Double percentageRating3Requester,
+			Double percentageRating4, Double percentageRating4Advertiser, Double percentageRating4Requester
+			) {
 		super();
+		this.companyName = companyName;
+		this.companyId = companyId;
 		this.averageRating = averageRating;
 		this.averageRatingAdvertiser = averageRatingAdvertiser;
 		this.averageRatingRequester = averageRatingRequester;
@@ -85,6 +94,22 @@ public class CompanyRatingsDTO {
 		this.percentageRating4 = percentageRating4;
 		this.percentageRating4Advertiser = percentageRating4Advertiser;
 		this.percentageRating4Requester = percentageRating4Requester;
+	}
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+	
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	
+	public Long getCompanyId() {
+		return companyId;
+	}
+	
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
 	}
 
 	public Double getAverageRating() {
