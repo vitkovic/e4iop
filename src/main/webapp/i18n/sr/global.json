@@ -317,7 +317,9 @@
       "maxbytes": "Polje ne može biti veće od {{ max }} bajtova.",
       "pattern": "Polje mora da sledi obrazac {{ pattern }}.",
       "number": "Polje mora biti broj.",
-      "datetimelocal": "Polje mora biti datum i vreme."
+      "datetimelocal": "Polje mora biti datum i vreme.",
+      "url": "URL treba uneti sa 'http://' ili 'https://' na početku",
+      "email": "Imejl adresa treba da bude u formatu 'email@adresa.com'"
     },
     "form": {
       "messageTitle": "Naslov poruke:",

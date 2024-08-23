@@ -16,7 +16,8 @@
 
                 <form name="form" id="settings-form" role="form" v-on:submit.prevent="save()" v-if="settingsAccount" novalidate>
 
-                    <div class="form-group">
+                    <br>
+                    <!-- <div class="form-group">
                         <label class="form-control-label" for="firstName" v-text="$t('settings.form.firstname')">First Name</label>
                         <input type="text" class="form-control" id="firstName" name="firstName" v-bind:placeholder="$t('settings.form[\'firstname.placeholder\']')"
                                :class="{'valid': !$v.settingsAccount.firstName.$invalid, 'invalid': $v.settingsAccount.firstName.$invalid }"
@@ -55,7 +56,7 @@
                                 Your last name cannot be longer than 50 characters.
                             </small>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="form-group">
                         <label class="form-control-label" for="email" v-text="$t('global.form[\'email.label\']')">Email</label>
                         <input type="email" class="form-control" id="email" name="email" v-bind:placeholder="$t('global.form[\'email.placeholder\']')"

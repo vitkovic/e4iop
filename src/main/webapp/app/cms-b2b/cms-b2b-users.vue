@@ -61,14 +61,6 @@
                     </td>
 
                     <td class="text-right">
-                        <router-link
-                            to=""
-                            tag="button"
-                            class="btn btn-primary btn-sm edit"
-                            >
-                            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                            <span v-text="$t('entity.action.edit')">Edit</span>
-                        </router-link>
                         <b-button 
                             v-if="user.activated"
                             v-on:click="setActive(user, false)"

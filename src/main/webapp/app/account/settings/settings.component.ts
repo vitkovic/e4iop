@@ -9,16 +9,16 @@ import PortalUserService from '../portal-user/portal-user.service';
 
 const validations = {
   settingsAccount: {
-    firstName: {
-      required,
-      minLength: minLength(1),
-      maxLength: maxLength(50),
-    },
-    lastName: {
-      required,
-      minLength: minLength(1),
-      maxLength: maxLength(50),
-    },
+    // firstName: {
+    //   required,
+    //   minLength: minLength(1),
+    //   maxLength: maxLength(50),
+    // },
+    // lastName: {
+    //   required,
+    //   minLength: minLength(1),
+    //   maxLength: maxLength(50),
+    // },
     // email: {
     //   required,
     //   email,

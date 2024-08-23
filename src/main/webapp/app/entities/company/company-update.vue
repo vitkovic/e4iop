@@ -111,6 +111,41 @@
                 v-model="$v.company.isEinovator.$model"
               />
             </div>
+
+            <div class="form-group">
+              <label class="form-control-label" v-text="$t('riportalApp.company.website')" for="company-website">website</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="company-website"
+                :class="{ valid: !$v.company.website.$invalid, invalid: $v.company.website.$invalid }"
+                v-model="$v.company.website.$model"
+              />
+              <div v-if="$v.company.website.$anyDirty && $v.company.website.$invalid">
+                <small class="form-text text-danger" v-if="!$v.company.website.required" v-text="$t('entity.validation.url')">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" v-text="$t('riportalApp.company.email')" for="company-email">email</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="company-email"
+                :class="{ valid: !$v.company.email.$invalid, invalid: $v.company.email.$invalid }"
+                v-model="$v.company.email.$model"
+              />
+              <div v-if="$v.company.email.$anyDirty && $v.company.email.$invalid">
+                <small class="form-text text-danger" v-if="!$v.company.email.required" v-text="$t('entity.validation.email')">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
             <hr />
 
             <div class="documents-section" v-show="showDocumentsSection">
