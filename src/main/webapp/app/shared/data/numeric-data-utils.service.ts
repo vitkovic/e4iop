@@ -7,6 +7,10 @@ export default class NumericDataUtils {
       newValue = value;
     }
 
+    if (newValue == null) {
+      return '';
+    }
+
     newValue = newValue.replace(/\D/g, '');
 
     if (!newValue || newValue.length <= 3) {
