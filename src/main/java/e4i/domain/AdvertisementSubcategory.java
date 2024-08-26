@@ -44,6 +44,10 @@ public class AdvertisementSubcategory implements Serializable {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
+    @OneToMany(mappedBy = "subcategory")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Advertisement> advertisements = new HashSet<>();
+    
     @OneToMany(mappedBy = "advertisementSubcategory")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<AdvertisementSubsubcategory> advertisementSubsubcategories = new HashSet<>();
@@ -125,6 +129,31 @@ public class AdvertisementSubcategory implements Serializable {
 
     public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
+    }
+    
+    public Set<Advertisement> getAdvertisements() {
+        return advertisements;
+    }
+
+    public AdvertisementSubcategory advertisements(Set<Advertisement> advertisements) {
+        this.advertisements = advertisements;
+        return this;
+    }
+
+    public AdvertisementSubcategory addAdvertisement(Advertisement advertisement) {
+        this.advertisements.add(advertisement);
+        advertisement.setSubcategory(this);
+        return this;
+    }
+
+    public AdvertisementSubcategory removeAdvertisement(Advertisement advertisement) {
+        this.advertisements.remove(advertisement);
+        advertisement.setSubcategory(null);
+        return this;
+    }
+
+    public void setAdvertisements(Set<Advertisement> advertisements) {
+        this.advertisements = advertisements;
     }
 
     public Set<AdvertisementSubsubcategory> getAdvertisementSubsubcategories() {

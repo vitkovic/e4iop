@@ -8,6 +8,8 @@ import { IAdvertisementStatus } from '@/shared/model/advertisement-status.model'
 import { IAdvertisementDuration } from '@/shared/model/advertisement-duration.model';
 import { IAdvertisementType } from '@/shared/model/advertisement-type.model';
 import { IAdvertisementKind } from '@/shared/model/advertisement-kind.model';
+import { IAdvertisementCategory } from '@/shared/model/advertisement-category.model';
+import { IAdvertisementSubcategory } from '@/shared/model/advertisement-subcategory.model';
 import { IAdvertisementSubsubcategory } from '@/shared/model/advertisement-subsubcategory.model';
 import { IThread } from '@/shared/model/thread.model';
 
@@ -34,6 +36,8 @@ export interface IAdvertisement {
   type?: IAdvertisementType;
   kind?: IAdvertisementKind;
   kinds?: IAdvertisementKind[];
+  category?: IAdvertisementCategory;
+  subcategory?: IAdvertisementSubcategory;
   subsubcategory?: IAdvertisementSubsubcategory;
   threads?: IThread[];
 }
@@ -62,6 +66,8 @@ export class Advertisement implements IAdvertisement {
     public type?: IAdvertisementType,
     public kind?: IAdvertisementKind,
     public kinds?: IAdvertisementKind[],
+    public category?: IAdvertisementCategory,
+    public subcategory?: IAdvertisementSubcategory,
     public subsubcategory?: IAdvertisementSubsubcategory,
     public threads?: IThread[]
   ) {}

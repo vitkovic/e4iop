@@ -67,6 +67,14 @@ public class AdvertisementService {
     public Advertisement save(Advertisement advertisement) {
         log.debug("Request to save Advertisement : {}", advertisement);
         
+        if (advertisement.getSubsubcategory() != null) {
+        	advertisement.setSubcategory(advertisement.getSubsubcategory().getAdvertisementSubcategory());
+        }
+        
+        if (advertisement.getSubcategory() != null) {
+        	advertisement.setCategory(advertisement.getSubcategory().getAdvertisementCategory());
+        }
+        
         if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){              
         	return advertisementRepository.save(advertisement);
         } else {
