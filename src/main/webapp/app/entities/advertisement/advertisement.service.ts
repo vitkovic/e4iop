@@ -10,7 +10,11 @@ import { IAdvertisementSubsubcategory } from '@/shared/model/advertisement-subsu
 const baseApiUrl = 'api/advertisements';
 const baseApiUrlView = 'api/advertisements/view';
 const baseApiUrlSearch = 'api/advertisements/search';
+const baseApiUrlSearchSub = 'api/advertisements/search-sub';
+
 const baseApiUrlSearchStatus = 'api/advertisements/searchstatus';
+const baseApiUrlSearchStatusSub = 'api/advertisements/searchstatus-sub';
+
 const baseApiUrlSearchType = 'api/advertisements/searchtype';
 const baseApiUrlSearchTypeStatus = 'api/advertisements/searchtypestatus';
 const baseApiUrlSearchAll = 'api/advertisements/get';
@@ -108,6 +112,30 @@ export default class AdvertisementService {
         });
     });
   }
+  
+  public retrieveSearchSub(search: string, category: number, paginationQuery?: any): Promise<any> {
+    var urlgo = '';
+
+    if (search == '' || typeof search == 'undefined' || search == null) {
+      urlgo = baseApiUrlSearchAll + `?` + `${buildPaginationQueryOpts(paginationQuery)}`;
+    } else {
+      urlgo = baseApiUrlSearchSub + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
+    }
+
+    console.log(urlgo);
+
+    // console.log(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
   public retrieveBaseSearch(search: string, category: number, paginationQuery?: any): Promise<any> {
     const urlgo = baseApiUrlSearch + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
@@ -158,6 +186,27 @@ export default class AdvertisementService {
   }
 
   public retrieveSearchByStatusId(search: string, statusId: number, category: number, paginationQuery?: any): Promise<any> {
+    const urlgo =
+      baseApiUrlSearchStatusSub +
+      `?search=${search}` +
+      +`&statusId=${statusId}` +
+      `&category=${category}` +
+      `&` +
+      `${buildPaginationQueryOpts(paginationQuery)}`;
+
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+  
+   public retrieveSearchByStatusIdSub(search: string, statusId: number, category: number, paginationQuery?: any): Promise<any> {
     const urlgo =
       baseApiUrlSearchStatus +
       `?search=${search}` +

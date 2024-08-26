@@ -6,7 +6,11 @@ import AccountService from '@/account/account.service';
 import TranslationService from '@/locale/translation.service';
 import PortalUserService from '../../entities/portal-user/portal-user.service';
 import AdvertisementCategoryService from '../../entities/advertisement-category/advertisement-category.service';
+
+import AdvertisementSubCategoryService from '../../entities/advertisement-subcategory/advertisement-subcategory.service';
+
 import AdvertisementCategory from '../../entities/advertisement/advertisement.service';
+
 import { AdvertisementTypeOptions } from '@/shared/model/advertisement-type.model';
 import { IPortalUser } from '@/shared/model/portal-user.model';
 import AdvertisementService from '../../entities/advertisement/advertisement.service';
@@ -27,6 +31,8 @@ export default class B2BJhiNavbar extends Vue {
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
 
   @Inject('advertisementCategoryService') private advertisementCategoryService: () => AdvertisementCategoryService;
+  
+  @Inject('advertisementSubcategoryService') private advertisementSubcategoryService: () => AdvertisementSubCategoryService;
 
   @Inject('searchPageService') private searchPageService: () => SearchPageService;
 
@@ -40,8 +46,10 @@ export default class B2BJhiNavbar extends Vue {
   public companyId: number;
   public companyLink = '';
   private advCategList = null;
+  private advSubCategList = null;
   private txtsearchNav;
   private mainSearchCategory = null;
+  private mainSearchSubCategory = null;
   public advertisements = null;
   public cmsnews = null;
   public cmsquestions = null;
@@ -77,6 +85,7 @@ export default class B2BJhiNavbar extends Vue {
   created() {
     this.translationService().refreshTranslation(this.currentLanguage);
     this.mainSearchCategory = 1;
+    this.mainSearchSubCategory = 1;
 
     this.setIsAdmin();
     this.setIsCompanyAdmin();
@@ -92,6 +101,7 @@ export default class B2BJhiNavbar extends Vue {
       companies: [],
       txtsearchNav: '',
       mainSearchCategory: 1,
+      mainSearchSubCategory: 1,
       valuetype: [],
       options: [
         { name: 'Оглас', value: '0' },
@@ -116,6 +126,7 @@ export default class B2BJhiNavbar extends Vue {
 
     this.txtsearchNav = this.$route.query.search;
     this.mainSearchCategory = this.$route.query.category;
+    this.mainSearchSubCategory = this.$route.query.category;
 
     //console.log( this.$route.query)
 
@@ -123,6 +134,7 @@ export default class B2BJhiNavbar extends Vue {
       const urlParams = new URLSearchParams(window.location.search);
       this.txtsearchNav = urlParams.get('search');
       this.mainSearchCategory = urlParams.get('category');
+      this.mainSearchSubCategory = urlParams.get('category');
     }
 
     // this.advertisements = "hsdgadjhdgajdhg"
@@ -419,16 +431,146 @@ export default class B2BJhiNavbar extends Vue {
 
     //console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
   }
+  
+   public searchAdvSub(): void {
+    //this.advertisements = ['kukuriku'];
+
+    // console.log(this.advertisements);
+
+    //	if (this.valuetype!= null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length == 1) {
+    //const searchtype = this.valuetype[0].value;
+
+    // console.log(this.valuetype[0].value);
+
+    const searchtype = 0;
+
+    const baseApiUrlSearchAdv = '/b2b/advertisement-search-sub';
+    const baseApiUrlSearchCmp = '/b2b/company-search';
+    const baseApiUrlSearchQA = '/b2b/cms-questions/search';
+    const baseApiUrlSearchNews = '/b2b/cms-news/search';
+
+    var ppathAdv = baseApiUrlSearchAdv + `?search=${this.txtsearchNav}` + `&category=${this.mainSearchSubCategory}` + `&subc=1`;
+    var ppathCmp = baseApiUrlSearchCmp + `?search=${this.txtsearchNav}` + `&category=${this.mainSearchCategory}`;
+    var ppathQa = baseApiUrlSearchQA + `?search=${this.txtsearchNav}` + `&category=${this.mainSearchCategory}`;
+    var ppathNw = baseApiUrlSearchNews + `?search=${this.txtsearchNav}` + `&category=${this.mainSearchCategory}`;
+    var ppath = '';
+
+    switch (Number(searchtype)) {
+      case 0:
+        ppath = ppathAdv;
+        break;
+      case 1:
+        ppath = ppathNw;
+        break;
+      case 2:
+        ppath = ppathCmp;
+        break;
+      case 3:
+        ppath = ppathQa;
+        break;
+      default:
+        ppath = ppathAdv;
+        break;
+    }
+
+    window.location.href = ppath;
+    //}
+
+    //	console.log(this.valuetype);
+
+    /*	
+	if (this.valuetype != null && typeof(this.valuetype) != 'undefined'  && this.valuetype.length > 1) {
+	
+	const num = this.valuetype.length;
+	
+	for (var i = 0; i <= num - 1; i++) 
+	{
+		const val = this.valuetype[i].value;
+		
+		if (val == '0') {
+				this.searchPageService()
+				 .retrieveSearchAdv(this.txtsearchNav)
+			      .then(resa => {
+			        //console.log(resa.data);
+			        this.advList = resa.data;
+			        this.advertisements = resa.data;
+			        //this.advertisements.push(resa.data);
+			       this.$emit('adv:change', this.advertisements);
+			       
+			      // console.log(this.advertisements);
+			       
+			      });
+		    } 
+		
+		 if (val == '2') {  
+			     this.searchPageService()
+				 .retrieveSearchCmp(this.txtsearchNav)
+			      .then(resc => {
+			       // console.log(resc.data);
+			        this.advList = resc.data;
+			        this.companies = resc.data;
+			        
+			        this.$emit('companies:change', this.companies);
+			       
+			      });
+		 }
+		 
+		  if (val == '3') {   
+			      this.searchPageService()
+				 .retrieveSearchQA(this.txtsearchNav)
+			      .then(resqa => {
+			       // console.log(resqa.data);
+			        this.advList = resqa.data;
+			        this.questions= resqa.data;
+			        this.cmsquestions = resqa.data;
+			        console.log(this.cmsquestions);
+			        this.$emit('quests:change', this.cmsquestions);
+			       
+		  		    });
+		  }
+		  if (val == '1') {    
+		     
+		     	this.searchPageService()
+			 		.retrieveSearchNW(this.txtsearchNav)
+		      		.then(resnw => {
+		        		//console.log(resnw.data);
+		        		this.advList = resnw.data;
+		        		this.news = resnw.data;
+		        		this.cmsnews = resnw.data;
+			        	this.$emit('news:change', this.cmsnews);
+		        		
+		        		
+		     	 });
+		 	}
+		  
+		}
+			
+		*/
+
+    //console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
+  }
+
 
   private searchinput;
 
   public initRelationships(): void {
+	  
     this.advertisementCategoryService()
       .retrieve()
       .then(res => {
         this.advCategList = res.data;
         this.$refs.mainSearchCategory = this.advCategList;
         this.mainSearchCategory = 1;
+      });
+  
+    this.advertisementSubcategoryService()
+      .retrieve()
+      .then(res => {
+		// console.log("jsdhfjskfhsfjkhfjkfhskjfshfkjhfsjkfhsjkfhskfjshfkj");
+        this.advSubCategList = res.data;
+        console.log(res.data);
+        this.$refs.mainSearchSubCategory = this.advSubCategList;
+        this.mainSearchSubCategory = 1;
       });
   }
 }

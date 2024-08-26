@@ -199,14 +199,14 @@ public class AdvertisementService {
     */
    @Transactional(readOnly = true)
    public Page<Advertisement> findAllBySearch(String search, Long category, Pageable pageable) {
-	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+	  // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
        log.debug("Request to get all Advertisements");
        
        Page<Advertisement> advertisements = null;
 
        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
-    	  System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-      	  if (category != 1) 
+    	  //System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+      	  if (category == 1) 
       		advertisements = advertisementRepository.findAllBySearchAdmin(search,pageable);
     	  else 
     		  advertisements = advertisementRepository.findAllBySearchAdminbyCategory(search,category,pageable);
@@ -258,6 +258,74 @@ public class AdvertisementService {
    
    	return advertisements;
    }
+   
+   
+   /* Get all the advertisements.
+   *
+   * @param pageable the pagination information.
+   * @return the list of entities.
+   */
+  @Transactional(readOnly = true)
+  public Page<Advertisement> findAllBySearchSub(String search, Long category, Pageable pageable) {
+	  // System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+      log.debug("Request to get all Advertisements");
+      
+      Page<Advertisement> advertisements = null;
+
+      if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
+   	  //System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+     	  if (category == 1) 
+     		advertisements = advertisementRepository.findAllBySearchAdmin(search,pageable);
+   	  else 
+   		  advertisements = advertisementRepository.findAllBySearchAdminbyCategorySub(search,category,pageable);
+      } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
+   	 
+   	   if (category != 1) 
+   		   advertisements = advertisementRepository.findAllBySearchAdminbyCategorySub(search,category ,pageable);
+          else
+       	   advertisements = advertisementRepository.findAllBySearchAdmin(search, pageable);
+          
+   	   
+      } else {
+   	   
+   	   
+   	   if (category != 1) 
+   		   advertisements = advertisementRepository.findAllBySearchAdminbyCategorySub(search,category ,pageable);
+             else
+           	  advertisements = advertisementRepository.findAllBySearchAdmin(search, pageable);
+   	   
+   	/*   
+   	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+      	    Optional<User> currentUser = userService.getUserWithAuthorities();
+           User user = currentUser.get();
+           
+           PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
+           if (category != 1) 
+           	return advertisementRepository.findSearchAllByCompanyIdbyCategory(search, pUser.getCompany().getId(), category ,pageable);
+           else
+           	return advertisementRepository.findSearchAllByCompanyId(search, pUser.getCompany().getId() ,pageable);
+           
+//           List<String> userRoles = pUser.pronadjiPortalUserRolesAbbreviations();
+//           if(userRoles.contains("RPRIPO")) {
+//          	 RiResearchOrganization rio = riResearchOrganizationRepository.findByPuOrganizationId(pUser.getUserOrganization().getId());
+//          	 Page<ResearchInfrastructure> out = researchInfrastructureRepository.findByOwnerId(rio.getId(), pageable);
+//          	 return out;
+//           }else if(userRoles.contains("PA")) {
+//          	 return researchInfrastructureRepository.findAll(pageable);
+//           }else if(userRoles.contains("RPRI")) {
+//          	 return researchInfrastructureRepository.findByManagerId(pUser.getId(), pageable);
+//           }else {
+//          	 return null;
+//           }*/
+      }
+      
+  	// Could this be done within a query???
+  	advertisements.getContent().forEach(advertisement -> {
+  		Hibernate.initialize(advertisement.getKinds());
+      });
+  
+  	return advertisements;
+  }
   
    
    /* Get all the advertisements.
@@ -319,6 +387,65 @@ public class AdvertisementService {
       }   
   }
   
+  /* Get all the advertisements.
+  *
+  * @param pageable the pagination information.
+  * @return the list of entities.
+  */
+ @Transactional(readOnly = true)
+ public Page<Advertisement> findAllBySearchStatusSub(String search, Long status, Long category, Pageable pageable) {
+	   System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+     log.debug("Request to get all Advertisements");
+     if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){ 
+  	  System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+    	  if (category != 1) 
+  		  return advertisementRepository.findAllBySearchAdminStatus(search,status,pageable);
+  	  else 
+  		  return advertisementRepository.findAllBySearchAdminbyCategoryStatusSub(search, status, category,pageable);
+     } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
+  	 
+  	   if (category != 1) 
+         	return advertisementRepository.findAllBySearchAdminbyCategoryStatusSub(search,status, category ,pageable);
+         else
+         	return advertisementRepository.findAllBySearchAdminStatus(search,status, pageable);
+         
+  	   
+     } else {
+   	  
+   	  
+
+     	   if (category != 1) 
+            	return advertisementRepository.findAllBySearchAdminbyCategoryStatusSub(search,status, category ,pageable);
+            else
+            	return advertisementRepository.findAllBySearchAdminStatus(search,status, pageable);
+     	   
+     	   /*
+  	   
+  	   System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+     	    Optional<User> currentUser = userService.getUserWithAuthorities();
+          User user = currentUser.get();
+          
+          PortalUser pUser  = portalUserRepository.findByUserId(user.getId());
+          if (category != 1) 
+          	return advertisementRepository.findSearchAllByCompanyIdbyCategoryStatus(search, pUser.getCompany().getId(), status,  category ,pageable);
+          else
+          	return advertisementRepository.findSearchAllByCompanyIdStatus(search, status, pUser.getCompany().getId() ,pageable);
+          
+//          List<String> userRoles = pUser.pronadjiPortalUserRolesAbbreviations();
+//          if(userRoles.contains("RPRIPO")) {
+//         	 RiResearchOrganization rio = riResearchOrganizationRepository.findByPuOrganizationId(pUser.getUserOrganization().getId());
+//         	 Page<ResearchInfrastructure> out = researchInfrastructureRepository.findByOwnerId(rio.getId(), pageable);
+//         	 return out;
+//          }else if(userRoles.contains("PA")) {
+//         	 return researchInfrastructureRepository.findAll(pageable);
+//          }else if(userRoles.contains("RPRI")) {
+//         	 return researchInfrastructureRepository.findByManagerId(pUser.getId(), pageable);
+//          }else {
+//         	 return null;
+//          }*/
+     }   
+ }
+ 
   
   /* Get all the advertisements.
   *

@@ -142,7 +142,24 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
     				+     		 "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
     				+     		 "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.category.id=:category and advertisement.status.id = :status")
     Page<Advertisement> findAllBySearchAdminbyCategoryStatus(@Param("search") String search,@Param("status") Long status, @Param("category") Long category,  Pageable pageable);
+   
+   
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+    		+ "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.subcategory.id=:category",
+    		countQuery = "select count(distinct advertisement) from Advertisement advertisement "
+    				+     		 "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+    				+     		 "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.subcategory.id=:category")
+    Page<Advertisement> findAllBySearchAdminbyCategorySub(@Param("search") String search, @Param("category") Long category,  Pageable pageable);
     
+    @Query(value = "select distinct advertisement from Advertisement advertisement "
+    		+ "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+    		+ "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.subcategory.id=:category and advertisement.status.id = :status",
+    		countQuery = "select count(distinct advertisement) from Advertisement advertisement "
+    				+     		 "where upper(advertisement.description) like CONCAT('%',upper(:search),'%') "
+    				+     		 "or upper(advertisement.title) like CONCAT('%',upper(:search),'%') and advertisement.subcategory.id=:category and advertisement.status.id = :status")
+    Page<Advertisement> findAllBySearchAdminbyCategoryStatusSub(@Param("search") String search,@Param("status") Long status, @Param("category") Long category,  Pageable pageable);
+   
     
     @Query(value = "select distinct advertisement from Advertisement advertisement "
     		+ "where advertisement.company.id = :companyId "

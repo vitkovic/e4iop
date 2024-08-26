@@ -61,6 +61,7 @@ export default class Advertisement extends mixins(AlertMixin) {
   public filterInactiveButtonVariant = 'outline-secondary';
   public filterSoftDeleteButtonVariant = 'outline-secondary';
   public companyId: number = 0;
+  public subc : any = 0;
 
   public getCompany(): any {
     let user = this.$store.getters.account;
@@ -89,11 +90,13 @@ export default class Advertisement extends mixins(AlertMixin) {
     this.txtsearch = this.$route.query.search;
     this.category = this.$route.query.category;
     this.types = this.$route.query.type;
+    this.subc = this.$route.query.subc;
 
     if (this.txtsearch == null || this.txtsearch === 'undefined') {
       this.txtsearch = urlParams.get('search');
       this.category = urlParams.get('category');
       this.types = urlParams.get('type');
+      this.subc = urlParams.get('subc');;
     }
 
     if (this.types != null && this.types !== 'undefined') {
@@ -102,7 +105,7 @@ export default class Advertisement extends mixins(AlertMixin) {
       this.typesearch = false;
     }
 
-    console.log(this.txtsearch + this.types + this.typesearch);
+   // console.log(this.txtsearch + this.types + this.typesearch);
 
     this.retrieveAllAdvertisements();
 
@@ -200,6 +203,39 @@ export default class Advertisement extends mixins(AlertMixin) {
         }
       }
     } else {
+	  if (this.subc == 1) {
+		 if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
+	        this.advertisementService()
+	          .retrieveSearchSub(this.txtsearch, this.category, paginationQuery)
+	          .then(
+	            res => {
+	              this.advertisements = res.data;
+	              this.totalItems = Number(res.headers['x-total-count']);
+	              this.queryCount = this.totalItems;
+	              this.isFetching = false;
+	            },
+	            err => {
+	              this.isFetching = false;
+	            }
+	          );
+	      } else {
+	        if (this.activeAdStatus) {
+	          this.advertisementService()
+	            .retrieveSearchByStatusIdSub(this.txtsearch, this.activeAdStatus.id, this.category, paginationQuery)
+	            .then(
+	              res => {
+	                this.advertisements = res.data;
+	                this.totalItems = Number(res.headers['x-total-count']);
+	                this.queryCount = this.totalItems;
+	                this.isFetching = false;
+	              },
+	              err => {
+	                this.isFetching = false;
+	              }
+	            );
+	        }
+       }	  
+	  } else {
       if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
         this.advertisementService()
           .retrieveSearch(this.txtsearch, this.category, paginationQuery)
@@ -231,6 +267,7 @@ export default class Advertisement extends mixins(AlertMixin) {
             );
         }
       }
+     }
     }
   }
 

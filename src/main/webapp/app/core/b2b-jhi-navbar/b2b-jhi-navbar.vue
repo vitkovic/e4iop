@@ -418,10 +418,17 @@
               </b-input-group>
             </div>
           </div>
-          <div class="col-sm-4 col-md-4" style="max-width:100%">
+          <!--<div class="col-sm-4 col-md-4" style="max-width:100%">
           
                 <select class="form-control"  v-model="mainSearchCategory" id="kat" name="kat" @click="" >
                     <option  v-for="element in advCategList" :key="element.id" :value="element.id" >{{element.name}}</option>
+                </select>
+               
+              </div>-->
+           <div class="col-sm-4 col-md-4" style="max-width:100%">
+          
+                <select class="form-control"  v-model="mainSearchSubCategory" id="katsub" name="katsub" @click="" >
+                    <option  v-for="element in advSubCategList" :key="element.id" :value="element.id" >{{element.name}}</option>
                 </select>
                
               </div>

@@ -1352,6 +1352,11 @@ export default [
     component: AdvertisementSearch,
   },
   {
+    path: '/b2b/advertisement-search-sub',
+    name: 'AdvertisementSearch',
+    component: AdvertisementSearch,
+  },
+  {
     path: '/b2b/advertisement-get',
     name: 'AdvertisementGet',
     component: AdvertisementGet,
