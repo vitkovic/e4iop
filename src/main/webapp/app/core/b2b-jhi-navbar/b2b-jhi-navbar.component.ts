@@ -573,4 +573,5 @@ export default class B2BJhiNavbar extends Vue {
         this.mainSearchSubCategory = 1;
       });
   }
+  
 }
