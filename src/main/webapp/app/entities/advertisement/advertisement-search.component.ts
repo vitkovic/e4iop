@@ -105,7 +105,7 @@ export default class Advertisement extends mixins(AlertMixin) {
       this.typesearch = false;
     }
 
-   // console.log(this.txtsearch + this.types + this.typesearch);
+    console.log(this.subc);
 
     this.retrieveAllAdvertisements();
 
@@ -185,7 +185,7 @@ export default class Advertisement extends mixins(AlertMixin) {
           );
       } else {
         if (this.activeAdStatus) {
-          console.log(this.activeAdStatus);
+          //console.log(this.activeAdStatus);
           this.advertisementService()
             .retrieveSearchTypeStatus(this.types, this.activeAdStatus.id, paginationQuery)
             .then(
@@ -236,7 +236,9 @@ export default class Advertisement extends mixins(AlertMixin) {
 	        }
        }	  
 	  } else {
+		  /* po osnovnoj kategoriji
       if (this.activeAdStatusFilter === AdvertisementStatusFilter.ALL) {
+		
         this.advertisementService()
           .retrieveSearch(this.txtsearch, this.category, paginationQuery)
           .then(
@@ -267,6 +269,7 @@ export default class Advertisement extends mixins(AlertMixin) {
             );
         }
       }
+      */
      }
     }
   }

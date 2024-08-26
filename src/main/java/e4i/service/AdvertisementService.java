@@ -288,9 +288,10 @@ public class AdvertisementService {
    		  advertisements = advertisementRepository.findAllBySearchAdminbyCategorySub(search,category,pageable);
       } else if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ANONYMOUS)) {
    	 
-   	   if (category != 1) 
+   	   if (category != 1) {
    		   advertisements = advertisementRepository.findAllBySearchAdminbyCategorySub(search,category ,pageable);
-          else
+   		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + category);
+   	   } else
        	   advertisements = advertisementRepository.findAllBySearchAdmin(search, pageable);
           
    	   

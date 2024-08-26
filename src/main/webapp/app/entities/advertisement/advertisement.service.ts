@@ -97,7 +97,7 @@ export default class AdvertisementService {
     } else {
       urlgo = baseApiUrlSearch + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
     }
-
+alert(urlgo);
     console.log(urlgo);
 
     // console.log(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
@@ -140,6 +140,21 @@ export default class AdvertisementService {
   public retrieveBaseSearch(search: string, category: number, paginationQuery?: any): Promise<any> {
     const urlgo = baseApiUrlSearch + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
 
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(urlgo)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+  
+   public retrieveBaseSearchSub(search: string, category: number, paginationQuery?: any): Promise<any> {
+    const urlgo = baseApiUrlSearchSub + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
+    
     return new Promise<any>((resolve, reject) => {
       axios
         .get(urlgo)

@@ -407,13 +407,13 @@
                   id="searchadv"
                   name="searchadv"
                   type="text"
-                  @keyup.enter="searchAdv()"
-                  @keyup = "autoAdv()"
-                  @click = "autoAdv()"
+                  @keyup.enter="searchAdvSub()"
+                  @keyup = "autoAdvSub()"
+                  @click = "autoAdvSub()"
                   :placeholder="$t('global.menu.searchAd')"
                 ></b-form-input>
                 <div class="input-group-append">
-                  <b-button class="primary btn btn-dark" @click="searchAdv()">{{ $t('entity.action.searchBar') }}</b-button>
+                  <b-button class="primary btn btn-dark" @click="searchAdvSub()">{{ $t('entity.action.searchBar') }}</b-button>
                 </div>
               </b-input-group>
             </div>
@@ -427,7 +427,7 @@
               </div>-->
            <div class="col-sm-4 col-md-4" style="max-width:100%">
           
-                <select class="form-control"  v-model="mainSearchSubCategory" id="katsub" name="katsub" @click="" >
+                <select class="form-control"  v-model="mainSearchSubCategory" id="katsub" name="katsub" @click="" @change="autoAdvSub()">
                     <option  v-for="element in advSubCategList" :key="element.id" :value="element.id" >{{element.name}}</option>
                 </select>
                

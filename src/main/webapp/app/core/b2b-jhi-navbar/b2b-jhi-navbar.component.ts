@@ -137,7 +137,7 @@ export default class B2BJhiNavbar extends Vue {
       this.mainSearchSubCategory = urlParams.get('category');
     }
 
-    // this.advertisements = "hsdgadjhdgajdhg"
+   
   }
 
   beforeDestroy() {
@@ -297,6 +297,44 @@ export default class B2BJhiNavbar extends Vue {
 
       this.advertisementService()
         .retrieveBaseSearch(this.txtsearchNav, this.mainSearchCategory, paginationQuery)
+        .then(
+          res => {
+            // Ovo koristiti az originalno povucene rezultate pretrage
+            this.advertisements = res.data;
+            this.$emit('adv:change', this.advertisements);
+            // Ovo koristiti za filtrirane rezultate pretrage
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+    }
+  }
+  
+  public autoAdvSub(): any {
+    console.log('kuku');
+    if (!this.notifsearchshown) {
+      this.$notify({
+        text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
+        type: 'info',
+        duration: 3000,
+      });
+      this.notifsearchshown = true;
+    }
+    if (this.txtsearchNav != null && this.txtsearchNav.length >= 3) {
+      this.isFetching = true;
+
+      const paginationQuery = {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      };
+
+      this.advertisementService()
+        .retrieveBaseSearchSub(this.txtsearchNav, this.mainSearchSubCategory, paginationQuery)
         .then(
           res => {
             // Ovo koristiti az originalno povucene rezultate pretrage
@@ -566,11 +604,18 @@ export default class B2BJhiNavbar extends Vue {
     this.advertisementSubcategoryService()
       .retrieve()
       .then(res => {
-		// console.log("jsdhfjskfhsfjkhfjkfhskjfshfkjhfsjkfhsjkfhskfjshfkj");
-        this.advSubCategList = res.data;
-        console.log(res.data);
+		this.advSubCategList = res.data;
         this.$refs.mainSearchSubCategory = this.advSubCategList;
-        this.mainSearchSubCategory = 1;
+        //this.mainSearchSubCategory = 1;
+        this.mainSearchSubCategory = this.$route.query.category;
+	    if (this.mainSearchSubCategory == null || this.mainSearchSubCategory === 'undefined') {
+	      const urlParams = new URLSearchParams(window.location.search);
+	      this.mainSearchSubCategory = urlParams.get('category');
+	    }
+	      if (this.mainSearchSubCategory == null || this.mainSearchSubCategory === 'undefined') {
+	      this.mainSearchSubCategory = 1;
+	    }
+
       });
   }
   
