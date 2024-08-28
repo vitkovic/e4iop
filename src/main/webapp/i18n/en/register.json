@@ -43,6 +43,12 @@
         "userexists": "<strong>Login name already registered!</strong> Please choose another one.",
         "emailexists": "<strong>Email is already in use!</strong> Please choose another one."
       }
+    },
+    "confirm": {
+      "title": "Registration - Confirm data",
+      "infoText": "The following lists data about the user and the company, which are automatically obtained from the eUprava and APR services. This data cannot be changed subsequently on the portal (except for the email address and the company's website).<br><br>In order to complete the registration process, you need to check and confirm that the obtained data is correct.",
+      "userInfo": "User information",
+      "companyInfo": "Company information"
     }
   }
 }

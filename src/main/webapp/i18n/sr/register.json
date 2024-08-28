@@ -43,6 +43,12 @@
         "userexists": "<strong>Korisničko ime već postoji!</strong> Molimo Vas odaberite drugo.",
         "emailexists": "<strong>Email je već upotrebljen!</strong> Molimo Vas odaberite drugi."
       }
+    },
+    "confirm": {
+      "title": "Registracija - Potvrda podataka",
+      "infoText": "U nastavku su prikazani podaci o korisniku i kompaniji koji se automatski preuzimaju sa servisa eUprava i APR. Ovi podaci se ne mogu naknadno menjati na portalu (osim imejl adrese i internet stranice kompanije).<br><br>Kako biste završili proces registracije, potrebno je da proverite i potvrdite da su preuzeti podaci odgovarajući.",
+      "userInfo": "Podaci o korisniku",
+      "companyInfo": "Podaci o kompaniji"
     }
   }
 }
