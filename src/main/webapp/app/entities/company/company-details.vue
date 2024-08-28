@@ -339,7 +339,7 @@
                 :href="companyService().retrieveDocument(document.filename)"
                 target="_blank"
                 title="Preuzmite dokument"
-                >{{ document.filename }}
+                >{{ documentFileName(document.filename) }}
               </a>
             </p>
           </div>

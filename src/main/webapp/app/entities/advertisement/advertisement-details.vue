@@ -157,7 +157,7 @@
           </div> -->
           <div v-html="advertisement.description" class="conditionsText border rounded p-2"></div>
         </section>
-        <section class="conditions mb-4">
+        <section v-if="advertisement.conditions" class="conditions mb-4">
           <h5 v-text="$t('riportalApp.advertisement.conditions')">Uslovi</h5>
           <!-- <b-card style="white-space: preserve-breaks;">
             {{ advertisement.conditions }}
@@ -381,7 +381,7 @@
                 :href="advertisementService().retrieveDocument(document.filename)"
                 target="_blank"
                 title="Preuzmite dokument"
-                >{{ document.filename }}
+                >{{ documentFileName(document.filename) }}
               </a>
             </p>
           </div>

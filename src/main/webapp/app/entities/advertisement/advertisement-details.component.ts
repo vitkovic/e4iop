@@ -710,4 +710,9 @@ export default class AdvertisementDetails extends Vue {
       })
       .join(', ');
   }
+
+  public documentFileName(fileName) {
+    let regex = /^doc_ad_\d+_/;
+    return fileName.replace(regex, '');
+  }
 }

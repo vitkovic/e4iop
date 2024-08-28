@@ -1,7 +1,6 @@
 <template>
   <div>
-	 
-    <section class="banner">
+    <section v-if="cmsSlider" class="banner">
       <div>
         <b-carousel
           id="carousel-1"
@@ -18,76 +17,93 @@
         >
           <b-carousel-slide v-for="(cmsSlider, index) in cmsSliders" :key="index" @click.native="handleImageClick(cmsSlider)">
             <template #img>
-              <img v-if="cmsSlider.image" :src="retrieveFile(cmsSlider.image)" class="d-block w-100" alt="image slot" />
+              <img v-if="cmsSlider.image" :src="retrieveFile(cmsSlider.image)" class="d-block img-item w-100" alt="image slot" />
             </template>
           </b-carousel-slide>
         </b-carousel>
       </div>
     </section>
- 
- 
 
-    <div class="div1">
-      <div class="divZaA">
-        <b-link :to="{ name: 'AdvertisementCreate', query: { type: advertisementTypeOptions.OFFER } }" class="kvadrat kvOne">
-          <span class="velikiTekst" v-text="$t('home.b2b.square.createOfferSmall')">Желиш да</span>
-          <span class="maliTekst" v-text="$t('home.b2b.square.createOfferLarge')">огласиш понуду?</span>
-        </b-link>
-        <b-link :to="{ name: 'AdvertisementCreate', query: { type: advertisementTypeOptions.DEMAND } }" class="kvadrat kvTwo">
-          <span class="velikiTekst" v-text="$t('home.b2b.square.createDemandSmall')">Желиш да</span>
-          <span class="maliTekst" v-text="$t('home.b2b.square.createDemandLarge')">огласиш потребу?</span>
-        </b-link>
-        <b-link :to="{ name: 'AdvertisementSearch', query:{type:'3451'} }" class="kvadrat kvThree">
-          <span class="velikiTekst" v-text="$t('home.b2b.square.findAllOffersSmall')">Погледај све</span>
-          <span class="maliTekst" v-text="$t('home.b2b.square.findAllOffersLarge')">понуде</span>
-        </b-link>
-        <b-link :to="{ name: 'AdvertisementSearch', query:{type:'3452'} }" class="kvadrat kvFour">
-          <span class="velikiTekst" v-text="$t('home.b2b.square.findAllDemandsSmall')">Пoгледај све</span>
-          <span class="maliTekst" v-text="$t('home.b2b.square.findAllDemandsLarge')">потребе</span>
-        </b-link>
+    <section class="row justify-content-center">
+      <div class="col-11 col-md-10">
+        <div class="div1">
+          <div class="divZaA">
+            <b-link :to="{ name: 'AdvertisementCreate', query: { type: advertisementTypeOptions.OFFER } }" class="kvadrat kvOne">
+              <span class="velikiTekst" v-text="$t('home.b2b.square.createOfferSmall')">Желиш да</span>
+              <span class="maliTekst" v-text="$t('home.b2b.square.createOfferLarge')">огласиш понуду?</span>
+            </b-link>
+            <b-link :to="{ name: 'AdvertisementCreate', query: { type: advertisementTypeOptions.DEMAND } }" class="kvadrat kvTwo">
+              <span class="velikiTekst" v-text="$t('home.b2b.square.createDemandSmall')">Желиш да</span>
+              <span class="maliTekst" v-text="$t('home.b2b.square.createDemandLarge')">огласиш потребу?</span>
+            </b-link>
+            <b-link :to="{ name: 'AdvertisementSearch', query: { type: '3451' } }" class="kvadrat kvThree">
+              <span class="velikiTekst" v-text="$t('home.b2b.square.findAllOffersSmall')">Погледај све</span>
+              <span class="maliTekst" v-text="$t('home.b2b.square.findAllOffersLarge')">понуде</span>
+            </b-link>
+            <b-link :to="{ name: 'AdvertisementSearch', query: { type: '3452' } }" class="kvadrat kvFour">
+              <span class="velikiTekst" v-text="$t('home.b2b.square.findAllDemandsSmall')">Пoгледај све</span>
+              <span class="maliTekst" v-text="$t('home.b2b.square.findAllDemandsLarge')">потребе</span>
+            </b-link>
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+          <h4 v-text="$t('home.advertisements.offers.title')" class="divCardsTitle">Актуелне понуде</h4>
+        </div>
+
+        <div class="row justify-content-center mt-2 divCardsBox">
+          <div
+            v-for="(advertisement, index) in advertisementArray"
+            :key="index"
+            class="d-flex align-content-center justify-content-around justify-content-lg-center justify-content-xl-around col-6 col-sm-4 col-lg-3 col-xl-2 mb-2 mb-xl-0"
+          >
+            <div class="divCard">
+              <h6>{{ advertisement.advertisements }} {{ $t('home.advertisements.advertisements') }}</h6>
+              <div class="img-box">
+                <img :src="advertisement.logo" alt="" class="background-imazh" />
+              </div>
+              <b-link
+                :to="{ name: 'CompanyAdvertisementsView', params: { companyId: advertisement.id }, query: { filter: 'offer' } }"
+                class="card-button"
+                >{{ $t('home.advertisements.offers.button') }}</b-link
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+          <h4 v-text="$t('home.advertisements.demands.title')" class="divCardsTitle">Актуелне потражње</h4>
+        </div>
+
+        <div class="row justify-content-center mt-2 divCardsBox">
+          <div
+            v-for="(advertisement, index) in advertisementArray"
+            :key="index"
+            class="d-flex align-content-center justify-content-around justify-content-lg-center justify-content-xl-around col-6 col-sm-4 col-lg-3 col-xl-2 mb-2 mb-xl-0"
+          >
+            <div class="divCard">
+              <h6>{{ advertisement.advertisements }} {{ $t('home.advertisements.advertisements') }}</h6>
+              <div class="img-box">
+                <img :src="advertisement.logo" alt="" class="background-imazh" />
+              </div>
+              <b-link
+                :to="{ name: 'CompanyAdvertisementsView', params: { companyId: advertisement.id }, query: { filter: 'demand' } }"
+                class="card-button"
+                >{{ $t('home.advertisements.demands.button') }}</b-link
+              >
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <p v-text="$t('home.advertisements.offers.title')" class="pTag">Актуелне понуде</p>
-
-    <div></div>
+    <!-- <p class="pTag1" v-text="$t('home.advertisements.demands.title')">Актуелне потражње</p>
 
     <div class="divZaPonudeiPotraznje">
       <div class="divOne">
         <h6>4 {{ $t('home.advertisements.advertisements') }}</h6>
 
         <img src="/content/images/cat1.jpg" alt="" class="background-imazh" />
-        <button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
-      </div>
-      <div class="divTwo">
-        <h6>9 {{ $t('home.advertisements.advertisements') }}</h6>
-        <img src="/content/images/cat2.jpg" class="background-imazh" alt="" />
-        <button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
-      </div>
-      <div class="divThree">
-        <h6>3 {{ $t('home.advertisements.advertisements') }}</h6>
-        <img src="/content/images/cat3.jpg" class="background-imazh" alt="" />
-        <button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
-      </div>
-      <div class="divFour">
-        <h6>11 {{ $t('home.advertisements.advertisements') }}</h6>
-        <img src="/content/images/cat4.jpg" class="background-imazh" alt="" />
-        <button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
-      </div>
-      <div class="divFive">
-        <h6>24 {{ $t('home.advertisements.advertisements') }}</h6>
-        <img src="/content/images/cat4.jpg" class="background-imazh" alt="" />
-        <button v-text="$t('home.advertisements.offers.button')">Погледај понуду</button>
-      </div>
-    </div>
-
-    <p class="pTag1" v-text="$t('home.advertisements.demands.title')">Актуелне потражње</p>
-
-    <div class="divZaPonudeiPotraznje">
-      <div class="divOne">
-        <h6>4 {{ $t('home.advertisements.advertisements') }}</h6>
-
-        <img src="/content/images/cat1.jpg" alt="" class="background-imazh" />
         <button v-text="$t('home.advertisements.demands.button')">Погледај потражњу</button>
       </div>
       <div class="divTwo">
@@ -110,9 +126,8 @@
         <img src="/content/images/cat4.jpg" class="background-imazh" alt="" />
         <button v-text="$t('home.advertisements.demands.button')">Погледај потражњу</button>
       </div>
-    </div>
+    </div> -->
   </div>
-</div>
 </template>
 
 <script lang="ts" src="./b2b-home.component.ts"></script>
@@ -311,11 +326,9 @@
   justify-content: center;
   font-size: large;
   letter-spacing: 3px;
-  border-bottom: 5px solid white;
-  /*border-bottom: 2px solid rgb(255, 128, 128);*/
-  margin-bottom: 0;
-  margin-left: 4em;
-  margin-right: 4em;
+  margin-bottom: 16px;
+  /* margin-left: 4em;
+  margin-right: 4em; */
   align-self: center;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -340,14 +353,36 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* KARTICE */
+
+.divCardsTitle {
+  background-color: rgb(248, 248, 248);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  padding: 10px 0px;
+  font-weight: 400;
+  letter-spacing: 3px;
+}
+
+.divCardsBox {
+  background-color: rgb(246, 246, 246);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .divZaPonudeiPotraznje {
   background-color: rgb(246, 246, 246);
-  margin-left: 4.5em;
-  margin-right: 4.5em;
+  /* margin-left: 4.5em;
+  margin-right: 4.5em; */
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .divZaPonudeiPotraznje h6 {
@@ -356,14 +391,17 @@
 }
 
 .background-imazh {
-  height: 8em !important;
+  /* height: 8em !important;
   display: flex;
   justify-content: center;
   width: 9em;
   opacity: 0.9;
   margin-left: 0.5em;
   margin-right: 0.5em;
-  max-width: 100%;
+  max-width: 100%; */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .divTwo div {
@@ -385,29 +423,44 @@
 }
 
 /*novo*/
-.divZaPonudeiPotraznje div {
+.divCard {
   text-align: center;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 250px;
+  height: 220px;
   background-color: white;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  margin-right: 1em;
-  margin-top: 1em;
-  margin-top: 1em;
-  border-radius: 10px;
-  position: relative;
+  border-radius: 8px;
+  padding: 5px 16px;
+  width: 160px;
 }
 
-.divZaPonudeiPotraznje div img {
+.img-box {
+  border: 1px solid rgb(246, 246, 246);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 125px;
+  height: 100px;
+}
+
+/* .divZaPonudeiPotraznje div img {
   max-width: 100%;
   height: auto;
   display: block;
 
   border-radius: 10px;
-}
+} */
+
+/* .divCard div {
+  margin-left: 22px;
+} */
+
+/* .divCard .card-button:hover{
+  padding: 6px;
+  transition: 0.1s;
+} */
 
 .divZaPonudeiPotraznje div button {
   border-radius: 10px;
@@ -418,6 +471,26 @@
   margin-top: 2.3em;
   margin-left: 1em;
   margin-right: 1em;
+}
+
+.card-button {
+  display: block;
+  border: 1px solid #212529;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  background-color: rgb(246, 246, 246);
+  color: #212529;
+  text-decoration: none;
+  padding: 4px 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.card-button:hover {
+  text-decoration: none;
+  border-width: 1.5px;
+  color: #212529;
+  font-weight: 500;
 }
 
 .divOne div {
@@ -456,6 +529,25 @@
   transition: 0.1s;
 }
 
+@media screen and (max-width: 992px) {
+  .custom-carousel {
+    height: 400px;
+  }
+
+  .carousel-inner {
+    height: 100%;
+  }
+
+  .carousel-item {
+    height: 100%;
+  }
+
+  .img-item {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .divZaPonudeiPotraznje {
     margin-left: 2em;
@@ -488,38 +580,38 @@
     margin-left: 2em;
   }
 
-  .div1 {
+  /* .div1 {
     margin-top: 5em;
-  }
-  .background-imazh {
+  } */
+  /* .background-imazh {
     margin-left: 1.5em;
     margin-right: 1.5em;
-  }
+  } */
 }
 
 @media screen and (max-width: 310px) {
-  .divZaPonudeiPotraznje div {
+  /* .divZaPonudeiPotraznje div {
     width: 35%;
   }
   .divZaPonudeiPotraznje div img {
     margin-left: 2em;
     margin-right: 2em;
-  }
+  } */
 }
 
 @media screen and (max-width: 450px) {
-  .divZaPonudeiPotraznje div {
+  /* .divZaPonudeiPotraznje div {
     width: 40%;
   }
   .divZaPonudeiPotraznje div img {
     height: 7em !important;
-  }
+  } */
 }
 
 @media screen and (min-width: 451px) and (max-width: 890px) {
-  .background-imazh {
+  /* .background-imazh {
     margin-left: 1.5em;
     margin-right: 1.5em;
-  }
+  } */
 }
 </style>

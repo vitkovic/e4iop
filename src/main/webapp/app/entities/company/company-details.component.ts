@@ -550,4 +550,9 @@ export default class CompanyDetails extends Vue {
     this.modalComment = '';
     this.modalRating = 0;
   }
+
+  public documentFileName(fileName) {
+    let regex = /^doc_page_\d+_/;
+    return fileName.replace(regex, '');
+  }
 }

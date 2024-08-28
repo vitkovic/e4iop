@@ -59,7 +59,14 @@ export default class Advertisement extends mixins(AlertMixin) {
           .find(vm.companyId)
           .then(res => {
             vm.company = res;
-            vm.retrieveAllAdvertisements();
+            // vm.retrieveAllAdvertisements();
+            if (to.query.filter === 'offer') {
+              vm.showOfferAdvertisements();
+            } else if (to.query.filter === 'demand') {
+              vm.showDemandAdvertisements();
+            } else {
+              vm.retrieveAllAdvertisements();
+            }
           });
       }
     });
