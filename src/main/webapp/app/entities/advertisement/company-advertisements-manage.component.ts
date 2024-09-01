@@ -352,33 +352,27 @@ export default class Advertisement extends mixins(AlertMixin) {
 
     if (currentLanguage === 'sr') {
       branch =
-        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name +
-        ' / ' +
-        advertisement.subsubcategory.advertisementSubcategory.name +
-        ' / ' +
-        advertisement.subsubcategory.name;
+        // advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.name +
+        // ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.name + ' / ' + advertisement.subsubcategory.name;
 
       return branch;
     }
 
     if (currentLanguage === 'src') {
       branch =
-        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameSrc +
-        ' / ' +
-        advertisement.subsubcategory.advertisementSubcategory.nameSrc +
-        ' / ' +
-        advertisement.subsubcategory.nameSrc;
+        // advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameSrc +
+        // ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.nameSrc + ' / ' + advertisement.subsubcategory.nameSrc;
 
       return branch;
     }
 
     if (currentLanguage === 'en') {
       branch =
-        advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameEn +
-        ' / ' +
-        advertisement.subsubcategory.advertisementSubcategory.nameEn +
-        ' / ' +
-        advertisement.subsubcategory.nameEn;
+        // advertisement.subsubcategory.advertisementSubcategory.advertisementCategory.nameEn +
+        // ' / ' +
+        advertisement.subsubcategory.advertisementSubcategory.nameEn + ' / ' + advertisement.subsubcategory.nameEn;
 
       return branch;
     }

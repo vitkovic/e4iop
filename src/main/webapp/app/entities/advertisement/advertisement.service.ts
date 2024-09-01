@@ -97,7 +97,7 @@ export default class AdvertisementService {
     } else {
       urlgo = baseApiUrlSearch + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
     }
-alert(urlgo);
+    alert(urlgo);
     console.log(urlgo);
 
     // console.log(baseApiUrlSearch + `?search=${search}`+ `&category=${category}`+ `&` + `${buildPaginationQueryOpts(paginationQuery)}`);
@@ -112,7 +112,7 @@ alert(urlgo);
         });
     });
   }
-  
+
   public retrieveSearchSub(search: string, category: number, paginationQuery?: any): Promise<any> {
     var urlgo = '';
 
@@ -151,10 +151,11 @@ alert(urlgo);
         });
     });
   }
-  
-   public retrieveBaseSearchSub(search: string, category: number, paginationQuery?: any): Promise<any> {
-    const urlgo = baseApiUrlSearchSub + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
-    
+
+  public retrieveBaseSearchSub(search: string, category: number, paginationQuery?: any): Promise<any> {
+    const urlgo =
+      baseApiUrlSearchSub + `?search=${search}` + `&category=${category}` + `&` + `${buildPaginationQueryOpts(paginationQuery)}`;
+
     return new Promise<any>((resolve, reject) => {
       axios
         .get(urlgo)
@@ -220,8 +221,8 @@ alert(urlgo);
         });
     });
   }
-  
-   public retrieveSearchByStatusIdSub(search: string, statusId: number, category: number, paginationQuery?: any): Promise<any> {
+
+  public retrieveSearchByStatusIdSub(search: string, statusId: number, category: number, paginationQuery?: any): Promise<any> {
     const urlgo =
       baseApiUrlSearchStatus +
       `?search=${search}` +
@@ -582,29 +583,26 @@ alert(urlgo);
 
     if (currentLanguage === 'sr') {
       branch =
-        option.advertisementSubcategory.advertisementCategory.name + ' / ' + option.advertisementSubcategory.name + ' / ' + option.name;
+        // option.advertisementSubcategory.advertisementCategory.name + ' / ' +
+        option.advertisementSubcategory.name + ' / ' + option.name;
 
       return branch;
     }
 
     if (currentLanguage === 'src') {
       branch =
-        option.advertisementSubcategory.advertisementCategory.nameSrc +
-        ' / ' +
-        option.advertisementSubcategory.nameSrc +
-        ' / ' +
-        option.nameSrc;
+        // option.advertisementSubcategory.advertisementCategory.nameSrc +
+        // ' / ' +
+        option.advertisementSubcategory.nameSrc + ' / ' + option.nameSrc;
 
       return branch;
     }
 
     if (currentLanguage === 'en') {
       branch =
-        option.advertisementSubcategory.advertisementCategory.nameEn +
-        ' / ' +
-        option.advertisementSubcategory.nameEn +
-        ' / ' +
-        option.nameEn;
+        // option.advertisementSubcategory.advertisementCategory.nameEn +
+        // ' / ' +
+        option.advertisementSubcategory.nameEn + ' / ' + option.nameEn;
 
       return branch;
     }

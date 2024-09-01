@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-if="cmsSlider" class="banner">
+    <section class="banner">
       <div>
         <b-carousel
           id="carousel-1"
