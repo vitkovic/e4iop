@@ -20,17 +20,29 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import java.util.*;
+
+import org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
 import e4i.security.oauth2.JwtGrantedAuthorityConverter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
+import org.springframework.security.web.session.ConcurrentSessionFilter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
+import org.springframework.security.web.session.SimpleRedirectSessionInformationExpiredStrategy;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -64,10 +76,62 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/test/**");
     }
 
+    
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
+    }
+    
+    @Bean
+    public ConcurrentSessionFilter concurrentSessionFilter() {
+        return new ConcurrentSessionFilter(sessionRegistry(), new SimpleRedirectSessionInformationExpiredStrategy("/"));
+    }
+    
+    
+    @Bean
+    public ConcurrentSessionControlAuthenticationStrategy concurrentSessionControlAuthenticationStrategy() {
+
+        ConcurrentSessionControlAuthenticationStrategy concurrentSessionControlAuthenticationStrategy =
+                new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
+        concurrentSessionControlAuthenticationStrategy.setExceptionIfMaximumExceeded(true);
+        concurrentSessionControlAuthenticationStrategy.setMaximumSessions(5);
+        return concurrentSessionControlAuthenticationStrategy;
+    }
+
+    @Bean
+    public SessionFixationProtectionStrategy sessionFixationProtectionStrategy() {
+        return new SessionFixationProtectionStrategy();
+    }
+    @Bean
+    public RegisterSessionAuthenticationStrategy registerSessionAuthenticationStrategy() {
+        return new RegisterSessionAuthenticationStrategy(sessionRegistry());
+    }
+
+    @Bean
+    public CompositeSessionAuthenticationStrategy compositeSessionAuthenticationStrategy() {
+        List<SessionAuthenticationStrategy> sessionAuthenticationStrategyList = new ArrayList<>();
+        sessionAuthenticationStrategyList.add(concurrentSessionControlAuthenticationStrategy());
+        sessionAuthenticationStrategyList.add(sessionFixationProtectionStrategy());
+        sessionAuthenticationStrategyList.add(registerSessionAuthenticationStrategy());
+
+        return new CompositeSessionAuthenticationStrategy(sessionAuthenticationStrategyList);
+    }
+    
+    
+    
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
+	        .logout()
+	        .invalidateHttpSession(true)
+	        .deleteCookies("JSESSIONID")
+	    .and()
             .csrf()
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         .and()
@@ -134,7 +198,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .jwtAuthenticationConverter(authenticationConverter())
                 .and()
             .and()
-                .oauth2Client();
+                .oauth2Client()
+            .and()
+    	    	.sessionManagement().maximumSessions(5).sessionRegistry(sessionRegistry()).expiredUrl("/logout")
+    	    	 .and().sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy());
+          
+          
+
         // @formatter:on
     }
 
