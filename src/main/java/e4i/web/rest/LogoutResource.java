@@ -66,7 +66,7 @@ public class LogoutResource {
         boolean expieredAtLeastOneSession = false;
         
         if(sessionRegistry.getAllPrincipals().size() != 0) {
-            System.out.println("ACTIVE USER: " + sessionRegistry.getAllPrincipals().size());
+         //   System.out.println("ACTIVE USER: " + sessionRegistry.getAllPrincipals().size());
             int lengthPrincipals = sessionRegistry.getAllPrincipals().size();
             
             for (Object principal : sessionRegistry.getAllPrincipals()) {
@@ -77,14 +77,14 @@ public class LogoutResource {
             	 
             	 List<SessionInformation>  lsessions = sessionRegistry.getAllSessions(principal, false);
             	 
-            	 System.out.println(lsessions.size());
+            //	 System.out.println(lsessions.size());
             	 
             	
             	
             	 for (Object sessiono : lsessions) {
             		 
             		 if (sessiono instanceof SessionInformation) { 
-            			 System.out.println((SessionInformation) sessiono);
+            //			 System.out.println((SessionInformation) sessiono);
             			 ((SessionInformation) sessiono).expireNow();
             			 sessionRegistry.removeSessionInformation(((SessionInformation) sessiono).getSessionId());
             			 publisher.publishEvent(AskToExpireSessionEvent.of(((SessionInformation) sessiono).getSessionId()));
@@ -100,44 +100,7 @@ public class LogoutResource {
         else
         	System.out.println("EMPTY" );
         
-        System.out.println("PONOVO PONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVOPONOVO ");
-        
-        
-        if(sessionRegistry.getAllPrincipals().size() != 0) {
-            System.out.println("ACTIVE USER: " + sessionRegistry.getAllPrincipals().size());
-            int lengthPrincipals = sessionRegistry.getAllPrincipals().size();
-            
-            for (Object principal : sessionRegistry.getAllPrincipals()) {
-             if (principal instanceof DefaultOidcUser) {
-            	 
-            	 
-            	 System.out.println("User " + ((DefaultOidcUser)principal).getFamilyName());
-            	 
-            	 List<SessionInformation>  lsessions = sessionRegistry.getAllSessions(principal, false);
-            	 
-            	 System.out.println(lsessions.size());
-            	 
-            	
-            	
-            	 for (Object sessiono : lsessions) {
-            		 
-            		 if (sessiono instanceof SessionInformation) { 
-            			 System.out.println((SessionInformation) sessiono);
-            			 ((SessionInformation) sessiono).expireNow();
-            			 sessionRegistry.removeSessionInformation(((SessionInformation) sessiono).getSessionId());
-            			
-            		 }
-            	 }
-            	
-             } 
-            }
-            
-            //model.put("activeuser",  sessionRegistry.getAllPrincipals().size());
-        }
-        else
-        	System.out.println("EMPTY" );
-        
-        
+      
         
         request.getSession().invalidate();
         
