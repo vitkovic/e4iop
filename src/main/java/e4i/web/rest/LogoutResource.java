@@ -38,6 +38,7 @@ public class LogoutResource {
         Map<String, String> logoutDetails = new HashMap<>();
         logoutDetails.put("logoutUrl", logoutUrl);
         logoutDetails.put("idToken", idToken.getTokenValue());
+        // delete session for all
         request.getSession().invalidate();
         return ResponseEntity.ok().body(logoutDetails);
     }
