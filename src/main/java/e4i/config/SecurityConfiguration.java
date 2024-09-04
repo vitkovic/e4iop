@@ -200,8 +200,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .oauth2Client()
             .and()
-    	    	.sessionManagement().maximumSessions(5).sessionRegistry(sessionRegistry()).expiredUrl("/logout")
-    	    	 .and().sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy());
+    	    	.sessionManagement().maximumSessions(5).sessionRegistry(sessionRegistry()).expiredUrl("/api/logout")
+    	    	.and().sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy());
           
           
 

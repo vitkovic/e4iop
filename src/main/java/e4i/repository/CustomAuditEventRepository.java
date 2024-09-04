@@ -7,6 +7,9 @@ import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import e4i.config.Constants;
 import e4i.config.audit.AuditEventConverter;
@@ -14,6 +17,8 @@ import e4i.domain.PersistentAuditEvent;
 import e4i.repository.PersistenceAuditEventRepository;
 import java.time.Instant;
 import java.util.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * An implementation of Spring Boot's {@link AuditEventRepository}.
@@ -48,9 +53,15 @@ public class CustomAuditEventRepository implements AuditEventRepository {
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
     }
 
+    // redirect
+    
+  
+    
+    
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void add(AuditEvent event) {
+    
         if (!AUTHORIZATION_FAILURE.equals(event.getType()) &&
             !Constants.ANONYMOUS_USER.equals(event.getPrincipal())) {
 
@@ -61,7 +72,7 @@ public class CustomAuditEventRepository implements AuditEventRepository {
             Map<String, String> eventData = auditEventConverter.convertDataToStrings(event.getData());
             persistentAuditEvent.setData(truncate(eventData));
             persistenceAuditEventRepository.save(persistentAuditEvent);
-        }
+        } 
     }
 
     /**

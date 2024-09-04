@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -57,12 +59,20 @@ public class LogoutResource {
         String logoutUrl = this.registration.getProviderDetails()
             .getConfigurationMetadata().get("end_session_endpoint").toString();
 
-        if (idToken == null) request.getSession().invalidate();
+        if (idToken == null) {
+        	request.getSession().invalidate();
+        	//return null;
+        }
+        
+        String emailt= idToken.getEmail();
         
         Map<String, String> logoutDetails = new HashMap<>();
         logoutDetails.put("logoutUrl", logoutUrl);
         logoutDetails.put("idToken", idToken.getTokenValue());
-    
+        
+     //   System.out.println(idToken.getEmail());
+        
+        
         boolean expieredAtLeastOneSession = false;
         
         if(sessionRegistry.getAllPrincipals().size() != 0) {
@@ -72,28 +82,40 @@ public class LogoutResource {
             for (Object principal : sessionRegistry.getAllPrincipals()) {
              if (principal instanceof DefaultOidcUser) {
             	 
+            	String emailp = ((DefaultOidcUser)principal).getEmail();
+            //	System.out.println( ((DefaultOidcUser)principal).getIdToken());
+            //	System.out.println( idToken);
             	 
-            	 System.out.println("User " + ((DefaultOidcUser)principal).getFamilyName());
+           //  System.out.println("User:" + emailp +";" + "Token:" + emailt+";");
             	 
-            	 List<SessionInformation>  lsessions = sessionRegistry.getAllSessions(principal, false);
-            	 
-            //	 System.out.println(lsessions.size());
-            	 
-            	
-            	
-            	 for (Object sessiono : lsessions) {
-            		 
-            		 if (sessiono instanceof SessionInformation) { 
-            //			 System.out.println((SessionInformation) sessiono);
-            			 ((SessionInformation) sessiono).expireNow();
-            			 sessionRegistry.removeSessionInformation(((SessionInformation) sessiono).getSessionId());
-            			 publisher.publishEvent(AskToExpireSessionEvent.of(((SessionInformation) sessiono).getSessionId()));
-                         expieredAtLeastOneSession = true;
-            		 }
-            	 }
-            	
-             } 
-            }
+		         if (emailp.equalsIgnoreCase(emailt)) {
+		            	 
+		            	 List<SessionInformation>  lsessions = sessionRegistry.getAllSessions(principal, false);
+		            	 
+		     //      	 System.out.println(lsessions.size());
+		            	 
+		            	
+		            	
+		            	 for (Object sessiono : lsessions) {
+		            		 
+		            		 if (sessiono instanceof SessionInformation) { 
+		       //     			System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{    " + (SessionInformation) sessiono);
+		            			
+		            			 ((SessionInformation) sessiono).expireNow();
+		            			 sessionRegistry.removeSessionInformation(((SessionInformation) sessiono).getSessionId());
+		            			 publisher.publishEvent(AskToExpireSessionEvent.of(((SessionInformation) sessiono).getSessionId()));
+		                         expieredAtLeastOneSession = true;
+		                         
+		                         
+		                         
+		            		 }
+		            	 }
+		            	
+		             } else {
+		             	 System.out.println("WHY:::" + emailp +";" + emailt); 
+		             }
+		        }
+            } 
             
             //model.put("activeuser",  sessionRegistry.getAllPrincipals().size());
         }
