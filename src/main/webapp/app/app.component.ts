@@ -67,7 +67,8 @@ export default class App extends Vue {
  */
   }
   created() {
-    this.currentLanguage = this.$store.getters.currentLanguage;
+    this.currentLanguage = this.$store.getters.currentLanguage;  
+   
     //alert(JSON.stringify($t('riportalApp.advertisement.title')));
   }
 

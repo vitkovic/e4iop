@@ -60,8 +60,12 @@ export default class AccountService {
           resolve(true);
         })
         .catch(() => {
+			 console.log(
+            'JS  U retrieveAccount U CATCH *****************************************************************************************************'
+          );
           this.store.commit('logout');
           resolve(false);
+          this.router.push('/api/logout');
         });
     });
   }

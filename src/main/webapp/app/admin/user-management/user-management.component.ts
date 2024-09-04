@@ -42,6 +42,8 @@ export default class JhiUserManagementComponent extends mixins(AlertMixin) {
   }
 
   public loadAll(): void {
+	
+	  
     this.userManagementService()
       .retrieve({
         page: this.page - 1,
