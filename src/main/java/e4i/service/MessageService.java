@@ -1,5 +1,7 @@
 package e4i.service;
 
+import e4i.domain.Advertisement;
+import e4i.domain.AdvertisementStatus;
 import e4i.domain.AdvertisementSupporter;
 import e4i.domain.Collaboration;
 import e4i.domain.Company;
@@ -16,9 +18,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -89,6 +94,32 @@ public class MessageService {
         log.debug("Request to delete Message : {}", id);
         messageRepository.deleteById(id);
     }
+    
+    
+    /**
+     * To delete older messages - 180 days
+     * <p>
+     * This is scheduled to get fired everyday, at 01:00 (am).
+     */
+    @Scheduled(cron = "0 0 1 * * ?")
+    public void removeNotActivatedUsers() {
+    	
+    	LocalDate date = LocalDate.now().minusDays(180);
+    	
+        messageRepository
+            .findAllByAfterDays(date.toString())
+            .forEach(msg -> {
+                log.debug("Deleting messages {}", msg);
+                if (msg instanceof Message) {
+                	this.delete(((Message)msg).getId());
+                }
+         
+            });
+    }			
+    
+    
+    
+    
     
     @Transactional
     public Message createNewMessageInThread(Thread thread, String content, PortalUser portalUserSender, Long companyId) {

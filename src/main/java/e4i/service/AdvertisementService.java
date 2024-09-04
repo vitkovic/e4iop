@@ -91,7 +91,7 @@ public class AdvertisementService {
     
     
     /**
-     * Not activated users should be automatically deleted after 3 days.
+     * To activate advertisements with scheduled activation date
      * <p>
      * This is scheduled to get fired everyday, at 01:00 (am).
      */

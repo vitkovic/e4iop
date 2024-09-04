@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,12 +14,14 @@ import e4i.domain.Advertisement;
 import e4i.domain.Collaboration;
 import e4i.domain.CollaborationRating;
 import e4i.domain.CollaborationStatus;
+import e4i.domain.Message;
 import e4i.domain.PortalUser;
 import e4i.repository.CollaborationRepository;
 import e4i.web.rest.dto.CompanyRatingsDTO;
 
 import java.text.DecimalFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +45,33 @@ public class CollaborationService {
         this.collaborationRepository = collaborationRepository;
     }
 
+    
+    
+    /**
+     * To delete older messages - 180 days
+     * <p>
+     * This is scheduled to get fired everyday, at 01:00 (am).
+     */
+    @Scheduled(cron = "0 0 1 * * ?")
+    public void removeNotActivatedUsers() {
+    	
+    	LocalDate date = LocalDate.now().minusDays(30);
+    	
+    	collaborationRepository
+            .findAndSendReminders(date.toString(), (long)18002)
+            .forEach(colab -> {
+                log.debug("Deleting messages {}", colab);
+                if (colab instanceof Collaboration) {
+                	// SEND NOTIFICATIONS - Vlado pogledaj
+                }
+         
+            });
+    }			
+    
+    
+    
+    
+    
     /**
      * Save a collaboration.
      *

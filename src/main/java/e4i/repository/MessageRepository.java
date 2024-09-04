@@ -75,4 +75,12 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 	
 	@Query("SELECT m.thread FROM Message m WHERE m.id = :messageId")
 	Optional<Thread> findThreadByMessageId(@Param("messageId") Long messageId);
+	
+	// delete messages older 180 days
+	 @Query("select distinct message from Message message "
+		  		+ " where datetime <= TO_TIMESTAMP(:dateminus, 'YYYY-MM-DD HH24:MI:SS')")
+	List<Message> findAllByAfterDays(@Param("dateminus") String dateminus);
+	
+	
+	
 }

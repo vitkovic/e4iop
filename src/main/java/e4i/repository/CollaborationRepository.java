@@ -96,6 +96,14 @@ public interface CollaborationRepository extends JpaRepository<Collaboration, Lo
 			@Param("subsubcategories") List<Long> subsubcategories);
 	
 	
+	  @Query("SELECT collaboration FROM Collaboration collaboration " +
+   	       " WHERE collaboration.status.id = :status AND collaboration.isAccepted = TRUE AND datetime <= TO_TIMESTAMP(:dateminus, 'YYYY-MM-DD HH24:MI:SS') AND (collaboration.ratingOffer IS NULL OR collaboration.ratingRequest IS NULL)")
+	List<Collaboration> findAndSendReminders(@Param("dateminus") String dateminus, @Param("status") Long status);
+	
+	
+	
+	
+	
 	@Query("SELECT collaboration FROM Collaboration collaboration " +
             "WHERE ((collaboration.companyOffer.id = :companyId) " +
 			"AND (collaboration.status.id = :statusId))")

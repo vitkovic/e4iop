@@ -203,7 +203,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta && to.meta.authorities && to.meta.authorities.length > 0) {
 	 accountService.retrieveAccount();
-	accountService.hasAnyAuthorityAndCheckAuth(to.meta.authorities).then(value => {
+	 accountService.hasAnyAuthorityAndCheckAuth(to.meta.authorities).then(value => {
 		//alert(value);
       if (!value) {
         sessionStorage.setItem('requested-url', to.fullPath);
