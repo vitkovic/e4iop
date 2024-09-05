@@ -372,6 +372,7 @@
   padding-bottom: 20px;
 }
 
+
 .divZaPonudeiPotraznje {
   background-color: rgb(246, 246, 246);
   /* margin-left: 4.5em;
@@ -533,6 +534,11 @@
   width: 100%;
 }
 
+.carousel img {
+  height: 100%;
+  padding: 0px;
+}
+
 @media screen and (max-width: 992px) {
   .custom-carousel {
     height: 400px;
@@ -549,6 +555,10 @@
   .img-item {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+  }
+
+  .carousel img {
     object-fit: cover;
   }
 }

@@ -536,6 +536,7 @@
 </template>
 
 <style>
+
 /* LIGHTBOX & GALLERY  */
 
 .lightbox {
@@ -757,10 +758,10 @@ h2 {
   text-decoration: none;
 }
 
-
 .dropdown-menu {
   padding: 0px;
 }
+
 
 .link-hover:hover{
   background-color: #fff;
