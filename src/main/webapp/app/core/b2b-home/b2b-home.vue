@@ -17,7 +17,7 @@
         >
           <b-carousel-slide v-for="(cmsSlider, index) in cmsSliders" :key="index" @click.native="handleImageClick(cmsSlider)">
             <template #img>
-              <img v-if="cmsSlider.image" :src="retrieveFile(cmsSlider.image)" class="d-block img-item w-100" alt="image slot" />
+              <img v-if="cmsSlider.image" :src="retrieveFile(cmsSlider.image)" class="d-block img-item" alt="image slot" />
             </template>
           </b-carousel-slide>
         </b-carousel>
@@ -529,6 +529,10 @@
   transition: 0.1s;
 }
 
+.img-item {
+  width: 100%;
+}
+
 @media screen and (max-width: 992px) {
   .custom-carousel {
     height: 400px;
@@ -543,6 +547,7 @@
   }
 
   .img-item {
+    width: 100%;
     height: 100%;
     object-fit: cover;
   }

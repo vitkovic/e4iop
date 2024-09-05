@@ -52,32 +52,6 @@ export default class B2BHome extends Vue {
   @Inject('loginService')
   private loginService: () => LoginService;
 
-  // public imagesArray = [
-  //   {
-  //     src: '/content/images/test2-520.jpg',
-  //     srcSmall: '/content/images/test2-720.jpg',
-  //     link: 'https://einovacije.rs/',
-  //   },
-  //   {
-  //     src: '/content/images/test5-520.jpg',
-  //     srcSmall: '/content/images/test5-720.jpg',
-
-  //     link: '/b2b/questions',
-  //   },
-  //   {
-  //     src: '/content/images/test7-520.jpg',
-  //     srcSmall: '/content/images/test7-720.jpg',
-
-  //     link: 'https://einovacije.rs/',
-  //   },
-  //   {
-  //     src: '/content/images/test10-520.jpg',
-  //     srcSmall: '/content/images/test10-720.jpg',
-
-  //     link: '/b2b/questions',
-  //   },
-  // ];
-
   public advertisementTypeOptions = AdvertisementTypeOptions;
 
   // -------- LOGIC FOR BANNER RESPONSIVE AND WHICH IMAGE SIZE TO SHOW -----------

@@ -427,9 +427,10 @@
               </div>-->
            <div class="col-sm-4 col-md-4" style="max-width:100%">
           
-                <select class="form-control"  v-model="mainSearchSubCategory" id="katsub" name="katsub" @click="" @change="autoAdvSub()">
-                    <option  v-for="element in advSubCategList" :key="element.id" :value="element.id" >{{element.name}}</option>
+                <select class="form-control"  v-model="mainSearchSubCategory" id="katsub" name="katsub">
+                    <option  v-for="element in advSubCategList" :key="element.id" :value="element.id" >{{  getElementName(element) }}</option>
                 </select>
+                <!-- @change="autoAdvSub()" -->
                
               </div>
          <!-- <div class="col-sm-2 col-md-4" style="max-width: 100%;">

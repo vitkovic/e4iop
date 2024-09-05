@@ -31,7 +31,7 @@ export default class B2BJhiNavbar extends Vue {
   @Inject('advertisementService') private advertisementService: () => AdvertisementService;
 
   @Inject('advertisementCategoryService') private advertisementCategoryService: () => AdvertisementCategoryService;
-  
+
   @Inject('advertisementSubcategoryService') private advertisementSubcategoryService: () => AdvertisementSubCategoryService;
 
   @Inject('searchPageService') private searchPageService: () => SearchPageService;
@@ -136,8 +136,6 @@ export default class B2BJhiNavbar extends Vue {
       this.mainSearchCategory = urlParams.get('category');
       this.mainSearchSubCategory = urlParams.get('category');
     }
-
-   
   }
 
   beforeDestroy() {
@@ -276,44 +274,44 @@ export default class B2BJhiNavbar extends Vue {
   public searchFound;
   public notifsearchshown = false;
 
-  public autoAdv(): any {
-    console.log('kuku');
-    if (!this.notifsearchshown) {
-      this.$notify({
-        text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
-        type: 'info',
-        duration: 3000,
-      });
-      this.notifsearchshown = true;
-    }
-    if (this.txtsearchNav != null && this.txtsearchNav.length >= 3) {
-      this.isFetching = true;
+  // public autoAdv(): any {
+  //   console.log('kuku');
+  //   if (!this.notifsearchshown) {
+  //     this.$notify({
+  //       text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
+  //       type: 'info',
+  //       duration: 3000,
+  //     });
+  //     this.notifsearchshown = true;
+  //   }
+  //   if (this.txtsearchNav != null && this.txtsearchNav.length >= 3) {
+  //     this.isFetching = true;
 
-      const paginationQuery = {
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      };
+  //     const paginationQuery = {
+  //       page: this.page - 1,
+  //       size: this.itemsPerPage,
+  //       sort: this.sort(),
+  //     };
 
-      this.advertisementService()
-        .retrieveBaseSearch(this.txtsearchNav, this.mainSearchCategory, paginationQuery)
-        .then(
-          res => {
-            // Ovo koristiti az originalno povucene rezultate pretrage
-            this.advertisements = res.data;
-            this.$emit('adv:change', this.advertisements);
-            // Ovo koristiti za filtrirane rezultate pretrage
-            this.totalItems = Number(res.headers['x-total-count']);
-            this.queryCount = this.totalItems;
-            this.isFetching = false;
-          },
-          err => {
-            this.isFetching = false;
-          }
-        );
-    }
-  }
-  
+  //     this.advertisementService()
+  //       .retrieveBaseSearch(this.txtsearchNav, this.mainSearchCategory, paginationQuery)
+  //       .then(
+  //         res => {
+  //           // Ovo koristiti az originalno povucene rezultate pretrage
+  //           this.advertisements = res.data;
+  //           this.$emit('adv:change', this.advertisements);
+  //           // Ovo koristiti za filtrirane rezultate pretrage
+  //           this.totalItems = Number(res.headers['x-total-count']);
+  //           this.queryCount = this.totalItems;
+  //           this.isFetching = false;
+  //         },
+  //         err => {
+  //           this.isFetching = false;
+  //         }
+  //       );
+  //   }
+  // }
+
   public autoAdvSub(): any {
     console.log('kuku');
     if (!this.notifsearchshown) {
@@ -469,8 +467,8 @@ export default class B2BJhiNavbar extends Vue {
 
     //console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
   }
-  
-   public searchAdvSub(): void {
+
+  public searchAdvSub(): void {
     //this.advertisements = ['kukuriku'];
 
     // console.log(this.advertisements);
@@ -588,11 +586,9 @@ export default class B2BJhiNavbar extends Vue {
     //console.log(this.txtsearchNav + Number(this.mainSearchCategory) );
   }
 
-
   private searchinput;
 
   public initRelationships(): void {
-	  
     this.advertisementCategoryService()
       .retrieve()
       .then(res => {
@@ -600,23 +596,36 @@ export default class B2BJhiNavbar extends Vue {
         this.$refs.mainSearchCategory = this.advCategList;
         this.mainSearchCategory = 1;
       });
-  
+
     this.advertisementSubcategoryService()
       .retrieve()
       .then(res => {
-		this.advSubCategList = res.data;
+        this.advSubCategList = res.data;
+        console.log(this.advSubCategList);
         this.$refs.mainSearchSubCategory = this.advSubCategList;
         //this.mainSearchSubCategory = 1;
         this.mainSearchSubCategory = this.$route.query.category;
-	    if (this.mainSearchSubCategory == null || this.mainSearchSubCategory === 'undefined') {
-	      const urlParams = new URLSearchParams(window.location.search);
-	      this.mainSearchSubCategory = urlParams.get('category');
-	    }
-	      if (this.mainSearchSubCategory == null || this.mainSearchSubCategory === 'undefined') {
-	      this.mainSearchSubCategory = 1;
-	    }
-
+        if (this.mainSearchSubCategory == null || this.mainSearchSubCategory === 'undefined') {
+          const urlParams = new URLSearchParams(window.location.search);
+          this.mainSearchSubCategory = urlParams.get('category');
+        }
+        if (this.mainSearchSubCategory == null || this.mainSearchSubCategory === 'undefined') {
+          this.mainSearchSubCategory = 1;
+        }
       });
   }
-  
+
+  public getElementName(element) {
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    if (currentLanguage === 'sr') {
+      return element.name;
+    } else if (currentLanguage === 'src') {
+      return element.nameSrc;
+    } else if (currentLanguage === 'en') {
+      return element.nameEn;
+    } else {
+      return '';
+    }
+  }
 }
