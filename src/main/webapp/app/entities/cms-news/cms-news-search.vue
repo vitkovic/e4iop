@@ -118,6 +118,10 @@ h3 {
   font-weight: normal;
 }
 
+.btn-search:hover {
+  border: 1px solid #e74c3c;
+}
+
 .page-link {
   color: #004b90;
   background-color: #fff;
