@@ -9,20 +9,29 @@
 
       <div v-show="cmsQuestions && cmsQuestions.length > 0">
         <div class="row justify-content-center">
-            <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
+          <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
+          <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
         </div>
       </div>
 
       <div class="row mb-4 ml-1">
         <div class="col-xs-12 w-100">
-          <label for="searchInput" class="font-weight-bold" v-text="$t('faq.searchQuestions')" >Pretražite pitanja</label>
+          <label for="searchInput" class="font-weight-bold" v-text="$t('faq.searchQuestions')">Pretražite pitanja</label>
           <div class="input-group">
-            <input type="text"  v-model="txtsearchNav" @keyup="autoQ()" @keyup.enter="searchQ()" class="form-control" :placeholder="$t('faq.searchPlaceholder')" />
+            <input
+              type="text"
+              v-model="txtsearchNav"
+              @keyup="autoQ()"
+              @keyup.enter="searchQ()"
+              class="form-control"
+              :placeholder="$t('faq.searchPlaceholder')"
+            />
             <div class="input-group-append">
-              <button class="btn btn-search pt-0 pb-0" @click="searchQ()" v-text="$t('entity.action.search')" type="button">Pretraži</button>
+              <button class="btn btn-search pt-0 pb-0" @click="searchQ()" v-text="$t('entity.action.searchBar')" type="button">
+                Pretraži
+              </button>
             </div>
           </div>
         </div>
@@ -39,30 +48,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <div class="row justify-content-center">
-        <div class="col-xs-12">
-          <nav aria-label="Demo nav">
-            <ul class="pagination">
-              <li class="page-item">
-                <a href="#" class="page-link" v-text="$t('faq.pagginationPrev')" @click.prevent>Prethodna</a>
-              </li>
-              <li class="page-item">
-                <a href="" class="page-link" @click.prevent>1</a>
-              </li>
-              <li class="page-item">
-                <a href="" class="page-link" @click.prevent>2</a>
-              </li>
-              <li class="page-item">
-                <a href="" class="page-link" @click.prevent>3</a>
-              </li>
-              <li class="page-item">
-                <a href="" class="page-link" v-text="$t('faq.pagginationNext')" @click.prevent>Sledeća</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div> -->
     </div>
   </section>
 </template>
@@ -70,6 +55,10 @@
 <script lang="ts" src="./questions.ts"></script>
 
 <style scoped>
+h1 {
+  color: #004b90;
+}
+
 .card {
   padding: 0;
 }
@@ -99,15 +88,18 @@ a:hover {
 }
 
 .form-control:focus {
- box-shadow: none;
-}
-
-label {
-  color: #004b90;
+  box-shadow: none;
 }
 
 .btn-search {
-  background-color: #E74C3C;
+  background-color: #e74c3c;
   color: #fff;
+}
+
+.btn-search:hover {
+  border: 1px solid #e74c3c;
+    background-color: #fff;
+  color: #e74c3c;
+  font-weight: normal;
 }
 </style>

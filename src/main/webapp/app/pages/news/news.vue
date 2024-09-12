@@ -6,7 +6,7 @@
           <h1 v-text="cmsNews.title"></h1>
         </div>
         <div class="col-md-12">
-          <div v-html="cmsNews.content" class="conditionsText p-2"></div>
+          <div v-html="cmsNews.content" class="contentText p-2"></div>
 
         </div>
       </div>
@@ -82,13 +82,9 @@
 
 <script lang="ts" src="./news.ts"></script>
 <style scoped>
-.startech-link,
-.startech-link:link,
-.startech-link:visited,
-.startech-link:hover,
-.startech-link:active {
-  color: blue;
-  text-decoration: none;
+
+::v-deep .contentText p a {
+  color: #3498db;
 }
 
 .img-thumbnail {
