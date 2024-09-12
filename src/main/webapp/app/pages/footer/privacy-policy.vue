@@ -3,7 +3,8 @@
     <div v-if="cmsPage" class="container">
       <div class="row">
         <div class="col-xs-12 mb-5">
-          <h1 v-text="cmsPage.title"></h1>
+          <!-- <h1 v-text="cmsPage.title"></h1> -->
+          <h1 v-text="$t('footer.privacy')"></h1>
         </div>
         <div class="col-md-12">
           <div v-html="cmsPage.content" class="conditionsText p-2" style="white-space: preserve;"></div>

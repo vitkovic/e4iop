@@ -8,14 +8,6 @@ h<template>
         </h2>
         <div>
           <!-- <div class="form-group">
-                        <label class="form-control-label" v-text="$t('riportalApp.cmsPage.type')" for="cms-page-type">Type</label>
-                        <select class="form-control" id="cms-page-type" name="type" v-model="cmsPage.type" required>
-                            <option v-bind:value="null"></option>
-                            <option v-bind:value="cmsPage.type && cmsPageTypeOption.id === cmsPage.type.id ? cmsPage.type : cmsPageTypeOption" v-for="cmsPageTypeOption in cmsPageTypes" :key="cmsPageTypeOption.id">{{cmsPageTypeOption.type}}</option>
-                        </select>
-                    </div> -->
-
-          <div class="form-group">
             <label class="form-control-label" v-text="$t('riportalApp.cmsPage.title')" for="cms-page-title">Title</label>
             <input
               type="text"
@@ -31,12 +23,9 @@ h<template>
                 This field is required.
               </small>
             </div>
-          </div>
+          </div> -->
           <div class="form-group">
             <label class="form-control-label" v-text="$t('riportalApp.cmsPage.content')" for="cms-page-content">Content</label>
-            <!-- <b-textarea type="text" class="form-control" name="content" id="cms-page-content" rows="10"
-                            :class="{'valid': !$v.cmsPage.content.$invalid, 'invalid': $v.cmsPage.content.$invalid }" v-model="$v.cmsPage.content.$model" required>
-                        </b-textarea> -->
             <vue-editor
               v-model="$v.cmsPage.content.$model"
               :editor-toolbar="customToolbar"
