@@ -148,7 +148,7 @@
             </td>
             <td>
                 <div v-if="advertisement.budget">
-                    {{ advertisement.budget.toLocaleString('us-US', { style: 'currency', currency: 'RSD' }) }}
+                    {{ advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) }}
                 </div>
             </td>
             <td>

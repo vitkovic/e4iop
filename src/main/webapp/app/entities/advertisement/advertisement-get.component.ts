@@ -137,7 +137,7 @@ export default class Advertisement extends mixins(AlertMixin) {
           : '';
       subobj['subcategory'] =
         advs[i].subsubcategory.advertisementSubcategory.name != null ? advs[i].subsubcategory.advertisementSubcategory.name : '';
-      subobj['budget'] = advs[i].budget != null ? advs[i].budget : '';
+      subobj['budget'] = advs[i].budget != null ? advs[i].budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) : '';
       subobj['company'] = advs[i].company != null ? advs[i].company.name : '';
       var dtm = new Date(advs[i].activationDatetime);
       subobj['datetime'] = dtm.toUTCString();
