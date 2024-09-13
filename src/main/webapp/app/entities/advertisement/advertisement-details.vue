@@ -155,14 +155,14 @@
           <!-- <div class="border rounded p-2">
             {{ advertisement.description }}
           </div> -->
-          <div v-html="advertisement.description" class="conditionsText border rounded p-2"></div>
+          <div v-html="advertisement.description" class="conditionsText adInfoText border rounded p-2"></div>
         </section>
         <section v-if="advertisement.conditions" class="conditions mb-4">
           <h5 v-text="$t('riportalApp.advertisement.conditions')">Uslovi</h5>
           <!-- <b-card style="white-space: preserve-breaks;">
             {{ advertisement.conditions }}
           </b-card> -->
-          <div v-html="advertisement.conditions" class="conditionsText border rounded p-2"></div>
+          <div v-html="advertisement.conditions" class="conditionsText adInfoText border rounded p-2"></div>
         </section>
         <section class="contact-share d-flex flex-column flex-md-row align-items-center justify-content-between mb-4">
           <div class="buttons d-flex flex-column flex-md-row mb-3 mb-md-0">
@@ -981,6 +981,10 @@
 }
 
 /* --- LIGHTBOX END--- */
+
+.adInfoText a{
+  color: #3498db;
+}
 
 .img-thumbnail {
   /* width: 100%; Ensure images fill their container */
