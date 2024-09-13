@@ -122,6 +122,9 @@
         "rating": "Company rating.",
         "registered": "Registered on the portal eInovations.",
         "specialConditions": "Company met special conditions - based on intellectual property."
+      },
+      "notify": {
+        "message": "Your message has been sent to the company "
       }
     }
   }

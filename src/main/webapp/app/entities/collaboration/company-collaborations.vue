@@ -187,7 +187,7 @@
                 {{ advertisementKindsString(collaboration.advertisement) }}
               </div>
             </td>
-            <td>{{ collaboration.advertisement.budget }}</td>
+            <td>{{ collaboration.advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) }}</td>
             <td>{{ collaboration.advertisement.duration.duration }}</td>
             <td>
               <div v-if="collaboration.ratingOffer">

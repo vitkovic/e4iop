@@ -438,7 +438,10 @@ export default class AdvertisementDetails extends Vue {
     this.collaborationService()
       .createCollaborationForAdvertisement(this.advertisement.id)
       .then(res => {
-        const message = 'Vaš zahtev za saradnju za oglas "' + this.advertisement.title + '" je poslat.';
+        const message =
+          this.$t('riportalApp.advertisement.notify.messageCollaborationStart') +
+          this.advertisement.title +
+          this.$t('riportalApp.advertisement.notify.messageCollaborationEnd');
         this.$notify({
           text: message,
         });
@@ -478,7 +481,10 @@ export default class AdvertisementDetails extends Vue {
       this.inquiryService()
         .create(this.inquiryDTO)
         .then(res => {
-          const message = 'Vaš upit za oglas "' + this.advertisement.title + '" je poslat.';
+          const message =
+            this.$t('riportalApp.advertisement.notify.messageRequestStart') +
+            this.advertisement.title +
+            this.$t('riportalApp.advertisement.notify.messageRequestEnd');
           this.$notify({
             text: message,
           });
@@ -502,7 +508,7 @@ export default class AdvertisementDetails extends Vue {
 
     const user = this.$store.getters.account;
     if (!user) {
-      const message = 'Sistemska greška! Trenutno nije moguće zakazati sastanak.';
+      const message = this.$t('riportalApp.advertisement.notify.meetingError');
       this.$notify({
         text: message,
       });
@@ -544,7 +550,7 @@ export default class AdvertisementDetails extends Vue {
     this.meetingService()
       .createMeetingWithParticipants(newMeeting, organizerId, participantIds, this.nonB2BParticipantsEmails)
       .then(res => {
-        const message = 'Sastanak je zakazan.';
+        const message = this.$t('riportalApp.advertisement.notify.meetingSuccess');
         this.$notify({
           text: message,
         });

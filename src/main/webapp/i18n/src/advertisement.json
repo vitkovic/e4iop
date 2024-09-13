@@ -145,6 +145,14 @@
         "errorEmail": "Email адреса није исправна",
         "makeAppointment": "Закажи састанак"
       },
+      "notify": {
+        "messageRequestStart": "Ваш упит за оглас ",
+        "messageRequestEnd": " је послат",
+        "messageCollaborationStart": "Ваш захтев за сарадњу за оглас ",
+        "messageCollaborationEnd": " је послат",
+        "meetingError": "Системска грешка! Тренутно није могуће заказати састанак.",
+        "meetingSuccess": "Састанак је заказан."
+      },
 
       "content": "Content",
       "note": "Note",

@@ -120,6 +120,9 @@
         "rating": "Ocena kompanije.",
         "registered": "Registrovan na portalu eInovacije.",
         "specialConditions": "Kompanija ispunila posebne uslove - na osnovu intelektualne svojine."
+      },
+      "notify": {
+        "message": "Vaša poruka je poslata kompaniji "
       }
     }
   }

@@ -144,6 +144,14 @@
         "placeholderNoB2BParcitipants": "Enter email...",
         "errorEmail": "Email address is not valid",
         "makeAppointment": "Make an appointment"
+      },
+      "notify": {
+        "messageRequestStart": "Your advertisement request ",
+        "messageRequestEnd": " has been sent",
+        "messageCollaborationStart": "Your collaboration request for advertisement ",
+        "messageCollaborationEnd": " has been sent",
+        "meetingError": "System error! It is currently not possible to make an appointment.",
+        "meetingSuccess": "The meeting is scheduled."
       }
     }
   }

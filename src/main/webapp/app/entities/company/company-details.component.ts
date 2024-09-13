@@ -505,7 +505,7 @@ export default class CompanyDetails extends Vue {
       this.inquiryService()
         .create(this.inquiryDTO)
         .then(res => {
-          const message = 'Vaša poruka je poslata kompaniji ' + this.company.name;
+          const message = this.$t('riportalApp.company.notify.message') + this.company.name;
           this.$notify({
             text: message,
           });

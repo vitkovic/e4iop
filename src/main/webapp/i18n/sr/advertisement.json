@@ -144,6 +144,14 @@
         "placeholderNoB2BParcitipants": "Unesite email adresu...",
         "errorEmail": "Email adresa nije ispravna",
         "makeAppointment": "Zakaži sastanak"
+      },
+      "notify": {
+        "messageRequestStart": "Vaš upit za oglas ",
+        "messageRequestEnd": " je poslat",
+        "messageCollaborationStart": "Vaš zahtev za saradnju za oglas ",
+        "messageCollaborationEnd": " je poslat",
+        "meetingError": "Sistemska greška! Trenutno nije moguće zakazati sastanak.",
+        "meetingSuccess": "Sastanak je zakazan."
       }
     }
   }
