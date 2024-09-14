@@ -65,7 +65,7 @@
                     params: { advertisementSubcategoryId: advertisementSubsubcategory.advertisementSubcategory.id },
                   }"
                   class="text-body"
-                  >{{ advertisementSubsubcategory.advertisementSubcategory.name }}</router-link
+                  >{{ advertisementSubcategoryTitle(advertisementSubsubcategory) }}</router-link
                 >
               </div>
             </td>

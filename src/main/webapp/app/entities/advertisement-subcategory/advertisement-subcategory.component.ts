@@ -65,4 +65,16 @@ export default class AdvertisementSubcategory extends mixins(AlertMixin) {
   public closeDialog(): void {
     (<any>this.$refs.removeEntity).hide();
   }
+
+  public advertisementCategoryTitle(advertisementCategory: IAdvertisementSubcategory) {
+    const currentLanguage = this.$store.getters.currentLanguage;
+
+    if (currentLanguage === 'sr') {
+      return advertisementCategory.advertisementCategory.name;
+    } else if (currentLanguage === 'en') {
+      return advertisementCategory.advertisementCategory.nameEn;
+    } else {
+      return advertisementCategory.advertisementCategory.nameSrc;
+    }
+  }
 }

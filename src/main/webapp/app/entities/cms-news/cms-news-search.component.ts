@@ -39,87 +39,77 @@ export default class CmsNews extends mixins(AlertMixin) {
     this.retrieveAllCmsNews();
   }
 
-
- data() {
-     return {
-       txtsearchNav: '',
-      }
-    }
+  data() {
+    return {
+      txtsearchNav: '',
+    };
+  }
   public notifsearchshown = false;
   public autoQ(): any {
-    
     if (!this.notifsearchshown) {
-    this.$notify({
-            text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
-            type: 'info',
-            duration: 3000,
-          });
-   	this.notifsearchshown = true;
-   }
-   if (this.txtsearchNav.length >= 3) {
-	
-	   this.isFetching = true;
-	    
-	    this.txtsearch = this.txtsearchNav;
-	    
-	    const paginationQuery = {
-	      page: this.page - 1,
-	      size: this.itemsPerPage,
-	      sort: this.sort()
-	    };
-	    
-	  	 
-	     this.cmsNewsService()
-	      .retrieveSearch(this.txtsearch,paginationQuery)
-	      .then(
-	        res => {
-	          this.cmsNews = res.data;
-	          this.totalItems = Number(res.headers['x-total-count']);
-	          this.queryCount = this.totalItems;
-	          this.isFetching = false;
-	        },
-	        err => {
-	          this.isFetching = false;
-	        }
-	      );
-	   } else if (this.txtsearchNav.length ==null || this.txtsearchNav.trim() == '') {
-		 this.isFetching = true;
-	    
-	    this.txtsearch = '';
-	    
-	    const paginationQuery = {
-	      page: this.page - 1,
-	      size: this.itemsPerPage,
-	      sort: this.sort()
-	    };
-	    
-	  	 
-	     this.cmsNewsService()
-	      .retrieveSearch(this.txtsearch,paginationQuery)
-	      .then(
-	        res => {
-	          this.cmsNews = res.data;
-	          this.totalItems = Number(res.headers['x-total-count']);
-	          this.queryCount = this.totalItems;
-	          this.isFetching = false;
-	        },
-	        err => {
-	          this.isFetching = false;
-	        }
-	      );
-		
-	   }
+      this.$notify({
+        text: JSON.stringify(this.$t('global.navbar.autosearchnote')),
+        type: 'info',
+        duration: 3000,
+      });
+      this.notifsearchshown = true;
+    }
+    if (this.txtsearchNav.length >= 3) {
+      this.isFetching = true;
+
+      this.txtsearch = this.txtsearchNav;
+
+      const paginationQuery = {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      };
+
+      this.cmsNewsService()
+        .retrieveSearch(this.txtsearch, paginationQuery)
+        .then(
+          res => {
+            this.cmsNews = res.data;
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+    } else if (this.txtsearchNav.length == null || this.txtsearchNav.trim() == '') {
+      this.isFetching = true;
+
+      this.txtsearch = '';
+
+      const paginationQuery = {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      };
+
+      this.cmsNewsService()
+        .retrieveSearch(this.txtsearch, paginationQuery)
+        .then(
+          res => {
+            this.cmsNews = res.data;
+            this.totalItems = Number(res.headers['x-total-count']);
+            this.queryCount = this.totalItems;
+            this.isFetching = false;
+          },
+          err => {
+            this.isFetching = false;
+          }
+        );
+    }
   }
 
-
- public searchQ(): void {
-	  
-	  this.txtsearch = this.txtsearchNav;
-	  console.log(this.txtsearch);
-	  this.retrieveAllCmsNews();
-	  
+  public searchQ(): void {
+    this.txtsearch = this.txtsearchNav;
+    console.log(this.txtsearch);
+    this.retrieveAllCmsNews();
   }
-
 
   public clear(): void {
     this.page = 1;
@@ -140,6 +130,7 @@ export default class CmsNews extends mixins(AlertMixin) {
       .then(
         res => {
           this.cmsNews = res.data;
+          console.log(this.cmsNews);
           this.totalItems = Number(res.headers['x-total-count']);
           this.queryCount = this.totalItems;
           this.isFetching = false;

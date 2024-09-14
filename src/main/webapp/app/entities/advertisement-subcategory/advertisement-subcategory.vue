@@ -63,7 +63,7 @@
                     name: 'AdvertisementCategoryView',
                     params: { advertisementCategoryId: advertisementSubcategory.advertisementCategory.id },
                   }" class="text-body"
-                  >{{ advertisementSubcategory.advertisementCategory.name }}</router-link
+                  >{{ advertisementCategoryTitle(advertisementSubcategory) }}</router-link
                 >
               </div>
             </td>
