@@ -177,7 +177,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public prepareDeactivate(instance: IAdvertisement): void {
     this.advertisementToSwitchStatus = instance;
-    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Неактиван')[0];
+    this.newAdvertisementStatus = this.advertisementStatuses.find(status => status.statusEn === AdvertisementStatusOptions.INACTIVE);
 
     if (<any>this.$refs.deactivateEntity) {
       (<any>this.$refs.deactivateEntity).show();
@@ -202,7 +202,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public prepareActivate(instance: IAdvertisement): void {
     this.advertisementToSwitchStatus = instance;
-    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Активан')[0];
+    this.newAdvertisementStatus = this.advertisementStatuses.find(status => status.statusEn === AdvertisementStatusOptions.ACTIVE);
 
     if (<any>this.$refs.activateEntity) {
       (<any>this.$refs.activateEntity).show();
@@ -228,7 +228,7 @@ export default class Advertisement extends mixins(AlertMixin) {
 
   public prepareSoftDelete(instance: IAdvertisement): void {
     this.advertisementToSwitchStatus = instance;
-    this.newAdvertisementStatus = this.advertisementStatuses.filter(status => status.status === 'Архивиран')[0];
+    this.newAdvertisementStatus = this.advertisementStatuses.find(status => status.statusEn === AdvertisementStatusOptions.ARCHIVED);
 
     this.removeId = instance.id;
     if (<any>this.$refs.softDeleteEntity) {
