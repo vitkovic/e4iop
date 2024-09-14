@@ -37,6 +37,14 @@
       },
       "removeMeetingModal": {
         "question": "Да ли желите да уклоните састанак из календара?"
+      },
+      "notify": {
+        "acceptMeeting": "Састанак је заказан.",
+        "changedMeeting": "Састанак је измењен.",
+        "acceptMeetingLong": "Прихватили сте позив за састанак - ",
+        "cancelMeetingLong": "Отказали сте позив за састанак - ",
+        "removeMeetingStart": "Састанак ",
+        "removeMeetingEnd": " је уклоњен из календара"
       }
     }
   }

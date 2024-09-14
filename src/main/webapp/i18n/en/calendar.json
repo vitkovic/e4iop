@@ -37,6 +37,14 @@
       },
       "removeMeetingModal": {
         "question": "Do you want to remove the meeting from calendar?"
+      },
+      "notify": {
+        "acceptMeeting": "The meeting is scheduled.",
+        "changedMeeting": "The meeting has been changed.",
+        "acceptMeetingLong": "You have accepted the meeting invitation - ",
+        "cancelMeetingLong": "You have canceled the meeting invitation - ",
+        "removeMeetingStart": "The meeting ",
+        "removeMeetingEnd": " has been removed from the calendar"
       }
     }
   }

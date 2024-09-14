@@ -397,7 +397,7 @@ export default class CompanyCalendar extends Vue {
         this.isCalendarPopulated = false;
         this.populateCalendar();
 
-        const message = 'Sastanak je zakazan.';
+        const message = this.$t('riportalApp.calendar.notify.acceptMeeting');
         this.$notify({
           text: message,
         });
@@ -481,7 +481,7 @@ export default class CompanyCalendar extends Vue {
         this.isCalendarPopulated = false;
         this.populateCalendar();
 
-        const message = 'Sastanak je izmenjen.';
+        const message = this.$t('riportalApp.calendar.notify.changedMeeting');
         this.$notify({
           text: message,
         });
@@ -510,7 +510,7 @@ export default class CompanyCalendar extends Vue {
         this.isCalendarPopulated = false;
         this.populateCalendar();
 
-        const message = 'Prihvatili ste poziv za sastanak - ' + this.selectedEvent.title;
+        const message = this.$t('riportalApp.calendar.notify.acceptMeetingLong') + this.selectedEvent.title;
         this.$notify({
           text: message,
         });
@@ -548,7 +548,7 @@ export default class CompanyCalendar extends Vue {
         this.isCalendarPopulated = false;
         this.populateCalendar();
 
-        const message = 'Otkazali ste poziv za sastanak - ' + this.selectedEvent.title;
+        const message = this.$t('riportalApp.calendar.notify.acceptMeetingLong') + this.selectedEvent.title;
         this.$notify({
           text: message,
         });
@@ -575,7 +575,10 @@ export default class CompanyCalendar extends Vue {
         this.isCalendarPopulated = false;
         this.populateCalendar();
 
-        const message = 'Sastanak ' + this.selectedEvent.title + ' je uklonjen iz kalendara';
+        const message =
+          this.$t('riportalApp.calendar.notify.removeMeetingStart') +
+          this.selectedEvent.title +
+          this.$t('riportalApp.calendar.notify.removeMeetingEnd');
         this.$notify({
           text: message,
         });
