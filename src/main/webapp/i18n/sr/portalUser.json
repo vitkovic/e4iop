@@ -42,6 +42,11 @@
       "activateUserRoles": {
         "title": "Aktivacija korisnika i definisanje uloga",
         "checkboxTitle": "Slanje aktivacionog mejla"
+      },
+      "notify": {
+        "activationMail": "Aktivacioni mail je poslat na adresu ",
+        "deleteUserStart": "Korisnik '",
+        "deleteUserEnd": "' je obrisan."
       }
     }
   }

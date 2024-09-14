@@ -92,7 +92,7 @@ export default class CompanyPortalUsers extends mixins(AlertMixin) {
     this.accountService()
       .inviteB2BUser(formData)
       .then(res => {
-        const message = 'Aktivacioni mail je poslat na adresu ' + this.emailAddress;
+        const message = this.$t('riportalApp.portalUser.notify.activationMail') + this.emailAddress;
         this.$notify({
           text: message,
         });
@@ -118,7 +118,10 @@ export default class CompanyPortalUsers extends mixins(AlertMixin) {
       .then(res => {
         this.retrieveAllCompanyUsers();
 
-        const message = 'Korisnik "' + ''.concat(this.userToDelete.firstName, ' ', this.userToDelete.lastName) + '" je obrisan.';
+        const message =
+          this.$t('riportalApp.portalUser.notify.deleteUserStart') +
+          ''.concat(this.userToDelete.firstName, ' ', this.userToDelete.lastName) +
+          this.$t('riportalApp.portalUser.notify.deleteUserEnd');
         this.$notify({
           text: message,
         });

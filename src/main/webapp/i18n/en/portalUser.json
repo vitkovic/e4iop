@@ -42,6 +42,11 @@
       "activateUserRoles": {
         "title": "User activation and role definition",
         "checkboxTitle": "Sending an activation email"
+      },
+      "notify": {
+        "activationMail": "An activation email has been sent to the address ",
+        "deleteUserStart": "The user '",
+        "deleteUserEnd": "' has been deleted."
       }
     }
   }
