@@ -631,8 +631,7 @@ export default class Thread extends mixins(AlertMixin) {
       .rejectMeetingForCompany(formData)
       .then(res => {
         this.showMessages(this.activeThreadDTO);
-        const message = this.$t('riportalApp.thread.meetingCancellation');
-        +this.meeting.title;
+        const message = this.$t('riportalApp.thread.meetingCancellation') + this.meeting.title;
         this.$notify({
           text: message,
         });
