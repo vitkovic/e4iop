@@ -59,6 +59,13 @@
           "title": "Potvrdite brisanje ocene",
           "question": "Da li ste sigurni da želite da obrišete ocenu?"
         }
+      },
+      "notify": {
+        "collaborationRate": "Ocenili ste saradnju sa kompanijom ",
+        "advertisementServiceStart": "Oglas '",
+        "advertisementServiceEnd": "' je obnovljen",
+        "advertisementActiveEnd": "' je aktiviran!",
+        "advertisementActiveSecond": " Unesite željene izmene."
       }
     }
   }

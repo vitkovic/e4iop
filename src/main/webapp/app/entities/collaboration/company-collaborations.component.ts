@@ -243,7 +243,7 @@ export default class Collaboration extends mixins(AlertMixin) {
         .rateCollaborationForCompanyOffer(formData)
         .then(res => {
           this.retrieveAllCollaborations();
-          const notificatonMessage = 'Ocenili ste saradnju sa kompanijom ' + companyName;
+          const notificatonMessage = this.$t('riportalApp.collaboration.notify.collaborationRate') + companyName;
           this.$notify({
             text: notificatonMessage,
           });
@@ -255,7 +255,7 @@ export default class Collaboration extends mixins(AlertMixin) {
         .rateCollaborationForCompanyRequest(formData)
         .then(res => {
           this.retrieveAllCollaborations();
-          const notificatonMessage = 'Ocenili ste saradnju sa kompanijom ' + companyName;
+          const notificatonMessage = this.$t('riportalApp.collaboration.notify.collaborationRate') + companyName;
           this.$notify({
             text: notificatonMessage,
           });
@@ -300,7 +300,10 @@ export default class Collaboration extends mixins(AlertMixin) {
     this.advertisementService()
       .createCopy(this.advertisement.id)
       .then(res => {
-        const notificatonMessage = 'Oglas "' + this.advertisement.title + '" je obnovljen';
+        const notificatonMessage =
+          this.$t('riportalApp.collaboration.notify.advertisementServiceStart') +
+          this.advertisement.title +
+          this.$t('riportalApp.collaboration.notify.advertisementServiceEnd');
         this.$notify({
           text: notificatonMessage,
         });
@@ -324,8 +327,11 @@ export default class Collaboration extends mixins(AlertMixin) {
     this.advertisementService()
       .updateStatus(this.advertisementToSwitchStatus.id, this.newAdvertisementStatus.id)
       .then(() => {
-        const message1 = 'Oglas ' + this.advertisementToSwitchStatus.title + ' je aktiviran!';
-        const message2 = ' Unesite željene izmene.';
+        const message1 =
+          this.$t('riportalApp.collaboration.notify.advertisementServiceStart') +
+          this.advertisementToSwitchStatus.title +
+          this.$t('riportalApp.collaboration.notify.advertisementActiveEnd');
+        const message2 = this.$t('riportalApp.collaboration.notify.advertisementActiveSecond');
         this.$notify({
           text: message1 + message2,
         });

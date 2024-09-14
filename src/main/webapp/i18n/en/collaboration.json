@@ -59,6 +59,13 @@
           "title": "Confirm rating deletion",
           "question": "Are you sure you want to delete this rating?"
         }
+      },
+      "notify": {
+        "collaborationRate": "You rated the collaboration with the company ",
+        "advertisementServiceStart": "The advertisement '",
+        "advertisementServiceEnd": "' has been renewed",
+        "advertisementActiveEnd": "' has been activated!",
+        "advertisementActiveSecond": " Enter the desired changes."
       }
     }
   }
