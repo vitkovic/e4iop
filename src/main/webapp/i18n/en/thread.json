@@ -103,6 +103,12 @@
       "inquiry": {
         "newMessageTitle": "New message",
         "newMessageAction": "New message"
+      },
+      "notify": {
+        "meetingAccept": "You have accepted the meeting invitation - ",
+        "meeting400": "You have already accepted an invitation to this meeting.",
+        "meeting404": "System error, you do not have an invitation for the selected meeting.",
+        "messageCompany": "Your message has been sent to the company "
       }
     }
   }

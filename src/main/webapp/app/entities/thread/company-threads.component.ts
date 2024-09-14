@@ -491,7 +491,7 @@ export default class Thread extends mixins(AlertMixin) {
       .acceptMeetingForCompany(this.meeting.id, this.companyId)
       .then(res => {
         this.showMessages(this.activeThreadDTO);
-        const message = 'Prihvatili ste poziv za sastanak - ' + this.meeting.title;
+        const message = this.$t('riportalApp.thread.notify.meetingAccept') + this.meeting.title;
         this.$notify({
           text: message,
         });
@@ -502,12 +502,12 @@ export default class Thread extends mixins(AlertMixin) {
           // const message = error.response.data;
 
           if (status === 404) {
-            const message = 'Sistemska greska, nemate poziv za izabrani sastanak';
+            const message = this.$t('riportalApp.thread.notify.meeting404');
             this.$notify({
               text: message,
             });
           } else if (status === 400) {
-            const message = 'Već ste prihvatili poziv za ovaj sastanak';
+            const message = this.$t('riportalApp.thread.notify.meeting400');
             this.$notify({
               text: message,
             });
@@ -534,7 +534,7 @@ export default class Thread extends mixins(AlertMixin) {
       .acceptMeetingForCompany(this.meeting.id, this.companyId)
       .then(res => {
         this.showMessages(this.activeThreadDTO);
-        const message = 'Prihvatili ste poziv za sastanak - ' + this.meeting.title;
+        const message = this.$t('riportalApp.thread.notify.meetingAccept') + this.meeting.title;
         this.$notify({
           text: message,
         });
@@ -545,12 +545,12 @@ export default class Thread extends mixins(AlertMixin) {
           // const message = error.response.data;
 
           if (status === 404) {
-            const message = 'Sistemska greska, nemate poziv za izabrani sastanak';
+            const message = this.$t('riportalApp.thread.notify.meeting404');
             this.$notify({
               text: message,
             });
           } else if (status === 400) {
-            const message = 'Već ste prihvatili poziv za ovaj sastanak';
+            const message = this.$t('riportalApp.thread.notify.meeting400');
             this.$notify({
               text: message,
             });
@@ -585,7 +585,7 @@ export default class Thread extends mixins(AlertMixin) {
       .acceptMeetingForCompany(this.meeting.id, this.companyId)
       .then(res => {
         this.showMessages(this.activeThreadDTO);
-        const message = 'Prihvatili ste poziv za sastanak - ' + this.meeting.title;
+        const message = this.$t('riportalApp.thread.notify.meetingAccept') + this.meeting.title;
         this.$notify({
           text: message,
         });
@@ -596,12 +596,12 @@ export default class Thread extends mixins(AlertMixin) {
           // const message = error.response.data;
 
           if (status === 404) {
-            const message = 'Sistemska greska, nemate poziv za izabrani sastanak';
+            const message = this.$t('riportalApp.thread.notify.meeting404');
             this.$notify({
               text: message,
             });
           } else if (status === 400) {
-            const message = 'Već ste prihvatili poziv za ovaj sastanak';
+            const message = this.$t('riportalApp.thread.notify.meeting400');
             this.$notify({
               text: message,
             });
@@ -866,7 +866,8 @@ export default class Thread extends mixins(AlertMixin) {
       this.inquiryService()
         .create(this.inquiryDTO)
         .then(res => {
-          const message = 'Vaša poruka je poslata kompaniji ' + this.companyReceiver.name;
+          const message = this.$t('riportalApp.thread.notify.messageCompany');
+          +this.companyReceiver.name;
           this.$notify({
             text: message,
           });

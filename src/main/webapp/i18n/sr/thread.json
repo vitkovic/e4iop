@@ -103,6 +103,12 @@
       "inquiry": {
         "newMessageTitle": "Nova poruka",
         "newMessageAction": "Nova poruka"
+      },
+      "notify": {
+        "meetingAccept": "Prihvatili ste poziv za sastanak - ",
+        "meeting400": "Već ste prihvatili poziv za ovaj sastanak.",
+        "meeting404": "Sistemska greska, nemate poziv za izabrani sastanak.",
+        "messageCompany": "Vaša poruka je poslata kompaniji "
       }
     }
   }
