@@ -109,6 +109,21 @@
         "meeting400": "Već ste prihvatili poziv za ovaj sastanak.",
         "meeting404": "Sistemska greska, nemate poziv za izabrani sastanak.",
         "messageCompany": "Vaša poruka je poslata kompaniji "
+      },
+      "threadSubject": {
+        "mettingInvitation": "Poziv za sastanak",
+        "acceptedMeetingInvitation": "Prihvaćen je poziv za sastanak",
+        "rejectedMeetingInvitation": "Odbijen je poziv za sastanak",
+        "first": "\nKompanija G.O. Company je odbila poziv za sastanak na B2B portalu.\n\nDetalje svih zakazanih sastanaka možete pogledati sa stranice 'Kalendar'.\n\n____________________\r\n\r\nRAZLOG OTKAZIVANJA\r\nma nesto\r\n\r\nNOVO PREDLOŽENO VREME\r\n26.09.2024 08:00 - 09:00\r\n\r\n____________________"
+      },
+      "messageContent": {
+        "invitationMeeting": "\nImate poziv za novi sastanak na B2B portalu. \n\nPoziv na sastanak možete potvrditi ili otkazati klikom na odgovorajuće opcije u ovoj poruci ili sa stranice 'Kalendar'. \nOstale detalje sastanka možete pogledati sa stranice 'Kalendar'.",
+        "acceptFirst": "\nKompanija ",
+        "acceptSecond": " je prihvatila poziv za sastanak na B2B portalu.\n\nDetalje svih zakazanih sastanaka možete pogledati sa stranice 'Kalendar'.",
+        "rejectFirst": "\nKompanija ",
+        "rejectSecond": " je odbila poziv za sastanak na B2B portalu.\n\nDetalje svih zakazanih sastanaka možete pogledati sa stranice 'Kalendar'.\n\n____________________\r\n\r\nRAZLOG OTKAZIVANJA\r\n",
+        "rejectThird": "\r\n\r\nNOVO PREDLOŽENO VREME\r\n",
+        "rejectFourth": "\r\n\r\n____________________"
       }
     }
   }

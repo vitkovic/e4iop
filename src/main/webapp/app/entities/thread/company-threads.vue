@@ -120,11 +120,13 @@
                 "
                 v-b-toggle="'collapse-' + thread.id"
               >
+
+              <!-- OVO JE PRVA KOLONA -->
                 <b-col class="d-flex h-100 justify-content-between align-items-center" cols="10" sm="4">
                   <div class="firstcol-p1 d-flex align-items-center">
                     <div class="d-flex align-items-center">
                       <span class="spacing-subject">
-                        <b>{{ thread.subject }}</b
+                        <b>{{ threadSubject(thread.subject) }}</b
                         >{{ ' (' + thread.messageCount + ')' }}{{ buildThreadDisplayString(thread) }}
                       </span>
                     </div>
@@ -135,6 +137,9 @@
                     </span>
                   </div>
                 </b-col>
+                <!-- KRAJ PRVE KOLONE -->
+
+                <!-- DRUGA KOLONA -->
                 <b-col class="d-none d-md-flex align-items-center h-100">
                   <div v-if="thread.companyReceiver" class="spacing-subject h-100 d-flex align-items-center">
                     <router-link :to="{ name: 'CompanyView', params: { companyId: thread.companyReceiver.id } }" class="text-body">{{
@@ -142,6 +147,10 @@
                     }}</router-link>
                   </div>
                 </b-col>
+
+                <!-- KRAJ DRUGE KOLONE -->
+
+                <!-- TRECA KOLONA -->
                 <b-col class="h-100 d-none d-sm-flex">
                   <div v-if="thread.isFromAdministration" class="spacing-subject h-100 d-flex align-items-center">
                     <span v-text="$t('riportalApp.thread.administration')" class="text-body">ADMINISTRACIJA</span>
@@ -152,6 +161,7 @@
                     }}</router-link>
                   </div>
                 </b-col>
+                <!-- KRAJ TRECE KOLONE -->
                 <b-col class="h-100 d-none d-sm-flex">
                   <div v-if="thread.advertisement" class="spacing-subject h-100 d-flex align-items-center">
                     <router-link
@@ -206,7 +216,7 @@
                         <b>{{ $t('riportalApp.thread.messageSection.endTime') }}: </b>
                         <span></span>{{ $d(Date.parse(thread.meeting.datetimeEnd.toString()), 'short') }}
                       </div>
-                      <p style="white-space: pre-line;">{{ message.content }}</p>
+                      <p style="white-space: pre-line;">{{ messageContent(thread, message) }}</p>
 
                       <div v-if="meetingParticipant != null && !meetingParticipant.isOrganizer">
                         <div v-if="meetingParticipant.status.statusEn === meetingParticipantStatusOptions.NO_RESPONSE">

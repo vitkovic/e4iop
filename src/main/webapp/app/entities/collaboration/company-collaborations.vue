@@ -204,7 +204,7 @@
                 <b-form-rating disabled :value="collaboration.ratingRequest.number" stars="4" inline size="sm"> </b-form-rating>
               </div>
             </td>
-            <td class="text-right">
+            <td class="text-right button-box">
               <div class="btn-group d-flex justify-content-end w-100">
                 <b-button
                   v-if="
@@ -496,8 +496,12 @@
   color: rgb(40, 40, 56);
 }
 
+.button-box {
+  width: 205px;
+}
+
 .btn-group .btn {
-  /* width: 50%; */
+  width: 50%;
   max-width: 50%;
 }
 

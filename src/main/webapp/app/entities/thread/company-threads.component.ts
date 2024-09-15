@@ -354,6 +354,81 @@ export default class Thread extends mixins(AlertMixin) {
     }
   }
 
+  public messageContent(thread: IThreadDTO, message: IMessage) {
+    let companyName = this.extractCompanyName(thread.lastMessageContent);
+    let detailsObject = this.extractDetails(message.content);
+    if (thread.subject === 'Poziv na sastanak') {
+      return this.$t('riportalApp.thread.messageContent.invitationMeeting');
+    } else if (thread.subject === 'Prihvaćen je poziv za sastanak') {
+      return (
+        this.$t('riportalApp.thread.messageContent.acceptFirst') + companyName + this.$t('riportalApp.thread.messageContent.acceptSecond')
+      );
+    } else if (thread.subject === 'Odbijen je poziv za sastanak') {
+      return (
+        this.$t('riportalApp.thread.messageContent.rejectFirst') +
+        companyName +
+        this.$t('riportalApp.thread.messageContent.rejectSecond') +
+        detailsObject.detail1 +
+        this.$t('riportalApp.thread.messageContent.rejectThird') +
+        detailsObject.detail2 +
+        this.$t('riportalApp.thread.messageContent.rejectFourth')
+      );
+    } else {
+      return message.content;
+    }
+  }
+
+  private extractDetails(text) {
+    const reasonRegex = /RAZLOG OTKAZIVANJA\s+([\s\S]*?)\s+NOVO PREDLOŽENO VREME/;
+    const timeRegex = /NOVO PREDLOŽENO VREME\s+([^\s].*)/;
+
+    const reasonMatch = text.match(reasonRegex);
+    const string1 = reasonMatch && reasonMatch[1] ? reasonMatch[1].trim() : '';
+
+    const timeMatch = text.match(timeRegex);
+    const string2 = timeMatch && timeMatch[1] ? timeMatch[1].trim() : '';
+
+    return {
+      detail1: string1,
+      detail2: string2,
+    };
+  }
+
+  private extractCompanyName(text: string) {
+    const match = text.match(/Kompanija\s+(.*?)\s+je/);
+
+    if (match && match[1]) {
+      return match[1].trim();
+    }
+
+    return '';
+  }
+
+  private getDisplayMessage(thread: IThreadDTO): string {
+    let companyName = this.extractCompanyName(thread.lastMessageContent);
+    let detailsObject = this.extractDetails(thread.lastMessageContent);
+
+    if (thread.subject === 'Poziv na sastanak') {
+      return this.$t('riportalApp.thread.messageContent.invitationMeeting');
+    } else if (thread.subject === 'Prihvaćen je poziv za sastanak') {
+      return (
+        this.$t('riportalApp.thread.messageContent.acceptFirst') + companyName + this.$t('riportalApp.thread.messageContent.acceptSecond')
+      );
+    } else if (thread.subject === 'Odbijen je poziv za sastanak') {
+      return (
+        this.$t('riportalApp.thread.messageContent.rejectFirst') +
+        companyName +
+        this.$t('riportalApp.thread.messageContent.rejectSecond') +
+        detailsObject.detail1 +
+        this.$t('riportalApp.thread.messageContent.rejectThird') +
+        detailsObject.detail2 +
+        this.$t('riportalApp.thread.messageContent.rejectFourth')
+      );
+    } else {
+      return thread.lastMessageContent;
+    }
+  }
+
   public buildThreadDisplayString(thread: IThreadDTO): String {
     const CHAR_LIMIT = 60;
     const subjectLength = thread.subject.length;
@@ -363,11 +438,15 @@ export default class Thread extends mixins(AlertMixin) {
       return displayString;
     }
 
+    // console.log(thread);
+
+    let displayMessageContent = this.getDisplayMessage(thread);
+
     if (thread.lastMessageContent.length + subjectLength <= CHAR_LIMIT) {
-      return ' - ' + thread.lastMessageContent;
+      return ' - ' + displayMessageContent;
     }
 
-    displayString = ' - ' + thread.lastMessageContent.substring(0, CHAR_LIMIT - subjectLength) + '...';
+    displayString = ' - ' + displayMessageContent.substring(0, CHAR_LIMIT - subjectLength) + '...';
 
     return displayString;
   }
@@ -913,5 +992,17 @@ export default class Thread extends mixins(AlertMixin) {
 
   get unreadMessagesCount(): number {
     return this.countUnreadMessagesValue;
+  }
+
+  public threadSubject(threadSubject: string) {
+    if (threadSubject === 'Poziv na sastanak') {
+      return this.$t('riportalApp.thread.threadSubject.mettingInvitation');
+    } else if (threadSubject === 'Prihvaćen je poziv za sastanak') {
+      return this.$t('riportalApp.thread.threadSubject.acceptedMeetingInvitation');
+    } else if (threadSubject === 'Odbijen je poziv za sastanak') {
+      return this.$t('riportalApp.thread.threadSubject.rejectedMeetingInvitation');
+    } else {
+      return threadSubject;
+    }
   }
 }

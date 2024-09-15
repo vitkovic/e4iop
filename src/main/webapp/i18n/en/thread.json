@@ -109,6 +109,22 @@
         "meeting400": "You have already accepted an invitation to this meeting.",
         "meeting404": "System error, you do not have an invitation for the selected meeting.",
         "messageCompany": "Your message has been sent to the company "
+      },
+      "threadSubject": {
+        "mettingInvitation": "Meeting invitation",
+        "acceptedMeetingInvitation": "Meeting invitation has been accepted",
+        "rejectedMeetingInvitation": "Meeting invitation has been declined",
+        "first": "\nENGKompanija G.O. Company je odbila poziv za sastanak na B2B portalu.\n\nDetalje svih zakazanih sastanaka možete pogledati sa stranice 'Kalendar'.\n\n____________________\r\n\r\nRAZLOG OTKAZIVANJA\r\nma nesto\r\n\r\nNOVO PREDLOŽENO VREME\r\n26.09.2024 08:00 - 09:00\r\n\r\n____________________",
+        "meetingInvMessage": "Meeting call"
+      },
+      "messageContent": {
+        "invitationMeeting": "\nYou have an invitation for a new meeting on the B2B portal. \n\nYou can confirm or cancel the invitation to the meeting by clicking on the corresponding options in this message or from the 'Calendar' page. \nOther details of the meeting can be viewed on the 'Calendar' page.",
+        "acceptFirst": "\nThe company ",
+        "acceptSecond": " accepted the meeting invitation on the B2B portal.\n\nDetails of all scheduled meetings can be viewed on the 'Calendar' page.",
+        "rejectFirst": "\nThe company ",
+        "rejectSecond": " declined the meeting invitation on the B2B portal.\n\nDetails of all scheduled meetings can be viewed on the 'Calendar' page.\n\n____________________\r\n\r\nREASON FOR CANCELLATION\r\n",
+        "rejectThird": "\r\n\r\nNEW SUGGESTED TIME\r\n",
+        "rejectFourth": "\r\n\r\n____________________"
       }
     }
   }
