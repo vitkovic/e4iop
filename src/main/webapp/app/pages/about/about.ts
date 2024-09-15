@@ -233,4 +233,9 @@ export default class PageAbout extends Vue {
     // const viewer = this.$el.querySelector('.images').$viewer;
     // viewer.view(index); // Open the viewer on the clicked image
   }
+
+  public documentFileName(fileName) {
+    let regex = /^doc_\w+_\d+_/;
+    return fileName.replace(regex, '');
+  }
 }

@@ -106,6 +106,10 @@
   .custom-table-responsive {
     overflow-x: auto;
   }
+
+  .company-title {
+    color: #004b90;
+  }
   
   @media (max-width: 1280px) {
     .custom-table-responsive table {

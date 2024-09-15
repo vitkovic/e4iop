@@ -71,7 +71,7 @@
           <ol class="p-0 p-md-3">
             <li v-for="document in cmsPageDocuments" :key="document.id">
               <a class="document-link" :href="retrieveFile(document)" target="_blank" title="Preuzmite dokument"
-                >{{ document.filename }}
+                >{{ documentFileName(document.filename) }}
               </a>
             </li>
           </ol>

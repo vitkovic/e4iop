@@ -115,7 +115,7 @@
                 :href="retrieveFile(document)"
                 target="_blank"
                 title="Preuzmite dokument"
-                >{{ document.filename }}
+                >{{ documentFileName(document.filename) }}
               </a>
               <!-- <a class="text-info" :href="document." target="_blank" title="Preuzmite dokument" -->
                 <!-- >{{ doc.title }} -->

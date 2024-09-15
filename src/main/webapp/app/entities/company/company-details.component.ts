@@ -552,7 +552,7 @@ export default class CompanyDetails extends Vue {
   }
 
   public documentFileName(fileName) {
-    let regex = /^doc_page_\d+_/;
+    let regex = /^doc_\w+_\d+_/;
     return fileName.replace(regex, '');
   }
 }

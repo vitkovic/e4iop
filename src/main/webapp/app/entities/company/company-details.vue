@@ -419,7 +419,7 @@
                           stars="4"
                           disabled
                         ></b-form-rating>
-                        <label for="rating-inline">{{ collaboration.companyOffer.id == company.id ? 'Tražilac' : 'Oglašivač' }}</label>
+                        <label for="rating-inline">{{ collaboration.companyOffer.id == company.id ? $t('riportalApp.collaboration.companyRequest') : $t('riportalApp.collaboration.companyOffer') }}</label>
                       </div>
                     </div>
                     <hr />
@@ -535,7 +535,9 @@
   </div>
 </template>
 
-<style>
+<style scoped>
+
+
 
 /* LIGHTBOX & GALLERY  */
 
@@ -644,7 +646,7 @@
 }
 
 .company-title {
-  font-weight: 400;
+  /* font-weight: 400; */
   line-height: 1;
 }
 .contact-button-section {
@@ -763,12 +765,12 @@ h2 {
 }
 
 
-.link-hover:hover{
+::v-deep .link-hover:hover{
   background-color: #fff;
   border: solid 1px #23384b;
 }
 
-.link-hover a:hover{
+::v-deep .link-hover a:hover{
   background-color: #fff;
 }
 

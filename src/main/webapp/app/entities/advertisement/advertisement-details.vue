@@ -736,7 +736,7 @@
                     disabled
                   ></b-form-rating>
                   <label for="rating-inline">{{
-                    collaboration.companyOffer.id == advertisement.company.id ? 'Tražilac' : 'Oglašivač'
+                    collaboration.companyOffer.id == advertisement.company.id ? $t('riportalApp.collaboration.companyRequest') : $t('riportalApp.collaboration.companyOffer')
                   }}</label>
                 </div>
               </div>

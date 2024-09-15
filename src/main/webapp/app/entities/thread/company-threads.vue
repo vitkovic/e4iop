@@ -572,6 +572,10 @@
   height: 75px;
 }
 
+.company-title {
+  color: #004b90;
+}
+
 @media screen and (max-width: 578px) {
   .company-title {
     font-size: 2rem;

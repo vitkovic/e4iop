@@ -537,6 +537,7 @@
 .carousel img {
   height: 100%;
   padding: 0px;
+  /* object-fit: cover; */
 }
 
 @media screen and (max-width: 992px) {
