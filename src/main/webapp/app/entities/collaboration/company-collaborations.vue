@@ -102,7 +102,7 @@
               ></jhi-sort-indicator>
             </th>
             <th>
-            <!-- <th v-on:click="changeOrder('advertisement.kind.kind')"> -->
+              <!-- <th v-on:click="changeOrder('advertisement.kind.kind')"> -->
               <span v-text="$t('riportalApp.collaboration.advertisementKind')">Advertisement</span>
               <!-- <jhi-sort-indicator
                 :current-order="propOrder"
@@ -152,7 +152,7 @@
               <div v-if="collaboration.companyOffer">
                 <router-link
                   :to="{ name: 'CompanyView', params: { companyId: collaboration.companyOffer.id } }"
-                  class="font-weight-normal text-body"
+                  class="text-body"
                   >{{ collaboration.companyOffer.name }}</router-link
                 >
               </div>
@@ -161,7 +161,7 @@
               <div v-if="collaboration.companyRequest">
                 <router-link
                   :to="{ name: 'CompanyView', params: { companyId: collaboration.companyRequest.id } }"
-                  class="font-weight-normal text-body"
+                  class="text-body"
                   >{{ collaboration.companyRequest.name }}</router-link
                 >
               </div>
@@ -170,7 +170,7 @@
               <div v-if="collaboration.advertisement">
                 <router-link
                   :to="{ name: 'AdvertisementView', params: { advertisementId: collaboration.advertisement.id } }"
-                  class="font-weight-normal text-body"
+                  class="text-body"
                   >{{ collaboration.advertisement.title }}</router-link
                 >
               </div>
@@ -187,8 +187,13 @@
                 {{ advertisementKindsString(collaboration.advertisement) }}
               </div>
             </td>
-            <td>{{ collaboration.advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) }}</td>
+            <td>
+              <div v-if="collaboration.advertisement.budget">
+                {{ collaboration.advertisement.budget.toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) }}
+              </div>
+            </td>
             <td>{{ collaboration.advertisement.duration.duration }}</td>
+            <!-- toLocaleString('sr-SR', { style: 'currency', currency: 'RSD' }) -->
             <td>
               <div v-if="collaboration.ratingOffer">
                 <b-form-rating disabled :value="collaboration.ratingOffer.number" stars="4" inline size="sm"> </b-form-rating>
@@ -246,7 +251,7 @@
                   "
                   v-on:click="prepareActivate(collaboration.advertisement)"
                   variant="primary"
-                  class="btn btn-sm mr-1"
+                  class="btn btn-sm mr-1 btn-renew"
                   v-b-modal.activateEntity
                 >
                   <span v-text="$t('riportalApp.collaboration.actions.renewAd')">Obnovi oglas</span>
@@ -492,8 +497,12 @@
 }
 
 .btn-group .btn {
-  width: 50%;
+  /* width: 50%; */
   max-width: 50%;
+}
+
+.btn-renew{
+  text-wrap: wrap;
 }
 
 .company-logo {
