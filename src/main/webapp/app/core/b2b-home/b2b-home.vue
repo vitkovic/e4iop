@@ -58,7 +58,7 @@
             class="d-flex align-content-center justify-content-around justify-content-lg-center justify-content-xl-around col-6 col-sm-4 col-lg-3 col-xl-2 mb-2 mb-xl-0"
           >
             <div class="divCard">
-              <h6>{{ advertisement.advertisements }} {{ $t('home.advertisements.advertisements') }}</h6>
+              <h6>{{ $t('home.advertisements.advertisementsCapital') }} {{ advertisement.advertisements }} </h6>
               <div class="img-box">
                 <img :src="advertisement.logo" alt="" class="background-imazh" />
               </div>
@@ -82,7 +82,7 @@
             class="d-flex align-content-center justify-content-around justify-content-lg-center justify-content-xl-around col-6 col-sm-4 col-lg-3 col-xl-2 mb-2 mb-xl-0"
           >
             <div class="divCard">
-              <h6>{{ advertisement.advertisements }} {{ $t('home.advertisements.advertisements') }}</h6>
+              <h6>{{ $t('home.advertisements.advertisementsCapital') }} {{ advertisement.advertisements }}</h6>
               <div class="img-box">
                 <img :src="advertisement.logo" alt="" class="background-imazh" />
               </div>
@@ -132,7 +132,7 @@
 
 <script lang="ts" src="./b2b-home.component.ts"></script>
 
-<style>
+<style scoped>
 /*
 .banner {
 	display: none;

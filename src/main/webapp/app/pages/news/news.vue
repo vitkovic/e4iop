@@ -68,7 +68,7 @@
                 :href="retrieveFile(document)"
                 target="_blank"
                 title="Preuzmite dokument"
-                >{{ document.filename }}
+                >{{ documentFileName(document.filename) }}
               </a>
 
             </li>

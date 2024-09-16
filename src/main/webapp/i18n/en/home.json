@@ -52,7 +52,8 @@
         "title": "Current demands",
         "button": "View demand"
       },
-      "advertisements": "advertisements"
+      "advertisements": "advertisements",
+      "advertisementsCapital": "Advertisements"
     }
   }
 }

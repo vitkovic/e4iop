@@ -11,7 +11,7 @@
     </b-alert>
     <div v-if="company" class="d-flex mb-3">
       <img v-if="company.logo" :src="companyService().retrieveImage(company.logo.filename)" alt="company logo" class="company-logo mr-3" />
-      <h2 id="page-heading" class="jh-entity-heading company-title" style="align-self: center;">
+      <h2 id="page-heading" class="jh-entity-heading company-title cms-title" style="align-self: center;">
         {{ company.name }}
       </h2>
     </div>
@@ -132,7 +132,7 @@
               <div v-if="collaboration.companyOffer">
                 <router-link
                   :to="{ name: 'CompanyView', params: { companyId: collaboration.companyOffer.id } }"
-                  class="font-weight-normal text-body"
+                  class="text-body"
                   >{{ collaboration.companyOffer.name }}</router-link
                 >
               </div>
@@ -141,7 +141,7 @@
               <div v-if="collaboration.companyRequest">
                 <router-link
                   :to="{ name: 'CompanyView', params: { companyId: collaboration.companyRequest.id } }"
-                  class="font-weight-normal text-body"
+                  class="text-body"
                   >{{ collaboration.companyRequest.name }}</router-link
                 >
               </div>
@@ -150,7 +150,7 @@
               <div v-if="collaboration.advertisement">
                 <router-link
                   :to="{ name: 'AdvertisementView', params: { advertisementId: collaboration.advertisement.id } }"
-                  class="font-weight-normal text-body"
+                  class="text-body"
                   >{{ collaboration.advertisement.title }}</router-link
                 >
               </div>
@@ -384,6 +384,10 @@
 <style scoped>
 .b-rating.disabled {
   color: rgb(40, 40, 56);
+}
+
+.cms-title{
+  color: #004b90;
 }
 
 .company-logo {

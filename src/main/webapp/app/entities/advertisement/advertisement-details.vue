@@ -762,7 +762,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .jh-entity-details > dd {
   justify-self: left;
   margin-left: 5rem !important;

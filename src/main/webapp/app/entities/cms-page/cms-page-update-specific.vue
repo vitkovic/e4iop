@@ -2,7 +2,7 @@ h<template>
   <div class="row justify-content-center">
     <div v-if="cmsPage.id" class="col10 col-md-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
-        <h2 id="riportalApp.cmsPage.home.createOrEditLabel">
+        <h2 id="riportalApp.cmsPage.home.createOrEditLabel" class="cms-title">
           <span v-text="$t('riportalApp.cmsPage.titleChange')">Create or edit a CmsPage</span>
           <span v-text="textHeading">Stranica</span>
         </h2>
@@ -74,3 +74,9 @@ h<template>
   </div>
 </template>
 <script lang="ts" src="./cms-page-update-specific.component.ts"></script>
+
+<style scoped>
+.cms-title{
+  color: #004b90;
+}
+</style>

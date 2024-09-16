@@ -305,12 +305,10 @@ export default class AdvertisementDetails extends Vue {
 
     if (width <= 576) {
       divisionFactor = 1;
-    } else if (width <= 768) {
-      divisionFactor = 2;
     } else if (width <= 1200) {
-      divisionFactor = 3;
+      divisionFactor = 2;
     } else {
-      divisionFactor = Math.min(totalImages, 5);
+      divisionFactor = Math.min(totalImages, 3);
     }
 
     imgs.forEach((img: HTMLElement) => {

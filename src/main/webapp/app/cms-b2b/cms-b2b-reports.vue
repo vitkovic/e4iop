@@ -2,7 +2,7 @@
   <div>
     <div class="row justify-content-center">
       <div class="col-md-9">
-        <h3 class="mb-5" v-text="$t('riportalApp.cmsB2B.pages.reports')"></h3>
+        <h2 class="mb-5 cms-title" v-text="$t('riportalApp.cmsB2B.pages.reports')"></h2>
 
         <div>
           <b-tabs content-class="mt-3">
@@ -792,6 +792,11 @@
 <script lang="ts" src="./cms-b2b-reports.component.ts"></script>
 
 <style scoped>
+
+.cms-title{
+  color: #004b90;
+}
+
 ::v-deep .nav-item .nav-link {
   color: #2c3e50;
 }

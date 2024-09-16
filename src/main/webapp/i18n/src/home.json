@@ -51,7 +51,8 @@
         "title": "Актуелне потражње",
         "button": "Погледај потражњу"
       },
-      "advertisements": "огласа"
+      "advertisements": "огласа",
+      "advertisementsCapital": "Огласа"
     }
   }
 }

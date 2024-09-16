@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h2 id="page-heading">
+        <h3 id="page-heading">
             <span v-text="$t('riportalApp.company.home.title')" id="company-heading">Companies</span>
-        </h2>
+        </h3>
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"

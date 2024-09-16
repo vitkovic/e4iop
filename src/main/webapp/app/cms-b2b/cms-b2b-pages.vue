@@ -2,7 +2,7 @@
   <div>
     <div class="row justify-content-center">
       <div class="col-10 col-md-8">
-        <h2 class="mb-5" v-text="$t('riportalApp.cmsB2B.titlePages')"></h2>
+        <h2 class="mb-5 cms-title" v-text="$t('riportalApp.cmsB2B.titlePages')"></h2>
 
         <div class="row">
           <div class="col-4 col-md-3">
@@ -116,3 +116,9 @@
 </template>
 
 <script lang="ts" src="./cms-b2b-pages.component.ts"></script>
+
+<style scoped>
+.cms-title{
+  color: #004b90;
+}
+</style>

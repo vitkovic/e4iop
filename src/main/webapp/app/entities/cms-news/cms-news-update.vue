@@ -44,7 +44,11 @@
               :class="{ valid: !$v.cmsNews.content.$invalid, invalid: $v.cmsNews.content.$invalid }"
               v-model="$v.cmsNews.content.$model"
             ></b-textarea> -->
-              <vue-editor v-model="$v.cmsNews.content.$model" :editor-toolbar="customToolbar" :class="{ valid: !$v.cmsNews.content.$invalid, invalid: $v.cmsNews.content.$invalid }" />
+            <vue-editor
+              v-model="$v.cmsNews.content.$model"
+              :editor-toolbar="customToolbar"
+              :class="{ valid: !$v.cmsNews.content.$invalid, invalid: $v.cmsNews.content.$invalid }"
+            />
           </div>
 
           <div class="form-group">
@@ -59,13 +63,10 @@
             />
           </div>
 
-          <br>
+          <br />
           <div class="form-group row">
             <div class="col-xs-12 col-sm-6">
-              <label
-                class="form-control-label position-relative font-weight-bold"
-                v-text="$t('riportalApp.cmsNews.titleImage')"
-              ></label>
+              <label class="form-control-label position-relative font-weight-bold" v-text="$t('riportalApp.cmsNews.titleImage')"></label>
               <b-form-file
                 style="margin-bottom: 5px;"
                 @change="handleFileChange"
@@ -87,7 +88,12 @@
                 <p class="logo-img-label font-weight-bold" v-text="$t('riportalApp.cmsNews.upload.currentTitleImage')">Current title i:</p>
                 <div class="mb-3 pl-1">
                   <img :src="retrieveImage(cmsNews.titleImage.filename)" width="50" height="50" />
-                  <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="openDeleteTitleImageModal()" v-b-modal.deleteTitleImageModal>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger ml-3"
+                    v-on:click="openDeleteTitleImageModal()"
+                    v-b-modal.deleteTitleImageModal
+                  >
                     <span v-text="$t('entity.action.delete')">Save</span>
                   </button>
                 </div>
@@ -96,12 +102,12 @@
             </div>
           </div>
           <div v-if="titleImage != null" class="mb-4">
-              <p class="font-weight-bold" v-text="$t('riportalApp.cmsNews.upload.newTitleImage')">New logo:</p>
-              {{ titleImage.name }}
-              <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="removeLogo()">
-                <span v-text="$t('entity.action.remove')">Save</span>
-              </button>
-            </div>
+            <p class="font-weight-bold" v-text="$t('riportalApp.cmsNews.upload.newTitleImage')">New logo:</p>
+            {{ titleImage.name }}
+            <button type="button" class="btn btn-sm btn-danger ml-3" v-on:click="removeLogo()">
+              <span v-text="$t('entity.action.remove')">Save</span>
+            </button>
+          </div>
 
           <hr class="mt-5" />
           <div class="row mt-4 mb-4 justify-content-between">
@@ -153,3 +159,9 @@
 </template>
 
 <script lang="ts" src="./cms-news-update.component.ts"></script>
+
+<style scoped>
+h2 {
+  color: #004b90;
+}
+</style>
