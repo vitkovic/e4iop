@@ -718,4 +718,23 @@ public class AdvertisementResource {
 	    	
 	    	return ResponseEntity.ok(count);
 	    }
+	    
+	    @GetMapping("/advertisements/new-advertisements-offer")
+	    public ResponseEntity<List<Advertisement>> getNewAdvertisementsTypeOffer(Pageable pageable){
+	    	log.debug("REST request to get a list of new Advertisements of type offer");
+	    	Page<Advertisement> page = advertisementService.getNewAdvertisementsTypeOffer(pageable);
+	    	
+	    	HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+	    	return ResponseEntity.ok().headers(headers).body(page.getContent());
+	    }
+	    
+	    @GetMapping("/advertisements/new-advertisements-demand")
+	    public ResponseEntity<List<Advertisement>> getNewAdvertisementsTypeDemand(Pageable pageable){
+	    	log.debug("REST request to get a list of new Advertisements of type demand");
+	    	Page<Advertisement> page = advertisementService.getNewAdvertisementsTypeDemand(pageable);
+	    	
+	    	HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+	    	return ResponseEntity.ok().headers(headers).body(page.getContent());
+	    }
+	    
 }

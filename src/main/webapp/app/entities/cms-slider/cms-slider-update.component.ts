@@ -259,7 +259,7 @@ export default class CmsSliderUpdate extends Vue {
       const img = new Image();
       img.src = URL.createObjectURL(file);
       img.onload = () => {
-        const isValid = img.width >= 1600 && img.height >= 500;
+        const isValid = img.width >= 0 && img.height >= 0;
         URL.revokeObjectURL(img.src);
         resolve(isValid);
       };

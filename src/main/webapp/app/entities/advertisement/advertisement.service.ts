@@ -36,6 +36,8 @@ const apifindAllForCompanyByStatusAndType = 'api/advertisements/company/status-t
 const apiGetCountAllForCompany = 'api/advertisements/company-count-all';
 const apiGetCountActiveForCompany = 'api/advertisements/company-count-active';
 const apiGetCountInactiveForCompany = 'api/advertisements/company-count-inactive';
+const apiGetNewAdvertisementsTypeOffer = 'api/advertisements/new-advertisements-offer';
+const apiGetNewAdvertisementsTypeDemand = 'api/advertisements/new-advertisements-demand';
 
 export default class AdvertisementService {
   public find(id: number): Promise<IAdvertisement> {
@@ -561,6 +563,32 @@ export default class AdvertisementService {
         .get(`${apiGetCountInactiveForCompany}/${companyId}`)
         .then(res => {
           resolve(res.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getNewAdvertisementsTypeOffer(paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${apiGetNewAdvertisementsTypeOffer}?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public getNewAdvertisementsTypeDemand(paginationQuery?: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(`${apiGetNewAdvertisementsTypeDemand}?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
         })
         .catch(err => {
           reject(err);

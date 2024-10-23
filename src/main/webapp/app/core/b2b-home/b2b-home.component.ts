@@ -49,6 +49,9 @@ export default class B2BHome extends Vue {
 
   public advertisementArray: any[] = [];
 
+  public newAdvertisementsArrayTypeOffer: any[] = [];
+  public newAdvertisementsArrayTypeDemand: any[] = [];
+
   @Inject('loginService')
   private loginService: () => LoginService;
 
@@ -71,16 +74,37 @@ export default class B2BHome extends Vue {
         console.log(this.cmsSliders);
       });
 
-    this.companyService()
-      .retrieve()
-      .then(res => {
-        this.companies = res.data;
-        console.log(this.companies); // Log the fetched companies
-        this.createAdvertisements();
-      })
-      .catch(err => {
-        console.error('Error fetching companies:', err);
-      });
+    // this.companyService()
+    //   .retrieve()
+    //   .then(res => {
+    //     this.companies = res.data;
+    //     console.log(this.companies); // Log the fetched companies
+    //     this.createAdvertisements();
+    //   })
+    //   .catch(err => {
+    //     console.error('Error fetching companies:', err);
+    //   });
+
+    this.retrieveNewAdvertisementsOffer();
+    this.retrieveNewAdvertisementsDemand();
+
+    // this.advertisementService()
+    //   .getNewAdvertisementsTypeOffer()
+    //   .then(res => {
+    //     this.myTestArray = res.data;
+    //     console.log(this.myTestArray);
+    //     this.myTestMethod();
+    //   });
+
+    // this.advertisementService()
+    //   .getNewAdvertisementsTypeDemand()
+    //   .then(res => {
+    //     this.myTestArrayDemand = res.data;
+    //     console.log(this.myTestArrayDemand);
+    //     this.myTestMethodDemand();
+    //   });
+
+    // this.myTestArray = this.myTestMethod();
 
     //   alert(this.$t('riportalApp.researchInfrastructure.errors.deleteFailed') + this.currentLanguage);
   }
@@ -95,6 +119,49 @@ export default class B2BHome extends Vue {
 
   // No need to write any code here, we just need this to call resize
   // handleResize() {}
+
+  public retrieveNewAdvertisementsOffer(): void {
+    const paginationQuery = {
+      page: 0,
+      size: 6,
+      sort: ['activationDatetime,desc'],
+    };
+
+    this.advertisementService()
+      .getNewAdvertisementsTypeOffer(paginationQuery)
+      .then(
+        res => {
+          this.newAdvertisementsArrayTypeOffer = res.data;
+          // this.totalItems = Number(res.headers['x-total-count']);
+          // console.log(this.myTestArray);
+
+          this.mapNewAdvertisementsOffer();
+        },
+        err => {}
+      );
+  }
+
+  public retrieveNewAdvertisementsDemand(): void {
+    const paginationQuery = {
+      page: 0,
+      size: 6,
+      sort: ['activationDatetime,desc'],
+    };
+
+    this.advertisementService()
+      .getNewAdvertisementsTypeDemand(paginationQuery)
+      .then(
+        res => {
+          this.newAdvertisementsArrayTypeDemand = res.data;
+          // this.totalItems = Number(res.headers['x-total-count']);
+          console.log('OVAJ MOJ:');
+          console.log(this.newAdvertisementsArrayTypeDemand);
+
+          this.mapNewAdvertisementsDemand();
+        },
+        err => {}
+      );
+  }
 
   // -------- LOGIC FOR BANNER RESPONSIVE AND WHICH IMAGE SIZE TO SHOW END-----------
 
@@ -128,24 +195,127 @@ export default class B2BHome extends Vue {
     }
   }
 
-  public async createAdvertisements() {
-    const advertisementsPromises = this.companies.slice(0, 6).map(async element => {
-      const logo =
-        element.logo && element.logo.filename
-          ? await this.companyService().retrieveImage(element.logo.filename)
-          : '/content/images/logo-placeholder-image.png';
+  // public async myTestMethod() {
+  //   const testArray = await this.advertisementService().getNewAdvertisementsTypeOffer();
+  //   console.log(testArray);
+  // }
 
-      const advertisementCount = await this.advertisementService().getCountActiveForCompany(element.id);
+  // public async createAdvertisements() {
+  //   const advertisementsPromises = this.companies.slice(0, 6).map(async element => {
+  //     const logo =
+  //       element.logo && element.logo.filename
+  //         ? await this.companyService().retrieveImage(element.logo.filename)
+  //         : '/content/images/logo-placeholder-image.png';
 
-      return {
-        id: element.id,
-        logo: logo,
-        advertisements: advertisementCount,
-      };
-    });
+  //     const advertisementCount = await this.advertisementService().getCountActiveForCompany(element.id);
 
-    // Wait for all promises to resolve and then assign the result to advertisementsArray
-    this.advertisementArray = await Promise.all(advertisementsPromises);
-    console.log(this.advertisementArray);
+  //     return {
+  //       id: element.id,
+  //       logo: logo,
+  //       advertisements: advertisementCount,
+  //     };
+  //   });
+
+  //   // Wait for all promises to resolve and then assign the result to advertisementsArray
+  //   this.advertisementArray = await Promise.all(advertisementsPromises);
+  //   console.log(this.advertisementArray);
+  // }
+
+  public async mapNewAdvertisementsOffer() {
+    // Use map to create an array of promises
+    const updatedAdvertisements = await Promise.all(
+      this.newAdvertisementsArrayTypeOffer.map(async adv => {
+        if (!adv.company) {
+          // If the company doesn't exist, return the advertisement without the logo
+          return {
+            ...adv,
+            logo: '/content/images/logo-placeholder-image.png', // Use a default logo
+          };
+        }
+        // Fetch the company based on advertisement's company ID
+        const company = await this.companyService().find(adv.company.id);
+
+        // Fetch the logo based on the company's logo filename
+        const logo =
+          company.logo && company.logo.filename
+            ? await this.companyService().retrieveImage(company.logo.filename)
+            : '/content/images/logo-placeholder-image.png';
+
+        // Return the updated advertisement object with the logo
+        return {
+          ...adv, // Spread existing advertisement properties
+          logo, // Add the logo property
+        };
+      })
+    );
+
+    // Update myTestArray with the modified advertisements
+    this.newAdvertisementsArrayTypeOffer = updatedAdvertisements;
+    console.log(this.newAdvertisementsArrayTypeOffer);
+  }
+
+  public async mapNewAdvertisementsDemand() {
+    // Use map to create an array of promises
+    const updatedAdvertisements = await Promise.all(
+      this.newAdvertisementsArrayTypeDemand.map(async adv => {
+        if (!adv.company) {
+          // If the company doesn't exist, return the advertisement without the logo
+          return {
+            ...adv,
+            logo: '/content/images/logo-placeholder-image.png', // Use a default logo
+          };
+        }
+        // Fetch the company based on advertisement's company ID
+        const company = await this.companyService().find(adv.company.id);
+
+        // Fetch the logo based on the company's logo filename
+        const logo =
+          company.logo && company.logo.filename
+            ? await this.companyService().retrieveImage(company.logo.filename)
+            : '/content/images/logo-placeholder-image.png';
+
+        // Return the updated advertisement object with the logo
+        return {
+          ...adv, // Spread existing advertisement properties
+          logo, // Add the logo property
+        };
+      })
+    );
+
+    // Update myTestArray with the modified advertisements
+    this.newAdvertisementsArrayTypeDemand = updatedAdvertisements;
+    console.log(this.newAdvertisementsArrayTypeDemand);
+  }
+
+  // public myTestMethod() {
+  //   const resultArray = [];
+  //   const resultArrayLogo = [];
+  //   const myTestArrayInside = this.myTestArray.map(async adv => {
+  //     const company = await this.companyService().find(adv.company.id);
+  //     resultArray.push(company);
+  //     const logo =
+  //       company.logo && company.logo.filename
+  //         ? await this.companyService().retrieveImage(company.logo.filename)
+  //         : '/content/images/logo-placeholder-image.png';
+
+  //     resultArrayLogo.push(logo);
+
+  //     //   return { ...adv, logo };
+  //     // });
+
+  //     // this.myTestArray = await Promise.all(myTestArrayInside);
+  //     // console.log(this.myTestArray);
+  //   });
+  //   console.log(resultArray);
+  //   console.log(resultArrayLogo);
+  //   return resultArray;
+  // }
+
+  public shortenedTitle(title: string): string {
+    if (title) {
+      return title.length <= 35 ? title : title.slice(0, 35) + '...';
+    } else {
+      return '';
+    }
   }
 }

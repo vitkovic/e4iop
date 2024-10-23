@@ -1,31 +1,31 @@
 <template>
   <div>
-    <section class="banner">
-      <div>
-        <b-carousel
-          id="carousel-1"
-          v-model="slide"
-          :interval="4000"
-          fade
-          controls
-          indicators
-          background="#ababab"
-          class="custom-carousel"
-          style="text-shadow: 1px 1px 2px #333;"
-          @sliding-start="onSlideStart"
-          @sliding-end="onSlideEnd"
-        >
-          <b-carousel-slide v-for="(cmsSlider, index) in cmsSliders" :key="index" @click.native="handleImageClick(cmsSlider)">
-            <template #img>
-              <img v-if="cmsSlider.image" :src="retrieveFile(cmsSlider.image)" class="d-block img-item" alt="image slot" />
-            </template>
-          </b-carousel-slide>
-        </b-carousel>
-      </div>
-    </section>
-
     <section class="row justify-content-center">
-      <div class="col-11 col-md-10">
+      <div class="col-11 col-md-9 p-0">
+        <section class="banner">
+          <div>
+            <b-carousel
+              id="carousel-1"
+              v-model="slide"
+              :interval="4000"
+              fade
+              controls
+              indicators
+              background="#ababab"
+              class="custom-carousel"
+              style="text-shadow: 1px 1px 2px #333;"
+              @sliding-start="onSlideStart"
+              @sliding-end="onSlideEnd"
+            >
+              <b-carousel-slide v-for="(cmsSlider, index) in cmsSliders" :key="index" class="car-box" @click.native="handleImageClick(cmsSlider)">
+                <template #img>
+                  <img v-if="cmsSlider.image" :src="retrieveFile(cmsSlider.image)" class="" alt="image slot" />
+                </template>
+              </b-carousel-slide>
+            </b-carousel>
+          </div>
+        </section>
+
         <div class="div1">
           <div class="divZaA">
             <b-link :to="{ name: 'AdvertisementCreate', query: { type: advertisementTypeOptions.OFFER } }" class="kvadrat kvOne">
@@ -47,50 +47,46 @@
           </div>
         </div>
 
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mr-0 ml-0 mt-5">
           <h4 v-text="$t('home.advertisements.offers.title')" class="divCardsTitle">Актуелне понуде</h4>
         </div>
 
-        <div class="row justify-content-center mt-2 divCardsBox">
+        <div class="row justify-content-center ml-0 mr-0 mt-2 divCardsBox">
           <div
-            v-for="(advertisement, index) in advertisementArray"
+            v-for="(advertisement, index) in newAdvertisementsArrayTypeOffer"
             :key="index"
-            class="d-flex align-content-center justify-content-around justify-content-lg-center justify-content-xl-around col-6 col-sm-4 col-lg-3 col-xl-2 mb-2 mb-xl-0"
+            class="d-flex align-content-center justify-content-around justify-content-lg-center justify-content-xl-around col-6 col-sm-4 col-lg-3 col-xl-2 mb-2 mb-xl-0 p-0"
           >
             <div class="divCard">
-              <h6>{{ $t('home.advertisements.advertisementsCapital') }} {{ advertisement.advertisements }} </h6>
+              <h6>{{ shortenedTitle(advertisement.title) }}</h6>
               <div class="img-box">
                 <img :src="advertisement.logo" alt="" class="background-imazh" />
               </div>
-              <b-link
-                :to="{ name: 'CompanyAdvertisementsView', params: { companyId: advertisement.id }, query: { filter: 'offer' } }"
-                class="card-button"
-                >{{ $t('home.advertisements.offers.button') }}</b-link
-              >
+              <b-link :to="{ name: 'AdvertisementView', params: { advertisementId: advertisement.id } }" class="card-button">{{
+                $t('home.advertisements.offers.button')
+              }}</b-link>
             </div>
           </div>
         </div>
 
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mr-0 ml-0 mt-5">
           <h4 v-text="$t('home.advertisements.demands.title')" class="divCardsTitle">Актуелне потражње</h4>
         </div>
 
-        <div class="row justify-content-center mt-2 divCardsBox">
+        <div class="row justify-content-center mr-0 ml-0 mt-2 divCardsBox">
           <div
-            v-for="(advertisement, index) in advertisementArray"
+            v-for="(advertisement, index) in newAdvertisementsArrayTypeDemand"
             :key="index"
             class="d-flex align-content-center justify-content-around justify-content-lg-center justify-content-xl-around col-6 col-sm-4 col-lg-3 col-xl-2 mb-2 mb-xl-0"
           >
             <div class="divCard">
-              <h6>{{ $t('home.advertisements.advertisementsCapital') }} {{ advertisement.advertisements }}</h6>
+              <h6>{{ shortenedTitle(advertisement.title) }}</h6>
               <div class="img-box">
                 <img :src="advertisement.logo" alt="" class="background-imazh" />
               </div>
-              <b-link
-                :to="{ name: 'CompanyAdvertisementsView', params: { companyId: advertisement.id }, query: { filter: 'demand' } }"
-                class="card-button"
-                >{{ $t('home.advertisements.demands.button') }}</b-link
-              >
+              <b-link :to="{ name: 'AdvertisementView', params: { advertisementId: advertisement.id } }" class="card-button">{{
+                $t('home.advertisements.demands.button')
+              }}</b-link>
             </div>
           </div>
         </div>
@@ -133,11 +129,6 @@
 <script lang="ts" src="./b2b-home.component.ts"></script>
 
 <style scoped>
-/*
-.banner {
-	display: none;
-}
-*/
 .div1 {
   display: flex;
   justify-content: center;
@@ -152,7 +143,8 @@
   flex-wrap: wrap;
   /*width: 30em;
 	height: 30em;*/
-  width: 60em;
+  /* width: 60em; */
+  width: 100%;
   height: 30em;
 }
 
@@ -372,7 +364,6 @@
   padding-bottom: 20px;
 }
 
-
 .divZaPonudeiPotraznje {
   background-color: rgb(246, 246, 246);
   /* margin-left: 4.5em;
@@ -436,6 +427,10 @@
   border-radius: 8px;
   padding: 5px 16px;
   width: 160px;
+}
+
+.divCard h6 {
+  height: 46px;
 }
 
 .img-box {
@@ -530,38 +525,81 @@
   transition: 0.1s;
 }
 
-.img-item {
+/* .img-item {
   width: 100%;
-}
+  height: 100%;
+  object-fit: contain;
+} */
 
-.carousel img {
+/* .carousel img {
   height: 100%;
   padding: 0px;
-  /* object-fit: cover; */
+} */
+
+/* .custom-carousel {
+
+  height: 500px;
 }
 
-@media screen and (max-width: 992px) {
-  .custom-carousel {
-    height: 400px;
-  }
-
-  .carousel-inner {
+.carousel-inner {
+  width: 100%;
     height: 100%;
   }
 
   .carousel-item {
+  width: 100%;
     height: 100%;
   }
 
-  .img-item {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 
-  .carousel img {
-    object-fit: cover;
-  }
+.carousel-item img {
+  width: 100%;
+    height: 100%;
+  object-fit: contain;
+} */
+
+/* .car-box {
+  height: 480px;
+} */
+
+ .car-box {
+  /* height: 480px; */
+ }
+
+.car-box img{
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 1300px) {
+
+.divCard {
+  width: 140px;
+}
+}
+
+
+@media screen and (max-width: 1200px) {
+
+.divCard {
+  width: 160px;
+}
+}
+
+
+@media screen and (max-width: 992px) {
+
+
+  .car-box img{
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.divCard {
+  width: 160px;
+}
 }
 
 @media screen and (max-width: 768px) {
@@ -595,14 +633,6 @@
   .kvThree {
     margin-left: 2em;
   }
-
-  /* .div1 {
-    margin-top: 5em;
-  } */
-  /* .background-imazh {
-    margin-left: 1.5em;
-    margin-right: 1.5em;
-  } */
 }
 
 @media screen and (max-width: 310px) {

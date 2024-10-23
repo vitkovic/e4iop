@@ -44,12 +44,12 @@
     },
     "advertisements": {
       "offers": {
-        "title": "Актуелне понуде",
-        "button": "Погледај понуду"
+        "title": "Најновије понуде",
+        "button": "Погледај оглас"
       },
       "demands": {
-        "title": "Актуелне потражње",
-        "button": "Погледај потражњу"
+        "title": "Најновије потражње",
+        "button": "Погледај оглас"
       },
       "advertisements": "огласа",
       "advertisementsCapital": "Огласа"

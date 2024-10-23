@@ -45,12 +45,12 @@
 
     "advertisements": {
       "offers": {
-        "title": "Current offers",
-        "button": "View offer"
+        "title": "Latest offers",
+        "button": "View advertisement"
       },
       "demands": {
-        "title": "Current demands",
-        "button": "View demand"
+        "title": "Latest demands",
+        "button": "View advertisement"
       },
       "advertisements": "advertisements",
       "advertisementsCapital": "Advertisements"

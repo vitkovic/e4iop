@@ -1,11 +1,13 @@
 package e4i.service;
 
+
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -864,4 +867,26 @@ public Page<Advertisement> findAllBySearchTypeStatus(Long type, Long status, Pag
         log.debug("Request to get count for inactive Advertisments for Company : {}", companyId);
         return advertisementRepository.countByCompanyIdAndStatus(companyId, AdvertisementStatus.INACTIVE);
 	}
+    
+    @Transactional
+    public Page<Advertisement> getNewAdvertisementsTypeOffer(Pageable pageable) {
+        log.debug("Request to get a list of new Advertisements of type offer.");
+        
+        // Pageable object for fetching the first page with 6 items
+//        Pageable top6 = PageRequest.of(0, 6);  // First page, 6 results per page
+        
+        // Fetching the advertisements with the query defined in the repository
+        return advertisementRepository.findTop6ByTypeOfferOrderByActivationDatetimeDesc(pageable);
+    }
+    
+    @Transactional
+    public Page<Advertisement> getNewAdvertisementsTypeDemand(Pageable pageable) {
+        log.debug("Request to get a list of new Advertisements of type demand.");
+        
+        // Pageable object for fetching the first page with 6 items
+//        Pageable top6 = PageRequest.of(0, 6); 
+        
+        // Fetching the advertisements with the query defined in the repository
+        return advertisementRepository.findTop6ByTypeDemandOrderByActivationDatetimeDesc(pageable);
+    }
 }
