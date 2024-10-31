@@ -503,6 +503,7 @@
 .btn-group .btn {
   width: 50%;
   max-width: 50%;
+  font-size: 13px;
 }
 
 .btn-renew{
