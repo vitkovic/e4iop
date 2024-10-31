@@ -263,10 +263,10 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
         		+ "AND (advertisement.type.type = :type OR advertisement.type.typeSrc = :type OR advertisement.type.typeEn = :type)")
 	Page<Advertisement> findAllByCompanyIdandStatusAndType(@Param("companyId") Long companyId,@Param("status") String status, @Param("type") String type, Pageable pageable);
     
-    @Query("SELECT a FROM Advertisement a WHERE a.type.id = 3451")
+    @Query("SELECT a FROM Advertisement a WHERE a.type.id = 3451 AND a.status.id = 3551")
     	Page<Advertisement> findTop6ByTypeOfferOrderByActivationDatetimeDesc(Pageable pageable);
     
-    @Query("SELECT a FROM Advertisement a WHERE a.type.id = 3452")
+    @Query("SELECT a FROM Advertisement a WHERE a.type.id = 3452 AND a.status.id = 3551")
 	Page<Advertisement> findTop6ByTypeDemandOrderByActivationDatetimeDesc(Pageable pageable);
 
     
