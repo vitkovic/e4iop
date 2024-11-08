@@ -287,7 +287,7 @@
             <b-nav-item-dropdown right v-if="languages && Object.keys(languages).length > 1">
               <span slot="button-content">
                 <font-awesome-icon icon="flag" class="ikonica" />
-                <span v-text="$t('global.menu.language')" class="headerItemi jezik">Language</span>
+                <span v-text="$t('global.menu.language')" class="headerItemi">Language</span>
               </span>
               <b-dropdown-item
                 v-for="(value, key) in languages"
@@ -552,10 +552,6 @@
 .headerItemi {
   font-size: 0.9em;
   color: #1f3448;
-}
-
-.jezik {
-  font-size: 0.8em;
 }
 
 .headerItemi:hover {
