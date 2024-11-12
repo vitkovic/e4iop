@@ -111,7 +111,7 @@
             <!-- <td>{{advertisement.modifiedAt ? $d(Date.parse(advertisement.modifiedAt), 'short') : ''}}</td> -->
             <td class="title-column">
               <router-link :to="{ name: 'AdvertisementView', params: { advertisementId: advertisement.id } }" class="text-body">
-                {{ advertisement.title }}      
+                {{ advertisement.title }}
               </router-link>
             </td>
             <!-- <td>
@@ -185,7 +185,10 @@
                   <span v-text="$t('entity.action.deactivate')">Deaktiviraj</span>
                 </b-button>
                 <b-button
-                  v-if="advertisement.status.statusEn === advertisementStatusOptions.INACTIVE || advertisement.status.statusEn === advertisementStatusOptions.ARCHIVED"
+                  v-if="
+                    advertisement.status.statusEn === advertisementStatusOptions.INACTIVE ||
+                    advertisement.status.statusEn === advertisementStatusOptions.ARCHIVED
+                  "
                   v-on:click="prepareActivate(advertisement)"
                   variant="success"
                   class="btn btn-sm"
@@ -231,17 +234,17 @@
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDeactivateDialog()">
-          Cancel
-        </button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-advertisement"
           v-on:click="deactivateAdvertisement()"
           v-text="$t('entity.action.deactivate')"
         >
           Deaktiviraj
+        </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeDeactivateDialog()">
+          Cancel
         </button>
       </div>
     </b-modal>
@@ -257,17 +260,17 @@
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeActivateDialog()">
-          Cancel
-        </button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-advertisement"
           v-on:click="activateAdvertisement()"
           v-text="$t('entity.action.activate')"
         >
           Aktiviraj
+        </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeActivateDialog()">
+          Cancel
         </button>
       </div>
     </b-modal>
@@ -281,17 +284,17 @@
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeSoftDeleteDialog()">
-          Cancel
-        </button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-advertisement"
           v-text="$t('entity.action.delete')"
           v-on:click="softDeleteAdvertisement()"
         >
           Delete
+        </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeSoftDeleteDialog()">
+          Cancel
         </button>
       </div>
     </b-modal>
@@ -305,16 +308,16 @@
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-advertisement"
           v-text="$t('entity.action.deleteDatabase')"
           v-on:click="removeAdvertisement()"
         >
           Delete
         </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
       </div>
     </b-modal>
     <div v-show="advertisements && advertisements.length > 0">

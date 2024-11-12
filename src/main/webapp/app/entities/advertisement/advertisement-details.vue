@@ -489,9 +489,6 @@
             <br />
           </div>
           <div slot="modal-footer">
-            <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeAdCollaboration()">
-              Otkaži
-            </button>
             <button
               type="button"
               class="btn btn-success"
@@ -500,6 +497,9 @@
               v-on:click="startAdCollaboration()"
             >
               Pokreni
+            </button>
+            <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeAdCollaboration()">
+              Otkaži
             </button>
           </div>
         </b-modal>
