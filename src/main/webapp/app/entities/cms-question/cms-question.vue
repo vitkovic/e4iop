@@ -111,16 +111,16 @@
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-cmsQuestion"
           v-text="$t('entity.action.delete')"
           v-on:click="removeCmsQuestion()"
         >
           Delete
         </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
       </div>
     </b-modal>
     <div v-show="cmsQuestions && cmsQuestions.length > 0">

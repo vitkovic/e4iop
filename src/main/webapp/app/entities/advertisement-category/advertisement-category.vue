@@ -94,16 +94,16 @@
         </p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-success"
           id="jhi-confirm-delete-advertisementCategory"
           v-text="$t('entity.action.delete')"
           v-on:click="removeAdvertisementCategory()"
         >
           Delete
         </button>
+        <button type="button" class="btn btn-danger" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
       </div>
     </b-modal>
   </div>
