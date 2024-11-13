@@ -69,8 +69,8 @@
             <!-- <th v-on:click="changeOrder('createdAt')"><span v-text="$t('riportalApp.advertisement.createdAt')">Created At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdAt'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('modifiedAt')"><span v-text="$t('riportalApp.advertisement.modifiedAt')">Modified At</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedAt'"></jhi-sort-indicator></th> -->
             <th v-on:click="changeOrder('title')">
-              <span v-text="$t('riportalApp.advertisement.title')">Title</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator>
+              <span v-text="$t('riportalApp.advertisement.title')" class="pointer">Title</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'" class="pointer"></jhi-sort-indicator>
             </th>
             <!-- <th v-on:click="changeOrder('createdBy.id')"><span v-text="$t('riportalApp.advertisement.createdBy')">Created By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'createdBy.id'"></jhi-sort-indicator></th> -->
             <!-- <th v-on:click="changeOrder('modifiedBy.id')"><span v-text="$t('riportalApp.advertisement.modifiedBy')">Modified By</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'modifiedBy.id'"></jhi-sort-indicator></th> -->
@@ -344,6 +344,10 @@
 
 .company-title {
   color: #004b90;
+}
+
+.pointer{
+  cursor: pointer;
 }
 
 @media (max-width: 1280px) {
