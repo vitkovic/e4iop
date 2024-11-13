@@ -321,10 +321,10 @@
           <p v-text="$t('riportalApp.company.upload.deleteLogo.question')"></p>
         </div>
         <div slot="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="closeDeleteLogoDialog()" v-text="$t('entity.action.cancel')">
+          <button type="button" class="btn btn-success" @click="deleteLogo()" v-text="$t('entity.action.delete')">Obriši</button>
+          <button type="button" class="btn btn-danger" @click="closeDeleteLogoDialog()" v-text="$t('entity.action.cancel')">
             Odustani
           </button>
-          <button type="button" class="btn btn-danger" @click="deleteLogo()" v-text="$t('entity.action.delete')">Obriši</button>
         </div>
       </b-modal>
     </div>
